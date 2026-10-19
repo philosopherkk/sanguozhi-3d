@@ -1,0 +1,114 @@
+[
+  {
+    "id": "東漢",
+    "name": "東漢朝廷",
+    "color": "#8B7355",
+    "activeFrom": 184,
+    "activeTo": 220,
+    "source": "《三國志·魏書·武帝紀》"
+  },
+  {
+    "id": "黃巾",
+    "name": "黃巾",
+    "color": "#C9A227",
+    "activeFrom": 184,
+    "activeTo": 205,
+    "source": "《後漢書·皇甫嵩傳》"
+  },
+  {
+    "id": "董卓",
+    "name": "董卓",
+    "color": "#4A3728",
+    "activeFrom": 189,
+    "activeTo": 192,
+    "source": "《三國志·魏書·董卓傳》"
+  },
+  {
+    "id": "袁紹",
+    "name": "袁紹",
+    "color": "#2E5A88",
+    "activeFrom": 190,
+    "activeTo": 207,
+    "source": "《三國志·魏書·袁紹傳》"
+  },
+  {
+    "id": "袁術",
+    "name": "袁術",
+    "color": "#5B7C99",
+    "activeFrom": 190,
+    "activeTo": 199,
+    "source": "《三國志·魏書·袁術傳》"
+  },
+  {
+    "id": "呂布",
+    "name": "呂布",
+    "color": "#6B4C7A",
+    "activeFrom": 192,
+    "activeTo": 198,
+    "source": "《三國志·魏書·呂布傳》"
+  },
+  {
+    "id": "劉表",
+    "name": "劉表",
+    "color": "#3D6B4F",
+    "activeFrom": 190,
+    "activeTo": 208,
+    "source": "《三國志·魏書·劉表傳》"
+  },
+  {
+    "id": "劉璋",
+    "name": "劉璋",
+    "color": "#5A7A4A",
+    "activeFrom": 194,
+    "activeTo": 214,
+    "source": "《三國志·蜀書·劉二牧傳》"
+  },
+  {
+    "id": "馬超韓遂",
+    "name": "馬超／韓遂",
+    "color": "#A0522D",
+    "activeFrom": 211,
+    "activeTo": 214,
+    "source": "《三國志·蜀書·馬超傳》"
+  },
+  {
+    "id": "公孫氏",
+    "name": "公孫氏",
+    "color": "#4A6B8A",
+    "activeFrom": 190,
+    "activeTo": 238,
+    "source": "《三國志·魏書·公孫度傳》"
+  },
+  {
+    "id": "曹魏",
+    "name": "曹魏",
+    "color": "#1B4F72",
+    "activeFrom": 196,
+    "activeTo": 265,
+    "source": "《三國志·魏書·文帝紀》"
+  },
+  {
+    "id": "蜀漢",
+    "name": "蜀漢",
+    "color": "#1A5F2A",
+    "activeFrom": 214,
+    "activeTo": 263,
+    "source": "《三國志·蜀書·先主傳》"
+  },
+  {
+    "id": "孫吳",
+    "name": "孫吳",
+    "color": "#8B1A1A",
+    "activeFrom": 200,
+    "activeTo": 280,
+    "source": "《三國志·吳書·吳主傳》"
+  },
+  {
+    "id": "西晉",
+    "name": "西晉",
+    "color": "#5C4A3A",
+    "activeFrom": 265,
+    "activeTo": 280,
+    "source": "《晉書·武帝紀》"
+  }
+]

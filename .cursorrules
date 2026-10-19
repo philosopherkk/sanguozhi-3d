@@ -1,0 +1,7 @@
+- All UI text is in Traditional Chinese (zh-Hant). No Simplified characters.
+- History must come from primary sources: 陳壽《三國志》with 裴松之注, 范曄《後漢書》,
+  司馬光《資治通鑑》, and 《晉書》. Never use 《三國演義》.
+- Every data entry (event, person, number) needs a `source` field, e.g. "《三國志·魏書·武帝紀》".
+- If a fact is uncertain or disputed, set `"disputed": true` and explain why in `note`.
+- Map borders are approximate. Base them on 譚其驤《中國歷史地圖集》第三冊.
+- Commit after each phase. Use Conventional Commits.

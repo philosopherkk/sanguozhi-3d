@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&display=swap');
+
+:root {
+  --font-display: 'Noto Serif TC', 'Songti TC', 'PingFang TC', serif;
+  --font-body: 'Noto Serif TC', 'Songti TC', 'PingFang TC', serif;
+
+  --bg: #141914;
+  --bg-deep: #0c100c;
+  --ink: #e8e0d0;
+  --ink-muted: #a89f8c;
+  --accent: #c4a574;
+  --accent-dim: #8a7355;
+  --line: rgba(196, 165, 116, 0.2);
+
+  font-family: var(--font-body);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  color: var(--ink);
+  background-color: var(--bg);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(58, 74, 58, 0.35), transparent),
+    var(--bg);
+}
+
+a {
+  color: var(--accent);
+}

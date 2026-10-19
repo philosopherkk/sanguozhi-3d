@@ -1,0 +1,35 @@
+[
+  {
+    "year": 157,
+    "faction": "東漢",
+    "households": 10677960,
+    "population": 56486856,
+    "source": "《後漢書·郡國志》注引《帝王世紀》／《晉書·地理志》",
+    "note": "桓帝永壽三年全國戶口。數字為登記人口，非實際全體人口。"
+  },
+  {
+    "year": 263,
+    "faction": "蜀漢",
+    "households": 280000,
+    "population": 940000,
+    "soldiers": 102000,
+    "source": "《三國志·蜀書·後主傳》注引王隱《蜀記》"
+  },
+  {
+    "year": 263,
+    "faction": "曹魏",
+    "households": 663423,
+    "population": 4432881,
+    "source": "《通典·食貨典》",
+    "disputed": true,
+    "note": "《通典》所載魏末戶口，與《晉書》等記載微有出入，宜對讀。"
+  },
+  {
+    "year": 280,
+    "faction": "孫吳",
+    "households": 523000,
+    "population": 2300000,
+    "soldiers": 230000,
+    "source": "《晉書·武帝紀》／《三國志·吳書·三嗣主傳》注引《晉陽秋》"
+  }
+]
