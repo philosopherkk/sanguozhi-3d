@@ -1,0 +1,171 @@
+import { useMemo, useState } from 'react'
+import battlesData from '../data/battles.json'
+import timelineData from '../data/timeline.json'
+import { factionColor } from '../lib/factionColors'
+import { useYear } from '../state/YearContext'
+import type { TimelineEvent } from '../types/data'
+
+const events = timelineData as TimelineEvent[]
+const battles = battlesData as import('../types/data').Battle[]
+
+export function TimelinePanel({
+  compact = false,
+  rail = false,
+}: {
+  compact?: boolean
+  rail?: boolean
+}) {
+  const { year, setYear } = useYear()
+  const [showAll, setShowAll] = useState(false)
+
+  const yearEvents = useMemo(
+    () => events.filter((e) => e.year === year),
+    [year],
+  )
+  const yearBattles = useMemo(
+    () => battles.filter((b) => b.year === year),
+    [year],
+  )
+
+  const nearby = useMemo(() => {
+    return events
+      .filter((e) => e.year !== year)
+      .map((e) => ({ e, dist: Math.abs(e.year - year) }))
+      .sort((a, b) => a.dist - b.dist || a.e.year - b.e.year)
+      .slice(0, showAll ? events.length : rail ? 4 : 6)
+  }, [year, showAll, rail])
+
+  const className = [
+    'panel',
+    'timeline-panel',
+    compact || rail ? 'panel--dock' : '',
+    rail ? 'panel--rail' : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
+
+  return (
+    <section className={className} aria-labelledby="timeline-heading">
+      <header className="panel-header">
+        <h2 id="timeline-heading">{year} 年大事</h2>
+        <p className="panel-sub">
+          {yearEvents.length || yearBattles.length
+            ? `本年 ${yearEvents.length} 事${yearBattles.length ? ` · ${yearBattles.length} 役` : ''}`
+            : '本年無專條——點鄰近年份可跳轉'}
+        </p>
+      </header>
+
+      {yearEvents.length === 0 && yearBattles.length === 0 ? (
+        <p className="empty-hint">此年無登錄專條。試 208（赤壁）、222（夷陵）、263（滅蜀）。</p>
+      ) : null}
+
+      {yearEvents.length > 0 ? (
+        <ol className="timeline-list">
+          {yearEvents.map((e) => (
+            <TimelineItem key={e.id} e={e} active />
+          ))}
+        </ol>
+      ) : null}
+
+      {yearBattles.length > 0 ? (
+        <>
+          <h3 className="subhead">本年戰役</h3>
+          <ul className="battle-list">
+            {yearBattles.map((b) => (
+              <li key={b.id} className="battle-card is-active">
+                <strong>
+                  {b.year} · {b.name}
+                </strong>
+                <p>
+                  <span style={{ color: factionColor(b.attacker) }}>{b.attacker}</span>
+                  {' → '}
+                  <span style={{ color: factionColor(b.defender) }}>{b.defender}</span>
+                  ：{b.result}
+                </p>
+                <p className="person-source">{b.source}</p>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+
+      <h3 className="subhead">鄰近年表</h3>
+      <ol className="timeline-list">
+        {nearby.map(({ e }) => (
+          <TimelineItem
+            key={e.id}
+            e={e}
+            onJump={() => setYear(e.year)}
+          />
+        ))}
+      </ol>
+      <button
+        type="button"
+        className="panel-more"
+        onClick={() => setShowAll((v) => !v)}
+      >
+        {showAll ? '收起年表' : `顯示更多（共 ${events.length - 1} 條可跳轉）`}
+      </button>
+    </section>
+  )
+}
+
+function TimelineItem({
+  e,
+  active,
+  onJump,
+}: {
+  e: TimelineEvent
+  active?: boolean
+  onJump?: () => void
+}) {
+  return (
+    <li className={active ? 'timeline-item is-active' : 'timeline-item'}>
+      {onJump ? (
+        <button
+          type="button"
+          className="timeline-year timeline-year--btn"
+          onClick={onJump}
+          title={`跳至 ${e.year} 年`}
+        >
+          {e.year}
+        </button>
+      ) : (
+        <time className="timeline-year" dateTime={String(e.year)}>
+          {e.year}
+        </time>
+      )}
+      <div>
+        <strong>{e.title}</strong>
+        <span className="timeline-type">{labelType(e.type)}</span>
+        <div className="timeline-factions">
+          {e.factions.map((f) => (
+            <span key={f} className="faction-chip" style={{ borderColor: factionColor(f) }}>
+              <i style={{ background: factionColor(f) }} />
+              {f}
+            </span>
+          ))}
+        </div>
+        <p>{e.desc}</p>
+        <p className="timeline-loc">{e.location}</p>
+        <p className="person-source">{e.source}</p>
+        {e.note ? <p className="person-note">{e.note}</p> : null}
+      </div>
+    </li>
+  )
+}
+
+function labelType(t: TimelineEvent['type']) {
+  switch (t) {
+    case 'war':
+      return '戰'
+    case 'politics':
+      return '政'
+    case 'succession':
+      return '繼'
+    default: {
+      const _exhaustive: never = t
+      return _exhaustive
+    }
+  }
+}
