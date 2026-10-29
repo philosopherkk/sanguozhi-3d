@@ -2,7 +2,7 @@
   {
     "id": "東漢",
     "name": "東漢朝廷",
-    "color": "#8B7355",
+    "color": "#4A5A6A",
     "activeFrom": 184,
     "activeTo": 220,
     "source": "《三國志·魏書·武帝紀》"
@@ -10,7 +10,7 @@
   {
     "id": "黃巾",
     "name": "黃巾",
-    "color": "#C9A227",
+    "color": "#E6B422",
     "activeFrom": 184,
     "activeTo": 205,
     "source": "《後漢書·皇甫嵩傳》"
@@ -110,5 +110,13 @@
     "activeFrom": 265,
     "activeTo": 280,
     "source": "《晉書·武帝紀》"
+  },
+  {
+    "id": "五溪蠻",
+    "name": "五溪蠻",
+    "color": "#2B6CB0",
+    "activeFrom": 184,
+    "activeTo": 280,
+    "source": "《後漢書·南蠻西南夷列傳》；靈帝中平三年五溪蠻復叛（《後漢書·南蠻傳》）"
   }
 ]

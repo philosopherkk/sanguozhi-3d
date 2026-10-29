@@ -1,0 +1,90 @@
+[
+  {
+    "id": "confucius",
+    "name": "孔子",
+    "years": "前551–前479（約）",
+    "role": "思想家",
+    "era": "春秋",
+    "summary": "魯人，整理詩書禮樂，弟子眾。漢以後尊為至聖，影響東亞政治與倫理極深。",
+    "source": "《史記·孔子世家》",
+    "activeFrom": -551,
+    "activeTo": -479
+  },
+  {
+    "id": "qin-shihuang",
+    "name": "秦始皇",
+    "years": "前259–前210",
+    "role": "皇帝",
+    "era": "秦",
+    "summary": "嬴政，滅六國稱始皇帝，行郡縣、統一度量文字；暴政與功業並為後世爭論焦點。",
+    "source": "《史記·秦始皇本紀》",
+    "activeFrom": -246,
+    "activeTo": -210
+  },
+  {
+    "id": "liu-bang",
+    "name": "漢高祖劉邦",
+    "years": "前256–前195（約）",
+    "role": "皇帝",
+    "era": "漢",
+    "summary": "沛人，楚漢爭霸勝項羽，建西漢，與民休息，奠定帝國規模。",
+    "source": "《史記·高祖本紀》；《漢書·高帝紀》",
+    "activeFrom": -209,
+    "activeTo": -195
+  },
+  {
+    "id": "cao-cao",
+    "name": "曹操",
+    "years": "155–220",
+    "role": "權臣／魏武帝（追尊）",
+    "era": "漢末三國",
+    "summary": "挾天子以令諸侯，統一北方；詳見三國志專題。",
+    "source": "《三國志·魏書·武帝紀》",
+    "activeFrom": 184,
+    "activeTo": 220
+  },
+  {
+    "id": "li-shimin",
+    "name": "唐太宗李世民",
+    "years": "598–649",
+    "role": "皇帝",
+    "era": "唐",
+    "summary": "玄武門之變後即位，貞觀之治為後世稱道；對外開疆，對內納諫。",
+    "source": "《舊唐書·太宗紀》；《資治通鑑》卷一百九十一",
+    "activeFrom": 618,
+    "activeTo": 649
+  },
+  {
+    "id": "zhao-kuangyin",
+    "name": "宋太祖趙匡胤",
+    "years": "927–976",
+    "role": "皇帝",
+    "era": "宋",
+    "summary": "陳橋兵變建宋，杯酒釋兵權，重文抑武，開北宋格局。",
+    "source": "《宋史·太祖紀》",
+    "activeFrom": 960,
+    "activeTo": 976
+  },
+  {
+    "id": "zhu-yuanzhang",
+    "name": "明太祖朱元璋",
+    "years": "1328–1398",
+    "role": "皇帝",
+    "era": "明",
+    "summary": "元末起兵，建明都南京，廢相權、嚴刑治吏，奠定明制。",
+    "source": "《明史·太祖紀》",
+    "activeFrom": 1352,
+    "activeTo": 1398
+  },
+  {
+    "id": "sun-yat-sen",
+    "name": "孫中山",
+    "years": "1866–1925",
+    "role": "革命家／臨時大總統",
+    "era": "清末民初",
+    "summary": "倡三民主義，領導辛亥革命前後之革命運動，中華民國國父。",
+    "source": "民國史通說",
+    "activeFrom": 1894,
+    "activeTo": 1925
+  }
+]

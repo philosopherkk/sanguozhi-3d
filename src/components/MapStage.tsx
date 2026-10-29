@@ -1,23 +1,29 @@
+import { FactionInspectCard } from './FactionInspectCard'
 import { FactionLegend } from './FactionLegend'
-import { MapScene } from './MapScene'
-import { MapViewControls } from './MapViewControls'
+import { Map2D } from './Map2D'
 import { PowerBoard } from './PowerBoard'
 
+/** 2D era map only — territory polygons clipped to land mask. */
 export function MapStage() {
   return (
-    <section className="map-stage" aria-label="立體疆域圖">
+    <section className="map-stage" aria-label="疆域地圖">
       <div className="map-stage__canvas">
-        <MapScene />
+        <Map2D />
       </div>
+
+      <div className="map-stage__overlay map-stage__overlay--inspect">
+        <FactionInspectCard />
+      </div>
+
       <div className="map-stage__overlay map-stage__overlay--tl">
         <PowerBoard />
       </div>
-      <div className="map-stage__overlay map-stage__overlay--tr">
-        <MapViewControls />
-      </div>
+
       <div className="map-stage__overlay map-stage__overlay--bl">
         <FactionLegend />
-        <p className="map-stage__hint">拖曳旋轉 · 滾輪縮放 · 右上角視角鈕</p>
+        <p className="map-stage__hint">
+          底圖下方「圖層」可開勢力、行軍、塞外部族
+        </p>
       </div>
     </section>
   )

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&display=swap');
 
 :root {
   --font-display: 'Noto Serif TC', 'Songti TC', 'PingFang TC', serif;
@@ -10,7 +10,7 @@
   --ink-muted: #a89f8c;
   --accent: #c4a574;
   --accent-dim: #8a7355;
-  --line: rgba(196, 165, 116, 0.2);
+  --line: rgba(196, 165, 116, 0.22);
 
   font-family: var(--font-body);
   font-synthesis: none;

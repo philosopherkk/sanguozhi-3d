@@ -1,0 +1,140 @@
+[
+  {
+    "id": "oda-nobunaga",
+    "name": "織田信長",
+    "aka": "おだ のぶなが",
+    "birth": 1534,
+    "death": 1582,
+    "faction_by_year": [{ "faction": "織田", "from": 1550, "to": 1582 }],
+    "role": "政治",
+    "zhwiki_url": "https://zh.wikipedia.org/zh-tw/織田信長",
+    "source": "中文維基「織田信長」；桶狹間、長篠、放逐足利義昭、本能寺之變"
+  },
+  {
+    "id": "toyotomi-hideyoshi",
+    "name": "豐臣秀吉",
+    "aka": "とよとみ ひでよし（羽柴秀吉）",
+    "birth": 1537,
+    "death": 1598,
+    "faction_by_year": [
+      { "faction": "織田", "from": 1558, "to": 1582 },
+      { "faction": "豐臣", "from": 1582, "to": 1598 }
+    ],
+    "role": "政治",
+    "zhwiki_url": "https://zh.wikipedia.org/zh-tw/豐臣秀吉",
+    "source": "中文維基「豐臣秀吉」；山崎、小田原征伐、文祿慶長之役",
+    "note": "賜姓豐臣前通稱羽柴秀吉；生年史料有異說。"
+  },
+  {
+    "id": "tokugawa-ieyasu",
+    "name": "德川家康",
+    "aka": "とくがわ いえやす",
+    "birth": 1543,
+    "death": 1616,
+    "faction_by_year": [{ "faction": "德川", "from": 1560, "to": 1616 }],
+    "role": "政治",
+    "zhwiki_url": "https://zh.wikipedia.org/zh-tw/德川家康",
+    "source": "中文維基「德川家康」；關原之戰、江戶幕府"
+  },
+  {
+    "id": "takeda-shingen",
+    "name": "武田信玄",
+    "aka": "たけだ しんげん",
+    "birth": 1521,
+    "death": 1573,
+    "faction_by_year": [{ "faction": "武田", "from": 1541, "to": 1573 }],
+    "role": "軍事",
+    "zhwiki_url": "https://zh.wikipedia.org/zh-tw/武田信玄",
+    "source": "中文維基「武田信玄」；甲斐武田氏、川中島之戰"
+  },
+  {
+    "id": "uesugi-kenshin",
+    "name": "上杉謙信",
+    "aka": "うえすぎ けんしん",
+    "birth": 1530,
+    "death": 1578,
+    "faction_by_year": [{ "faction": "上杉", "from": 1550, "to": 1578 }],
+    "role": "軍事",
+    "zhwiki_url": "https://zh.wikipedia.org/zh-tw/上杉謙信",
+    "source": "中文維基「上杉謙信」；越後上杉、川中島對陣信玄"
+  },
+  {
+    "id": "imagawa-yoshimoto",
+    "name": "今川義元",
+    "aka": "いまがわ よしもと",
+    "birth": 1519,
+    "death": 1560,
+    "faction_by_year": [{ "faction": "今川", "from": 1536, "to": 1560 }],
+    "role": "政治",
+    "zhwiki_url": "https://zh.wikipedia.org/zh-tw/今川義元",
+    "source": "中文維基「今川義元」；桶狹間之戰戰死"
+  },
+  {
+    "id": "mori-motonari",
+    "name": "毛利元就",
+    "aka": "もうり もとなり",
+    "birth": 1497,
+    "death": 1571,
+    "faction_by_year": [{ "faction": "毛利", "from": 1523, "to": 1571 }],
+    "role": "政治",
+    "zhwiki_url": "https://zh.wikipedia.org/zh-tw/毛利元就",
+    "source": "中文維基「毛利元就」；中國地方統一"
+  },
+  {
+    "id": "akechi-mitsuhide",
+    "name": "明智光秀",
+    "aka": "あけち みつひで",
+    "birth": 1528,
+    "death": 1582,
+    "faction_by_year": [{ "faction": "織田", "from": 1566, "to": 1582 }],
+    "role": "軍事",
+    "zhwiki_url": "https://zh.wikipedia.org/zh-tw/明智光秀",
+    "source": "中文維基「明智光秀」；本能寺之變",
+    "disputed": true,
+    "note": "生年與出身史料記載不一。"
+  },
+  {
+    "id": "ishida-mitsunari",
+    "name": "石田三成",
+    "aka": "いしだ みつなり",
+    "birth": 1560,
+    "death": 1600,
+    "faction_by_year": [{ "faction": "豐臣", "from": 1585, "to": 1600 }],
+    "role": "政治",
+    "zhwiki_url": "https://zh.wikipedia.org/zh-tw/石田三成",
+    "source": "中文維基「石田三成」；關原西軍"
+  },
+  {
+    "id": "shimazu-yoshihiro",
+    "name": "島津義弘",
+    "aka": "しまづ よしひろ",
+    "birth": 1535,
+    "death": 1619,
+    "faction_by_year": [{ "faction": "島津", "from": 1550, "to": 1615 }],
+    "role": "軍事",
+    "zhwiki_url": "https://zh.wikipedia.org/zh-tw/島津義弘",
+    "source": "中文維基「島津義弘」；九州島津、關原撤退戰"
+  },
+  {
+    "id": "date-masamune",
+    "name": "伊達政宗",
+    "aka": "だて まさむね",
+    "birth": 1567,
+    "death": 1636,
+    "faction_by_year": [{ "faction": "其他", "from": 1584, "to": 1615 }],
+    "role": "政治",
+    "zhwiki_url": "https://zh.wikipedia.org/zh-tw/伊達政宗",
+    "source": "中文維基「伊達政宗」；奧羽大名"
+  },
+  {
+    "id": "hojo-ujiyasu",
+    "name": "北條氏康",
+    "aka": "ほうじょう うじやす",
+    "birth": 1515,
+    "death": 1571,
+    "faction_by_year": [{ "faction": "北條", "from": 1541, "to": 1571 }],
+    "role": "政治",
+    "zhwiki_url": "https://zh.wikipedia.org/zh-tw/北條氏康",
+    "source": "中文維基「北條氏康」；後北條氏盛世"
+  }
+]

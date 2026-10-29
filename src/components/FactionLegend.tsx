@@ -1,8 +1,12 @@
+import { wuxiLegendNote } from '../data/unregisteredHouseholds'
 import { factionColor, factionName } from '../lib/factionColors'
 import { useYear } from '../state/YearContext'
 
 export function FactionLegend() {
   const { year, activeFactions, territoryYear } = useYear()
+  const wuxiNote = activeFactions.includes('五溪蠻')
+    ? wuxiLegendNote(year)
+    : null
 
   return (
     <aside className="faction-legend" aria-label="當前勢力圖例">
@@ -24,6 +28,12 @@ export function FactionLegend() {
           </li>
         ))}
       </ul>
+      {wuxiNote ? (
+        <p className="faction-legend__note">
+          {wuxiNote.text}
+          <cite>{wuxiNote.source}</cite>
+        </p>
+      ) : null}
     </aside>
   )
 }

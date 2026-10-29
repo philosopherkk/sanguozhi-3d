@@ -24,10 +24,10 @@ export function YearScrubber() {
     <div className="year-scrubber" role="group" aria-label="年代滑桿">
       <div className="year-scrubber__meta">
         <span>
-          疆域：{territoryYear}
-          {snapLabel ? ` · ${snapLabel}` : ''}
+          年表 · 疆域採 {territoryYear}
+          {snapLabel ? `（${snapLabel}）` : ''}
         </span>
-        <span className="year-scrubber__hint">點擊刻度可跳轉關鍵年</span>
+        <span className="year-scrubber__hint">拖曳或點刻度跳年</span>
       </div>
 
       <input

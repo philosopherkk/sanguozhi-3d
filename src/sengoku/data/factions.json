@@ -1,0 +1,90 @@
+[
+  {
+    "id": "足利",
+    "name": "足利幕府",
+    "color": "#6B7280",
+    "activeFrom": 1467,
+    "activeTo": 1573,
+    "source": "中文維基「足利幕府」「應仁之亂」；室町幕府於1573年由織田信長放逐足利義昭而終"
+  },
+  {
+    "id": "織田",
+    "name": "織田氏",
+    "color": "#B91C1C",
+    "activeFrom": 1550,
+    "activeTo": 1582,
+    "source": "中文維基「織田信長」「織田氏」"
+  },
+  {
+    "id": "豐臣",
+    "name": "豐臣氏",
+    "color": "#D97706",
+    "activeFrom": 1582,
+    "activeTo": 1615,
+    "source": "中文維基「豐臣秀吉」「豐臣氏」；關原後名存實亡，至1615大坂之陣滅亡"
+  },
+  {
+    "id": "德川",
+    "name": "德川氏",
+    "color": "#1D4ED8",
+    "activeFrom": 1560,
+    "activeTo": 1615,
+    "source": "中文維基「德川家康」「德川氏」"
+  },
+  {
+    "id": "武田",
+    "name": "武田氏",
+    "color": "#7C3AED",
+    "activeFrom": 1540,
+    "activeTo": 1582,
+    "source": "中文維基「武田信玄」「武田氏」；1582年武田勝賴滅亡"
+  },
+  {
+    "id": "上杉",
+    "name": "上杉氏",
+    "color": "#0F766E",
+    "activeFrom": 1550,
+    "activeTo": 1600,
+    "source": "中文維基「上杉謙信」「上杉景勝」"
+  },
+  {
+    "id": "今川",
+    "name": "今川氏",
+    "color": "#CA8A04",
+    "activeFrom": 1467,
+    "activeTo": 1568,
+    "source": "中文維基「今川義元」「桶狹間之戰」"
+  },
+  {
+    "id": "北條",
+    "name": "後北條氏",
+    "color": "#9F1239",
+    "activeFrom": 1493,
+    "activeTo": 1590,
+    "source": "中文維基「後北條氏」「小田原征伐」"
+  },
+  {
+    "id": "毛利",
+    "name": "毛利氏",
+    "color": "#166534",
+    "activeFrom": 1550,
+    "activeTo": 1615,
+    "source": "中文維基「毛利元就」「毛利輝元」"
+  },
+  {
+    "id": "島津",
+    "name": "島津氏",
+    "color": "#854D0E",
+    "activeFrom": 1467,
+    "activeTo": 1615,
+    "source": "中文維基「島津氏」「九州征伐」"
+  },
+  {
+    "id": "其他",
+    "name": "其他大名",
+    "color": "#78716C",
+    "activeFrom": 1467,
+    "activeTo": 1615,
+    "source": "示意色：未單獨著色之地方勢力"
+  }
+]

@@ -1,14 +1,20 @@
+import { chineseEraLabel } from '../lib/chineseEraLabel'
 import { useYear } from '../state/YearContext'
+import { ReadingControls } from './ReadingControls'
+import { TopicSwitcher } from './TopicSwitcher'
 
 export function AppHeader() {
   const { year, playing, togglePlay, setYear, yearMin, yearMax } = useYear()
+  const era = chineseEraLabel(year)
 
   return (
     <header className="app-header">
       <div className="app-header__brand">
-        <h1 className="app-header__title">三國志</h1>
+        <h1 className="app-header__title">東漢三國</h1>
         <p className="app-header__tag">正史疆域 · 勢力與人物</p>
       </div>
+
+      <TopicSwitcher />
 
       <div className="app-header__year-block">
         <button
@@ -20,9 +26,11 @@ export function AppHeader() {
         >
           −
         </button>
+        <ReadingControls />
         <div className="app-header__year" aria-live="polite">
           <span className="app-header__num">{year}</span>
           <span className="app-header__era">年</span>
+          {era ? <span className="app-header__nengo">{era}</span> : null}
         </div>
         <button
           type="button"

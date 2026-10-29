@@ -1,6 +1,9 @@
 import { useMemo, useState } from 'react'
 import battlesData from '../data/battles.json'
+import { READING_LAYERS } from '../data/readingLayers'
 import timelineData from '../data/timeline.json'
+import { timelineDetailFor } from '../data/timelineDetails'
+import { ClassicDetailModal } from './ClassicDetailModal'
 import { factionColor } from '../lib/factionColors'
 import { useYear } from '../state/YearContext'
 import type { TimelineEvent } from '../types/data'
@@ -17,6 +20,7 @@ export function TimelinePanel({
 }) {
   const { year, setYear } = useYear()
   const [showAll, setShowAll] = useState(false)
+  const [openId, setOpenId] = useState<string | null>(null)
 
   const yearEvents = useMemo(
     () => events.filter((e) => e.year === year),
@@ -35,6 +39,9 @@ export function TimelinePanel({
       .slice(0, showAll ? events.length : rail ? 4 : 6)
   }, [year, showAll, rail])
 
+  const detail = openId ? timelineDetailFor(openId) : undefined
+  const openEvent = openId ? events.find((e) => e.id === openId) : undefined
+
   const className = [
     'panel',
     'timeline-panel',
@@ -50,19 +57,26 @@ export function TimelinePanel({
         <h2 id="timeline-heading">{year} 年大事</h2>
         <p className="panel-sub">
           {yearEvents.length || yearBattles.length
-            ? `本年 ${yearEvents.length} 事${yearBattles.length ? ` · ${yearBattles.length} 役` : ''}`
+            ? `本年 ${yearEvents.length} 事${yearBattles.length ? ` · ${yearBattles.length} 役` : ''} · 點標題可深入`
             : '本年無專條——點鄰近年份可跳轉'}
         </p>
       </header>
 
       {yearEvents.length === 0 && yearBattles.length === 0 ? (
-        <p className="empty-hint">此年無登錄專條。試 208（赤壁）、222（夷陵）、263（滅蜀）。</p>
+        <p className="empty-hint">
+          此年無登錄專條。試 208（赤壁）、222（夷陵）、263（滅蜀）。
+        </p>
       ) : null}
 
       {yearEvents.length > 0 ? (
         <ol className="timeline-list">
           {yearEvents.map((e) => (
-            <TimelineItem key={e.id} e={e} active />
+            <TimelineItem
+              key={e.id}
+              e={e}
+              active
+              onOpen={() => setOpenId(e.id)}
+            />
           ))}
         </ol>
       ) : null}
@@ -77,9 +91,13 @@ export function TimelinePanel({
                   {b.year} · {b.name}
                 </strong>
                 <p>
-                  <span style={{ color: factionColor(b.attacker) }}>{b.attacker}</span>
+                  <span style={{ color: factionColor(b.attacker) }}>
+                    {b.attacker}
+                  </span>
                   {' → '}
-                  <span style={{ color: factionColor(b.defender) }}>{b.defender}</span>
+                  <span style={{ color: factionColor(b.defender) }}>
+                    {b.defender}
+                  </span>
                   ：{b.result}
                 </p>
                 <p className="person-source">{b.source}</p>
@@ -96,6 +114,7 @@ export function TimelinePanel({
             key={e.id}
             e={e}
             onJump={() => setYear(e.year)}
+            onOpen={() => setOpenId(e.id)}
           />
         ))}
       </ol>
@@ -106,6 +125,30 @@ export function TimelinePanel({
       >
         {showAll ? '收起年表' : `顯示更多（共 ${events.length - 1} 條可跳轉）`}
       </button>
+
+      {openEvent && detail ? (
+        <ClassicDetailModal
+          detail={{
+            year: openEvent.year,
+            title: openEvent.title,
+            causes: detail.causes,
+            course: detail.course,
+            keyFigures: detail.keyFigures,
+            outcome: detail.outcome,
+            classicQuote:
+              READING_LAYERS[openEvent.id]?.quote ?? detail.classicQuote,
+            classicSource: detail.classicSource,
+            layers: READING_LAYERS[openEvent.id]?.layers ?? {
+              elementary: detail.modernParaphrase,
+              secondary: detail.modernParaphrase,
+              university: detail.modernParaphrase,
+            },
+            zhwikiUrl: detail.zhwikiUrl,
+            furtherReading: detail.furtherReading,
+          }}
+          onClose={() => setOpenId(null)}
+        />
+      ) : null}
     </section>
   )
 }
@@ -114,10 +157,12 @@ function TimelineItem({
   e,
   active,
   onJump,
+  onOpen,
 }: {
   e: TimelineEvent
   active?: boolean
   onJump?: () => void
+  onOpen: () => void
 }) {
   return (
     <li className={active ? 'timeline-item is-active' : 'timeline-item'}>
@@ -136,11 +181,18 @@ function TimelineItem({
         </time>
       )}
       <div>
-        <strong>{e.title}</strong>
+        <button type="button" className="timeline-title-link" onClick={onOpen}>
+          <strong>{e.title}</strong>
+          <span className="timeline-title-link__hint">詳情</span>
+        </button>
         <span className="timeline-type">{labelType(e.type)}</span>
         <div className="timeline-factions">
           {e.factions.map((f) => (
-            <span key={f} className="faction-chip" style={{ borderColor: factionColor(f) }}>
+            <span
+              key={f}
+              className="faction-chip"
+              style={{ borderColor: factionColor(f) }}
+            >
               <i style={{ background: factionColor(f) }} />
               {f}
             </span>

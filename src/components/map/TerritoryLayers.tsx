@@ -6,18 +6,20 @@ import {
   Shape,
   type Mesh,
 } from 'three'
-import { PROVINCES, type Province } from '../../data/provinces'
 import type { ProvinceControl } from '../../data/territoryControl'
 import { sampleElevation } from '../../geo/elevation'
 import { lonLatToWorld } from '../../geo/project'
 import { factionColor, factionName } from '../../lib/factionColors'
+import {
+  mergeFactionTerritories,
+  type LonLat,
+} from '../../lib/mergeFactionPolygons'
 import type { FactionId } from '../../types/data'
 
-function provinceShape(province: Province): Shape {
+function ringToShape(ring: LonLat[]): Shape {
   const shape = new Shape()
-  province.ring.forEach(([lon, lat], i) => {
+  ring.forEach(([lon, lat], i) => {
     const [x, z] = lonLatToWorld(lon, lat)
-    // Shape is in XY; we rotate mesh later so Y→world Z
     if (i === 0) shape.moveTo(x, -z)
     else shape.lineTo(x, -z)
   })
@@ -25,43 +27,48 @@ function provinceShape(province: Province): Shape {
   return shape
 }
 
-function centroid(province: Province): [number, number, number] {
+function ringCentroidY(ring: LonLat[]): [number, number, number] {
   let lon = 0
   let lat = 0
-  for (const [a, b] of province.ring) {
+  for (const [a, b] of ring) {
     lon += a
     lat += b
   }
-  const n = province.ring.length
+  const n = ring.length
   lon /= n
   lat /= n
   const [x, z] = lonLatToWorld(lon, lat)
-  const y = Math.max(sampleElevation(lon, lat), 0.02) + 0.12
+  const y = Math.max(sampleElevation(lon, lat), 0.02) + 0.14
   return [x, y, z]
 }
 
-function ProvinceMesh({
-  province,
+function FactionTerritoryMesh({
   faction,
+  rings,
+  labelAt,
 }: {
-  province: Province
   faction: FactionId
+  rings: LonLat[][]
+  labelAt: LonLat
 }) {
   const color = factionColor(faction)
   const geometry = useMemo(() => {
-    const shape = provinceShape(province)
-    const geo = new ExtrudeGeometry(shape, {
-      depth: 0.22,
+    const shapes = rings.map(ringToShape)
+    const geo = new ExtrudeGeometry(shapes, {
+      depth: 0.28,
       bevelEnabled: false,
     })
-    // Extrude along +Z in shape space; rotate to sit on XZ ground
     geo.rotateX(-Math.PI / 2)
-    const c = centroid(province)
-    geo.translate(0, c[1] * 0.15 + 0.05, 0)
+    const anchor = rings[0] ?? [labelAt]
+    const y = ringCentroidY(anchor)[1]
+    geo.translate(0, y * 0.12 + 0.06, 0)
     return geo
-  }, [province])
+  }, [rings, labelAt])
 
-  const labelPos = useMemo(() => centroid(province), [province])
+  const labelPos = useMemo(() => {
+    const anchor = rings[0] ?? [labelAt]
+    return ringCentroidY(anchor)
+  }, [rings, labelAt])
 
   return (
     <group>
@@ -69,13 +76,13 @@ function ProvinceMesh({
         <meshPhysicalMaterial
           color={color}
           transparent
-          opacity={0.55}
-          roughness={0.55}
-          metalness={0.08}
-          clearcoat={0.25}
-          clearcoatRoughness={0.4}
+          opacity={0.62}
+          roughness={0.5}
+          metalness={0.06}
+          clearcoat={0.2}
+          clearcoatRoughness={0.45}
           emissive={color}
-          emissiveIntensity={0.14}
+          emissiveIntensity={0.18}
           side={DoubleSide}
           depthWrite={false}
         />
@@ -87,7 +94,6 @@ function ProvinceMesh({
         style={{ pointerEvents: 'none', userSelect: 'none' }}
       >
         <div className="terr-label">
-          <span className="terr-label__prov">{province.name}</span>
           <span className="terr-label__fac" style={{ color }}>
             {factionName(faction)}
           </span>
@@ -98,17 +104,17 @@ function ProvinceMesh({
 }
 
 export function TerritoryLayers({ control }: { control: ProvinceControl }) {
-  const entries = useMemo(() => {
-    return PROVINCES.map((p) => {
-      const faction = control[p.id]
-      return faction ? { province: p, faction } : null
-    }).filter(Boolean) as { province: Province; faction: FactionId }[]
-  }, [control])
+  const shapes = useMemo(() => mergeFactionTerritories(control), [control])
 
   return (
     <group name="territories">
-      {entries.map(({ province, faction }) => (
-        <ProvinceMesh key={province.id} province={province} faction={faction} />
+      {shapes.map(({ faction, rings, labelAt }) => (
+        <FactionTerritoryMesh
+          key={faction}
+          faction={faction}
+          rings={rings}
+          labelAt={labelAt}
+        />
       ))}
     </group>
   )

@@ -1,4 +1,9 @@
-/** Approximate 州 polygons (lon/lat). Borders are schematic — see AGENTS.md / 譚其驤. */
+/**
+ * Approximate 州 polygons (lon/lat) for the 3D map.
+ * 2D overlays use basemap-pixel rings in `basemapProvinceRings.json`
+ * (digitized + land-clipped against sanguo_xingzheng_hant.png).
+ * Borders remain schematic — see AGENTS.md / 譚其驤.
+ */
 
 export type ProvinceId =
   | '幽州'
@@ -18,6 +23,7 @@ export type ProvinceId =
   | '關中'
   | '交州'
   | '遼東'
+  | '武陵'
 
 export interface Province {
   id: ProvinceId
@@ -74,20 +80,22 @@ export const PROVINCES: Province[] = [
   {
     id: '青州',
     name: '青州',
+    // SW was [118,35.5] — left a permanent uncolored wedge vs 兗州／徐州. Squared to 117.5.
     ring: [
       [117.5, 38.0],
       [121.0, 38.0],
       [121.0, 35.5],
-      [118.0, 35.5],
+      [117.5, 35.5],
     ],
   },
   {
     id: '徐州',
     name: '徐州',
+    // E edge was 120 while 青州 reaches 121 — permanent empty strip under 青州 all years.
     ring: [
       [116.5, 35.5],
-      [120.0, 35.5],
-      [120.0, 33.0],
+      [121.0, 35.5],
+      [121.0, 33.0],
       [116.5, 33.0],
     ],
   },
@@ -203,6 +211,18 @@ export const PROVINCES: Province[] = [
       [112.0, 20.0],
       [106.0, 20.0],
       [105.0, 23.0],
+    ],
+  },
+  {
+    id: '武陵',
+    name: '武陵（五溪）',
+    // Schematic 武陵／五溪 zone W of 荊南 (洞庭西、沅澧上游)。譚其驤示意 + 《後漢書·南蠻傳》。
+    ring: [
+      [107.2, 30.0],
+      [110.4, 30.0],
+      [110.4, 27.0],
+      [108.0, 26.6],
+      [107.0, 28.2],
     ],
   },
 ]

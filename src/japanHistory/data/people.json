@@ -1,0 +1,101 @@
+[
+  {
+    "id": "shotoku",
+    "name": "廄戶皇子（聖德太子）",
+    "years": "574–622（傳）",
+    "role": "攝政",
+    "era": "飛鳥",
+    "summary": "傳推古朝攝政，定冠位、遣隋使、興佛法。事蹟多經後世層累，宜與考古／金石對讀。",
+    "source": "《日本書紀》；日本古代史通說",
+    "activeFrom": 593,
+    "activeTo": 622
+  },
+  {
+    "id": "minamoto-yoritomo",
+    "name": "源賴朝",
+    "years": "1147–1199",
+    "role": "征夷大將軍",
+    "era": "鎌倉",
+    "summary": "擊敗平氏，開鎌倉幕府，確立武家政權。",
+    "source": "《吾妻鏡》；日本中世史通說",
+    "activeFrom": 1180,
+    "activeTo": 1199
+  },
+  {
+    "id": "oda-nobunaga",
+    "name": "織田信長",
+    "years": "1534–1582",
+    "role": "戰國大名",
+    "era": "戰國",
+    "summary": "桶狹間、安土城、進軍京都；本能寺之變死。詳見日本戰國專題。",
+    "source": "日本中世／近世史通說",
+    "activeFrom": 1551,
+    "activeTo": 1582
+  },
+  {
+    "id": "tokugawa-ieyasu",
+    "name": "德川家康",
+    "years": "1543–1616",
+    "role": "征夷大將軍",
+    "era": "戰國／江戶",
+    "summary": "關原勝後開江戶幕府，奠定幕藩體制。",
+    "source": "日本近世史通說",
+    "activeFrom": 1560,
+    "activeTo": 1616
+  },
+  {
+    "id": "meiji-tenno",
+    "name": "明治天皇",
+    "years": "1852–1912",
+    "role": "天皇",
+    "era": "明治",
+    "summary": "維新後在位，日本急速近代化與對外擴張並進。",
+    "source": "日本近代史通說",
+    "activeFrom": 1867,
+    "activeTo": 1912
+  },
+  {
+    "id": "ito-hirobumi",
+    "name": "伊藤博文",
+    "years": "1841–1909",
+    "role": "政治家",
+    "era": "明治",
+    "summary": "長州出身，憲法制定與內閣制度重要推手；後於哈爾濱遇刺。",
+    "source": "日本近代史通說",
+    "activeFrom": 1868,
+    "activeTo": 1909
+  },
+  {
+    "id": "matsumae-yoshihiro",
+    "name": "松前慶廣",
+    "years": "1548–1616",
+    "role": "松前藩主",
+    "era": "江戶",
+    "summary": "慶長九年接受家康黑印，專營蝦夷地交易。領地在渡島南部，不是全北海道的征服者。",
+    "source": "日本近世史通說",
+    "activeFrom": 1593,
+    "activeTo": 1616
+  },
+  {
+    "id": "shimazu-iehisa",
+    "name": "島津家久",
+    "years": "1576–1638",
+    "role": "薩摩藩主",
+    "era": "江戶",
+    "summary": "慶長十四年奉幕府許可派兵入侵琉球。家康許可這次出兵，但沒有親自渡海。琉球王國在戰後仍在。",
+    "source": "日本近世史通說",
+    "activeFrom": 1602,
+    "activeTo": 1638
+  },
+  {
+    "id": "kuroda-kiyotaka",
+    "name": "黑田清隆",
+    "years": "1840–1900",
+    "role": "開拓使",
+    "era": "明治",
+    "summary": "明治二年以後主持開拓使，推動把蝦夷地改成北海道的行政。這是明治政府的工作，不是家康的黑印。",
+    "source": "日本近代史通說",
+    "activeFrom": 1869,
+    "activeTo": 1882
+  }
+]

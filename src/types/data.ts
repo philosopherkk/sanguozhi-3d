@@ -15,6 +15,7 @@ export type FactionId =
   | '馬超韓遂'
   | '西晉'
   | '呂布'
+  | '五溪蠻'
   | '其他'
 
 export type PersonRole = '政治' | '軍事' | '謀士'

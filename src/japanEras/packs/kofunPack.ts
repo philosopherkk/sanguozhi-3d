@@ -1,0 +1,276 @@
+import type { MarchRoute } from '../../data/marchRoutes'
+import type { JapanDeepDivePack } from '../deepDiveTypes'
+import { D, JP_DOMAINS, paintDomains } from '../jpDomains'
+import { fact, noDetail, noReading, profile } from '../packHelpers'
+
+const F = {
+  yamato: 'ヤマト',
+  kyushu: '九州勢力',
+  izumo: '出雲系',
+  kanto: '關東古墳群',
+} as const
+
+const routes: MarchRoute[] = [
+  {
+    id: 'kofun-kinki-expand',
+    name: '畿內向東示意',
+    year: 350,
+    faction: F.yamato,
+    source:
+      '日本古代史通說（古墳文化東擴）。路線為教學示意，非紀年戰役；《日本書紀》早期紀年不採為實錄',
+    points: [
+      [691.0, 753.2],
+      [736.5, 749.6],
+      [789.0, 771.2],
+      [850.1, 759.8],
+    ],
+  },
+  {
+    id: 'kofun-kinki-west',
+    name: '畿內向西示意',
+    year: 400,
+    faction: F.yamato,
+    source: '日本古代史通說。瀬戶內方向交流示意，非精確行軍日誌',
+    points: [
+      [691.0, 753.2],
+      [677.5, 771.8],
+      [636.9, 764.6],
+      [598.4, 774.2],
+    ],
+  },
+]
+
+export const KOFUN_PACK: JapanDeepDivePack = {
+  id: 'kofun',
+  title: '古墳前期',
+  tag: 'ヤマト形成 · 考古示意',
+  footer:
+    '古墳前期（約250–537）· 古墳時代約至538年，本專題只收前期，不把537年寫成整個時代的結束 · 據考古通說與後來文獻追述 · 不用神武東征等神話紀年 · 色塊是文化／政治圈示意，不是令制國 · 行軍只顯示該年 · 人口戰力無戶籍可據',
+  yearMin: 250,
+  yearMax: 537,
+  initialYear: 350,
+  ticks: [
+    { year: 250, label: '前期起' },
+    { year: 350, label: '東擴' },
+    { year: 400, label: '西伸' },
+    { year: 500, label: '後期前' },
+  ],
+  factions: [
+    {
+      id: F.yamato,
+      name: 'ヤマト',
+      color: '#8B5A2B',
+      activeFrom: 250,
+      activeTo: 537,
+      source: '日本古代史通說：畿內大型古墳集群與王權形成',
+    },
+    {
+      id: F.kyushu,
+      name: '九州勢力',
+      color: '#4A7C59',
+      activeFrom: 250,
+      activeTo: 537,
+      source: '日本古代史通說：北部九州與朝鮮半島交流地帶',
+    },
+    {
+      id: F.izumo,
+      name: '出雲系',
+      color: '#5B6B8A',
+      activeFrom: 250,
+      activeTo: 537,
+      source: '日本古代史通說：山陰古墳與出雲神話後來的政治記憶',
+    },
+    {
+      id: F.kanto,
+      name: '關東古墳群',
+      color: '#7A5A4A',
+      activeFrom: 250,
+      activeTo: 537,
+      source: '日本古代史通說：關東大型古墳，與畿內的關係有爭議',
+    },
+  ],
+  domains: JP_DOMAINS,
+  keyYears: [250, 350, 400, 500],
+  territoryByYear: {
+    250: paintDomains(
+      [
+        [D.yamato, F.yamato],
+        [D.kyushu, F.kyushu],
+        [D.west, F.izumo],
+        [D.kanto, F.kanto],
+      ],
+    ),
+    350: paintDomains(
+      [
+        [D.yamato, F.yamato],
+        [D.tokai, F.yamato],
+        [D.kyushu, F.kyushu],
+        [D.west, F.izumo],
+        [D.kanto, F.kanto],
+        [D.ou, F.kanto],
+      ],
+    ),
+    400: paintDomains(
+      [
+        [D.yamato, F.yamato],
+        [D.tokai, F.yamato],
+        [D.kinai, F.yamato],
+        [D.west, F.yamato],
+        [D.kyushu, F.kyushu],
+        [D.kanto, F.kanto],
+        [D.ou, F.kanto],
+      ],
+    ),
+    500: paintDomains(
+      [
+        [D.yamato, F.yamato],
+        [D.tokai, F.yamato],
+        [D.kinai, F.yamato],
+        [D.west, F.yamato],
+        [D.shikoku, F.yamato],
+        [D.kyushu, F.yamato],
+        [D.kanto, F.yamato],
+        [D.ou, F.kanto],
+      ],
+    ),
+  },
+  shadeNotes: {
+    250: '前期：畿內、九州、出雲、關東各地古墳並立，不是統一王國地圖。',
+    350: '四至五世紀：畿內大型古墳影響向東海擴張。邊界為考古文化示意。',
+    400: 'ヤマト勢力沿瀬戶內西伸。九州仍保相對獨立的交流圈。',
+    500: '飛鳥前夕：列島大部已在ヤマト秩序下，東北仍疏。',
+  },
+  routes,
+  places: [
+    { name: '大和', x: 700.0, y: 768.0 },
+    { name: '出雲', x: 539.9, y: 731.6 },
+    { name: '筑紫', x: 412.3, y: 858.8 },
+    { name: '武藏', x: 885.1, y: 702.2 },
+  ],
+  events: [
+    {
+      id: 'kf-250',
+      year: 250,
+      title: '古墳時代前期示意起點',
+      desc: '前方後圓墳在畿內出現並擴大。確切「建國年」無可靠文獻，本專題不以神話紀年為準。',
+      factions: [F.yamato],
+      location: '大和',
+      type: 'politics',
+      source: '日本古代史研究通說',
+      disputed: true,
+      note: '起始年約數；考古分期與文獻紀年不一致。',
+    },
+    {
+      id: 'kf-350',
+      year: 350,
+      title: '大型古墳文化東擴',
+      desc: '畿內類型古墳影響可見於東海至關東。是否等於軍事征服，學界有爭議。',
+      factions: [F.yamato, F.kanto],
+      location: '東海／關東',
+      type: 'politics',
+      source: '日本古代史通說',
+      disputed: true,
+    },
+    {
+      id: 'kf-400',
+      year: 400,
+      title: '瀬戶內與九州交流',
+      desc: '鐵器、渡來文化經九州、瀬戶內進入畿內。地圖西線只表示交流方向，不是一次行軍。',
+      factions: [F.yamato, F.kyushu],
+      location: '瀬戶內',
+      type: 'politics',
+      source: '日本古代史通說',
+      disputed: true,
+    },
+    {
+      id: 'kf-500',
+      year: 500,
+      title: '王權趨向集中',
+      desc: '五世紀末至六世紀，畿內王權對地方的統制加強，為飛鳥政治準備條件。',
+      factions: [F.yamato],
+      location: '大和',
+      type: 'politics',
+      source: '日本古代史通說',
+    },
+  ],
+  people: [
+    {
+      id: 'kf-p-yamato',
+      name: 'ヤマト大王（總稱）',
+      faction: F.yamato,
+      role: '王權',
+      birth: 250,
+      death: 537,
+      summary: '個人名多依《日本書紀》後期追述，不宜當實名年表。色塊代表畿內王權集團。',
+      source: '日本古代史通說',
+      disputed: true,
+    },
+  ],
+  situation: {
+    [F.yamato]: profile({
+      population: fact(
+        '沒有戶籍。古墳規模反映動員力，不是口數。',
+        '日本古代史通說',
+        true,
+      ),
+      military: fact(
+        '無兵籍。鐵兵器與馬具的考古分布可作相對示意。',
+        '日本古代史通說',
+        true,
+      ),
+      grain: fact('稻作與屯倉傳統見於後來文獻，斛數不載。', '《日本書紀》系追述'),
+      politics: fact('大型古墳與王權儀禮是政治中心的指標。', '日本古代史通說'),
+      economy: fact('鐵、玉、渡來技術經交流進入畿內。無全國財政。', '日本古代史通說'),
+    }),
+    [F.kyushu]: profile({
+      population: fact('北部九州人口不詳。', '日本古代史通說'),
+      military: fact('與半島往來頻繁，軍制不載。', '日本古代史通說', true),
+      grain: fact('本地稻作。無斛數。', '日本古代史通說'),
+      politics: fact('相對獨立的政治中心，後來納入ヤマト秩序。', '日本古代史通說'),
+      economy: fact('半島貿易與鐵資源重要。', '日本古代史通說'),
+    }),
+    [F.izumo]: profile({
+      population: fact('山陰人口不詳。', '日本古代史通說'),
+      military: fact('史無兵數。', '日本古代史通說'),
+      grain: fact('本地農業。無斛數。', '日本古代史通說'),
+      politics: fact('出雲系神話與古墳反映後來的政治記憶，不是當年國界。', '日本古代史通說', true),
+      economy: fact('山陰與日本海交流。', '日本古代史通說'),
+    }),
+    [F.kanto]: profile({
+      population: fact('關東古墳群地區人口不詳。', '日本古代史通說'),
+      military: fact('無兵籍。', '日本古代史通說'),
+      grain: fact('關東平原農業。無斛數。', '日本古代史通說'),
+      politics: fact('大型古墳與畿內的關係有從屬／並立兩說。', '日本古代史通說', true),
+      economy: fact('在地生產為主。', '日本古代史通說'),
+    }),
+  },
+  leadersByYear: {
+    250: [
+      {
+        faction: F.yamato,
+        name: '畿內王權',
+        role: '古墳儀禮中心',
+        source: '日本古代史通說',
+      },
+    ],
+    350: [
+      {
+        faction: F.yamato,
+        name: 'ヤマト大王',
+        role: '東擴期（名號追述）',
+        source: '日本古代史通說',
+      },
+    ],
+    500: [
+      {
+        faction: F.yamato,
+        name: 'ヤマト大王',
+        role: '集權加強期',
+        source: '日本古代史通說',
+      },
+    ],
+  },
+  emptyHint: '此年無登錄專條。試 250、350、400、500。',
+  detailFor: noDetail,
+  readingFor: noReading,
+}

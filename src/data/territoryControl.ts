@@ -34,6 +34,7 @@ export const TERRITORY_BY_YEAR: Record<TerritoryKeyYear, ProvinceControl> = {
     揚州: '東漢',
     交州: '東漢',
     遼東: '東漢',
+    武陵: '五溪蠻',
   },
   /** 董卓遷長安；關東州牧分立 */
   190: {
@@ -54,6 +55,7 @@ export const TERRITORY_BY_YEAR: Record<TerritoryKeyYear, ProvinceControl> = {
     揚州: '袁術',
     交州: '其他',
     遼東: '公孫氏',
+    武陵: '五溪蠻',
   },
   /** 官渡前後：紹據河北，操控河南 */
   200: {
@@ -74,6 +76,7 @@ export const TERRITORY_BY_YEAR: Record<TerritoryKeyYear, ProvinceControl> = {
     揚州: '孫吳',
     交州: '其他',
     遼東: '公孫氏',
+    武陵: '五溪蠻',
   },
   /** 赤壁年：操并荊北；孫劉聯合拒操 */
   208: {
@@ -94,6 +97,7 @@ export const TERRITORY_BY_YEAR: Record<TerritoryKeyYear, ProvinceControl> = {
     揚州: '孫吳',
     交州: '其他',
     遼東: '公孫氏',
+    武陵: '五溪蠻',
   },
   /** 劉備已得益州；曹操方定漢中張魯（建安二十年） */
   215: {
@@ -114,6 +118,7 @@ export const TERRITORY_BY_YEAR: Record<TerritoryKeyYear, ProvinceControl> = {
     揚州: '孫吳',
     交州: '孫吳',
     遼東: '公孫氏',
+    武陵: '五溪蠻',
   },
   /** 漢中歸備；關羽尚在荊；襄樊戰前 */
   219: {
@@ -134,6 +139,7 @@ export const TERRITORY_BY_YEAR: Record<TerritoryKeyYear, ProvinceControl> = {
     揚州: '孫吳',
     交州: '孫吳',
     遼東: '公孫氏',
+    武陵: '五溪蠻',
   },
   /** 夷陵後：荊南歸吳；三分成型 */
   222: {
@@ -154,6 +160,7 @@ export const TERRITORY_BY_YEAR: Record<TerritoryKeyYear, ProvinceControl> = {
     揚州: '孫吳',
     交州: '孫吳',
     遼東: '公孫氏',
+    武陵: '五溪蠻',
   },
   /** 諸葛亮卒年：仍三分；遼東尚存公孫 */
   234: {
@@ -174,6 +181,7 @@ export const TERRITORY_BY_YEAR: Record<TerritoryKeyYear, ProvinceControl> = {
     揚州: '孫吳',
     交州: '孫吳',
     遼東: '公孫氏',
+    武陵: '五溪蠻',
   },
   /** 高平陵後：魏政歸司馬；疆域仍三分（遼東已平於 238） */
   249: {
@@ -194,6 +202,7 @@ export const TERRITORY_BY_YEAR: Record<TerritoryKeyYear, ProvinceControl> = {
     揚州: '孫吳',
     交州: '孫吳',
     遼東: '曹魏',
+    武陵: '五溪蠻',
   },
   /** 魏滅蜀：益、漢中入魏 */
   263: {
@@ -214,6 +223,7 @@ export const TERRITORY_BY_YEAR: Record<TerritoryKeyYear, ProvinceControl> = {
     揚州: '孫吳',
     交州: '孫吳',
     遼東: '曹魏',
+    武陵: '五溪蠻',
   },
   /** 西晉代魏 */
   265: {
@@ -234,8 +244,9 @@ export const TERRITORY_BY_YEAR: Record<TerritoryKeyYear, ProvinceControl> = {
     揚州: '孫吳',
     交州: '孫吳',
     遼東: '西晉',
+    武陵: '五溪蠻',
   },
-  /** 滅吳，一統 */
+  /** 滅吳，晉收郡縣；武陵五溪蠻仍分色，不併入西晉 */
   280: {
     幽州: '西晉',
     冀州: '西晉',
@@ -254,6 +265,7 @@ export const TERRITORY_BY_YEAR: Record<TerritoryKeyYear, ProvinceControl> = {
     揚州: '西晉',
     交州: '西晉',
     遼東: '西晉',
+    武陵: '五溪蠻',
   },
 }
 

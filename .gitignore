@@ -12,6 +12,16 @@ dist
 dist-ssr
 *.local
 
+# Source relief masters (display JPGs are enough for the app)
+public/maps/china_edcp_relief.jpg
+public/maps/japan_relief.jpg
+
+# Script scratch output / bytecode
+scripts/out/
+scripts/__pycache__/
+__pycache__/
+*.pyc
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
