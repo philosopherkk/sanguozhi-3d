@@ -5,7 +5,10 @@
 
 export interface SengokuBasemap {
   id: string
+  /** JPEG fallback (all browsers) */
   src: string
+  /** Optional WebP; Japan maps serve via `<picture>` when set */
+  srcWebp?: string
   title: string
   credit: string
   license: string
@@ -16,8 +19,9 @@ const base = import.meta.env.BASE_URL
 
 export const SENGOKU_BASEMAP: SengokuBasemap = {
   id: 'japan-relief',
-  /** 顯示用縮小版；原檔約 5900² 解碼過慢 */
+  /** 顯示用 1482×1477（大名座標）；原檔約 5900² 解碼過慢 */
   src: `${base}maps/japan_relief_display.jpg`,
+  srcWebp: `${base}maps/japan_relief_display.webp`,
   title: '現代日本列島地勢（平安、戰國、幕末、江戶共用）',
   credit: '維基共享資源〈Japan relief location map.jpg〉· Eric Gaba（Sting）',
   license: 'CC BY-SA',

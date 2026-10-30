@@ -66,12 +66,24 @@ export function JapanEraMap() {
           onPointerCancel={view.onPointerUp}
         >
           <div className="era-map__zoom-layer" style={view.layerStyle}>
-            <img
-              className="era-map__photo"
-              src={SENGOKU_BASEMAP.src}
-              alt=""
-              draggable={false}
-            />
+            {SENGOKU_BASEMAP.srcWebp ? (
+              <picture>
+                <source type="image/webp" srcSet={SENGOKU_BASEMAP.srcWebp} />
+                <img
+                  className="era-map__photo"
+                  src={SENGOKU_BASEMAP.src}
+                  alt=""
+                  draggable={false}
+                />
+              </picture>
+            ) : (
+              <img
+                className="era-map__photo"
+                src={SENGOKU_BASEMAP.src}
+                alt=""
+                draggable={false}
+              />
+            )}
             {year >= 1604 && year <= 1868 ? (
               <svg
                 className="era-map__marks"
