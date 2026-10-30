@@ -79,6 +79,9 @@ export interface Battle extends Sourced {
   attacker: FactionId
   defender: FactionId
   commanders: string[]
+  attackerCommanders?: string[]
+  defenderCommanders?: string[]
+  wuParallelCommanders?: string[]
   troops?: {
     attacker?: number
     defender?: number

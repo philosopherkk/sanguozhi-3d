@@ -69,9 +69,13 @@
     "attacker": "蜀漢",
     "defender": "曹魏",
     "commanders": ["關羽", "于禁", "龐德", "徐晃", "呂蒙"],
+    "attackerCommanders": ["關羽"],
+    "defenderCommanders": ["于禁", "龐德", "徐晃"],
+    "wuParallelCommanders": ["呂蒙"],
     "result": "羽水淹于禁；呂蒙襲南郡，羽敗亡。",
     "territory_change": "荊州（南郡等）歸孫吳。",
-    "source": "《三國志·蜀書·關羽傳》；《三國志·吳書·呂蒙傳》"
+    "source": "《三國志·蜀書·關羽傳》；《三國志·吳書·呂蒙傳》；《資治通鑑》卷六十八",
+    "note": "呂蒙屬孫吳白衣渡江取公安、南郡，與樊城對曹魏之役為平行戰線，非曹魏守將。"
   },
   {
     "id": "battle-yiling",

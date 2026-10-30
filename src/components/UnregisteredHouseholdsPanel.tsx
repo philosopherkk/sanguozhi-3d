@@ -27,6 +27,7 @@ export function UnregisteredHouseholdsPanel() {
             </h3>
             <p className="unreg-panel__text">{group.text}</p>
             <p className="person-source">{group.source}</p>
+            {group.note ? <p className="person-note">{group.note}</p> : null}
           </li>
         ))}
       </ol>
