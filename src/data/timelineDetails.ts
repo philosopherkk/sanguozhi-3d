@@ -26,6 +26,10 @@ export interface TimelineDetail {
   outcome: string
   classicQuote: string
   classicSource: string
+  /** 本卡敘事之正史出典（AGENTS.md） */
+  source: string
+  disputed?: boolean
+  note?: string
   modernParaphrase: string
   zhwikiUrl: string
   furtherReading?: TimelineFurtherReading[]
@@ -48,6 +52,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '鉅鹿張角自稱「大賢良師」，奉事黃老道……十余年間，眾徒數十萬，連結郡國，自青、徐、幽、冀、荊、揚、兗、豫八州之人，莫不畢應。遂置三十六方。……訛言「蒼天已死，黃天當立，歲在甲子，天下大吉」。',
     classicSource: '《後漢書·皇甫嵩傳》；參《資治通鑑》卷五十八',
+    source: '《後漢書·皇甫嵩傳》',
     modernParaphrase:
       '鉅鹿張角自稱「大賢良師」，奉黃老道……十多年間信徒數十萬，串連郡國；八州幾乎都有人響應。他設立三十六「方」，又傳布「蒼天已死，黃天當立」的謠言。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/黃巾之亂',
@@ -74,6 +79,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '董卓……廢少帝為弘農王而立陳留王，是為獻帝。……卓遷太尉……尋進相國，入朝不趨，劍履上殿。',
     classicSource: '《後漢書·董卓傳》；《資治通鑑》卷五十九',
+    source: '《後漢書·董卓傳》',
     modernParaphrase:
       '董卓廢少帝為弘農王，改立陳留王為獻帝；升太尉再進相國，入朝不必小步快走，可帶劍穿鞋上殿。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/董卓',
@@ -100,6 +106,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '初平元年春正月……袁紹等同時俱起兵，眾各數萬……推紹為盟主。……董卓聞之，甚懼……乃徙天子都長安。……悉燒宮廟、官府、居家，二百里內無復孑遺。',
     classicSource: '《資治通鑑》卷五十九；參《後漢書·董卓傳》',
+    source: '《資治通鑑》卷五十九',
     modernParaphrase:
       '初平元年正月，袁紹等人同時起兵，共推袁紹為盟主。董卓害怕，強迫天子遷長安，把洛陽宮殿官署民宅燒光，二百里內幾乎沒有倖存住家。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/董卓討伐戰',
@@ -126,6 +133,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '（王）允與呂布及僕射士孫瑞謀誅卓。……（布）刺之，趣兵斬之。……長安士女賣其珠玉裝具與軍人為歡飲者，填滿街肆。',
     classicSource: '《後漢書·董卓傳》；《資治通鑑》卷六十',
+    source: '《後漢書·董卓傳》',
     modernParaphrase:
       '王允與呂布合謀除卓；呂布刺殺後催兵斬首。長安士女拿出珠玉與軍人歡飲，街市擠滿。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/董卓',
@@ -146,6 +154,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '太祖將迎天子……遂至洛陽，衛京都。……（帝）假太祖節鉞，錄尚書事。……是歲……始興屯田。……遷都許。',
     classicSource: '《資治通鑑》卷六十二；參《三國志·魏書·武帝紀》',
+    source: '《資治通鑑》卷六十二',
     modernParaphrase:
       '曹操迎天子到洛陽保衛京師，獲節鉞、錄尚書事；同年開始屯田，並遷都許縣。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/曹操',
@@ -166,6 +175,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '（許）攸曰：「……今袁氏輜重有萬餘乘，在故市、烏巢……若輕兵襲之，燔其積聚，不過三日，袁氏自敗也。」……夜從間道出……既至，圍屯大放火，營中驚亂。',
     classicSource: '《資治通鑑》卷六十三；參《三國志·魏書·武帝紀》',
+    source: '《資治通鑑》卷六十三',
     modernParaphrase:
       '許攸建議夜襲烏巢燒掉袁軍糧秣；曹操依計輕兵奇襲，烏巢大火，袁軍自潰。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/官渡之戰',
@@ -186,6 +196,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '夏五月，至無終。……引軍出盧龍塞……登白狼山，卒與虜遇……縱兵擊之，虜眾大崩，斬蹋頓及名王已下。',
     classicSource: '《資治通鑑》卷六十五；參《三國志·魏書·武帝紀》',
+    source: '《資治通鑑》卷六十五',
     modernParaphrase:
       '五月出盧龍塞，登白狼山與烏桓骤遇，縱兵大破之，斬蹋頓等首領。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/白狼山之戰',
@@ -206,6 +217,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '時操軍眾已有疾疫……瑜部將黃蓋曰：「……操軍方連船艦，首尾相接，可燒而走也。」……蓋放諸船，同時發火。……煙炎張天，人馬燒溺死者甚眾。',
     classicSource: '《資治通鑑》卷六十五；參《三國志·吳書·周瑜傳》',
+    source: '《資治通鑑》卷六十五',
     modernParaphrase:
       '曹軍已有疫病；黃蓋建議火攻相連船艦，火船齊發，岸營延燒，曹軍燒溺甚眾。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/赤壁之戰',
@@ -226,6 +238,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '（操）乃間行從蒲阪渡……潛以舟載兵入渭……夜分兵結營於渭南。',
     classicSource: '《資治通鑑》卷六十六；參《三國志·魏書·武帝紀》',
+    source: '《資治通鑑》卷六十六',
     modernParaphrase:
       '曹操從蒲阪悄悄渡河，用船運兵入渭，夜裡在渭南分兵紮營，扭轉態勢。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/渭南之戰',
@@ -246,6 +259,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '璋言：「父子在州二十餘年，無恩德以加百姓。百姓攻戰三年，肌膏草野者，以璋故也，何心能安！」遂開城出降。',
     classicSource: '《資治通鑑》卷六十七；參《三國志·蜀書·先主傳》',
+    source: '《資治通鑑》卷六十七',
     modernParaphrase:
       '劉璋不忍百姓再為他死戰，開城投降。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/劉備入蜀',
@@ -265,6 +279,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '遼被甲持戟，先登陷陳，殺數十人，斬二將，大呼自名，衝壘入至權麾下。……遼率諸軍追擊，幾復獲權。',
     classicSource: '《資治通鑑》卷六十七；參《三國志·魏書·張遼傳》',
+    source: '《資治通鑑》卷六十七',
     modernParaphrase:
       '張遼率先陷陣，直衝孫權旗下；追擊時差一點捉住孫權。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/逍遙津之戰',
@@ -285,6 +300,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '夏侯淵與劉備戰於陽平，為備所殺。……太祖遂棄漢中，還長安。……（備）遂有漢中。',
     classicSource: '《資治通鑑》卷六十八；參《三國志·魏書·武帝紀》',
+    source: '《資治通鑑》卷六十八',
     modernParaphrase:
       '夏侯淵戰死，曹操放棄漢中；劉備據有漢中。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/漢中之戰',
@@ -305,6 +321,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '羽……圍曹仁。……會漢水暴溢，于禁七軍皆沒。……（孫）權已據江陵……羽軍遂散。……遂斬羽及子平于臨沮。',
     classicSource: '《資治通鑑》卷六十八；參《三國志·蜀書·關羽傳》',
+    source: '《資治通鑑》卷六十八',
     modernParaphrase:
       '關羽水淹于禁七軍；孫權襲據江陵，羽軍潰散，羽父子被斬於臨沮。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/樊城之戰',
@@ -324,6 +341,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '冬十月乙卯，漢帝使御史大夫張音持節奉璽綬禪位……（丕）乃為壇於繁陽……升壇即阼，改元黃初。',
     classicSource: '《資治通鑑》卷六十九；參《三國志·魏書·文帝紀》',
+    source: '《資治通鑑》卷六十九',
     modernParaphrase:
       '漢帝奉璽禪位；曹丕在繁陽築壇即位，改元黃初。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/曹丕',
@@ -343,6 +361,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '夏四月丙午，先主即皇帝位於武擔之南……改元章武。……以諸葛亮為丞相。',
     classicSource: '《資治通鑑》卷六十九；參《三國志·蜀書·先主傳》',
+    source: '《資治通鑑》卷六十九',
     modernParaphrase:
       '先主在武擔山南即皇帝位，改元章武，任諸葛亮為丞相。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/劉備',
@@ -363,6 +382,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '（陸遜）乃敕各持一把茅，以火攻拔之……破其四十餘營。……先主升馬鞍山……土崩瓦解，死者萬數。',
     classicSource: '《資治通鑑》卷六十九；參《三國志·吳書·陸遜傳》',
+    source: '《資治通鑑》卷六十九',
     modernParaphrase:
       '陸遜令軍士以茅草火攻，破四十餘營；先主退上馬鞍山，蜀軍土崩，死者上萬。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/夷陵之戰',
@@ -383,6 +403,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '先主病篤，託孤於丞相亮……謂亮曰：「君才十倍曹丕……若嗣子可輔，輔之；如其不才，君可自取。」',
     classicSource: '《資治通鑑》卷七十；參《三國志·蜀書·諸葛亮傳》',
+    source: '《資治通鑑》卷七十',
     modernParaphrase:
       '先主託孤於諸葛亮，稱其才十倍曹丕；太子可輔則輔，不才則可自取。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/劉備',
@@ -403,18 +424,23 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '夫用兵之道，攻心為上，攻城為下……（亮）七縱七擒……獲止不去，曰：「公，天威也，南人不復反矣。」',
     classicSource: '《資治通鑑》卷七十；《三國志·蜀書·諸葛亮傳》注引《漢晉春秋》',
+    source:
+      '《三國志·蜀書·諸葛亮傳》注引《漢晉春秋》；《資治通鑑》卷七十',
+    disputed: true,
+    note:
+      '「七縱七擒」細節僅見裴注引《漢晉春秋》及通鑑綜述，陳壽正文不載。',
     modernParaphrase:
-      '馬謖主張攻心為上；亮七擒七縱孟獲，獲終言南人不再反。',
+      '注引《漢晉春秋》及《資治通鑑》載七縱七擒孟獲；陳壽《諸葛亮傳》正文不載細節。南征平四郡，後方得濟。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/諸葛亮南征',
   },
   '228-beifa-start': {
     causes:
       '南中既平、吳蜀同盟，亮上《出師表》以興復漢室為任，首出祁山。',
     course:
-      '建興六年揚聲斜谷，趙雲為疑兵，亮攻祁山；南安、天水、安定應亮。馬謖街亭違節度，為張郃所破；亮拔西縣千餘家還漢中，斬謖。',
+      '建興六年揚聲斜谷，趙雲為疑兵，亮攻祁山；南安、天水、安定應亮。馬謖街亭違節度，為張郃所破；亮拔西縣千餘家還漢中。〈諸葛亮傳〉載戮謖，〈馬謖傳〉載下獄物故。',
     keyFigures: [
       { name: '諸葛亮', role: '第一次北伐主帥' },
-      { name: '馬謖', role: '街亭失利，被斬' },
+      { name: '馬謖', role: '街亭失利，死因兩說' },
       { name: '張郃', role: '魏軍破街亭' },
       { name: '趙雲', role: '疑兵出斜谷' },
     ],
@@ -423,8 +449,11 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '亮身率諸軍攻祁山……（馬）謖違亮節度……大為（張）郃所破。……戮謖以謝眾。',
     classicSource: '《資治通鑑》卷七十一；參《三國志·蜀書·諸葛亮傳》',
+    source: '《三國志·蜀書·諸葛亮傳》；《三國志·蜀書·馬謖傳》',
+    disputed: true,
+    note: '《諸葛亮傳》作「戮謖」，《馬謖傳》作「下獄物故」，兩說並存。',
     modernParaphrase:
-      '亮攻祁山；馬謖違節度敗於張郃，亮斬謖謝罪。',
+      '亮攻祁山；馬謖違節度敗於張郃。〈諸葛亮傳〉載戮謖，〈馬謖傳〉載下獄物故，兩說並存。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/諸葛亮北伐',
   },
   '229-sunquan-emperor': {
@@ -441,6 +470,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '夏四月，孫權即皇帝位，大赦，改元黃龍。……秋九月，權遷都建業。',
     classicSource: '《資治通鑑》卷七十一；參《三國志·吳書·吳主傳》',
+    source: '《資治通鑑》卷七十一',
     modernParaphrase:
       '四月孫權即位改元黃龍；九月遷都建業。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/孫權',
@@ -461,6 +491,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '相持百餘日。……其年八月，亮疾病，卒于軍……（懿）案行其營壘處所，曰：「天下奇才也！」',
     classicSource: '《資治通鑑》卷七十二；參《三國志·蜀書·諸葛亮傳》《晉書·宣帝紀》',
+    source: '《資治通鑑》卷七十二',
     modernParaphrase:
       '對峙百餘日後亮卒於軍；司馬懿巡視營壘，嘆為天下奇才。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/諸葛亮',
@@ -479,6 +510,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '公孫淵自立為燕王……帝以司馬懿為太尉，往討之。……襄平城潰，斬淵父子，傳首洛陽。',
     classicSource: '《資治通鑑》卷七十四；參《三國志·魏書·公孫度傳》',
+    source: '《資治通鑑》卷七十四',
     modernParaphrase:
       '公孫淵稱燕王；司馬懿攻破襄平，斬淵父子。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/公孫淵',
@@ -499,6 +531,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '帝謁高平陵，大將軍爽與弟……皆從。……（司馬懿）閉諸城門……遂免爽……俱夷三族。',
     classicSource: '《資治通鑑》卷七十五；參《晉書·宣帝紀》《三國志·魏書·曹爽傳》',
+    source: '《資治通鑑》卷七十五',
     modernParaphrase:
       '帝謁陵時司馬懿閉城門罷免曹爽兄弟，後夷其三族。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/高平陵之變',
@@ -518,6 +551,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '夏四月，權薨……太子亮即皇帝位……（諡）曰大皇帝。',
     classicSource: '《資治通鑑》卷七十五；參《三國志·吳書·吳主傳》',
+    source: '《資治通鑑》卷七十五',
     modernParaphrase:
       '四月孫權去世，太子亮即位，諡大皇帝。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/孫權',
@@ -539,6 +573,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '（鄧）艾自陰平道行無人之地七百餘里……進破諸葛瞻於綿竹……後主……面縛輿�……進破諸葛瞻於綿竹……後主……面縛輿櫬，詣軍門降。',
     classicSource: '《資治通鑑》卷七十八；參《三國志·魏書·鄧艾傳》《蜀書·後主傳》',
+    source: '《資治通鑑》卷七十八',
     modernParaphrase:
       '鄧艾陰平小路七百里至綿竹破瞻；後主綁手上軍門投降。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/魏滅蜀之戰',
@@ -558,6 +593,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '十二月……魏帝禪位于晉……（炎）即皇帝位，改元泰始。大赦。',
     classicSource: '《資治通鑑》卷七十九；《晉書·武帝紀》',
+    source: '《資治通鑑》卷七十九',
     modernParaphrase:
       '十二月魏帝禪晉；司馬炎即位，改元泰始。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/晉武帝',
@@ -578,6 +614,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     classicQuote:
       '（王濬）戎卒八萬，方舟百里……入於石頭。……（孫）皓面縛輿櫬，詣軍門降。',
     classicSource: '《資治通鑑》卷八十一；《晉書·武帝紀》',
+    source: '《資治通鑑》卷八十一',
     modernParaphrase:
       '王濬八萬水軍入石頭；孫皓綁手上軍門投降。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/晉滅吳之戰',
@@ -601,6 +638,9 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
       '蠻民順附者，一戶輸穀數斛，其餘無雜調……種類稍多，戶口不可知也。……居武陵者有雄谿、樠谿、辰谿、酉谿、舞谿，謂之五谿蠻。',
     classicSource:
       '《宋書·夷蠻傳》。並參《魏書·僚傳》「在深山者仍不為編戶」；《後漢書·南蠻傳》',
+    source: '《後漢書·南蠻傳》；《晉書·武帝紀》',
+    note:
+      '《宋書·夷蠻傳》等為後代史回溯，本卡主述以後漢書／晉書為準。',
     modernParaphrase:
       '歸附的蠻，一戶只交幾斛穀，沒有其他雜稅。人口有多少，州郡其實不知道。住在武陵的，稱為五溪蠻。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/五溪蠻',
