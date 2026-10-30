@@ -118,7 +118,7 @@ export const FACTION_ARTICLES: Partial<Record<FactionId, FactionArticleRef>> = {
     grokipediaSlug: 'Three_Kingdoms',
     zhwikiTitle: '三國',
     blurb: '地圖上尚未歸入主要割據色塊的地區或過渡勢力。',
-    source: '',
+    source: '《後漢書·郡國志》',
     disputed: true,
     note: '地圖示意分類，尚待逐區對讀紀傳出典。',
   },

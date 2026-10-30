@@ -4,6 +4,7 @@ export interface Fact {
   text: string
   source: string
   disputed?: boolean
+  note?: string
 }
 
 export interface FactionProfile {
