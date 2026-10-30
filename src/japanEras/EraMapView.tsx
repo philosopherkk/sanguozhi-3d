@@ -99,12 +99,24 @@ export function EraMapView({
         onPointerCancel={view.onPointerUp}
       >
         <div className="map-2d__zoom-layer" style={view.layerStyle}>
-        <img
-          className="map-2d__basemap"
-          src={basemap.src}
-          alt={ariaLabel}
-          draggable={false}
-        />
+        {basemap.srcWebp ? (
+          <picture>
+            <source type="image/webp" srcSet={basemap.srcWebp} />
+            <img
+              className="map-2d__basemap"
+              src={basemap.src}
+              alt={ariaLabel}
+              draggable={false}
+            />
+          </picture>
+        ) : (
+          <img
+            className="map-2d__basemap"
+            src={basemap.src}
+            alt={ariaLabel}
+            draggable={false}
+          />
+        )}
         <svg
           className="map-2d__overlay"
           viewBox={`0 0 ${SENGOKU_MAP_W} ${SENGOKU_MAP_H}`}
