@@ -58,39 +58,48 @@ export function SengokuPeople() {
         onChange={(e) => setQuery(e.target.value)}
       />
 
-      <ul className="people-list">
-        {list.map((p) => {
-          const fac = sengokuFactionAtYear(p, year)
-          const active = selectedPerson?.id === p.id
-          return (
-            <li key={p.id}>
-              <button
-                type="button"
-                className={active ? 'people-card is-active' : 'people-card'}
-                onClick={() => selectPerson(active ? null : p)}
-              >
-                <strong>{p.name}</strong>
-                {p.aka ? <span className="people-aka">{p.aka}</span> : null}
-                {fac ? (
-                  <span
-                    className="faction-chip"
-                    style={{ borderColor: sengokuFactionColor(fac) }}
-                  >
-                    <i style={{ background: sengokuFactionColor(fac) }} />
-                    {sengokuFactionName(fac)}
-                  </span>
-                ) : null}
-                <span className="people-role">{p.role}</span>
-                {sengokuPersonSummary(p.id) ? (
-                  <span className="people-card__summary">
-                    {sengokuPersonSummary(p.id)}
-                  </span>
-                ) : null}
-              </button>
-            </li>
-          )
-        })}
-      </ul>
+      {list.length === 0 ? (
+        <p className="empty-hint">
+          {query.trim() || selectedFaction
+            ? '沒有符合的人物。試清除篩選或改搜尋。'
+            : '這一年沒有登錄在世的人物。'}
+        </p>
+      ) : (
+        <ul className="people-list">
+          {list.map((p) => {
+            const fac = sengokuFactionAtYear(p, year)
+            const active = selectedPerson?.id === p.id
+            return (
+              <li key={p.id}>
+                <button
+                  type="button"
+                  className={active ? 'people-card is-active' : 'people-card'}
+                  onClick={() => selectPerson(active ? null : p)}
+                >
+                  <strong>{p.name}</strong>
+                  {p.aka ? <span className="people-aka">{p.aka}</span> : null}
+                  {fac ? (
+                    <span
+                      className="faction-chip"
+                      style={{ borderColor: sengokuFactionColor(fac) }}
+                    >
+                      <i style={{ background: sengokuFactionColor(fac) }} />
+                      {sengokuFactionName(fac)}
+                    </span>
+                  ) : null}
+                  <span className="people-role">{p.role}</span>
+                  {sengokuPersonSummary(p.id) ? (
+                    <span className="people-card__summary">
+                      {sengokuPersonSummary(p.id)}
+                    </span>
+                  ) : null}
+                  <span className="person-source">{p.source}</span>
+                </button>
+              </li>
+            )
+          })}
+        </ul>
+      )}
 
       {selectedPerson ? (
         <article className="person-detail">

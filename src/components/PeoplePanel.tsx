@@ -119,9 +119,48 @@ export function PeoplePanel({ compact = false }: { compact?: boolean }) {
       </div>
 
       {filtered.length === 0 ? (
-        <p className="empty-hint">
-          此年尚無登錄要角。試點地圖色塊，或開啟「顯示更多人物」。
-        </p>
+        <div className="empty-hint">
+          {q.trim() ? (
+            <>
+              <p>找不到相符人物。</p>
+              <button type="button" className="panel-more" onClick={() => setQ('')}>
+                清除搜尋
+              </button>
+            </>
+          ) : role !== '全部' || faction !== '全部' ? (
+            <>
+              <p>沒有符合的人物。試清除篩選或改搜尋。</p>
+              <button
+                type="button"
+                className="panel-more"
+                onClick={() => {
+                  setRole('全部')
+                  setFaction('全部')
+                  clearFaction()
+                }}
+              >
+                清除篩選
+              </button>
+            </>
+          ) : (
+            <>
+              <p>
+                {showAll
+                  ? '此年尚無登錄要角。'
+                  : '此年尚無登錄要角。試點地圖色塊，或開啟「顯示更多人物」。'}
+              </p>
+              {!showAll ? (
+                <button
+                  type="button"
+                  className="panel-more"
+                  onClick={() => setShowAll(true)}
+                >
+                  顯示更多人物（含次要角色）
+                </button>
+              ) : null}
+            </>
+          )}
+        </div>
       ) : null}
 
       <ul className="people-list">
@@ -172,7 +211,7 @@ export function PeoplePanel({ compact = false }: { compact?: boolean }) {
                 </a>
                 {p.grokipedia_url ? (
                   <a href={p.grokipedia_url} target="_blank" rel="noreferrer">
-                    Grokipedia
+                    Grok 百科
                   </a>
                 ) : null}
               </div>
@@ -181,7 +220,7 @@ export function PeoplePanel({ compact = false }: { compact?: boolean }) {
         })}
       </ul>
 
-      {!showAll && faction === '全部' && !q.trim() ? (
+      {!showAll && faction === '全部' && !q.trim() && filtered.length > 0 ? (
         <button
           type="button"
           className="panel-more"

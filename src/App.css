@@ -321,7 +321,10 @@ html[data-theme='light'] .app-footer {
 }
 
 .year-scrubber__note {
-  display: none;
+  margin: 0.12rem 0 0.05rem;
+  font-size: 0.62rem;
+  line-height: 1.35;
+  color: var(--ink-muted);
 }
 
 /* ── Map stage ── */
@@ -1741,6 +1744,14 @@ html[data-theme='light'] .app-footer {
   background: rgba(196, 165, 116, 0.05);
 }
 
+.empty-hint p {
+  margin: 0;
+}
+
+.empty-hint .panel-more {
+  margin-top: 0.65rem;
+}
+
 .panel-more {
   display: block;
   width: 100%;
@@ -2667,6 +2678,10 @@ html[data-theme='light'] .app-footer {
   font-size: 0.78rem;
   line-height: 1.5;
   color: var(--ink-muted);
+}
+
+.people-card > .person-source {
+  flex-basis: 100%;
 }
 
 .people-card {
