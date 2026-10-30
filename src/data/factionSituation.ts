@@ -1,8 +1,21 @@
 import type { FactionProfile } from '../lib/factionYearView'
 import type { FactionId } from '../types/data'
 
-function fact(text: string, source: string, disputed?: boolean) {
-  return disputed ? { text, source, disputed: true as const } : { text, source }
+function fact(
+  text: string,
+  source: string,
+  disputed?: boolean,
+  note?: string,
+) {
+  if (disputed) {
+    return note
+      ? { text, source, disputed: true as const, note }
+      : { text, source, disputed: true as const }
+  }
+  if (note) {
+    return { text, source, note }
+  }
+  return { text, source }
 }
 
 /** 三國勢力概況。戶口只採用史書登記，不把後世推估寫成當年清點。 */
@@ -12,6 +25,7 @@ export const SANGUO_SITUATION: Record<FactionId, FactionProfile> = {
       '最後一次全國戶口在桓帝永壽三年（157）：戶 10,677,960，口 56,486,856。這是州郡登記，不是 184 年以後的實數。董卓遷都後洛陽戶籍已毀，不能拿這組數字當作某一年的朝廷人口。',
       '《後漢書·郡國志》注引《帝王世紀》；《晉書·地理志》',
       true,
+      '永壽戶口見注引《帝王世紀》，與《晉書·地理志》所記略有出入；184 年後無同等規模的全國清點。',
     ),
     military: fact(
       '中平以後朝廷兵分屬西園八校尉與州郡。靈帝死時能動用的中央軍有限，何進才要召邊將。',
@@ -35,6 +49,7 @@ export const SANGUO_SITUATION: Record<FactionId, FactionProfile> = {
       '〈皇甫嵩傳〉說徒眾數十萬，又說大方萬餘人、小方六七千。兩組數字對不上，只能當起事規模的約數，不是戶籍。',
       '《後漢書·皇甫嵩傳》',
       true,
+      '同傳前後所記方眾與總徒眾層級不同，不宜併算成單一戶口。',
     ),
     military: fact('編為三十六方，渠帥各自起兵，沒有統一的常備軍冊。', '《後漢書·皇甫嵩傳》'),
     grain: fact('徒眾靠地方積穀與劫掠，史書沒有黃巾的倉儲數字。', '《後漢書·皇甫嵩傳》'),
@@ -43,7 +58,12 @@ export const SANGUO_SITUATION: Record<FactionId, FactionProfile> = {
   },
   董卓: {
     population: fact('涼州兵加上洛陽所轄，沒有留下戶口總數。遷都時驅百姓入關，沿路死傷很多。', '《後漢書·董卓傳》'),
-    military: fact('本傳寫他以涼州兵入京。具體人數各書不一，不宜寫成一個編制數。', '《三國志·魏書·董卓傳》', true),
+    military: fact(
+      '本傳寫他以涼州兵入京。具體人數各書不一，不宜寫成一個編制數。',
+      '《三國志·魏書·董卓傳》',
+      true,
+      '涼州兵規模各書或注引所記不一，本專題不給定單一兵數。',
+    ),
     grain: fact('入京後壞五銖錢，更鑄小錢，洛陽物價騰貴。穀物供應靠關中與劫掠。', '《後漢書·董卓傳》'),
     politics: fact('廢少帝、立獻帝，自為相國。', '《三國志·魏書·董卓傳》'),
     economy: fact('小錢與焚洛陽使關東的交易和戶籍一起壞掉。', '《後漢書·董卓傳》'),
@@ -56,7 +76,12 @@ export const SANGUO_SITUATION: Record<FactionId, FactionProfile> = {
   },
   袁紹: {
     population: fact('據冀、青、幽、并，是當時戶口最厚的一片平原。史書沒有袁氏單獨的戶口冊。', '《三國志·魏書·袁紹傳》'),
-    military: fact('官渡之年，〈武帝紀〉寫紹眾十餘萬。這是約數。', '《三國志·魏書·武帝紀》', true),
+    military: fact(
+      '官渡之年，〈武帝紀〉寫紹眾十餘萬。這是約數。',
+      '《三國志·魏書·武帝紀》',
+      true,
+      '「十餘萬」為紀傳約數，非點驗冊；裴注所引他書或有不同層級之記。',
+    ),
     grain: fact('軍糧靠河北租賦，烏巢是前方糧屯。沒有倉儲斛數。', '《三國志·魏書·武帝紀》'),
     politics: fact('自為盟主，不奉許都的實際號令。官渡後二子相攻。', '《三國志·魏書·袁紹傳》'),
     economy: fact('冀州租賦是他的本錢。戰事一久，糧道就成為勝負。', '《三國志·魏書·武帝紀》'),
@@ -83,7 +108,12 @@ export const SANGUO_SITUATION: Record<FactionId, FactionProfile> = {
   },
   劉表: {
     population: fact('荊州在亂世中收納北方流民，戶口較完整，但沒有留下表政權的總冊。', '《三國志·魏書·劉表傳》'),
-    military: fact('帶甲十餘萬是後世常引的約數，本傳沒有點驗冊。', '《三國志·魏書·劉表傳》', true),
+    military: fact(
+      '帶甲十餘萬是後世常引的約數，本傳沒有點驗冊。',
+      '《三國志·魏書·劉表傳》',
+      true,
+      '「十餘萬」見後世綜述，〈劉表傳〉本身未載同等兵籍清點。',
+    ),
     grain: fact('荊州少經大戰，倉儲相對充足，所以曹操南下時接收到大量物資。具體斛數不載。', '《三國志·魏書·武帝紀》'),
     politics: fact('保境，不入關東混戰。建安十三年表卒，子琮降。', '《三國志·魏書·劉表傳》'),
     economy: fact('學校與地方租賦仍在運轉，沒有像中原那樣全盤屯田。', '《三國志·魏書·劉表傳》'),
@@ -103,7 +133,12 @@ export const SANGUO_SITUATION: Record<FactionId, FactionProfile> = {
     economy: fact('沒有租調制度。', '《三國志·蜀書·馬超傳》'),
   },
   公孫氏: {
-    population: fact('遼東三世割據。沒有單獨戶口。景初二年破襄平，傳文記殺男子十五以上七千餘人，這是屠城數字，不是全境人口。', '《三國志·魏書·公孫度傳》', true),
+    population: fact(
+      '遼東三世割據。沒有單獨戶口。景初二年破襄平，傳文記殺男子十五以上七千餘人，這是屠城數字，不是全境人口。',
+      '《三國志·魏書·公孫度傳》',
+      true,
+      '七千餘人為襄平屠殺之數，不可推為遼東全境戶口。',
+    ),
     military: fact('能與高句麗、孫吳通使，兵力足以守遼東。具體編制不載。', '《三國志·魏書·公孫度傳》'),
     grain: fact('遼東產穀，並與吳互市。斛數不載。', '《三國志·魏書·公孫度傳》'),
     politics: fact('對洛陽半獨立。公孫淵景初元年稱燕王，次年敗死。', '《三國志·魏書·公孫度傳》'),
@@ -114,11 +149,13 @@ export const SANGUO_SITUATION: Record<FactionId, FactionProfile> = {
       '魏末戶 663,423、口 4,432,881，見《通典》，與《晉書》有出入，標成約數。這不是 208 年的清點。208 年操所領主要是司隸以東、河北初定的州郡，戶籍仍在恢復。',
       '《通典·食貨典》；《三國志·魏書·武帝紀》',
       true,
+      '魏末戶口見《通典》，與《晉書·地理志》所記不完全一致；208 年無同規模全國清點。',
     ),
     military: fact(
       '官渡時〈武帝紀〉寫操兵不滿萬，裴注已疑其太少。赤壁時南征軍眾，本紀無確數。不能用一個兵數概括全部年份。',
       '《三國志·魏書·武帝紀》裴注',
       true,
+      '官渡「不滿萬」裴松之已疑；赤壁南征規模各段記載不一，不宜用單一常數概括曹魏全期。',
     ),
     grain: fact(
       '建安元年許下屯田。建安九年收田租畝四升，戶出絹二匹、綿二斤。此後軍糧主要靠屯田與租調，不是西漢的全國漕運。',
@@ -175,6 +212,7 @@ export const SANGUO_SITUATION: Record<FactionId, FactionProfile> = {
       '太康元年滅吳後的吳地戶籍見上。晉全國戶口另有太康初的記載，各書數字不完全一致，這裡不另造一個合併總數。',
       '《晉書·武帝紀》',
       true,
+      '太康初全國戶口各書所記略有出入，本專題不合成單一合併總數。',
     ),
     military: fact('滅吳水陸並進。〈通鑑〉寫王濬戎卒八萬、方舟百里，是這一段的規模，不是全國兵籍。', '《資治通鑑》卷八十一'),
     grain: fact('接收吳的郡縣租賦。五溪、僚、俚等不在這套編戶裡。', '《晉書·武帝紀》；《後漢書·南蠻傳》'),
@@ -184,10 +222,17 @@ export const SANGUO_SITUATION: Record<FactionId, FactionProfile> = {
   五溪蠻: {
     population: fact(
       '渠帥稱精夫，大人輸布一匹。戶口不可知，不能寫成一個人口數。',
-      '《後漢書·南蠻傳》；《宋書·夷蠻傳》',
+      '《後漢書·南蠻傳》',
+      undefined,
+      '後代史回溯：《宋書·夷蠻傳》仍稱五溪蠻，順附者一戶輸穀數斛，戶口不可知。',
     ),
     military: fact('能寇掠郡縣，沒有常備軍編制。章武年間有渠帥響應劉備，見馬良入武陵。', '《三國志·蜀書·馬良傳》'),
-    grain: fact('歸附者一戶輸穀數斛，其餘無雜調。這是羈縻，不是編戶田租。', '《宋書·夷蠻傳》'),
+    grain: fact(
+      '歸附者一戶輸穀數斛，其餘無雜調。這是羈縻，不是編戶田租。',
+      '《後漢書·南蠻傳》',
+      undefined,
+      '後代史回溯：《宋書·夷蠻傳》「一戶輸穀數斛、其餘無雜調」；羈縻輸布見《後漢書·南蠻傳》。',
+    ),
     politics: fact('住在武陵沅水上游，不在曹魏郡縣內。孫吳只能控制沿岸。', '《後漢書·南蠻傳》'),
     economy: fact('賨布與輸穀是對朝廷的關係，內部沒有州郡財政。', '《後漢書·南蠻傳》'),
   },
@@ -195,7 +240,12 @@ export const SANGUO_SITUATION: Record<FactionId, FactionProfile> = {
     population: fact('這是地圖上尚未歸入某一割據色塊的州郡，沿用東漢郡縣戶籍的殘餘，沒有統一冊。', '《後漢書·郡國志》'),
     military: fact('各郡兵不屬於同一將領。', '《三國志·魏書·武帝紀》'),
     grain: fact('當地租賦由占有該地的太守自用，沒有中央倉。', '《三國志·魏書·武帝紀》'),
-    politics: fact('色塊表示歸屬未定或過渡，不是一個政權。', '地圖圖例'),
+    politics: fact(
+      '色塊表示歸屬未定或過渡，不是一個政權。',
+      '《後漢書·郡國志》',
+      undefined,
+      '地圖圖例說明；州郡沿革見《後漢書·郡國志》，非單一紀傳條文。',
+    ),
     economy: fact('沒有跨州的經濟制度。', '《三國志·魏書·武帝紀》'),
   },
 }
