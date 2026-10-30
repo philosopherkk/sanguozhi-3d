@@ -145,6 +145,9 @@ export function TimelinePanel({
             },
             zhwikiUrl: detail.zhwikiUrl,
             furtherReading: detail.furtherReading,
+            entrySource: detail.source,
+            disputed: detail.disputed,
+            note: detail.note,
           }}
           onClose={() => setOpenId(null)}
         />

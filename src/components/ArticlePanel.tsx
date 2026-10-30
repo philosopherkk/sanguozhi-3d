@@ -3,7 +3,7 @@ import {
   FACTION_ARTICLES,
   grokipediaPageUrl,
 } from '../data/factionArticles'
-import { personSummary } from '../data/personProfiles'
+import { PERSON_PROFILES, personSummary } from '../data/personProfiles'
 import { factionColor, factionName } from '../lib/factionColors'
 import {
   loadFactionInlineArticle,
@@ -105,6 +105,30 @@ export function ArticlePanel() {
         <div className="article-panel__body article-panel__body--local">
           <p className="article-panel__source">本站正史提要</p>
           <p>{personSummary(article.person.id, article.person.source)}</p>
+          {(() => {
+            const prof = PERSON_PROFILES[article.person.id]
+            if (!prof?.source) return null
+            return <p className="person-source">出典：{prof.source}</p>
+          })()}
+        </div>
+      ) : null}
+
+      {article.kind === 'faction' ? (
+        <div className="article-panel__body article-panel__body--local">
+          <p>{FACTION_ARTICLES[article.faction]?.blurb}</p>
+          {FACTION_ARTICLES[article.faction]?.source ? (
+            <p className="person-source">
+              出典：{FACTION_ARTICLES[article.faction]?.source}
+            </p>
+          ) : null}
+          {FACTION_ARTICLES[article.faction]?.disputed ? (
+            <p className="person-note">
+              存疑
+              {FACTION_ARTICLES[article.faction]?.note
+                ? `：${FACTION_ARTICLES[article.faction]?.note}`
+                : ''}
+            </p>
+          ) : null}
         </div>
       ) : null}
 
