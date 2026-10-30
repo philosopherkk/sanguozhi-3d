@@ -11,6 +11,61 @@
     "activeTo": 622
   },
   {
+    "id": "taira-masakado",
+    "name": "平將門",
+    "years": "？–940",
+    "role": "關東豪族／叛亂者",
+    "era": "平安",
+    "summary": "天慶二年前後在關東稱「新皇」，旋為平貞盛・藤原秀郷等所破而死。",
+    "source": "《將門記》；日本古代史通說",
+    "activeFrom": 931,
+    "activeTo": 940
+  },
+  {
+    "id": "fujiwara-michinaga",
+    "name": "藤原道長",
+    "years": "966–1028（約）",
+    "role": "摂政・太政大臣",
+    "era": "平安",
+    "summary": "北家全盛代表。以外戚與內覽／摂政掌朝；《御堂関白記》自筆本為國寶／世界記憶遺產級史料。未實任関白。",
+    "source": "《御堂関白記》；《大鏡》",
+    "activeFrom": 995,
+    "activeTo": 1027
+  },
+  {
+    "id": "minamoto-yoriyoshi",
+    "name": "源頼義",
+    "years": "988–1075（約）",
+    "role": "陸奧守・鎮守府將軍",
+    "era": "平安",
+    "summary": "前九年之役主將，聯清原氏平安倍氏，為源氏棟梁傳統重要一環。",
+    "source": "《陸奥話記》；日本中世史通說",
+    "activeFrom": 1051,
+    "activeTo": 1063
+  },
+  {
+    "id": "shirakawa-tenno",
+    "name": "白河天皇（上皇）",
+    "years": "1053–1129",
+    "role": "天皇／上皇（院政）",
+    "era": "平安",
+    "summary": "1086年譲位開院政，長期為治天。改變摂関與天皇家權力分配。",
+    "source": "院政史研究通說；《日本紀略》系",
+    "activeFrom": 1073,
+    "activeTo": 1129
+  },
+  {
+    "id": "minamoto-yoshiie",
+    "name": "源義家",
+    "years": "1039–1106（約）",
+    "role": "陸奧守",
+    "era": "平安",
+    "summary": "後三年之役主將。事蹟依《奧州後三年記》系；私戰定性與繪詞層累，細節宜審。",
+    "source": "《奧州後三年記》系",
+    "activeFrom": 1083,
+    "activeTo": 1087
+  },
+  {
     "id": "minamoto-yoritomo",
     "name": "源賴朝",
     "years": "1147–1199",

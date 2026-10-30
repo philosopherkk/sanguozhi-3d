@@ -55,6 +55,28 @@
     "activeTo": 649
   },
   {
+    "id": "xuanzang",
+    "name": "玄奘",
+    "years": "602–664（約）",
+    "role": "僧人／譯經師",
+    "era": "唐",
+    "summary": "西行求法，歸譯佛典，撰《大唐西域記》。",
+    "source": "《大慈恩寺三藏法師傳》；《大唐西域記》",
+    "activeFrom": 629,
+    "activeTo": 664
+  },
+  {
+    "id": "wu-zetian",
+    "name": "武則天",
+    "years": "624–705（約）",
+    "role": "皇帝（武周）／天后",
+    "era": "唐",
+    "summary": "自天后臨朝至天授稱帝，改唐為周；神龍政變後去帝號。制度與用人影響開元前局。",
+    "source": "《舊唐書·則天皇后紀》；《新唐書·則天武后紀》",
+    "activeFrom": 660,
+    "activeTo": 705
+  },
+  {
     "id": "zhao-kuangyin",
     "name": "宋太祖趙匡胤",
     "years": "927–976",
@@ -75,6 +97,17 @@
     "source": "《明史·太祖紀》",
     "activeFrom": 1352,
     "activeTo": 1398
+  },
+  {
+    "id": "zheng-he",
+    "name": "鄭和",
+    "years": "1371–1433（約）",
+    "role": "太監／使節",
+    "era": "明",
+    "summary": "雲南人，永樂至宣德間七下西洋。事蹟以《明史》本傳與實錄為綱；船隊尺度與「和平／武力」評價現代爭論多。",
+    "source": "《明史·鄭和傳》",
+    "activeFrom": 1405,
+    "activeTo": 1433
   },
   {
     "id": "sun-yat-sen",
