@@ -1,10 +1,10 @@
-/** 主要行軍，像素對齊現代東亞地勢。沿河與關隘；未逐一貼谷的彎折為示意。 */
+/** 主要行軍路線；像素對齊現代東亞地勢。沿河與關隘；未逐一貼合山谷彎折，僅作示意。 */
 
 export interface MarchRoute {
   id: string
   name: string
   year: number
-  /** 只在逐月放大嘅年份使用。其他路線唔設，仍按年顯示。 */
+  /** 僅在啟用逐月放大地圖的年份使用此欄。其餘路線不設定月份，仍按年顯示。 */
   month?: number
   /** 行軍一方。中國用 FactionId，日本用 SengokuFactionId。 */
   faction: string

@@ -5,5 +5,5 @@
 - If a fact is uncertain or disputed, set `"disputed": true` and explain why in `note`.
 - Map borders are approximate. Base them on 譚其驤《中國歷史地圖集》第三冊.
 - Commit after each phase. Use Conventional Commits.
-Always reply in Cantonese
-All UI text must be in Traditional Chinese. Never use Simplified Chinese characters. When the user speaks via voice input, transcribe and respond in Cantonese.
+- Agent chat replies to the user may use Cantonese (粵語口語).
+- Code comments, data fields (names, notes, sources), and all in-app UI copy must use formal Traditional Chinese (書面語). Do not use Cantonese colloquial particles or wording (例如：嘅、唔、咗、咩、佢等).
