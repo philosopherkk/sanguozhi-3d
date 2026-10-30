@@ -127,10 +127,13 @@
     "year": 263,
     "attacker": "曹魏",
     "defender": "蜀漢",
-    "commanders": ["鄧艾", "鍾會", "姜維", "劉禪"],
-    "result": "鄧艾至成都，後主降。",
+    "commanders": ["鄧艾", "鍾會", "姜維", "劉禪", "諸葛瞻", "廖化"],
+    "attackerCommanders": ["鄧艾", "鍾會"],
+    "defenderCommanders": ["姜維", "諸葛瞻", "劉禪"],
+    "result": "鍾會出斜谷攻劍閣，姜維拒守；鄧艾自陰平道入江油，破諸葛瞻於綿竹，後主遣使降。",
     "territory_change": "蜀漢亡，益州入魏。",
-    "source": "《三國志·魏書·鄧艾傳》；《三國志·蜀書·後主傳》"
+    "source": "《三國志·魏書·鄧艾傳》；《三國志·魏書·鍾會傳》；《三國志·蜀書·後主傳》；《資治通鑑》卷七十八",
+    "note": "陰平道險，史載艾以精卒自裹氈越險；與鍾會劍閣正面為同役平行戰線。"
   },
   {
     "id": "battle-conquest-wu",
@@ -138,10 +141,13 @@
     "year": 280,
     "attacker": "西晉",
     "defender": "孫吳",
-    "commanders": ["王濬", "杜預", "王渾", "孫皓"],
-    "result": "晉水軍下建業，孫皓降。",
+    "commanders": ["王濬", "杜預", "王渾", "張悌", "孫皓", "陸景"],
+    "attackerCommanders": ["王濬", "杜預", "王渾"],
+    "defenderCommanders": ["張悌", "陸景", "孫皓"],
+    "result": "咸寧五年（279）晉大舉伐吳，沿江而下；太康元年（280）王濬舟師抵建業，孫皓面縛輿櫬。",
     "territory_change": "吳亡，三國結束。",
-    "source": "《晉書·武帝紀》；《晉書·王濬傳》"
+    "source": "《晉書·武帝紀》；《晉書·王濬傳》；《晉書·杜預傳》；《資治通鑑》卷八十",
+    "note": "戰役跨年：279 冬發動、280 春吳都陷；本條 year 取孫皓降之年。"
   },
   {
     "id": "battle-balang",
@@ -176,5 +182,108 @@
     "result": "恪圍新城不克，士卒多病，退軍。",
     "territory_change": "無。",
     "source": "《三國志·吳書·諸葛恪傳》；《三國志·魏書·滿寵傳》相關敘事"
+  },
+  {
+    "id": "battle-ruxu-213",
+    "name": "濡須口之戰",
+    "year": 213,
+    "attacker": "曹魏",
+    "defender": "孫吳",
+    "commanders": ["曹操", "孫權", "蔣欽", "徐盛"],
+    "result": "〈武帝紀〉載操至濡須口，權遣使請降；操引軍還。〈吳主傳〉載權與操隔江對峙，數次交鋒。",
+    "territory_change": "江淮界線大致維持，無大規模易手。",
+    "source": "《三國志·魏書·武帝紀》；《三國志·吳書·吳主傳》"
+  },
+  {
+    "id": "battle-ruxu-217",
+    "name": "濡須之戰",
+    "year": 217,
+    "attacker": "曹魏",
+    "defender": "孫吳",
+    "commanders": ["曹操", "孫權", "樂進", "凌統"],
+    "result": "曹操至濡須，權遣使請降；操引軍還。〈樂進傳〉載進與權於濡須口對守。",
+    "territory_change": "無。",
+    "source": "《三國志·魏書·武帝紀》；《三國志·魏書·樂進傳》；《三國志·吳書·吳主傳》"
+  },
+  {
+    "id": "battle-jiangling-209",
+    "name": "江陵／南郡之役",
+    "year": 209,
+    "attacker": "孫吳",
+    "defender": "曹魏",
+    "commanders": ["周瑜", "程普", "曹仁", "甘寧"],
+    "result": "周瑜圍江陵，與曹仁相持歲餘，仁退；南郡諸縣歸吳。",
+    "territory_change": "南郡入孫吳，荊州要地易手。",
+    "source": "《三國志·吳書·周瑜傳》；《三國志·魏書·曹仁傳》",
+    "note": "赤壁後續攻取江陵、南郡，208 冬起事，209 年定；本條 year 取南郡歸吳之時。"
+  },
+  {
+    "id": "battle-shiting",
+    "name": "石亭之戰",
+    "year": 228,
+    "attacker": "曹魏",
+    "defender": "孫吳",
+    "commanders": ["曹休", "賈逵", "陸遜", "朱桓", "全琮"],
+    "attackerCommanders": ["曹休", "賈逵"],
+    "defenderCommanders": ["陸遜", "朱桓", "全琮"],
+    "result": "休率步騎至皖，為陸遜所破，退走；休旋即病薨。",
+    "territory_change": "魏未能南進，淮南形勢仍對峙。",
+    "source": "《三國志·吳書·陸遜傳》；《三國志·魏書·曹休傳》",
+    "troops": {
+      "attacker": 100000,
+      "claimed": true
+    },
+    "note": "〈曹休傳〉載休率步騎十餘萬至皖，為約數非點驗；吳軍數不詳，不列 claimed 數。"
+  },
+  {
+    "id": "battle-chencang",
+    "name": "陳倉之戰",
+    "year": 228,
+    "attacker": "蜀漢",
+    "defender": "曹魏",
+    "commanders": ["諸葛亮", "郝昭", "王雙"],
+    "result": "亮圍陳倉，昭守城不下；亮糧盡引退，追擊斬王雙。",
+    "territory_change": "隴右仍屬魏，蜀第二次北伐無功。",
+    "source": "《三國志·蜀書·諸葛亮傳》；《三國志·魏書·明帝紀》",
+    "note": "建興六年（228）冬出散關圍陳倉；郝昭事見裴松之注引《魏略》。陳倉攻防以〈諸葛亮傳〉、〈明帝紀〉為主。"
+  },
+  {
+    "id": "battle-xingshi",
+    "name": "興勢之役",
+    "year": 244,
+    "attacker": "曹魏",
+    "defender": "蜀漢",
+    "commanders": ["曹爽", "夏侯玄", "郭淮", "王平", "費禕", "劉敏"],
+    "attackerCommanders": ["曹爽", "夏侯玄", "郭淮"],
+    "defenderCommanders": ["王平", "費禕", "劉敏"],
+    "result": "魏攻興勢，蜀拒守，魏不利而退。",
+    "territory_change": "漢中仍屬蜀。",
+    "source": "《三國志·蜀書·後主傳》；《三國志·蜀書·王平傳》；《資治通鑑》卷七十四",
+    "note": "正始五年（244）魏曹爽攻蜀；蜀護軍劉敏與王平等守興勢，郭淮為魏前鋒（《資治通鑑》卷七十四）。"
+  },
+  {
+    "id": "battle-gaopingling",
+    "name": "高平陵之變",
+    "year": 249,
+    "attacker": "曹魏",
+    "defender": "曹魏",
+    "commanders": ["司馬懿", "曹爽", "曹羲", "何晏"],
+    "result": "懿趁爽從帝祭高平陵，閉城、發詔，爽降被誅；魏政權歸司馬氏。",
+    "territory_change": "無疆界變動；魏中央權力更迭。",
+    "source": "《三國志·魏書·少帝紀》；《晉書·宣帝紀》",
+    "note": "attacker／defender 皆標曹魏，表示同國內政變武力解決；非對外國戰役。"
+  },
+  {
+    "id": "battle-dongxing",
+    "name": "東興之役",
+    "year": 252,
+    "attacker": "曹魏",
+    "defender": "孫吳",
+    "commanders": ["胡遵", "諸葛誕", "諸葛恪", "丁奉", "呂據"],
+    "attackerCommanders": ["胡遵", "諸葛誕"],
+    "defenderCommanders": ["諸葛恪", "丁奉", "呂據"],
+    "result": "魏軍攻東興堤；恪、丁奉等拒戰，丁奉雪夜破魏浮橋，魏軍大敗。",
+    "territory_change": "魏東興、合肥間防線受挫，吳暫占上風。",
+    "source": "《三國志·吳書·諸葛恪傳》；《三國志·魏書·諸葛誕傳》"
   }
 ]
