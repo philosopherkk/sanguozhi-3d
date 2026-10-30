@@ -2,7 +2,7 @@
  * 由 scripts/gen_era_regions.py 依經緯示意塊裁到陸地海岸。
  * 不是東漢三國十八州，也沒有減去 basemapProvinceRings。
  * 海岸跟底圖陸地；內陸邊是該時代的政區大勢，不是縣界。
- * 地理底圖精神據譚其驤《中國歷史地圖集》。細節有爭議處在各快照 note。
+ * 地理大勢據譚其驤精神；幾何非譚圖逐幅矢量化（見 eraRegionsProvenance.ts）。
  */
 export type EraRing = [number, number][]
 

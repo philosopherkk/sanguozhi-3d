@@ -7,6 +7,7 @@ import { SENGOKU_DAIMYO_LABELS } from '../data/daimyoLabels'
 import { SENGOKU_MARCH_ROUTES } from '../data/marchRoutes'
 import { SENGOKU_BASEMAP } from '../data/basemaps'
 import { SENGOKU_MAP_H, SENGOKU_MAP_W } from '../data/regions'
+import { SENGOKU_TERRITORY_NOTE } from '../data/territoryControl'
 import { TRACED_DOMAINS } from '../data/tracedDomains'
 import { sengokuFactionColor } from '../lib/factionColors'
 import { useSengokuSelection } from '../state/SengokuSelectionContext'
@@ -163,7 +164,7 @@ export function SengokuMap() {
           {basemap.credit}
         </a>
         {basemap.license ? `（${basemap.license}）` : ''}
-        。現代列島地勢，平安、戰國、幕末、江戶共用，不按時代換古圖。海岸沿底圖陸地收回；大名內陸分界仍是示意，非學術地圖矢量化追蹤。大名用漢字。渡海只標文祿。
+        。現代列島地勢，平安、戰國、幕末、江戶共用，不按時代換古圖。海岸沿底圖陸地收回；大名內陸分界仍是示意。{SENGOKU_TERRITORY_NOTE}大名用漢字。渡海只標文祿。
       </p>
     </div>
   )
