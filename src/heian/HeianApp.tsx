@@ -8,6 +8,7 @@ import {
   heianDetailFor,
   heianReadingFor,
 } from './data/history'
+import { HEIAN_TERRITORY_NOTE } from './data/territory'
 import { HeianSelectionProvider, useHeianSelection } from './state/HeianSelectionContext'
 import { HeianYearProvider, useHeianYear } from './state/HeianYearContext'
 import { HEIAN_FACTIONS } from './types'
@@ -59,7 +60,7 @@ function HeianBody() {
         <p>
           平安末期（1150–1185）· 平安時代是794–1185，本專題只收源平合戰 · 據《吾妻鏡》系及日本中世史通說 ·
           不用遊戲劇情、不把軍記對話當作實錄 · 行軍只顯示該年 ·
-          左行軍右勢力 · 與戰國、幕末、三國志資料分離 · 色塊幾何非學術地圖矢量化追蹤
+          左行軍右勢力 · 與戰國、幕末、三國志資料分離 · {HEIAN_TERRITORY_NOTE}
         </p>
       </footer>
     </div>

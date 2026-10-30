@@ -7,6 +7,7 @@ import {
 } from '../components/map/RouteOverlay'
 import type { MarchRoute } from '../data/marchRoutes'
 import { MapZoomControls, useMapViewport } from '../lib/mapViewport'
+import { JAPAN_TERRITORY_NOTE_ZH } from '../data/territory/provenance'
 import { SENGOKU_BASEMAP } from '../sengoku/data/basemaps'
 import { SENGOKU_MAP_H, SENGOKU_MAP_W } from '../sengoku/data/regions'
 
@@ -208,7 +209,7 @@ export function EraMapView({
           {basemap.credit}
         </a>
         {basemap.license ? `（${basemap.license}）` : ''}
-        。現代列島地勢，平安、戰國、幕末、江戶共用。海岸沿底圖陸地收回；內陸分界仍是示意。渡海只標壇之浦與箱館。色塊預設半透明（約
+        。現代列島地勢，平安、戰國、幕末、江戶共用。{JAPAN_TERRITORY_NOTE_ZH} 渡海只標壇之浦與箱館。色塊預設半透明（約
         0.62，點選約 0.78）。{shadeNote}
       </p>
     </div>

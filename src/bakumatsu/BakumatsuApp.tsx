@@ -8,6 +8,7 @@ import {
   bakumatsuDetailFor,
   bakumatsuReadingFor,
 } from './data/history'
+import { BAKUMATSU_TERRITORY_NOTE } from './data/territory'
 import {
   BakumatsuSelectionProvider,
   useBakumatsuSelection,
@@ -61,7 +62,7 @@ function BakumatsuBody() {
       <footer className="app-footer">
         <p>
           幕末（1853–1868）· 只是德川江戶的最後一段 · 據日本近代史通說 · 1853至1868可逐月 · 沒有專條的月份標「本月無專條」 · 1869年箱館與開拓使見「明治至當代」 ·
-          不用遊戲劇情 · 行軍只顯示該月 · 與戰國、平安、三國志資料分離 · 色塊幾何非學術地圖矢量化追蹤
+          不用遊戲劇情 · 行軍只顯示該月 · 與戰國、平安、三國志資料分離 · {BAKUMATSU_TERRITORY_NOTE}
         </p>
       </footer>
     </div>
