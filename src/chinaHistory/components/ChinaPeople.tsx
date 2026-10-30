@@ -45,23 +45,28 @@ export function ChinaPeople() {
         aria-label="搜尋人物"
       />
 
-      <ul className="people-list">
-        {ranked.map((p) => (
-          <li key={p.id}>
-            <button
-              type="button"
-              className={
-                openId === p.id ? 'people-card is-active' : 'people-card'
-              }
-              onClick={() => setOpenId(p.id)}
-            >
-              <strong>{p.name}</strong>
-              <span className="people-aka">{p.years}</span>
-              <span className="people-role">{p.role}</span>
-            </button>
-          </li>
-        ))}
-      </ul>
+      {ranked.length === 0 ? (
+        <p className="empty-hint">沒有符合的人物。試清除篩選或改搜尋。</p>
+      ) : (
+        <ul className="people-list">
+          {ranked.map((p) => (
+            <li key={p.id}>
+              <button
+                type="button"
+                className={
+                  openId === p.id ? 'people-card is-active' : 'people-card'
+                }
+                onClick={() => setOpenId(p.id)}
+              >
+                <strong>{p.name}</strong>
+                <span className="people-aka">{p.years}</span>
+                <span className="people-role">{p.role}</span>
+                <span className="person-source">{p.source}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
 
       {open ? (
         <div className="person-detail">

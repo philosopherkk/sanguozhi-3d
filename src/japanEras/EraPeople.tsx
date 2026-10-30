@@ -60,32 +60,41 @@ export function EraPeople({
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
-      <ul className="people-list">
-        {list.map((p) => {
-          const active = selected?.id === p.id
-          return (
-            <li key={p.id}>
-              <button
-                type="button"
-                className={active ? 'people-card is-active' : 'people-card'}
-                onClick={() => setSelectedId(active ? null : p.id)}
-              >
-                <strong>{p.name}</strong>
-                {p.aka ? <span className="people-aka">{p.aka}</span> : null}
-                <span
-                  className="faction-chip"
-                  style={{ borderColor: colorFor(p.faction) }}
+      {list.length === 0 ? (
+        <p className="empty-hint">
+          {query.trim() || selectedFaction
+            ? '沒有符合的人物。試清除篩選或改搜尋。'
+            : '這一年沒有登錄在世的人物。'}
+        </p>
+      ) : (
+        <ul className="people-list">
+          {list.map((p) => {
+            const active = selected?.id === p.id
+            return (
+              <li key={p.id}>
+                <button
+                  type="button"
+                  className={active ? 'people-card is-active' : 'people-card'}
+                  onClick={() => setSelectedId(active ? null : p.id)}
                 >
-                  <i style={{ background: colorFor(p.faction) }} />
-                  {factionName(p.faction)}
-                </span>
-                <span className="people-role">{p.role}</span>
-                <span className="people-card__summary">{p.summary}</span>
-              </button>
-            </li>
-          )
-        })}
-      </ul>
+                  <strong>{p.name}</strong>
+                  {p.aka ? <span className="people-aka">{p.aka}</span> : null}
+                  <span
+                    className="faction-chip"
+                    style={{ borderColor: colorFor(p.faction) }}
+                  >
+                    <i style={{ background: colorFor(p.faction) }} />
+                    {factionName(p.faction)}
+                  </span>
+                  <span className="people-role">{p.role}</span>
+                  <span className="people-card__summary">{p.summary}</span>
+                  <span className="person-source">{p.source}</span>
+                </button>
+              </li>
+            )
+          })}
+        </ul>
+      )}
       {selected ? (
         <article className="person-detail">
           <h3>{selected.name}</h3>
