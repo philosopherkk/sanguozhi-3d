@@ -32,6 +32,9 @@ export function FactionLegend() {
         <p className="faction-legend__note">
           {wuxiNote.text}
           <cite>{wuxiNote.source}</cite>
+          {wuxiNote.note ? (
+            <span className="person-note"> {wuxiNote.note}</span>
+          ) : null}
         </p>
       ) : null}
     </aside>

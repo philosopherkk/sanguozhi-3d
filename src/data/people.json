@@ -241,13 +241,13 @@
     "id": "sun-jian",
     "name": "孫堅",
     "字": "文臺",
-    "birth": 155,
     "death": 191,
     "faction_by_year": [{ "faction": "孫吳", "from": 184, "to": 191 }],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/孫堅",
     "grokipedia_url": "https://grokipedia.com/page/Sun_Jian",
-    "source": "《三國志·吳書·孫破虜討逆傳》"
+    "source": "《三國志·吳書·孫破虜討逆傳》",
+    "note": "破虜傳無享年；歷代年表生年不可據為正史定值。"
   },
   {
     "id": "sun-ce",
@@ -436,7 +436,9 @@
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/張遼",
     "grokipedia_url": "https://grokipedia.com/page/Zhang_Liao",
-    "source": "《三國志·魏書·張遼傳》"
+    "source": "《三國志·魏書·張遼傳》",
+    "disputed": true,
+    "note": "傳僅「領魯相，時年二十八」；魯相在建安元—三年間，生年約 169—171，現行 169 為取下限推算。"
   },
   {
     "id": "xu-huang",
@@ -601,13 +603,13 @@
     "id": "deng-ai",
     "name": "鄧艾",
     "字": "士載",
-    "birth": 197,
     "death": 264,
     "faction_by_year": [{ "faction": "曹魏", "from": 235, "to": 264 }],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/鄧艾",
     "grokipedia_url": "https://grokipedia.com/page/Deng_Ai",
-    "source": "《三國志·魏書·鄧艾傳》"
+    "source": "《三國志·魏書·鄧艾傳》",
+    "note": "鄧艾傳無享年，生年不列。"
   },
   {
     "id": "zhong-hui",
