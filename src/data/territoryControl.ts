@@ -1,11 +1,19 @@
 import type { FactionId } from '../types/data'
 import type { ProvinceId } from './provinces'
 
+import {
+  TK_PROVINCE_GEOMETRY,
+  TK_TERRITORY_NOTE_ZH,
+  type TerritoryGeometryProvenance,
+} from './territory/provenance'
+
 /**
  * Schematic 州-level control at snapshot years.
  * Borders approximate; when disputed, prefer the power that held the administrative centre.
- * source: compiled from 《三國志》紀傳 + 譚其驤示意，非精確測繪。
+ * Narrative source: 《三國志》紀傳 + 譚其驤示意；geometry: see TERRITORY_GEOMETRY_PROVENANCE.
  */
+export const TERRITORY_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance =
+  TK_PROVINCE_GEOMETRY
 export const TERRITORY_KEY_YEARS = [
   184, 190, 200, 208, 215, 219, 222, 234, 249, 263, 265, 280,
 ] as const
@@ -269,8 +277,7 @@ export const TERRITORY_BY_YEAR: Record<TerritoryKeyYear, ProvinceControl> = {
   },
 }
 
-export const TERRITORY_NOTE =
-  '州界為示意，據勢力中心歸屬著色；細郡爭奪與羈縻未盡標出。'
+export const TERRITORY_NOTE = TK_TERRITORY_NOTE_ZH
 
 export function resolveTerritoryYear(year: number): TerritoryKeyYear {
   let best: TerritoryKeyYear = TERRITORY_KEY_YEARS[0]

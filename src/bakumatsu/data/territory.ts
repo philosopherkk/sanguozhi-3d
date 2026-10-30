@@ -1,5 +1,15 @@
 import { TRACED_DOMAINS } from '../../sengoku/data/tracedDomains'
 import type { BakumatsuFactionId } from '../types'
+import {
+  JAPAN_TERRITORY_NOTE_ZH,
+  JAPAN_VORONOI_DOMAINS,
+  type TerritoryGeometryProvenance,
+} from '../../data/territory/provenance'
+
+export const BAKUMATSU_TERRITORY_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance =
+  JAPAN_VORONOI_DOMAINS
+
+export const BAKUMATSU_TERRITORY_NOTE = JAPAN_TERRITORY_NOTE_ZH
 
 const PLACE: Record<string, string> = {
   d0: '會津',

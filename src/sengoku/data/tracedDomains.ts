@@ -1,5 +1,9 @@
-/** 勢力塊貼在現代列島地勢上。海岸沿底圖陸地收回；內陸界為示意。 */
+/** 勢力塊貼在現代列島地勢上。海岸沿底圖陸地收回；內陸界為示意（非學術地圖矢量化）。 */
 import type { SengokuFactionId, SengokuRegionId } from '../types'
+import {
+  JAPAN_VORONOI_DOMAINS,
+  type TerritoryGeometryProvenance,
+} from '../../data/territory/provenance'
 
 export interface TracedDomain {
   id: string
@@ -937,3 +941,6 @@ export const TRACED_DOMAINS: TracedDomain[] = [
     ],
   },
 ]
+
+export const TRACED_DOMAINS_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance =
+  JAPAN_VORONOI_DOMAINS

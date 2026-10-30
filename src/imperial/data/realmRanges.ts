@@ -1,7 +1,15 @@
 /** 各朝快照用的勢力環。只引用 eraRegions，不引用三國州界。
  * 地理大勢據譚其驤《中國歷史地圖集》精神；邊是示意，不是縣界。
+ * 幾何為 gen_era_regions 示意框 — 非譚圖逐幅矢量化。
  */
 import { cover, type FactionRange } from '../../geo/eraCover'
+import {
+  ERA_REGIONS_GEOMETRY,
+  type TerritoryGeometryProvenance,
+} from '../../data/territory/provenance'
+
+export const REALM_RANGES_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance =
+  ERA_REGIONS_GEOMETRY
 
 const NORTH = [
   'hebei',

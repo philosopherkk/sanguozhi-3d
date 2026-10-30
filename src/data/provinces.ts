@@ -1,9 +1,15 @@
+import {
+  TK_PROVINCE_GEOMETRY,
+  type TerritoryGeometryProvenance,
+} from './territory/provenance'
+
 /**
  * Approximate 州 polygons (lon/lat) for the 3D map.
  * 2D overlays use basemap-pixel rings in `basemapProvinceRings.json`
- * (digitized + land-clipped against sanguo_xingzheng_hant.png).
- * Borders remain schematic — see AGENTS.md / 譚其驤.
+ * (land-clipped against modern relief — not 譚 plate-traced).
  */
+export const PROVINCES_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance =
+  TK_PROVINCE_GEOMETRY
 
 export type ProvinceId =
   | '幽州'

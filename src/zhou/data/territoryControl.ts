@@ -1,5 +1,9 @@
 import { cover, type FactionRange } from '../../geo/eraCover'
 import { extensionAreaStats } from '../../lib/eraShapes'
+import {
+  ERA_REGIONS_GEOMETRY,
+  type TerritoryGeometryProvenance,
+} from '../../data/territory/provenance'
 import { ZHOU_FACTION_ORDER } from '../lib/factionColors'
 import type { ZhouFactionId } from '../types'
 
@@ -22,8 +26,11 @@ export interface ZhouSnapshot {
   ranges: FactionRange[]
 }
 
+export const ZHOU_TERRITORY_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance =
+  ERA_REGIONS_GEOMETRY
+
 export const ZHOU_TERRITORY_NOTE =
-  '色塊是該時代的示意範圍，跟著海岸，不是三國州界，也不是縣界。小國與爭奪地帶沒有逐一畫出。戎狄不是編戶。'
+  '色塊是該時代的示意範圍，跟著海岸，不是三國州界，也不是縣界。幾何非譚第一冊圖幅矢量化追蹤。小國與爭奪地帶沒有逐一畫出。戎狄不是編戶。'
 
 function hold(entries: [string, ZhouFactionId][]): FactionRange[] {
   const grouped = new Map<ZhouFactionId, string[]>()

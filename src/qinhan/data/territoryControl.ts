@@ -1,5 +1,9 @@
 import { cover, type FactionRange } from '../../geo/eraCover'
 import { extensionAreaStats } from '../../lib/eraShapes'
+import {
+  ERA_REGIONS_GEOMETRY,
+  type TerritoryGeometryProvenance,
+} from '../../data/territory/provenance'
 import { QINHAN_FACTION_ORDER } from '../lib/factionColors'
 import type { QinHanFactionId } from '../types'
 
@@ -22,8 +26,11 @@ export interface QinHanSnapshot {
   ranges: FactionRange[]
 }
 
+export const QINHAN_TERRITORY_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance =
+  ERA_REGIONS_GEOMETRY
+
 export const QINHAN_TERRITORY_NOTE =
-  '色塊是該時代的示意範圍，跟著海岸，不是三國州界，也不是郡國實測。匈奴在塞外，不是編戶。'
+  '色塊是該時代的示意範圍，跟著海岸，不是三國州界，也不是郡國實測。幾何非譚第二冊圖幅矢量化追蹤。匈奴在塞外，不是編戶。'
 
 const empty: QinHanControl = {}
 

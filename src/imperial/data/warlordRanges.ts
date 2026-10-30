@@ -1,10 +1,15 @@
 /** 民國軍閥勢力示意塊。像素對齊 china_edcp_relief 1968×1567。
  * 外形是各地盤的粗略範圍，不是東漢三國的十八州界，也不是縣界。
- * 據北洋至抗戰的通說：奉系在東北，直系在華北與長江中游，
- * 皖系在皖浙，晉系在山西，西北軍在陝甘，桂系在廣西，滇系在雲南，
- * 粵系在廣東，川系在四川。新疆、西藏分開，不併進「地方軍閥」一色。
+ * 非譚民國幅矢量化 — 見 WARLORD_RANGES_GEOMETRY_PROVENANCE。
  */
 import type { OuterRing } from './outerRings'
+import {
+  WARLORD_RANGES_GEOMETRY,
+  type TerritoryGeometryProvenance,
+} from '../../data/territory/provenance'
+
+export const WARLORD_RANGES_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance =
+  WARLORD_RANGES_GEOMETRY
 
 export type WarlordRangeId =
   | 'feng'

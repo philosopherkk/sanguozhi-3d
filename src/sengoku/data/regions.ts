@@ -1,9 +1,16 @@
 /**
  * 令制國分區名稱。地圖像素改以現代日本地勢（1482×1477）為準。
- * 邊界為教學示意，非精密測繪。
+ * 邊界為教學示意，非精密測繪，非學術地圖矢量化。
  */
 
 import type { SengokuRegion } from '../types'
+import {
+  JAPAN_VORONOI_DOMAINS,
+  type TerritoryGeometryProvenance,
+} from '../../data/territory/provenance'
+
+export const SENGOKU_REGIONS_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance =
+  JAPAN_VORONOI_DOMAINS
 
 /** Basemap pixel size */
 export const SENGOKU_MAP_W = 1482
