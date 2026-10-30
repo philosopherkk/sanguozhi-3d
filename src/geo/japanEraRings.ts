@@ -1,5 +1,5 @@
 /** 北海道、松前、琉球。像素對齊日本地勢 1482×1477。
- * 由 scripts/gen_era_regions.py 裁到列島海岸，不是任意圓。
+ * 由 scripts/gen_era_regions.py 裁到列島海岸；非日本學術歷史地圖矢量化（見 japanEraRingsProvenance.ts）。
  * 1604 只取渡島南部；1869 才是北海道全島；1879 才是沖繩縣。
  */
 export type EraRing = [number, number][]

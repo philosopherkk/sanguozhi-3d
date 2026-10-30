@@ -761,8 +761,12 @@ def fmt_ring(ring, indent):
 
 
 def write_domains(path: Path, domains, new_by_id):
-    header = """/** 勢力塊貼在現代列島地勢上。海岸沿底圖陸地收回；內陸界為示意。 */
+    header = """/** 勢力塊貼在現代列島地勢上。海岸沿底圖陸地收回；內陸界為示意（非學術地圖矢量化）。 */
 import type { SengokuFactionId, SengokuRegionId } from '../types'
+import {
+  JAPAN_VORONOI_DOMAINS,
+  type TerritoryGeometryProvenance,
+} from '../../data/territory/provenance'
 
 export interface TracedDomain {
   id: string
@@ -775,6 +779,12 @@ export interface TracedDomain {
 }
 
 export const TRACED_DOMAINS: TracedDomain[] = [
+"""
+    footer = """
+]
+
+export const TRACED_DOMAINS_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance =
+  JAPAN_VORONOI_DOMAINS
 """
     chunks = []
     for d in domains:
@@ -805,7 +815,7 @@ export const TRACED_DOMAINS: TracedDomain[] = [
             body.append("    ],")
             body.append("  }")
         chunks.append("\n".join(body))
-    path.write_text(header + ",\n".join(chunks) + ",\n]\n", encoding="utf-8")
+    path.write_text(header + ",\n".join(chunks) + ",\n" + footer, encoding="utf-8")
 
 
 def replace_ring_after_id(text: str, zone_id: str, ring):
@@ -1061,6 +1071,8 @@ def main():
             print(" ", p)
         raise SystemExit(1)
     payload = {
+        "approx": True,
+        "source": "手繪經緯示意框，scripts/tighten_land_borders.py 裁至現代東亞地勢；非譚其驤《中國歷史地圖集》第三冊圖幅矢量化",
         "width": w,
         "height": h,
         "provinces": {name: [[[round(x, 1), round(y, 1)] for x, y in ring] for ring in parts] for name, parts in rings.items()},
