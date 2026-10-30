@@ -7,7 +7,10 @@ export interface HistoricalBasemap {
   id: string
   /** Apply when year is >= this and before next map */
   fromYear: number
+  /** JPEG fallback (all browsers) */
   src: string
+  /** Optional WebP; Map2D serves via `<picture>` when set */
+  srcWebp?: string
   title: string
   credit: string
   license: string
@@ -26,6 +29,7 @@ export const HISTORICAL_BASEMAPS: HistoricalBasemap[] = [
     fromYear: -770,
     /** 顯示用 1968×1567（州格座標）；原檔 7872×6268 解碼過慢 */
     src: `${base}maps/china_edcp_relief_display.jpg`,
+    srcWebp: `${base}maps/china_edcp_relief_display.webp`,
     title: '現代東亞地勢（各時代共用）',
     credit: '維基共享資源〈China edcp relief location map.jpg〉· Uwe Dedering',
     license: 'CC BY-SA 3.0',
