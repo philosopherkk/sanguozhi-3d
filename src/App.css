@@ -419,6 +419,12 @@ html[data-theme='light'] .app-footer {
   pointer-events: none;
 }
 
+.map-2d__zoom-layer picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .map-2d__overlay {
   position: absolute;
   inset: 0;

@@ -212,12 +212,24 @@ export function Map2D() {
         onPointerCancel={onPointerUp}
       >
         <div className="map-2d__zoom-layer" style={layerStyle}>
-          <img
-            className="map-2d__basemap"
-            src={basemap.src}
-            alt={basemap.title}
-            draggable={false}
-          />
+          {basemap.srcWebp ? (
+            <picture>
+              <source type="image/webp" srcSet={basemap.srcWebp} />
+              <img
+                className="map-2d__basemap"
+                src={basemap.src}
+                alt={basemap.title}
+                draggable={false}
+              />
+            </picture>
+          ) : (
+            <img
+              className="map-2d__basemap"
+              src={basemap.src}
+              alt={basemap.title}
+              draggable={false}
+            />
+          )}
           <svg
             className="map-2d__overlay"
             viewBox={`0 0 ${BASEMAP_WIDTH} ${BASEMAP_HEIGHT}`}
