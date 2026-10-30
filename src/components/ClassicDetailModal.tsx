@@ -30,6 +30,10 @@ export interface ClassicDetailContent {
   layers: ReadingLayers
   zhwikiUrl: string
   furtherReading?: { label: string; url: string }[]
+  /** Card-level primary citation (AGENTS.md) */
+  entrySource?: string
+  disputed?: boolean
+  note?: string
 }
 
 export function ClassicDetailModal({
@@ -110,6 +114,14 @@ export function ClassicDetailModal({
             <h4>結果與影響</h4>
             <p>{detail.outcome}</p>
           </section>
+          {detail.entrySource ? (
+            <p className="person-source">出典：{detail.entrySource}</p>
+          ) : null}
+          {detail.disputed ? (
+            <p className="person-note">存疑條目{detail.note ? `：${detail.note}` : ''}</p>
+          ) : detail.note ? (
+            <p className="person-note">{detail.note}</p>
+          ) : null}
           <p className="person-source">
             延伸閱讀：
             <a href={detail.zhwikiUrl} target="_blank" rel="noreferrer">
