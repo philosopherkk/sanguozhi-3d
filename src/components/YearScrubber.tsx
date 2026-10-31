@@ -1,6 +1,12 @@
 import { TERRITORY_KEY_YEARS, TERRITORY_NOTE } from '../data/territoryControl'
+import timelineData from '../data/timeline.json'
+import { TimelineMonthBar } from './TimelineMonthBar'
 import { usePersistedOpen } from '../lib/usePersistedOpen'
+import { yearHasMonthDensity } from '../lib/timelineDate'
 import { useYear } from '../state/YearContext'
+import type { TimelineEvent } from '../types/data'
+
+const timelineEvents = timelineData as TimelineEvent[]
 
 const SNAP_LABELS: Partial<Record<number, string>> = {
   184: '黃巾',
@@ -50,8 +56,10 @@ function TerritoryNote() {
 }
 
 export function YearScrubber() {
-  const { year, setYear, yearMin, yearMax, territoryYear } = useYear()
+  const { year, setYear, yearMin, yearMax, territoryYear, monthFilter, setMonthFilter } =
+    useYear()
   const snapLabel = SNAP_LABELS[territoryYear]
+  const monthDense = yearHasMonthDensity(timelineEvents, year)
 
   return (
     <div className="year-scrubber" role="group" aria-label="年代滑桿">
@@ -100,6 +108,16 @@ export function YearScrubber() {
           </button>
         ))}
       </div>
+
+      {monthDense ? (
+        <TimelineMonthBar
+          year={year}
+          events={timelineEvents}
+          monthFilter={monthFilter}
+          onMonthFilter={setMonthFilter}
+          compact
+        />
+      ) : null}
 
       <TerritoryNote />
     </div>

@@ -4,7 +4,10 @@
     "year": 1467,
     "title": "應仁之亂",
     "desc": "細川勝元與山名宗全兩派在京都開戰，戰火延及諸國守護大名。室町幕府權威崩壞，戰國時代通常以此為開端。",
-    "factions": ["足利", "其他"],
+    "factions": [
+      "足利",
+      "其他"
+    ],
     "location": "京都",
     "type": "war",
     "source": "中文維基「應仁之亂」；日本史通說以1467年為戰國開端之一"
@@ -14,7 +17,9 @@
     "year": 1543,
     "title": "鐵砲傳入",
     "desc": "葡萄牙人於種子島傳入火繩槍（鐵砲），其後迅速擴散，改變戰國戰術與築城。",
-    "factions": ["其他"],
+    "factions": [
+      "其他"
+    ],
     "location": "種子島",
     "type": "politics",
     "source": "中文維基「鐵砲傳來」；「種子島」"
@@ -24,17 +29,27 @@
     "year": 1560,
     "title": "桶狹間之戰",
     "desc": "織田信長襲擊今川義元於桶狹間，義元戰死。今川氏衰退，信長開始崛起。",
-    "factions": ["織田", "今川"],
+    "factions": [
+      "織田",
+      "今川"
+    ],
     "location": "尾張桶狹間",
     "type": "war",
-    "source": "中文維基「桶狹間之戰」；「織田信長」「今川義元」"
+    "source": "《信長公記》系；日本史通說整理",
+    "month": 5,
+    "day": 19,
+    "datePrecision": "day",
+    "calendarNote": "gregorian"
   },
   {
     "id": "1573-muromachi-end",
     "year": 1573,
     "title": "室町幕府滅亡",
     "desc": "織田信長放逐將軍足利義昭出京，室町幕府實質終結。",
-    "factions": ["織田", "足利"],
+    "factions": [
+      "織田",
+      "足利"
+    ],
     "location": "京都",
     "type": "politics",
     "source": "中文維基「足利義昭」；「室町幕府」"
@@ -44,38 +59,67 @@
     "year": 1575,
     "title": "長篠之戰",
     "desc": "織田・德川聯軍以鐵砲隊大破武田勝賴騎兵，武田氏由盛轉衰。",
-    "factions": ["織田", "德川", "武田"],
+    "factions": [
+      "織田",
+      "德川",
+      "武田"
+    ],
     "location": "三河長篠",
     "type": "war",
-    "source": "中文維基「長篠之戰」；「武田勝賴」"
+    "source": "中文維基「長篠之戰」；「武田勝賴」",
+    "month": 5,
+    "day": 21,
+    "datePrecision": "day",
+    "calendarNote": "gregorian",
+    "note": "公曆換算日，和曆天正四年五月。"
   },
   {
     "id": "1582-honnoji",
     "year": 1582,
     "title": "本能寺之變",
     "desc": "明智光秀於本能寺襲殺主君織田信長。信長統一大業中斷，羽柴秀吉旋即發動山崎之戰討伐光秀。",
-    "factions": ["織田", "其他"],
+    "factions": [
+      "織田",
+      "其他"
+    ],
     "location": "京都本能寺",
     "type": "politics",
-    "source": "中文維基「本能寺之變」；「明智光秀」"
+    "source": "中文維基「本能寺之變」；「明智光秀」",
+    "month": 6,
+    "day": 2,
+    "datePrecision": "day",
+    "calendarNote": "gregorian",
+    "disputedDate": true,
+    "note": "本能寺當夜／翌日異說，採通說六月二日。"
   },
   {
     "id": "1582-yamazaki",
     "year": 1582,
     "title": "山崎之戰",
     "desc": "羽柴秀吉擊敗明智光秀，掌握信長死後主導權，其後於清洲會議中擴張勢力。",
-    "factions": ["豐臣", "其他"],
+    "factions": [
+      "豐臣",
+      "其他"
+    ],
     "location": "山城山崎",
     "type": "war",
     "source": "中文維基「山崎之戰」；「豐臣秀吉」",
-    "note": "是年秀吉尚未賜姓豐臣；faction 用豐臣表其後政權相承。"
+    "note": "是年秀吉尚未賜姓豐臣；faction 用豐臣表其後政權相承。",
+    "month": 6,
+    "day": 13,
+    "datePrecision": "day",
+    "calendarNote": "gregorian"
   },
   {
     "id": "1590-odawara",
     "year": 1590,
     "title": "小田原征伐",
     "desc": "豐臣秀吉包圍後北條氏小田原城，北條氏政降。秀吉大致完成日本統一（除蝦夷等邊陲）。",
-    "factions": ["豐臣", "北條", "德川"],
+    "factions": [
+      "豐臣",
+      "北條",
+      "德川"
+    ],
     "location": "相模小田原",
     "type": "war",
     "source": "中文維基「小田原征伐」；「後北條氏」"
@@ -85,7 +129,9 @@
     "year": 1592,
     "title": "文祿之役（壬辰倭亂開端）",
     "desc": "秀吉出兵朝鮮，與朝鮮、明軍交戰。戰爭延續至慶長之役，至秀吉死後方撤軍。",
-    "factions": ["豐臣"],
+    "factions": [
+      "豐臣"
+    ],
     "location": "朝鮮半島",
     "type": "war",
     "source": "中文維基「萬曆朝鮮之役」；「文祿・慶長之役」"
@@ -95,7 +141,10 @@
     "year": 1598,
     "title": "豐臣秀吉卒",
     "desc": "秀吉病卒，遺命五大老・五奉行輔佐幼主秀賴。德川家康勢力迅速抬頭。",
-    "factions": ["豐臣", "德川"],
+    "factions": [
+      "豐臣",
+      "德川"
+    ],
     "location": "伏見",
     "type": "succession",
     "source": "中文維基「豐臣秀吉」；「豐臣秀賴」"
@@ -105,17 +154,28 @@
     "year": 1600,
     "title": "關原之戰",
     "desc": "德川家康率東軍擊敗石田三成等西軍，奠定江戶幕府霸權基礎。",
-    "factions": ["德川", "豐臣", "其他"],
+    "factions": [
+      "德川",
+      "豐臣",
+      "其他"
+    ],
     "location": "美濃關原",
     "type": "war",
-    "source": "中文維基「關原之戰」；「德川家康」「石田三成」"
+    "source": "中文維基「關原之戰」；「德川家康」「石田三成」",
+    "month": 9,
+    "day": 15,
+    "datePrecision": "day",
+    "calendarNote": "gregorian",
+    "note": "慶長五年九月十五（公曆換算）。"
   },
   {
     "id": "1603-edo-bakufu",
     "year": 1603,
     "title": "江戶幕府開府",
     "desc": "家康受任征夷大將軍，開江戶幕府，進入江戶時代；戰國動亂大致平息。",
-    "factions": ["德川"],
+    "factions": [
+      "德川"
+    ],
     "location": "江戶",
     "type": "politics",
     "source": "中文維基「江戶幕府」；「德川家康」"
@@ -125,9 +185,16 @@
     "year": 1615,
     "title": "大坂夏之陣",
     "desc": "德川幕府攻滅豐臣秀賴，豐臣氏滅亡。常被視為戰國時代之終點。",
-    "factions": ["德川", "豐臣"],
+    "factions": [
+      "德川",
+      "豐臣"
+    ],
     "location": "大坂",
     "type": "war",
-    "source": "中文維基「大坂之陣」；「豐臣秀賴」"
+    "source": "中文維基「大坂之陣」；「豐臣秀賴」",
+    "month": 5,
+    "datePrecision": "month",
+    "calendarNote": "jp-nengo",
+    "note": "大坂夏之陣（和曆五月）。"
   }
 ]

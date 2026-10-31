@@ -5,7 +5,13 @@
     "year": 200,
     "attacker": "袁紹",
     "defender": "曹魏",
-    "commanders": ["袁紹", "曹操", "許攸", "張郃", "高覽"],
+    "commanders": [
+      "袁紹",
+      "曹操",
+      "許攸",
+      "張郃",
+      "高覽"
+    ],
     "result": "曹操奇襲烏巢，袁軍崩潰；紹僅以數百騎遁還。",
     "territory_change": "曹操逐漸吞併河北，袁氏勢力瓦解。",
     "source": "《三國志·魏書·武帝紀》；《三國志·魏書·袁紹傳》",
@@ -23,7 +29,12 @@
     "year": 208,
     "attacker": "曹魏",
     "defender": "孫吳",
-    "commanders": ["曹操", "周瑜", "程普", "劉備"],
+    "commanders": [
+      "曹操",
+      "周瑜",
+      "程普",
+      "劉備"
+    ],
     "result": "孫劉聯軍拒操，操軍不利，燒船退還。",
     "territory_change": "荊州南部為孫、劉分據；曹操保襄樊以北。",
     "source": "《三國志·吳書·周瑜傳》；《三國志·魏書·武帝紀》",
@@ -35,7 +46,12 @@
     "year": 211,
     "attacker": "曹魏",
     "defender": "馬超韓遂",
-    "commanders": ["曹操", "馬超", "韓遂", "賈詡"],
+    "commanders": [
+      "曹操",
+      "馬超",
+      "韓遂",
+      "賈詡"
+    ],
     "result": "曹操離間馬、韓，擊破關西聯軍。",
     "territory_change": "關中歸曹操。",
     "source": "《三國志·魏書·武帝紀》；《三國志·蜀書·馬超傳》"
@@ -46,7 +62,12 @@
     "year": 215,
     "attacker": "孫吳",
     "defender": "曹魏",
-    "commanders": ["孫權", "張遼", "李典", "樂進"],
+    "commanders": [
+      "孫權",
+      "張遼",
+      "李典",
+      "樂進"
+    ],
     "result": "〈張遼傳〉寫步騎八百破孫權圍軍，權退。八百是傳文數字。",
     "territory_change": "合肥仍屬魏。",
     "source": "《三國志·魏書·張遼傳》"
@@ -57,7 +78,12 @@
     "year": 219,
     "attacker": "蜀漢",
     "defender": "曹魏",
-    "commanders": ["劉備", "法正", "黃忠", "夏侯淵"],
+    "commanders": [
+      "劉備",
+      "法正",
+      "黃忠",
+      "夏侯淵"
+    ],
     "result": "黃忠斬夏侯淵，曹操棄漢中。",
     "territory_change": "漢中歸劉備。",
     "source": "《三國志·蜀書·黃忠傳》；《三國志·魏書·夏侯淵傳》"
@@ -68,10 +94,24 @@
     "year": 219,
     "attacker": "蜀漢",
     "defender": "曹魏",
-    "commanders": ["關羽", "于禁", "龐德", "徐晃", "呂蒙"],
-    "attackerCommanders": ["關羽"],
-    "defenderCommanders": ["于禁", "龐德", "徐晃"],
-    "wuParallelCommanders": ["呂蒙"],
+    "commanders": [
+      "關羽",
+      "于禁",
+      "龐德",
+      "徐晃",
+      "呂蒙"
+    ],
+    "attackerCommanders": [
+      "關羽"
+    ],
+    "defenderCommanders": [
+      "于禁",
+      "龐德",
+      "徐晃"
+    ],
+    "wuParallelCommanders": [
+      "呂蒙"
+    ],
     "result": "羽水淹于禁；呂蒙襲南郡，羽敗亡。",
     "territory_change": "荊州（南郡等）歸孫吳。",
     "source": "《三國志·蜀書·關羽傳》；《三國志·吳書·呂蒙傳》；《資治通鑑》卷六十八",
@@ -83,7 +123,12 @@
     "year": 222,
     "attacker": "蜀漢",
     "defender": "孫吳",
-    "commanders": ["劉備", "陸遜", "馮習", "張南"],
+    "commanders": [
+      "劉備",
+      "陸遜",
+      "馮習",
+      "張南"
+    ],
     "result": "陸遜火攻連營，備大敗走白帝。",
     "territory_change": "吳保有荊州；蜀無力東出。",
     "source": "《三國志·吳書·陸遜傳》；《三國志·蜀書·先主傳》"
@@ -94,7 +139,12 @@
     "year": 228,
     "attacker": "蜀漢",
     "defender": "曹魏",
-    "commanders": ["諸葛亮", "馬謖", "王平", "張郃"],
+    "commanders": [
+      "諸葛亮",
+      "馬謖",
+      "王平",
+      "張郃"
+    ],
     "result": "馬謖違亮節度，敗於張郃。〈諸葛亮傳〉寫戮謖，〈馬謖傳〉寫下獄物故。",
     "territory_change": "第一次北伐失敗，隴右未定。",
     "source": "《三國志·蜀書·諸葛亮傳》；《三國志·蜀書·馬謖傳》"
@@ -105,7 +155,10 @@
     "year": 234,
     "attacker": "蜀漢",
     "defender": "曹魏",
-    "commanders": ["諸葛亮", "司馬懿"],
+    "commanders": [
+      "諸葛亮",
+      "司馬懿"
+    ],
     "result": "相持百餘日，亮卒於軍，蜀退。",
     "territory_change": "無大幅疆界變動。",
     "source": "《三國志·蜀書·諸葛亮傳》；《晉書·宣帝紀》"
@@ -116,7 +169,10 @@
     "year": 238,
     "attacker": "曹魏",
     "defender": "公孫氏",
-    "commanders": ["司馬懿", "公孫淵"],
+    "commanders": [
+      "司馬懿",
+      "公孫淵"
+    ],
     "result": "懿圍襄平，斬淵父子。",
     "territory_change": "遼東歸魏。",
     "source": "《三國志·魏書·公孫度傳》；《晉書·宣帝紀》"
@@ -127,9 +183,23 @@
     "year": 263,
     "attacker": "曹魏",
     "defender": "蜀漢",
-    "commanders": ["鄧艾", "鍾會", "姜維", "劉禪", "諸葛瞻", "廖化"],
-    "attackerCommanders": ["鄧艾", "鍾會"],
-    "defenderCommanders": ["姜維", "諸葛瞻", "劉禪"],
+    "commanders": [
+      "鄧艾",
+      "鍾會",
+      "姜維",
+      "劉禪",
+      "諸葛瞻",
+      "廖化"
+    ],
+    "attackerCommanders": [
+      "鄧艾",
+      "鍾會"
+    ],
+    "defenderCommanders": [
+      "姜維",
+      "諸葛瞻",
+      "劉禪"
+    ],
     "result": "鍾會出斜谷攻劍閣，姜維拒守；鄧艾自陰平道入江油，破諸葛瞻於綿竹，後主遣使降。",
     "territory_change": "蜀漢亡，益州入魏。",
     "source": "《三國志·魏書·鄧艾傳》；《三國志·魏書·鍾會傳》；《三國志·蜀書·後主傳》；《資治通鑑》卷七十八",
@@ -141,9 +211,24 @@
     "year": 280,
     "attacker": "西晉",
     "defender": "孫吳",
-    "commanders": ["王濬", "杜預", "王渾", "張悌", "孫皓", "陸景"],
-    "attackerCommanders": ["王濬", "杜預", "王渾"],
-    "defenderCommanders": ["張悌", "陸景", "孫皓"],
+    "commanders": [
+      "王濬",
+      "杜預",
+      "王渾",
+      "張悌",
+      "孫皓",
+      "陸景"
+    ],
+    "attackerCommanders": [
+      "王濬",
+      "杜預",
+      "王渾"
+    ],
+    "defenderCommanders": [
+      "張悌",
+      "陸景",
+      "孫皓"
+    ],
     "result": "咸寧五年（279）晉大舉伐吳，沿江而下；太康元年（280）王濬舟師抵建業，孫皓面縛輿櫬。",
     "territory_change": "吳亡，三國結束。",
     "source": "《晉書·武帝紀》；《晉書·王濬傳》；《晉書·杜預傳》；《資治通鑑》卷八十",
@@ -155,7 +240,11 @@
     "year": 207,
     "attacker": "曹魏",
     "defender": "其他",
-    "commanders": ["曹操", "張遼", "蹋頓"],
+    "commanders": [
+      "曹操",
+      "張遼",
+      "蹋頓"
+    ],
     "result": "大破烏桓，斬蹋頓。",
     "territory_change": "幽、冀邊患暫息；袁氏餘黨亡。",
     "source": "《三國志·魏書·武帝紀》",
@@ -167,7 +256,12 @@
     "year": 219,
     "attacker": "蜀漢",
     "defender": "曹魏",
-    "commanders": ["劉備", "法正", "曹操", "曹彰"],
+    "commanders": [
+      "劉備",
+      "法正",
+      "曹操",
+      "曹彰"
+    ],
     "result": "操自長安至漢中不能克，遂棄之。",
     "territory_change": "漢中屬蜀。",
     "source": "《三國志·蜀書·先主傳》；《三國志·魏書·武帝紀》"
@@ -178,7 +272,10 @@
     "year": 253,
     "attacker": "孫吳",
     "defender": "曹魏",
-    "commanders": ["諸葛恪", "張特"],
+    "commanders": [
+      "諸葛恪",
+      "張特"
+    ],
     "result": "恪圍新城不克，士卒多病，退軍。",
     "territory_change": "無。",
     "source": "《三國志·吳書·諸葛恪傳》；《三國志·魏書·滿寵傳》相關敘事"
@@ -189,7 +286,12 @@
     "year": 213,
     "attacker": "曹魏",
     "defender": "孫吳",
-    "commanders": ["曹操", "孫權", "蔣欽", "徐盛"],
+    "commanders": [
+      "曹操",
+      "孫權",
+      "蔣欽",
+      "徐盛"
+    ],
     "result": "〈武帝紀〉載操至濡須口，權遣使請降；操引軍還。〈吳主傳〉載權與操隔江對峙，數次交鋒。",
     "territory_change": "江淮界線大致維持，無大規模易手。",
     "source": "《三國志·魏書·武帝紀》；《三國志·吳書·吳主傳》"
@@ -200,7 +302,12 @@
     "year": 217,
     "attacker": "曹魏",
     "defender": "孫吳",
-    "commanders": ["曹操", "孫權", "樂進", "凌統"],
+    "commanders": [
+      "曹操",
+      "孫權",
+      "樂進",
+      "凌統"
+    ],
     "result": "曹操至濡須，權遣使請降；操引軍還。〈樂進傳〉載進與權於濡須口對守。",
     "territory_change": "無。",
     "source": "《三國志·魏書·武帝紀》；《三國志·魏書·樂進傳》；《三國志·吳書·吳主傳》"
@@ -211,7 +318,12 @@
     "year": 209,
     "attacker": "孫吳",
     "defender": "曹魏",
-    "commanders": ["周瑜", "程普", "曹仁", "甘寧"],
+    "commanders": [
+      "周瑜",
+      "程普",
+      "曹仁",
+      "甘寧"
+    ],
     "result": "周瑜圍江陵，與曹仁相持歲餘，仁退；南郡諸縣歸吳。",
     "territory_change": "南郡入孫吳，荊州要地易手。",
     "source": "《三國志·吳書·周瑜傳》；《三國志·魏書·曹仁傳》",
@@ -223,9 +335,22 @@
     "year": 228,
     "attacker": "曹魏",
     "defender": "孫吳",
-    "commanders": ["曹休", "賈逵", "陸遜", "朱桓", "全琮"],
-    "attackerCommanders": ["曹休", "賈逵"],
-    "defenderCommanders": ["陸遜", "朱桓", "全琮"],
+    "commanders": [
+      "曹休",
+      "賈逵",
+      "陸遜",
+      "朱桓",
+      "全琮"
+    ],
+    "attackerCommanders": [
+      "曹休",
+      "賈逵"
+    ],
+    "defenderCommanders": [
+      "陸遜",
+      "朱桓",
+      "全琮"
+    ],
     "result": "休率步騎至皖，為陸遜所破，退走；休旋即病薨。",
     "territory_change": "魏未能南進，淮南形勢仍對峙。",
     "source": "《三國志·吳書·陸遜傳》；《三國志·魏書·曹休傳》",
@@ -241,7 +366,11 @@
     "year": 228,
     "attacker": "蜀漢",
     "defender": "曹魏",
-    "commanders": ["諸葛亮", "郝昭", "王雙"],
+    "commanders": [
+      "諸葛亮",
+      "郝昭",
+      "王雙"
+    ],
     "result": "亮圍陳倉，昭守城不下；亮糧盡引退，追擊斬王雙。",
     "territory_change": "隴右仍屬魏，蜀第二次北伐無功。",
     "source": "《三國志·蜀書·諸葛亮傳》；《三國志·魏書·明帝紀》",
@@ -253,13 +382,31 @@
     "year": 244,
     "attacker": "曹魏",
     "defender": "蜀漢",
-    "commanders": ["曹爽", "夏侯玄", "郭淮", "王平", "費禕", "劉敏"],
-    "attackerCommanders": ["曹爽", "夏侯玄", "郭淮"],
-    "defenderCommanders": ["王平", "費禕", "劉敏"],
+    "commanders": [
+      "曹爽",
+      "夏侯玄",
+      "郭淮",
+      "王平",
+      "費禕",
+      "劉敏"
+    ],
+    "attackerCommanders": [
+      "曹爽",
+      "夏侯玄",
+      "郭淮"
+    ],
+    "defenderCommanders": [
+      "王平",
+      "費禕",
+      "劉敏"
+    ],
     "result": "魏攻興勢，蜀拒守，魏不利而退。",
     "territory_change": "漢中仍屬蜀。",
     "source": "《三國志·蜀書·後主傳》；《三國志·蜀書·王平傳》；《資治通鑑》卷七十四",
-    "note": "正始五年（244）魏曹爽攻蜀；蜀護軍劉敏與王平等守興勢，郭淮為魏前鋒（《資治通鑑》卷七十四）。"
+    "note": "《資治通鑑》卷七十四：正始五年春，曹爽伐蜀。",
+    "month": 3,
+    "datePrecision": "month",
+    "calendarNote": "lunar"
   },
   {
     "id": "battle-gaopingling",
@@ -267,7 +414,12 @@
     "year": 249,
     "attacker": "曹魏",
     "defender": "曹魏",
-    "commanders": ["司馬懿", "曹爽", "曹羲", "何晏"],
+    "commanders": [
+      "司馬懿",
+      "曹爽",
+      "曹羲",
+      "何晏"
+    ],
     "result": "懿趁爽從帝祭高平陵，閉城、發詔，爽降被誅；魏政權歸司馬氏。",
     "territory_change": "無疆界變動；魏中央權力更迭。",
     "source": "《三國志·魏書·少帝紀》；《晉書·宣帝紀》",
@@ -279,9 +431,22 @@
     "year": 252,
     "attacker": "曹魏",
     "defender": "孫吳",
-    "commanders": ["胡遵", "諸葛誕", "諸葛恪", "丁奉", "呂據"],
-    "attackerCommanders": ["胡遵", "諸葛誕"],
-    "defenderCommanders": ["諸葛恪", "丁奉", "呂據"],
+    "commanders": [
+      "胡遵",
+      "諸葛誕",
+      "諸葛恪",
+      "丁奉",
+      "呂據"
+    ],
+    "attackerCommanders": [
+      "胡遵",
+      "諸葛誕"
+    ],
+    "defenderCommanders": [
+      "諸葛恪",
+      "丁奉",
+      "呂據"
+    ],
     "result": "魏軍攻東興堤；恪、丁奉等拒戰，丁奉雪夜破魏浮橋，魏軍大敗。",
     "territory_change": "魏東興、合肥間防線受挫，吳暫占上風。",
     "source": "《三國志·吳書·諸葛恪傳》；《三國志·魏書·諸葛誕傳》"

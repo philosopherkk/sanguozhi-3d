@@ -1,4 +1,6 @@
-export interface ChinaTimelineEvent {
+import type { TimelineDateFields } from '../types/timelineDate'
+
+export interface ChinaTimelineEvent extends TimelineDateFields {
   id: string
   /** Signed year: negative = BCE */
   year: number

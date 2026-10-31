@@ -544,6 +544,45 @@ html[data-theme='light'] .app-footer {
   flex: 1;
 }
 
+.timeline-month-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.35rem 0 0.5rem;
+}
+
+.timeline-month-bar--compact {
+  margin-top: 0.25rem;
+}
+
+.timeline-month-bar__label {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-right: 0.25rem;
+}
+
+.timeline-month-bar__range {
+  flex: 1;
+  min-width: 6rem;
+}
+
+.timeline-month-chip {
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.72rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.timeline-month-chip.is-active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .year-scrubber--compact .year-scrubber__tick {
   max-width: 4.4rem;
 }
@@ -1942,6 +1981,18 @@ html[data-theme='light'] .app-footer {
   margin-top: 0.15rem;
   font-style: normal;
   color: var(--accent-dim);
+}
+
+.territory-provenance-note {
+  margin: 0.35rem 0 0;
+  font-size: 0.62rem;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+
+.era-map__provenance {
+  margin-top: 0.5rem;
+  max-width: 36rem;
 }
 
 /* ── Content dock (tabs + scroll) ── */
