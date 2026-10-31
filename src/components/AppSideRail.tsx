@@ -45,17 +45,10 @@ export function AppSideRail({
             >
               顯示地圖
             </button>
-            <button
-              type="button"
-              className="side-rail__toggle"
-              aria-expanded={open}
-              onClick={() => setOpen(false)}
-            >
-              收起
-            </button>
           </div>
           <div className="app-shell__side app-shell__side--tabs">
             <ContentDock
+              dockId={storageKey}
               year={year}
               events={events}
               people={people}

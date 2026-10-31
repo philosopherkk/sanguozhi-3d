@@ -20,6 +20,17 @@ export function ArticlePanel() {
   const [error, setError] = useState<string | null>(null)
   const [bodyOpen, setBodyOpen] = usePersistedOpen('article-body', false)
 
+  const articleKey =
+    article == null
+      ? null
+      : article.kind === 'faction'
+        ? `faction:${article.faction}`
+        : `person:${article.person.id}`
+
+  useEffect(() => {
+    if (articleKey) setBodyOpen(true)
+  }, [articleKey, setBodyOpen])
+
   useEffect(() => {
     if (!article) {
       setData(null)
