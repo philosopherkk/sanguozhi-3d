@@ -28,6 +28,22 @@ CODH_ATLAS = "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）"
 # 松前交易領：渡島國南部示意（非全島征服）。以緯度切分 K78。
 MATSUMAE_MAX_LAT = 42.05
 
+# 主外環最少頂點（著色／標籤品質）
+MIN_PRIMARY_EXTERIOR_VERTS = 24
+# 自適應 RDP：基準 eps 後若仍不足則依序降低
+ADAPTIVE_EXTERIOR_EPS = (1.0, 0.6, 0.4, 0.3)
+
+# 建置抽樣：主環須達 MIN_PRIMARY_EXTERIOR_VERTS
+PRIMARY_QUALITY_KIDS = (
+    "K08",
+    "K48",
+    "K56",
+    "K58",
+    "K63",
+    "K71",
+    "K72",
+)
+
 
 def japan_px(lat: float, lon: float, w: int, h: int) -> tuple[float, float]:
     return (lon - JP_W) / (JP_E - JP_W) * w, (JP_N - lat) / (JP_N - JP_S) * h
@@ -90,14 +106,17 @@ def simplify(ring: list, eps: float) -> list:
 
 
 def simplify_exterior(coords: list, eps: float = 2.2) -> list:
-    """RDP 簡化；大面積外環若過度簡化則逐步降低 eps。"""
-    pre_count = len(coords)
-    ring = simplify([[x, y] for x, y in coords], eps)
-    if len(ring) < 24 and pre_count > 500:
-        for retry_eps in (1.0, 0.6):
-            ring = simplify([[x, y] for x, y in coords], retry_eps)
-            if len(ring) >= 24:
-                break
+    """RDP 簡化；外環頂點不足 MIN_PRIMARY_EXTERIOR_VERTS 時自適應降低 eps。"""
+    pts = [[x, y] for x, y in coords]
+    ring = simplify(pts, eps)
+    if len(ring) >= MIN_PRIMARY_EXTERIOR_VERTS:
+        return ring
+    for retry_eps in ADAPTIVE_EXTERIOR_EPS:
+        if retry_eps >= eps:
+            continue
+        ring = simplify(pts, retry_eps)
+        if len(ring) >= MIN_PRIMARY_EXTERIOR_VERTS:
+            break
     return ring
 
 
@@ -363,23 +382,35 @@ def main() -> None:
         total = primary + sum(len(r) for r in extras)
         return primary, total
 
-    for check in ("K08", "K56", "K63", "K71"):
+    for check in PRIMARY_QUALITY_KIDS:
         hit = next(m for m in meshes if m["id"] == check)
         primary, total = mesh_vertex_totals(hit)
-        if primary < 24:
-            raise SystemExit(f"{check} mesh quality: primary={primary} (need ≥24)")
+        if primary < MIN_PRIMARY_EXTERIOR_VERTS:
+            raise SystemExit(
+                f"{check} mesh quality: primary={primary} (need ≥{MIN_PRIMARY_EXTERIOR_VERTS})"
+            )
+
+    for mesh in meshes:
+        if len(mesh["ring"]) < MIN_PRIMARY_EXTERIOR_VERTS:
+            raise SystemExit(
+                f"{mesh['id']} primary ring too sparse: {len(mesh['ring'])} vertices"
+            )
 
     k71 = next(m for m in meshes if m["id"] == "K71")
     k71_primary, k71_total = mesh_vertex_totals(k71)
-    if k71_primary < 24 or k71_total < 40:
+    if k71_primary < MIN_PRIMARY_EXTERIOR_VERTS or k71_total < 40:
         raise SystemExit(
             f"K71 mesh quality: primary={k71_primary} total={k71_total} (need ≥24 / ≥40)"
+        )
+    if k71_primary < 50 or k71_total < 135:
+        raise SystemExit(
+            f"K71 regression: primary={k71_primary} total={k71_total} (expected ≥50 / ≥135)"
         )
 
     for mesh in meshes:
         if feature_counts.get(mesh["id"], 0) >= 10:
             primary, total = mesh_vertex_totals(mesh)
-            if primary < 24 or total < 40:
+            if primary < MIN_PRIMARY_EXTERIOR_VERTS or total < 40:
                 raise SystemExit(
                     f"{mesh['id']} (featureCount≥10) quality: primary={primary} total={total}"
                 )
@@ -424,7 +455,7 @@ def main() -> None:
     build_index(index_features)
     print(
         f"meshes={len(meshes)} era hokkaido={len(era['hokkaido'])} "
-        f"ryukyu={len(era['ryukyu'])} spot={','.join('K08 K56 K63 K71'.split())}"
+        f"ryukyu={len(era['ryukyu'])} spot={','.join(PRIMARY_QUALITY_KIDS)}"
     )
 
 
