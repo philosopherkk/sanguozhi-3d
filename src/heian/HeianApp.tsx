@@ -1,3 +1,5 @@
+import { AppSideRail } from '../components/AppSideRail'
+import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraPeople } from '../japanEras/EraPeople'
 import { EraTimeline } from '../japanEras/EraTimeline'
 import { HeianFrame } from './components/HeianChrome'
@@ -27,10 +29,12 @@ function HeianBody() {
   return (
     <div className="app-shell app-shell--japan">
       <HeianFrame>
-        <div className="app-shell__main">
+        <div className="app-shell__main app-shell__main--map-side">
           <HeianMapStage />
-          <div className="app-shell__side">
-            <section className="events-cell" aria-label="平安大事">
+          <AppSideRail
+            storageKey="heian-side-rail"
+            year={year}
+            events={
               <EraTimeline
                 headingId="heian-timeline-heading"
                 year={year}
@@ -41,8 +45,8 @@ function HeianBody() {
                 readingFor={heianReadingFor}
                 emptyHint="此年無登錄專條。試 1156（保元）、1180（石橋山）、1185（壇之浦）。"
               />
-            </section>
-            <aside className="people-cell" aria-label="平安人物">
+            }
+            people={
               <EraPeople
                 headingId="heian-people-heading"
                 year={year}
@@ -52,17 +56,17 @@ function HeianBody() {
                 factionName={nameFor}
                 colorFor={colorFor}
               />
-            </aside>
-          </div>
+            }
+          />
         </div>
       </HeianFrame>
-      <footer className="app-footer">
+      <CollapsibleAppFooter>
         <p>
           平安末期（1150–1185）· 平安時代是794–1185，本專題只收源平合戰 · 據《吾妻鏡》系及日本中世史通說 ·
           不用遊戲劇情、不把軍記對話當作實錄 · 行軍只顯示該年 ·
           左行軍右勢力 · 與戰國、幕末、三國志資料分離 · {HEIAN_TERRITORY_NOTE}
         </p>
-      </footer>
+      </CollapsibleAppFooter>
     </div>
   )
 }

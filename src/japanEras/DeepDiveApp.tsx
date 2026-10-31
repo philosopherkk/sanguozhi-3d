@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react'
+import { AppSideRail } from '../components/AppSideRail'
+import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraBar } from '../components/EraBar'
 import { ReadingControls } from '../components/ReadingControls'
 import { TopicSwitcher } from '../components/TopicSwitcher'
@@ -85,10 +87,12 @@ function DeepDiveBody({ pack }: { pack: JapanDeepDivePack }) {
     <div className="app-shell app-shell--japan">
       <DeepDiveHeader pack={pack} />
       <EraBar />
-      <div className="app-shell__main">
+      <div className="app-shell__main app-shell__main--map-side">
         <DeepDiveMapStage pack={pack} />
-        <div className="app-shell__side">
-          <section className="events-cell" aria-label={`${pack.title}大事`}>
+        <AppSideRail
+          storageKey={`deep-dive-${pack.id}-side-rail`}
+          year={year}
+          events={
             <EraTimeline
               headingId={`${pack.id}-timeline-heading`}
               year={year}
@@ -129,8 +133,8 @@ function DeepDiveBody({ pack }: { pack: JapanDeepDivePack }) {
               }}
               emptyHint={pack.emptyHint}
             />
-          </section>
-          <aside className="people-cell" aria-label={`${pack.title}人物`}>
+          }
+          people={
             <EraPeople
               headingId={`${pack.id}-people-heading`}
               year={year}
@@ -140,12 +144,12 @@ function DeepDiveBody({ pack }: { pack: JapanDeepDivePack }) {
               factionName={nameFor}
               colorFor={colorFor}
             />
-          </aside>
-        </div>
+          }
+        />
       </div>
-      <footer className="app-footer">
+      <CollapsibleAppFooter>
         <p>{pack.footer}</p>
-      </footer>
+      </CollapsibleAppFooter>
     </div>
   )
 }

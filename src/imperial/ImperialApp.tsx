@@ -1,3 +1,5 @@
+import { AppSideRail } from '../components/AppSideRail'
+import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraBar } from '../components/EraBar'
 import { ReadingControls } from '../components/ReadingControls'
 import { TopicSwitcher } from '../components/TopicSwitcher'
@@ -80,26 +82,31 @@ function ImperialHeader() {
   )
 }
 
+function ImperialMain() {
+  const { year } = useImperialYear()
+  return (
+    <div className="app-shell__main app-shell__main--map-side">
+      <ImperialMapStage />
+      <AppSideRail
+        storageKey="imperial-side-rail"
+        year={year}
+        events={<ImperialTimeline />}
+        people={<ImperialPeople />}
+      />
+    </div>
+  )
+}
+
 function ImperialBody() {
   const { pack } = useImperialYear()
   return (
     <div className="app-shell app-shell--imperial">
       <ImperialHeader />
       <EraBar />
-      <div className="app-shell__main">
-        <ImperialMapStage />
-        <div className="app-shell__side">
-          <section className="events-cell" aria-label="大事">
-            <ImperialTimeline />
-          </section>
-          <aside className="people-cell" aria-label="人物">
-            <ImperialPeople />
-          </aside>
-        </div>
-      </div>
-      <footer className="app-footer">
+      <ImperialMain />
+      <CollapsibleAppFooter>
         <p>{pack.footer}</p>
-      </footer>
+      </CollapsibleAppFooter>
     </div>
   )
 }

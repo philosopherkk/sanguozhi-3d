@@ -1,5 +1,6 @@
 import { FactionInspectCard } from './FactionInspectCard'
 import { FactionLegend } from './FactionLegend'
+import { MapDock } from './MapDock'
 import { Map2D } from './Map2D'
 import { PowerBoard } from './PowerBoard'
 
@@ -16,14 +17,31 @@ export function MapStage() {
       </div>
 
       <div className="map-stage__overlay map-stage__overlay--tl">
-        <PowerBoard />
+        <MapDock
+          title="勢力疆域"
+          storageKey="map-power-board"
+          defaultOpenDesktop={false}
+          defaultOpenMobile={false}
+          className="map-stage-dock--tr"
+        >
+          <PowerBoard embedded />
+        </MapDock>
       </div>
 
       <div className="map-stage__overlay map-stage__overlay--bl">
-        <FactionLegend />
-        <p className="map-stage__hint">
-          底圖下方「圖層」可開勢力、行軍、塞外部族
-        </p>
+        <MapDock
+          title="勢力圖例"
+          storageKey="map-faction-legend"
+          defaultOpenDesktop={false}
+          defaultOpenMobile={false}
+          collapsedHint="底圖「圖層」可開勢力、行軍、塞外"
+          className="map-stage-dock--bl"
+        >
+          <FactionLegend />
+          <p className="map-stage__hint map-stage__hint--in-dock">
+            底圖下方「圖層」可開勢力、行軍、塞外部族
+          </p>
+        </MapDock>
       </div>
     </section>
   )

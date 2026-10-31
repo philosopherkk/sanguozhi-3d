@@ -10,6 +10,7 @@ import {
   loadPersonInlineArticle,
   type InlineArticle,
 } from '../lib/fetchArticle'
+import { usePersistedOpen } from '../lib/usePersistedOpen'
 import { useSelection } from '../state/SelectionContext'
 
 export function ArticlePanel() {
@@ -17,6 +18,18 @@ export function ArticlePanel() {
   const [data, setData] = useState<InlineArticle | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [bodyOpen, setBodyOpen] = usePersistedOpen('article-body', false)
+
+  const articleKey =
+    article == null
+      ? null
+      : article.kind === 'faction'
+        ? `faction:${article.faction}`
+        : `person:${article.person.id}`
+
+  useEffect(() => {
+    if (articleKey) setBodyOpen(true)
+  }, [articleKey, setBodyOpen])
 
   useEffect(() => {
     if (!article) {
@@ -93,65 +106,83 @@ export function ArticlePanel() {
         <h2 className="article-panel__title" style={{ borderColor: accent }}>
           {heading}
         </h2>
-        <button type="button" className="article-panel__close" onClick={closeArticle}>
-          關閉
-        </button>
+        <div className="article-panel__actions">
+          <button
+            type="button"
+            className="article-panel__collapse"
+            aria-expanded={bodyOpen}
+            onClick={() => setBodyOpen((value) => !value)}
+          >
+            {bodyOpen ? '收起內文' : '展開內文'}
+          </button>
+          <button type="button" className="article-panel__close" onClick={closeArticle}>
+            關閉
+          </button>
+        </div>
       </header>
 
-      {loading ? <p className="article-panel__status">載入介紹中…</p> : null}
-      {error ? <p className="article-panel__status article-panel__status--err">{error}</p> : null}
-
-      {article.kind === 'person' ? (
-        <div className="article-panel__body article-panel__body--local">
-          <p className="article-panel__source">本站正史提要</p>
-          <p>{personSummary(article.person.id, article.person.source)}</p>
-          {(() => {
-            const prof = PERSON_PROFILES[article.person.id]
-            if (!prof?.source) return null
-            return <p className="person-source">出典：{prof.source}</p>
-          })()}
-        </div>
-      ) : null}
-
-      {article.kind === 'faction' ? (
-        <div className="article-panel__body article-panel__body--local">
-          <p>{FACTION_ARTICLES[article.faction]?.blurb}</p>
-          {FACTION_ARTICLES[article.faction]?.source ? (
-            <p className="person-source">
-              出典：{FACTION_ARTICLES[article.faction]?.source}
-            </p>
-          ) : null}
-          {FACTION_ARTICLES[article.faction]?.disputed ? (
-            <p className="person-note">
-              存疑
-              {FACTION_ARTICLES[article.faction]?.note
-                ? `：${FACTION_ARTICLES[article.faction]?.note}`
-                : ''}
-            </p>
-          ) : null}
-        </div>
-      ) : null}
-
-      {data && !loading ? (
+      {bodyOpen ? (
         <>
-          <p className="article-panel__source">{data.sourceLabel}</p>
-          <div className="article-panel__body">
-            <p>{data.extract}</p>
-          </div>
-          {data.note ? <p className="article-panel__note">{data.note}</p> : null}
-        </>
-      ) : null}
+          {loading ? <p className="article-panel__status">載入介紹中…</p> : null}
+          {error ? (
+            <p className="article-panel__status article-panel__status--err">{error}</p>
+          ) : null}
 
-      <div className="article-panel__links">
-        {grokUrl ? (
-          <a href={grokUrl} target="_blank" rel="noreferrer">
-            開啟 Grok 百科
-          </a>
-        ) : null}
-        <a href={wikiUrl} target="_blank" rel="noreferrer">
-          開啟維基百科
-        </a>
-      </div>
+          {article.kind === 'person' ? (
+            <div className="article-panel__body article-panel__body--local">
+              <p className="article-panel__source">本站正史提要</p>
+              <p>{personSummary(article.person.id, article.person.source)}</p>
+              {(() => {
+                const prof = PERSON_PROFILES[article.person.id]
+                if (!prof?.source) return null
+                return <p className="person-source">出典：{prof.source}</p>
+              })()}
+            </div>
+          ) : null}
+
+          {article.kind === 'faction' ? (
+            <div className="article-panel__body article-panel__body--local">
+              <p>{FACTION_ARTICLES[article.faction]?.blurb}</p>
+              {FACTION_ARTICLES[article.faction]?.source ? (
+                <p className="person-source">
+                  出典：{FACTION_ARTICLES[article.faction]?.source}
+                </p>
+              ) : null}
+              {FACTION_ARTICLES[article.faction]?.disputed ? (
+                <p className="person-note">
+                  存疑
+                  {FACTION_ARTICLES[article.faction]?.note
+                    ? `：${FACTION_ARTICLES[article.faction]?.note}`
+                    : ''}
+                </p>
+              ) : null}
+            </div>
+          ) : null}
+
+          {data && !loading ? (
+            <>
+              <p className="article-panel__source">{data.sourceLabel}</p>
+              <div className="article-panel__body">
+                <p>{data.extract}</p>
+              </div>
+              {data.note ? <p className="article-panel__note">{data.note}</p> : null}
+            </>
+          ) : null}
+
+          <div className="article-panel__links">
+            {grokUrl ? (
+              <a href={grokUrl} target="_blank" rel="noreferrer">
+                開啟 Grok 百科
+              </a>
+            ) : null}
+            <a href={wikiUrl} target="_blank" rel="noreferrer">
+              開啟維基百科
+            </a>
+          </div>
+        </>
+      ) : (
+        <p className="article-panel__status">內文已收合 · 按「展開內文」閱讀</p>
+      )}
     </section>
   )
 }

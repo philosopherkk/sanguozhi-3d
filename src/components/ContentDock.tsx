@@ -1,30 +1,60 @@
-import { useState } from 'react'
-import { PeoplePanel } from './PeoplePanel'
-import { TimelinePanel } from './TimelinePanel'
-import { useYear } from '../state/YearContext'
+import { useId, useState, type ReactNode } from 'react'
 
-type TabId = 'events' | 'people'
+export type ContentDockTab = 'events' | 'people'
 
-const TABS: { id: TabId; label: string }[] = [
-  { id: 'events', label: '大事與戰役' },
+type ContentDockProps = {
+  year: number
+  events: ReactNode
+  people: ReactNode
+  tab?: ContentDockTab
+  onTabChange?: (tab: ContentDockTab) => void
+  eventsLabel?: string
+  peopleLabel?: string
+  /** 分頁 id 前綴，避免多個 dock 在同一頁衝突 */
+  dockId?: string
+}
+
+const DEFAULT_TABS: { id: ContentDockTab; label: string }[] = [
+  { id: 'events', label: '大事' },
   { id: 'people', label: '人物' },
 ]
 
-export function ContentDock() {
-  const { year } = useYear()
-  const [tab, setTab] = useState<TabId>('events')
+function sanitizeDockId(raw: string): string {
+  return raw.replace(/[^a-zA-Z0-9_-]/g, '-')
+}
+
+export function ContentDock({
+  year,
+  events,
+  people,
+  tab: controlledTab,
+  onTabChange,
+  eventsLabel = '大事',
+  peopleLabel = '人物',
+  dockId,
+}: ContentDockProps) {
+  const [internalTab, setInternalTab] = useState<ContentDockTab>('events')
+  const autoId = useId()
+  const idBase = sanitizeDockId(dockId ?? autoId)
+
+  const tab = controlledTab ?? internalTab
+  const setTab = onTabChange ?? setInternalTab
+
+  const tabs = DEFAULT_TABS.map((t) =>
+    t.id === 'events' ? { ...t, label: eventsLabel } : { ...t, label: peopleLabel },
+  )
 
   return (
     <section className="content-dock" aria-label="紀事與人物">
       <div className="content-dock__tabs" role="tablist" aria-label="內容切換">
-        {TABS.map((t) => (
+        {tabs.map((t) => (
           <button
             key={t.id}
             type="button"
             role="tab"
-            id={`tab-${t.id}`}
+            id={`${idBase}-tab-${t.id}`}
             aria-selected={tab === t.id}
-            aria-controls={`panel-${t.id}`}
+            aria-controls={`${idBase}-panel-${t.id}`}
             className={tab === t.id ? 'content-dock__tab is-active' : 'content-dock__tab'}
             onClick={() => setTab(t.id)}
           >
@@ -37,10 +67,10 @@ export function ContentDock() {
       <div
         className="content-dock__body"
         role="tabpanel"
-        id={`panel-${tab}`}
-        aria-labelledby={`tab-${tab}`}
+        id={`${idBase}-panel-${tab}`}
+        aria-labelledby={`${idBase}-tab-${tab}`}
       >
-        {tab === 'events' ? <TimelinePanel compact /> : <PeoplePanel compact />}
+        {tab === 'events' ? events : people}
       </div>
     </section>
   )

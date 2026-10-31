@@ -1,4 +1,5 @@
 import { TERRITORY_KEY_YEARS, TERRITORY_NOTE } from '../data/territoryControl'
+import { usePersistedOpen } from '../lib/usePersistedOpen'
 import { useYear } from '../state/YearContext'
 
 const SNAP_LABELS: Partial<Record<number, string>> = {
@@ -14,6 +15,38 @@ const SNAP_LABELS: Partial<Record<number, string>> = {
   263: '滅蜀',
   265: '西晉',
   280: '滅吳',
+}
+
+function TerritoryNote() {
+  const [open, setOpen] = usePersistedOpen('territory-note', false)
+  const preview =
+    TERRITORY_NOTE.length > 48
+      ? `${TERRITORY_NOTE.slice(0, 48)}…`
+      : TERRITORY_NOTE
+
+  return (
+    <div className="year-scrubber__note-block">
+      <p
+        className={
+          open
+            ? 'year-scrubber__note'
+            : 'year-scrubber__note year-scrubber__note--preview'
+        }
+        id="territory-note-body"
+      >
+        {open ? TERRITORY_NOTE : preview}
+      </p>
+      <button
+        type="button"
+        className="year-scrubber__note-toggle"
+        aria-expanded={open}
+        aria-controls="territory-note-body"
+        onClick={() => setOpen((value) => !value)}
+      >
+        {open ? '收起' : '疆域說明'}
+      </button>
+    </div>
+  )
 }
 
 export function YearScrubber() {
@@ -68,7 +101,7 @@ export function YearScrubber() {
         ))}
       </div>
 
-      <p className="year-scrubber__note">{TERRITORY_NOTE}</p>
+      <TerritoryNote />
     </div>
   )
 }
