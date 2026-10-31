@@ -68,7 +68,7 @@
     "month": 4,
     "datePrecision": "month",
     "calendarNote": "lunar",
-    "note": "《三國志·魏書·董卓傳》：中平三年四月，王允、呂布誅卓。"
+    "note": "《三國志·魏書·董卓傳》；《資治通鑑》卷六十：初平三年四月，王允、呂布誅卓。"
   },
   {
     "id": "196-xudu",
@@ -168,8 +168,8 @@
     "month": 5,
     "datePrecision": "month",
     "calendarNote": "lunar",
-    "disputed": true,
-    "note": "《資治通鑑》卷六十七：建安十九年五月，劉備圍成都。〈先主傳〉僅記「秋」，未標月，故標 disputed。"
+    "disputedDate": true,
+    "note": "《資治通鑑》卷六十七：建安十九年五月，劉備圍成都。〈先主傳〉僅記「秋」，未標月，故標 disputedDate。"
   },
   {
     "id": "215-xiaoyaotin",

@@ -20,12 +20,11 @@
       "defender": 20000,
       "claimed": true
     },
-    "note": "兵數為史籍所載「眾十餘萬」之類約數，非精確點驗；標 claimed。",
+    "note": "兵數為史籍所載「眾十餘萬」之類約數，非精確點驗；標 claimed。《資治通鑑》卷六十三：建安五年冬十月，燒烏巢。",
     "disputed": true,
     "month": 10,
     "datePrecision": "month",
-    "calendarNote": "lunar",
-    "note": "兵數為史籍所載「眾十餘萬」之類約數，非精確點驗；標 claimed。《資治通鑑》卷六十三：建安五年冬十月，燒烏巢。"
+    "calendarNote": "lunar"
   },
   {
     "id": "battle-chibi",
