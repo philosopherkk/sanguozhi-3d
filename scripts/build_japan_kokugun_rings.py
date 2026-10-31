@@ -28,6 +28,22 @@ CODH_ATLAS = "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）"
 # 松前交易領：渡島國南部示意（非全島征服）。以緯度切分 K78。
 MATSUMAE_MAX_LAT = 42.05
 
+# 主外環最少頂點（著色／標籤品質）
+MIN_PRIMARY_EXTERIOR_VERTS = 24
+# 自適應 RDP：基準 eps 後若仍不足則依序降低
+ADAPTIVE_EXTERIOR_EPS = (1.0, 0.6, 0.4, 0.3)
+
+# 建置抽樣：主環須達 MIN_PRIMARY_EXTERIOR_VERTS
+PRIMARY_QUALITY_KIDS = (
+    "K08",
+    "K48",
+    "K56",
+    "K58",
+    "K63",
+    "K71",
+    "K72",
+)
+
 
 def japan_px(lat: float, lon: float, w: int, h: int) -> tuple[float, float]:
     return (lon - JP_W) / (JP_E - JP_W) * w, (JP_N - lat) / (JP_N - JP_S) * h
@@ -59,6 +75,17 @@ def rdp_open(pts: list, eps: float) -> list:
     return left[:-1] + right
 
 
+def ring_shoelace_area(ring: list) -> float:
+    if len(ring) < 3:
+        return 0.0
+    pts = ring[:-1] if len(ring) > 1 and ring[0] == ring[-1] else ring
+    area = 0.0
+    for i, (x0, y0) in enumerate(pts):
+        x1, y1 = pts[(i + 1) % len(pts)]
+        area += x0 * y1 - x1 * y0
+    return abs(area) * 0.5
+
+
 def simplify(ring: list, eps: float) -> list:
     if len(ring) < 6:
         return ring
@@ -76,6 +103,21 @@ def simplify(ring: list, eps: float) -> list:
     if simp and simp[0] == simp[-1]:
         simp = simp[:-1]
     return simp
+
+
+def simplify_exterior(coords: list, eps: float = 2.2) -> list:
+    """RDP 簡化；外環頂點不足 MIN_PRIMARY_EXTERIOR_VERTS 時自適應降低 eps。"""
+    pts = [[x, y] for x, y in coords]
+    ring = simplify(pts, eps)
+    if len(ring) >= MIN_PRIMARY_EXTERIOR_VERTS:
+        return ring
+    for retry_eps in ADAPTIVE_EXTERIOR_EPS:
+        if retry_eps >= eps:
+            continue
+        ring = simplify(pts, retry_eps)
+        if len(ring) >= MIN_PRIMARY_EXTERIOR_VERTS:
+            break
+    return ring
 
 
 def load_traced_domains() -> list[dict]:
@@ -132,19 +174,22 @@ def rings_from_shapely(geom, eps: float = 2.0) -> list[list[list[float]]]:
         polys = list(geom.geoms)
     else:
         polys = [geom]
-    out: list[list[list[float]]] = []
+    exteriors: list[tuple[float, list[list[float]]]] = []
+    holes: list[list[list[float]]] = []
     for poly in polys:
         if poly.is_empty:
             continue
         ext = list(poly.exterior.coords)
-        ring = simplify([[x, y] for x, y in ext], eps)
+        ring = simplify_exterior(ext, eps)
         if len(ring) >= 3:
-            out.append([[round(x, 1), round(y, 1)] for x, y in ring])
+            px_ring = [[round(x, 1), round(y, 1)] for x, y in ring]
+            exteriors.append((ring_shoelace_area(px_ring), px_ring))
         for interior in poly.interiors:
             hole = simplify([[x, y] for x, y in interior.coords], eps)
             if len(hole) >= 3:
-                out.append([[round(x, 1), round(y, 1)] for x, y in hole])
-    return out
+                holes.append([[round(x, 1), round(y, 1)] for x, y in hole])
+    exteriors.sort(key=lambda item: item[0], reverse=True)
+    return [ring for _, ring in exteriors] + holes
 
 
 def assign_domain(
@@ -327,10 +372,48 @@ def main() -> None:
     missing = required - got
     if missing:
         raise SystemExit(f"missing kokugun meshes: {sorted(missing)}")
-    for check in ("K08", "K56", "K63", "K71"):
+    feature_counts = {
+        f["properties"]["id"]: f["properties"]["featureCount"] for f in index_features
+    }
+
+    def mesh_vertex_totals(mesh: dict) -> tuple[int, int]:
+        primary = len(mesh["ring"])
+        extras = mesh.get("extraRings") or []
+        total = primary + sum(len(r) for r in extras)
+        return primary, total
+
+    for check in PRIMARY_QUALITY_KIDS:
         hit = next(m for m in meshes if m["id"] == check)
-        if len(hit["ring"]) < 3:
-            raise SystemExit(f"{check} mesh ring empty")
+        primary, total = mesh_vertex_totals(hit)
+        if primary < MIN_PRIMARY_EXTERIOR_VERTS:
+            raise SystemExit(
+                f"{check} mesh quality: primary={primary} (need ≥{MIN_PRIMARY_EXTERIOR_VERTS})"
+            )
+
+    for mesh in meshes:
+        if len(mesh["ring"]) < MIN_PRIMARY_EXTERIOR_VERTS:
+            raise SystemExit(
+                f"{mesh['id']} primary ring too sparse: {len(mesh['ring'])} vertices"
+            )
+
+    k71 = next(m for m in meshes if m["id"] == "K71")
+    k71_primary, k71_total = mesh_vertex_totals(k71)
+    if k71_primary < MIN_PRIMARY_EXTERIOR_VERTS or k71_total < 40:
+        raise SystemExit(
+            f"K71 mesh quality: primary={k71_primary} total={k71_total} (need ≥24 / ≥40)"
+        )
+    if k71_primary < 50 or k71_total < 135:
+        raise SystemExit(
+            f"K71 regression: primary={k71_primary} total={k71_total} (expected ≥50 / ≥135)"
+        )
+
+    for mesh in meshes:
+        if feature_counts.get(mesh["id"], 0) >= 10:
+            primary, total = mesh_vertex_totals(mesh)
+            if primary < MIN_PRIMARY_EXTERIOR_VERTS or total < 40:
+                raise SystemExit(
+                    f"{mesh['id']} (featureCount≥10) quality: primary={primary} total={total}"
+                )
 
     emit_ts_meshes(meshes)
 
@@ -372,7 +455,7 @@ def main() -> None:
     build_index(index_features)
     print(
         f"meshes={len(meshes)} era hokkaido={len(era['hokkaido'])} "
-        f"ryukyu={len(era['ryukyu'])} spot={','.join('K08 K56 K63 K71'.split())}"
+        f"ryukyu={len(era['ryukyu'])} spot={','.join(PRIMARY_QUALITY_KIDS)}"
     )
 
 
