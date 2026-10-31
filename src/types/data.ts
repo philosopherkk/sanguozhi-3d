@@ -1,3 +1,5 @@
+import type { TimelineDateFields } from './timelineDate'
+
 export type EventType = 'war' | 'politics' | 'succession'
 
 export type FactionId =
@@ -26,10 +28,9 @@ export interface Sourced {
   note?: string
 }
 
-export interface TimelineEvent extends Sourced {
+export interface TimelineEvent extends Sourced, TimelineDateFields {
   id: string
   year: number
-  month?: number
   title: string
   desc: string
   factions: FactionId[]
@@ -72,7 +73,7 @@ export interface Person extends Sourced {
   grokipedia_url?: string
 }
 
-export interface Battle extends Sourced {
+export interface Battle extends Sourced, TimelineDateFields {
   id: string
   name: string
   year: number

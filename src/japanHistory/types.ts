@@ -1,4 +1,6 @@
-export interface JapanTimelineEvent {
+import type { TimelineDateFields } from '../types/timelineDate'
+
+export interface JapanTimelineEvent extends TimelineDateFields {
   id: string
   year: number
   title: string
@@ -21,6 +23,16 @@ export interface JapanPerson {
   source: string
   activeFrom: number
   activeTo: number
+}
+
+export interface JapanPlace {
+  id: string
+  name: string
+  summary: string
+  location: string
+  source: string
+  disputed?: boolean
+  note?: string
 }
 
 export interface JapanEraBand {

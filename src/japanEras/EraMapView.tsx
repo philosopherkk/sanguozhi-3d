@@ -7,7 +7,16 @@ import {
 } from '../components/map/RouteOverlay'
 import type { MarchRoute } from '../data/marchRoutes'
 import { MapZoomControls, useMapViewport } from '../lib/mapViewport'
-import { JAPAN_TERRITORY_NOTE_ZH } from '../data/territory/provenance'
+import {
+  JAPAN_TERRITORY_NOTE_ZH,
+  JP_ERA_RINGS_GEOMETRY,
+  JP_ERA_RINGS_HOKKAIDO_1869_NOTE_ZH,
+  JP_ERA_RINGS_MATSUMAE_NOTE_ZH,
+  JP_ERA_RINGS_RYUKYU_DASHED_NOTE_ZH,
+  type TerritoryGeometryProvenance,
+} from '../data/territory/provenance'
+import { formatGeometryProvenance } from '../components/TerritoryGeometryProvenanceNote'
+import { BakumatsuFringeOverlays } from './JapanEraRingOverlays'
 import { SENGOKU_BASEMAP } from '../sengoku/data/basemaps'
 import { SENGOKU_MAP_H, SENGOKU_MAP_W } from '../sengoku/data/regions'
 
@@ -61,6 +70,9 @@ export function EraMapView({
   onSelectFaction,
   visibleYears = MARCH_ROUTE_SAME_YEAR,
   hideInlineRouteLegend = false,
+  japanFringe,
+  domainGeometryProvenance,
+  fringeGeometryProvenance = JP_ERA_RINGS_GEOMETRY,
 }: {
   ariaLabel: string
   year: number
@@ -75,6 +87,9 @@ export function EraMapView({
   onSelectFaction: (id: string | null) => void
   visibleYears?: number
   hideInlineRouteLegend?: boolean
+  japanFringe?: 'bakumatsu'
+  domainGeometryProvenance?: TerritoryGeometryProvenance
+  fringeGeometryProvenance?: TerritoryGeometryProvenance
 }) {
   const rootRef = useRef<HTMLDivElement>(null)
   const [showTerritory, setShowTerritory] = useState(true)
@@ -87,6 +102,18 @@ export function EraMapView({
     () => domains.map((d) => ({ ...d, at: centroid(d.ring) })),
     [domains],
   )
+
+  const fringeFootnote = useMemo(() => {
+    if (japanFringe !== 'bakumatsu') return ''
+    if (year >= 1869) {
+      return `${formatGeometryProvenance(fringeGeometryProvenance)} ${JP_ERA_RINGS_HOKKAIDO_1869_NOTE_ZH} ${JP_ERA_RINGS_RYUKYU_DASHED_NOTE_ZH}`
+    }
+    return `${formatGeometryProvenance(fringeGeometryProvenance)} ${JP_ERA_RINGS_MATSUMAE_NOTE_ZH} ${JP_ERA_RINGS_RYUKYU_DASHED_NOTE_ZH}`
+  }, [fringeGeometryProvenance, japanFringe, year])
+
+  const domainFootnote = domainGeometryProvenance
+    ? formatGeometryProvenance(domainGeometryProvenance)
+    : ''
 
   return (
     <div className="map-2d" ref={rootRef}>
@@ -160,6 +187,12 @@ export function EraMapView({
                 )
               })
             : null}
+          {showTerritory && japanFringe === 'bakumatsu' ? (
+            <BakumatsuFringeOverlays
+              year={year}
+              hokkaidoColor={colorFor('薩長')}
+            />
+          ) : null}
           {showPlaces
             ? places.map((p) => (
                 <text
@@ -221,7 +254,10 @@ export function EraMapView({
           {basemap.credit}
         </a>
         {basemap.license ? `（${basemap.license}）` : ''}
-        。現代列島地勢，平安、戰國、幕末、江戶共用。{JAPAN_TERRITORY_NOTE_ZH} 渡海只標壇之浦與箱館。色塊預設半透明（約
+        。現代列島地勢，平安、戰國、幕末、江戶共用。{JAPAN_TERRITORY_NOTE_ZH}
+        {domainFootnote ? ` ${domainFootnote}` : ''}
+        {fringeFootnote ? ` 外周：${fringeFootnote}` : ''}
+        渡海只標壇之浦與箱館。色塊預設半透明（約
         0.62，點選約 0.78）。{shadeNote}
       </p>
     </div>

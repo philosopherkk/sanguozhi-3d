@@ -86,7 +86,7 @@ export const BAKUMATSU_TERRITORY_BY_YEAR: Record<
     ],
     '薩長',
   ),
-  /** 本州戰事結束。箱館在蝦夷地；底圖有北海道，但未另著色。 */
+  /** 本州戰事結束。箱館在蝦夷地；1869 起以 JP_ERA_RINGS 示意著色北海道（開拓使，approx）。 */
   1869: paint([], '薩長'),
 }
 
@@ -95,7 +95,7 @@ const NOTES: Record<BakumatsuKeyYear, string> = {
   1866: '長州以山陽西端的毛利舊領示意，不是精密的長門國界。薩摩著九州南端。',
   1867: '大政奉還後，領地一天內沒有重畫。此快照仍是奉還前的藩勢。',
   1868: '江戶開城後關東著薩長。越後併入奧羽色，表示北越也在抵抗。土佐沒有單獨一色。',
-  1869: '本州已無幕府領地。箱館戰爭在渡海之後的蝦夷地；北海道以 CODH 開拓國 mesh 示意開拓使（approx）。',
+  1869: '本州已無幕府領地。箱館戰爭在渡海之後的蝦夷地，箭咀落到函館；北海道以 CODH K75–K85 mesh 示意開拓使（approx），非即時全島平定。',
 }
 
 export const BAKUMATSU_MONTH_FROM = 1853
@@ -215,11 +215,11 @@ const BAKUMATSU_MONTH_NOTES: Record<string, { note: string; control?: Record<str
     control: allNew,
   },
   '1868-12': {
-    note: '十二月本州戰事告一段落。箱館戰爭在明年，底圖北海道未另著色。',
+    note: '十二月本州戰事告一段落。箱館戰爭在明年；1869 年起北海道示意著色（開拓使）。',
     control: allNew,
   },
   '1869-5': {
-    note: '五月箱館戰爭。舊幕府軍據五稜郭，新政府軍渡海。箭咀落到函館，不是征服整個北海道。',
+    note: '五月箱館戰爭。舊幕府軍據五稜郭，新政府軍渡海。箭咀落到函館；北海道環為行政示意，非征服整島。',
     control: allNew,
   },
 }

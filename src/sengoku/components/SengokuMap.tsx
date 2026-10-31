@@ -7,8 +7,12 @@ import { SENGOKU_DAIMYO_LABELS } from '../data/daimyoLabels'
 import { SENGOKU_MARCH_ROUTES } from '../data/marchRoutes'
 import { SENGOKU_BASEMAP } from '../data/basemaps'
 import { SENGOKU_MAP_H, SENGOKU_MAP_W } from '../data/regions'
-import { SENGOKU_TERRITORY_NOTE } from '../data/territoryControl'
+import {
+  SENGOKU_TERRITORY_GEOMETRY_PROVENANCE,
+  SENGOKU_TERRITORY_NOTE,
+} from '../data/territoryControl'
 import { shadesFromZoneControl } from '../data/japanKokugunPaint'
+import { formatGeometryProvenance } from '../../components/TerritoryGeometryProvenanceNote'
 import { sengokuFactionColor } from '../lib/factionColors'
 import { useSengokuSelection } from '../state/SengokuSelectionContext'
 import { useSengokuYear } from '../state/SengokuYearContext'
@@ -176,7 +180,8 @@ export function SengokuMap() {
           {basemap.credit}
         </a>
         {basemap.license ? `（${basemap.license}）` : ''}
-        。現代列島地勢，平安、戰國、幕末、江戶共用，不按時代換古圖。域界為 CODH 旧国 mesh（CC BY-NC 4.0）。{SENGOKU_TERRITORY_NOTE}大名用漢字。渡海只標文祿。
+        。現代列島地勢，平安、戰國、幕末、江戶共用，不按時代換古圖。域界為 CODH 旧国 mesh（CC BY-NC 4.0）。{SENGOKU_TERRITORY_NOTE}{' '}
+        {formatGeometryProvenance(SENGOKU_TERRITORY_GEOMETRY_PROVENANCE)}大名用漢字。渡海只標文祿。
       </p>
     </div>
   )

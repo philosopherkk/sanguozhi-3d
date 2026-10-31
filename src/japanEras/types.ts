@@ -1,10 +1,11 @@
 import type { ReadingLayers } from '../components/ClassicDetailModal'
+import type { TimelineDateFields } from '../types/timelineDate'
 
 /** 平安、幕末共用的年表形狀。勢力 id 由各時代自己定義，不混入戰國。 */
 
 export type EraEventType = 'war' | 'politics' | 'succession'
 
-export interface EraEvent {
+export interface EraEvent extends TimelineDateFields {
   id: string
   year: number
   title: string

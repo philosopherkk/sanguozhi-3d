@@ -1,0 +1,48 @@
+[
+  {
+    "id": "place-matsumae",
+    "name": "松前",
+    "summary": "渡島南部松前藩拠點；1604黑印狀所定交易特權中心，非全島行政。",
+    "location": "渡島半島南端",
+    "source": "《德川實紀》慶長九年黑印條"
+  },
+  {
+    "id": "place-hakodate",
+    "name": "箱館",
+    "summary": "渡海後蝦夷地要港；江戶期場所交易與1799天領奉行關聯，1869箱館戰爭終結地。",
+    "location": "渡島（函館）",
+    "source": "幕府法令・箱館奉行関係；戊辰戰爭通說"
+  },
+  {
+    "id": "place-hidaka",
+    "name": "日高",
+    "summary": "1669シャクシャインの戦い關聯地帶；示意點，非邊界。",
+    "location": "北海道日高地方",
+    "source": "松前藩記錄；《新羅之記録》系",
+    "disputed": true,
+    "note": "戰役範圍諸說，地圖僅作 labeled approx。"
+  },
+  {
+    "id": "place-shuri",
+    "name": "首里",
+    "summary": "琉球王國政治中心；三山統一後尚氏王城所在。",
+    "location": "沖繩本島",
+    "source": "《中山世鑑》；高良倉吉《琉球の時代》"
+  },
+  {
+    "id": "place-naha",
+    "name": "那霸",
+    "summary": "琉球對外港市；冊封朝貢與近世貿易關聯。",
+    "location": "沖繩本島",
+    "source": "《中山世鑑》；《明實錄》琉球條"
+  },
+  {
+    "id": "place-nakijin",
+    "name": "今帰仁",
+    "summary": "三山時代山北勢力要地；統一前政治地理示意。",
+    "location": "沖繩本島北部",
+    "source": "《中山世鑑》；《球陽》",
+    "disputed": true,
+    "note": "三山疆界不畫精確多邊形，僅作地帶標注。"
+  }
+]

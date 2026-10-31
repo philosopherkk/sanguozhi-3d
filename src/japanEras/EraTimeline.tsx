@@ -1,5 +1,11 @@
 import { useMemo, useState } from 'react'
 import { ClassicDetailModal } from '../components/ClassicDetailModal'
+import { TimelineMonthBar } from '../components/TimelineMonthBar'
+import {
+  filterEventsForYearView,
+  formatTimelineDate,
+  yearHasMonthDensity,
+} from '../lib/timelineDate'
 import type { EraDetail, EraEvent, EraReading } from './types'
 
 export function EraTimeline({
@@ -11,6 +17,8 @@ export function EraTimeline({
   detailFor,
   readingFor,
   emptyHint,
+  monthFilter = null,
+  onMonthFilter,
 }: {
   headingId: string
   year: number
@@ -20,14 +28,22 @@ export function EraTimeline({
   detailFor: (id: string) => EraDetail | undefined
   readingFor: (id: string) => EraReading | undefined
   emptyHint: string
+  monthFilter?: number | null
+  onMonthFilter?: (m: number | null) => void
 }) {
+  const [localMonth, setLocalMonth] = useState<number | null>(null)
+  const activeMonth = monthFilter ?? localMonth
+  const setMonth = onMonthFilter ?? setLocalMonth
+
   const [showAll, setShowAll] = useState(false)
   const [openId, setOpenId] = useState<string | null>(null)
 
-  const yearEvents = useMemo(
-    () => events.filter((e) => e.year === year),
-    [events, year],
+  const { dated, yearOnly } = useMemo(
+    () => filterEventsForYearView({ events, year, monthFilter: activeMonth }),
+    [events, year, activeMonth],
   )
+  const eventCount = dated.length + yearOnly.length
+  const monthDense = yearHasMonthDensity(events, year)
 
   const nearby = useMemo(() => {
     return events
@@ -46,24 +62,53 @@ export function EraTimeline({
       <header className="panel-header">
         <h2 id={headingId}>{year} 年大事</h2>
         <p className="panel-sub">
-          {yearEvents.length
-            ? `本年 ${yearEvents.length} 事 · 點標題可深入`
+          {eventCount
+            ? `本年 ${eventCount} 事${monthDense ? ' · 可逐月篩選' : ''} · 點標題可深入`
             : '本年無專條——點鄰近年份可跳轉'}
         </p>
       </header>
 
-      {yearEvents.length > 0 ? (
-        <ol className="timeline-list">
-          {yearEvents.map((e) => (
-            <TimelineItem
-              key={e.id}
-              e={e}
-              active
-              colorFor={colorFor}
-              onOpen={() => setOpenId(e.id)}
-            />
-          ))}
-        </ol>
+      {monthDense && onMonthFilter == null ? (
+        <TimelineMonthBar
+          year={year}
+          events={events}
+          monthFilter={activeMonth}
+          onMonthFilter={setMonth}
+        />
+      ) : null}
+
+      {eventCount > 0 ? (
+        <>
+          {dated.length > 0 ? (
+            <ol className="timeline-list">
+              {dated.map((e) => (
+                <TimelineItem
+                  key={e.id}
+                  e={e}
+                  active
+                  colorFor={colorFor}
+                  onOpen={() => setOpenId(e.id)}
+                />
+              ))}
+            </ol>
+          ) : null}
+          {yearOnly.length > 0 ? (
+            <>
+              <h3 className="subhead">僅知年份</h3>
+              <ol className="timeline-list">
+                {yearOnly.map((e) => (
+                  <TimelineItem
+                    key={e.id}
+                    e={e}
+                    active
+                    colorFor={colorFor}
+                    onOpen={() => setOpenId(e.id)}
+                  />
+                ))}
+              </ol>
+            </>
+          ) : null}
+        </>
       ) : (
         <p className="empty-hint">{emptyHint}</p>
       )}
@@ -126,6 +171,7 @@ function TimelineItem({
   onJump?: () => void
   onOpen: () => void
 }) {
+  const label = formatTimelineDate(e)
   return (
     <li className={active ? 'timeline-item is-active' : 'timeline-item'}>
       {onJump ? (
@@ -133,13 +179,13 @@ function TimelineItem({
           type="button"
           className="timeline-year timeline-year--btn"
           onClick={onJump}
-          title={`跳至 ${e.year} 年`}
+          title={`跳至 ${label}`}
         >
-          {e.year}
+          {label}
         </button>
       ) : (
         <time className="timeline-year" dateTime={String(e.year)}>
-          {e.year}
+          {label}
         </time>
       )}
       <div>

@@ -81,3 +81,13 @@ export const TK_TERRITORY_NOTE_ZH =
 
 export const JAPAN_TERRITORY_NOTE_ZH =
   '色塊邊界為 CODH 幕末明治旧国 mesh（CC BY-NC，見 ATTRIBUTION-CODH-BY-NC.md）；大名／藩歸屬仍示意，非村→藩 dissolve（CB-02b 後續）。'
+
+/** 幕末／總覽共用：JP_ERA_RINGS 北海道窗（1869 開拓使，仍 approx） */
+export const JP_ERA_RINGS_HOKKAIDO_1869_NOTE_ZH =
+  '1869年7月開拓使設置、蝦夷地改称北海道之行政示意（approx）；同年箱館戰爭，非全島即時平定。幾何為 CODH K75–K85。'
+
+export const JP_ERA_RINGS_MATSUMAE_NOTE_ZH =
+  '1604年起松前交易領（渡島南部示意），非全島征服；見《德川實紀》慶長九年。'
+
+export const JP_ERA_RINGS_RYUKYU_DASHED_NOTE_ZH =
+  '1609年起琉球對薩摩附庸、王國仍存之雙重朝貢示意（虛線）；1879年前非沖繩縣界。'

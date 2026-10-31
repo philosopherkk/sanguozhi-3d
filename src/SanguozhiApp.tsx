@@ -1,3 +1,5 @@
+import { ChengyuPanel } from './chengyu/components/ChengyuPanel'
+import { localesForChinaTrack } from './chengyu/lib/filterByYear'
 import { AppHeader } from './components/AppHeader'
 import { AppSideRail } from './components/AppSideRail'
 import { CollapsibleAppFooter } from './components/CollapsibleAppFooter'
@@ -11,7 +13,7 @@ import { SelectionProvider } from './state/SelectionContext'
 import { YearProvider, useYear } from './state/YearContext'
 
 function SanguozhiMain() {
-  const { year } = useYear()
+  const { year, setYear, yearMin, yearMax } = useYear()
   return (
     <div className="app-shell__main app-shell__main--map-side">
       <MapStage />
@@ -25,6 +27,15 @@ function SanguozhiMain() {
           </>
         }
         people={<PeoplePanel compact />}
+        chengyu={
+          <ChengyuPanel
+            year={year}
+            yearMin={yearMin}
+            yearMax={yearMax}
+            locales={localesForChinaTrack()}
+            onJumpYear={setYear}
+          />
+        }
       />
     </div>
   )

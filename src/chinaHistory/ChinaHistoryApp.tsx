@@ -1,4 +1,7 @@
+import { ChengyuPanel } from '../chengyu/components/ChengyuPanel'
+import { localesForChinaTrack } from '../chengyu/lib/filterByYear'
 import { AppSideRail } from '../components/AppSideRail'
+import { formatChinaYear } from './lib/formatYear'
 import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraBar } from '../components/EraBar'
 import { ChinaEraMap } from './components/ChinaEraMap'
@@ -9,7 +12,7 @@ import { ChinaYearScrubber } from './components/ChinaYearScrubber'
 import { ChinaYearProvider, useChinaYear } from './state/ChinaYearContext'
 
 function ChinaHistoryMain() {
-  const { year } = useChinaYear()
+  const { year, setYear, yearMin, yearMax } = useChinaYear()
   return (
     <div className="app-shell__main app-shell__main--map-side">
       <ChinaEraMap />
@@ -18,6 +21,16 @@ function ChinaHistoryMain() {
         year={year}
         events={<ChinaTimeline />}
         people={<ChinaPeople />}
+        chengyu={
+          <ChengyuPanel
+            year={year}
+            yearMin={yearMin}
+            yearMax={yearMax}
+            locales={localesForChinaTrack()}
+            onJumpYear={setYear}
+            formatYear={formatChinaYear}
+          />
+        }
       />
     </div>
   )
