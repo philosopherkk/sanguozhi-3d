@@ -35,3 +35,18 @@
 ## 空集合
 
 `index.geojson` 為 schema 占位（零 features），型別見 `types.ts`。
+
+## 日本分時代 stub（CB-20）
+
+各子目錄含 `collection.geojson`（零 features）與 README（plate 名稱；**不** invent 內陸界）：
+
+| 目錄 | 用途 |
+|------|------|
+| `japan_ezo_matsumae/` | 1604–1868 松前交易領 |
+| `japan_hokkaido_1869/` | ≥1869 開拓使（CODH K75–K85 **HOLD**） |
+| `japan_ryukyu_k74/` | 琉球／沖繩（CODH K74 **HOLD**） |
+| `japan_sengoku_1572/` | 戰國大名（CB-03） |
+| `japan_heian_genpei/` | 平安源平（CB-06） |
+| `japan_bakumatsu_1867/` | 幕末藩（CB-02b） |
+
+Live 幾何仍在 `geo/japanEraRings.ts` 與 Voronoi；stub 待 digitize／授權後載入。

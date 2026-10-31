@@ -33,7 +33,9 @@ export interface SengokuSourced {
   note?: string
 }
 
-export interface SengokuTimelineEvent extends SengokuSourced {
+import type { TimelineDateFields } from '../types/timelineDate'
+
+export interface SengokuTimelineEvent extends SengokuSourced, TimelineDateFields {
   id: string
   year: number
   title: string

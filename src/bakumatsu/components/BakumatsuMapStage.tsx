@@ -7,6 +7,7 @@ import {
 import { BAKUMATSU_MARCH_ROUTES, BAKUMATSU_PLACES } from '../data/marchRoutes'
 import {
   BAKUMATSU_DOMAINS,
+  BAKUMATSU_TERRITORY_GEOMETRY_PROVENANCE,
   bakumatsuFactionCounts,
   bakumatsuShadeNote,
 } from '../data/territory'
@@ -60,6 +61,8 @@ export function BakumatsuMapStage() {
           onSelectFaction={(id) =>
             selectFaction(id as BakumatsuFactionId | null)
           }
+          japanFringe="bakumatsu"
+          domainGeometryProvenance={BAKUMATSU_TERRITORY_GEOMETRY_PROVENANCE}
         />
       </div>
       <div className="map-stage__overlay map-stage__overlay--tl">

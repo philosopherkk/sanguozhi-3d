@@ -1,4 +1,6 @@
 import { wuxiLegendNote } from '../data/unregisteredHouseholds'
+import { TERRITORY_GEOMETRY_PROVENANCE } from '../data/territoryControl'
+import { TerritoryGeometryProvenanceNote } from './TerritoryGeometryProvenanceNote'
 import { factionColor, factionName } from '../lib/factionColors'
 import { useYear } from '../state/YearContext'
 
@@ -37,6 +39,10 @@ export function FactionLegend() {
           ) : null}
         </p>
       ) : null}
+      <TerritoryGeometryProvenanceNote
+        provenance={TERRITORY_GEOMETRY_PROVENANCE}
+        className="faction-legend__note territory-provenance-note"
+      />
     </aside>
   )
 }
