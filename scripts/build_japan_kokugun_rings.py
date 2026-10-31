@@ -59,6 +59,17 @@ def rdp_open(pts: list, eps: float) -> list:
     return left[:-1] + right
 
 
+def ring_shoelace_area(ring: list) -> float:
+    if len(ring) < 3:
+        return 0.0
+    pts = ring[:-1] if len(ring) > 1 and ring[0] == ring[-1] else ring
+    area = 0.0
+    for i, (x0, y0) in enumerate(pts):
+        x1, y1 = pts[(i + 1) % len(pts)]
+        area += x0 * y1 - x1 * y0
+    return abs(area) * 0.5
+
+
 def simplify(ring: list, eps: float) -> list:
     if len(ring) < 6:
         return ring
@@ -76,6 +87,18 @@ def simplify(ring: list, eps: float) -> list:
     if simp and simp[0] == simp[-1]:
         simp = simp[:-1]
     return simp
+
+
+def simplify_exterior(coords: list, eps: float = 2.2) -> list:
+    """RDP 簡化；大面積外環若過度簡化則逐步降低 eps。"""
+    pre_count = len(coords)
+    ring = simplify([[x, y] for x, y in coords], eps)
+    if len(ring) < 24 and pre_count > 500:
+        for retry_eps in (1.0, 0.6):
+            ring = simplify([[x, y] for x, y in coords], retry_eps)
+            if len(ring) >= 24:
+                break
+    return ring
 
 
 def load_traced_domains() -> list[dict]:
@@ -132,19 +155,22 @@ def rings_from_shapely(geom, eps: float = 2.0) -> list[list[list[float]]]:
         polys = list(geom.geoms)
     else:
         polys = [geom]
-    out: list[list[list[float]]] = []
+    exteriors: list[tuple[float, list[list[float]]]] = []
+    holes: list[list[list[float]]] = []
     for poly in polys:
         if poly.is_empty:
             continue
         ext = list(poly.exterior.coords)
-        ring = simplify([[x, y] for x, y in ext], eps)
+        ring = simplify_exterior(ext, eps)
         if len(ring) >= 3:
-            out.append([[round(x, 1), round(y, 1)] for x, y in ring])
+            px_ring = [[round(x, 1), round(y, 1)] for x, y in ring]
+            exteriors.append((ring_shoelace_area(px_ring), px_ring))
         for interior in poly.interiors:
             hole = simplify([[x, y] for x, y in interior.coords], eps)
             if len(hole) >= 3:
-                out.append([[round(x, 1), round(y, 1)] for x, y in hole])
-    return out
+                holes.append([[round(x, 1), round(y, 1)] for x, y in hole])
+    exteriors.sort(key=lambda item: item[0], reverse=True)
+    return [ring for _, ring in exteriors] + holes
 
 
 def assign_domain(
@@ -327,10 +353,36 @@ def main() -> None:
     missing = required - got
     if missing:
         raise SystemExit(f"missing kokugun meshes: {sorted(missing)}")
+    feature_counts = {
+        f["properties"]["id"]: f["properties"]["featureCount"] for f in index_features
+    }
+
+    def mesh_vertex_totals(mesh: dict) -> tuple[int, int]:
+        primary = len(mesh["ring"])
+        extras = mesh.get("extraRings") or []
+        total = primary + sum(len(r) for r in extras)
+        return primary, total
+
     for check in ("K08", "K56", "K63", "K71"):
         hit = next(m for m in meshes if m["id"] == check)
-        if len(hit["ring"]) < 3:
-            raise SystemExit(f"{check} mesh ring empty")
+        primary, total = mesh_vertex_totals(hit)
+        if primary < 24:
+            raise SystemExit(f"{check} mesh quality: primary={primary} (need ≥24)")
+
+    k71 = next(m for m in meshes if m["id"] == "K71")
+    k71_primary, k71_total = mesh_vertex_totals(k71)
+    if k71_primary < 24 or k71_total < 40:
+        raise SystemExit(
+            f"K71 mesh quality: primary={k71_primary} total={k71_total} (need ≥24 / ≥40)"
+        )
+
+    for mesh in meshes:
+        if feature_counts.get(mesh["id"], 0) >= 10:
+            primary, total = mesh_vertex_totals(mesh)
+            if primary < 24 or total < 40:
+                raise SystemExit(
+                    f"{mesh['id']} (featureCount≥10) quality: primary={primary} total={total}"
+                )
 
     emit_ts_meshes(meshes)
 
