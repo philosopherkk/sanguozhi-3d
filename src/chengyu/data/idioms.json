@@ -1,0 +1,414 @@
+[
+  {
+    "id": "cn-chengyu-pofuchenzhou",
+    "lemma": "破釜沉舟",
+    "reading": "pò fǔ chén zhōu",
+    "meaningZhHant": "比喻下決心背水一戰，不留退路。",
+    "eraLink": { "kind": "year", "year": -207 },
+    "source": { "class": "史籍", "cite": "《史記·項羽本紀》" },
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-wanbiguizhao",
+    "lemma": "完璧歸趙",
+    "reading": "wán bì guī zhào",
+    "meaningZhHant": "原指藺相如將和氏璧完好送回趙國；後喻把物品完好歸還原主。",
+    "eraLink": { "kind": "year", "year": -259 },
+    "source": { "class": "史籍", "cite": "《史記·廉頗藺相如列傳》" },
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-koumifujian",
+    "lemma": "口蜜腹劍",
+    "reading": "kǒu mì fù jiàn",
+    "meaningZhHant": "形容人表面友善，內心陰險狠毒。",
+    "eraLink": { "kind": "person", "id": "li-linfu", "year": 744 },
+    "source": { "class": "史籍", "cite": "《資治通鑑》卷二一四·唐紀" },
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-dongchuangshifa",
+    "lemma": "東窗事發",
+    "reading": "dōng chuāng shì fā",
+    "meaningZhHant": "比喻陰謀敗露；常與秦檜害岳飛故事相聯。",
+    "eraLink": { "kind": "year", "year": 1142 },
+    "source": { "class": "民俗", "cite": "宋元話本與後世戲文層（非編年正史）" },
+    "disputed": true,
+    "note": "情節見話本、戲曲流布；正史《宋史·秦檜傳》記害飛事，無「東窗」細節。",
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-zhishangtanbing",
+    "lemma": "紙上談兵",
+    "reading": "zhǐ shàng tán bīng",
+    "meaningZhHant": "比喻只會空論，不能解決實際問題。",
+    "eraLink": { "kind": "year", "year": -260 },
+    "source": { "class": "史籍", "cite": "《史記·趙世家》及《廉頗藺相如列傳》" },
+    "note": "成語為後世凝練，非司馬遷原句。",
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-woxinchangdan",
+    "lemma": "臥薪嘗膽",
+    "reading": "wò xīn cháng dǎn",
+    "meaningZhHant": "形容刻苦自勵、立志復仇或雪恥。",
+    "eraLink": { "kind": "year", "year": -496 },
+    "source": { "class": "史籍", "cite": "《史記·越王勾踐世家》" },
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-tuibisanshe",
+    "lemma": "退避三舍",
+    "reading": "tuì bì sān shè",
+    "meaningZhHant": "主動退讓，避免衝突；亦喻有意讓步。",
+    "eraLink": { "kind": "year", "year": -632 },
+    "source": { "class": "史籍", "cite": "《左傳·僖公二十三年》" },
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-fujingqingzui",
+    "lemma": "負荊請罪",
+    "reading": "fù jīng qǐng zuì",
+    "meaningZhHant": "帶著荊條請求責罰；表示誠心認錯求和。",
+    "eraLink": { "kind": "year", "year": -279 },
+    "source": { "class": "史籍", "cite": "《史記·廉頗藺相如列傳》" },
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-huashetianzu",
+    "lemma": "畫蛇添足",
+    "reading": "huà shé tiān zú",
+    "meaningZhHant": "比喻做多余的事，反而弄巧成拙。",
+    "eraLink": { "kind": "year", "year": -300 },
+    "source": { "class": "史籍", "cite": "《戰國策·齊策二》" },
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-kezhouqiujian",
+    "lemma": "刻舟求劍",
+    "reading": "kè zhōu qiú jiàn",
+    "meaningZhHant": "比喻拘泥成法，不知隨境況變通。",
+    "eraLink": { "kind": "year", "year": -400 },
+    "source": { "class": "經典", "cite": "《呂氏春秋·察今》" },
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-shouzhudaitutu",
+    "lemma": "守株待兔",
+    "reading": "shǒu zhū dài tù",
+    "meaningZhHant": "比喻不主動努力，僥倖等待意外收穫。",
+    "eraLink": { "kind": "year", "year": -225 },
+    "source": { "class": "經典", "cite": "《韓非子·五蠹》" },
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-yanerdaoling",
+    "lemma": "掩耳盜鈴",
+    "reading": "yǎn ěr dào líng",
+    "meaningZhHant": "自己欺騙自己；比喻妄圖掩人耳目。",
+    "eraLink": { "kind": "year", "year": -400 },
+    "source": { "class": "經典", "cite": "《呂氏春秋·自知》" },
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-mangrenmoxiang",
+    "lemma": "盲人摸象",
+    "reading": "máng rén mō xiàng",
+    "meaningZhHant": "比喻對事物只知片面，便妄下結論。",
+    "eraLink": { "kind": "year", "year": 200 },
+    "source": { "class": "經典", "cite": "《大般涅槃經·觀象品》" },
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-beigongsheying",
+    "lemma": "杯弓蛇影",
+    "reading": "bēi gōng shé yǐng",
+    "meaningZhHant": "疑神疑鬼，把虛驚當成真事。",
+    "eraLink": { "kind": "year", "year": 280 },
+    "source": { "class": "史籍", "cite": "《晉書·樂廣傳》" },
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-lanyuchongshu",
+    "lemma": "濫竽充數",
+    "reading": "làn yú chōng shù",
+    "meaningZhHant": "比喻無才德者混在行家之中充數。",
+    "eraLink": { "kind": "year", "year": -300 },
+    "source": { "class": "史籍", "cite": "《韓非子·內儲說上》" },
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-zhilu-weima",
+    "lemma": "指鹿為馬",
+    "reading": "zhǐ lù wéi mǎ",
+    "meaningZhHant": "故意顛倒是非，以權勢壓人。",
+    "eraLink": { "kind": "year", "year": -210 },
+    "source": { "class": "史籍", "cite": "《史記·秦始皇本紀》" },
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-sangumao",
+    "lemma": "三顧茅廬",
+    "reading": "sān gù máo lú",
+    "meaningZhHant": "比喻誠心禮賢、再三邀請賢才。",
+    "eraLink": { "kind": "person", "id": "zhuge-liang", "year": 207 },
+    "source": { "class": "史籍", "cite": "《三國志·蜀書·諸葛亮傳》" },
+    "note": "裴注引《襄陽記》等述「凡三往乃見」；後世凝為成語，演義細節不作史實。",
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-xietianzi",
+    "lemma": "挾天子以令諸侯",
+    "reading": "xié tiān zǐ yǐ lìng zhū hóu",
+    "meaningZhHant": "控制名義上的最高權威，以號令各方。",
+    "eraLink": { "kind": "year", "year": 196 },
+    "source": { "class": "史籍", "cite": "《後漢書·獻帝紀》及《資治通鑑》漢紀" },
+    "note": "語意為時人政治概括，非單一原句；與曹操迎獻帝史事相聯。",
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-lebusishu",
+    "lemma": "樂不思蜀",
+    "reading": "lè bù sī shǔ",
+    "meaningZhHant": "樂而忘本，不願再圖恢復故國。",
+    "eraLink": { "kind": "person", "id": "liu-shan", "year": 263 },
+    "source": { "class": "史籍", "cite": "《三國志·蜀書·後主傳》" },
+    "note": "本傳記後主降魏後答辭；成語為後世凝練。",
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-shibiesanri",
+    "lemma": "士別三日，刮目相待",
+    "reading": "shì bié sān rì，guā mù xiāng dài",
+    "meaningZhHant": "形容人進步很快，應另眼看待。",
+    "eraLink": { "kind": "person", "id": "lu-meng", "year": 208 },
+    "source": { "class": "史籍", "cite": "《三國志·吳書·呂蒙傳》" },
+    "note": "常用簡說「士別三日」；出處見裴注引《江表傳》。",
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-wangmeizhike",
+    "lemma": "望梅止渴",
+    "reading": "wàng méi zhǐ kě",
+    "meaningZhHant": "以空想安慰自己；後亦喻以希望支撐困境。",
+    "eraLink": { "kind": "person", "id": "cao-cao", "year": 208 },
+    "source": { "class": "近代定型", "cite": "《世說新語·假譎》等後世記載；演義廣傳" },
+    "disputed": true,
+    "note": "小說、戲曲流布甚廣；正史《三國志》無此細節，不宜作紀實。",
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-sizhuge",
+    "lemma": "死諸葛走生仲達",
+    "reading": "sǐ Zhūgě zǒu shēng Zhòngdá",
+    "meaningZhHant": "比喻對手活時難敵，死後仍令人畏懼退避。",
+    "eraLink": { "kind": "year", "year": 234 },
+    "source": { "class": "史籍", "cite": "《晉書·宣帝紀》" },
+    "note": "記民間諺語，非《三國志》正文。",
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-wuyan",
+    "lemma": "勿以惡小而為之，勿以善小而不為",
+    "reading": "wù yǐ è xiǎo ér wéi zhī，wù yǐ shàn xiǎo ér bù wéi",
+    "meaningZhHant": "強調積小善、戒小惡的修養。",
+    "eraLink": { "kind": "person", "id": "liu-bei", "year": 223 },
+    "source": { "class": "史籍", "cite": "《三國志·蜀書·先主傳》" },
+    "note": "記先主遺詔語；後世常節引。",
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-shuocaocao",
+    "lemma": "說曹操，曹操到",
+    "reading": "shuō Cáo Cāo，Cáo Cāo dào",
+    "meaningZhHant": "剛提到某人，那人便出現；形容巧合。",
+    "eraLink": { "kind": "year", "year": 1900 },
+    "source": { "class": "近代定型", "cite": "近代口語與俗諺彙（非魏晉編年）" },
+    "disputed": true,
+    "note": "與三國人物相聯之俗諺，非正史紀事。",
+    "locale": "zh"
+  },
+  {
+    "id": "jp-chengyu-mikkatenka",
+    "lemma": "三日天下",
+    "reading": "みっかてんか",
+    "meaningZhHant": "比喻權勢或成功極短暫；多指明智光秀本能寺後至山崎敗亡。",
+    "eraLink": { "kind": "year", "year": 1582 },
+    "source": { "class": "近代定型", "cite": "近世軍記與通史敘事（非正史固定術語）" },
+    "note": "為後世通稱，非同時代官方文書用語。",
+    "locale": "jp"
+  },
+  {
+    "id": "jp-chengyu-tekihahonnoji",
+    "lemma": "敵は本能寺にあり",
+    "reading": "てきはほんのうじにある",
+    "meaningZhHant": "意指敵人（或目標）在本能寺；常作信長討伐明智光秀之軍記語。",
+    "eraLink": { "kind": "year", "year": 1582 },
+    "source": { "class": "軍記", "cite": "《明智軍記》等軍記物語" },
+    "disputed": true,
+    "note": "軍記、後世講談流布；與編年史料須分層。",
+    "locale": "jp"
+  },
+  {
+    "id": "jp-chengyu-mizunoawa",
+    "lemma": "水の泡",
+    "reading": "みずのあわ",
+    "meaningZhHant": "比喻人生無常、榮華如泡影。",
+    "eraLink": { "kind": "year", "year": 900 },
+    "source": { "class": "和歌", "cite": "《伊勢物語》等平安歌物語" },
+    "locale": "jp"
+  },
+  {
+    "id": "jp-chengyu-kachofugetsu",
+    "lemma": "花鳥風月",
+    "reading": "かちょうふうげつ",
+    "meaningZhHant": "指自然美景與風雅之趣。",
+    "eraLink": { "kind": "year", "year": 1000 },
+    "source": { "class": "和歌", "cite": "《後撰和歌集》等歌集用例" },
+    "locale": "jp"
+  },
+  {
+    "id": "jp-chengyu-goetsudoshu",
+    "lemma": "呉越同舟",
+    "reading": "ごえつどうしゅう",
+    "meaningZhHant": "原本敵對的雙方在同困境中不得不合作。",
+    "eraLink": { "kind": "year", "year": -400 },
+    "source": { "class": "史籍", "cite": "《史記·越王勾踐世家》及《戰國策·趙策》" },
+    "locale": "shared"
+  },
+  {
+    "id": "jp-chengyu-kishikai",
+    "lemma": "起死回生",
+    "reading": "きしかいせい",
+    "meaningZhHant": "使將死或絕境者恢復生機；亦指醫道高明。",
+    "eraLink": { "kind": "year", "year": -200 },
+    "source": { "class": "史籍", "cite": "《史記·扁鵲倉公列傳》" },
+    "locale": "shared"
+  },
+  {
+    "id": "jp-chengyu-hanayoridango",
+    "lemma": "花より団子",
+    "reading": "はなよりだんご",
+    "meaningZhHant": "實用、口腹之樂重於表面風雅。",
+    "eraLink": { "kind": "year", "year": 1800 },
+    "source": { "class": "民俗", "cite": "江戶後期俗諺與落語傳承" },
+    "locale": "jp"
+  },
+  {
+    "id": "jp-chengyu-chikubanotomo",
+    "lemma": "竹馬の友",
+    "reading": "ちくばのとも",
+    "meaningZhHant": "幼年時一起玩耍的摯友。",
+    "eraLink": { "kind": "year", "year": 700 },
+    "source": { "class": "史籍", "cite": "《日本書紀》及漢籍「總角之交」語境" },
+    "locale": "jp"
+  },
+  {
+    "id": "jp-chengyu-inonakanokawazu",
+    "lemma": "井の中の蛙",
+    "reading": "いのなかのかわず",
+    "meaningZhHant": "見識狹隘，不知外界廣大。",
+    "eraLink": { "kind": "year", "year": -300 },
+    "source": { "class": "經典", "cite": "《莊子·秋水》（和文語彙化用）" },
+    "locale": "jp"
+  },
+  {
+    "id": "jp-chengyu-choreiboko",
+    "lemma": "朝令暮改",
+    "reading": "ちょうれいぼこう",
+    "meaningZhHant": "政令或方針朝夕變更，缺乏一貫。",
+    "eraLink": { "kind": "year", "year": 1600 },
+    "source": { "class": "近代定型", "cite": "和製漢語；近世政治批評用例" },
+    "locale": "jp"
+  },
+  {
+    "id": "jp-chengyu-ishindenshin",
+    "lemma": "以心伝心",
+    "reading": "いしんでんしん",
+    "meaningZhHant": "不借文字，以心意相傳；禪門常用。",
+    "eraLink": { "kind": "year", "year": 700 },
+    "source": { "class": "經典", "cite": "《六祖壇經》及禪籍" },
+    "locale": "jp"
+  },
+  {
+    "id": "jp-chengyu-ichigoichie",
+    "lemma": "一期一会",
+    "reading": "いちごいちえ",
+    "meaningZhHant": "每一次相遇都獨一無二，應珍惜當下。",
+    "eraLink": { "kind": "year", "year": 1600 },
+    "source": { "class": "民俗", "cite": "茶道千利休系傳承與近世茶書" },
+    "locale": "jp"
+  },
+  {
+    "id": "jp-chengyu-jakunikukyoshoku",
+    "lemma": "弱肉強食",
+    "reading": "じゃくにくきょうしょく",
+    "meaningZhHant": "弱者被強者吞併；叢林法則。",
+    "eraLink": { "kind": "year", "year": 1880 },
+    "source": { "class": "近代定型", "cite": "明治期譯語與政論用例" },
+    "locale": "jp"
+  },
+  {
+    "id": "jp-chengyu-issekinichou",
+    "lemma": "一石二鳥",
+    "reading": "いっせきにちょう",
+    "meaningZhHant": "一舉兩得。",
+    "eraLink": { "kind": "year", "year": 1900 },
+    "source": { "class": "近代定型", "cite": "和製漢語（由英語 two birds with one stone 意譯）" },
+    "locale": "jp"
+  },
+  {
+    "id": "jp-chengyu-juninniro",
+    "lemma": "十人十色",
+    "reading": "じゅうにんといろ",
+    "meaningZhHant": "各人好惡、才能各不相同。",
+    "eraLink": { "kind": "year", "year": 1700 },
+    "source": { "class": "民俗", "cite": "近世諺語與教訓文" },
+    "locale": "jp"
+  },
+  {
+    "id": "jp-chengyu-jigajisan",
+    "lemma": "自画自賛",
+    "reading": "じがじさん",
+    "meaningZhHant": "自己誇耀自己的作品或功績。",
+    "eraLink": { "kind": "year", "year": 1800 },
+    "source": { "class": "近代定型", "cite": "和製漢語；近世文藝評論用例" },
+    "locale": "jp"
+  },
+  {
+    "id": "jp-chengyu-junpumanpan",
+    "lemma": "順風満帆",
+    "reading": "じゅんぷうまんぱん",
+    "meaningZhHant": "一切順利，沒有阻礙。",
+    "eraLink": { "kind": "year", "year": 1850 },
+    "source": { "class": "近代定型", "cite": "近世商業書簡與俗諺" },
+    "locale": "jp"
+  },
+  {
+    "id": "jp-chengyu-uwasawosureba",
+    "lemma": "噂をすれば影",
+    "reading": "うわさをすればかげ",
+    "meaningZhHant": "剛談論某人，那人便出現（類似「說曹操曹操到」）。",
+    "eraLink": { "kind": "year", "year": 1600 },
+    "source": { "class": "史籍", "cite": "《史記·游俠列傳》語意；日本近世諺成定型" },
+    "locale": "jp"
+  },
+  {
+    "id": "jp-chengyu-shichitenhakki",
+    "lemma": "七転八起",
+    "reading": "しちてんはっき",
+    "meaningZhHant": "屢次跌倒仍爬起；比喻百折不撓。",
+    "eraLink": { "kind": "year", "year": 700 },
+    "source": { "class": "經典", "cite": "《說苑》及佛典「七顛八倒」語境" },
+    "locale": "jp"
+  },
+  {
+    "id": "jp-chengyu-nekonikoban",
+    "lemma": "猫に小判",
+    "reading": "ねこにこばん",
+    "meaningZhHant": "對不懂價值者給好東西也無用；白費。",
+    "eraLink": { "kind": "year", "year": 1700 },
+    "source": { "class": "民俗", "cite": "江戶時代諺語與浮世繪題材" },
+    "locale": "jp"
+  }
+]
