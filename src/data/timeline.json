@@ -387,10 +387,10 @@
     "location": "長江上下游",
     "type": "war",
     "source": "《晉書·武帝紀》；《資治通鑑》卷八十",
-    "month": 12,
+    "month": 11,
     "datePrecision": "month",
     "calendarNote": "lunar",
-    "note": "《晉書·武帝紀》：咸寧五年十二月，大舉伐吳。"
+    "note": "《晉書·武帝紀》：咸寧五年十一月，大舉伐吳；十二月事為馬隆平涼州，勿與伐吳混讀。"
   },
   {
     "id": "280-feihan",
