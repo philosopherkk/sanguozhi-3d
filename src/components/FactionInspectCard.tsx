@@ -13,6 +13,7 @@ import { territoryStatsForControl } from '../lib/territoryStats'
 import { useSelection } from '../state/SelectionContext'
 import { useYear } from '../state/YearContext'
 import type { TimelineEvent } from '../types/data'
+import { CollapsibleShell } from './CollapsibleShell'
 
 const events = timelineData as TimelineEvent[]
 
@@ -107,38 +108,46 @@ export function FactionInspectCard() {
   const color = factionColor(selectedFaction)
 
   return (
-    <article
-      className="faction-inspect"
-      style={{ borderLeftColor: color }}
-      aria-label={`${name} ${year} 年檢視`}
+    <CollapsibleShell
+      title="勢力檢視"
+      storageKey="map-faction-inspect"
+      defaultOpen
+      collapsedHint={name}
+      className="map-dock map-dock--tl"
     >
-      <header className="faction-inspect__head">
-        <p className="faction-inspect__kicker">東漢三角 · 勢力檢視</p>
-        <button type="button" onClick={clearFaction}>
-          關閉
-        </button>
-        <h3>
-          <i style={{ background: color }} aria-hidden />
-          {name}
-          <small>{year} 年</small>
-        </h3>
-        <p className="faction-inspect__land">所據 {land}</p>
-      </header>
-      <div className="faction-inspect__stats">
-        <StatTile stat={view.population} />
-        <StatTile stat={view.military} />
-      </div>
-      <section className="faction-inspect__changes" aria-label="本年變化">
-        <h4>本年變化</h4>
-        <ul>
-          {view.changes.map((item) => (
-            <ChangeItem
-              key={`${item.kind}-${item.title}`}
-              item={item}
-            />
-          ))}
-        </ul>
-      </section>
-    </article>
+      <article
+        className="faction-inspect faction-inspect--embedded"
+        style={{ borderLeftColor: color }}
+        aria-label={`${name} ${year} 年檢視`}
+      >
+        <header className="faction-inspect__head">
+          <p className="faction-inspect__kicker">東漢三角 · 勢力檢視</p>
+          <button type="button" onClick={clearFaction}>
+            關閉
+          </button>
+          <h3>
+            <i style={{ background: color }} aria-hidden />
+            {name}
+            <small>{year} 年</small>
+          </h3>
+          <p className="faction-inspect__land">所據 {land}</p>
+        </header>
+        <div className="faction-inspect__stats">
+          <StatTile stat={view.population} />
+          <StatTile stat={view.military} />
+        </div>
+        <section className="faction-inspect__changes" aria-label="本年變化">
+          <h4>本年變化</h4>
+          <ul>
+            {view.changes.map((item) => (
+              <ChangeItem
+                key={`${item.kind}-${item.title}`}
+                item={item}
+              />
+            ))}
+          </ul>
+        </section>
+      </article>
+    </CollapsibleShell>
   )
 }

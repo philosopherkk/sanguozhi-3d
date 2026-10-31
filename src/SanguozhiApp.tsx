@@ -2,6 +2,7 @@ import { AppHeader } from './components/AppHeader'
 import { EraBar } from './components/EraBar'
 import { MapStage } from './components/MapStage'
 import { PeoplePanel } from './components/PeoplePanel'
+import { SanguozhiSideRail } from './components/SanguozhiSideRail'
 import { TimelinePanel } from './components/TimelinePanel'
 import { UnregisteredHouseholdsPanel } from './components/UnregisteredHouseholdsPanel'
 import { YearScrubber } from './components/YearScrubber'
@@ -18,10 +19,10 @@ export function SanguozhiApp() {
           <EraBar />
           <YearScrubber />
 
-          <div className="app-shell__main">
+          <div className="app-shell__main app-shell__main--sanguozhi">
             <MapStage />
 
-            <div className="app-shell__side">
+            <SanguozhiSideRail>
               <section className="events-cell" aria-label="歷史大事">
                 <UnregisteredHouseholdsPanel />
                 <TimelinePanel compact />
@@ -29,7 +30,7 @@ export function SanguozhiApp() {
               <aside className="people-cell" aria-label="人物介紹">
                 <PeoplePanel compact />
               </aside>
-            </div>
+            </SanguozhiSideRail>
           </div>
 
           <footer className="app-footer">
