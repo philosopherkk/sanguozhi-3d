@@ -23,6 +23,8 @@ export interface JapanPerson {
   source: string
   activeFrom: number
   activeTo: number
+  disputed?: boolean
+  note?: string
 }
 
 export interface JapanPlace {

@@ -33,6 +33,17 @@
     "activeTo": 756
   },
   {
+    "id": "kanmu-tenno",
+    "name": "桓武天皇",
+    "years": "737–806；在位781–806",
+    "role": "天皇",
+    "era": "平安",
+    "summary": "推動遷都長岡・平安，並有東北經營政策背景；平安時代開端的皇名人選。",
+    "source": "《續日本紀》；《日本後紀》",
+    "activeFrom": 781,
+    "activeTo": 806
+  },
+  {
     "id": "taira-masakado",
     "name": "平將門",
     "years": "？–940",
@@ -55,6 +66,41 @@
     "activeTo": 1027
   },
   {
+    "id": "kukai",
+    "name": "空海",
+    "years": "774–835",
+    "role": "僧／真言宗開祖",
+    "era": "平安",
+    "summary": "入唐學密教歸國，東寺・高野山為據；平安文化與國家佛教重組的代表人物。",
+    "source": "《御遺告》系；空海研究通說",
+    "activeFrom": 804,
+    "activeTo": 835
+  },
+  {
+    "id": "sugawara-michizane",
+    "name": "菅原道真",
+    "years": "845–903",
+    "role": "學者・右大臣",
+    "era": "平安",
+    "summary": "894年建議停派遣唐使；後左遷大宰府（903）。學者・右大臣，國風文化轉向的通史錨。",
+    "source": "《扶桑略記》；道真上奏・傳記研究",
+    "disputed": true,
+    "note": "後世天神・雷神信仰與神格化為傳說／信仰層，不作政治史實錄；停遣唐使與左遷以史書記載為準。",
+    "activeFrom": 877,
+    "activeTo": 903
+  },
+  {
+    "id": "murasaki-shikibu",
+    "name": "紫式部",
+    "years": "活躍約1000–1014",
+    "role": "女官・作家",
+    "era": "平安",
+    "summary": "《源氏物語》作者；摂関盛期宮廷女性文學代表（生卒年約）。",
+    "source": "《紫式部日記》；物語成立史",
+    "activeFrom": 1000,
+    "activeTo": 1014
+  },
+  {
     "id": "minamoto-yoriyoshi",
     "name": "源頼義",
     "years": "988–1075（約）",
@@ -75,6 +121,17 @@
     "source": "《百鍊抄》應徳三年條",
     "activeFrom": 1073,
     "activeTo": 1129
+  },
+  {
+    "id": "taira-kiyomori",
+    "name": "平清盛",
+    "years": "1118–1181",
+    "role": "太政大臣",
+    "era": "平安",
+    "summary": "保元・平治後掌握朝廷軍政，1167年任太政大臣；源平前夜平氏門閥核心。",
+    "source": "公卿補任・中世史通說",
+    "activeFrom": 1156,
+    "activeTo": 1181
   },
   {
     "id": "minamoto-yoshiie",

@@ -75,6 +75,12 @@ export function JapanPeople() {
             {open.era} · {open.role} · {open.years}
           </p>
           <p>{open.summary}</p>
+          {open.disputed || open.note ? (
+            <p className="person-note">
+              {open.disputed ? '〔異說／傳說層〕' : ''}
+              {open.note}
+            </p>
+          ) : null}
           <p className="person-source">{open.source}</p>
           <PersonWiki name={open.name} localNote={open.summary} />
           <button type="button" className="text-btn" onClick={() => setOpenId(null)}>
