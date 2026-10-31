@@ -27,7 +27,7 @@ function nameFor(id: string) {
 }
 
 function BakumatsuBody() {
-  const { year, setYear } = useBakumatsuYear()
+  const { year, setYear, month } = useBakumatsuYear()
   const { selectedFaction, selectFaction } = useBakumatsuSelection()
   return (
     <div className="app-shell app-shell--japan">
@@ -47,6 +47,7 @@ function BakumatsuBody() {
                 detailFor={bakumatsuDetailFor}
                 readingFor={bakumatsuReadingFor}
                 emptyHint="此年無登錄專條。試 1853（黑船）、1858（安政）、1860（櫻田）、1866（長州）、1868（戊辰）。"
+                monthFilter={month}
               />
             }
             people={

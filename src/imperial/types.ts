@@ -1,5 +1,6 @@
 import type { MarchRoute } from '../data/marchRoutes'
 import type { ProvinceId } from '../data/provinces'
+import type { TimelineDateFields } from '../types/timelineDate'
 
 export interface ImperialFaction {
   id: string
@@ -20,7 +21,7 @@ export interface ImperialSnapshot {
   extensions?: { faction: string; rings: [number, number][][] }[]
 }
 
-export interface ImperialEvent {
+export interface ImperialEvent extends TimelineDateFields {
   id: string
   year: number
   title: string
@@ -38,6 +39,8 @@ export interface ImperialEvent {
   keyFigures?: { name: string; role: string }[]
   classicQuote?: string
   classicSource?: string
+  note?: string
+  disputed?: boolean
 }
 
 export interface ImperialPerson {

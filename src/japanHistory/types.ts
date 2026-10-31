@@ -1,4 +1,6 @@
-export interface JapanTimelineEvent {
+import type { TimelineDateFields } from '../types/timelineDate'
+
+export interface JapanTimelineEvent extends TimelineDateFields {
   id: string
   year: number
   title: string
