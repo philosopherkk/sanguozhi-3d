@@ -11,6 +11,17 @@
     "activeTo": 622
   },
   {
+    "id": "abe-hirafu",
+    "name": "阿倍比羅夫",
+    "years": "7世紀（文獻）",
+    "role": "遣使・將",
+    "era": "飛鳥",
+    "summary": "《日本書紀》齊明紀記其北征航行；事蹟範圍與地理諸說。文獻蝦夷（Emishi）不宜直接等同近代阿伊努（Ainu）。",
+    "source": "《日本書紀》齊明紀",
+    "activeFrom": 658,
+    "activeTo": 660
+  },
+  {
     "id": "shomu-tenno",
     "name": "聖武天皇",
     "years": "701–756",
@@ -110,6 +121,17 @@
     "activeTo": 1408
   },
   {
+    "id": "sho-hashi",
+    "name": "尚巴志",
+    "years": "1376–1439（約）",
+    "role": "琉球國王",
+    "era": "室町",
+    "summary": "1429年統一三山，奠定琉球王國通史錨年。",
+    "source": "《中山世鑑》；高良倉吉《琉球の時代》",
+    "activeFrom": 1429,
+    "activeTo": 1439
+  },
+  {
     "id": "oda-nobunaga",
     "name": "織田信長",
     "years": "1534–1582",
@@ -165,6 +187,17 @@
     "activeTo": 1616
   },
   {
+    "id": "shakushain",
+    "name": "シャクシャイン",
+    "years": "活躍約1665–1669",
+    "role": "阿伊努首長",
+    "era": "江戶",
+    "summary": "日高地方首長，1669年聯合抗松前；鎮壓後場所支配強化。",
+    "source": "松前藩記錄；《新羅之記録》系；菊池勇夫《アイヌ民族と日本人》",
+    "activeFrom": 1665,
+    "activeTo": 1669
+  },
+  {
     "id": "shimazu-iehisa",
     "name": "島津家久",
     "years": "1576–1638",
@@ -185,5 +218,16 @@
     "source": "太政官布告（明治二年七月八日，置開拓使）",
     "activeFrom": 1869,
     "activeTo": 1882
+  },
+  {
+    "id": "sho-tai",
+    "name": "尚泰",
+    "years": "1843–1901",
+    "role": "末代琉球王／華族",
+    "era": "明治",
+    "summary": "1872任琉球藩王，1879琉球處分後遷東京；連結廢藩置縣與沖繩縣時代。",
+    "source": "太政官達（明治十二年廢琉球藩）；高良倉吉《琉球の時代》",
+    "activeFrom": 1872,
+    "activeTo": 1879
   }
 ]

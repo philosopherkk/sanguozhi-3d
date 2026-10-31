@@ -23,6 +23,16 @@ export interface JapanPerson {
   activeTo: number
 }
 
+export interface JapanPlace {
+  id: string
+  name: string
+  summary: string
+  location: string
+  source: string
+  disputed?: boolean
+  note?: string
+}
+
 export interface JapanEraBand {
   id: string
   label: string
