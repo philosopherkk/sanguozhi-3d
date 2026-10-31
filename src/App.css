@@ -572,7 +572,7 @@ html[data-theme='light'] .app-footer {
   border: 1px solid var(--border);
   background: var(--surface-2);
   color: var(--text);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   padding: 0.15rem 0.45rem;
   border-radius: 999px;
   cursor: pointer;
@@ -581,6 +581,7 @@ html[data-theme='light'] .app-footer {
 .timeline-month-chip.is-active {
   border-color: var(--accent);
   color: var(--accent);
+  font-size: 0.75rem;
 }
 
 .year-scrubber--compact .year-scrubber__tick {
@@ -609,7 +610,7 @@ html[data-theme='light'] .app-footer {
 }
 
 .year-scrubber__tick-year {
-  font-size: 0.55rem;
+  font-size: 0.75rem;
   font-variant-numeric: tabular-nums;
 }
 
@@ -619,6 +620,7 @@ html[data-theme='light'] .app-footer {
 
 .year-scrubber--compact .year-scrubber__tick-label {
   display: block;
+  font-size: 0.75rem;
 }
 
 .year-scrubber__tick.is-active {
@@ -1348,9 +1350,12 @@ html[data-theme='light'] .app-footer {
 .map-2d__credit {
   flex-shrink: 0;
   margin: 0;
-  font-size: 0.58rem;
+  font-size: 0.75rem;
   line-height: 1.4;
-  color: var(--accent-dim);
+  color: var(--ink-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .map-2d__credit a {
@@ -2485,7 +2490,7 @@ html[data-theme='light'] .app-footer {
 .person-source,
 .timeline-loc {
   margin: 0.3rem 0 0;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: var(--accent-dim);
   line-height: 1.4;
 }
@@ -2936,11 +2941,11 @@ html[data-theme='light'] .app-footer {
 }
 
 .year-scrubber__ticks--dense .year-scrubber__tick-year {
-  font-size: 0.58rem;
+  font-size: 0.75rem;
 }
 
 .year-scrubber__ticks--dense .year-scrubber__tick-label {
-  font-size: 0.52rem;
+  font-size: 0.75rem;
 }
 
 .event-detail__quote blockquote {

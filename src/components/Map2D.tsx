@@ -98,6 +98,10 @@ export function Map2D() {
   const { year, control, territoryYear } = useYear()
   const { selectedFaction, selectFaction } = useSelection()
   const basemap = useMemo(() => basemapForYear(year), [year])
+  const mapCreditTitle = useMemo(() => {
+    const license = basemap.license ? `（${basemap.license}）` : ''
+    return `時代底圖：${basemap.credit}${license}。現代東亞地勢，東漢三國與春秋戰國共用，不按時代換古圖。海岸沿底圖陸地收回；內陸界順著黃河、長江、秦嶺、大巴、太行、南嶺的大勢，未能逐縣處為示意；${TK_TERRITORY_NOTE_ZH} ${formatGeometryProvenance(TK_PROVINCE_GEOMETRY)} 具名城邑像素為示意錨點（sidecar coord_confidence），非典籍經緯換算；游標指向城名可見出處。五溪蠻只佔沅水上游山地。塞外部族是活動帶示意，不是郡界。行軍沿黃河、長江、三峽、崤函、祁山。地名用當時稱呼。`
+  }, [basemap.credit, basemap.license])
   const shapes = useMemo(() => mergeFactionTerritoriesBasemap(control), [control])
   const shadeRings = useMemo(() => {
     const out = new Map<string, [number, number][][]>()
@@ -535,15 +539,12 @@ export function Map2D() {
         </p>
       </div>
 
-      <p className="map-2d__credit">
-        時代底圖：
-        <a href={basemap.commonsUrl} target="_blank" rel="noreferrer">
+      <p className="map-2d__credit" title={mapCreditTitle}>
+        底圖：
+        <a href={basemap.commonsUrl} target="_blank" rel="noreferrer" title={mapCreditTitle}>
           {basemap.credit}
         </a>
         {basemap.license ? `（${basemap.license}）` : ''}
-        。現代東亞地勢，東漢三國與春秋戰國共用，不按時代換古圖。海岸沿底圖陸地收回；內陸界順著黃河、長江、秦嶺、大巴、太行、南嶺的大勢，未能逐縣處為示意；{TK_TERRITORY_NOTE_ZH}{' '}
-        {formatGeometryProvenance(TK_PROVINCE_GEOMETRY)} 具名城邑像素為示意錨點（sidecar
-        coord_confidence），非典籍經緯換算；游標指向城名可見出處。五溪蠻只佔沅水上游山地。塞外部族是活動帶示意，不是郡界。行軍沿黃河、長江、三峽、崤函、祁山。地名用當時稱呼。
       </p>
     </div>
   )

@@ -31,6 +31,7 @@ export function TimelineMonthBar<T extends TimelineDateFields & { year: number }
       <button
         type="button"
         className={monthFilter == null ? 'timeline-month-chip is-active' : 'timeline-month-chip'}
+        aria-pressed={monthFilter == null}
         onClick={() => onMonthFilter(null)}
       >
         全年
@@ -40,6 +41,7 @@ export function TimelineMonthBar<T extends TimelineDateFields & { year: number }
           key={m}
           type="button"
           className={monthFilter === m ? 'timeline-month-chip is-active' : 'timeline-month-chip'}
+          aria-pressed={monthFilter === m}
           onClick={() => onMonthFilter(m)}
         >
           {m}月

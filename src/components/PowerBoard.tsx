@@ -22,14 +22,14 @@ export function PowerBoard({ embedded = false }: { embedded?: boolean }) {
           <div>
             <h2 className="power-board__title">勢力疆域</h2>
             <p className="power-board__sub">
-              {year} 年 · 點選勢力，左方開啟本年檢視
+              {year} 年 · 點色塊可篩選左方人物
               {territoryYear !== year ? `（底圖 ${territoryYear}）` : ''}
             </p>
           </div>
         </header>
       ) : (
         <p className="power-board__sub power-board__sub--embedded">
-          {year} 年 · 點選列或色塊，左方開啟本年檢視
+          {year} 年 · 點色塊可篩選左方人物
           {territoryYear !== year ? `（底圖 ${territoryYear}）` : ''}
         </p>
       )}

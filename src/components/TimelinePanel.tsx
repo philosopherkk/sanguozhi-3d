@@ -61,6 +61,18 @@ export function TimelinePanel({
       .slice(0, showAll ? events.length : rail ? 4 : 6)
   }, [year, showAll, rail])
 
+  const nearbyJumpYears = useMemo(() => {
+    const years: number[] = []
+    const seen = new Set<number>()
+    for (const { e } of nearby) {
+      if (seen.has(e.year)) continue
+      seen.add(e.year)
+      years.push(e.year)
+      if (years.length >= 4) break
+    }
+    return years
+  }, [nearby])
+
   const detail = openId ? timelineDetailFor(openId) : undefined
   const openEvent = openId ? events.find((e) => e.id === openId) : undefined
 
@@ -95,7 +107,27 @@ export function TimelinePanel({
 
       {eventCount === 0 && yearBattles.length === 0 ? (
         <p className="empty-hint">
-          此年無登錄專條。試 208（赤壁）、222（夷陵）、263（滅蜀）。
+          此年無登錄專條。
+          {nearbyJumpYears.length > 0 ? (
+            <>
+              {' '}
+              試跳轉{' '}
+              {nearbyJumpYears.map((y, i) => (
+                <span key={y}>
+                  {i > 0 ? '、' : ''}
+                  <button
+                    type="button"
+                    className="timeline-year timeline-year--btn"
+                    onClick={() => setYear(y)}
+                    title={`跳至 ${y} 年`}
+                  >
+                    {y}
+                  </button>
+                </span>
+              ))}
+              年。
+            </>
+          ) : null}
         </p>
       ) : null}
 
