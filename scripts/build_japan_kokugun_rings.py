@@ -8,7 +8,7 @@ import math
 import re
 from pathlib import Path
 
-from shapely.geometry import MultiPolygon, Point, Polygon
+from shapely.geometry import MultiPolygon, Point, Polygon, mapping
 from shapely.ops import unary_union
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -165,21 +165,52 @@ def assign_domain(
     return best_id
 
 
-def load_feature(kid: str) -> dict | None:
-    path = VENDOR / f"{kid}.geojson"
-    if not path.exists():
-        return None
-    data = json.loads(path.read_text(encoding="utf-8"))
-    feats = data.get("features") or []
-    return feats[0] if feats else None
-
-
-def load_all_geometries(kid: str) -> list[dict]:
+def load_vendor_features(kid: str) -> list[dict]:
     path = VENDOR / f"{kid}.geojson"
     if not path.exists():
         return []
     data = json.loads(path.read_text(encoding="utf-8"))
-    return [f["geometry"] for f in data.get("features") or [] if f.get("geometry")]
+    return list(data.get("features") or [])
+
+
+def load_all_geometries(kid: str) -> list[dict]:
+    return [f["geometry"] for f in load_vendor_features(kid) if f.get("geometry")]
+
+
+def kokugun_name(kid: str, feats: list[dict]) -> str:
+    for feat in feats:
+        props = feat.get("properties") or {}
+        if props.get("id") == kid and props.get("name"):
+            return str(props["name"])
+    for feat in feats:
+        props = feat.get("properties") or {}
+        if props.get("name"):
+            return str(props["name"])
+    return kid
+
+
+def geoms_wgs_union(geoms: list[dict]):
+    parts = []
+    for geom in geoms:
+        for ring in lonlat_rings_from_geo(geom):
+            if len(ring) >= 3:
+                parts.append(Polygon(ring))
+    if not parts:
+        return None
+    return unary_union(parts)
+
+
+def centroid_lonlat(geoms: list[dict]) -> tuple[float, float]:
+    lons: list[float] = []
+    lats: list[float] = []
+    for geom in geoms:
+        for ring in lonlat_rings_from_geo(geom):
+            for lon, lat in ring:
+                lons.append(lon)
+                lats.append(lat)
+    if not lons:
+        return 0.0, 0.0
+    return sum(lons) / len(lons), sum(lats) / len(lats)
 
 
 def pixel_rings_from_geometries(geoms: list[dict], eps: float = 2.2) -> list[list[list[float]]]:
@@ -243,27 +274,23 @@ def main() -> None:
 
     for n in range(1, 74):
         kid = f"K{n:02d}"
-        feat = load_feature(kid)
-        if not feat:
+        feats = load_vendor_features(kid)
+        geoms = load_all_geometries(kid)
+        if not geoms:
             continue
-        props = feat["properties"]
-        name = props.get("name") or kid
-        geom = feat["geometry"]
-        lonlat_parts = lonlat_rings_from_geo(geom)
-        if not lonlat_parts:
-            continue
-        lons = [p[0] for ring in lonlat_parts for p in ring]
-        lats = [p[1] for ring in lonlat_parts for p in ring]
-        lon = sum(lons) / len(lons)
-        lat = sum(lats) / len(lats)
+        name = kokugun_name(kid, feats)
+        lon, lat = centroid_lonlat(geoms)
         domain_id = assign_domain(lon, lat, domains)
         zone = domain_zone.get(domain_id, "奧羽")
 
-        rings_px = pixel_rings_from_geo(geom, 2.2)
+        rings_px = pixel_rings_from_geometries(geoms, 2.2)
         if not rings_px:
             continue
         ring = rings_px[0]
         extra = rings_px[1:] if len(rings_px) > 1 else None
+
+        merged = geoms_wgs_union(geoms)
+        index_geom = mapping(merged) if merged is not None else geoms[0]
 
         meshes.append(
             {
@@ -283,6 +310,7 @@ def main() -> None:
                     "id": kid,
                     "name": name,
                     "domainId": domain_id,
+                    "featureCount": len(geoms),
                     "source_plate": CODH_SOURCE_PLATE,
                     "approx": True,
                     "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
@@ -290,9 +318,19 @@ def main() -> None:
                     "year": 1868,
                     "crs": "EPSG:4326 → japan relief 1482×1477",
                 },
-                "geometry": geom,
+                "geometry": index_geom,
             }
         )
+
+    required = {f"K{n:02d}" for n in range(1, 74)}
+    got = {m["id"] for m in meshes}
+    missing = required - got
+    if missing:
+        raise SystemExit(f"missing kokugun meshes: {sorted(missing)}")
+    for check in ("K08", "K56", "K63", "K71"):
+        hit = next(m for m in meshes if m["id"] == check)
+        if len(hit["ring"]) < 3:
+            raise SystemExit(f"{check} mesh ring empty")
 
     emit_ts_meshes(meshes)
 
@@ -311,33 +349,31 @@ def main() -> None:
 
     hokkaido_px: list[Polygon] = []
     for n in range(75, 86):
-        feat = load_feature(f"K{n:02d}")
-        if feat:
-            hokkaido_px.extend(geo_to_pixel_shapes(feat["geometry"]))
+        for geom in load_all_geometries(f"K{n:02d}"):
+            hokkaido_px.extend(geo_to_pixel_shapes(geom))
     if hokkaido_px:
         hokk = unary_union(hokkaido_px)
         era["hokkaido"] = rings_from_shapely(hokk, 2.5)
 
-    k78 = load_feature("K78")
-    if k78:
-        lonlat_parts = lonlat_rings_from_geo(k78["geometry"])
-        south_rings = []
-        for ring in lonlat_parts:
-            south = [
-                (lon, lat)
-                for lon, lat in ring
-                if lat <= MATSUMAE_MAX_LAT
-            ]
-            if len(south) >= 3:
-                px = px_ring(south)
-                if len(px) >= 3:
-                    south_rings.append(Polygon(px))
+    k78_geoms = load_all_geometries("K78")
+    if k78_geoms:
+        south_rings: list[Polygon] = []
+        for geom in k78_geoms:
+            for ring in lonlat_rings_from_geo(geom):
+                south = [(lon, lat) for lon, lat in ring if lat <= MATSUMAE_MAX_LAT]
+                if len(south) >= 3:
+                    px = px_ring(south)
+                    if len(px) >= 3:
+                        south_rings.append(Polygon(px))
         if south_rings:
             era["matsumae"] = rings_from_shapely(unary_union(south_rings), 2.0)
 
     emit_era_rings(era)
     build_index(index_features)
-    print(f"meshes={len(meshes)} era hokkaido={len(era['hokkaido'])} ryukyu={len(era['ryukyu'])}")
+    print(
+        f"meshes={len(meshes)} era hokkaido={len(era['hokkaido'])} "
+        f"ryukyu={len(era['ryukyu'])} spot={','.join('K08 K56 K63 K71'.split())}"
+    )
 
 
 if __name__ == "__main__":

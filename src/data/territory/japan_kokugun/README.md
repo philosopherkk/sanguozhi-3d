@@ -10,7 +10,7 @@
 
 | 路徑 | 說明 |
 |------|------|
-| `vendor/Kxx.geojson` | 原樣 vendored（K01–K85） |
+| `vendor/Kxx.geojson` | 原樣 vendored（K01–K85）；**同一 Kxx 檔內多 Feature 會在 build 時 union**（避免離島排前導致本州漏色） |
 | `index.geojson` | K01–K73 索引（WGS84，含 `domainId` 對照 d0–d27） |
 
 ## 重建著色 mesh
