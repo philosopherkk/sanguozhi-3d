@@ -7,8 +7,7 @@ import importlib.util
 import json
 from pathlib import Path
 
-from shapely.geometry import shape
-from shapely.ops import unary_union
+from shapely.geometry import MultiPolygon, Polygon, shape
 
 ROOT = Path(__file__).resolve().parents[1]
 VENDOR = ROOT / "src/data/territory/japan_bakumatsu_1867/vendor"
@@ -34,19 +33,72 @@ def load_kokugun_build():
     return mod
 
 
-def ring_area(ring: list[list[float]]) -> float:
-    if len(ring) < 3:
-        return 0.0
-    s = 0.0
-    for i in range(len(ring)):
-        x0, y0 = ring[i]
-        x1, y1 = ring[(i + 1) % len(ring)]
-        s += x0 * y1 - x1 * y0
-    return abs(s) / 2.0
+def adaptive_exterior_ring(kg, ext_coords: list, pre_count: int, base_eps: float = 2.2) -> list[list[float]]:
+    """K71-style: retry lower RDP eps when large exteriors collapse to triangles."""
+    eps_steps = [base_eps]
+    if pre_count > 500:
+        eps_steps.extend([1.4, 1.0, 0.6, 0.5, 0.35, 0.25])
+    elif pre_count > 120:
+        eps_steps.extend([1.4, 1.0, 0.6, 0.5, 0.35, 0.25, 0.15])
+    elif pre_count > 40:
+        eps_steps.extend([1.4, 1.0, 0.6, 0.35, 0.25])
+
+    best: list[list[float]] = []
+    for eps in eps_steps:
+        ring = kg.simplify([[x, y] for x, y in ext_coords], eps)
+        ring = [[round(x, 1), round(y, 1)] for x, y in ring]
+        if len(ring) < 3:
+            continue
+        if not best or len(ring) > len(best):
+            best = ring
+        if len(ring) >= 24:
+            break
+        if pre_count > 120 and len(ring) >= 16:
+            break
+    return best
 
 
-def sort_rings_largest_first(rings: list[list[list[float]]]) -> list[list[list[float]]]:
-    return sorted(rings, key=ring_area, reverse=True)
+def pixel_rings_for_han(kg, geoms: list[dict]) -> list[list[list[float]]]:
+    """Exterior rings only for primary selection; densest outline first; adaptive simplify."""
+    from shapely.ops import unary_union
+
+    parts: list[Polygon] = []
+    for geom in geoms:
+        parts.extend(kg.geo_to_pixel_shapes(geom))
+    if not parts:
+        return []
+
+    merged = unary_union(parts)
+    if merged.is_empty:
+        return []
+
+    polys = list(merged.geoms) if isinstance(merged, MultiPolygon) else [merged]
+    exteriors: list[tuple[float, int, list]] = []
+    hole_coords: list[list] = []
+
+    for poly in polys:
+        if poly.is_empty:
+            continue
+        ext = list(poly.exterior.coords)
+        exteriors.append((poly.area, len(ext), ext))
+        for interior in poly.interiors:
+            hole_coords.append(list(interior.coords))
+
+    exteriors.sort(key=lambda item: (item[1], item[0]), reverse=True)
+
+    rings_out: list[list[list[float]]] = []
+    for _area, pre_count, ext in exteriors:
+        ring = adaptive_exterior_ring(kg, ext, pre_count)
+        if len(ring) >= 3:
+            rings_out.append(ring)
+
+    for hole in hole_coords:
+        simplified = kg.simplify([[x, y] for x, y in hole], 2.2)
+        ring = [[round(x, 1), round(y, 1)] for x, y in simplified]
+        if len(ring) >= 3:
+            rings_out.append(ring)
+
+    return rings_out
 
 
 def load_village_geoms(hid: str) -> list[dict]:
@@ -124,8 +176,7 @@ def main() -> None:
         zone = domain_zone.get(domain_id, "奧羽")
         name = name_by_id.get(hid, hid)
 
-        rings_px = kg.pixel_rings_from_geometries(geoms, 2.2)
-        rings_px = sort_rings_largest_first(rings_px)
+        rings_px = pixel_rings_for_han(kg, geoms)
         if not rings_px:
             continue
         ring = rings_px[0]
@@ -166,6 +217,22 @@ def main() -> None:
 
     if len(meshes) < 10:
         raise SystemExit(f"too few han meshes: {len(meshes)}")
+
+    for check in ("H346", "H374"):
+        hit = next(m for m in meshes if m["id"] == check)
+        if len(hit["ring"]) < 16:
+            raise SystemExit(f"{check} primary ring too thin: {len(hit['ring'])} pts")
+
+    for m in meshes:
+        villages = next(
+            f["properties"]["villageCount"]
+            for f in index_features
+            if f["properties"]["id"] == m["id"]
+        )
+        if villages >= 100 and len(m["ring"]) < 12:
+            raise SystemExit(f"{m['id']} primary ring {len(m['ring'])} pts for {villages} villages")
+        if villages >= 20 and len(m["ring"]) < 8:
+            raise SystemExit(f"{m['id']} primary ring {len(m['ring'])} pts for {villages} villages")
 
     emit_ts(meshes)
     fc = {

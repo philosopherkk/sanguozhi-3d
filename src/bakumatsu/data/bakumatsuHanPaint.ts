@@ -1,6 +1,7 @@
 import type { JapanPaintShade } from '../../sengoku/data/japanKokugunPaint'
 import { shadesFromDomainControl } from '../../sengoku/data/japanKokugunPaint'
 import { BAKUMATSU_HAN_MESHES } from './bakumatsuHanMeshes'
+import { hanDisplayNameZh } from './hanDisplayNames'
 
 /** 幕末：村→藩 dissolve mesh 著色；幾何 CC BY-SA（見 ATTRIBUTION-CODH-HAN-BY-SA.md）。 */
 export function shadesFromHanDomainControl(
@@ -16,7 +17,9 @@ export function shadesFromHanDomainControl(
     kokugunId: mesh.hanId,
     domainId: mesh.domainId,
     zone: mesh.zone,
-    name: nameByDomain?.[mesh.domainId] ?? mesh.name,
+    name:
+      nameByDomain?.[mesh.domainId] ??
+      hanDisplayNameZh(mesh.hanId, mesh.name),
     ring: mesh.ring,
     extraRings: mesh.extraRings,
     faction: control[mesh.domainId] ?? fallbackFaction,
