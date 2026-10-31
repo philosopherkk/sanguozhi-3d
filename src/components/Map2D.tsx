@@ -19,6 +19,12 @@ import {
   BASEMAP_WIDTH,
 } from '../data/basemapProvinces'
 import { THREE_KINGDOMS_PLACES } from '../data/chinaPlaces'
+import { provenanceForPlace } from '../data/chinaPlacesProvenance'
+import {
+  TK_PROVINCE_GEOMETRY,
+  TK_TERRITORY_NOTE_ZH,
+} from '../data/territory/provenance'
+import { formatGeometryProvenance } from './TerritoryGeometryProvenanceNote'
 import { factionColor, factionName } from '../lib/factionColors'
 import {
   clipBasemapRing,
@@ -358,7 +364,12 @@ export function Map2D() {
                   )
                 })
               : null}
-            {THREE_KINGDOMS_PLACES.map((place) => (
+            {THREE_KINGDOMS_PLACES.map((place) => {
+              const prov = provenanceForPlace(place.name)
+              const title = prov
+                ? `${place.name} · 座標${prov.coord_confidence === 'approx' ? '示意' : prov.coord_confidence} · ${prov.coord_note} 出處：${prov.source}`
+                : place.name
+              return (
               <g key={place.name} pointerEvents="none">
                 <circle
                   cx={place.x}
@@ -367,7 +378,9 @@ export function Map2D() {
                   fill="#f7edd6"
                   stroke="#1a1810"
                   strokeWidth={1.4}
-                />
+                >
+                  <title>{title}</title>
+                </circle>
                 <text
                   x={place.x + 14}
                   y={place.y - 10}
@@ -377,10 +390,11 @@ export function Map2D() {
                   strokeWidth={3}
                   paintOrder="stroke"
                 >
+                  <title>{title}</title>
                   {place.name}
                 </text>
               </g>
-            ))}
+            )})}
             {showRoutes ? (
               <RouteOverlay
                 routes={CHINA_MARCH_ROUTES}
@@ -527,7 +541,9 @@ export function Map2D() {
           {basemap.credit}
         </a>
         {basemap.license ? `（${basemap.license}）` : ''}
-        。現代東亞地勢，東漢三國與春秋戰國共用，不按時代換古圖。海岸沿底圖陸地收回；內陸界順著黃河、長江、秦嶺、大巴、太行、南嶺的大勢，未能逐縣處為示意；州界幾何非譚第三冊圖幅矢量化追蹤。五溪蠻只佔沅水上游山地。塞外部族是活動帶示意，不是郡界。行軍沿黃河、長江、三峽、崤函、祁山。地名用當時稱呼。
+        。現代東亞地勢，東漢三國與春秋戰國共用，不按時代換古圖。海岸沿底圖陸地收回；內陸界順著黃河、長江、秦嶺、大巴、太行、南嶺的大勢，未能逐縣處為示意；{TK_TERRITORY_NOTE_ZH}{' '}
+        {formatGeometryProvenance(TK_PROVINCE_GEOMETRY)} 具名城邑像素為示意錨點（sidecar
+        coord_confidence），非典籍經緯換算；游標指向城名可見出處。五溪蠻只佔沅水上游山地。塞外部族是活動帶示意，不是郡界。行軍沿黃河、長江、三峽、崤函、祁山。地名用當時稱呼。
       </p>
     </div>
   )
