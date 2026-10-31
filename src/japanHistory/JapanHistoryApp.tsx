@@ -1,3 +1,5 @@
+import { ChengyuPanel } from '../chengyu/components/ChengyuPanel'
+import { localesForJapanTrack } from '../chengyu/lib/filterByYear'
 import { AppSideRail } from '../components/AppSideRail'
 import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraBar } from '../components/EraBar'
@@ -10,7 +12,7 @@ import { JapanYearScrubber } from './components/JapanYearScrubber'
 import { JapanYearProvider, useJapanYear } from './state/JapanYearContext'
 
 function JapanHistoryMain() {
-  const { year } = useJapanYear()
+  const { year, setYear, yearMin, yearMax } = useJapanYear()
   return (
     <div className="app-shell__main app-shell__main--map-side">
       <JapanEraMap />
@@ -23,6 +25,15 @@ function JapanHistoryMain() {
             <JapanPowers />
             <JapanPeople />
           </>
+        }
+        chengyu={
+          <ChengyuPanel
+            year={year}
+            yearMin={yearMin}
+            yearMax={yearMax}
+            locales={localesForJapanTrack()}
+            onJumpYear={setYear}
+          />
         }
       />
     </div>

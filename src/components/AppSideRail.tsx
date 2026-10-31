@@ -6,15 +6,17 @@ type AppSideRailProps = {
   year: number
   events: ReactNode
   people: ReactNode
+  chengyu?: ReactNode
   /** localStorage 鍵（不含前綴）；各專題請分開 */
   storageKey?: string
 }
 
-/** 側欄：桌面預設展開；窄螢幕預設收合為「大事／人物」標籤。展開時以分頁呈現。 */
+/** 側欄：桌面預設展開；窄螢幕預設收合為「大事／人物／成語」標籤。展開時以分頁呈現。 */
 export function AppSideRail({
   year,
   events,
   people,
+  chengyu,
   storageKey = 'side-rail',
 }: AppSideRailProps) {
   const [open, setOpen] = usePersistedOpenResponsive(storageKey, {
@@ -28,6 +30,8 @@ export function AppSideRail({
     setOpen(true)
   }
 
+  const toolbarLabel = chengyu != null ? '紀事 · 人物 · 成語' : '紀事 · 人物'
+
   return (
     <div
       className={`side-rail${open ? '' : ' side-rail--collapsed'}`}
@@ -36,7 +40,7 @@ export function AppSideRail({
       {open ? (
         <>
           <div className="side-rail__toolbar">
-            <span className="side-rail__label">紀事 · 人物</span>
+            <span className="side-rail__label">{toolbarLabel}</span>
             <button
               type="button"
               className="side-rail__map-first"
@@ -52,6 +56,7 @@ export function AppSideRail({
               year={year}
               events={events}
               people={people}
+              chengyu={chengyu}
               tab={tab}
               onTabChange={setTab}
             />
@@ -75,6 +80,16 @@ export function AppSideRail({
           >
             人物
           </button>
+          {chengyu != null ? (
+            <button
+              type="button"
+              className="side-rail__chip"
+              aria-expanded={false}
+              onClick={() => expand('chengyu')}
+            >
+              成語
+            </button>
+          ) : null}
         </div>
       )}
     </div>
