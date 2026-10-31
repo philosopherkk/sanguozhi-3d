@@ -1,6 +1,6 @@
 import { FactionInspectCard } from './FactionInspectCard'
 import { FactionLegend } from './FactionLegend'
-import { CollapsibleShell } from './CollapsibleShell'
+import { MapDock } from './MapDock'
 import { Map2D } from './Map2D'
 import { PowerBoard } from './PowerBoard'
 
@@ -17,28 +17,31 @@ export function MapStage() {
       </div>
 
       <div className="map-stage__overlay map-stage__overlay--tl">
-        <CollapsibleShell
+        <MapDock
           title="勢力疆域"
           storageKey="map-power-board"
-          defaultOpen={false}
-          className="map-dock map-dock--tr"
+          defaultOpenDesktop={false}
+          defaultOpenMobile={false}
+          className="map-stage-dock--tr"
         >
           <PowerBoard embedded />
-        </CollapsibleShell>
+        </MapDock>
       </div>
 
       <div className="map-stage__overlay map-stage__overlay--bl">
-        <CollapsibleShell
+        <MapDock
           title="勢力圖例"
           storageKey="map-faction-legend"
-          defaultOpen={false}
-          className="map-dock map-dock--bl"
+          defaultOpenDesktop={false}
+          defaultOpenMobile={false}
+          collapsedHint="底圖「圖層」可開勢力、行軍、塞外"
+          className="map-stage-dock--bl"
         >
           <FactionLegend />
-          <p className="map-stage__hint">
+          <p className="map-stage__hint map-stage__hint--in-dock">
             底圖下方「圖層」可開勢力、行軍、塞外部族
           </p>
-        </CollapsibleShell>
+        </MapDock>
       </div>
     </section>
   )

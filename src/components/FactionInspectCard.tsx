@@ -13,7 +13,7 @@ import { territoryStatsForControl } from '../lib/territoryStats'
 import { useSelection } from '../state/SelectionContext'
 import { useYear } from '../state/YearContext'
 import type { TimelineEvent } from '../types/data'
-import { CollapsibleShell } from './CollapsibleShell'
+import { MapDock } from './MapDock'
 
 const events = timelineData as TimelineEvent[]
 
@@ -108,12 +108,13 @@ export function FactionInspectCard() {
   const color = factionColor(selectedFaction)
 
   return (
-    <CollapsibleShell
+    <MapDock
       title="勢力檢視"
       storageKey="map-faction-inspect"
-      defaultOpen
+      defaultOpenDesktop
+      defaultOpenMobile={false}
       collapsedHint={name}
-      className="map-dock map-dock--tl"
+      className="map-stage-dock--tl"
     >
       <article
         className="faction-inspect faction-inspect--embedded"
@@ -148,6 +149,6 @@ export function FactionInspectCard() {
           </ul>
         </section>
       </article>
-    </CollapsibleShell>
+    </MapDock>
   )
 }

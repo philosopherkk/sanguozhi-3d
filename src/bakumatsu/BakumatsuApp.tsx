@@ -1,3 +1,5 @@
+import { AppSideRail } from '../components/AppSideRail'
+import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraPeople } from '../japanEras/EraPeople'
 import { EraTimeline } from '../japanEras/EraTimeline'
 import { BakumatsuFrame } from './components/BakumatsuChrome'
@@ -30,10 +32,12 @@ function BakumatsuBody() {
   return (
     <div className="app-shell app-shell--japan">
       <BakumatsuFrame>
-        <div className="app-shell__main">
+        <div className="app-shell__main app-shell__main--map-side">
           <BakumatsuMapStage />
-          <div className="app-shell__side">
-            <section className="events-cell" aria-label="幕末大事">
+          <AppSideRail
+            storageKey="bakumatsu-side-rail"
+            year={year}
+            events={
               <EraTimeline
                 headingId="bakumatsu-timeline-heading"
                 year={year}
@@ -44,8 +48,8 @@ function BakumatsuBody() {
                 readingFor={bakumatsuReadingFor}
                 emptyHint="此年無登錄專條。試 1853（黑船）、1858（安政）、1860（櫻田）、1866（長州）、1868（戊辰）。"
               />
-            </section>
-            <aside className="people-cell" aria-label="幕末人物">
+            }
+            people={
               <EraPeople
                 headingId="bakumatsu-people-heading"
                 year={year}
@@ -55,16 +59,16 @@ function BakumatsuBody() {
                 factionName={nameFor}
                 colorFor={colorFor}
               />
-            </aside>
-          </div>
+            }
+          />
         </div>
       </BakumatsuFrame>
-      <footer className="app-footer">
+      <CollapsibleAppFooter>
         <p>
           幕末（1853–1868）· 只是德川江戶的最後一段 · 據日本近代史通說 · 1853至1868可逐月 · 沒有專條的月份標「本月無專條」 · 1869年箱館與開拓使見「明治至當代」 ·
           不用遊戲劇情 · 行軍只顯示該月 · 與戰國、平安、三國志資料分離 · {BAKUMATSU_TERRITORY_NOTE}
         </p>
-      </footer>
+      </CollapsibleAppFooter>
     </div>
   )
 }

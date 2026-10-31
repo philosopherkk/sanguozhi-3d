@@ -1,3 +1,5 @@
+import { AppSideRail } from '../components/AppSideRail'
+import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraBar } from '../components/EraBar'
 import { JapanEraMap } from './components/JapanEraMap'
 import { JapanHeader } from './components/JapanHeader'
@@ -5,7 +7,27 @@ import { JapanPeople } from './components/JapanPeople'
 import { JapanPowers } from './components/JapanPowers'
 import { JapanTimeline } from './components/JapanTimeline'
 import { JapanYearScrubber } from './components/JapanYearScrubber'
-import { JapanYearProvider } from './state/JapanYearContext'
+import { JapanYearProvider, useJapanYear } from './state/JapanYearContext'
+
+function JapanHistoryMain() {
+  const { year } = useJapanYear()
+  return (
+    <div className="app-shell__main app-shell__main--map-side">
+      <JapanEraMap />
+      <AppSideRail
+        storageKey="japan-history-side-rail"
+        year={year}
+        events={<JapanTimeline />}
+        people={
+          <>
+            <JapanPowers />
+            <JapanPeople />
+          </>
+        }
+      />
+    </div>
+  )
+}
 
 /** 德川江戶或明治至當代。幕末詳圖另見 BakumatsuApp。 */
 export function JapanHistoryApp({
@@ -34,23 +56,11 @@ export function JapanHistoryApp({
         <EraBar />
         <JapanYearScrubber />
 
-        <div className="app-shell__main">
-          <JapanEraMap />
+        <JapanHistoryMain />
 
-          <div className="app-shell__side">
-            <section className="events-cell" aria-label="通史大事">
-              <JapanTimeline />
-            </section>
-            <aside className="people-cell" aria-label="通史人物">
-              <JapanPowers />
-              <JapanPeople />
-            </aside>
-          </div>
-        </div>
-
-        <footer className="app-footer">
+        <CollapsibleAppFooter>
           <p>{footer}</p>
-        </footer>
+        </CollapsibleAppFooter>
       </div>
     </JapanYearProvider>
   )

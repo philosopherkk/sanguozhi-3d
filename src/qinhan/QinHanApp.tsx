@@ -1,3 +1,5 @@
+import { AppSideRail } from '../components/AppSideRail'
+import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraBar } from '../components/EraBar'
 import { QinHanHeader } from './components/QinHanHeader'
 import { QinHanMapStage } from './components/QinHanMapStage'
@@ -5,7 +7,22 @@ import { QinHanPeople } from './components/QinHanPeople'
 import { QinHanTimeline } from './components/QinHanTimeline'
 import { QinHanYearScrubber } from './components/QinHanYearScrubber'
 import { QinHanSelectionProvider } from './state/QinHanSelectionContext'
-import { QinHanYearProvider } from './state/QinHanYearContext'
+import { QinHanYearProvider, useQinHanYear } from './state/QinHanYearContext'
+
+function QinHanMain() {
+  const { year } = useQinHanYear()
+  return (
+    <div className="app-shell__main app-shell__main--map-side">
+      <QinHanMapStage />
+      <AppSideRail
+        storageKey="qinhan-side-rail"
+        year={year}
+        events={<QinHanTimeline />}
+        people={<QinHanPeople />}
+      />
+    </div>
+  )
+}
 
 /** 秦、漢分開。楚漢放在漢的開頭。184年黃巾見三國。 */
 export function QinHanApp({
@@ -34,22 +51,11 @@ export function QinHanApp({
           <EraBar />
           <QinHanYearScrubber />
 
-          <div className="app-shell__main">
-            <QinHanMapStage />
+          <QinHanMain />
 
-            <div className="app-shell__side">
-              <section className="events-cell" aria-label={`${title}大事`}>
-                <QinHanTimeline />
-              </section>
-              <aside className="people-cell" aria-label={`${title}人物`}>
-                <QinHanPeople />
-              </aside>
-            </div>
-          </div>
-
-          <footer className="app-footer">
+          <CollapsibleAppFooter>
             <p>{footer}</p>
-          </footer>
+          </CollapsibleAppFooter>
         </div>
       </QinHanSelectionProvider>
     </QinHanYearProvider>
