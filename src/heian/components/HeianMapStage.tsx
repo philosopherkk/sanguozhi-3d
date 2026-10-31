@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { MARCH_ROUTE_SAME_YEAR } from '../../components/map/RouteOverlay'
 import { EraLegend, EraMapView } from '../../japanEras/EraMapView'
 import { routesForMonth } from '../../lib/monthZoom'
+import { shadesFromDomainControl } from '../../sengoku/data/japanKokugunPaint'
 import { HEIAN_MARCH_ROUTES, HEIAN_PLACES } from '../data/marchRoutes'
 import {
   HEIAN_DOMAINS,
@@ -27,14 +28,10 @@ export function HeianMapStage() {
     [year, month],
   )
   const { selectedFaction, selectFaction } = useHeianSelection()
-  const domains = useMemo(
-    () =>
-      HEIAN_DOMAINS.map((d) => ({
-        ...d,
-        faction: control[d.id] ?? '朝廷',
-      })),
-    [control],
-  )
+  const domains = useMemo(() => {
+    const names = Object.fromEntries(HEIAN_DOMAINS.map((d) => [d.id, d.name]))
+    return shadesFromDomainControl(control, names, '朝廷')
+  }, [control])
   const legend = HEIAN_FACTIONS.filter(
     (f) => year >= f.activeFrom && year <= f.activeTo,
   )

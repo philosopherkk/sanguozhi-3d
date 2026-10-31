@@ -1,0 +1,1611 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K01",
+        "name": "山城",
+        "domainId": "d2",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          135.80158032124803,
+          34.98031721195747
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K02",
+        "name": "大和",
+        "domainId": "d2",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          135.88570285972224,
+          34.34232129823233
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K03",
+        "name": "河内",
+        "domainId": "d2",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          135.61172087268665,
+          34.59194508966177
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K04",
+        "name": "和泉",
+        "domainId": "d2",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          135.3402828096591,
+          34.40237972790404
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K05",
+        "name": "摂津",
+        "domainId": "d2",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          135.32739677650824,
+          34.84298936380256
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K06",
+        "name": "伊賀",
+        "domainId": "d2",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          136.1666114811814,
+          34.7364227637219
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K07",
+        "name": "伊勢",
+        "domainId": "d2",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          136.50585275668553,
+          34.52602921329391
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K08",
+        "name": "志摩",
+        "domainId": "d10",
+        "featureCount": 4,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          136.8402453926833,
+          34.36710810558958
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K09",
+        "name": "尾張",
+        "domainId": "d14",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          136.9524011236404,
+          35.07980086015539
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K10",
+        "name": "三河",
+        "domainId": "d10",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.34510929866704,
+          34.96058475562344
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K11",
+        "name": "遠江",
+        "domainId": "d10",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.89581242007864,
+          34.94152126902613
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K12",
+        "name": "駿河",
+        "domainId": "d1",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.4662669492888,
+          35.23637304050711
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K13",
+        "name": "甲斐",
+        "domainId": "d1",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.59090214666907,
+          35.60577507037966
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K14",
+        "name": "伊豆",
+        "domainId": "d1",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.9042403786127,
+          34.8395540488921
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K15",
+        "name": "相模",
+        "domainId": "d7",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.39338296126664,
+          35.336095088475126
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K16",
+        "name": "武蔵",
+        "domainId": "d7",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.37276029662172,
+          35.78870951734586
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K17",
+        "name": "安房",
+        "domainId": "d26",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.94777308834549,
+          35.04127121968053
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K18",
+        "name": "上総",
+        "domainId": "d26",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          140.2105684475534,
+          35.41804738318401
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K19",
+        "name": "下総",
+        "domainId": "d7",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          140.21320262892507,
+          35.82135730618892
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K20",
+        "name": "常陸",
+        "domainId": "d20",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          140.3821568661255,
+          36.45160148009277
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K21",
+        "name": "近江",
+        "domainId": "d9",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          136.13006394449548,
+          35.18511877496391
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K22",
+        "name": "美濃",
+        "domainId": "d14",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          136.94767615983764,
+          35.55460444694627
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K23",
+        "name": "飛騨",
+        "domainId": "d14",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.13702687081815,
+          36.11140147565419
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K24",
+        "name": "信濃",
+        "domainId": "d1",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.12059809365533,
+          36.11864392045273
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K25",
+        "name": "上野",
+        "domainId": "d7",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.0255263375647,
+          36.43853525610057
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K26",
+        "name": "下野",
+        "domainId": "d20",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.80741116248296,
+          36.64254215879945
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K27",
+        "name": "磐城",
+        "domainId": "d0",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          140.61295568832742,
+          37.44532336574678
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K28",
+        "name": "岩代",
+        "domainId": "d0",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.97388233791963,
+          37.48959959042378
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K29",
+        "name": "陸前",
+        "domainId": "d5",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          141.3953367961211,
+          38.68855603817292
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K30",
+        "name": "陸中",
+        "domainId": "d18",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          141.5161821276847,
+          39.603012361820696
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K31",
+        "name": "陸奥",
+        "domainId": "d4",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          140.83247153495645,
+          40.81104217143176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K32",
+        "name": "羽前",
+        "domainId": "d15",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          140.04808427267895,
+          38.438061171753695
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K33",
+        "name": "羽後",
+        "domainId": "d18",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          140.24450331643237,
+          39.62560862917723
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K34",
+        "name": "若狭",
+        "domainId": "d9",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          135.73863840924776,
+          35.533339023188404
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K35",
+        "name": "越前",
+        "domainId": "d16",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          136.23911316155812,
+          35.90087845210728
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K36",
+        "name": "加賀",
+        "domainId": "d16",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          136.61079399344518,
+          36.34760467409544
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K37",
+        "name": "能登",
+        "domainId": "d19",
+        "featureCount": 2,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          136.93717488626646,
+          37.18950699846075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K38",
+        "name": "越中",
+        "domainId": "d19",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.21097937419793,
+          36.619143041365184
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K39",
+        "name": "越後",
+        "domainId": "d11",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.8932128217574,
+          37.49373907608455
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K40",
+        "name": "佐渡",
+        "domainId": "d11",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.3479553122813,
+          38.027270176970504
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K41",
+        "name": "丹波",
+        "domainId": "d2",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          135.3617512795207,
+          35.17866390346035
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K42",
+        "name": "丹後",
+        "domainId": "d9",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          135.22278589120802,
+          35.57584572481343
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K43",
+        "name": "但馬",
+        "domainId": "d21",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          134.6909500122291,
+          35.52350432198142
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K44",
+        "name": "因幡",
+        "domainId": "d21",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          134.23195869708027,
+          35.403061132360094
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K45",
+        "name": "伯耆",
+        "domainId": "d12",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.51513211684914,
+          35.30777863981042
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K46",
+        "name": "出雲",
+        "domainId": "d12",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          132.96120014724934,
+          35.37452549758355
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K47",
+        "name": "石見",
+        "domainId": "d6",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          132.16125195412354,
+          34.80981195278472
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K48",
+        "name": "隠岐",
+        "domainId": "d12",
+        "featureCount": 4,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.14501213117728,
+          36.14554996328317
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K49",
+        "name": "播磨",
+        "domainId": "d21",
+        "featureCount": 4,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          134.6659262119182,
+          34.90596955982605
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K50",
+        "name": "美作",
+        "domainId": "d21",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.9675289580134,
+          35.12322228148995
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K51",
+        "name": "備前",
+        "domainId": "d21",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          134.05122479557457,
+          34.718621355745896
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K52",
+        "name": "備中",
+        "domainId": "d12",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.51394845736286,
+          34.828531712608275
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K53",
+        "name": "備後",
+        "domainId": "d12",
+        "featureCount": 6,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.1520256618186,
+          34.61443822383824
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K54",
+        "name": "安芸",
+        "domainId": "d6",
+        "featureCount": 16,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          132.60122512571294,
+          34.31921502752881
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K55",
+        "name": "周防",
+        "domainId": "d6",
+        "featureCount": 11,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          131.92703499222222,
+          34.01885723366013
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K56",
+        "name": "長門",
+        "domainId": "d6",
+        "featureCount": 5,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          131.24851698072513,
+          34.34471134843508
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K57",
+        "name": "紀伊",
+        "domainId": "d25",
+        "featureCount": 2,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          135.74579058848633,
+          33.881018612904505
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K58",
+        "name": "淡路",
+        "domainId": "d25",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          134.83307954913704,
+          34.37804144417048
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K59",
+        "name": "阿波",
+        "domainId": "d23",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          134.3319274684749,
+          33.87495882524387
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K60",
+        "name": "讃岐",
+        "domainId": "d23",
+        "featureCount": 11,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          134.0048132204835,
+          34.32416947704272
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K61",
+        "name": "伊予",
+        "domainId": "d13",
+        "featureCount": 12,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          132.68198647130708,
+          33.53102867342732
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K62",
+        "name": "土佐",
+        "domainId": "d13",
+        "featureCount": 3,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.23926625323108,
+          33.214973348476086
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K63",
+        "name": "筑前",
+        "domainId": "d17",
+        "featureCount": 2,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          130.48814191818877,
+          33.617125589959535
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K64",
+        "name": "筑後",
+        "domainId": "d17",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          130.60153504887984,
+          33.23618840203666
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K65",
+        "name": "豊前",
+        "domainId": "d8",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          131.05625366797827,
+          33.61790180457186
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K66",
+        "name": "豊後",
+        "domainId": "d8",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          131.6270638169539,
+          33.122709535048905
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K67",
+        "name": "肥前",
+        "domainId": "d22",
+        "featureCount": 13,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.46804549185057,
+          33.02459814208859
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K68",
+        "name": "肥後",
+        "domainId": "d24",
+        "featureCount": 7,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          130.46599232336118,
+          32.5032270968313
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K69",
+        "name": "日向",
+        "domainId": "d24",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          131.40238909553707,
+          32.20297842760968
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K70",
+        "name": "大隅",
+        "domainId": "d27",
+        "featureCount": 81,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.97875686145352,
+          29.50609623290141
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K71",
+        "name": "薩摩",
+        "domainId": "d3",
+        "featureCount": 94,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          130.0764204149995,
+          31.409259229815564
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K72",
+        "name": "壱岐",
+        "domainId": "d17",
+        "featureCount": 1,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.70327812741425,
+          33.7767281029115
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "K73",
+        "name": "對馬",
+        "domainId": "d17",
+        "featureCount": 4,
+        "source_plate": "CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0",
+        "approx": true,
+        "note": "幕末明治旧国界；著色仍依 d0–d27 勢力域對照，非藩界。",
+        "atlas": "NIHU 幕末明治地勢地図境界データ（CODH GeoJSON）",
+        "year": 1868,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.34363335877683,
+          34.407557748320734
+        ]
+      }
+    }
+  ]
+}

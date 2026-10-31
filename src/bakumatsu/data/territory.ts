@@ -1,13 +1,15 @@
 import { TRACED_DOMAINS } from '../../sengoku/data/tracedDomains'
 import type { BakumatsuFactionId } from '../types'
 import {
+  JAPAN_CODH_KOKUGUN_GEOMETRY,
   JAPAN_TERRITORY_NOTE_ZH,
-  JAPAN_VORONOI_DOMAINS,
   type TerritoryGeometryProvenance,
 } from '../../data/territory/provenance'
+import { JP_ERA_RINGS } from '../../geo/japanEraRings'
+import type { JapanPaintShade } from '../../sengoku/data/japanKokugunPaint'
 
 export const BAKUMATSU_TERRITORY_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance =
-  JAPAN_VORONOI_DOMAINS
+  JAPAN_CODH_KOKUGUN_GEOMETRY
 
 export const BAKUMATSU_TERRITORY_NOTE = JAPAN_TERRITORY_NOTE_ZH
 
@@ -93,7 +95,7 @@ const NOTES: Record<BakumatsuKeyYear, string> = {
   1866: '長州以山陽西端的毛利舊領示意，不是精密的長門國界。薩摩著九州南端。',
   1867: '大政奉還後，領地一天內沒有重畫。此快照仍是奉還前的藩勢。',
   1868: '江戶開城後關東著薩長。越後併入奧羽色，表示北越也在抵抗。土佐沒有單獨一色。',
-  1869: '本州已無幕府領地。箱館戰爭在渡海之後的蝦夷地，箭咀落到函館；1869 年開拓使後北海道以示意環著色（approx），非即時全島平定。',
+  1869: '本州已無幕府領地。箱館戰爭在渡海之後的蝦夷地，箭咀落到函館；北海道以 CODH K75–K85 mesh 示意開拓使（approx），非即時全島平定。',
 }
 
 export const BAKUMATSU_MONTH_FROM = 1853
@@ -283,3 +285,22 @@ export function bakumatsuFactionCounts(
 }
 
 const BAKUMATSU_FACTIONS_ORDER: BakumatsuFactionId[] = ['幕府', '薩長', '奧羽']
+
+/** 1869 起以 CODH K75–K85 示意北海道開拓使行政；箱館戰爭仍靠箭咀敘事。 */
+export function bakumatsuFringeShades(
+  year: number,
+  _control: Record<string, BakumatsuFactionId>,
+): JapanPaintShade[] {
+  if (year < 1869) return []
+  const rings = JP_ERA_RINGS.hokkaido
+  if (!rings.length) return []
+  return rings.map((ring, index) => ({
+    id: `hokkaido-codh-${index}`,
+    kokugunId: 'K75-K85',
+    domainId: 'fringe-hokkaido',
+    zone: '奧羽',
+    name: '北海道（開拓使示意）',
+    ring,
+    faction: '薩長',
+  }))
+}

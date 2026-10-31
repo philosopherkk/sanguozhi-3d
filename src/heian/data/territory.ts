@@ -1,14 +1,14 @@
 import { TRACED_DOMAINS } from '../../sengoku/data/tracedDomains'
 import type { HeianFactionId } from '../types'
 import {
+  JAPAN_CODH_KOKUGUN_GEOMETRY,
   JAPAN_TERRITORY_NOTE_ZH,
-  JAPAN_VORONOI_DOMAINS,
   type TerritoryGeometryProvenance,
 } from '../../data/territory/provenance'
 
 /** 借用戰國底圖的區塊形狀，改標平安末地名。不是元龜元年的大名。 */
 export const HEIAN_TERRITORY_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance =
-  JAPAN_VORONOI_DOMAINS
+  JAPAN_CODH_KOKUGUN_GEOMETRY
 
 export const HEIAN_TERRITORY_NOTE = JAPAN_TERRITORY_NOTE_ZH
 const PLACE: Record<string, string> = {

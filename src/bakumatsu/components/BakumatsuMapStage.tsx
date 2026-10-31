@@ -10,7 +10,9 @@ import {
   BAKUMATSU_TERRITORY_GEOMETRY_PROVENANCE,
   bakumatsuFactionCounts,
   bakumatsuShadeNote,
+  bakumatsuFringeShades,
 } from '../data/territory'
+import { shadesFromDomainControl } from '../../sengoku/data/japanKokugunPaint'
 import { useBakumatsuSelection } from '../state/BakumatsuSelectionContext'
 import { routesForMonth } from '../../lib/monthZoom'
 import { useBakumatsuYear } from '../state/BakumatsuYearContext'
@@ -31,14 +33,11 @@ export function BakumatsuMapStage() {
     [year, month],
   )
   const { selectedFaction, selectFaction } = useBakumatsuSelection()
-  const domains = useMemo(
-    () =>
-      BAKUMATSU_DOMAINS.map((d) => ({
-        ...d,
-        faction: control[d.id] ?? '幕府',
-      })),
-    [control],
-  )
+  const domains = useMemo(() => {
+    const names = Object.fromEntries(BAKUMATSU_DOMAINS.map((d) => [d.id, d.name]))
+    const base = shadesFromDomainControl(control, names, '幕府')
+    return [...base, ...bakumatsuFringeShades(year, control)]
+  }, [control, year])
   const rows = useMemo(() => bakumatsuFactionCounts(control), [control])
   const legend = BAKUMATSU_FACTIONS.filter(
     (f) => year >= f.activeFrom && year <= f.activeTo,
