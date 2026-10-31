@@ -68,9 +68,7 @@ export function PeoplePanel({ compact = false }: { compact?: boolean }) {
           {year} 年要角
           {faction !== '全部' ? ` · ${factionName(faction)}` : ''}
         </h2>
-        <p className="panel-sub">
-          先列各地圖主力政權之重要人物（按地位排序）· 點勢力色塊或人名可深入
-        </p>
+        <p className="panel-sub">點色塊可篩選左方人物</p>
       </header>
 
       <div className="filters filters--sticky">
@@ -88,7 +86,7 @@ export function PeoplePanel({ compact = false }: { compact?: boolean }) {
         >
           {ROLES.map((r) => (
             <option key={r} value={r}>
-              {r === '全部' ? '職任' : r}
+              {r === '全部' ? '職任：全部' : r}
             </option>
           ))}
         </select>
@@ -101,7 +99,7 @@ export function PeoplePanel({ compact = false }: { compact?: boolean }) {
           }}
           aria-label="勢力"
         >
-          <option value="全部">勢力：要角</option>
+          <option value="全部">勢力：全部</option>
           {[
             ...new Set(
               people
