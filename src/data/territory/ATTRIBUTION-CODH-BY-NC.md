@@ -32,6 +32,6 @@
 - **阿イヌ政治界**不臆造；1604 松前為渡島南部交易領示意，非全島征服。
 - **1609–1879 琉球**為王國／附庸／縣之時間窗示意，非薩摩普通一郡。
 
-## CB-02b（未含於本 PR）
+## CB-02b（幕末藩 dissolve · CC BY-SA）
 
-幕末村→藩 dissolve（CC BY-SA 4.0，本田『幕末期近世村領域』）需另 PR；見 brief CB-02b。
+幕末村→藩 dissolve 見 `ATTRIBUTION-CODH-HAN-BY-SA.md` 與 `japan_bakumatsu_1867/`（**非**本 BY-NC 檔所涵蓋之改作幾何）。

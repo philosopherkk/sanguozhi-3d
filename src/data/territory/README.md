@@ -47,6 +47,6 @@
 | `japan_ryukyu_k74/` | 琉球／沖繩（CODH K74 **HOLD**） |
 | `japan_sengoku_1572/` | 戰國大名（CB-03） |
 | `japan_heian_genpei/` | 平安源平（CB-06） |
-| `japan_bakumatsu_1867/` | 幕末藩（CB-02b） |
+| `japan_bakumatsu_1867/` | 幕末藩 dissolve（CB-02b，**CC BY-SA** · 見 `ATTRIBUTION-CODH-HAN-BY-SA.md`） |
 
 Live 幾何仍在 `geo/japanEraRings.ts` 與 Voronoi；stub 待 digitize／授權後載入。
