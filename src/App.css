@@ -1983,6 +1983,18 @@ html[data-theme='light'] .app-footer {
   color: var(--accent-dim);
 }
 
+.territory-provenance-note {
+  margin: 0.35rem 0 0;
+  font-size: 0.62rem;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+
+.era-map__provenance {
+  margin-top: 0.5rem;
+  max-width: 36rem;
+}
+
 /* ── Content dock (tabs + scroll) ── */
 
 .content-dock {
