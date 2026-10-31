@@ -1,5 +1,742 @@
 {
   "type": "FeatureCollection",
   "name": "japan_bakumatsu_1867",
-  "features": []
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H003",
+        "hanId": "H003",
+        "name": "弘前",
+        "domainId": "d4",
+        "villageCount": 708,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          140.4731666457015,
+          40.33239801161822
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H006",
+        "hanId": "H006",
+        "name": "盛岡",
+        "domainId": "d18",
+        "villageCount": 738,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          141.228482334699,
+          39.954529667350265
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H010",
+        "hanId": "H010",
+        "name": "仙台",
+        "domainId": "d5",
+        "villageCount": 983,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          140.9323690482872,
+          38.35267692697281
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H031",
+        "hanId": "H031",
+        "name": "会津",
+        "domainId": "d0",
+        "villageCount": 989,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.53688800574128,
+          37.26845709194487
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H033",
+        "hanId": "H033",
+        "name": "秋田",
+        "domainId": "d7",
+        "villageCount": 11,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.87954629922018,
+          35.69450310170157
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H050",
+        "hanId": "H050",
+        "name": "米沢",
+        "domainId": "d15",
+        "villageCount": 288,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          140.03124330402784,
+          38.51787858159079
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H053",
+        "hanId": "H053",
+        "name": "水戸",
+        "domainId": "d20",
+        "villageCount": 524,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          140.459632257878,
+          36.416224872425026
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H107",
+        "hanId": "H107",
+        "name": "佐倉",
+        "domainId": "d20",
+        "villageCount": 335,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          140.12765721246194,
+          36.52263546170583
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H154",
+        "hanId": "H154",
+        "name": "長岡",
+        "domainId": "d11",
+        "villageCount": 324,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.8883310999019,
+          37.24629344090539
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H160",
+        "hanId": "H160",
+        "name": "富山",
+        "domainId": "d19",
+        "villageCount": 255,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.1609658190962,
+          37.169052345780884
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H163",
+        "hanId": "H163",
+        "name": "加賀",
+        "domainId": "d19",
+        "villageCount": 2335,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          136.9263358891218,
+          36.95809304909822
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H169",
+        "hanId": "H169",
+        "name": "福井",
+        "domainId": "d16",
+        "villageCount": 669,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          136.20644911753266,
+          36.020787259565
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H185",
+        "hanId": "H185",
+        "name": "松代",
+        "domainId": "d11",
+        "villageCount": 238,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.12004460733587,
+          36.88548815927374
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H221",
+        "hanId": "H221",
+        "name": "田原",
+        "domainId": "d10",
+        "villageCount": 32,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.2483419632584,
+          35.11655761657129
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H236",
+        "hanId": "H236",
+        "name": "尾張",
+        "domainId": "d10",
+        "villageCount": 1430,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          136.882801266947,
+          34.92390790656518
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H251",
+        "hanId": "H251",
+        "name": "彦根",
+        "domainId": "d9",
+        "villageCount": 354,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          136.43537424746776,
+          34.78568710799339
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H285",
+        "hanId": "H285",
+        "name": "紀州",
+        "domainId": "d25",
+        "villageCount": 1726,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          135.7575477518147,
+          34.132595907380214
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H314",
+        "hanId": "H314",
+        "name": "鳥取",
+        "domainId": "d12",
+        "villageCount": 1225,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.8519323723297,
+          35.47949632146906
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H317",
+        "hanId": "H317",
+        "name": "松江",
+        "domainId": "d12",
+        "villageCount": 459,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          132.94218130567754,
+          35.06553423922517
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H328",
+        "hanId": "H328",
+        "name": "岡山",
+        "domainId": "d21",
+        "villageCount": 666,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.9797170759574,
+          35.06489825657062
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H341",
+        "hanId": "H341",
+        "name": "広島",
+        "domainId": "d12",
+        "villageCount": 877,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          132.7569928152422,
+          35.051882853310815
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H346",
+        "hanId": "H346",
+        "name": "長州",
+        "domainId": "d6",
+        "villageCount": 434,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          131.7032574738244,
+          33.91837825524625
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H349",
+        "hanId": "H349",
+        "name": "徳島",
+        "domainId": "d23",
+        "villageCount": 866,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          134.5485190728283,
+          33.93317857737581
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H351",
+        "hanId": "H351",
+        "name": "高松",
+        "domainId": "d23",
+        "villageCount": 253,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          134.05328179674598,
+          34.183148384420186
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H361",
+        "hanId": "H361",
+        "name": "宇和島",
+        "domainId": "d13",
+        "villageCount": 212,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          132.52001227521635,
+          33.721306816845086
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H363",
+        "hanId": "H363",
+        "name": "土佐",
+        "domainId": "d13",
+        "villageCount": 388,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.300945890859,
+          33.35463540318162
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H366",
+        "hanId": "H366",
+        "name": "福岡",
+        "domainId": "d17",
+        "villageCount": 763,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          130.5337671519341,
+          33.81500547681278
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H370",
+        "hanId": "H370",
+        "name": "久留米",
+        "domainId": "d17",
+        "villageCount": 510,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          130.5702987059133,
+          34.16125508941589
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H374",
+        "hanId": "H374",
+        "name": "佐賀",
+        "domainId": "d17",
+        "villageCount": 317,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          130.16655095268163,
+          33.831786356698714
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H384",
+        "hanId": "H384",
+        "name": "対馬",
+        "domainId": "d17",
+        "villageCount": 326,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.88381129865152,
+          34.80482368827552
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H385",
+        "hanId": "H385",
+        "name": "熊本",
+        "domainId": "d24",
+        "villageCount": 1641,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          130.79346965509623,
+          32.448832182435005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "H408",
+        "hanId": "H408",
+        "name": "薩摩",
+        "domainId": "d3",
+        "villageCount": 715,
+        "source_plate": "CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · CC BY-SA 4.0",
+        "approx": true,
+        "note": "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。",
+        "method": "unary_union(村領域) per 藩ID",
+        "year": 1867,
+        "crs": "EPSG:4326 → japan relief 1482×1477"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          130.62306121071984,
+          31.53291057287958
+        ]
+      }
+    }
+  ]
 }
