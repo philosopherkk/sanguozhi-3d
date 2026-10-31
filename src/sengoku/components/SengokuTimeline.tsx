@@ -1,23 +1,31 @@
 import { useMemo, useState } from 'react'
 import { ClassicDetailModal } from '../../components/ClassicDetailModal'
+import { TimelineMonthBar } from '../../components/TimelineMonthBar'
 import timelineData from '../data/timeline.json'
 import { SENGOKU_READING } from '../data/readingLayers'
 import { sengokuTimelineDetailFor } from '../data/timelineDetails'
 import { sengokuFactionColor } from '../lib/factionColors'
+import {
+  filterEventsForYearView,
+  formatTimelineDate,
+  yearHasMonthDensity,
+} from '../../lib/timelineDate'
 import { useSengokuYear } from '../state/SengokuYearContext'
 import type { SengokuTimelineEvent } from '../types'
 
 const events = timelineData as SengokuTimelineEvent[]
 
 export function SengokuTimeline() {
-  const { year, setYear } = useSengokuYear()
+  const { year, setYear, monthFilter, setMonthFilter } = useSengokuYear()
   const [showAll, setShowAll] = useState(false)
   const [openId, setOpenId] = useState<string | null>(null)
 
-  const yearEvents = useMemo(
-    () => events.filter((e) => e.year === year),
-    [year],
+  const { dated, yearOnly } = useMemo(
+    () => filterEventsForYearView({ events, year, monthFilter }),
+    [year, monthFilter],
   )
+  const eventCount = dated.length + yearOnly.length
+  const monthDense = yearHasMonthDensity(events, year)
 
   const nearby = useMemo(() => {
     return events
@@ -35,23 +43,51 @@ export function SengokuTimeline() {
       <header className="panel-header">
         <h2 id="sg-timeline-heading">{year} 年大事</h2>
         <p className="panel-sub">
-          {yearEvents.length
-            ? `本年 ${yearEvents.length} 事 · 點標題可深入`
+          {eventCount
+            ? `本年 ${eventCount} 事${monthDense ? ' · 可逐月篩選' : ''} · 點標題可深入`
             : '本年無專條——點鄰近年份可跳轉'}
         </p>
       </header>
 
-      {yearEvents.length > 0 ? (
-        <ol className="timeline-list">
-          {yearEvents.map((e) => (
-            <TimelineItem
-              key={e.id}
-              e={e}
-              active
-              onOpen={() => setOpenId(e.id)}
-            />
-          ))}
-        </ol>
+      {monthDense ? (
+        <TimelineMonthBar
+          year={year}
+          events={events}
+          monthFilter={monthFilter}
+          onMonthFilter={setMonthFilter}
+        />
+      ) : null}
+
+      {eventCount > 0 ? (
+        <>
+          {dated.length > 0 ? (
+            <ol className="timeline-list">
+              {dated.map((e) => (
+                <TimelineItem
+                  key={e.id}
+                  e={e}
+                  active
+                  onOpen={() => setOpenId(e.id)}
+                />
+              ))}
+            </ol>
+          ) : null}
+          {yearOnly.length > 0 ? (
+            <>
+              <h3 className="subhead">僅知年份</h3>
+              <ol className="timeline-list">
+                {yearOnly.map((e) => (
+                  <TimelineItem
+                    key={e.id}
+                    e={e}
+                    active
+                    onOpen={() => setOpenId(e.id)}
+                  />
+                ))}
+              </ol>
+            </>
+          ) : null}
+        </>
       ) : (
         <p className="empty-hint">
           此年無登錄專條。試 1560（桶狹間）、1582（本能寺）、1600（關原）。
@@ -117,6 +153,7 @@ function TimelineItem({
   onJump?: () => void
   onOpen: () => void
 }) {
+  const label = formatTimelineDate(e)
   return (
     <li className={active ? 'timeline-item is-active' : 'timeline-item'}>
       {onJump ? (
@@ -124,13 +161,13 @@ function TimelineItem({
           type="button"
           className="timeline-year timeline-year--btn"
           onClick={onJump}
-          title={`跳至 ${e.year} 年`}
+          title={`跳至 ${label}`}
         >
-          {e.year}
+          {label}
         </button>
       ) : (
         <time className="timeline-year" dateTime={String(e.year)}>
-          {e.year}
+          {label}
         </time>
       )}
       <div>

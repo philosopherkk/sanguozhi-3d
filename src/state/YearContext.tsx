@@ -22,6 +22,8 @@ const YEAR_MAX = 280
 interface YearContextValue {
   year: number
   setYear: (y: number) => void
+  monthFilter: number | null
+  setMonthFilter: (m: number | null) => void
   playing: boolean
   togglePlay: () => void
   pause: () => void
@@ -36,12 +38,18 @@ const YearContext = createContext<YearContextValue | null>(null)
 
 export function YearProvider({ children }: { children: ReactNode }) {
   const [year, setYearState] = useState(208)
+  const [monthFilter, setMonthFilterState] = useState<number | null>(null)
   const [playing, setPlaying] = useState(false)
   const yearRef = useRef(year)
   yearRef.current = year
 
   const setYear = useCallback((y: number) => {
     setYearState(Math.max(YEAR_MIN, Math.min(YEAR_MAX, Math.round(y))))
+    setMonthFilterState(null)
+  }, [])
+
+  const setMonthFilter = useCallback((m: number | null) => {
+    setMonthFilterState(m == null ? null : Math.max(1, Math.min(12, Math.round(m))))
   }, [])
 
   const pause = useCallback(() => setPlaying(false), [])
@@ -68,6 +76,8 @@ export function YearProvider({ children }: { children: ReactNode }) {
     () => ({
       year,
       setYear,
+      monthFilter,
+      setMonthFilter,
       playing,
       togglePlay,
       pause,
@@ -77,7 +87,7 @@ export function YearProvider({ children }: { children: ReactNode }) {
       control,
       activeFactions,
     }),
-    [year, setYear, playing, togglePlay, pause, territoryYear, control, activeFactions],
+    [year, setYear, monthFilter, setMonthFilter, playing, togglePlay, pause, territoryYear, control, activeFactions],
   )
 
   return <YearContext.Provider value={value}>{children}</YearContext.Provider>

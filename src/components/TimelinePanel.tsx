@@ -4,7 +4,13 @@ import { READING_LAYERS } from '../data/readingLayers'
 import timelineData from '../data/timeline.json'
 import { timelineDetailFor } from '../data/timelineDetails'
 import { ClassicDetailModal } from './ClassicDetailModal'
+import { TimelineMonthBar } from './TimelineMonthBar'
 import { factionColor } from '../lib/factionColors'
+import {
+  filterEventsForYearView,
+  formatTimelineDate,
+  yearHasMonthDensity,
+} from '../lib/timelineDate'
 import { useYear } from '../state/YearContext'
 import type { TimelineEvent } from '../types/data'
 
@@ -18,18 +24,34 @@ export function TimelinePanel({
   compact?: boolean
   rail?: boolean
 }) {
-  const { year, setYear } = useYear()
+  const { year, setYear, monthFilter, setMonthFilter } = useYear()
   const [showAll, setShowAll] = useState(false)
   const [openId, setOpenId] = useState<string | null>(null)
 
-  const yearEvents = useMemo(
-    () => events.filter((e) => e.year === year),
-    [year],
+  const { dated, yearOnly } = useMemo(
+    () =>
+      filterEventsForYearView({
+        events,
+        year,
+        monthFilter,
+      }),
+    [year, monthFilter],
   )
-  const yearBattles = useMemo(
-    () => battles.filter((b) => b.year === year),
-    [year],
-  )
+  const yearBattles = useMemo(() => {
+    let list = battles.filter((b) => b.year === year)
+    if (monthFilter != null) {
+      list = list.filter(
+        (b) =>
+          b.month == null ||
+          (b.datePrecision ?? (b.month != null ? 'month' : 'year')) === 'year' ||
+          b.month === monthFilter,
+      )
+    }
+    return list
+  }, [year, monthFilter])
+
+  const eventCount = dated.length + yearOnly.length
+  const monthDense = yearHasMonthDensity(events, year)
 
   const nearby = useMemo(() => {
     return events
@@ -56,21 +78,30 @@ export function TimelinePanel({
       <header className="panel-header">
         <h2 id="timeline-heading">{year} 年大事</h2>
         <p className="panel-sub">
-          {yearEvents.length || yearBattles.length
-            ? `本年 ${yearEvents.length} 事${yearBattles.length ? ` · ${yearBattles.length} 役` : ''} · 點標題可深入`
+          {eventCount || yearBattles.length
+            ? `本年 ${eventCount} 事${yearBattles.length ? ` · ${yearBattles.length} 役` : ''}${monthDense ? ' · 可逐月篩選' : ''} · 點標題可深入`
             : '本年無專條——點鄰近年份可跳轉'}
         </p>
       </header>
 
-      {yearEvents.length === 0 && yearBattles.length === 0 ? (
+      {monthDense ? (
+        <TimelineMonthBar
+          year={year}
+          events={events}
+          monthFilter={monthFilter}
+          onMonthFilter={setMonthFilter}
+        />
+      ) : null}
+
+      {eventCount === 0 && yearBattles.length === 0 ? (
         <p className="empty-hint">
           此年無登錄專條。試 208（赤壁）、222（夷陵）、263（滅蜀）。
         </p>
       ) : null}
 
-      {yearEvents.length > 0 ? (
+      {dated.length > 0 ? (
         <ol className="timeline-list">
-          {yearEvents.map((e) => (
+          {dated.map((e) => (
             <TimelineItem
               key={e.id}
               e={e}
@@ -81,6 +112,22 @@ export function TimelinePanel({
         </ol>
       ) : null}
 
+      {yearOnly.length > 0 ? (
+        <>
+          <h3 className="subhead">僅知年份</h3>
+          <ol className="timeline-list">
+            {yearOnly.map((e) => (
+              <TimelineItem
+                key={e.id}
+                e={e}
+                active
+                onOpen={() => setOpenId(e.id)}
+              />
+            ))}
+          </ol>
+        </>
+      ) : null}
+
       {yearBattles.length > 0 ? (
         <>
           <h3 className="subhead">本年戰役</h3>
@@ -88,7 +135,7 @@ export function TimelinePanel({
             {yearBattles.map((b) => (
               <li key={b.id} className="battle-card is-active">
                 <strong>
-                  {b.year} · {b.name}
+                  {formatTimelineDate(b)} · {b.name}
                 </strong>
                 <p>
                   <span style={{ color: factionColor(b.attacker) }}>
@@ -167,6 +214,7 @@ function TimelineItem({
   onJump?: () => void
   onOpen: () => void
 }) {
+  const label = formatTimelineDate(e)
   return (
     <li className={active ? 'timeline-item is-active' : 'timeline-item'}>
       {onJump ? (
@@ -174,13 +222,13 @@ function TimelineItem({
           type="button"
           className="timeline-year timeline-year--btn"
           onClick={onJump}
-          title={`跳至 ${e.year} 年`}
+          title={`跳至 ${label}`}
         >
-          {e.year}
+          {label}
         </button>
       ) : (
         <time className="timeline-year" dateTime={String(e.year)}>
-          {e.year}
+          {label}
         </time>
       )}
       <div>
