@@ -8,7 +8,7 @@ import math
 import re
 from pathlib import Path
 
-from shapely.geometry import MultiPolygon, Point, Polygon, mapping
+from shapely.geometry import MultiPolygon, Point, Polygon
 from shapely.ops import unary_union
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -289,9 +289,6 @@ def main() -> None:
         ring = rings_px[0]
         extra = rings_px[1:] if len(rings_px) > 1 else None
 
-        merged = geoms_wgs_union(geoms)
-        index_geom = mapping(merged) if merged is not None else geoms[0]
-
         meshes.append(
             {
                 "id": kid,
@@ -318,7 +315,10 @@ def main() -> None:
                     "year": 1868,
                     "crs": "EPSG:4326 → japan relief 1482×1477",
                 },
-                "geometry": index_geom,
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [lon, lat],
+                },
             }
         )
 
