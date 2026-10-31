@@ -110,6 +110,41 @@
     "activeTo": 1086
   },
   {
+    "id": "wanyan-aguda",
+    "name": "完顏阿骨打（金太祖）",
+    "years": "1068–1123",
+    "role": "皇帝",
+    "era": "宋",
+    "summary": "1115年建金，聯宋滅遼，改寫華北政治格局。",
+    "source": "《金史·太祖紀》",
+    "activeFrom": 1115,
+    "activeTo": 1123
+  },
+  {
+    "id": "yue-fei",
+    "name": "岳飛",
+    "years": "1103–1142",
+    "role": "將領",
+    "era": "宋",
+    "summary": "南宋抗金名將；1142年遇害。廟堂評價與民間敘事宜分讀。",
+    "source": "《宋史·岳飛傳》",
+    "disputed": true,
+    "note": "事蹟敘事與後世評價分層；不作小說化。",
+    "activeFrom": 1127,
+    "activeTo": 1142
+  },
+  {
+    "id": "wen-tianxiang",
+    "name": "文天祥",
+    "years": "1236–1283",
+    "role": "宰相／抗元",
+    "era": "宋",
+    "summary": "南宋末年宰相，抗元被俘不屈而死；《指南錄》為自述史料。",
+    "source": "《宋史·文天祥傳》；《指南錄》",
+    "activeFrom": 1275,
+    "activeTo": 1283
+  },
+  {
     "id": "kublai",
     "name": "忽必烈",
     "years": "1215–1294",
