@@ -5,6 +5,7 @@ import { EraRouteDock, EraTerritoryDock } from './EraDocks'
 import { EraLegend, EraMapView } from './EraMapView'
 import { useDeepDiveSelection } from './DeepDiveSelectionContext'
 import { useDeepDiveYear } from './DeepDiveYearContext'
+import { shadesFromDomainControl } from '../sengoku/data/japanKokugunPaint'
 
 export function DeepDiveMapStage({ pack }: { pack: JapanDeepDivePack }) {
   const { year, territoryYear, control, shadeNote } = useDeepDiveYear()
@@ -15,14 +16,10 @@ export function DeepDiveMapStage({ pack }: { pack: JapanDeepDivePack }) {
   const nameFor = (id: string) =>
     pack.factions.find((f) => f.id === id)?.name ?? id
 
-  const domains = useMemo(
-    () =>
-      pack.domains.map((d) => ({
-        ...d,
-        faction: control[d.id] ?? '',
-      })),
-    [pack.domains, pack.factions, control],
-  )
+  const domains = useMemo(() => {
+    const names = Object.fromEntries(pack.domains.map((d) => [d.id, d.name]))
+    return shadesFromDomainControl(control, names)
+  }, [pack.domains, control])
 
   const legend = pack.factions.filter(
     (f) => year >= f.activeFrom && year <= f.activeTo,

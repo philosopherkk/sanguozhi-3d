@@ -15,7 +15,7 @@ export const SENGOKU_TERRITORY_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance 
   SENGOKU_CONTROL_GEOMETRY
 
 export const SENGOKU_TERRITORY_NOTE =
-  '大名歸屬為通說示意；域界幾何為現代地勢 Voronoi，非學術地圖矢量化追蹤。'
+  '大名歸屬為通說示意；域界為 CODH 旧国 mesh（CC BY-NC）。'
 export const SENGOKU_KEY_YEARS = [
   1467, 1550, 1560, 1573, 1582, 1590, 1600, 1615,
 ] as const

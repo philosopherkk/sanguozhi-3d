@@ -1,13 +1,12 @@
 import { TRACED_DOMAINS } from '../sengoku/data/tracedDomains'
 import type { DeepDiveDomain } from './deepDiveTypes'
 import {
-  JAPAN_VORONOI_DOMAINS,
+  JAPAN_CODH_KOKUGUN_GEOMETRY,
   type TerritoryGeometryProvenance,
 } from '../data/territory/provenance'
 
-/** 借用戰國底圖區塊。標名依時代改，不是元龜大名。 */
 export const JP_DOMAINS_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance =
-  JAPAN_VORONOI_DOMAINS
+  JAPAN_CODH_KOKUGUN_GEOMETRY
 const PLACE: Record<string, string> = {
   d0: '會津',
   d1: '甲斐・駿河',

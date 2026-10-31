@@ -193,6 +193,8 @@ export function JapanEraMap() {
             {SENGOKU_BASEMAP.credit}
           </a>
           （{SENGOKU_BASEMAP.license}）
+          。松前／北海道／琉球外周：CODH 旧国 K74・K75–K85（CC BY-NC 4.0，見倉庫
+          ATTRIBUTION-CODH-BY-NC.md）。
         </p>
       </div>
     </section>
