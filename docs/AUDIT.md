@@ -2,27 +2,24 @@
 
 由 `npm run audit:data` 產生。範圍：`src/data/` 三國專題（184–280），另掃描 `SanguozhiApp` 與 `src/components/**` 簡體字。
 
-**產生時間：** 2026-10-30T17:09:01.319Z
+**產生時間：** 2026-10-30T17:12:30.158Z
 
 ## 摘要
 
 | 級別 | 數量 |
 |------|------|
-| fail | 14 |
-| warn | 65 |
+| fail | 0 |
+| warn | 62 |
 
 ### fail 按 code
 
-- `disputed-no-note`: 9
-- `source-format`: 1
-- `source-missing`: 1
-- `source-songshu-primary`: 3
+_（無）_
 
 ### warn 按 code
 
 - `simplified-han`: 27
 - `simplified-ui`: 1
-- `source-allowlist`: 33
+- `source-allowlist`: 30
 - `yanyi-trope`: 3
 - `year-range`: 1
 
@@ -37,28 +34,12 @@
 
 ## fail 明細
 
-- **source-songshu-primary** · `src/data/timeline.json[27]` — 宋書不得列為主 source；應移入 note 並標「後代史回溯」
-- **source-missing** · `src/data/factionArticles.ts.其他` — 缺少非空 source（須含書名＋卷／篇）
-- **disputed-no-note** · `src/data/factionSituation.ts.東漢.population` — disputed:true 須有 note
-- **disputed-no-note** · `src/data/factionSituation.ts.黃巾.population` — disputed:true 須有 note
-- **disputed-no-note** · `src/data/factionSituation.ts.董卓.military` — disputed:true 須有 note
-- **disputed-no-note** · `src/data/factionSituation.ts.袁紹.military` — disputed:true 須有 note
-- **disputed-no-note** · `src/data/factionSituation.ts.劉表.military` — disputed:true 須有 note
-- **disputed-no-note** · `src/data/factionSituation.ts.公孫氏.population` — disputed:true 須有 note
-- **disputed-no-note** · `src/data/factionSituation.ts.曹魏.population` — disputed:true 須有 note
-- **disputed-no-note** · `src/data/factionSituation.ts.曹魏.military` — disputed:true 須有 note
-- **disputed-no-note** · `src/data/factionSituation.ts.西晉.population` — disputed:true 須有 note
-- **source-songshu-primary** · `src/data/factionSituation.ts.五溪蠻.population` — 宋書不得列為主 source；應移入 note 並標「後代史回溯」
-- **source-songshu-primary** · `src/data/factionSituation.ts.五溪蠻.grain` — 宋書不得列為主 source；應移入 note 並標「後代史回溯」
-- **source-format** · `src/data/factionSituation.ts.其他.politics` — source 格式不符（須含《書名·卷／篇》）：地圖圖例
+_（無）_
 
 
 ## warn 明細
 
 - **source-allowlist** · `src/data/timeline.json[17]` — source 含非主允許書名《漢晉春秋》（允許：三國志、裴注、後漢書、資治通鑑、晉書）
-- **source-allowlist** · `src/data/timeline.json[27]` — source 含非主允許書名《南齊書》（允許：三國志、裴注、後漢書、資治通鑑、晉書）
-- **source-allowlist** · `src/data/timeline.json[27]` — source 含非主允許書名《華陽國志》（允許：三國志、裴注、後漢書、資治通鑑、晉書）
-- **source-allowlist** · `src/data/timeline.json[27]` — source 含非主允許書名《魏書》（允許：三國志、裴注、後漢書、資治通鑑、晉書）
 - **source-allowlist** · `src/data/population.json[0]` — source 含非主允許書名《帝王世紀》（允許：三國志、裴注、後漢書、資治通鑑、晉書）
 - **year-range** · `src/data/population.json[0]` — year 157 不在 184–280
 - **source-allowlist** · `src/data/population.json[1]` — source 含非主允許書名《蜀記》（允許：三國志、裴注、後漢書、資治通鑑、晉書）
