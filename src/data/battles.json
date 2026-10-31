@@ -20,8 +20,11 @@
       "defender": 20000,
       "claimed": true
     },
-    "note": "兵數為史籍所載「眾十餘萬」之類約數，非精確點驗；標 claimed。",
-    "disputed": true
+    "note": "兵數為史籍所載「眾十餘萬」之類約數，非精確點驗；標 claimed。《資治通鑑》卷六十三：建安五年冬十月，燒烏巢。",
+    "disputed": true,
+    "month": 10,
+    "datePrecision": "month",
+    "calendarNote": "lunar"
   },
   {
     "id": "battle-chibi",
@@ -38,7 +41,11 @@
     "result": "孫劉聯軍拒操，操軍不利，燒船退還。",
     "territory_change": "荊州南部為孫、劉分據；曹操保襄樊以北。",
     "source": "《三國志·吳書·周瑜傳》；《三國志·魏書·武帝紀》",
-    "note": "黃蓋火攻見〈周瑜傳〉正文。〈武帝紀〉只記戰不利與大疫。借東風、連環計是後出。火燒連營是夷陵，不是赤壁。"
+    "note": "黃蓋火攻見〈周瑜傳〉正文。〈武帝紀〉只記戰不利與大疫。借東風、連環計是後出。火燒連營是夷陵，不是赤壁。《資治通鑑》卷六十六：建安十三年十二月，曹公軍自江陵順流東下；交戰月日諸書有異。",
+    "month": 12,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "disputedDate": true
   },
   {
     "id": "battle-tongguan",
@@ -70,7 +77,11 @@
     ],
     "result": "〈張遼傳〉寫步騎八百破孫權圍軍，權退。八百是傳文數字。",
     "territory_change": "合肥仍屬魏。",
-    "source": "《三國志·魏書·張遼傳》"
+    "source": "《三國志·魏書·張遼傳》",
+    "month": 8,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《三國志·吳書·吳主傳》：建安二十年八月，權圍合肥。"
   },
   {
     "id": "battle-dingjun",
@@ -86,7 +97,11 @@
     ],
     "result": "黃忠斬夏侯淵，曹操棄漢中。",
     "territory_change": "漢中歸劉備。",
-    "source": "《三國志·蜀書·黃忠傳》；《三國志·魏書·夏侯淵傳》"
+    "source": "《三國志·蜀書·黃忠傳》；《三國志·魏書·夏侯淵傳》",
+    "month": 1,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《三國志·蜀書·先主傳》：建安二十四年正月，黃忠斬夏侯淵。"
   },
   {
     "id": "battle-xiangfan",
@@ -115,7 +130,10 @@
     "result": "羽水淹于禁；呂蒙襲南郡，羽敗亡。",
     "territory_change": "荊州（南郡等）歸孫吳。",
     "source": "《三國志·蜀書·關羽傳》；《三國志·吳書·呂蒙傳》；《資治通鑑》卷六十八",
-    "note": "呂蒙屬孫吳白衣渡江取公安、南郡，與樊城對曹魏之役為平行戰線，非曹魏守將。"
+    "note": "呂蒙屬孫吳白衣渡江取公安、南郡，與樊城對曹魏之役為平行戰線，非曹魏守將。《三國志·蜀書·關羽傳》：建安二十四年秋七月，羽攻樊。",
+    "month": 7,
+    "datePrecision": "month",
+    "calendarNote": "lunar"
   },
   {
     "id": "battle-yiling",
@@ -131,7 +149,11 @@
     ],
     "result": "陸遜火攻連營，備大敗走白帝。",
     "territory_change": "吳保有荊州；蜀無力東出。",
-    "source": "《三國志·吳書·陸遜傳》；《三國志·蜀書·先主傳》"
+    "source": "《三國志·吳書·陸遜傳》；《三國志·蜀書·先主傳》",
+    "month": 6,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《三國志·吳書·陸遜傳》：章武二年六月，連營火攻。"
   },
   {
     "id": "battle-jieting",
@@ -161,7 +183,11 @@
     ],
     "result": "相持百餘日，亮卒於軍，蜀退。",
     "territory_change": "無大幅疆界變動。",
-    "source": "《三國志·蜀書·諸葛亮傳》；《晉書·宣帝紀》"
+    "source": "《三國志·蜀書·諸葛亮傳》；《晉書·宣帝紀》",
+    "month": 8,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《三國志·蜀書·諸葛亮傳》：建興十二年八月，亮薨于軍。"
   },
   {
     "id": "battle-liaodong",
@@ -175,7 +201,11 @@
     ],
     "result": "懿圍襄平，斬淵父子。",
     "territory_change": "遼東歸魏。",
-    "source": "《三國志·魏書·公孫度傳》；《晉書·宣帝紀》"
+    "source": "《三國志·魏書·公孫度傳》；《晉書·宣帝紀》",
+    "month": 8,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《晉書·宣帝紀》：景初二年八月，斬公孫淵。"
   },
   {
     "id": "battle-yinping",
@@ -203,7 +233,10 @@
     "result": "鍾會出斜谷攻劍閣，姜維拒守；鄧艾自陰平道入江油，破諸葛瞻於綿竹，後主遣使降。",
     "territory_change": "蜀漢亡，益州入魏。",
     "source": "《三國志·魏書·鄧艾傳》；《三國志·魏書·鍾會傳》；《三國志·蜀書·後主傳》；《資治通鑑》卷七十八",
-    "note": "陰平道險，史載艾以精卒自裹氈越險；與鍾會劍閣正面為同役平行戰線。"
+    "note": "陰平道險，史載艾以精卒自裹氈越險；與鍾會劍閣正面為同役平行戰線。《三國志·魏書·鄧艾傳》：景元四年十月，艾自陰平道入。",
+    "month": 10,
+    "datePrecision": "month",
+    "calendarNote": "lunar"
   },
   {
     "id": "battle-conquest-wu",
@@ -232,7 +265,10 @@
     "result": "咸寧五年（279）晉大舉伐吳，沿江而下；太康元年（280）王濬舟師抵建業，孫皓面縛輿櫬。",
     "territory_change": "吳亡，三國結束。",
     "source": "《晉書·武帝紀》；《晉書·王濬傳》；《晉書·杜預傳》；《資治通鑑》卷八十",
-    "note": "戰役跨年：279 冬發動、280 春吳都陷；本條 year 取孫皓降之年。"
+    "note": "戰役跨年：279 冬發動、280 春吳都陷；本條 year 取孫皓降之年。《三國志·吳書·三嗣主傳》：天紀四年三月，皓輿櫬出降。",
+    "month": 3,
+    "datePrecision": "month",
+    "calendarNote": "lunar"
   },
   {
     "id": "battle-balang",
@@ -248,7 +284,10 @@
     "result": "大破烏桓，斬蹋頓。",
     "territory_change": "幽、冀邊患暫息；袁氏餘黨亡。",
     "source": "《三國志·魏書·武帝紀》",
-    "note": "對手為烏桓蹋頓，非漢人割據政權；defender 用「其他」。"
+    "note": "對手為烏桓蹋頓，非漢人割據政權；defender 用「其他」。《三國志·魏書·武帝紀》：建安十二年八月，大破烏桓於白狼山。",
+    "month": 8,
+    "datePrecision": "month",
+    "calendarNote": "lunar"
   },
   {
     "id": "battle-hanzhong-campaign",
@@ -264,7 +303,11 @@
     ],
     "result": "操自長安至漢中不能克，遂棄之。",
     "territory_change": "漢中屬蜀。",
-    "source": "《三國志·蜀書·先主傳》；《三國志·魏書·武帝紀》"
+    "source": "《三國志·蜀書·先主傳》；《三國志·魏書·武帝紀》",
+    "month": 1,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《三國志·蜀書·先主傳》：建安二十四年正月，漢中定；黃忠斬夏侯淵為決戰關鍵。"
   },
   {
     "id": "battle-hefei-253",
@@ -278,7 +321,11 @@
     ],
     "result": "恪圍新城不克，士卒多病，退軍。",
     "territory_change": "無。",
-    "source": "《三國志·吳書·諸葛恪傳》；《三國志·魏書·滿寵傳》相關敘事"
+    "source": "《三國志·吳書·諸葛恪傳》；《三國志·魏書·滿寵傳》相關敘事",
+    "month": 3,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《三國志·吳書·諸葛恪傳》：建興二年三月，恪圍合肥新城。"
   },
   {
     "id": "battle-ruxu-213",
@@ -294,7 +341,11 @@
     ],
     "result": "〈武帝紀〉載操至濡須口，權遣使請降；操引軍還。〈吳主傳〉載權與操隔江對峙，數次交鋒。",
     "territory_change": "江淮界線大致維持，無大規模易手。",
-    "source": "《三國志·魏書·武帝紀》；《三國志·吳書·吳主傳》"
+    "source": "《三國志·魏書·武帝紀》；《三國志·吳書·吳主傳》",
+    "month": 1,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《三國志·魏書·武帝紀》：建安十八年正月，公至濡須口。"
   },
   {
     "id": "battle-ruxu-217",
@@ -358,7 +409,10 @@
       "attacker": 100000,
       "claimed": true
     },
-    "note": "〈曹休傳〉載休率步騎十餘萬至皖，為約數非點驗；吳軍數不詳，不列 claimed 數。"
+    "note": "〈曹休傳〉載休率步騎十餘萬至皖，為約數非點驗；吳軍數不詳，不列 claimed 數。《資治通鑑》卷七十：太和二年五月，休至皖，為陸遜所破。",
+    "month": 5,
+    "datePrecision": "month",
+    "calendarNote": "lunar"
   },
   {
     "id": "battle-chencang",
@@ -423,7 +477,10 @@
     "result": "懿趁爽從帝祭高平陵，閉城、發詔，爽降被誅；魏政權歸司馬氏。",
     "territory_change": "無疆界變動；魏中央權力更迭。",
     "source": "《三國志·魏書·少帝紀》；《晉書·宣帝紀》",
-    "note": "attacker／defender 皆標曹魏，表示同國內政變武力解決；非對外國戰役。"
+    "note": "attacker／defender 皆標曹魏，表示同國內政變武力解決；非對外國戰役。《三國志·魏書·曹爽傳》：嘉平元年正月，高平陵事起。",
+    "month": 1,
+    "datePrecision": "month",
+    "calendarNote": "lunar"
   },
   {
     "id": "battle-dongxing",
@@ -449,6 +506,10 @@
     ],
     "result": "魏軍攻東興堤；恪、丁奉等拒戰，丁奉雪夜破魏浮橋，魏軍大敗。",
     "territory_change": "魏東興、合肥間防線受挫，吳暫占上風。",
-    "source": "《三國志·吳書·諸葛恪傳》；《三國志·魏書·諸葛誕傳》"
+    "source": "《三國志·吳書·諸葛恪傳》；《三國志·魏書·諸葛誕傳》",
+    "month": 12,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《三國志·吳書·諸葛恪傳》：建興元年十二月，魏攻東興，恪、丁奉大破之。"
   }
 ]

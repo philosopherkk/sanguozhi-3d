@@ -10,7 +10,11 @@
     ],
     "location": "冀州、豫州等地",
     "type": "war",
-    "source": "《後漢書·皇甫嵩傳》；《三國志·魏書·武帝紀》"
+    "source": "《後漢書·皇甫嵩傳》；《三國志·魏書·武帝紀》",
+    "month": 2,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《後漢書·靈帝紀》：中平元年二月，黃巾起。"
   },
   {
     "id": "189-dongzhuo",
@@ -23,7 +27,11 @@
     ],
     "location": "洛陽",
     "type": "politics",
-    "source": "《三國志·魏書·董卓傳》；《後漢書·董卓傳》"
+    "source": "《三國志·魏書·董卓傳》；《後漢書·董卓傳》",
+    "month": 9,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《後漢書·獻帝紀》：九月，卓廢少帝。卓入京在八月，見《後漢書·董卓傳》。"
   },
   {
     "id": "190-guandong",
@@ -39,7 +47,10 @@
     "location": "酸棗、洛陽一帶",
     "type": "war",
     "source": "《三國志·魏書·武帝紀》；《三國志·魏書·袁紹傳》",
-    "note": "曹操此時尚未建魏國號；faction 用曹魏表其勢力前後相承。"
+    "note": "曹操此時尚未建魏國號；faction 用曹魏表其勢力前後相承。《資治通鑑》卷五十九：初平元年正月，關東諸州郡舉兵討卓。",
+    "month": 1,
+    "datePrecision": "month",
+    "calendarNote": "lunar"
   },
   {
     "id": "192-dongzhuo-killed",
@@ -53,7 +64,11 @@
     ],
     "location": "長安",
     "type": "politics",
-    "source": "《三國志·魏書·董卓傳》"
+    "source": "《三國志·魏書·董卓傳》",
+    "month": 4,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《三國志·魏書·董卓傳》；《資治通鑑》卷六十：初平三年四月，王允、呂布誅卓。"
   },
   {
     "id": "196-xudu",
@@ -66,7 +81,11 @@
     ],
     "location": "許（許昌）",
     "type": "politics",
-    "source": "《三國志·魏書·武帝紀》"
+    "source": "《三國志·魏書·武帝紀》",
+    "month": 9,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《三國志·魏書·武帝紀》：建安元年九月，奉迎天子都許。"
   },
   {
     "id": "200-guandu",
@@ -96,7 +115,11 @@
     ],
     "location": "白狼山、遼東",
     "type": "war",
-    "source": "《三國志·魏書·武帝紀》"
+    "source": "《三國志·魏書·武帝紀》",
+    "month": 8,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《三國志·魏書·武帝紀》：建安十二年八月，大破烏桓於白狼山。"
   },
   {
     "id": "208-chibi",
@@ -141,7 +164,12 @@
     ],
     "location": "成都",
     "type": "war",
-    "source": "《三國志·蜀書·先主傳》；《三國志·蜀書·劉二牧傳》"
+    "source": "《三國志·蜀書·先主傳》；《三國志·蜀書·劉二牧傳》",
+    "month": 5,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "disputedDate": true,
+    "note": "《資治通鑑》卷六十七：建安十九年五月，劉備圍成都。〈先主傳〉僅記「秋」，未標月，故標 disputedDate。"
   },
   {
     "id": "215-xiaoyaotin",
@@ -154,7 +182,11 @@
     ],
     "location": "合肥逍遙津",
     "type": "war",
-    "source": "《三國志·魏書·張遼傳》；《三國志·吳書·吳主傳》"
+    "source": "《三國志·魏書·張遼傳》；《三國志·吳書·吳主傳》",
+    "month": 8,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《三國志·吳書·吳主傳》：建安二十年八月，權圍合肥，為張遼所破。"
   },
   {
     "id": "219-hanzhong",
@@ -251,7 +283,11 @@
     ],
     "location": "永安（白帝城）",
     "type": "succession",
-    "source": "《三國志·蜀書·先主傳》；《三國志·蜀書·諸葛亮傳》"
+    "source": "《三國志·蜀書·先主傳》；《三國志·蜀書·諸葛亮傳》",
+    "month": 4,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《三國志·蜀書·先主傳》：章武三年四月，先主崩於永安。"
   },
   {
     "id": "225-nanzhong",
@@ -289,7 +325,11 @@
     ],
     "location": "武昌、建業",
     "type": "succession",
-    "source": "《三國志·吳書·吳主傳》"
+    "source": "《三國志·吳書·吳主傳》",
+    "month": 4,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《三國志·吳書·吳主傳》：黃龍元年夏四月，權即皇帝位。"
   },
   {
     "id": "234-wuzhangyuan",
@@ -302,7 +342,11 @@
     ],
     "location": "五丈原",
     "type": "war",
-    "source": "《三國志·蜀書·諸葛亮傳》；《晉書·宣帝紀》"
+    "source": "《三國志·蜀書·諸葛亮傳》；《晉書·宣帝紀》",
+    "month": 8,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《三國志·蜀書·諸葛亮傳》：建興十二年八月，亮疾篤，薨于軍。"
   },
   {
     "id": "238-gongsun",
@@ -315,7 +359,11 @@
     ],
     "location": "襄平（遼東）",
     "type": "war",
-    "source": "《三國志·魏書·公孫度傳》；《晉書·宣帝紀》"
+    "source": "《三國志·魏書·公孫度傳》；《晉書·宣帝紀》",
+    "month": 8,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《晉書·宣帝紀》：景初二年八月，斬公孫淵，傳首洛陽。"
   },
   {
     "id": "249-gaopingling",
@@ -343,7 +391,11 @@
     ],
     "location": "建業",
     "type": "succession",
-    "source": "《三國志·吳書·吳主傳》；《三國志·吳書·三嗣主傳》"
+    "source": "《三國志·吳書·吳主傳》；《三國志·吳書·三嗣主傳》",
+    "month": 4,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《三國志·吳書·吳主傳》：太元二年夏四月，權薨。"
   },
   {
     "id": "263-fall-of-shu",
@@ -373,7 +425,11 @@
     ],
     "location": "洛陽",
     "type": "succession",
-    "source": "《晉書·武帝紀》"
+    "source": "《晉書·武帝紀》",
+    "month": 12,
+    "datePrecision": "month",
+    "calendarNote": "lunar",
+    "note": "《晉書·武帝紀》：泰始元年十二月，炎受魏禪，國號晉。"
   },
   {
     "id": "279-jin-fawu",
