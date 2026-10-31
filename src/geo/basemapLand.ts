@@ -1,6 +1,6 @@
 /**
- * Legacy land mask from sanguo_xingzheng_hant.png.
- * The 2D overlay now uses pre-clipped rings on the modern relief, not this mask.
+ * 陸域環線取自 basemapLandMask.json（離線預算，非執行期 PNG）。
+ * 二維圖層在現代地形底圖上疊加這些環線，不再載入 public/maps 內之行政 PNG。
  */
 
 import landData from './basemapLandMask.json'
