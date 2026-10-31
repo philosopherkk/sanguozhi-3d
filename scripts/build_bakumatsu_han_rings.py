@@ -23,6 +23,7 @@ HAN_SOURCE_PLATE = (
 HAN_NOTE_ZH = (
     "示意・非地籍級藩界；村領域來自現代農業集落境界之空間接合（本田／CODH）。旧国≠藩界。"
 )
+MIN_PRIMARY_VERTICES = 8
 
 
 def load_kokugun_build():
@@ -35,17 +36,20 @@ def load_kokugun_build():
 
 def adaptive_exterior_ring(kg, ext_coords: list, pre_count: int, base_eps: float = 2.2) -> list[list[float]]:
     """K71-style: retry lower RDP eps when large exteriors collapse to triangles."""
+    open_pts = [[x, y] for x, y in ext_coords]
     eps_steps = [base_eps]
     if pre_count > 500:
         eps_steps.extend([1.4, 1.0, 0.6, 0.5, 0.35, 0.25])
     elif pre_count > 120:
         eps_steps.extend([1.4, 1.0, 0.6, 0.5, 0.35, 0.25, 0.15])
     elif pre_count > 40:
-        eps_steps.extend([1.4, 1.0, 0.6, 0.35, 0.25])
+        eps_steps.extend([1.4, 1.0, 0.6, 0.35, 0.25, 0.15, 0.1])
+    else:
+        eps_steps.extend([1.4, 1.0, 0.6, 0.35, 0.25, 0.15, 0.1, 0.08])
 
     best: list[list[float]] = []
     for eps in eps_steps:
-        ring = kg.simplify([[x, y] for x, y in ext_coords], eps)
+        ring = kg.simplify(open_pts, eps)
         ring = [[round(x, 1), round(y, 1)] for x, y in ring]
         if len(ring) < 3:
             continue
@@ -55,6 +59,20 @@ def adaptive_exterior_ring(kg, ext_coords: list, pre_count: int, base_eps: float
             break
         if pre_count > 120 and len(ring) >= 16:
             break
+
+    if len(best) < MIN_PRIMARY_VERTICES:
+        for eps in (0.15, 0.1, 0.08, 0.05):
+            if eps in eps_steps:
+                continue
+            ring = kg.simplify(open_pts, eps)
+            ring = [[round(x, 1), round(y, 1)] for x, y in ring]
+            if len(ring) < 3:
+                continue
+            if len(ring) > len(best):
+                best = ring
+            if len(best) >= MIN_PRIMARY_VERTICES:
+                break
+
     return best
 
 
@@ -224,14 +242,21 @@ def main() -> None:
             raise SystemExit(f"{check} primary ring too thin: {len(hit['ring'])} pts")
 
     for m in meshes:
+        if len(m["ring"]) < MIN_PRIMARY_VERTICES:
+            villages = next(
+                f["properties"]["villageCount"]
+                for f in index_features
+                if f["properties"]["id"] == m["id"]
+            )
+            raise SystemExit(
+                f"{m['id']} primary ring {len(m['ring'])} pts (min {MIN_PRIMARY_VERTICES}, villages={villages})"
+            )
         villages = next(
             f["properties"]["villageCount"]
             for f in index_features
             if f["properties"]["id"] == m["id"]
         )
         if villages >= 100 and len(m["ring"]) < 12:
-            raise SystemExit(f"{m['id']} primary ring {len(m['ring'])} pts for {villages} villages")
-        if villages >= 20 and len(m["ring"]) < 8:
             raise SystemExit(f"{m['id']} primary ring {len(m['ring'])} pts for {villages} villages")
 
     emit_ts(meshes)
