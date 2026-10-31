@@ -79,6 +79,17 @@ export const APPROX_LEGEND_ZH =
 export const TK_TERRITORY_NOTE_ZH =
   '州界為示意，據勢力中心歸屬著色；細郡爭奪與羈縻未盡標出。幾何非譚第三冊圖幅追蹤。'
 
+/** 幕末藩 dissolve（CC BY-SA 4.0）— 見 ATTRIBUTION-CODH-HAN-BY-SA.md */
+export const BAKUMATSU_HAN_GEOMETRY: TerritoryGeometryProvenance = {
+  approx: true,
+  source:
+    'CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · 本田謙一氏原典加工 · CC BY-SA 4.0',
+  note: '村領域→藩 unary_union 示意；旧国 mesh（BY-NC）≠藩界；2015 農業集落邊界接合。',
+}
+
+export const BAKUMATSU_TERRITORY_NOTE_ZH =
+  '色塊為幕末村領域→藩 dissolve 示意（approx）；旧国≠藩界。資料：本田／CODH 幕末期近世村領域（CC BY-SA，見 ATTRIBUTION-CODH-HAN-BY-SA.md）。v1 僅 major 藩；歸屬色仍依戊辰勢力對照。'
+
 export const JAPAN_TERRITORY_NOTE_ZH =
   '色塊邊界為 CODH 幕末明治旧国 mesh（CC BY-NC，見 ATTRIBUTION-CODH-BY-NC.md）；大名／藩歸屬仍示意，非村→藩 dissolve（CB-02b 後續）。'
 

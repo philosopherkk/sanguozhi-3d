@@ -1,17 +1,22 @@
 import { TRACED_DOMAINS } from '../../sengoku/data/tracedDomains'
 import type { BakumatsuFactionId } from '../types'
 import {
+  BAKUMATSU_HAN_GEOMETRY,
+  BAKUMATSU_TERRITORY_NOTE_ZH,
   JAPAN_CODH_KOKUGUN_GEOMETRY,
   JAPAN_TERRITORY_NOTE_ZH,
   type TerritoryGeometryProvenance,
 } from '../../data/territory/provenance'
 import { JP_ERA_RINGS } from '../../geo/japanEraRings'
 import type { JapanPaintShade } from '../../sengoku/data/japanKokugunPaint'
+import { useBakumatsuHanMeshes } from './bakumatsuHanPaint'
 
 export const BAKUMATSU_TERRITORY_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance =
-  JAPAN_CODH_KOKUGUN_GEOMETRY
+  useBakumatsuHanMeshes() ? BAKUMATSU_HAN_GEOMETRY : JAPAN_CODH_KOKUGUN_GEOMETRY
 
-export const BAKUMATSU_TERRITORY_NOTE = JAPAN_TERRITORY_NOTE_ZH
+export const BAKUMATSU_TERRITORY_NOTE = useBakumatsuHanMeshes()
+  ? BAKUMATSU_TERRITORY_NOTE_ZH
+  : JAPAN_TERRITORY_NOTE_ZH
 
 const PLACE: Record<string, string> = {
   d0: '會津',
