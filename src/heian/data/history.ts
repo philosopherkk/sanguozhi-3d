@@ -87,8 +87,9 @@ export const HEIAN_EVENTS: EraEvent[] = [
     factions: ['平氏', '朝廷'],
     location: '關東（下總等）',
     type: 'war',
-    source: '《將門記》；國史大辞典「承平・天慶の乱」',
-    note: '通史錨見 `jp-939-johei-tengyo`。',
+    source: '《日本紀略》系；國史大辞典「承平・天慶の乱」；《將門記》軍記層',
+    disputed: true,
+    note: '《將門記》為後出軍記，細節不逕作實錄；叛亂框架以國史系為準。通史錨見 `jp-939-johei-tengyo`。',
   },
   {
     id: 'heian-939-sumitomo',
@@ -134,7 +135,8 @@ export const HEIAN_EVENTS: EraEvent[] = [
     location: '陸奧',
     type: 'war',
     source: '《陸奥話記》；日本中世史通說',
-    note: '1051–1062年。通史錨見 `jp-1051-zenkunen`。',
+    disputed: true,
+    note: '《陸奥話記》偏追討記／軍記立場，細節以國史・通說校正。1051–1062年。通史錨見 `jp-1051-zenkunen`。',
   },
   {
     id: 'heian-1083-gosannen-deep',
