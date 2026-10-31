@@ -2948,6 +2948,18 @@ html[data-theme='light'] .app-footer {
   font-size: 0.75rem;
 }
 
+@media (max-width: 640px) {
+  .year-scrubber--compact .year-scrubber__tick-year,
+  .year-scrubber__ticks--dense .year-scrubber__tick-year {
+    font-size: 0.62rem;
+  }
+
+  .year-scrubber--compact .year-scrubber__tick-label,
+  .year-scrubber__ticks--dense .year-scrubber__tick-label {
+    font-size: 0.58rem;
+  }
+}
+
 .event-detail__quote blockquote {
   margin: 0;
   padding: 0.55rem 0.75rem;

@@ -82,7 +82,7 @@ export function PeoplePanel({ compact = false }: { compact?: boolean }) {
         <select
           value={role}
           onChange={(e) => setRole(e.target.value as (typeof ROLES)[number])}
-          aria-label="職任：全部"
+          aria-label="職任"
         >
           {ROLES.map((r) => (
             <option key={r} value={r}>
@@ -97,7 +97,7 @@ export function PeoplePanel({ compact = false }: { compact?: boolean }) {
             setFaction(v)
             if (v === '全部') clearFaction()
           }}
-          aria-label="勢力：全部"
+          aria-label="勢力"
         >
           <option value="全部">勢力：全部</option>
           {[
