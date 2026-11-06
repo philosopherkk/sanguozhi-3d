@@ -619,6 +619,14 @@ html[data-theme='light'] .app-footer {
   opacity: 0.7;
 }
 
+.year-scrubber__tick--start {
+  transform: none;
+}
+
+.year-scrubber__tick--end {
+  transform: translateX(-100%);
+}
+
 .year-scrubber__tick-label {
   display: none;
 }

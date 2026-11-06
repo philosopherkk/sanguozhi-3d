@@ -23,8 +23,9 @@ function ImperialScrubber() {
     let dotRight = -Infinity
     const shown = items.map((t) => {
       const half = Math.max(3, t.label.length * 1.15 + 2) / 2 + 0.8
-      const okLabel = t.pct - half >= labelRight
-      if (okLabel) labelRight = t.pct + half
+      const leftPad = t.pct <= 4 ? 0 : t.pct >= 96 ? 2 * half : half
+      const okLabel = t.pct - leftPad >= labelRight
+      if (okLabel) labelRight = t.pct - leftPad + 2 * half
       const okYear = t.pct - 4 >= yearRight
       if (okYear) yearRight = t.pct + 4
       const okDot = t.pct - 1.8 >= Math.max(dotRight, labelRight, yearRight)
@@ -81,9 +82,12 @@ function ImperialScrubber() {
             key={t.year}
             type="button"
             className={
-              year === t.year
-                ? 'year-scrubber__tick is-active'
-                : 'year-scrubber__tick'
+              (year === t.year ? 'year-scrubber__tick is-active' : 'year-scrubber__tick') +
+              (t.pct <= 4
+                ? ' year-scrubber__tick--start'
+                : t.pct >= 96
+                  ? ' year-scrubber__tick--end'
+                  : '')
             }
             style={{ left: `${t.pct}%` }}
             title={`${t.year} ${t.label}`}
