@@ -186,13 +186,19 @@ function collect(spec) {
   return [...byId.values()]
 }
 
+/** 三層意譯：可以用 `elementary:` 等 key，亦可以用 `layers('a', 'b', 'c')` 嘅 positional helper。 */
+function hasLayers(t) {
+  const byKey = has(t, RE.l1) && has(t, RE.l2) && has(t, RE.l3)
+  const byHelper = /layers\s*\(\s*(["'`])[\s\S]*?\1\s*,\s*(["'`])[\s\S]*?\2\s*,/.test(t)
+  return byKey || byHelper
+}
+
 function evaluate(e, mode) {
   const all = e.ev + e.det + e.rea
   const miss = []
   if (mode === 'classical' && !has(all, RE.quote)) miss.push('原文')
   if (mode === 'modern' && !has(all, RE.summary)) miss.push('現代簡述')
-  for (const [k, label] of [['l1', '小學生層'], ['l2', '中學生層'], ['l3', '大學生層']])
-    if (!has(all, RE[k])) miss.push(label)
+  if (!hasLayers(all)) miss.push('三層意譯')
   for (const [k, label] of [['causes', '起因'], ['course', '經過'],
     ['figures', '關鍵人物'], ['outcome', '結果及影響']])
     if (!has(all, RE[k])) miss.push(label)
@@ -229,7 +235,7 @@ L.push('|---|---|---|---|---|---|---|---|---|---|')
 for (const r of rows) {
   const e = r.entries, full = e.filter((x) => !x.miss.length).length
   L.push(`| ${r.spec.era} | ${e.length} | ${r.mode === 'modern' ? 'n/a' : cnt(e, 'quote')} | ` +
-    `${e.filter((x) => ['l1','l2','l3'].every((k) => has(x.ev+x.det+x.rea, RE[k]))).length}/${e.length} | ` +
+    `${e.filter((x) => hasLayers(x.ev + x.det + x.rea)).length}/${e.length} | ` +
     `${cnt(e,'causes')} | ${cnt(e,'course')} | ${cnt(e,'figures')} | ${cnt(e,'outcome')} | ` +
     `${cnt(e,'wiki')} | **${full}/${e.length}** |`)
 }
