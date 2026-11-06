@@ -32,3 +32,6 @@ __pycache__/
 *.njsproj
 *.sln
 *.sw?
+
+# Natural Earth 原始資料（生成底圖用，唔入 repo）
+scripts/.cache/
