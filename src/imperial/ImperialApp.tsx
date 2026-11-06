@@ -13,31 +13,45 @@ import type { ImperialPack } from './types'
 function ImperialScrubber() {
   const { pack, year, setYear, yearMin, yearMax } = useImperialYear()
   const span = yearMax - yearMin || 1
-  // 刻度按年份比例擺位；標籤太蝕就唔顯示（保留刻度點），跳年仍得
   const ticks = (() => {
     const items = pack.ticks.map((t) => ({
       ...t,
       pct: ((t.year - yearMin) / span) * 100,
     }))
-    let right = -Infinity
+    let labelRight = -Infinity
+    let yearRight = -Infinity
     const shown = items.map((t) => {
       const half = Math.max(3, t.label.length * 1.15 + 2) / 2 + 0.8
-      if (t.pct - half >= right) {
-        right = t.pct + half
-        return true
-      }
-      return false
+      const okLabel = t.pct - half >= labelRight
+      if (okLabel) labelRight = t.pct + half
+      const okYear = t.pct - 4 >= yearRight
+      if (okYear) yearRight = t.pct + 4
+      return { okLabel, okYear }
     })
     const ai = items.findIndex((t) => t.year === year)
-    if (ai >= 0 && !shown[ai]) {
-      for (let j = ai - 1; j >= 0; j--)
-        if (shown[j]) {
-          shown[j] = false
-          break
-        }
-      shown[ai] = true
+    if (ai >= 0) {
+      if (!shown[ai].okLabel) {
+        shown[ai].okLabel = true
+        for (let j = ai - 1; j >= 0; j--)
+          if (shown[j].okLabel) {
+            shown[j].okLabel = false
+            break
+          }
+      }
+      if (!shown[ai].okYear) {
+        shown[ai].okYear = true
+        for (let j = ai - 1; j >= 0; j--)
+          if (shown[j].okYear) {
+            shown[j].okYear = false
+            break
+          }
+      }
     }
-    return items.map((t, i) => ({ ...t, showLabel: shown[i] }))
+    return items.map((t, i) => ({
+      ...t,
+      showLabel: shown[i].okLabel,
+      showYear: shown[i].okYear,
+    }))
   })()
   return (
     <div
@@ -71,7 +85,15 @@ function ImperialScrubber() {
             title={`${t.year} ${t.label}`}
             onClick={() => setYear(t.year)}
           >
-            <span className="year-scrubber__tick-year">{t.year}</span>
+            <span
+              className={
+                t.showYear
+                  ? 'year-scrubber__tick-year'
+                  : 'year-scrubber__tick-dot'
+              }
+            >
+              {t.showYear ? t.year : '·'}
+            </span>
             {t.showLabel ? (
               <span className="year-scrubber__tick-label">{t.label}</span>
             ) : null}
