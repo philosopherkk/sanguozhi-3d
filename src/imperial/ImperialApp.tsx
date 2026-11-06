@@ -20,13 +20,16 @@ function ImperialScrubber() {
     }))
     let labelRight = -Infinity
     let yearRight = -Infinity
+    let dotRight = -Infinity
     const shown = items.map((t) => {
       const half = Math.max(3, t.label.length * 1.15 + 2) / 2 + 0.8
       const okLabel = t.pct - half >= labelRight
       if (okLabel) labelRight = t.pct + half
       const okYear = t.pct - 4 >= yearRight
       if (okYear) yearRight = t.pct + 4
-      return { okLabel, okYear }
+      const okDot = t.pct - 1.8 >= Math.max(dotRight, labelRight, yearRight)
+      dotRight = Math.max(dotRight, t.pct + 1.8)
+      return { okLabel, okYear, okDot }
     })
     const ai = items.findIndex((t) => t.year === year)
     if (ai >= 0) {
@@ -51,6 +54,7 @@ function ImperialScrubber() {
       ...t,
       showLabel: shown[i].okLabel,
       showYear: shown[i].okYear,
+      faint: !shown[i].okDot && !shown[i].okYear,
     }))
   })()
   return (
@@ -91,6 +95,7 @@ function ImperialScrubber() {
                   ? 'year-scrubber__tick-year'
                   : 'year-scrubber__tick-dot'
               }
+              style={t.faint ? { opacity: 0.25 } : undefined}
             >
               {t.showYear ? t.year : '·'}
             </span>
