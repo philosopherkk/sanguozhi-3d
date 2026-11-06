@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/api/grok/(.*)", "destination": "https://grokipedia.com/(.*)" }
+    { "source": "/api/grok/:path*", "destination": "https://grokipedia.com/:path*" }
   ]
 }
