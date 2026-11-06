@@ -128,7 +128,7 @@ const ERAS = [
     pack: `src/japanEras/packs/${f}.ts` })),
   ...IMP.map(([f,label,modern]) => ({ era:label, mode: modern ? 'modern' : 'classical',
     ev:[[`src/imperial/data/${f}.ts`,'events: [']] })),
-  { era:'德川江戶', json:{ file:'src/japanHistory/data/timeline.json', from:1603, to:1868 } },
+  { era:'德川江戶', ev:[['src/japanEras/packs/edoPack.ts','events: [']] },
   { era:'明治至當代', mode:'modern', json:{ file:'src/japanHistory/data/timeline.json', from:1868, to:2026 } },
 ]
 
