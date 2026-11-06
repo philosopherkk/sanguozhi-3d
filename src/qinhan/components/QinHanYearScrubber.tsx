@@ -1,3 +1,4 @@
+import { layoutTicks } from '../../lib/tickCollisions'
 import { formatQinHanYear } from '../lib/formatYear'
 import { useQinHanYear } from '../state/QinHanYearContext'
 
@@ -38,25 +39,37 @@ export function QinHanYearScrubber() {
       />
 
       <div className="year-scrubber__ticks">
-        {TICKS.map((tick) => (
+        {layoutTicks(TICKS, yearMin, yearMax, year).map((t) => (
           <button
-            key={tick.year}
+            key={t.year}
             type="button"
             className={
-              tick.year === year
+              (t.year === year
                 ? 'year-scrubber__tick is-active'
-                : 'year-scrubber__tick'
+                : 'year-scrubber__tick') +
+              (t.pct <= 4
+                ? ' year-scrubber__tick--start'
+                : t.pct >= 96
+                  ? ' year-scrubber__tick--end'
+                  : '')
             }
-            style={{
-              left: `${((tick.year - yearMin) / (yearMax - yearMin)) * 100}%`,
-            }}
-            onClick={() => setYear(tick.year)}
-            title={`${formatQinHanYear(tick.year)} ${tick.label}`}
+            style={{ left: `${t.pct}%` }}
+            onClick={() => setYear(t.year)}
+            title={`${formatQinHanYear(t.year)} ${t.label ?? ''}`}
           >
-            <span className="year-scrubber__tick-year">
-              {formatQinHanYear(tick.year)}
+            <span
+              className={
+                t.showYear
+                  ? 'year-scrubber__tick-year'
+                  : 'year-scrubber__tick-dot'
+              }
+              style={t.faint ? { opacity: 0.25 } : undefined}
+            >
+              {t.showYear ? formatQinHanYear(t.year) : '·'}
             </span>
-            <span className="year-scrubber__tick-label">{tick.label}</span>
+            {t.showLabel && t.label ? (
+              <span className="year-scrubber__tick-label">{t.label}</span>
+            ) : null}
           </button>
         ))}
       </div>

@@ -3,6 +3,7 @@ import timelineData from '../data/timeline.json'
 import { TimelineMonthBar } from './TimelineMonthBar'
 import { usePersistedOpen } from '../lib/usePersistedOpen'
 import { yearHasMonthDensity } from '../lib/timelineDate'
+import { layoutTicks } from '../lib/tickCollisions'
 import { useYear } from '../state/YearContext'
 import type { TimelineEvent } from '../types/data'
 
@@ -86,24 +87,41 @@ export function YearScrubber() {
       />
 
       <div className="year-scrubber__ticks">
-        {TERRITORY_KEY_YEARS.map((y) => (
+        {layoutTicks(
+          TERRITORY_KEY_YEARS.map((y) => ({ year: y, label: SNAP_LABELS[y] })),
+          yearMin,
+          yearMax,
+          territoryYear,
+        ).map((t) => (
           <button
-            key={y}
+            key={t.year}
             type="button"
             className={
-              y === territoryYear
+              (t.year === territoryYear
                 ? 'year-scrubber__tick is-active'
-                : 'year-scrubber__tick'
+                : 'year-scrubber__tick') +
+              (t.pct <= 4
+                ? ' year-scrubber__tick--start'
+                : t.pct >= 96
+                  ? ' year-scrubber__tick--end'
+                  : '')
             }
-            style={{
-              left: `${((y - yearMin) / (yearMax - yearMin)) * 100}%`,
-            }}
-            onClick={() => setYear(y)}
-            title={`${y}${SNAP_LABELS[y] ? ` ${SNAP_LABELS[y]}` : ''}`}
+            style={{ left: `${t.pct}%` }}
+            onClick={() => setYear(t.year)}
+            title={`${t.year}${t.label ? ` ${t.label}` : ''}`}
           >
-            <span className="year-scrubber__tick-year">{y}</span>
-            {SNAP_LABELS[y] ? (
-              <span className="year-scrubber__tick-label">{SNAP_LABELS[y]}</span>
+            <span
+              className={
+                t.showYear
+                  ? 'year-scrubber__tick-year'
+                  : 'year-scrubber__tick-dot'
+              }
+              style={t.faint ? { opacity: 0.25 } : undefined}
+            >
+              {t.showYear ? t.year : '·'}
+            </span>
+            {t.showLabel && t.label ? (
+              <span className="year-scrubber__tick-label">{t.label}</span>
             ) : null}
           </button>
         ))}

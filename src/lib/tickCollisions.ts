@@ -18,13 +18,19 @@ export function layoutTicks(
   activeYear?: number,
 ): TickView[] {
   const span = yearMax - yearMin || 1
-  const YEAR_HALF = 2.4 // 四位年份喺滑桿上大約佔嘅百分比闊度
-  const laid = items.map((t) => {
+  const YEAR_HALF = 3.4 // 「前2070」呢類年份喺滑桿上大約佔嘅百分比闊度
+  // 有時代嘅刻度年份喺年代範圍之外（夏商西周槽仍列春秋戰國年份），
+  // 呢啲刻度擺唔到喺滑桿上，直接唔画；留返喺範圍內嘅先参与防撞。
+  const inRange = items.filter((t) => t.year >= yearMin && t.year <= yearMax)
+  const laid = inRange.map((t) => {
     const labelLen = (t.label || '').length
-    const labelHalf = labelLen > 0 ? Math.max(3, labelLen * 1.15 + 2) / 2 + 0.8 : 0
+    // 中日文標籤係全形字，再加上 button 前面嗰個圓點，實際_box 比純文字闊
+    const labelHalf =
+      labelLen > 0 ? Math.max(4, labelLen * 1.7 + 3) / 2 + 1.2 : 0
+    const pct = Math.min(100, Math.max(0, ((t.year - yearMin) / span) * 100))
     return {
       ...t,
-      pct: ((t.year - yearMin) / span) * 100,
+      pct,
       labelHalf,
       half: Math.max(labelHalf, YEAR_HALF),
     }
@@ -33,7 +39,7 @@ export function layoutTicks(
   // 已擺好嘅區間（年數字同一個標籤都算一份，避免「年」壓住隔籬「標籤」）
   const placed: [number, number][] = []
   const free = (l: number, r: number) =>
-    placed.every(([pl, pr]) => l >= pr - 0.4 || r <= pl + 0.4)
+    placed.every(([pl, pr]) => l >= pr - 1 || r <= pl + 1)
   const claim = (l: number, r: number) => {
     placed.push([l, r])
   }
@@ -45,7 +51,7 @@ export function layoutTicks(
     return [t.pct - clampLeft, t.pct - clampLeft + 2 * half] as [number, number]
   }
 
-  const shown = laid.map(() => ({ okLabel: false, okYear: false, okDot: true }))
+  const shown = laid.map(() => ({ okLabel: false, okYear: false, okDot: false }))
   laid.forEach((t, i) => {
     if (t.labelHalf > 0) {
       const [l, r] = boxFor(i, 'label')
@@ -58,8 +64,14 @@ export function layoutTicks(
     if (free(yl, yr)) {
       shown[i].okYear = true
       claim(yl, yr)
-    } else if (!shown[i].okLabel) {
-      shown[i].okDot = false
+    } else {
+      // 圓點都要企位：否则「·」會擺咗喺隔籬個標籤上面
+      const dl = t.pct - 1.7
+      const dr = t.pct + 1.7
+      if (free(dl, dr)) {
+        shown[i].okDot = true
+        claim(dl, dr)
+      }
     }
   })
   const ai = activeYear === undefined ? -1 : laid.findIndex((t) => t.year === activeYear)
