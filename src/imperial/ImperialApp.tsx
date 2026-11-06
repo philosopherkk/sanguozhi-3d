@@ -3,6 +3,7 @@ import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraBar } from '../components/EraBar'
 import { ReadingControls } from '../components/ReadingControls'
 import { TopicSwitcher } from '../components/TopicSwitcher'
+import { layoutTicks } from '../lib/tickCollisions'
 import { ImperialMapStage } from './components/ImperialMapStage'
 import { ImperialPeople } from './components/ImperialPeople'
 import { ImperialTimeline } from './components/ImperialTimeline'
@@ -12,61 +13,12 @@ import type { ImperialPack } from './types'
 
 function ImperialScrubber() {
   const { pack, year, setYear, yearMin, yearMax } = useImperialYear()
-  const span = yearMax - yearMin || 1
-  const ticks = (() => {
-    const items = pack.ticks.map((t) => ({
-      ...t,
-      pct: ((t.year - yearMin) / span) * 100,
-    }))
-    let labelRight = -Infinity
-    let yearRight = -Infinity
-    let dotRight = -Infinity
-    const shown = items.map((t) => {
-      const half = Math.max(3, t.label.length * 1.15 + 2) / 2 + 0.8
-      const leftPad = t.pct <= 4 ? 0 : t.pct >= 96 ? 2 * half : half
-      const okLabel = t.pct - leftPad >= labelRight
-      if (okLabel) labelRight = t.pct - leftPad + 2 * half
-      const okYear = t.pct - 4 >= yearRight
-      if (okYear) yearRight = t.pct + 4
-      const okDot = t.pct - 1.8 >= Math.max(dotRight, labelRight, yearRight)
-      dotRight = Math.max(dotRight, t.pct + 1.8)
-      return { okLabel, okYear, okDot }
-    })
-    const ai = items.findIndex((t) => t.year === year)
-    if (ai >= 0) {
-      const halfOf = (i: number) =>
-        Math.max(3, items[i].label.length * 1.15 + 2) / 2 + 0.8
-      if (!shown[ai].okLabel) {
-        shown[ai].okLabel = true
-        for (let j = ai - 1; j >= 0; j--)
-          if (shown[j].okLabel) {
-            shown[j].okLabel = false
-            break
-          }
-      }
-      if (shown[ai].okLabel) {
-        for (let j = ai + 1; j < items.length; j++) {
-          const need = halfOf(ai) + halfOf(j)
-          if (items[j].pct - items[ai].pct < need) shown[j].okLabel = false
-          else break
-        }
-      }
-      if (!shown[ai].okYear) {
-        shown[ai].okYear = true
-        for (let j = ai - 1; j >= 0; j--)
-          if (shown[j].okYear) {
-            shown[j].okYear = false
-            break
-          }
-      }
-    }
-    return items.map((t, i) => ({
-      ...t,
-      showLabel: shown[i].okLabel,
-      showYear: shown[i].okYear,
-      faint: !shown[i].okDot && !shown[i].okYear,
-    }))
-  })()
+  const ticks = layoutTicks(
+    pack.ticks.map((t) => ({ year: t.year, label: t.label })),
+    yearMin,
+    yearMax,
+    year,
+  )
   return (
     <div
       className="year-scrubber year-scrubber--compact"
