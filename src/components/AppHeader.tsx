@@ -10,8 +10,15 @@ export function AppHeader() {
   return (
     <header className="app-header">
       <div className="app-header__brand">
-        <h1 className="app-header__title">東漢三國</h1>
-        <p className="app-header__tag">正史疆域 · 勢力與人物</p>
+        <span className="brand-seal" aria-hidden>
+          史
+        </span>
+        <div>
+          <h1 className="app-header__title">中日歷史回顧</h1>
+          <p className="app-header__tag">
+            正史疆域 · 勢力與人物 · 中國 夏—當代 · 日本 有史以來—當代
+          </p>
+        </div>
       </div>
 
       <TopicSwitcher />
