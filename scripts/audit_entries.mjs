@@ -98,17 +98,28 @@ function blocksFrom(src, idx) {
 }
 
 
-const idOf = (b) => (b.body.match(/\bid:\s*'([^']*)'/) || [])[1] ?? b.key ?? '(無 id)'
+const idOf = (b) => {
+  const id = (b.body.match(/\bid:\s*'([^']*)'/) || [])[1] ?? b.key ?? '(無 id)'
+  // 過濾誤捕：欄位名本身唔係條目 id
+  if (/^(keyFigures|events|details|readings|people|places|routes|ticks|factions|domains|situation|leadersByYear|shadeNotes)$/.test(id)) return null
+  return id
+}
 const has = (t, re) => re.test(t)
 const RE = {
   quote: /\b(classicQuote|quote)\s*:/, qsrc: /\b(classicSource|quoteSource|source)\s*:/,
   l1: /\belementary\s*:/, l2: /\bsecondary\s*:/, l3: /\buniversity\s*:/,
   causes: /\bcauses\s*:/, course: /\bcourse\s*:/, figures: /\bkeyFigures\s*:/,
   outcome: /\boutcome\s*:/, wiki: /zhwiki|wikipedia|wikiUrl|_wiki|link\s*:/,
+  summary: /\bdesc\s*:/,
 }
 
 const JP = [ ['kofunPack','古墳'],['asukaPack','飛鳥'],['naraPack','奈良'],
-  ['kamakuraPack','鎌倉'],['muromachiPack','室町'],['azuchiPack','安土桃山'] ]
+  ['kamakuraPack','鎌倉'],['muromachiPack','室町'],['azuchiPack','安土桃山'],
+  ['edoPack','德川江戶'],['modernJapanPack','明治至當代',1] ]
+/** pack 檔嘅事件陣列同詳情／語譯 map 可能用唔同嘅寫法，一次過攪埋。 */
+const packEv = (f) => [[`src/japanEras/packs/${f}.ts`,'events: ['],[`src/japanEras/packs/${f}.ts`,'const events']]
+const packDet = (f) => [[`src/japanEras/packs/${f}.ts`,'const DETAILS'],[`src/japanEras/packs/${f}.ts`,'Object.assign(DETAILS'],[`src/japanEras/packs/${f}.ts`,'details: {'],[`src/japanEras/packs/${f}.ts`,'DETAILS: {']]
+const packRea = (f) => [[`src/japanEras/packs/${f}.ts`,'const READINGS'],[`src/japanEras/packs/${f}.ts`,'readings: {'],[`src/japanEras/packs/${f}.ts`,'READINGS: {']]
 const IMP = [ ['jinPack','晉'],['nanbeiPack','十六國南北朝'],['suiPack','隋'],['tangPack','唐'],
   ['wudaiPack','五代十國'],['liaosongPack','遼宋'],['yuanMingQingPack','元明清'],
   ['minguoPack','民國・內戰',1],['prcPack','共和國',1] ]
@@ -124,12 +135,12 @@ const ERAS = [
   { era:'戰國（日本）', ev:[['src/sengoku/data/timelineDetails.ts','SENGOKU_TIMELINE_DETAILS']], map:1 },
   { era:'幕末', mode:'modern', ev:[['src/bakumatsu/data/history.ts','BAKUMATSU_EVENTS']],
     det:[['src/bakumatsu/data/history.ts','BAKUMATSU_DETAILS']], rea:[['src/bakumatsu/data/history.ts','BAKUMATSU_READING']] },
-  ...JP.map(([f,label]) => ({ era:label, ev:[[`src/japanEras/packs/${f}.ts`,'events: [']],
-    pack: `src/japanEras/packs/${f}.ts` })),
-  ...IMP.map(([f,label,modern]) => ({ era:label, mode: modern ? 'modern' : 'classical',
-    ev:[[`src/imperial/data/${f}.ts`,'events: [']] })),
-  { era:'德川江戶', ev:[['src/japanEras/packs/edoPack.ts','events: [']] },
-  { era:'明治至當代', mode:'modern', json:{ file:'src/japanHistory/data/timeline.json', from:1868, to:2026 } },
+  ...JP.map(([f, label, modern]) => ({ era: label, mode: modern ? 'modern' : 'classical',
+    ev: packEv(f), det: packDet(f), rea: packRea(f) })),
+  ...IMP.map(([f, label, modern]) => ({ era: label, mode: modern ? 'modern' : 'classical',
+    ev: [[`src/imperial/data/${f}.ts`, 'events: [']],
+    det: [[`src/imperial/data/${f}.ts`, 'const DETAILS'], [`src/imperial/data/${f}.ts`, 'DETAILS: {']],
+    rea: [[`src/imperial/data/${f}.ts`, 'const READINGS'], [`src/imperial/data/${f}.ts`, 'READINGS: {']] })),
 ]
 
 // 三國／戰國（日本）嘅原文喺 separate reading map
@@ -179,6 +190,7 @@ function evaluate(e, mode) {
   const all = e.ev + e.det + e.rea
   const miss = []
   if (mode === 'classical' && !has(all, RE.quote)) miss.push('原文')
+  if (mode === 'modern' && !has(all, RE.summary)) miss.push('現代簡述')
   for (const [k, label] of [['l1', '小學生層'], ['l2', '中學生層'], ['l3', '大學生層']])
     if (!has(all, RE[k])) miss.push(label)
   for (const [k, label] of [['causes', '起因'], ['course', '經過'],
@@ -208,6 +220,9 @@ if (process.argv.includes('--json')) {
 const L = ['# 條目結構審計（Project A 篩選結果）', '']
 L.push(`> \`node scripts/audit_entries.mjs\` 產生。deep-dive 條目合共 **${total}** 條。`)
 L.push('> classical 時代要古文原文＋出處；modern 時代（民國・內戰／共和國／幕末／明治至當代）只要現代簡述。')
+L.push('>')
+L.push('> **點讀呢張表**：`0/n` 未必係「畫面無嘢睇」。DeepDiveApp 有 fallback——無自訂 detail／reading 時會用 event 嘅 `desc` 即時生成一個簡短彈窗，所以用家仍然见到文字，但**缺四段結構、三層意譯、人物維基連結**。呢張表量嘅係結構完備度，唔係有無渲染。')
+L.push('> 已完備嘅 pack：`modernJapanPack`（DETAILS＋READINGS）、`三國`、`秦漢`、`兩周`、`戰國（日本）`。其餘 pack（古墳→安土、德川江戶、晉→元明清、民國・共和國）需要補 DETAILS／READINGS，即下面嘅待辦清單。')
 L.push('')
 L.push('| 時代 | 條目 | 原文 | 三層 | 起因 | 經過 | 人物 | 結果影響 | 維基 | 完全合格 |')
 L.push('|---|---|---|---|---|---|---|---|---|---|')
