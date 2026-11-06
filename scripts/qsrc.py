@@ -33,6 +33,15 @@ CACHE = "/tmp/qsrc-cache"
 MAPFILE = "/tmp/qsrc-map.json"
 UA = "sanguozhi-3d-quote-audit/1.0 (local research script)"
 QUIET = False
+# 主機的選擇：中文史料用 zh.wikisource.org（預設）；
+# 日本史料（日本書紀、吾妻鑑、武家諸法度等）用 --host ja.wikisource.org。
+HOST = "zh.wikisource.org"
+
+
+def cache_key(cand: str) -> str:
+    """快取 key 要帶埋主機，否則同名頁喺 zh／ja 兩邊會互相污染。"""
+    tag = "" if HOST == "zh.wikisource.org" else "@" + HOST
+    return hashlib.sha1((cand + tag).encode()).hexdigest()
 
 
 # ---------------------------------------------------------------- 卷號換算
@@ -145,6 +154,20 @@ ALIASES = {
 }
 
 
+def search_titles(query: str, limit: int = 12) -> list[str]:
+    """用 MediaWiki 搜尋 API 搵頁名（ja 史料成日唔知正確標題）。"""
+    os.makedirs(CACHE, exist_ok=True)
+    url = ("https://" + HOST + "/w/api.php?action=query&list=search&srsearch="
+           + urllib.parse.quote(query) + "&srlimit=" + str(limit) + "&format=json")
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    try:
+        with urllib.request.urlopen(req, timeout=30, context=ssl_context()) as r:
+            data = json.loads(r.read().decode("utf-8", "replace"))
+        return [hit["title"] for hit in data.get("query", {}).get("search", [])]
+    except Exception as e:
+        sys.stderr.write("搜尋失敗 " + query + ": " + str(e) + "\n")
+        return []
+
 def follow_redirect(page: str, raw: str, fresh: bool = False, depth: int = 0) -> tuple[str, str] | None:
     """Wikisource 嘅 #REDIRECT [[X]] 手動跟一次。"""
     m = re.match(r"\s*#REDIRECT\s*\[\[([^\]|#]+)", raw, re.I)
@@ -163,7 +186,7 @@ def fetch_raw(page: str, fresh: bool = False, depth: int = 0) -> tuple[str, str]
         _CTX = ssl_context()
     for cand in path_candidates(page):
         attempt = 0
-        key = hashlib.sha1(cand.encode()).hexdigest()
+        key = cache_key(cand)
         fp = os.path.join(CACHE, key + ".txt")
         cached = None
         if os.path.exists(fp) and not fresh:
@@ -171,7 +194,7 @@ def fetch_raw(page: str, fresh: bool = False, depth: int = 0) -> tuple[str, str]
             if cached == "__404__":
                 continue
         else:
-            url = "https://zh.wikisource.org/wiki/" + urllib.parse.quote(cand) + "?action=raw"
+            url = "https://" + HOST + "/wiki/" + urllib.parse.quote(cand) + "?action=raw"
             req = urllib.request.Request(url, headers={"User-Agent": UA})
             try:
                 with urllib.request.urlopen(req, timeout=30, context=_CTX) as r:
@@ -452,7 +475,7 @@ def volume_section(page: str, fresh: bool = False) -> str:
 def book_index(book: str, fresh: bool = False) -> dict:
     """{section 標籤: 頁名}，逐卷建立並落盤，可中途死咗再續。"""
     subs = [pg for pg, _, _ in subpages(book, fresh) if pg != book][:200]
-    path = os.path.join(CACHE, "idx-" + hashlib.sha1(book.encode()).hexdigest()[:12] + ".json")
+    path = os.path.join(CACHE, "idx-" + hashlib.sha1((book + ("" if HOST == "zh.wikisource.org" else "@" + HOST)).encode()).hexdigest()[:12] + ".json")
     idx = {}
     if os.path.exists(path):
         try:
@@ -574,8 +597,21 @@ def main() -> None:
     ap.add_argument("--fresh", action="store_true", help="不讀快取")
     ap.add_argument("--candidates", action="store_true", help="顯示試過的頁名")
     ap.add_argument("--scan", action="store_true", help="紀傳名搵唔到時逐卷掃 section（慢，會快取）")
+    ap.add_argument("--host", help="Wikisource 主機，預設 zh.wikisource.org；日本史料用 ja.wikisource.org")
+    ap.add_argument("--search", metavar="詞", help="用搜尋 API 搵頁名（唔知正確標題時用）")
     ap.add_argument("--verify-batch", action="store_true", help="stdin 入 JSON 批次查證，出 JSON 報告")
     a = ap.parse_args()
+    global HOST
+    if a.host:
+        HOST = a.host
+
+    if a.search:
+        hits = search_titles(a.search, a.limit)
+        if not hits:
+            raise SystemExit("搜尋冇結果：" + a.search + "（" + HOST + "）")
+        for t in hits:
+            print(t)
+        raise SystemExit(0)
 
     if a.verify_batch:
         json.dump(verify_batch(sys.stdin), sys.stdout, ensure_ascii=False)
@@ -610,7 +646,7 @@ def main() -> None:
         print("試過的頁名：" + "、".join(path_candidates(page)))
     paras = sections(raw)
     heads = [clean_label(h) for h, _ in paras if h]
-    print(f"頁：{real}  https://zh.wikisource.org/wiki/{urllib.parse.quote(real)}")
+    print(f"頁：{real}  https://{HOST}/wiki/{urllib.parse.quote(real)}")
     if note:
         print(f"解析：{note}")
     if heads:

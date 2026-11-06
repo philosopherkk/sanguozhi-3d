@@ -222,7 +222,7 @@ L.push(`> \`node scripts/audit_entries.mjs\` 產生。deep-dive 條目合共 **$
 L.push('> classical 時代要古文原文＋出處；modern 時代（民國・內戰／共和國／幕末／明治至當代）只要現代簡述。')
 L.push('>')
 L.push('> **點讀呢張表**：`0/n` 未必係「畫面無嘢睇」。DeepDiveApp 有 fallback——無自訂 detail／reading 時會用 event 嘅 `desc` 即時生成一個簡短彈窗，所以用家仍然见到文字，但**缺四段結構、三層意譯、人物維基連結**。呢張表量嘅係結構完備度，唔係有無渲染。')
-L.push('> 已完備嘅 pack：`modernJapanPack`（DETAILS＋READINGS）、`三國`、`秦漢`、`兩周`、`戰國（日本）`。其餘 pack（古墳→安土、德川江戶、晉→元明清、民國・共和國）需要補 DETAILS／READINGS，即下面嘅待辦清單。')
+L.push('> 已完備嘅 pack：`modernJapanPack`、`德川江戶`（7/16，北海道・蝦夷三役全部有原文／四段）、`三國`、`秦漢`、`兩周`、`戰國（日本）`。其餘 pack（古墳→安土、德川江戶餘下 9 條、晉→元明清、民國・共和國）需要補 DETAILS／READINGS，即下面嘅待辦清單。')
 L.push('')
 L.push('| 時代 | 條目 | 原文 | 三層 | 起因 | 經過 | 人物 | 結果影響 | 維基 | 完全合格 |')
 L.push('|---|---|---|---|---|---|---|---|---|---|')
