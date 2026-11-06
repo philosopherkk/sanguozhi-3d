@@ -34,6 +34,8 @@ function ImperialScrubber() {
     })
     const ai = items.findIndex((t) => t.year === year)
     if (ai >= 0) {
+      const halfOf = (i: number) =>
+        Math.max(3, items[i].label.length * 1.15 + 2) / 2 + 0.8
       if (!shown[ai].okLabel) {
         shown[ai].okLabel = true
         for (let j = ai - 1; j >= 0; j--)
@@ -41,6 +43,13 @@ function ImperialScrubber() {
             shown[j].okLabel = false
             break
           }
+      }
+      if (shown[ai].okLabel) {
+        for (let j = ai + 1; j < items.length; j++) {
+          const need = halfOf(ai) + halfOf(j)
+          if (items[j].pct - items[ai].pct < need) shown[j].okLabel = false
+          else break
+        }
       }
       if (!shown[ai].okYear) {
         shown[ai].okYear = true
