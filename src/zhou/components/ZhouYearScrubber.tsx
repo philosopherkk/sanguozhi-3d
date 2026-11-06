@@ -85,7 +85,7 @@ export function ZhouYearScrubber() {
               }
               style={t.faint ? { opacity: 0.25 } : undefined}
             >
-              {t.showYear ? formatZhouYear(t.year) : '·'}
+              {t.showYear ? formatZhouYear(t.year) : t.showDot ? '·' : ''}
             </span>
             {t.showLabel && t.label ? (
               <span className="year-scrubber__tick-label">{t.label}</span>

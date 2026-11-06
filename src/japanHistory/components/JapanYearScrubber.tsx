@@ -96,7 +96,7 @@ export function JapanYearScrubber() {
                   : 'year-scrubber__tick-dot'
               }
             >
-              {t.showYear ? t.year : '·'}
+              {t.showYear ? t.year : t.showDot ? '·' : ''}
             </span>
             {t.showLabel && t.label ? (
               <span className="year-scrubber__tick-label">{t.label}</span>

@@ -93,7 +93,9 @@ export function EraMapView({
 }) {
   const rootRef = useRef<HTMLDivElement>(null)
   const [showTerritory, setShowTerritory] = useState(true)
-  const [showRoutes, setShowRoutes] = useState(false)
+  // 同中國地圖一致：行軍路線預設開。之前預設閘，各時代嘅行軍數據（元寇、
+  // 白村江、文祿渡海、蝦夷遠征）一直睇唔到。
+  const [showRoutes, setShowRoutes] = useState(true)
   const [showPlaces, setShowPlaces] = useState(false)
   const basemap = SENGOKU_BASEMAP
   const view = useMapViewport(SENGOKU_MAP_W, SENGOKU_MAP_H)

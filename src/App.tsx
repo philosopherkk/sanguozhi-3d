@@ -43,6 +43,16 @@ const MuromachiApp = lazy(() =>
 const AzuchiApp = lazy(() =>
   import('./azuchi/AzuchiApp').then((m) => ({ default: m.AzuchiApp })),
 )
+const EdoJapanApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./japanEras/packs/edoPack'),
+  ]).then(([app, data]) => ({
+    default: function EdoEra() {
+      return <app.DeepDiveApp pack={data.EDO_PACK} />
+    },
+  })),
+)
 
 function lazyPack(
   loadPack: () => Promise<{ default: ComponentType }>,
@@ -140,19 +150,6 @@ const PrcApp = lazyPack(() =>
     },
   })),
 )
-
-function EdoJapan() {
-  return (
-    <JapanHistoryApp
-      initialYear={1603}
-      yearMin={1603}
-      yearMax={1868}
-      heading="德川江戶"
-      tag="1603–1868 · 松前與琉球在此 · 幕末詳圖另見"
-      footer="日本 · 德川江戶（1603–1868）· 1603年家康任征夷大將軍 · 1604年松前黑印只是渡島南部的交易 · 1609年島津入侵琉球，國王仍在，虛線附庸 · 1615年大坂之陣是幕府開府後的戰事 · 1853年起的逐月地圖在「幕末」· 1868年以後見「明治至當代」· 家康沒有征服整個北海道或沖繩"
-    />
-  )
-}
 
 function ModernJapan() {
   return (
@@ -319,7 +316,7 @@ function TopicRoot() {
         screen = <AzuchiApp />
         break
       case 'edo':
-        screen = <EdoJapan />
+        screen = <EdoJapanApp />
         break
       case 'bakumatsu':
         screen = <BakumatsuApp />

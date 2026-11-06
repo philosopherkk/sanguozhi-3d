@@ -65,7 +65,7 @@ export function QinHanYearScrubber() {
               }
               style={t.faint ? { opacity: 0.25 } : undefined}
             >
-              {t.showYear ? formatQinHanYear(t.year) : '·'}
+              {t.showYear ? formatQinHanYear(t.year) : t.showDot ? '·' : ''}
             </span>
             {t.showLabel && t.label ? (
               <span className="year-scrubber__tick-label">{t.label}</span>

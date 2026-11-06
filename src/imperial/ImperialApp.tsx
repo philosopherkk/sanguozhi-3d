@@ -62,7 +62,7 @@ function ImperialScrubber() {
               }
               style={t.faint ? { opacity: 0.25 } : undefined}
             >
-              {t.showYear ? t.year : '·'}
+              {t.showYear ? t.year : t.showDot ? '·' : ''}
             </span>
             {t.showLabel ? (
               <span className="year-scrubber__tick-label">{t.label}</span>
