@@ -1,0 +1,213 @@
+# 引文查證待辦（由 npm run audit:quotes -- --live 生成）
+
+修好引文後跑 `npm run audit:quotes -- --live --mark-verified`，對咗嘅會自動入 ledger。
+
+## A. 異文／漏字（36 條）— 逐字同 Wikisource 唔同
+
+- src/data/timelineDetails.ts#184-huangjin
+  - 出處: 《後漢書·皇甫嵩傳》 → 後漢書/卷71
+  - 對到 1/36 字；呢度開始分岔：
+  - 我哋寫: 余年間眾徒數
+  - 原文有: 餘年閒，衆徒數十萬，連結郡國，自青、徐、幽、冀、
+- src/data/timelineDetails.ts#189-dongzhuo
+  - 出處: 《後漢書·董卓傳》 → 後漢書/卷72
+  - 對到 3/16 字；呢度開始分岔：
+  - 我哋寫: 為弘農王而立
+  - 原文有: 。曰：「皇帝在喪，無人子之心，威儀不類人君，今廢
+- src/data/timelineDetails.ts#190-guandong
+  - 出處: 《資治通鑑》卷五十九 → 資治通鑑/卷059
+  - 對到 3/12 字；呢度開始分岔：
+  - 我哋寫: 同時俱起兵眾
+  - 原文有: 諸軍皆畏其強，莫敢先進。曹操曰：「舉義兵以誅暴亂
+- src/data/timelineDetails.ts#192-dongzhuo-killed
+  - 出處: 《後漢書·董卓傳》 → 後漢書/卷72
+  - 對到 1/7 字；呢度開始分岔：
+  - 我哋寫: 刺之趣兵斬之
+  - 原文有: ，冠約、允名以為賊，州購約、允各千戶侯。約、允被
+- src/data/timelineDetails.ts#196-xudu
+  - 出處: 《資治通鑑》卷六十二 → 資治通鑑/卷062
+  - 對到 1/6 字；呢度開始分岔：
+  - 我哋寫: 祖將迎天子
+  - 原文有: 僕趙岐為承說劉表，使遣兵詣雒陽，助修宮室；軍資委
+- src/data/timelineDetails.ts#200-guandu
+  - 出處: 《資治通鑑》卷六十三 → 資治通鑑/卷063
+  - 對到 1/14 字；呢度開始分岔：
+  - 我哋寫: 袁氏輜重有萬
+  - 原文有: 君擁有四州，人戶百萬，謹歸大命，君其興之！」袁譚
+- src/data/timelineDetails.ts#207-wuhuan
+  - 出處: 《資治通鑑》卷六十五 → 資治通鑑/卷065
+  - 對到 1/6 字；呢度開始分岔：
+  - 我哋寫: 五月至無終
+  - 原文有: 水雨，而濱海洿下，濘滯不通，虜亦遮守蹊要，軍不得
+- src/data/timelineDetails.ts#208-chibi
+  - 出處: 《資治通鑑》卷六十五 → 資治通鑑/卷065
+  - 對到 1/8 字；呢度開始分岔：
+  - 我哋寫: 放諸船同時發
+  - 原文有: ，意欲討之而力未能。操遣使辟疇，疇戒其門下趣治嚴
+- src/data/timelineDetails.ts#211-tongguan
+  - 出處: 《資治通鑑》卷六十六 → 資治通鑑/卷066
+  - 對到 2/8 字；呢度開始分岔：
+  - 我哋寫: 間行從蒲阪渡
+  - 原文有: 得渡。遂自蒲阪渡西河，循河為甬道而南。超等退拒渭
+- src/data/timelineDetails.ts#214-yizhou
+  - 出處: 《資治通鑑》卷六十七 → 資治通鑑/卷067
+  - 對到 39/41 字；呢度開始分岔：
+  - 我哋寫: 出降
+  - 原文有: ，與簡雍同輿出降，群下莫不流涕。備遷璋於公安，盡
+- src/data/timelineDetails.ts#215-xiaoyaotin
+  - 出處: 《資治通鑑》卷六十七 → 資治通鑑/卷067
+  - 對到 8/27 字；呢度開始分岔：
+  - 我哋寫: 陳殺數十人斬
+  - 原文有: 陣，殺數十人，斬二大將，大呼自名，沖壘入至權麾下
+- src/data/timelineDetails.ts#219-hanzhong
+  - 出處: 《資治通鑑》卷六十八 → 資治通鑑/卷068
+  - 對到 3/14 字；呢度開始分岔：
+  - 我哋寫: 與劉備戰於陽
+  - 原文有: 、張郃屯守，身遽北還，此非其智不逮而力不足也，必
+- src/data/timelineDetails.ts#219-xiangfan
+  - 出處: 《資治通鑑》卷六十八 → 資治通鑑/卷068
+  - 對到 1/3 字；呢度開始分岔：
+  - 我哋寫: 曹仁
+  - 原文有: 作噩，盡屠維大淵獻，凡三年。孝獻皇帝癸建安
+- src/data/timelineDetails.ts#220-caopi
+  - 出處: 《資治通鑑》卷六十九 → 資治通鑑/卷069
+  - 對到 7/21 字；呢度開始分岔：
+  - 我哋寫: 使御史大夫張
+  - 原文有: 告祠高廟，使行御史大夫張音持節奉璽綬詔冊，禪位于
+- src/data/timelineDetails.ts#221-liubei-emperor
+  - 出處: 《資治通鑑》卷六十九 → 資治通鑑/卷069
+  - 對到 5/16 字；呢度開始分岔：
+  - 我哋寫: 先主即皇帝位
+  - 原文有: ，漢中王即皇帝位於武擔之南，大赦，改元章武。以諸
+- src/data/timelineDetails.ts#222-yiling
+  - 出處: 《資治通鑑》卷六十九 → 資治通鑑/卷069
+  - 對到 2/14 字；呢度開始分岔：
+  - 我哋寫: 乃敕各持一把
+  - 原文有: 表明瑾必無此，宜有以散其意。權報曰：「子瑜與孤從
+- src/data/timelineDetails.ts#223-liubei-death
+  - 出處: 《資治通鑑》卷七十 → 資治通鑑/卷070
+  - 對到 1/10 字；呢度開始分岔：
+  - 我哋寫: 主病篤託孤於
+  - 原文有: 揚聲欲東攻羨溪，朱桓分兵赴之。既行，仁以大軍徑進
+- src/data/timelineDetails.ts#225-nanzhong
+  - 出處: 《資治通鑑》卷七十 → 資治通鑑/卷070
+  - 對到 1/5 字；呢度開始分岔：
+  - 我哋寫: 七縱七擒
+  - 原文有: 至永安。3曹仁以步騎數萬向濡須，先揚聲欲東
+- src/data/timelineDetails.ts#228-beifa-start
+  - 出處: 《資治通鑑》卷七十一 → 資治通鑑/卷071
+  - 對到 3/8 字；呢度開始分岔：
+  - 我哋寫: 諸軍攻祁山
+  - 原文有: 大軍攻祁山，戎陳整齊，號令明肅。始，魏以漢昭烈既
+- src/data/timelineDetails.ts#229-sunquan-emperor
+  - 出處: 《資治通鑑》卷七十一 → 資治通鑑/卷071
+  - 對到 3/15 字；呢度開始分岔：
+  - 我哋寫: 孫權即皇帝位
+  - 原文有: ，丁酉，帝還洛陽。4帝以燕國徐邈為涼州刺史
+- src/data/timelineDetails.ts#234-wuzhangyuan
+  - 出處: 《資治通鑑》卷七十二 → 資治通鑑/卷072
+  - 對到 1/5 字；呢度開始分岔：
+  - 我哋寫: 持百餘日
+  - 原文有: 聞，欲有自託之計。吳主曰：「承明不為此也。」即封
+- src/data/timelineDetails.ts#238-gongsun
+  - 出處: 《資治通鑑》卷七十四 → 資治通鑑/卷074
+  - 對到 3/8 字；呢度開始分岔：
+  - 我哋寫: 自立為燕王
+  - 原文有: 將何計以待君？」對曰：「淵棄城豫走，上計也；據遼
+- src/data/timelineDetails.ts#249-gaopingling
+  - 出處: 《資治通鑑》卷七十五 → 資治通鑑/卷075
+  - 對到 3/7 字；呢度開始分岔：
+  - 我哋寫: 閉諸城門
+  - 原文有: 聞而賢之，聽使乞子字養為曹氏後。何晏等方用事
+- src/data/timelineDetails.ts#252-sunquan-death
+  - 出處: 《資治通鑑》卷七十五 → 資治通鑑/卷075
+  - 對到 3/5 字；呢度開始分岔：
+  - 我哋寫: 權薨
+  - 原文有: ，以司空高柔為司徒，光祿大夫徐邈為司空。邈歎曰：
+- src/data/timelineDetails.ts#263-fall-of-shu
+  - 出處: 《資治通鑑》卷七十八 → 資治通鑑/卷078
+  - 對到 2/15 字；呢度開始分岔：
+  - 我哋寫: 自陰平道行無
+  - 原文有: 與戰於侯和，破之，維退住沓中。初，維以羈旅依漢，
+- src/data/timelineDetails.ts#265-western-jin
+  - 出處: 《資治通鑑》卷七十九 → 資治通鑑/卷079
+  - 對到 4/6 字；呢度開始分岔：
+  - 我哋寫: 于晉
+  - 原文有: 於晉；甲子，出捨於金墉城。太傅司馬孚拜辭，執帝手
+- src/data/timelineDetails.ts#280-fall-of-wu
+  - 出處: 《資治通鑑》卷八十一 → 資治通鑑/卷081
+  - 對到 2/10 字；呢度開始分岔：
+  - 我哋寫: 戎卒八萬方舟
+  - 原文有: 、唐彬撃破丹楊監盛紀。呉人於江磧要害之處，並以鐵
+- src/data/timelineDetails.ts#280-feihan
+  - 出處: 《宋書·夷蠻傳》 → 後漢書/卷86
+  - 對到 1/16 字；呢度開始分岔：
+  - 我哋寫: 民順附者一戶
+  - 原文有: 西南夷列傳第七十author=范曄、
+- src/zhou/data/earlyDynasty.ts#xia-qi
+  - 出處: 《史記·夏本紀》 → 史記/卷002
+  - 對到 6/14 字；呢度開始分岔：
+  - 我哋寫: 啟而辟居箕山
+  - 原文有: 啓，而辟居箕山之陽。禹子啓賢，天下屬意焉。及禹崩
+- src/zhou/data/earlyDynasty.ts#zhou-gonghe
+  - 出處: 《史記·周本紀》 → 史記/卷004
+  - 對到 6/18 字；呢度開始分岔：
+  - 我哋寫: 召公周公二相
+  - 原文有: 。周宣王周宣王厲王太子靜匿召公之家，
+- src/zhou/data/earlyDynastyMore.ts#shang-wuyi
+  - 出處: 《史記·殷本紀》 → 史記/卷003
+  - 對到 5/13 字；呢度開始分岔：
+  - 我哋寫: 仰而射之命曰
+  - 原文有: ，卬而射之，命曰「射天」。武乙獵於河渭之閒，暴雷
+- src/zhou/data/earlyDynastyMore.ts#zhou-boqin
+  - 出處: 《史記·魯周公世家》 → 史記/魯周公世家
+  - 對到 12/24 字；呢度開始分岔：
+  - 我哋寫: 為魯公周公不
+  - 原文有: 爲魯公。周公不就封，留佐武王。武王克殷二年，
+- src/zhou/data/earlyDynastyMore.ts#zhou-liaomin
+  - 出處: 《史記·周本紀》 → 史記/卷004
+  - 對到 3/14 字；呢度開始分岔：
+  - 我哋寫: 喪南國之師乃
+  - 原文有: 亡南國之師，乃料民於太原。仲山甫諫曰：「民不可料
+- src/zhou/data/studentEvents.ts#zilu
+  - 出處: 《史記·仲尼弟子列傳》 → 史記/卷067
+  - 對到 3/38 字；呢度開始分岔：
+  - 我哋寫: 燒臺蒯聵懼乃
+  - 原文有: 燔臺，蕢聵懼，乃下石乞、壺黶攻子路，擊斷子路之纓
+- src/zhou/data/studentEvents.ts#kongzi-zu
+  - 出處: 《史記·孔子世家》 → 史記/卷047
+  - 對到 7/24 字；呢度開始分岔：
+  - 我哋寫: 教弟子蓋三千
+  - 原文有: 敎，弟子蓋三千焉，身通六藝者七十有二人。如顏濁鄒
+- src/zhou/data/studentEvents.ts#jixia
+  - 出處: 《史記·田敬仲完世家》 → 史記/卷046
+  - 對到 4/27 字；呢度開始分岔：
+  - 我哋寫: 為上大夫不治
+  - 原文有: ，爲上大夫，不治而議論。是以齊稷下學士復盛，且數
+
+## B. 出處解析唔到（20 條）— classicSource 要補卷數／編年
+
+《左傳》要寫成 `《左傳》襄公三十一年` 呢類先搵到頁；《資治通鑑》要帶「卷N」。
+
+- src/zhou/data/earlyDynasty.ts#xia-shaokang｜《左傳》
+- src/zhou/data/earlyDynastyMore.ts#xia-hanzhuo｜《左傳》
+- src/zhou/data/studentEvents.ts#xiangxiao｜《左傳》
+- src/zhou/data/studentEvents.ts#jiagu｜《左傳》
+- src/zhou/data/timeline.ts#chengpu｜《左傳》
+- src/zhou/data/timeline.ts#xiao｜《春秋》
+- src/zhou/data/timeline.ts#boju｜《春秋》
+- src/zhou/data/timeline.ts#fujiao｜《左傳》
+- src/zhou/data/timeline.ts#yue-wu｜《左傳》
+- src/zhou/data/timelineMore.ts#zhaoling｜《春秋》
+- src/zhou/data/timelineMore.ts#kuiqiu｜《春秋》
+- src/zhou/data/timelineMore.ts#hanyuan｜《春秋》
+- src/zhou/data/timelineMore.ts#jiantu｜《春秋》
+- src/zhou/data/timelineMore.ts#bi｜《春秋》
+- src/zhou/data/timelineMore.ts#an｜《春秋》
+- src/zhou/data/timelineMore.ts#yanling｜《春秋》
+- src/zhou/data/timelineMore.ts#jifu｜《春秋》
+- src/zhou/data/timelineMore.ts#ailing｜《春秋》
+- src/zhou/data/timelineMore.ts#huangchi｜《春秋》
+- src/zhou/data/timelineMore.ts#lize｜《左傳》
+
+## C. 已自動查證記錄：34 條（scripts/quote-audit-ledger.json）
