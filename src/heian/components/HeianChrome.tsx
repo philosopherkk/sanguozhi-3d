@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { EraBar } from '../../components/EraBar'
 import { ReadingControls } from '../../components/ReadingControls'
 import { TopicSwitcher } from '../../components/TopicSwitcher'
+import { layoutTicks } from '../../lib/tickCollisions'
 import { HEIAN_KEY_YEARS } from '../data/territory'
 import { useHeianYear } from '../state/HeianYearContext'
 
@@ -121,23 +122,41 @@ export function HeianYearScrubber() {
         </div>
       ) : null}
       <div className="year-scrubber__ticks">
-        {HEIAN_KEY_YEARS.map((y) => (
+        {layoutTicks(
+          HEIAN_KEY_YEARS.map((y) => ({ year: y, label: TICK[y] })),
+          yearMin,
+          yearMax,
+          territoryYear,
+        ).map((t) => (
           <button
-            key={y}
+            key={t.year}
             type="button"
             className={
-              territoryYear === y
+              (territoryYear === t.year
                 ? 'year-scrubber__tick is-active'
-                : 'year-scrubber__tick'
+                : 'year-scrubber__tick') +
+              (t.pct <= 4
+                ? ' year-scrubber__tick--start'
+                : t.pct >= 96
+                  ? ' year-scrubber__tick--end'
+                  : '')
             }
-            style={{
-              left: `${((y - yearMin) / (yearMax - yearMin)) * 100}%`,
-            }}
-            onClick={() => setYear(y)}
+            style={{ left: `${t.pct}%` }}
+            title={t.label ? `${t.year} ${t.label}` : String(t.year)}
+            onClick={() => setYear(t.year)}
           >
-            <span className="year-scrubber__tick-year">{y}</span>
-            {TICK[y] ? (
-              <span className="year-scrubber__tick-label">{TICK[y]}</span>
+            <span
+              className={
+                t.showYear
+                  ? 'year-scrubber__tick-year'
+                  : 'year-scrubber__tick-dot'
+              }
+              style={t.faint ? { opacity: 0.25 } : undefined}
+            >
+              {t.showYear ? t.year : '·'}
+            </span>
+            {t.showLabel && t.label ? (
+              <span className="year-scrubber__tick-label">{t.label}</span>
             ) : null}
           </button>
         ))}
