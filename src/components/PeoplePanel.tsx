@@ -202,6 +202,7 @@ export function PeoplePanel({ compact = false }: { compact?: boolean }) {
                 </p>
                 <p className="person-card__cta">點擊載入更詳百科</p>
               </button>
+              {p.quote ? <p className="person-quote">「{p.quote}」</p> : null}
               <p className="person-source">{p.source}</p>
               <div className="person-links">
                 <a href={p.zhwiki_url} target="_blank" rel="noreferrer">

@@ -2495,6 +2495,16 @@ html[data-theme='light'] .app-footer {
   line-height: 1.4;
 }
 
+.person-quote,
+.battle-quote {
+  margin: 0.3rem 0 0;
+  font-size: 0.8rem;
+  color: var(--ink-muted, #b9b2a0);
+  border-left: 2px solid var(--accent-dim);
+  padding-left: 0.5rem;
+  line-height: 1.5;
+}
+
 .person-note {
   margin: 0.3rem 0 0;
   font-size: 0.78rem;

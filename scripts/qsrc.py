@@ -32,6 +32,7 @@ import urllib.request
 CACHE = "/tmp/qsrc-cache"
 MAPFILE = "/tmp/qsrc-map.json"
 UA = "sanguozhi-3d-quote-audit/1.0 (local research script)"
+QUIET = False
 
 
 # ---------------------------------------------------------------- 卷號換算
@@ -161,6 +162,7 @@ def fetch_raw(page: str, fresh: bool = False, depth: int = 0) -> tuple[str, str]
     if _CTX is None:
         _CTX = ssl_context()
     for cand in path_candidates(page):
+        attempt = 0
         key = hashlib.sha1(cand.encode()).hexdigest()
         fp = os.path.join(CACHE, key + ".txt")
         cached = None
@@ -175,6 +177,10 @@ def fetch_raw(page: str, fresh: bool = False, depth: int = 0) -> tuple[str, str]
                 with urllib.request.urlopen(req, timeout=30, context=_CTX) as r:
                     cached = r.read().decode("utf-8", "replace")
             except urllib.error.HTTPError as e:
+                if e.code == 429 and attempt == 0:
+                    time.sleep(4)
+                    attempt += 1
+                    continue
                 if e.code in (404, 401):
                     open(fp, "w", encoding="utf-8").write("__404__")
                     continue
@@ -191,14 +197,34 @@ def fetch_raw(page: str, fresh: bool = False, depth: int = 0) -> tuple[str, str]
 
 # ---------------------------------------------------------------- 清理 wikitext
 
+def _template(m):
+    """有內容嘅模板（例如 {{ProperNoun|曹操}}）要保留內文，否則人名會消失。"""
+    body = m.group(1)
+    if "=" in body.split("|")[0] or "|" not in body:
+        return ""
+    tail = body.split("|", 1)[1]
+    return "" if "=" in tail else tail
+
+
 def strip_markup(raw: str) -> str:
-    t = raw
-    for _ in range(6):  # 模板可以套疊
-        t = re.sub(r"\{\{[^{}]*\}\}", "", t)
-    t = re.sub(r"<(ref|references|nowiki|includeonly)[^>]*>.*?</\1>", "", t, flags=re.S)
+    t = re.sub(r"<(ref|references|nowiki|includeonly)[^>]*>.*?</\1>", " ", raw, flags=re.S)
+    t = re.sub(r"<ref[^>]*/>", " ", t)
+    t = re.sub(r"\{\|.*?\|\}", " ", t, flags=re.S)
+    for _ in range(8):  # 模板可以套疊
+        new = re.sub(r"\{\{([^{}]*)\}\}", _template, t)
+        if new == t:
+            break
+        t = new
+    for _ in range(4):  # -{}- 轉換標記（-{-}- 先拆）
+        new = t.replace("-{-", "").replace("-}-", "")
+        new = re.sub(r"-\{([^{}]*)\}-", r"\1", new)
+        if new == t:
+            break
+        t = new
     t = re.sub(r"<[^>]+>", "", t)
     t = re.sub(r"\[\[(?:[^|\]]*\|)?([^\]]+)\]\]", r"\1", t)
-    t = re.sub(r"[{}''\[\]]", "", t)
+    t = re.sub(r"^[*=#;:]+|[=]{2,}", " ", t, flags=re.M)  # wiki 標題／清單符
+    t = re.sub(r"[{}''\[\]|]", "", t)
     t = t.replace("&nbsp;", " ").replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&")
     return t
 
@@ -283,6 +309,136 @@ def parse_cite(cite: str) -> tuple[str, list[str], str | None]:
     return book, chapters, (vol.group(1) if vol else None)
 
 
+def strip_notes(text: str) -> str:
+    """去夾註：通鑑嘅（干支，公元NNN年）、校勘記「X」或作「Y」同双行小注會割斷正文。"""
+    t = re.sub(r"（[^（）]{0,24}?公元[\d前後]+年?[^（）]{0,10}）", "", text)
+    t = re.sub(r"\([^()]{0,24}?公元[\d前後]+年?[^()]{0,10}\)", "", t)
+    t = re.sub(r"「[^」\n]{1,4}」或作「[^」\n]{1,4}」", "", t)
+    return t
+
+
+def cjk_only(q: str) -> str:
+    return "".join(c for c in q if not re.match(PUNCT, c))
+
+
+# 版本異體（同字唔同寫法）：唔當內容差異
+VARIANTS = [
+    "眾衆", "並并", "間閒", "裏裡", "峰峯", "悅悦", "略畧", "概槩",
+    "遍徧", "群羣", "奸姦", "跡蹟", "竈灶", "癥症", "线線", "脈脉",
+    "呉吳", "撃擊", "徧遍", "彊強", "郤卻",
+]
+CLASSES = {}
+for grp in VARIANTS:
+    for ch in grp:
+        CLASSES[ch] = "[" + grp + "]"
+
+
+def loose_pattern(q: str) -> str:
+    """把引文砌成容錯正則：准許標點空隙同版本異體，但內容唔同就照報。"""
+    parts = [CLASSES.get(c, re.escape(c)) for c in cjk_only(q)]
+    return r"[^一-鿿]{0,6}".join(parts)
+
+
+def _probe(text: str, chars: list[str]) -> dict:
+    """喺 text 搵 chars 嘅最長前綴，報告邊個字開始分岔。"""
+    full = re.compile(loose_pattern("".join(chars))).search(text)
+    if full:
+        return {"m": full, "matched": len(chars)}
+    best, best_m = 0, None
+    lo, hi = 1, len(chars)
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        mm = re.compile(loose_pattern("".join(chars[:mid]))).search(text)
+        if mm:
+            best, best_m, lo = mid, mm, mid + 1
+        else:
+            hi = mid - 1
+    return {"m": best_m, "matched": best}
+
+
+def check_quote(text: str, quote: str) -> dict:
+    """逐字查證。引文可以用「……」省略，所以分段順序搵，唔要求成段連寫。"""
+    segs = [cjk_only(s) for s in re.split(r"…+|⋯+", quote)]
+    segs = [s for s in segs if len(s) >= 3] or [cjk_only(quote)]
+    segs = [s for s in segs if s]
+    if not segs:
+        return {"status": "empty"}
+    pos, start_at, total = 0, -1, sum(len(s) for s in segs)
+    for idx, seg in enumerate(segs):
+        m = re.compile(loose_pattern(seg)).search(text, pos)
+        where = None
+        if not m:  # 順序編排唔同，喺全文再搵一次
+            m2 = re.compile(loose_pattern(seg)).search(text)
+            where = "order" if m2 else None
+            if m2:
+                m = m2
+        if not m:
+            got = _probe(text, list(seg))
+            detail = {"status": "mismatch", "segment": idx + 1, "segments": len(segs)}
+            if not got["m"]:
+                detail["status"] = "absent" if idx == 0 else "mismatch"
+                detail["ours"] = seg[:8]
+                return detail
+            detail.update(
+                chars=len(seg),
+                matched=got["matched"],
+                ours="".join(list(seg)[got["matched"] : got["matched"] + 6]),
+                theirs=re.sub(r"\s+", "", text[got["m"].end() : got["m"].end() + 24])[:24],
+            )
+            return detail
+        if where:
+            pos = 0
+        elif idx == 0:
+            start_at = m.start()
+        pos = max(pos, m.end())
+    return {"status": "ok", "at": start_at, "chars": total}
+
+
+def verify_batch(stream) -> list[dict]:
+    """stdin 入 JSON：[{id, page?, cite?, quote}] → 逐條查證報告。"""
+    global QUIET
+    QUIET = True
+    items = json.load(stream)
+    out = []
+    for it in items:
+        rec = {"id": it.get("id", "")}
+        quote = it.get("quote", "") or it.get("needle", "")
+        cands = []
+        if it.get("page"):
+            cands.append((it["page"], None))
+        for c in ([it["cite"]] if it.get("cite") else []) + list(it.get("cites") or []):
+            cands.append((None, c))
+        best = None
+        for page, cite in cands:
+            try:
+                if not page:
+                    page, _a, _w = resolve_cite(cite, scan=True)
+                got = fetch_raw(page)
+            except SystemExit as e:
+                if best is None:
+                    best = {"status": "unresolved", "why": str(e)[:120]}
+                continue
+            if not got:
+                continue
+            real, raw = got
+            text = strip_notes(strip_markup(raw))
+            if len(cjk_only(text)) < 200:
+                continue
+            res = check_quote(text, quote)
+            res["page"] = real
+            if res["status"] == "ok":
+                best = res
+                break
+            score = res.get("matched", -1 if res["status"] == "absent" else -2)
+            if best is None or score > best.get("matched", -3):
+                best = res
+        if best is None:
+            best = {"status": "unresolved", "why": "所有出處都解析唔到"}
+        rec.update(best)
+        out.append(rec)
+    return out
+
+
 def volume_section(page: str, fresh: bool = False) -> str:
     """卷頁嘅 {{header2|section=...}}，例如「皇甫嵩朱儁列傳　第六十一」。"""
     got = fetch_raw(page, fresh)
@@ -293,17 +449,39 @@ def volume_section(page: str, fresh: bool = False) -> str:
     return clean_label(m.group(1)) if m else ""
 
 
-def scan_book(book: str, parts: list[str], fresh: bool = False) -> tuple[str, str] | None:
-    """索引冇紀傳名時，逐卷睇 section 搵啱嘅卷（會快取，一次過）。"""
-    subs = [p for p, _, _ in subpages(book, fresh) if p != book]
-    for idx, page in enumerate(subs[:140], 1):
+def book_index(book: str, fresh: bool = False) -> dict:
+    """{section 標籤: 頁名}，逐卷建立並落盤，可中途死咗再續。"""
+    subs = [pg for pg, _, _ in subpages(book, fresh) if pg != book][:200]
+    path = os.path.join(CACHE, "idx-" + hashlib.sha1(book.encode()).hexdigest()[:12] + ".json")
+    idx = {}
+    if os.path.exists(path):
+        try:
+            idx = json.load(open(path, encoding="utf-8"))
+        except Exception:
+            idx = {}
+    todo = [pg for pg in subs if pg not in idx]
+    for n, page in enumerate(todo, 1):
         sec = volume_section(page, fresh)
-        for p in parts:
-            if p and sec and (p in sec or sec in p):
-                return page, sec
-        if idx % 10 == 0:
-            sys.stderr.write(f"  掃紧 {idx}/{min(len(subs), 140)} 卷…\n")
+        idx[page] = sec
+        if n % 8 == 0 or n == len(todo):
+            json.dump(idx, open(path, "w", encoding="utf-8"), ensure_ascii=False)
         time.sleep(0.12)
+    return {v: k for k, v in idx.items() if v}
+
+
+def scan_book(book: str, parts: list[str], fresh: bool = False) -> tuple[str, str] | None:
+    """索引冇紀傳名時，用逐卷 section 索引搵啱嘅卷。"""
+    idx = book_index(book, fresh)
+    cores = []
+    for p in parts:
+        if not p:
+            continue
+        cores.append(p)
+        cores.append(re.sub(r"(傳|紀|志|書|世家|載記|列傳)+$", "", p))
+    for sec, page in idx.items():
+        for c in cores:
+            if len(c) >= 2 and c in sec:
+                return page, sec
     return None
 
 
@@ -318,12 +496,15 @@ def resolve_cite(cite: str, fresh: bool = False, scan: bool = False) -> tuple[st
     key = clean_label(cite)
     if not fresh and key in amap:
         page, anchor = amap[key]
-        return page, anchor, f"對照表 {MAPFILE}"
+        if "/" in page:  # 舊快取可能存咗索引頁，忽略之
+            return page, anchor, f"對照表 {MAPFILE}"
     # 有啲書直接以紀傳名做子頁（三國志/武帝紀 呢類），試埋
     for tail in chapters[::-1]:
         if fetch_raw(f"{book}/{tail}", fresh):
             return f"{book}/{tail}", "", "子頁名即紀傳名"
-    subs = subpages(book, fresh)
+    subs = [s for s in subpages(book, fresh) if "/" in s[0]]  # 索引頁自身唔算正文
+    if not vol and len(subs) > 3 and not chapters:
+        raise SystemExit(f"{book} 要埋卷數（或編年，如《左傳》襄公三十一年）先查得到；索引頁冇正文")
     if not subs:
         raise SystemExit(f"索引頁搵唔到子頁：{book}（試 --toc {book}）")
     parts = [clean_label(c) for c in chapters]
@@ -346,8 +527,9 @@ def resolve_cite(cite: str, fresh: bool = False, scan: bool = False) -> tuple[st
                 amap[key] = [page, ""]
                 json.dump(amap, open(MAPFILE, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
                 return page, "", f"逐卷掃描得 section：{sec}"
-        near = [f"  {p}" + (f"#{a}" if a else "") + f"  {l}" for p, a, l in subs[:40]]
-        sys.stderr.write(f"索引搵唔到 {chapters}。{book} 子頁樣本：\n" + "\n".join(near) + "\n")
+        if not QUIET:
+            for p, a, l in subs[:24]:
+                sys.stderr.write(f"  {p}" + (f"#{a}" if a else "") + f"  {l}")
         raise SystemExit(
             f"未能解析：{cite}（試 --toc {book} 睇子頁，或者 --scan {cite} 逐卷掃 section）"
         )
@@ -360,12 +542,6 @@ def resolve_cite(cite: str, fresh: bool = False, scan: bool = False) -> tuple[st
 # ---------------------------------------------------------------- 搜尋
 
 PUNCT = r"[\s，。、；：！？「」『』『』（）()〈〉《》…—－\-·．]"
-
-
-def loose_pattern(q: str) -> str:
-    """把引文砌成容錯正則：字與字之間准許標點或少量異文。"""
-    chars = [c for c in q if not re.match(PUNCT, c)]
-    return r"[^一-鿿]{0,6}".join(re.escape(c) for c in chars)
 
 
 def snippet(text: str, m: re.Match, ctx: int, color: bool) -> str:
@@ -398,7 +574,12 @@ def main() -> None:
     ap.add_argument("--fresh", action="store_true", help="不讀快取")
     ap.add_argument("--candidates", action="store_true", help="顯示試過的頁名")
     ap.add_argument("--scan", action="store_true", help="紀傳名搵唔到時逐卷掃 section（慢，會快取）")
+    ap.add_argument("--verify-batch", action="store_true", help="stdin 入 JSON 批次查證，出 JSON 報告")
     a = ap.parse_args()
+
+    if a.verify_batch:
+        json.dump(verify_batch(sys.stdin), sys.stdout, ensure_ascii=False)
+        return
 
     note = ""
     pattern = a.pattern

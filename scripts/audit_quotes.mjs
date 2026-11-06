@@ -4,6 +4,7 @@
  *
  *   npm run audit:quotes                        摘要報告
  *   npm run audit:quotes -- --todo              待辦清單（附 qsrc.py 查證指令）
+ *   npm run audit:quotes -- --live              逐字對 Wikisource 原文（可加 --mark-verified）
  *   npm run audit:quotes -- --todo --all        連明標意譯／通說嘅引文都列出
  *   npm run audit:quotes -- --json              機器可讀輸出
  *   npm run audit:quotes -- --stats             只印統計
@@ -13,6 +14,7 @@
  * disputed 要 note；文字用繁體。查證原文用 /tmp/qsrc.py 對 Wikisource。
  */
 import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
 import { join, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -57,9 +59,10 @@ const opt = (name) => {
   const i = argv.indexOf('--' + name)
   return i >= 0 ? argv[i + 1] : undefined
 }
-const MODE = has('json') ? 'json' : has('todo') ? 'todo' : 'report'
+const MODE = has('json') ? 'json' : has('live') ? 'live' : has('todo') ? 'todo' : 'report'
 const ONLY_STATS = has('stats')
 const ALL = has('all')
+const MARK_VERIFIED = has('mark-verified')
 const MARK = opt('mark')
 const PAGE = opt('page')
 
@@ -279,6 +282,17 @@ function shape(file, o, src) {
     source: sourceField ?? null,
     disputed: get('disputed')?.value === true,
     note: get('note')?.value ?? '',
+    datesNote: get('datesNote')?.value ?? '',
+    others: [...f.entries()]
+      .filter(
+        ([n, v]) =>
+          !QUOTE_FIELDS.includes(n) &&
+          !SOURCE_FIELDS.includes(n) &&
+          !['disputed', 'note', 'paraphrase', 'id', 'title', 'datesNote'].includes(n) &&
+          v.kind === 'str',
+      )
+      .map(([, v]) => v.value)
+      .join(' '),
     paraphrase: get('paraphrase') ? get('paraphrase').value === true : null,
     wikisource: wikisourcePages(block),
   }
@@ -324,6 +338,17 @@ function scanJson(file, src) {
         source: sourceKey ? { kind: 'str', value: String(node[sourceKey]) } : null,
         disputed: node.disputed === true,
         note: node.note ?? '',
+        datesNote: node.datesNote ?? '',
+        others: Object.entries(node)
+          .filter(
+            ([k, v]) =>
+              typeof v === 'string' &&
+              !QUOTE_FIELDS.includes(k) &&
+              !SOURCE_FIELDS.includes(k) &&
+              !['disputed', 'note', 'paraphrase', 'id', 'title', 'datesNote'].includes(k),
+          )
+          .map(([, v]) => v)
+          .join(' '),
         paraphrase: node.paraphrase === true,
         wikisource: [],
       })
@@ -334,6 +359,10 @@ function scanJson(file, src) {
   return out
 }
 
+
+// 出處解析：埋「卷N」一齊攞，否則會跌咗喺索引頁
+const CITE_RE = /《[^》]+》(?:\s*[卷卷]\s*[0-9〇零一二三四五六七八九十百千兩]+)?/
+const CITE_RE_G = /《[^》]+》(?:\s*[卷卷]\s*[0-9〇零一二三四五六七八九十百千兩]+)?/g
 
 /* -------------------------------------------------- 檢查 */
 
@@ -383,7 +412,18 @@ function check(e, all) {
     if (/意譯|通說/.test(srcText))
       issues.push(['info', '意譯出處', '非逐字原文，查證只需對意思'])
   }
-  if (e.disputed && !e.note) issues.push(['error', 'disputed 無 note', 'AGENTS.md 要求說明理由'])
+  // disputed 嘅理由：note 最好，datesNote / 內文有清楚說明都算記錄咗
+  const HEDGE =
+    /不詳|未詳|異說|爭議|異於|約數|推定|敘事|示意|總冊|不宜|失實|追述|不可|估算|前後|無.{0,4}戶籍|沒有|不是/
+
+  if (e.disputed) {
+    if (!e.note) {
+      if (e.datesNote) issues.push(['info', '以 datesNote 說明', e.datesNote.slice(0, 36)])
+      else if (HEDGE.test(e.others || ''))
+        issues.push(['warn', '理由散見內文', 'AGENTS.md 希望寫落 note 欄'])
+      else issues.push(['error', 'disputed 無 note', 'AGENTS.md 要求說明理由'])
+    }
+  }
   const bad = [...(quoteText + srcText)].filter((ch) => SIMPLIFIED.test(ch))
   if (bad.length) issues.push(['error', '簡體字', [...new Set(bad)].join('')])
   if (quoteText && quoteText.length < 6 && e.source)
@@ -406,7 +446,7 @@ function verifyCommand(e) {
   const script = existsSync(join(ROOT, 'scripts', 'qsrc.py')) ? 'scripts/qsrc.py' : '/tmp/qsrc.py'
   const page = e.wikisource[0]
   if (page) return `python3 ${script} ${page} '${needle}'`
-  const cite = /《[^》]+》/.exec(text(e.source) || '')
+  const cite = CITE_RE.exec(text(e.source) || '')
   if (cite) return `python3 ${script} --cite '${cite[0]}' '${needle}'`
   return null
 }
@@ -418,7 +458,7 @@ function loadLedger() {
 }
 
 function stamp(e) {
-  return hash(`${text(e.quote)} ${text(e.source)}`)
+  return hash(`${text(e.quote)}\u241f${text(e.source)}`)
 }
 
 function verifyState(e, ledger) {
@@ -489,6 +529,74 @@ function main() {
   const stale = rows.filter((r) => r.state === 'stale')
   const unverified = rows.filter((r) => r.state === 'unverified')
   const withQuote = rows.filter((r) => r.e.quote)
+
+  if (MODE === 'live') {
+    const script = existsSync(join(ROOT, 'scripts', 'qsrc.py'))
+      ? join(ROOT, 'scripts', 'qsrc.py')
+      : '/tmp/qsrc.py'
+    const targets = rows.filter(
+      (r) => r.e.quote?.kind === 'str' && (ALL || r.state === 'unverified' || r.state === 'stale'),
+    )
+    const items = []
+    let homeless = 0
+    for (const r of targets) {
+      const cites = [...(text(r.e.source) || '').matchAll(CITE_RE_G)].map((m) => m[0])
+      const page = r.e.wikisource[0] ?? null
+      if (!page && !cites.length) {
+        homeless++
+        continue
+      }
+      items.push({
+        id: `${relative(ROOT, r.e.file)}#${r.e.key}`,
+        page,
+        cites,
+        quote: text(r.e.quote),
+      })
+    }
+    console.log(`逐字查證 ${items.length} 條引文（Wikisource，快取 /tmp/qsrc-cache）…`)
+    const raw = execFileSync('python3', [script, '--verify-batch'], {
+      input: JSON.stringify(items),
+      maxBuffer: 128 * 1024 * 1024,
+    }).toString()
+    const res = new Map(JSON.parse(raw).map((x) => [x.id, x]))
+    const tally = {}
+    let marked = 0
+    for (const it of items) {
+      const got = res.get(it.id) ?? { status: 'unresolved', why: 'qsrc.py 冇回呢筆' }
+      tally[got.status] = (tally[got.status] ?? 0) + 1
+      if (got.status === 'ok') {
+        if (MARK_VERIFIED) {
+          const r = rows.find((x) => `${relative(ROOT, x.e.file)}#${x.e.key}` === it.id)
+          if (r) {
+            ledger[it.id] = {
+              stamp: stamp(r.e),
+              page: got.page ?? '',
+              at: new Date().toISOString().slice(0, 10),
+            }
+            marked++
+          }
+        }
+        continue
+      }
+      console.log(`\n\u001b[31m✗ ${it.id}\u001b[0m（${got.status}）`)
+      if (it.cite) console.log(`   出處: ${it.cite}${got.page ? ` → ${got.page}` : ''}`)
+      if (got.why) console.log(`   原因: ${got.why}`)
+      if (got.status === 'mismatch') {
+        console.log(`   對到 ${got.matched}/${got.chars} 字；呢度開始分岔：`)
+        console.log(`     我哋寫: ${got.ours}`)
+        console.log(`     原文有: ${got.theirs}`)
+      } else if (it.quote) {
+        console.log(`   引文: ${String(it.quote).replace(/\s+/g, ' ').slice(0, 52)}`)
+      }
+    }
+    if (marked) writeFileSync(LEDGER_PATH, JSON.stringify(ledger, null, 2) + '\n')
+    console.log(
+      `\n查證結果：對得上 ${tally.ok ?? 0}｜異文／漏字 ${tally.mismatch ?? 0}｜搵唔到 ${tally.absent ?? 0}｜出處解析唔到 ${tally.unresolved ?? 0}` +
+        (homeless ? `（另 ${homeless} 條無 Wikisource 頁亦無《》出處）` : '') +
+        (MARK_VERIFIED ? `；已自動記錄對咗嘅 ${marked} 條入 ledger` : '；加 --mark-verified 先會記錄對咗嘅'),
+    )
+    return
+  }
 
   if (MODE === 'json') {
     console.log(
