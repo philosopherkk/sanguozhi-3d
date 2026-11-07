@@ -91,7 +91,7 @@ export const TERRITORY_BY_YEAR: Record<TerritoryKeyYear, ProvinceControl> = {
    * 年底語義。〈武帝紀〉建安十六年關中諸將反於潼關，故 208 年關中、涼州
    * 不在曹氏手上（〈馬騰傳〉：初平中馬騰據涼州）。荊州南：劉表卒於七年七月、
    * 琮九月降、赤壁在十一月，年底四郡在劉備，惟蜀漢之號出於建安十九年後，
-   * 本registry 以 214 為蜀漢起點，故以「其他」標示並在出處說明，不追認國號。
+   * 本registry 以 214 為蜀漢起點，故用個人號「劉備」著色；214 年後的快照仍用國號。
    */
   208: {
     幽州: '曹魏',
@@ -107,7 +107,7 @@ export const TERRITORY_BY_YEAR: Record<TerritoryKeyYear, ProvinceControl> = {
     漢中: '其他',
     益州: '劉璋',
     荊州北: '曹魏',
-    荊州南: '其他',
+    荊州南: '劉備',
     揚州: '孫吳',
     交州: '其他',
     遼東: '公孫氏',
@@ -116,7 +116,7 @@ export const TERRITORY_BY_YEAR: Record<TerritoryKeyYear, ProvinceControl> = {
   /**
    * 〈武帝紀〉建安十六年破馬超於潼關，十七年平安定；關中由是入曹。
    * 涼州仍未定：韓遂走羌、馬騰二十四年誅、梁興建安二十年降，故涼州仍屬諸將。
-   * 漢中張魯、益州劉璋未動；荊州南四郡在劉備（時無國號，見 208 年說明）。
+   * 漢中張魯、益州劉璋未動；荊州南四郡用個人號「劉備」（時無國號）。
    */
   211: {
     幽州: '曹魏',
@@ -132,7 +132,7 @@ export const TERRITORY_BY_YEAR: Record<TerritoryKeyYear, ProvinceControl> = {
     漢中: '其他',
     益州: '劉璋',
     荊州北: '曹魏',
-    荊州南: '其他',
+    荊州南: '劉備',
     揚州: '孫吳',
     交州: '其他',
     遼東: '公孫氏',
