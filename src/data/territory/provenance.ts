@@ -92,24 +92,24 @@ export const BAKUMATSU_TERRITORY_NOTE_ZH =
 
 /**
  * 幕末地圖實際係混合幾何：藩級 mesh 只覆蓋 28 個舊國中的 21 個，
- * 未覆蓋嘅舊國改用旧国 mesh 補畫。出处要如實反映兩套來源。
+ * 未覆蓋的舊國改用旧国 mesh 補畫。出处要如實反映兩套來源。
  */
 export const BAKUMATSU_HAN_PLUS_KOKUGUN_GEOMETRY: TerritoryGeometryProvenance = {
   approx: true,
   source:
     '藩級：CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · 本田謙一氏原典加工 · CC BY-SA 4.0；舊國級補完：CODH 旧国 mesh（BY-NC）',
-  note: '藩級 mesh 覆蓋 d0–d27 之中嘅 21 個舊國；其餘 7 個舊國以旧国 mesh 補畫，同幅圖因此混合兩套幾何來源。',
+  note: '藩級 mesh 覆蓋 d0–d27 之中的 21 個舊國；其餘 7 個舊國以旧国 mesh 補畫，同幅圖因此混合兩套幾何來源。',
 }
 
 export const BAKUMATSU_TERRITORY_NOTE_MIXED_ZH =
-  '色塊為幕末村領域→藩 dissolve 示意（approx）；旧国≠藩界。藩級幾何只覆蓋 28 個舊國中的 21 個，未覆蓋者（d1、d2、d8、d14、d22、d26、d27）改用 CODH 旧国 mesh 補畫，所以呢幅圖混合 CC BY-SA 藩級與 BY-NC 旧国兩套幾何。歸屬色仍依戊辰勢力對照。'
+  '色塊為幕末村領域→藩 dissolve 示意（approx）；旧国≠藩界。藩級幾何只覆蓋 28 個舊國中的 21 個，未覆蓋者（d1、d2、d8、d14、d22、d26、d27）改用 CODH 旧国 mesh 補畫，所以該圖混合 CC BY-SA 藩級與 BY-NC 旧国兩套幾何。歸屬色仍依戊辰勢力對照。'
 
 export const JAPAN_TERRITORY_NOTE_ZH =
   '色塊邊界為 CODH 幕末明治旧国 mesh（CC BY-NC，見 ATTRIBUTION-CODH-BY-NC.md）；大名／藩歸屬仍示意，非村→藩 dissolve（CB-02b 後續）。'
 
 /**
  * 亞洲—太平洋戰區（明治至當代）色塊：以通說控制範圍之經緯度區間界定，
- * 再與 Natural Earth 1:50m 陸地求交集，故色塊只出現喺陸地上。
+ * 再與 Natural Earth 1:50m 陸地求交集，故色塊只出現於陸地上。
  * 生成：scripts/gen_asia_war_territory.mjs；坐標系同 asiaWarBase.ts。
  */
 export const ASIA_WAR_EXTENTS_GEOMETRY: TerritoryGeometryProvenance = {

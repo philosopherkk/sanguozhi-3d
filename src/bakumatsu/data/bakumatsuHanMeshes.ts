@@ -68829,7 +68829,7 @@ export const BAKUMATSU_HAN_MESHES: BakumatsuHanMesh[] = [
   {
     "id": "H031",
     "hanId": "H031",
-    "name": "会津",
+    "name": "會津",
     "domainId": "d0",
     "zone": "奧羽",
     "ring": [

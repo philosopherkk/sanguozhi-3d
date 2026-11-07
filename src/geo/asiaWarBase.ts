@@ -1,10 +1,10 @@
 /**
- * 亞太戰區底圖（自動生成，唔好手改）
+ * 亞太戰區底圖（自動生成，不要手改）
  *
  * 資料：Natural Earth 1:50m 陸地（world-atlas@2 countries-50m.json，公有領域）
  * 生成：node scripts/gen_asia_war_base.mjs scripts/.cache/countries-50m.json
  * 投影：等圓柱；畫面經 60–190°、緯 -14–62°；畫布 1710×1000
- * 渲染：陸地 path 用 fill-rule="evenodd"；勢力範圍用 clipPath 夹喺陸地之上
+ * 渲染：陸地 path 用 fill-rule="evenodd"；勢力範圍用 clipPath 夹於陸地之上
  */
 
 export const ASIA_WAR_W = 1710

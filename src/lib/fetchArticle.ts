@@ -28,7 +28,7 @@ function stripHtml(html: string): string {
   return text.slice(0, 2800)
 }
 
-/** 保留俾「開啟 Grokipedia」出口連結同將來嘅審閱用途；內文預設唔再用佢。 */
+/** 保留給「開啟 Grokipedia」出口連結與將來的審閱用途；內文預設不再用它。 */
 export async function fetchGrokipedia(slug: string): Promise<InlineArticle | null> {
   const path = `/page/${encodeURIComponent(slug)}`
   const candidates = [
@@ -58,7 +58,7 @@ export async function fetchGrokipedia(slug: string): Promise<InlineArticle | nul
 }
 
 const HANS_MARKS =
-  '国东门马为这来时个对发会过还开关军战书学义与万无产历体从众两汉刘张赵杨陈华实现经统权术号称举击杀师将备贝见说话语记议论许诸请让谁谢谋败胜贼骑鱼鸟龙齐广庆应庄'
+  '国东门马为这来时个对发會过还开关军战书学义与万无产历体从众两汉刘张赵杨陈华实现经统权术号称举击杀师将备贝见说话语记议论许诸请让谁谢谋败胜贼骑鱼鸟龙齐广庆应庄'
 const HANT_MARKS =
   '國東門馬為這來時個對發會過還開關軍戰書學義與萬無產歷體從眾兩漢劉張趙楊陳華實現經統權術號稱舉擊殺師將備貝見說話語記議論許諸請讓誰謝謀敗勝賊騎魚鳥龍齊廣慶應莊'
 
@@ -198,7 +198,7 @@ export async function loadFactionInlineArticle(opts: {
   fallbackTitle: string
   fallbackBlurb: string
 }): Promise<InlineArticle> {
-  // 優先正體中文維基摘要；Grokipedia（英文、未審）只做出口連結，唔做內文。
+  // 優先正體中文維基摘要；Grokipedia（英文、未審）只做出口連結，不做內文。
   const wiki = await fetchWikipediaSummary(opts.zhwikiTitle, 'zh')
   if (wiki) return { ...wiki, note: undefined }
 

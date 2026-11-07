@@ -13,7 +13,7 @@ import {
   ASIA_WAR_TERRITORY_NOTE_ZH,
 } from '../data/territory/provenance'
 
-/** 舊國 mesh 已覆蓋嘅 domainId；其余（蝦夷地、東蝦夷地、松前、琉球等）要另行渲染。 */
+/** 舊國 mesh 已覆蓋的 domainId；其余（蝦夷地、東蝦夷地、松前、琉球等）要另行渲染。 */
 const KOKUGUN_DOMAIN_IDS = new Set(CODH_KOKUGUN_MESHES.map((m) => m.domainId))
 
 export function DeepDiveMapStage({ pack }: { pack: JapanDeepDivePack }) {
@@ -45,8 +45,8 @@ export function DeepDiveMapStage({ pack }: { pack: JapanDeepDivePack }) {
     const names = Object.fromEntries(pack.domains.map((d) => [d.id, d.name]))
     const kokugun = shadesFromDomainControl(control, names)
     /**
-     * pack.domains 中唔屬於舊國 mesh 嘅區塊（蝦夷地、東蝦夷地、松前、琉球…）
-     * 之前完全冇進入渲染，只用於名字，所以北海道嘅逐年變化喺地圖上睇唔到。
+     * pack.domains 中不屬於舊國 mesh 的區塊（蝦夷地、東蝦夷地、松前、琉球…）
+     * 之前完全無進入渲染，只用於名字，所以北海道的逐年變化於地圖上看不見。
      */
     const extras = pack.domains.flatMap((d) => {
       if (KOKUGUN_DOMAIN_IDS.has(d.id) || !d.ring) return []

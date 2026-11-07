@@ -50,6 +50,12 @@ const YANYI_TROPE_WARN = [
 const SIMPLIFIED_ONLY_RE =
   /[国学会长门东车为发时这来过说们么没东西习欢进还电点产见飞风仪汉边变云气团万与专书页齐广庄庆击补网对队阳阴隐显灵虽虫医药总画线]/u
 
+/**
+ * 粵語語氣字：repo 規則（AGENTS.md）規定資料欄位、程式註釋與 UI 文案
+ * 一律用書面語，只有回覆使用者時才可使用粵語口語。
+ */
+const COLLOQUIAL_RE = /[嘅咗佢喺冇咩噉嚟嘢]/u
+
 type Level = 'fail' | 'warn'
 
 interface Issue {
@@ -257,6 +263,15 @@ function scanStringsForSimplified(value: unknown, location: string) {
         `疑似簡體字：${chars}`,
       )
     }
+    if (COLLOQUIAL_RE.test(value)) {
+      const chars = [...new Set(value.match(COLLOQUIAL_RE) ?? [])].join('')
+      add(
+        'warn',
+        'colloquial-han',
+        location,
+        `資料欄位含粵語語氣字，應改書面語：${chars}`,
+      )
+    }
     return
   }
   if (Array.isArray(value)) {
@@ -312,6 +327,42 @@ function scanUiFiles() {
   }
 }
 
+/**
+ * 全 src 掃描粵語語氣字（含程式註釋）。資料檔另由 scanStringsForSimplified
+ * 逐欄位報告，此處跳過 src/data 與各 data 目錄，避免重複計數。
+ */
+function scanColloquialInSource() {
+  const files: string[] = []
+  const walk = (dir: string) => {
+    let entries: Dirent[]
+    try {
+      entries = readdirSync(dir, { withFileTypes: true })
+    } catch {
+      return
+    }
+    for (const ent of entries) {
+      const full = join(dir, ent.name)
+      if (ent.isDirectory()) walk(full)
+      else if (ent.name.endsWith('.ts') || ent.name.endsWith('.tsx')) files.push(full)
+    }
+  }
+  walk(join(ROOT, 'src'))
+  for (const file of files) {
+    const rel = file.replace(ROOT + '/', '')
+    if (rel.startsWith('src/data/') || rel.includes('/data/')) continue
+    let text: string
+    try {
+      text = readFileSync(file, 'utf8')
+    } catch {
+      continue
+    }
+    const chars = [...new Set(text.match(COLLOQUIAL_RE) ?? [])].join('')
+    if (chars) {
+      add('warn', 'colloquial-source', rel, `含粵語語氣字，應改用書面語：${chars}`)
+    }
+  }
+}
+
 // --- 資料集 ---
 
 walkWithSource(battles, 'src/data/battles.json', { yearStrict: true })
@@ -362,6 +413,7 @@ scanStringsForSimplified(UNREGISTERED_AFTER_280, 'src/data/unregisteredHousehold
 scanStringsForSimplified(wuxiLegendNote(280), 'unregisteredHouseholds.wuxiLegendNote')
 
 scanUiFiles()
+scanColloquialInSource()
 
 // --- 報告 ---
 
@@ -419,6 +471,7 @@ ${byCode(warns).map(([c, n]) => `- \`${c}\`: ${n}`).join('\n') || '_（無）_'}
 4. 主 \`source\` 允許：三國志、裴注、後漢書、資治通鑑、晉書；**宋書** 僅可出現在 \`note\` 並標「後代史回溯」。
 5. 演義專屬情節（草船借箭、空城計、桃園結義、溫酒斬華雄、連環計）→ warn（三顧茅廬不在此列）；反駁演義之 note 可在同行或上一行加 \`// lint-allow:yanyi\`。
 6. 簡體專用字（curated S-set）→ warn。
+7. 粵語語氣字（嘅、咗、佢、喺、冇、咩、噉、嚟、嘢）→ warn；資料欄位、程式註釋與 UI 文案一律套用書面語，僅回覆使用者時可用粵語口語。
 
 ## fail 明細
 

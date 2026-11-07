@@ -64,7 +64,7 @@ export function DeepDiveYearProvider({
 
   const togglePlay = useCallback(() => setPlaying((p) => !p), [])
 
-  // 變更 → 寫入 URL；popstate／同文件切換 → 跟返 URL。
+  // 變更 → 寫入 URL；popstate／同文件切換 → 跟隨 URL。
   useEffect(() => {
     announceTimeline({ year, month: null })
   }, [year])

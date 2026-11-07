@@ -35,8 +35,8 @@ export interface EraDomainShade {
 
 /**
  * 環路徑與形心對同一份幾何永遠不變，但每次 pan/zoom 都會重新 render。
- * 幕末嘅藩 dissolve mesh 有 20 萬個座標數，逐幀重建字串會令地圖嚴重卡頓，
- * 因此以 ring 嘅物件身份做快取（資料模組內嘅 ring 是穩定參照）。
+ * 幕末的藩 dissolve mesh 有 20 萬個座標數，逐幀重建字串會令地圖嚴重卡頓，
+ * 因此以 ring 的物件身份做快取（資料模組內的 ring 是穩定參照）。
  */
 const pathCache = new Map<[number, number][], string>()
 const centroidCache = new Map<[number, number][], [number, number]>()
@@ -54,8 +54,8 @@ function ringPath(ring: [number, number][]): string {
 
 /**
  * 同一個 domain 的所有 ring 合成單一 path（多個 subpath）。
- * 幕末嘅藩 mesh 每個 domain 有幾百條 extraRings，逐條出 `<path>` 會產生
- * 數千個 SVG 節點，pan/zoom 時要逐個重新佈局，係地圖卡頓嘅主因。
+ * 幕末的藩 mesh 每個 domain 有幾百條 extraRings，逐條出 `<path>` 會產生
+ * 數千個 SVG 節點，pan/zoom 時要逐個重新佈局，係地圖卡頓的主因。
  */
 const domainPathCache = new Map<object, string>()
 

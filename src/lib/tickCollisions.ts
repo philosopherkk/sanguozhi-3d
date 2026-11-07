@@ -1,4 +1,4 @@
-/** 年代滑桿刻度防撞：太近的年份收做圓點、標籤重疊時只保留一個。
+/** 年代滑桿刻度防撞：太近的年份收作圓點、標籤重疊時只保留一個。
  *  Imperial 與日本滑桿共用（Project B 一致性）。 */
 
 export type TickItem = { year: number; label?: string }
@@ -8,9 +8,9 @@ export type TickView = {
   label?: string
   showYear: boolean
   showLabel: boolean
-  /** 圓點企到位先画；企唔到就留空（唔好壓住隔籬嘅標籤） */
+  /** 圓點能就位先畫；無法就位就留空（不要壓住鄰近的標籤） */
   showDot: boolean
-  /** 年、標籤、圓點都擺唔落：先收做半透明嘅點擊位 */
+  /** 年、標籤、圓點都放不下：先收作半透明的點擊位 */
   faint: boolean
 }
 
@@ -38,7 +38,7 @@ export function layoutTicks(
     placed.every(([pl, pr]) => l >= pr - 0.3 || r <= pl + 0.3)
   const claim = (l: number, r: number) => placed.push([l, r])
 
-  // 貼邊：0% 同100%嘅標籤會溢出滑桿，要單邊對齊
+  // 貼邊：0% 同100%的標籤會溢出滑桿，要單邊對齊
   const box = (t: { pct: number; labelHalf: number }, half: number): [number, number] => {
     const atStart = t.pct <= half
     const atEnd = t.pct >= 100 - half
@@ -73,7 +73,7 @@ export function layoutTicks(
   })
   const ai = activeYear === undefined ? -1 : laid.findIndex((t) => t.year === activeYear)
   if (ai >= 0) {
-    // 當前年一定要睇到：清走任何壓住佢嘅隔籬刻度（變返半透明點擊位）
+    // 當前年一定要看到：移除遮擋它的鄰近刻度（轉回半透明點擊位）
     const t = laid[ai]
     const [lo, hi] = box(t, Math.max(t.labelHalf, YEAR_HALF))
     for (let j = 0; j < laid.length; j++) {

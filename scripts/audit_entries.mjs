@@ -4,7 +4,7 @@
  *
  * 期望每條：classical 時代要古文原文＋出處（modern 時代只要現代簡述）、
  * 三層意譯（elementary/secondary/university）、四段（causes/course/keyFigures/outcome）＋維基連結。
- * 內容可以散喺 EVENTS / DETAILS / READING 三個 map，呢個 script 按 id join。
+ * 內容可以散於 EVENTS / DETAILS / READING 三個 map，這個 script 按 id join。
  * 只讀檔。用法：node scripts/audit_entries.mjs [--json]
  */
 import fs from 'node:fs'
@@ -13,7 +13,7 @@ import path from 'node:path'
 const ROOT = path.resolve(import.meta.dirname, '..')
 const read = (p) => { try { return fs.readFileSync(path.join(ROOT, p), 'utf8') } catch { return '' } }
 
-/** 由 marker 開始，搵佢嘅陣列，深度 1 嘅每个 {...} 係一個元素。 */
+/** 由 marker 開始，搵它的陣列，深度 1 的每个 {...} 係一個元素。 */
 function arrayBlocks(src, marker) {
   const at = src.indexOf(marker)
   if (at < 0) return []
@@ -60,7 +60,7 @@ function mapBlocks(src, marker) {
   return out
 }
 
-/** marker 之後嘅容器：.skip 型別註解入面嘅 `[`（例如 `XxxEvent[] = [`）。 */
+/** marker 之後的容器：.skip 型別註解入面的 `[`（例如 `XxxEvent[] = [`）。 */
 function findContainer(src, marker) {
   const at = src.indexOf(marker)
   if (at < 0) return null
@@ -73,7 +73,7 @@ function findContainer(src, marker) {
   return { idx: o }
 }
 
-/** 由容器起始括号開始，深度 1 嘅每個 `{...}` 係一個條目；map 形會 backwards 搵 key。 */
+/** 由容器起始括号開始，深度 1 的每個 `{...}` 係一個條目；map 形會 backwards 搵 key。 */
 function blocksFrom(src, idx) {
   const out = []
   let depth = 0, elemStart = -1
@@ -100,7 +100,7 @@ function blocksFrom(src, idx) {
 
 const idOf = (b) => {
   const id = (b.body.match(/\bid:\s*'([^']*)'/) || [])[1] ?? b.key ?? '(無 id)'
-  // 過濾誤捕：欄位名本身唔係條目 id
+  // 過濾誤捕：欄位名本身不是條目 id
   if (/^(keyFigures|events|details|readings|people|places|routes|ticks|factions|domains|situation|leadersByYear|shadeNotes)$/.test(id)) return null
   return id
 }
@@ -116,7 +116,7 @@ const RE = {
 const JP = [ ['kofunPack','古墳'],['asukaPack','飛鳥'],['naraPack','奈良'],
   ['kamakuraPack','鎌倉'],['muromachiPack','室町'],['azuchiPack','安土桃山'],
   ['edoPack','德川江戶'],['modernJapanPack','明治至當代',1] ]
-/** pack 檔嘅事件陣列同詳情／語譯 map 可能用唔同嘅寫法，一次過攪埋。 */
+/** pack 檔的事件陣列同詳情／語譯 map 可能用不同的寫法，一次過攪埋。 */
 const packEv = (f) => [[`src/japanEras/packs/${f}.ts`,'events: ['],[`src/japanEras/packs/${f}.ts`,'const events']]
 const packDet = (f) => [[`src/japanEras/packs/${f}.ts`,'const DETAILS'],[`src/japanEras/packs/${f}.ts`,'Object.assign(DETAILS'],[`src/japanEras/packs/${f}.ts`,'details: {'],[`src/japanEras/packs/${f}.ts`,'DETAILS: {']]
 const packRea = (f) => [[`src/japanEras/packs/${f}.ts`,'const READINGS'],[`src/japanEras/packs/${f}.ts`,'Object.assign(READINGS'],[`src/japanEras/packs/${f}.ts`,'readings: {'],[`src/japanEras/packs/${f}.ts`,'READINGS: {']]
@@ -143,7 +143,7 @@ const ERAS = [
     rea: [[`src/imperial/data/${f}.ts`, 'const READINGS'], [`src/imperial/data/${f}.ts`, 'READINGS: {']] })),
 ]
 
-// 三國／戰國（日本）嘅原文喺 separate reading map
+// 三國／戰國（日本）的原文於 separate reading map
 ERAS[2].det = [['src/data/timelineDetails.ts', 'TIMELINE_DETAILS']]
 ERAS[2].rea = [['src/data/readingLayers.ts', 'READING_LAYERS']]
 ERAS[4].det = [['src/sengoku/data/timelineDetails.ts', 'SENGOKU_TIMELINE_DETAILS']]
@@ -151,7 +151,7 @@ ERAS[4].rea = [['src/sengoku/data/readingLayers.ts', 'SENGOKU_READING']]
 
 const escRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
-/** 由指定位置搵紧随嘅陣列／map 開括號（findContainer 嘅 index 版）。 */
+/** 由指定位置搵紧随的陣列／map 開括號（findContainer 的 index 版）。 */
 function containerNear(src, pos) {
   const eq = src.indexOf('=', pos)
   const from = eq >= 0 && eq - pos < 160 ? eq : pos
@@ -201,7 +201,7 @@ function collect(spec) {
   return [...byId.values()]
 }
 
-/** 三層意譯：可以用 `elementary:` 等 key，亦可以用 `layers('a', 'b', 'c')` 嘅 positional helper。 */
+/** 三層意譯：可以用 `elementary:` 等 key，亦可以用 `layers('a', 'b', 'c')` 的 positional helper。 */
 function hasLayers(t) {
   const byKey = has(t, RE.l1) && has(t, RE.l2) && has(t, RE.l3)
   const byHelper = /layers\s*\(\s*(["'`])[\s\S]*?\1\s*,\s*(["'`])[\s\S]*?\2\s*,/.test(t)
@@ -221,8 +221,8 @@ function evaluate(e, mode) {
   return miss
 }
 
-/** zh-Hant 規則閘：只放「只有簡體先會咁寫」嘅字，避開正字（后、里、于、台、乾 等）。 */
-const HAN_SRC = '爱坝摆败颁办绊帮绑谤宝报备笔毕币闭边变标宾拨补参仓测层产长厂场彻尘陈称惩迟冲处触传辞从错达带担单当导灯敌递点电调叠订丢东动独断对队发飞坟纷丰凤辐该盖纲钢个给宫沟构购顾挂关观规柜归国过汉韩号贺会获击积级极计记继夹价艰检舰将奖觉绝军开凯编来蓝览滥捞乐类离礼连联练凉两疗辽邻临领刘龙楼录陆虑绿马码买卖满没麦谬儿纳脑拟欧盘庞贫凭扑齐签迁谦墙窍亲钦穷趋权劝确让绕热认绒软赛扫杀闪伤舍设审胜师时实势视适饰术树数帅双税顺说肃虽随岁损缩态摊贪坛叹誉条铁听厅统头图团湾网卫温闻纹问无吴习袭牺戏峡宪县乡详写谢兴须叙学压严颜盐阳养样药爷页义艺忆议阴银饮隐应犹鱼与语员园远愿约悦运载凿贼赠战张赵贞针郑证质摄钟终种众诸烛猪筑转庄装资渍踪总组广么见营础赖据预农户间异弃彦侧讨谋宽独'
+/** zh-Hant 規則閘：只放「只有簡體先會咁寫」的字，避開正字（后、里、于、台、乾 等）。 */
+const HAN_SRC = '爱坝摆败颁办绊帮绑谤宝报备笔毕币闭边变标宾拨补参仓测层产长厂场彻尘陈称惩迟冲处触传辞从错达带担单当导灯敌递點电调叠订丢东动独断对队发飞坟纷丰凤辐该盖纲钢个给宫沟构购顾挂关观规柜归国过汉韩号贺會获击积级极计记继夹价艰检舰将奖觉绝军开凯编来蓝览滥捞乐类离礼连联练凉两疗辽邻临领刘龙楼录陆虑绿马码买卖满没麦谬儿纳脑拟欧盘庞贫凭扑齐签迁谦墙窍亲钦穷趋权劝确让绕热认绒软赛扫杀闪伤舍设审胜师时实势视适饰术树数帅双税顺说肃虽随岁损缩态摊贪坛叹誉条铁听厅统头图团湾网卫温闻纹问无吴习袭牺戏峡宪县乡详写谢兴须叙学压严颜盐阳养样药爷页义艺忆议阴银饮隐应犹鱼与语员园远愿约悦运载凿贼赠战张赵贞针郑证质摄钟终种众诸烛猪筑转庄装资渍踪总组广么见营础赖据预农户间异弃彦侧讨谋宽独'
 const HAN_RE = new RegExp('[' + [...new Set(HAN_SRC)].join('') + ']', 'g')
 
 function simplifiedHits(text) {
@@ -253,8 +253,8 @@ const L = ['# 條目結構審計（Project A 篩選結果）', '']
 L.push(`> \`node scripts/audit_entries.mjs\` 產生。deep-dive 條目合共 **${total}** 條。`)
 L.push('> classical 時代要古文原文＋出處；modern 時代（民國・內戰／共和國／幕末／明治至當代）只要現代簡述。')
 L.push('>')
-L.push('> **點讀呢張表**：`0/n` 未必係「畫面無嘢睇」。DeepDiveApp 有 fallback——無自訂 detail／reading 時會用 event 嘅 `desc` 即時生成一個簡短彈窗，所以用家仍然见到文字，但**缺四段結構、三層意譯、人物維基連結**。呢張表量嘅係結構完備度，唔係有無渲染。')
-L.push('> 已完備嘅 pack：`modernJapanPack`、`德川江戶`（7/16，北海道・蝦夷三役全部有原文／四段）、`三國`、`秦漢`、`兩周`、`戰國（日本）`。其餘 pack（古墳→安土、德川江戶餘下 9 條、晉→元明清、民國・共和國）需要補 DETAILS／READINGS，即下面嘅待辦清單。')
+L.push('> **點讀此表**：`0/n` 未必係「畫面無東西看」。DeepDiveApp 有 fallback——無自訂 detail／reading 時會用 event 的 `desc` 即時生成一個簡短彈窗，所以使用者仍然见到文字，但**缺四段結構、三層意譯、人物維基連結**。此表量的係結構完備度，不是有無渲染。')
+L.push('> 已完備的 pack：`modernJapanPack`、`德川江戶`（7/16，北海道・蝦夷三役全部有原文／四段）、`三國`、`秦漢`、`兩周`、`戰國（日本）`。其餘 pack（古墳→安土、德川江戶餘下 9 條、晉→元明清、民國・共和國）需要補 DETAILS／READINGS，即下面的待辦清單。')
 L.push('')
 L.push('| 時代 | 條目 | 原文 | 三層 | 起因 | 經過 | 人物 | 結果影響 | 維基 | 完全合格 |')
 L.push('|---|---|---|---|---|---|---|---|---|---|')
@@ -265,7 +265,7 @@ for (const r of rows) {
     `${cnt(e,'causes')} | ${cnt(e,'course')} | ${cnt(e,'figures')} | ${cnt(e,'outcome')} | ` +
     `${cnt(e,'wiki')} | **${full}/${e.length}** |`)
 }
-L.push('', '## 正體中文檢查（AGENTS.md：唔准簡體）')
+L.push('', '## 正體中文檢查（AGENTS.md：不准簡體）')
 let hanTotal = 0
 for (const r of rows) {
   const bad = r.entries
