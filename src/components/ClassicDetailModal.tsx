@@ -22,9 +22,19 @@ export interface ClassicDetailContent {
   causes: string
   course: string
   keyFigures: { name: string; role: string }[]
+  /**
+   * 結果與影響。以空行（\n\n）分段；大學生程度之論述，
+   * 目標 400–900 字（約 2–3 分鐘閱讀）。
+   */
   outcome: string
-  classicQuote: string
-  classicSource: string
+  /** 「結果與影響」一段之依據：點名原典、政書或研究書（AGENTS.md 規則 16／19）。 */
+  outcomeSource?: string
+  /**
+   * 原文（文言文或原始公文）。缺原文時不顯示該段，
+   * 不可拿語譯頂替——否則讀者會把解釋當成史料。
+   */
+  classicQuote?: string
+  classicSource?: string
   /** 預設「典籍原文」。意譯時改傳「意譯」。 */
   quoteHeading?: string
   layers: ReadingLayers

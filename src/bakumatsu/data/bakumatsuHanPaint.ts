@@ -30,6 +30,6 @@ export function bakumatsuHanMeshCount(): number {
   return BAKUMATSU_HAN_MESHES.length
 }
 
-export function useBakumatsuHanMeshes(): boolean {
+export function hasBakumatsuHanMeshes(): boolean {
   return BAKUMATSU_HAN_MESHES.length > 0
 }
