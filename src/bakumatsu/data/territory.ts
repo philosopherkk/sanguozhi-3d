@@ -80,19 +80,19 @@ export const BAKUMATSU_TERRITORY_BY_YEAR: Record<
   Record<string, BakumatsuFactionId>
 > = {
   1853: paint([], '幕府'),
-  /** 第二次長州征討失敗。薩摩與長州（以毛利舊領示意）已不聽幕府。 */
-  1866: paint([[SATCHO, '薩長']], '幕府'),
-  1867: paint([[SATCHO, '薩長']], '幕府'),
-  /** 鳥羽伏見與江戶開城之後。奧羽越仍在抵抗。幕府不再有成片領地。 */
+  /** 第二次長州征討失敗。薩摩與長州（以毛利舊領示意）已不聽幕府。其餘舊國立場未經逐藩考訂，故不著勢力色。 */
+  1866: paint([[SATCHO, '薩長']], '未確定'),
+  1867: paint([[SATCHO, '薩長']], '未確定'),
+  /** 鳥羽伏見與江戶開城之後。奧羽越仍在抵抗。幕府不再有成片領地；未参戰或立場無考者不著色。 */
   1868: paint(
     [
       [OU, '奧羽'],
       [ECHIGO, '奧羽'],
     ],
-    '薩長',
+    '未確定',
   ),
   /** 本州戰事結束。箱館在蝦夷地；1869 起以 JP_ERA_RINGS 示意著色北海道（開拓使，approx）。 */
-  1869: paint([], '薩長'),
+  1869: paint([], '未確定'),
 }
 
 const NOTES: Record<BakumatsuKeyYear, string> = {
@@ -106,36 +106,40 @@ const NOTES: Record<BakumatsuKeyYear, string> = {
 export const BAKUMATSU_MONTH_FROM = 1853
 export const BAKUMATSU_MONTH_TO = 1869
 
+/**
+ * 逐月控制表只著「有據可指」嘅舊國；其餘一律 `未確定`。
+ * 之前嘅寫法係把沒有指定的舊國整體塗成「幕府」或「薩長」，等如無據宣稱歸屬。
+ */
 const satchoSettsu = paint(
   [
     [SATCHO, '薩長'],
     [['d2'], '薩長'],
   ],
-  '幕府',
+  '未確定',
 )
 const satchoTokai = paint(
   [
     [SATCHO, '薩長'],
     [['d2', 'd14', 'd10'], '薩長'],
   ],
-  '幕府',
+  '未確定',
 )
 const afterEdo = paint(
   [
     [SATCHO, '薩長'],
     [['d2', 'd14', 'd10', 'd7', 'd20', 'd26'], '薩長'],
   ],
-  '幕府',
+  '未確定',
 )
 const ouetsu = paint(
   [
     [OU, '奧羽'],
     [ECHIGO, '奧羽'],
   ],
-  '薩長',
+  '未確定',
 )
-const aizuOnly = paint([[OU, '奧羽']], '薩長')
-const allNew = paint([], '薩長')
+const aizuOnly = paint([[OU, '奧羽']], '未確定')
+const allNew = paint([], '未確定')
 
 /** 1853–1868 逐月。沒有專條的月份寫「本月無專條」，領地沿用較早一個月。1869年箱館不在這一段。 */
 const BAKUMATSU_MONTH_NOTES: Record<string, { note: string; control?: Record<string, BakumatsuFactionId> }> = {
@@ -164,7 +168,7 @@ const BAKUMATSU_MONTH_NOTES: Record<string, { note: string; control?: Record<str
     note: '六月幕府第二次征討長州，沿山陽道西進，沒有打下長州。',
   },
   '1867-1': {
-    note: '慶應三年正月。薩摩、長州已不聽幕府，其餘藩領仍著幕府。本月無大型行軍。',
+    note: '慶應三年正月。薩摩、長州已不聽幕府；其餘藩領在戊辰戰爭中的立場未經逐藩考訂，故著未確定，不代表仍由幕府直接支配。本月無大型行軍。',
   },
   '1867-10': {
     note: '舊曆慶應三年十月十四日大政奉還，西曆是11月9日。藩領沒有當天重畫。',
@@ -289,7 +293,7 @@ export function bakumatsuFactionCounts(
     .sort((a, b) => b.n - a.n)
 }
 
-const BAKUMATSU_FACTIONS_ORDER: BakumatsuFactionId[] = ['幕府', '薩長', '奧羽']
+const BAKUMATSU_FACTIONS_ORDER: BakumatsuFactionId[] = ['幕府', '薩長', '奧羽', '未確定']
 
 /** 1869 起以 CODH K75–K85 示意北海道開拓使行政；箱館戰爭仍靠箭咀敘事。 */
 export function bakumatsuFringeShades(
