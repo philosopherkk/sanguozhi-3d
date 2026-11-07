@@ -8,7 +8,12 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import { enterYear, stepTimeline } from '../../lib/monthZoom'
+import { enterYear, inMonthZoom, stepTimeline } from '../../lib/monthZoom'
+import {
+  announceTimeline,
+  onTimelineChange,
+  readTimelineFromUrl,
+} from '../../lib/timelineUrl'
 import {
   BAKUMATSU_MONTH_FROM,
   BAKUMATSU_MONTH_TO,
@@ -37,8 +42,18 @@ interface BakumatsuYearContextValue {
 const BakumatsuYearContext = createContext<BakumatsuYearContextValue | null>(null)
 
 export function BakumatsuYearProvider({ children }: { children: ReactNode }) {
-  const [year, setYearState] = useState(1868)
-  const [month, setMonthState] = useState<number | null>(1)
+  // 初始以 URL 為準（?y=／?mo=），以便分享逐月連結（例如 1868 年 12 月）。
+  const [fromUrl] = useState(readTimelineFromUrl)
+  const [year, setYearState] = useState(() => {
+    const y = fromUrl.year
+    return y !== null && y >= YEAR_MIN && y <= YEAR_MAX ? y : 1868
+  })
+  const [month, setMonthState] = useState<number | null>(() => {
+    if (fromUrl.month !== null) return fromUrl.month
+    return inMonthZoom(fromUrl.year ?? 1868, BAKUMATSU_MONTH_FROM, BAKUMATSU_MONTH_TO)
+      ? 1
+      : null
+  })
   const [playing, setPlaying] = useState(false)
   const cursor = useRef({ year, month })
   cursor.current = { year, month }
@@ -89,6 +104,20 @@ export function BakumatsuYearProvider({ children }: { children: ReactNode }) {
   )
 
   const togglePlay = useCallback(() => setPlaying((p) => !p), [])
+
+  // 變更 → 寫入 URL（由 UrlBridge 統一負責）；popstate → 跟返 URL。
+  useEffect(() => {
+    announceTimeline({ year, month })
+  }, [year, month])
+  useEffect(
+    () =>
+      onTimelineChange((next) => {
+        if (next.year === null || (next.year === year && next.month === month)) return
+        setYear(next.year)
+        if (next.month !== null) setMonth(next.month)
+      }),
+    [year, month, setYear, setMonth],
+  )
 
   useEffect(() => {
     if (!playing) return

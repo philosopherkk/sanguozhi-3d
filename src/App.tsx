@@ -5,6 +5,11 @@ import {
   TopicProvider,
   useTopic,
 } from './state/TopicContext'
+import {
+  onTimelineChange,
+  readTimelineFromUrl,
+  writeTimelineToUrl,
+} from './lib/timelineUrl'
 import './App.css'
 
 const ZhouApp = lazy(() =>
@@ -338,17 +343,24 @@ function UrlBridge() {
   const eraKey = `${topic}:${eraId}`
 
   useEffect(() => {
+    // 滑桿（range input）：只帶年份，月份保留現況（逐月時代由 context 廣播月份）
     const onInput = (ev: Event) => {
       const el = ev.target as HTMLElement | null
       if (!el || typeof el.closest !== 'function' || !el.closest('.year-scrubber')) return
       const input = el as HTMLInputElement
       if (input.type !== 'range') return
-      const q = new URLSearchParams(window.location.search)
-      q.set('y', input.value)
-      window.history.replaceState(null, '', `${window.location.pathname}?${q}`)
+      writeTimelineToUrl({
+        year: Number(input.value),
+        month: readTimelineFromUrl().month,
+      })
     }
     document.addEventListener('input', onInput, true)
-    return () => document.removeEventListener('input', onInput, true)
+    // 各時代 context 的年份／月份變更 → 統一寫返 URL
+    const unsubscribe = onTimelineChange((state) => writeTimelineToUrl(state))
+    return () => {
+      document.removeEventListener('input', onInput, true)
+      unsubscribe()
+    }
   }, [])
 
   useEffect(() => {
