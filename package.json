@@ -14,7 +14,9 @@
     "audit:ranges": "node --experimental-strip-types scripts/audit-ranges.ts",
     "audit:wiring": "node --experimental-strip-types scripts/audit-wiring.ts",
     "audit:geo": "python3 scripts/audit_geo.py",
-    "audit:event-depth": "node scripts/audit_event_depth.mjs"
+    "audit:event-depth": "node scripts/audit_event_depth.mjs",
+    "audit:chengyu": "node scripts/audit_chengyu.mjs",
+    "audit:map": "node scripts/audit_map_accuracy.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
