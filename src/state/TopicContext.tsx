@@ -40,6 +40,7 @@ export type ChinaEraSlot =
   | 'liaosong'
   | 'yuanmingqing'
   | 'minguo'
+  | 'civilwar'
   | 'prc'
 export type JapanEraSlot =
   | 'kofun'
@@ -77,6 +78,7 @@ export const CHINA_ERA_SLOTS: EraSlotMeta<ChinaEraSlot>[] = [
   { id: 'liaosong', label: '遼宋', range: '960–1279' },
   { id: 'yuanmingqing', label: '元明清', range: '1271–1911' },
   { id: 'minguo', label: '民國軍閥', range: '1912–1949' },
+  { id: 'civilwar', label: '國共內戰', range: '1945–1949' },
   { id: 'prc', label: '共和國', range: '1949–2026' },
 ]
 

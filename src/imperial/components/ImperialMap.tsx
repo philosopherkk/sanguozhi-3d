@@ -15,7 +15,7 @@ import {
   RouteOverlay,
 } from '../../components/map/RouteOverlay'
 import { MapLayerBar } from '../../components/map/MapLayerBar'
-import { shapesFromExtensions } from '../../lib/eraShapes'
+import { shapesFromExtensions, controlToExtensions } from '../../lib/eraShapes'
 import { clampMapPan, mapZoomStyle, useRafView, type ViewTransform } from '../../lib/mapViewport'
 import { imperialFactionColor, imperialFactionName } from '../lib/factionColor'
 import { useImperialSelection } from '../state/ImperialSelectionContext'
@@ -57,7 +57,12 @@ export function ImperialMap() {
   const nameFor = (id: string) => imperialFactionName(pack, id)
 
   const shapes = useMemo(
-    () => shapesFromExtensions(snapshot.extensions),
+    () =>
+      shapesFromExtensions([
+        ...(snapshot.extensions ?? []),
+        // 民國以後的 pack 以省級 id 記 control，此處經 ERA_RINGS 還原成色塊
+        ...controlToExtensions(snapshot.control),
+      ]),
     [snapshot],
   )
 

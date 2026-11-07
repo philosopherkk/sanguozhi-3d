@@ -8,7 +8,7 @@ import {
 import { FactionSituationPanel } from '../../components/FactionSituationPanel'
 import { MapRouteLegend } from '../../components/map/MapRouteLegend'
 import { MARCH_ROUTE_SAME_YEAR } from '../../components/map/RouteOverlay'
-import { extensionAreaStats } from '../../lib/eraShapes'
+import { controlToExtensions, extensionAreaStats } from '../../lib/eraShapes'
 import type { FactionYearView } from '../../lib/factionYearView'
 import { imperialFactionColor, imperialFactionName } from '../lib/factionColor'
 import { resolveImperialLeaders } from '../lib/resolveSnapshot'
@@ -104,7 +104,10 @@ export function ImperialTerritoryDock() {
 
   const rows = useMemo(
     () =>
-      extensionAreaStats(snapshot.extensions).map((row) => ({
+      extensionAreaStats([
+        ...(snapshot.extensions ?? []),
+        ...controlToExtensions(snapshot.control),
+      ]).map((row) => ({
         faction: row.faction,
         n: row.pieceCount,
         percent: row.percent,
