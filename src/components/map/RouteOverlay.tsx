@@ -272,7 +272,7 @@ function RouteOverlayInner({
         const anchor = anchors.get(r.id)
         const shift = shifts[r.id] ?? { dx: 0, dy: 0 }
         const color = colorFor(r.faction)
-        const label = `${formatYear(r.year)} ${r.name}`
+        const label = `${formatYear(r.year)} ${r.name}${r.kind === 'sea' ? '（海路）' : ''}`
         return (
           <g key={r.id}>
             <path
@@ -303,6 +303,7 @@ function RouteOverlayInner({
               strokeWidth={hot ? 5.5 : 4.2}
               strokeLinecap="butt"
               strokeLinejoin="round"
+              strokeDasharray={r.kind === 'sea' ? '16 9' : undefined}
               vectorEffect="non-scaling-stroke"
             />
             {head ? (

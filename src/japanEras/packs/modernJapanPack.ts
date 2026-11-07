@@ -31,7 +31,7 @@ const route = (
  * 陸海軍作戰同事件一一對應：每條路線嘅 year 都係對應事件嘅年份，
  * 揀返嗰年就會同時見到事件同路線（呢個係本圖嘅對齊機制）。
  */
-const routes: MarchRoute[] = [
+const RAW_ROUTES: MarchRoute[] = [
   route('mj-1874-taiwan', '台灣出兵（牡丹社事件）', 1874, F.jp,
     '日本近代史通說；『台灣蕃地事情』等。陸軍少尉以下出兵，由長崎出海喺猫裏上陸',
     [[129.87, 32.74], [126.5, 26.5], [121.6, 23.6], [120.66, 22.8]]),
@@ -91,7 +91,7 @@ const routes: MarchRoute[] = [
     [[116.86, -1.26], [110.0, -4.5], [106.85, -6.2]]),
   route('mj-1942-midway', '中途島海戰（MI作戰）', 1942, F.jp,
     '『戰史叢書』ミッドウェー海戰。6月4–7日，空母4隻失；航路示意',
-    [[140.0, 35.0], [155.0, 31.0], [-177.37, 28.21]]),
+    [[140.0, 35.0], [155.0, 31.0], [182.63, 28.21]]),
   route('mj-1942-guadalcanal', 'ガダルカナル作戰（ラバウル→ツラギ）', 1942, F.jp,
     '『戰史叢書』ソロモン方面海戰。8月7日米軍上陸後，日軍夜間高速艇増援（鼠輸送），1943年2月撤退',
     [[152.3, -4.2], [156.5, -6.5], [160.15, -9.1]]),
@@ -116,13 +116,26 @@ const routes: MarchRoute[] = [
 ]
 
 /** 地名標記（環礁等太細、填色睇唔到嘅地點用文字表示） */
+/** 海路（含艦隊決戰與兩棲上陸之海上段）；其餘按陸路繪製 */
+const SEA_ROUTE_IDS = new Set([
+  'mj-1874-taiwan', 'mj-1894-navy', 'mj-1895-weihaiwei', 'mj-1905-tsushima',
+  'mj-1914-qingdao', 'mj-1932-shanghai', 'mj-1937-shanghai-nanjing',
+  'mj-1941-malaya', 'mj-1941-philippines', 'mj-1942-java', 'mj-1942-midway',
+  'mj-1942-guadalcanal', 'mj-1944-marianas', 'mj-1944-leyte-gulf',
+  'mj-1945-okinawa', 'mj-1945-yamato',
+])
+
+const routes: MarchRoute[] = RAW_ROUTES.map((r) =>
+  SEA_ROUTE_IDS.has(r.id) ? { ...r, kind: 'sea' } : { ...r, kind: 'land' },
+)
+
 const places = [
   ['東京', 139.69, 35.69], ['漢城', 126.98, 37.57], ['奉天', 123.43, 41.8],
   ['哈爾浜', 126.62, 45.75], ['北京', 116.4, 39.9], ['上海', 121.47, 31.23],
   ['南京', 118.8, 32.06], ['武漢', 114.3, 30.6], ['青島', 120.35, 36.07],
   ['旅順', 121.27, 38.9], ['海參崴', 131.9, 43.1], ['豊原', 142.9, 47.0],
   ['トラック', 151.78, 7.42], ['ラバウル', 152.33, -4.2], ['ガダルカナル', 160.15, -9.1],
-  ['中途島', -177.37, 28.21], ['新加坡', 103.82, 1.35], ['バタヴィア', 106.85, -6.2],
+  ['中途島', 182.63, 28.21], ['威克島', 166.64, 19.28], ['關島', 144.79, 13.44], ['新加坡', 103.82, 1.35], ['バタヴィア', 106.85, -6.2],
   ['マニラ', 120.98, 14.6], ['サイパン', 145.7, 15.2], ['インパル', 93.94, 24.81],
   ['アッツ島', 172.9, 52.83], ['沖縄', 127.68, 26.21],
 ].map(([name, lo, la]) => ({ name: name as string, x: P(lo as number, la as number)[0], y: P(lo as number, la as number)[1],
@@ -146,9 +159,9 @@ const CONTROL: Record<number, Record<string, string>> = {
   1937: { jp_home: F.jp, okinawa: F.jp, taiwan: F.jp, karafuto_s: F.jp, kanto: F.jp, korea: F.jp, nansho: F.jp, manshu: F.manshu, re_hotung: F.manshu, mengjiang: F.mengjiang, huabei: F.occn, huahua: F.occn },
   1939: { jp_home: F.jp, okinawa: F.jp, taiwan: F.jp, karafuto_s: F.jp, kanto: F.jp, korea: F.jp, nansho: F.jp, manshu: F.manshu, re_hotung: F.manshu, mengjiang: F.mengjiang, huabei: F.occn, huahua: F.occn, hainan: F.occn },
   1940: { jp_home: F.jp, okinawa: F.jp, taiwan: F.jp, karafuto_s: F.jp, kanto: F.jp, korea: F.jp, nansho: F.jp, manshu: F.manshu, re_hotung: F.manshu, mengjiang: F.mengjiang, huabei: F.occn, huahua: F.occn, hainan: F.occn, french_ic: F.occs },
-  1942: { jp_home: F.jp, okinawa: F.jp, taiwan: F.jp, karafuto_s: F.jp, kanto: F.jp, korea: F.jp, nansho: F.jp, manshu: F.manshu, re_hotung: F.manshu, mengjiang: F.mengjiang, huabei: F.occn, huahua: F.occn, hainan: F.occn, french_ic: F.occs, myanmar: F.occs, malaya: F.occs, sumatra: F.occs, java: F.occs, borneo: F.occs, celebes: F.occs, philippines: F.occs, rabaul: F.occs, newguinea_n: F.occs, solomons_n: F.occs, attu_kiska: F.occs },
-  1943: { jp_home: F.jp, okinawa: F.jp, taiwan: F.jp, karafuto_s: F.jp, kanto: F.jp, korea: F.jp, nansho: F.jp, manshu: F.manshu, re_hotung: F.manshu, mengjiang: F.mengjiang, huabei: F.occn, huahua: F.occn, hainan: F.occn, french_ic: F.occs, myanmar: F.occs, malaya: F.occs, sumatra: F.occs, java: F.occs, borneo: F.occs, celebes: F.occs, philippines: F.occs, rabaul: F.occs, newguinea_n: F.occs, solomons_n: F.occs },
-  1944: { jp_home: F.jp, okinawa: F.jp, taiwan: F.jp, karafuto_s: F.jp, kanto: F.jp, korea: F.jp, nansho: F.jp, manshu: F.manshu, re_hotung: F.manshu, mengjiang: F.mengjiang, huabei: F.occn, huahua: F.occn, hainan: F.occn, french_ic: F.occs, myanmar: F.occs, malaya: F.occs, sumatra: F.occs, java: F.occs, borneo: F.occs, celebes: F.occs, philippines: F.occs, rabaul: F.occs, imphal: F.front },
+  1942: { jp_home: F.jp, okinawa: F.jp, taiwan: F.jp, karafuto_s: F.jp, kanto: F.jp, korea: F.jp, nansho: F.jp, manshu: F.manshu, re_hotung: F.manshu, mengjiang: F.mengjiang, huabei: F.occn, huahua: F.occn, hainan: F.occn, french_ic: F.occs, myanmar: F.occs, malaya: F.occs, sumatra: F.occs, java: F.occs, borneo: F.occs, celebes: F.occs, philippines: F.occs, rabaul: F.occs, newguinea_n: F.occs, solomons_n: F.occs, attu_kiska: F.occs, hongkong: F.occs, thailand: F.occs, andaman: F.occs, guam: F.occs },
+  1943: { jp_home: F.jp, okinawa: F.jp, taiwan: F.jp, karafuto_s: F.jp, kanto: F.jp, korea: F.jp, nansho: F.jp, manshu: F.manshu, re_hotung: F.manshu, mengjiang: F.mengjiang, huabei: F.occn, huahua: F.occn, hainan: F.occn, french_ic: F.occs, myanmar: F.occs, malaya: F.occs, sumatra: F.occs, java: F.occs, borneo: F.occs, celebes: F.occs, philippines: F.occs, rabaul: F.occs, newguinea_n: F.occs, solomons_n: F.occs, hongkong: F.occs, thailand: F.occs, andaman: F.occs, guam: F.occs },
+  1944: { jp_home: F.jp, okinawa: F.jp, taiwan: F.jp, karafuto_s: F.jp, kanto: F.jp, korea: F.jp, nansho: F.jp, manshu: F.manshu, re_hotung: F.manshu, mengjiang: F.mengjiang, huabei: F.occn, huahua: F.occn, hainan: F.occn, french_ic: F.occs, myanmar: F.occs, malaya: F.occs, sumatra: F.occs, java: F.occs, borneo: F.occs, celebes: F.occs, philippines: F.occs, rabaul: F.occs, imphal: F.front, hongkong: F.occs, thailand: F.occs, andaman: F.occs },
   1945: { jp_home: F.jp, okinawa: F.ali, karafuto_s: F.su, chishima: F.su, taiwan: F.ali, kanto: F.su, korea: F.ali, su_karafuto: F.su, us_okinawa: F.ali },
   1952: { jp_home: F.jp, okinawa: F.ali, us_okinawa: F.ali, su_karafuto: F.su, chishima: F.su },
   1972: { jp_home: F.jp, okinawa: F.jp, su_karafuto: F.su, chishima: F.su },
@@ -1001,7 +1014,7 @@ export const MODERN_JAPAN_PACK: JapanDeepDivePack = {
   title: '明治至當代（東亞—太平洋戰區）',
   tag: '1868–2026 · 版圖同條約 · 陸海軍作戰對應事件 · 自衛隊海外活動',
   footer:
-    '日本 · 明治至當代（1868–2026）· 版圖快照以條約、法令嘅生效年為準（1875千島樺太交換、1879琉球處分、1895馬關、1905波特斯茅斯、1910朝鮮合併、1945降伏、1952舊金山和約、1972沖繩施政權歸還）· 陸海軍的行軍同海路一律標明對應嘅事件與年份，揀該年會同時顯示事件 · 勢力範圍係通說控制範圍示意（以經緯度界定再剪裁到真實海岸線），唔係行政區界 · 波斯灣、伊拉克、南蘇丹等自衛隊活動喺本圖戰區以外，只記事件唔畫路線 · 南京事件、沖繩戰、英帕爾等嘅死者數資料分歧大，一律標 disputed 且唔寫定數',
+    '日本 · 明治至當代（1868–2026）· 版圖快照以條約、法令嘅生效年為準（1875千島樺太交換、1879琉球處分、1895馬關、1905波特斯茅斯、1910朝鮮合併、1945降伏、1952舊金山和約、1972沖繩施政權歸還）· 陸海軍的行軍同海路一律標明對應嘅事件與年份，揀該年會同時顯示事件 · 勢力範圍係通說控制範圍示意（以經緯度界定再剪裁到真實海岸線），唔係行政區界；佔領行政區（台灣・朝鮮・關東州・滿洲國・蒙疆・華北華中・法印・緬甸・菲律賓・香港等）依條約・法令生效年顯示，泰國為日軍駐留與同盟、非併吞 · 波斯灣、伊拉克、南蘇丹等自衛隊活動喺本圖戰區以外，只記事件唔畫路線 · 南京事件、沖繩戰、英帕爾等嘅死者數資料分歧大，一律標 disputed 且唔寫定數',
   yearMin: 1868, yearMax: 2026, initialYear: 1942,
   ticks: [
     { year: 1868, label: '明治' }, { year: 1895, label: '馬關' }, { year: 1905, label: '戰勝露國' },
