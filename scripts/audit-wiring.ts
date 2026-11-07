@@ -40,6 +40,9 @@ const UNROUTED_APPS: Record<string, string> = {
   // 而且正是「成語面板掛在永遠不會出現的 app 上」那個 bug 的來源（見 HANDOVER §1P）。
   // 它的通史時間軸與人物留檔在 docs/reference/，要沿用再搬回 src。
   // 新的孤兒 app 一律 fail——要留檔就在這裡寫理由。
+  JapanHistoryApp:
+    '明治至當代已改由 MODERN_JAPAN_PACK 戰區圖承接（src/modernJapan/ModernJapanApp.tsx），' +
+    '此通史視圖暫留檔；確認不再需要後，比照 ChinaHistoryApp 遷至 docs/reference/ 再刪除。',
 }
 
 /**

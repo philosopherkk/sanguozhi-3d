@@ -777,6 +777,32 @@ html[data-theme='light'] .app-footer {
   height: 100%;
 }
 
+/* 亞洲—太平洋戰區矢量底圖（明治至當代）：Natural Earth 陸地 + 經緯網 */
+.map-2d__basemap--vector {
+  background: #10181f;
+}
+
+.map-2d__sea {
+  fill: #10181f;
+}
+
+.map-2d__graticule {
+  fill: none;
+  stroke: #2c363d;
+  stroke-width: 0.6;
+}
+
+.map-2d__land {
+  fill: #2b3028;
+  stroke: #525a4e;
+  stroke-width: 0.5;
+}
+
+.map-2d__region-label {
+  font-size: 15px;
+  font-weight: 600;
+}
+
 .map-2d__overlay {
   position: absolute;
   inset: 0;

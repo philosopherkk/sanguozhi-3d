@@ -19,12 +19,17 @@ import { formatGeometryProvenance } from '../components/TerritoryGeometryProvena
 import { BakumatsuFringeOverlays } from './JapanEraRingOverlays'
 import { SENGOKU_BASEMAP } from '../sengoku/data/basemaps'
 import { SENGOKU_MAP_H, SENGOKU_MAP_W } from '../sengoku/data/regions'
+import type { DeepDiveVectorBasemap } from './deepDiveTypes'
 
 export interface EraDomainShade {
   id: string
   name: string
-  ring: [number, number][]
+  ring?: [number, number][]
   extraRings?: [number, number][][]
+  /** 現成 SVG path（亞洲—太平洋戰區等以 path 表達之區塊）；優先於 ring */
+  d?: string
+  /** 區域標籤錨點；僅在呼叫端明確提供時才在圖上標名（日本舊國圖不標） */
+  labelAt?: [number, number]
   faction: string
 }
 
@@ -106,6 +111,7 @@ export function EraMapView({
   extraLayerTabs,
   extraLayerOn = false,
   territoryNote = JAPAN_TERRITORY_NOTE_ZH,
+  mapBase,
   fringeGeometryProvenance = JP_ERA_RINGS_GEOMETRY,
 }: {
   ariaLabel: string
@@ -125,20 +131,25 @@ export function EraMapView({
   domainGeometryProvenance?: TerritoryGeometryProvenance
   extraLayerTabs?: ReactNode
   extraLayerOn?: boolean
+  /** 矢量底圖（亞洲—太平洋戰區）；不提供時改用日本列島 relief */
+  mapBase?: DeepDiveVectorBasemap
   /** 色塊著色口徑；幕末需要跟「藩界」圖層實際狀態切換 */
   territoryNote?: string
   fringeGeometryProvenance?: TerritoryGeometryProvenance
 }) {
   const rootRef = useRef<HTMLDivElement>(null)
   const [showTerritory, setShowTerritory] = useState(true)
-  // 日本各地圖預設收起行軍線（與合并前一致）；要看得見可按下方「行軍」開關。
-  const [showRoutes, setShowRoutes] = useState(false)
+  // 日本各地圖預設收起行軍線（與合并前一致）；戰爭時代（戰區底圖）以入侵路線為主要
+  // 內容，預設展開，使用者仍可用下方「行軍」開關收起。
+  const [showRoutes, setShowRoutes] = useState(Boolean(mapBase))
   const [showPlaces, setShowPlaces] = useState(false)
   const basemap = SENGOKU_BASEMAP
-  const view = useMapViewport(SENGOKU_MAP_W, SENGOKU_MAP_H)
+  const mapW = mapBase?.w ?? SENGOKU_MAP_W
+  const mapH = mapBase?.h ?? SENGOKU_MAP_H
+  const view = useMapViewport(mapW, mapH)
 
   const labeled = useMemo(
-    () => domains.map((d) => ({ ...d, at: centroid(d.ring) })),
+    () => domains.map((d) => ({ ...d, at: d.ring ? centroid(d.ring) : undefined })),
     [domains],
   )
 
@@ -165,7 +176,22 @@ export function EraMapView({
         onPointerCancel={view.onPointerUp}
       >
         <div className="map-2d__zoom-layer" style={view.layerStyle}>
-        {basemap.srcWebp ? (
+        {mapBase ? (
+          <svg
+            className="map-2d__basemap map-2d__basemap--vector"
+            viewBox={`0 0 ${mapW} ${mapH}`}
+            preserveAspectRatio="xMidYMid meet"
+            aria-hidden="true"
+          >
+            <rect x={0} y={0} width={mapW} height={mapH} className="map-2d__sea" />
+            {mapBase.graticule.map((g, i) => (
+              <path key={`grat-${i}`} d={g} className="map-2d__graticule" />
+            ))}
+            {mapBase.land.map((l, i) => (
+              <path key={`land-${i}`} d={l} className="map-2d__land" />
+            ))}
+          </svg>
+        ) : basemap.srcWebp ? (
           <picture>
             <source type="image/webp" srcSet={basemap.srcWebp} />
             <img
@@ -185,7 +211,7 @@ export function EraMapView({
         )}
         <svg
           className="map-2d__overlay"
-          viewBox={`0 0 ${SENGOKU_MAP_W} ${SENGOKU_MAP_H}`}
+          viewBox={`0 0 ${mapW} ${mapH}`}
           role="img"
           aria-label={`${ariaLabel}；滾輪縮放，拖曳平移`}
           preserveAspectRatio="xMidYMid meet"
@@ -198,7 +224,7 @@ export function EraMapView({
                 return (
                   <g key={d.id} className="map-2d__faction">
                     <path
-                      d={domainPath(d.ring, d.extraRings)}
+                      d={d.d ?? domainPath(d.ring ?? [], d.extraRings)}
                       fill={color}
                       fillOpacity={active ? 0.78 : 0.62}
                       stroke={active ? '#fff8ea' : darken(color, 0.45)}
@@ -217,6 +243,21 @@ export function EraMapView({
                         {d.name} · {nameFor(d.faction)}
                       </title>
                     </path>
+                    {d.labelAt ? (
+                      <text
+                        x={d.labelAt[0]}
+                        y={d.labelAt[1]}
+                        className="map-2d__region-label"
+                        fill="#fffaf0"
+                        stroke="#1a1610"
+                        strokeWidth={3.2}
+                        paintOrder="stroke"
+                        textAnchor="middle"
+                        pointerEvents="none"
+                      >
+                        {d.name}
+                      </text>
+                    ) : null}
                   </g>
                 )
               })
@@ -281,16 +322,24 @@ export function EraMapView({
           </div>
         ) : null}
         <p className="map-2d__basemap-title">
-          現代列島地勢 · 勢力示意採 {territoryYear} 年快照 · 滾輪縮放，拖曳平移
+          {mapBase ? '亞洲—太平洋戰區（今測海岸線）' : '現代列島地勢'} · 勢力示意採 {territoryYear}
+          年快照 · 滾輪縮放，拖曳平移
         </p>
       </div>
       <p className="map-2d__credit">
         底圖：
-        <a href={basemap.commonsUrl} target="_blank" rel="noreferrer">
-          {basemap.credit}
-        </a>
-        {basemap.license ? `（${basemap.license}）` : ''}
-        。現代列島地勢，平安、戰國、幕末、江戶共用。{territoryNote}
+        {mapBase ? (
+          `${mapBase.credit}。`
+        ) : (
+          <>
+            <a href={basemap.commonsUrl} target="_blank" rel="noreferrer">
+              {basemap.credit}
+            </a>
+            {basemap.license ? `（${basemap.license}）` : ''}
+            。現代列島地勢，平安、戰國、幕末、江戶共用。
+          </>
+        )}
+        {territoryNote}
         {domainFootnote ? ` ${domainFootnote}` : ''}
         {fringeFootnote ? ` 外周：${fringeFootnote}` : ''}
         渡海只標壇之浦與箱館。色塊預設半透明（約

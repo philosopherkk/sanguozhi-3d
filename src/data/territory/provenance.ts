@@ -107,6 +107,21 @@ export const BAKUMATSU_TERRITORY_NOTE_MIXED_ZH =
 export const JAPAN_TERRITORY_NOTE_ZH =
   '色塊邊界為 CODH 幕末明治旧国 mesh（CC BY-NC，見 ATTRIBUTION-CODH-BY-NC.md）；大名／藩歸屬仍示意，非村→藩 dissolve（CB-02b 後續）。'
 
+/**
+ * 亞洲—太平洋戰區（明治至當代）色塊：以通說控制範圍之經緯度區間界定，
+ * 再與 Natural Earth 1:50m 陸地求交集，故色塊只出現喺陸地上。
+ * 生成：scripts/gen_asia_war_territory.mjs；坐標系同 asiaWarBase.ts。
+ */
+export const ASIA_WAR_EXTENTS_GEOMETRY: TerritoryGeometryProvenance = {
+  approx: true,
+  source:
+    '通說控制範圍以經緯度區間界定，再剪裁至 Natural Earth 1:50m 陸地（公有領域）；生成 scripts/gen_asia_war_territory.mjs',
+  note: '控制範圍示意，非行政區界，亦不表示實效支配無爭議；實控線與爭議見對應事件之起因／經過／結果。',
+}
+
+export const ASIA_WAR_TERRITORY_NOTE_ZH =
+  '色塊為通說控制範圍示意（經緯度界定後剪裁至真實海岸線），非行政區界；南京事件、沖繩戰、英帕爾等分歧數字一律標 disputed，不寫定數。'
+
 /** 幕末／總覽共用：JP_ERA_RINGS 北海道窗（1869 開拓使，仍 approx） */
 export const JP_ERA_RINGS_HOKKAIDO_1869_NOTE_ZH =
   '1869年7月開拓使設置、蝦夷地改称北海道之行政示意（approx）；同年箱館戰爭，非全島即時平定。幾何為 CODH K75–K85。'

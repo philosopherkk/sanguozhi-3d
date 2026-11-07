@@ -16,9 +16,9 @@ const QinHanApp = lazy(() =>
 const SanguozhiApp = lazy(() =>
   import('./SanguozhiApp').then((m) => ({ default: m.SanguozhiApp })),
 )
-const JapanHistoryApp = lazy(() =>
-  import('./japanHistory/JapanHistoryApp').then((m) => ({
-    default: m.JapanHistoryApp,
+const ModernJapanApp = lazy(() =>
+  import('./modernJapan/ModernJapanApp').then((m) => ({
+    default: m.ModernJapanApp,
   })),
 )
 const HeianApp = lazy(() =>
@@ -155,19 +155,6 @@ const PrcApp = lazyPack(() =>
     },
   })),
 )
-
-function ModernJapan() {
-  return (
-    <JapanHistoryApp
-      initialYear={1868}
-      yearMin={1868}
-      yearMax={2026}
-      heading="明治至當代"
-      tag="1868–2026 · 明治、大正、昭和、平成、令和"
-      footer="日本 · 明治至當代（1868–2026）· 明治 1868–1912、大正 1912–1926、昭和 1926–1989、平成 1989–2019、令和 2019年起 · 1869年設開拓使、改稱北海道 · 1872年置琉球藩 · 1879年琉球處分、設沖繩縣 · 1972年沖繩施政權歸還（琉球／沖繩線，非北海道）· 1604年松前與1609年琉球見「德川江戶」"
-    />
-  )
-}
 
 function TopicRoot() {
   const { topic, chinaEra, japanEra } = useTopic()
@@ -327,7 +314,7 @@ function TopicRoot() {
         screen = <BakumatsuApp />
         break
       case 'modern':
-        screen = <ModernJapan />
+        screen = <ModernJapanApp />
         break
       default: {
         const _exhaustive: never = japanEra
