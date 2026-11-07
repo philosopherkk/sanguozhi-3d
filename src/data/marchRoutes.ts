@@ -8,6 +8,8 @@ export interface MarchRoute {
   month?: number
   /** 行軍一方。中國用 FactionId，日本用 SengokuFactionId。 */
   faction: string
+  /** 路線性質：陸路（默認）或海路（艦隊決戰、海上交通、兩棲上陸之海上段）。 */
+  kind?: 'land' | 'sea'
   source: string
   points: [number, number][]
 }
