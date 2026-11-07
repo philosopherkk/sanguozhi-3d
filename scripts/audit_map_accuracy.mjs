@@ -158,12 +158,12 @@ for (const f of files) {
   if (routeCount > 0) {
     // 3) 路線該年是否有事件（同一檔最可靠；跨檔只作提醒）
     const eventYears = new Set()
-    for (const m of t.matchAll(/\bid:\s*['"][\w:.\-]+['"][\s\S]{0,240}?year:\s*(-?\d{1,4})/g)) {
+    for (const m of t.matchAll(/\bid:\s*['"][\w:.-]+['"][\s\S]{0,240}?year:\s*(-?\d{1,4})/g)) {
       eventYears.add(Number(m[1]))
     }
     if (eventYears.size > 0) {
       const routeOnly = new Set()
-      for (const m of t.matchAll(/\bid:\s*['"][\w:.\-]+['"][\s\S]{0,200}?points:/g)) {
+      for (const m of t.matchAll(/\bid:\s*['"][\w:.-]+['"][\s\S]{0,200}?points:/g)) {
         const seg = m[0].match(/year:\s*(-?\d{1,4})/)
         if (seg && !eventYears.has(Number(seg[1]))) routeOnly.add(Number(seg[1]))
       }

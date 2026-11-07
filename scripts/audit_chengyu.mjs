@@ -41,11 +41,11 @@ function collectIds() {
       if (e.isDirectory()) walk(full)
       else if (e.name.endsWith('.ts') && !e.name.endsWith('.d.ts')) {
         const t = readFileSync(full, 'utf8')
-        for (const m of t.matchAll(/\bid\s*:\s*['"]([\w:.\-]{2,60})['"]/g)) events.add(m[1])
-        for (const m of t.matchAll(/\bpersonId\s*:\s*['"]([\w:.\-]{2,60})['"]/g)) people.add(m[1])
+        for (const m of t.matchAll(/\bid\s*:\s*['"]([\w:.-]{2,60})['"]/g)) events.add(m[1])
+        for (const m of t.matchAll(/\bpersonId\s*:\s*['"]([\w:.-]{2,60})['"]/g)) people.add(m[1])
         // 人物檔常用 Record 鍵名（'cao-cao': { … }），並非 id: 欄位；
         // 此處刻意寬收：寧可放過，不可把真實 id 報成死連結。
-        for (const m of t.matchAll(/^\s*['"]([a-z][\w:.\-]{2,60})['"]\s*:\s*\{/gm)) {
+        for (const m of t.matchAll(/^\s*['"]([a-z][\w:.-]{2,60})['"]\s*:\s*\{/gm)) {
           events.add(m[1])
           people.add(m[1])
         }
