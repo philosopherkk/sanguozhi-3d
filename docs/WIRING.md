@@ -1,6 +1,6 @@
 # 掛載稽核（wiring）
 
-路由裡會出現的 app：AsukaApp、AzuchiApp、BakumatsuApp、EdoJapan、HeianApp、ImperialApp、JapanHistoryApp、JinApp、KamakuraApp、KofunApp、LiaoSongApp、MinguoApp、ModernJapan、MuromachiApp、NanbeiApp、NaraApp、PrcApp、QinHanApp、SanguozhiApp、SengokuApp、SuiApp、TangApp、WudaiApp、YuanMingQingApp、ZhouApp
+路由裡會出現的 app：AsukaApp、AzuchiApp、BakumatsuApp、DeepDiveApp、EdoJapanApp、HeianApp、ImperialApp、JapanHistoryApp、JinApp、KamakuraApp、KofunApp、LiaoSongApp、MinguoApp、ModernJapan、MuromachiApp、NanbeiApp、NaraApp、PrcApp、QinHanApp、SanguozhiApp、SengokuApp、SuiApp、TangApp、WudaiApp、YuanMingQingApp、ZhouApp
 
 掃描的 app 殼層：16 個；公認未掛路由：0 個
 
