@@ -1,4 +1,5 @@
 import type { ReadingLayers } from '../components/ClassicDetailModal'
+import type { CrossRef } from '../components/CrossEraLinks'
 import type { TimelineDateFields } from '../types/timelineDate'
 
 /** 平安、幕末共用的年表形狀。勢力 id 由各時代自己定義，不混入戰國。 */
@@ -16,6 +17,8 @@ export interface EraEvent extends TimelineDateFields {
   source: string
   disputed?: boolean
   note?: string
+  /** 同時期另一國（中國）的對應事件 */
+  crossRefs?: CrossRef[]
 }
 
 export interface EraDetail {

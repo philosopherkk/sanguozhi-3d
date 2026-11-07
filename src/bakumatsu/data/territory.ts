@@ -9,12 +9,12 @@ import {
 } from '../../data/territory/provenance'
 import { JP_ERA_RINGS } from '../../geo/japanEraRings'
 import type { JapanPaintShade } from '../../sengoku/data/japanKokugunPaint'
-import { useBakumatsuHanMeshes } from './bakumatsuHanPaint'
+import { hasBakumatsuHanMeshes } from './bakumatsuHanPaint'
 
 export const BAKUMATSU_TERRITORY_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance =
-  useBakumatsuHanMeshes() ? BAKUMATSU_HAN_GEOMETRY : JAPAN_CODH_KOKUGUN_GEOMETRY
+  hasBakumatsuHanMeshes() ? BAKUMATSU_HAN_GEOMETRY : JAPAN_CODH_KOKUGUN_GEOMETRY
 
-export const BAKUMATSU_TERRITORY_NOTE = useBakumatsuHanMeshes()
+export const BAKUMATSU_TERRITORY_NOTE = hasBakumatsuHanMeshes()
   ? BAKUMATSU_TERRITORY_NOTE_ZH
   : JAPAN_TERRITORY_NOTE_ZH
 

@@ -1,0 +1,2264 @@
+{
+  "generatedAt": "2026-11-07T10:26:15.869Z",
+  "snapshotCount": 89,
+  "issues": [
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "jin[3] 316「西晉亡」",
+      "message": "與 311 年快照幾何完全相同，卻沒有標 geometryFrom: 311（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "info",
+      "code": "coverage",
+      "location": "jin（280–316）",
+      "message": "4 張快照蓋 37 年，另外 33 年要靠沿用"
+    },
+    {
+      "level": "warn",
+      "code": "anachronism",
+      "location": "nanbei[1] 317「東晉、後趙」 · 後趙",
+      "message": "317 年尚未有「後趙」這個政權號（最早 319 年）"
+    },
+    {
+      "level": "warn",
+      "code": "anachronism",
+      "location": "nanbei[5] 534「東西魏、梁」 · 西魏",
+      "message": "534 年尚未有「西魏」這個政權號（最早 535 年）"
+    },
+    {
+      "level": "info",
+      "code": "coverage",
+      "location": "nanbei（304–589）",
+      "message": "7 張快照蓋 286 年，另外 279 年要靠沿用"
+    },
+    {
+      "level": "warn",
+      "code": "note-thin",
+      "location": "sui[0] 581「楊堅代周」",
+      "message": "note 少於 40 字，未能交代範圍與出處的限度（37 字）"
+    },
+    {
+      "level": "warn",
+      "code": "note-thin",
+      "location": "sui[1] 589「滅陳一統」",
+      "message": "note 少於 40 字，未能交代範圍與出處的限度（38 字）"
+    },
+    {
+      "level": "info",
+      "code": "coverage",
+      "location": "sui（581–618）",
+      "message": "3 張快照蓋 38 年，另外 35 年要靠沿用"
+    },
+    {
+      "level": "info",
+      "code": "coverage",
+      "location": "tang（618–907）",
+      "message": "6 張快照蓋 290 年，另外 284 年要靠沿用"
+    },
+    {
+      "level": "info",
+      "code": "coverage",
+      "location": "wudai（907–960）",
+      "message": "5 張快照蓋 54 年，另外 49 年要靠沿用"
+    },
+    {
+      "level": "warn",
+      "code": "anachronism",
+      "location": "liaosong[0] 960「北宋初」 · 西夏",
+      "message": "960 年尚未有「西夏」這個政權號（最早 1038 年）"
+    },
+    {
+      "level": "warn",
+      "code": "anachronism",
+      "location": "liaosong[1] 1004「澶淵前後」 · 西夏",
+      "message": "1004 年尚未有「西夏」這個政權號（最早 1038 年）"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "liaosong[3] 1141「紹興和議後」",
+      "message": "與 1127 年快照幾何完全相同，卻沒有標 geometryFrom: 1127（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "info",
+      "code": "coverage",
+      "location": "liaosong（960–1279）",
+      "message": "5 張快照蓋 320 年，另外 315 年要靠沿用（覆蓋極疏，宜補快照）"
+    },
+    {
+      "level": "warn",
+      "code": "faction-undeclared",
+      "location": "yuanmingqing[0] 1271「元朝」 · 宋",
+      "message": "該勢力不在 pack.factions，圖例與顏色會缺漏"
+    },
+    {
+      "level": "warn",
+      "code": "source-format",
+      "location": "yuanmingqing[6] 1750「清盛」",
+      "message": "source 未含《書名》：清史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-format",
+      "location": "yuanmingqing[7] 1860「第二次鴉片戰爭後」",
+      "message": "source 未含《書名》：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-format",
+      "location": "yuanmingqing[8] 1911「辛亥革命」",
+      "message": "source 未含《書名》：近代史通說"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "yuanmingqing[6] 1750「清盛」",
+      "message": "與 1668 年快照幾何完全相同，卻沒有標 geometryFrom: 1668（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "yuanmingqing[7] 1860「第二次鴉片戰爭後」",
+      "message": "與 1750 年快照幾何完全相同，卻沒有標 geometryFrom: 1750（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "yuanmingqing[8] 1911「辛亥革命」",
+      "message": "與 1860 年快照幾何完全相同，卻沒有標 geometryFrom: 1860（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "info",
+      "code": "coverage",
+      "location": "yuanmingqing（1271–1911）",
+      "message": "9 張快照蓋 641 年，另外 632 年要靠沿用（覆蓋極疏，宜補快照）"
+    },
+    {
+      "level": "info",
+      "code": "coverage",
+      "location": "minguo（1912–1949）",
+      "message": "6 張快照蓋 38 年，另外 32 年要靠沿用"
+    },
+    {
+      "level": "warn",
+      "code": "note-thin",
+      "location": "civilwar[0] 1945-08「1945年8月」",
+      "message": "note 少於 40 字，未能交代範圍與出處的限度（21 字）"
+    },
+    {
+      "level": "info",
+      "code": "coverage",
+      "location": "civilwar（1945–1949）",
+      "message": "14 張快照蓋 5 年，另外 -9 年要靠沿用"
+    },
+    {
+      "level": "warn",
+      "code": "source-format",
+      "location": "prc[0] 1949「成立」",
+      "message": "source 未含《書名》：當代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-format",
+      "location": "prc[1] 1951「西藏與海南」",
+      "message": "source 未含《書名》：當代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-format",
+      "location": "prc[2] 1962「中印邊境戰爭」",
+      "message": "source 未含《書名》：當代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-format",
+      "location": "prc[3] 1978「改革開放起點」",
+      "message": "source 未含《書名》：當代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-format",
+      "location": "prc[4] 1979「中越戰爭」",
+      "message": "source 未含《書名》：當代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-format",
+      "location": "prc[5] 1997「香港回歸」",
+      "message": "source 未含《書名》：當代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-format",
+      "location": "prc[6] 2026「當代」",
+      "message": "source 未含《書名》：時間線下界"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "prc[1] 1951「西藏與海南」",
+      "message": "與 1949 年快照幾何完全相同，卻沒有標 geometryFrom: 1949（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "prc[2] 1962「中印邊境戰爭」",
+      "message": "與 1951 年快照幾何完全相同，卻沒有標 geometryFrom: 1951（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "prc[3] 1978「改革開放起點」",
+      "message": "與 1962 年快照幾何完全相同，卻沒有標 geometryFrom: 1962（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "prc[4] 1979「中越戰爭」",
+      "message": "與 1978 年快照幾何完全相同，卻沒有標 geometryFrom: 1978（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "prc[5] 1997「香港回歸」",
+      "message": "與 1979 年快照幾何完全相同，卻沒有標 geometryFrom: 1979（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "prc[6] 2026「當代」",
+      "message": "與 1997 年快照幾何完全相同，卻沒有標 geometryFrom: 1997（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "info",
+      "code": "coverage",
+      "location": "prc（1949–2026）",
+      "message": "7 張快照蓋 78 年，另外 71 年要靠沿用"
+    },
+    {
+      "level": "warn",
+      "code": "note-thin",
+      "location": "zhou[5] -473「越滅吳」",
+      "message": "note 少於 40 字，未能交代範圍與出處的限度（37 字）"
+    },
+    {
+      "level": "warn",
+      "code": "note-thin",
+      "location": "zhou[7] -386「田齊」",
+      "message": "note 少於 40 字，未能交代範圍與出處的限度（31 字）"
+    },
+    {
+      "level": "warn",
+      "code": "note-thin",
+      "location": "zhou[9] -316「秦滅巴蜀」",
+      "message": "note 少於 40 字，未能交代範圍與出處的限度（26 字）"
+    },
+    {
+      "level": "warn",
+      "code": "note-thin",
+      "location": "zhou[10] -312「秦取漢中」",
+      "message": "note 少於 40 字，未能交代範圍與出處的限度（34 字）"
+    },
+    {
+      "level": "warn",
+      "code": "note-thin",
+      "location": "zhou[11] -278「拔郢」",
+      "message": "note 少於 40 字，未能交代範圍與出處的限度（29 字）"
+    },
+    {
+      "level": "warn",
+      "code": "note-thin",
+      "location": "zhou[12] -260「長平」",
+      "message": "note 少於 40 字，未能交代範圍與出處的限度（34 字）"
+    },
+    {
+      "level": "warn",
+      "code": "note-thin",
+      "location": "zhou[13] -249「秦滅東周」",
+      "message": "note 少於 40 字，未能交代範圍與出處的限度（33 字）"
+    },
+    {
+      "level": "warn",
+      "code": "note-thin",
+      "location": "zhou[14] -221「秦統一」",
+      "message": "note 少於 40 字，未能交代範圍與出處的限度（36 字）"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "zhou[8] -333「楚取故吳」",
+      "message": "與 -386 年快照幾何完全相同，卻沒有標 geometryFrom: -386（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "zhou[9] -316「秦滅巴蜀」",
+      "message": "與 -333 年快照幾何完全相同，卻沒有標 geometryFrom: -333（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "zhou[10] -312「秦取漢中」",
+      "message": "與 -316 年快照幾何完全相同，卻沒有標 geometryFrom: -316（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "zhou[11] -278「拔郢」",
+      "message": "與 -312 年快照幾何完全相同，卻沒有標 geometryFrom: -312（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "zhou[12] -260「長平」",
+      "message": "與 -278 年快照幾何完全相同，卻沒有標 geometryFrom: -278（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "info",
+      "code": "coverage",
+      "location": "zhou（-2070–-221）",
+      "message": "15 張快照蓋 1850 年，另外 1835 年要靠沿用（覆蓋極疏，宜補快照）"
+    },
+    {
+      "level": "warn",
+      "code": "note-thin",
+      "location": "qinhan[3] -202「西漢初」",
+      "message": "note 少於 40 字，未能交代範圍與出處的限度（36 字）"
+    },
+    {
+      "level": "warn",
+      "code": "note-thin",
+      "location": "qinhan[5] 9「新莽」",
+      "message": "note 少於 40 字，未能交代範圍與出處的限度（36 字）"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "qinhan[1] -214「略取嶺南」",
+      "message": "與 -221 年快照幾何完全相同，卻沒有標 geometryFrom: -221（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "qinhan[4] -111「西漢盛時」",
+      "message": "與 -202 年快照幾何完全相同，卻沒有標 geometryFrom: -202（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "fail",
+      "code": "geometry-reuse-undeclared",
+      "location": "qinhan[7] 36「東漢定隴蜀」",
+      "message": "與 25 年快照幾何完全相同，卻沒有標 geometryFrom: 25（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+    },
+    {
+      "level": "info",
+      "code": "coverage",
+      "location": "qinhan（-221–183）",
+      "message": "8 張快照蓋 405 年，另外 397 年要靠沿用（覆蓋極疏，宜補快照）"
+    },
+    {
+      "level": "info",
+      "code": "month-territory-later-year",
+      "location": "qinhan monthAxis 8:1「王莽即真，改元始建國」",
+      "message": "幾何取自較晚的 9 年快照（後出邊界），介面要講明"
+    },
+    {
+      "level": "info",
+      "code": "month-coverage",
+      "location": "qinhan（前221–183）",
+      "message": "50 條有月份的條目，蓋 4861 個月；其餘一律「本月無專條」，色塊沿用"
+    },
+    {
+      "level": "info",
+      "code": "fringe-ring-codh",
+      "location": "jp fringe ezo-east-baku（1799–1806，東蝦夷地（幕府直轄））",
+      "message": "環「ezo_east」取自 CODH 旧國合成（190 頂點）"
+    },
+    {
+      "level": "info",
+      "code": "fringe-ring-codh",
+      "location": "jp fringe ezo-all-baku（1807–1820，蝦夷地全般（幕府直轄・松前奉行））",
+      "message": "環「hokkaido_all」取自 CODH 旧國合成（212 頂點）"
+    },
+    {
+      "level": "info",
+      "code": "fringe-ring-codh",
+      "location": "jp fringe matsumae-return（1821–1855，蝦夷地（還給松前氏））",
+      "message": "環「hokkaido_all」取自 CODH 旧國合成（212 頂點）"
+    },
+    {
+      "level": "info",
+      "code": "fringe-ring-codh",
+      "location": "jp fringe ezo-re-chokatsu（1856–1868，蝦夷地・和人地北部（幕府直轄・箱館奉行再置））",
+      "message": "環「hokkaido_all」取自 CODH 旧國合成（212 頂點）"
+    },
+    {
+      "level": "info",
+      "code": "fringe-ring-codh",
+      "location": "jp fringe hokkaido-kaitakushi（1869–1881，北海道（開拓使））",
+      "message": "環「hokkaido_all」取自 CODH 旧國合成（212 頂點）"
+    },
+    {
+      "level": "info",
+      "code": "fringe-ring-codh",
+      "location": "jp fringe ken-hakodate（1882–1885，函館県）",
+      "message": "環「ken_hakodate」取自 CODH 旧國合成（26 頂點）"
+    },
+    {
+      "level": "info",
+      "code": "fringe-ring-codh",
+      "location": "jp fringe ken-sapporo（1882–1885，札幌県）",
+      "message": "環「ken_sapporo」取自 CODH 旧國合成（117 頂點）"
+    },
+    {
+      "level": "info",
+      "code": "fringe-ring-codh",
+      "location": "jp fringe ken-nemuro（1882–1885，根室県）",
+      "message": "環「ken_nemuro」取自 CODH 旧國合成（133 頂點）"
+    },
+    {
+      "level": "info",
+      "code": "fringe-ring-codh",
+      "location": "jp fringe hokkaido-cho（1886–2026，北海道庁）",
+      "message": "環「hokkaido_all」取自 CODH 旧國合成（212 頂點）"
+    },
+    {
+      "level": "info",
+      "code": "fringe-coverage",
+      "location": "japan（1604–2026）",
+      "message": "14 個外周窗：松前交易領、琉球附庸、開拓使、沖繩縣、美治、歸還"
+    },
+    {
+      "level": "warn",
+      "code": "university-thin",
+      "location": "tang/tang-756-luoyang（756 安史陷洛陽）",
+      "message": "大學層只有 31 字，未交代史源與地圖限度"
+    },
+    {
+      "level": "warn",
+      "code": "university-thin",
+      "location": "tang/tang-759-luoyang（759 史思明再陷洛陽）",
+      "message": "大學層只有 23 字，未交代史源與地圖限度"
+    },
+    {
+      "level": "info",
+      "code": "narrative-coverage",
+      "location": "imperial（晉至共和國）",
+      "message": "44 條事件全部有獨立的 course／outcome／意譯，無重複句"
+    },
+    {
+      "level": "warn",
+      "code": "jp-event-note-missing",
+      "location": "japan/jp-1603-edo（1603 德川家康開幕府）",
+      "message": "德川江戶以後的條目缺少 note（年份與史源的限度）"
+    },
+    {
+      "level": "warn",
+      "code": "jp-event-note-missing",
+      "location": "japan/jp-1615-osaka（1615 大坂之陣）",
+      "message": "德川江戶以後的條目缺少 note（年份與史源的限度）"
+    },
+    {
+      "level": "warn",
+      "code": "jp-event-note-missing",
+      "location": "japan/jp-1789-kunashiri-menashi（1789 クナシリ・メナシの戦い）",
+      "message": "德川江戶以後的條目缺少 note（年份與史源的限度）"
+    },
+    {
+      "level": "warn",
+      "code": "jp-event-note-missing",
+      "location": "japan/jp-1853-kurofune（1853 培理來航）",
+      "message": "德川江戶以後的條目缺少 note（年份與史源的限度）"
+    },
+    {
+      "level": "warn",
+      "code": "jp-event-note-missing",
+      "location": "japan/jp-1895-shimonoseki（1895 甲午戰爭結束）",
+      "message": "德川江戶以後的條目缺少 note（年份與史源的限度）"
+    },
+    {
+      "level": "warn",
+      "code": "jp-event-note-missing",
+      "location": "japan/jp-1905-portsmouth（1905 日俄戰爭結束）",
+      "message": "德川江戶以後的條目缺少 note（年份與史源的限度）"
+    },
+    {
+      "level": "warn",
+      "code": "jp-event-note-missing",
+      "location": "japan/jp-1941-pacific（1941 太平洋戰爭爆發）",
+      "message": "德川江戶以後的條目缺少 note（年份與史源的限度）"
+    },
+    {
+      "level": "warn",
+      "code": "jp-event-note-missing",
+      "location": "japan/jp-1947-kenpo（1947 日本國憲法施行）",
+      "message": "德川江戶以後的條目缺少 note（年份與史源的限度）"
+    },
+    {
+      "level": "warn",
+      "code": "jp-event-note-missing",
+      "location": "japan/jp-1949-bound（1949 本專題下界）",
+      "message": "德川江戶以後的條目缺少 note（年份與史源的限度）"
+    },
+    {
+      "level": "warn",
+      "code": "jp-event-note-missing",
+      "location": "japan/jp-1972-okinawa（1972 沖繩施政權歸還）",
+      "message": "德川江戶以後的條目缺少 note（年份與史源的限度）"
+    },
+    {
+      "level": "warn",
+      "code": "jp-event-note-missing",
+      "location": "japan/jp-1989-heisei（1989 平成改元）",
+      "message": "德川江戶以後的條目缺少 note（年份與史源的限度）"
+    },
+    {
+      "level": "warn",
+      "code": "jp-event-note-missing",
+      "location": "japan/jp-2019-reiwa（2019 令和改元）",
+      "message": "德川江戶以後的條目缺少 note（年份與史源的限度）"
+    },
+    {
+      "level": "info",
+      "code": "jp-timeline-coverage",
+      "location": "japan（1603–2026）",
+      "message": "23 條江戶以後條目全部有 source 與 note"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "yuanmingqing 快照 1750",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：清史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "yuanmingqing 快照 1860",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "yuanmingqing 快照 1911",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "yuanmingqing 派系簡介 清",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：清史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "yuanmingqing 派系簡介 農民軍",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：明史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "yuanmingqing 派系簡介 列強",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "yuanmingqing 人物 1644 福臨",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：清史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "yuanmingqing 人物 1644 李自成",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：明史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "yuanmingqing 人物 1840 旻寧",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：清史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "yuanmingqing 人物 1911 溥儀",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo/mg-1936（1936 西安事變）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說；西安事變研究通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo/mg-1934（1934 中央紅軍長征）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說；長征研究通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo/mg-1927（1927 國共分裂，南昌起義）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說；國共關係研究通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo/mg-1941（1941 對日英美正式宣戰）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說；抗日戰爭研究通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo/mg-1949-taiwan（1949 國民政府遷台，海峽分離格局成形）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說；兩岸關係研究通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo/mg-1949-crossing（1949 渡江戰役，南京易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說；內戰史研究通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo/mg-1949-pingjin（1949 平津戰役與北平易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說；內戰史研究通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo/mg-1948-huaihai（1948 淮海戰役）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說；內戰史研究通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo/mg-1948-liaoshen（1948 遼瀋戰役）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說；內戰史研究通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo/mg-1946（1946 內戰全面爆發）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說；內戰史研究通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo/mg-1945-talks（1945 重慶談判與雙十協定）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說；國共關係研究通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 派系簡介 北洋",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 派系簡介 皖系",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 派系簡介 直系",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 派系簡介 奉系",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 派系簡介 晉系",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 派系簡介 西北軍",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 派系簡介 桂系",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 派系簡介 滇系",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 派系簡介 粵系",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 派系簡介 川系",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 派系簡介 新疆地方",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 派系簡介 國民黨",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 派系簡介 日軍",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 派系簡介 日本",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 派系簡介 盛世才",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 派系簡介 噶厦",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 派系簡介 共產黨",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1912 袁世凱",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1912 閻錫山",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1912 蔡鍔",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1912 胡漢民",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1916 段祺瑞",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1916 馮國璋",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1916 張作霖",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1916 唐繼堯",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1916 陸榮廷",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1922 吳佩孚",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1922 張作霖",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1922 盧永祥",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1922 閻錫山",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1922 孫中山",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1928 蔣介石",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1928 馮玉祥",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1928 閻錫山",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1928 李宗仁",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1928 張學良",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1937 蔣介石",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1937 毛澤東",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1937 閻錫山",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1937 李宗仁",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1937 龍雲",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1937 劉湘",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1937 盛世才",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "minguo 人物 1937 噶厦",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-1948-09（1948 濟南戰役與遼沈戰役開始）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：濟南戰役、遼沈戰役戰史；殲敵數有異說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-1948-11b（1948 平津戰役開始）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：平津戰役戰史；傅作義部改編協議（1949年1月）"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-1949-12（1949 西南戰役結束：重慶、成都、雲南）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：西南戰役戰史；盧漢起義通電（1949年12月9日）"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-zjkg-194508（1945 張家口易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：朱德1945年8月命令"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-sy-194603（1946 瀋陽易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：東北行營檔案"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-jz-194603（1946 錦州易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：東北行營檔案"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-heb-194604（1946 哈爾濱易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：東北戰事（1946年4月）"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-cc-194605（1946 長春易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：東北戰事（1946年5月）"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-yanan-194703（1947 延安易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：胡宗南部戰報（1947年3月）"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-jn-194809（1948 濟南易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：濟南戰役戰史"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-cc-194810（1948 長春易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：長春圍城戰（1948年5–10月）"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-jz-194810（1948 錦州易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：遼沈戰役戰史"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-kf-194810（1948 開封易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：豫東戰役、開封戰役"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-zjkg-194812（1948 張家口易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：平津戰役戰史"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-xz-194901（1949 徐州易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：淮海戰役戰史"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-tj-194901（1949 天津易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：平津戰役戰史"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-bp-194901（1949 北平易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：傅作義部改編協議（1949年1月21日）"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-ty-194904（1949 太原易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：太原戰役戰史"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-hz-194905（1949 杭州易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：京滬杭戰役"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-wh-194905（1949 武漢易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：武漢戰事（1949年5月）"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-xa-194905（1949 西安易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：第一野戰軍西進"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-lz-194908（1949 蘭州易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：蘭州戰役戰史"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-fz-194908（1949 福州易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：閩贛戰役"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-xg-194909（1949 西寧易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：青海戰事"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-yc-194909（1949 銀川易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：寧夏戰役"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-dh-194909（1949 迪化（烏魯木齊）易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：陶峙岳、包爾漢通電（1949年9月）"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-gz-194910（1949 廣州易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：廣東戰事"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-xm-194910（1949 廈門易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：閩南戰事；古寧頭戰役"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-gy-194911（1949 貴陽易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：西南戰役"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-cq-194911（1949 重慶易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：西南戰役"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-nn-194912（1949 南寧易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：廣西戰役"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-km-194912（1949 昆明易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：盧漢起義通電"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-c-cd-194912（1949 成都易手）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：西南戰役"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-r-f-pingjin（1948 平津戰役（張家口・新保安・天津・北平））",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：平津戰役戰史；傅作義部改編協議（1949年1月）"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-r-f-nanxia（1949 衡寶・廣東・廣西（追殲白崇禧集團））",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：衡寶戰役、廣西戰役戰史"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "civilwar/cw-r-f-yunnan（1949 雲南和平（盧漢起義））",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：盧漢起義通電（1949年12月9日）"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "prc 快照 1949",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：當代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "prc 快照 1951",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：當代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "prc 快照 1962",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：當代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "prc 快照 1978",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：當代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "prc 快照 1979",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：當代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "prc 快照 1997",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：當代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "prc 快照 2026",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：時間線下界"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "prc 派系簡介 中華人民共和國",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：當代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "prc 派系簡介 中華民國",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：當代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "prc 人物 1949 毛澤東",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：當代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "prc 人物 1978 鄧小平",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：當代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kofun/kf-250（250 古墳時代前期示意起點）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本古代史研究通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kofun/kf-350（350 大型古墳文化東擴）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本古代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kofun/kf-400（400 瀬戶內與九州交流）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本古代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kofun/kf-500（500 王權趨向集中）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本古代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kofun 人物 ヤマト大王（總稱）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本古代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kofun 派系簡介 ヤマト",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本古代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kofun 派系簡介 九州勢力",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本古代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kofun 派系簡介 出雲系",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本古代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kofun 派系簡介 關東古墳群",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本古代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kofun 人物 250 畿內王權",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本古代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kofun 人物 350 ヤマト大王",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本古代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kofun 人物 500 ヤマト大王",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本古代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kofun 行軍路線 kofun-kinki-west",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本古代史通說。瀬戶內方向交流示意，非精確行軍日誌"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "asuka 派系簡介 地方豪族",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：地圖圖例"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "nara 派系簡介 藤原",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本古代史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "nara 派系簡介 蝦夷",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：地圖圖例"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kamakura/km-1281（1281 弘安之役）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kamakura/km-1333（1333 鎌倉幕府滅亡）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kamakura 人物 北條泰時",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kamakura 派系簡介 朝廷",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kamakura 派系簡介 西國",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kamakura 派系簡介 元軍",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kamakura 人物 1274 北條時宗",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kamakura 人物 1333 後醍醐天皇",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kamakura 行軍路線 kam-koan",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說。再攻九州；幕府動員御家人防禦"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "kamakura 行軍路線 kam-fall",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說。新田義貞等攻鎌倉，幕府滅"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi/mu-1336（1336 足利尊氏開幕府）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi/mu-1350（1350 觀應擾亂）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi/mu-1392（1392 南北朝合一）",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi 人物 足利尊氏",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi 人物 足利義滿",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi 人物 後醍醐天皇",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi 派系簡介 足利幕府",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi 派系簡介 南朝",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi 派系簡介 北朝",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi 派系簡介 守護大名",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：地圖圖例"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi 人物 1336 足利尊氏",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi 人物 1336 後醍醐天皇",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi 人物 1350 足利尊氏",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi 人物 1392 足利義滿",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi 人物 1467 足利義政",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi 行軍路線 muro-takauji-kyo",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說。足利尊氏自鎌倉／西國再入京都，開室町幕府"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi 行軍路線 muro-go-daigo",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說。建武政權崩潰，後醍醐天皇入吉野，南朝開始"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi 行軍路線 muro-kannou",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說。尊氏・直義對立，畿內戰線示意，非單一戰役日誌"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "muromachi 行軍路線 muro-meitoku",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本中世史通說。南北朝合一前後，幕府對南朝殘部／畿內調動示意"
+    },
+    {
+      "level": "warn",
+      "code": "source-wiki-only",
+      "location": "azuchi/az-1573（1573 放逐足利義昭）",
+      "message": "出處只有百科全書，未點名原典或研究書：中文維基「足利義昭」；日本戰國通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-wiki-only",
+      "location": "azuchi/az-1582（1582 本能寺之變）",
+      "message": "出處只有百科全書，未點名原典或研究書：中文維基「本能寺之變」"
+    },
+    {
+      "level": "warn",
+      "code": "source-wiki-only",
+      "location": "azuchi/az-1590（1590 小田原征伐）",
+      "message": "出處只有百科全書，未點名原典或研究書：中文維基「小田原征伐」"
+    },
+    {
+      "level": "warn",
+      "code": "source-wiki-only",
+      "location": "azuchi/az-1600（1600 關原之戰）",
+      "message": "出處只有百科全書，未點名原典或研究書：中文維基「關原之戰」"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "azuchi 人物 織田信長",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本戰國通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "azuchi 人物 豐臣秀吉",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本戰國通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "azuchi 人物 德川家康",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本戰國通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-wiki-only",
+      "location": "azuchi 派系簡介 織田",
+      "message": "出處只有百科全書，未點名原典或研究書：中文維基「本能寺之變」"
+    },
+    {
+      "level": "warn",
+      "code": "source-wiki-only",
+      "location": "azuchi 派系簡介 豐臣",
+      "message": "出處只有百科全書，未點名原典或研究書：中文維基「豐臣秀吉」"
+    },
+    {
+      "level": "warn",
+      "code": "source-wiki-only",
+      "location": "azuchi 派系簡介 德川",
+      "message": "出處只有百科全書，未點名原典或研究書：中文維基「關原之戰」"
+    },
+    {
+      "level": "warn",
+      "code": "source-wiki-only",
+      "location": "azuchi 派系簡介 武田",
+      "message": "出處只有百科全書，未點名原典或研究書：中文維基「武田勝賴」"
+    },
+    {
+      "level": "warn",
+      "code": "source-wiki-only",
+      "location": "azuchi 派系簡介 上杉",
+      "message": "出處只有百科全書，未點名原典或研究書：中文維基「上杉氏」"
+    },
+    {
+      "level": "warn",
+      "code": "source-wiki-only",
+      "location": "azuchi 派系簡介 今川",
+      "message": "出處只有百科全書，未點名原典或研究書：中文維基「桶狹間之戰」"
+    },
+    {
+      "level": "warn",
+      "code": "source-wiki-only",
+      "location": "azuchi 派系簡介 北條",
+      "message": "出處只有百科全書，未點名原典或研究書：中文維基「小田原征伐」"
+    },
+    {
+      "level": "warn",
+      "code": "source-wiki-only",
+      "location": "azuchi 派系簡介 毛利",
+      "message": "出處只有百科全書，未點名原典或研究書：中文維基「毛利氏」"
+    },
+    {
+      "level": "warn",
+      "code": "source-wiki-only",
+      "location": "azuchi 派系簡介 島津",
+      "message": "出處只有百科全書，未點名原典或研究書：中文維基「島津氏」"
+    },
+    {
+      "level": "warn",
+      "code": "source-wiki-only",
+      "location": "azuchi 派系簡介 足利",
+      "message": "出處只有百科全書，未點名原典或研究書：中文維基「足利義昭」"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "azuchi 派系簡介 其他",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：地圖圖例"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "azuchi 人物 1573 織田信長",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本戰國通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "azuchi 人物 1573 德川家康",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本戰國通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "azuchi 人物 1582 羽柴秀吉",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本戰國通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "azuchi 人物 1590 豐臣秀吉",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本戰國通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "azuchi 人物 1590 德川家康",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本戰國通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "azuchi 人物 1600 德川家康",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本戰國通說"
+    },
+    {
+      "level": "warn",
+      "code": "source-generic",
+      "location": "azuchi 人物 1615 德川家康",
+      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：日本戰國通說"
+    },
+    {
+      "level": "info",
+      "code": "source-naming",
+      "location": "imperial（11 包）＋japanEras（6 包）",
+      "message": "322 條出處點名了書名／條約名／制書名／檔案名；未點名 182 條"
+    },
+    {
+      "level": "info",
+      "code": "outcome-depth",
+      "location": "周（夏商周、春秋、戰國）",
+      "message": "81 條之中 61 條已補依據並達標；平均 482 字，約 1.9 分鐘"
+    },
+    {
+      "level": "info",
+      "code": "outcome-depth",
+      "location": "秦漢",
+      "message": "21 條之中 20 條已補依據並達標；平均 447 字，約 1.8 分鐘"
+    },
+    {
+      "level": "info",
+      "code": "outcome-depth",
+      "location": "帝國包（晉至共和國）",
+      "message": "44 條之中 44 條已補依據並達標；平均 473 字，約 1.9 分鐘"
+    },
+    {
+      "level": "info",
+      "code": "outcome-depth",
+      "location": "帝國包（各包自帶事件）",
+      "message": "158 條之中 82 條已補依據並達標；平均 451 字，約 1.8 分鐘"
+    },
+    {
+      "level": "info",
+      "code": "outcome-backlog",
+      "location": "各包「結果與影響」（已達標／總數）",
+      "message": "尚未補 outcomeSource：三國 0/28；周（夏商周、春秋、戰國） 61/81；秦漢 20/21；戰國（日本） 0/13；幕末 0/15；平安 0/9；帝國包（各包自帶事件） 82/158"
+    },
+    {
+      "level": "info",
+      "code": "ring-provenance",
+      "location": "疆域幾何出處登記",
+      "message": "被引用的環 38 條：以現代／民國行政界代替當時政區 37 條、依文獻地望手繪 1 條、朝代大勢框 0 條、圖幅矢量化 0 條、GIS 匯入 0 條。目標是把 proxy 逐條換成 plate-traced／gis-import（見 src/data/territory/README.md）"
+    }
+  ],
+  "coverage": [
+    {
+      "id": "jin",
+      "title": "晉",
+      "yearMin": 280,
+      "yearMax": 316,
+      "snapshots": 4,
+      "carryYears": 33,
+      "years": [
+        {
+          "year": 280,
+          "label": "滅吳一統",
+          "source": "《晉書·武帝紀》；《資治通鑑》卷八十一"
+        },
+        {
+          "year": 291,
+          "label": "八王之亂",
+          "source": "《晉書·惠帝紀》諸王傳"
+        },
+        {
+          "year": 311,
+          "label": "永嘉",
+          "source": "《晉書·孝懷帝紀》"
+        },
+        {
+          "year": 316,
+          "label": "西晉亡",
+          "source": "《晉書·孝愍帝紀》"
+        }
+      ]
+    },
+    {
+      "id": "nanbei",
+      "title": "十六國南北朝",
+      "yearMin": 304,
+      "yearMax": 589,
+      "snapshots": 7,
+      "carryYears": 279,
+      "years": [
+        {
+          "year": 304,
+          "label": "劉淵起兵",
+          "source": "《晉書·劉元海載記》"
+        },
+        {
+          "year": 317,
+          "label": "東晉、後趙",
+          "source": "《晉書·元帝紀》《石勒載記》"
+        },
+        {
+          "year": 383,
+          "label": "淝水前夕",
+          "source": "《晉書·苻堅載記》《謝玄傳》"
+        },
+        {
+          "year": 420,
+          "label": "劉宋、北魏",
+          "source": "《宋書·武帝紀》《魏書·太祖紀》"
+        },
+        {
+          "year": 439,
+          "label": "北魏統一北方",
+          "source": "《魏書·世祖紀》"
+        },
+        {
+          "year": 534,
+          "label": "東西魏、梁",
+          "source": "《魏書》《周書·文帝紀》《梁書·武帝紀》"
+        },
+        {
+          "year": 577,
+          "label": "北周、陳",
+          "source": "《周書·武帝紀》《陳書》"
+        }
+      ]
+    },
+    {
+      "id": "sui",
+      "title": "隋",
+      "yearMin": 581,
+      "yearMax": 618,
+      "snapshots": 3,
+      "carryYears": 35,
+      "years": [
+        {
+          "year": 581,
+          "label": "楊堅代周",
+          "source": "《隋書·高祖紀》"
+        },
+        {
+          "year": 589,
+          "label": "滅陳一統",
+          "source": "《隋書·高祖紀》"
+        },
+        {
+          "year": 617,
+          "label": "大業末",
+          "source": "《隋書·煬帝紀》《舊唐書·高祖紀》"
+        }
+      ]
+    },
+    {
+      "id": "tang",
+      "title": "唐",
+      "yearMin": 618,
+      "yearMax": 907,
+      "snapshots": 6,
+      "carryYears": 284,
+      "years": [
+        {
+          "year": 618,
+          "label": "建唐",
+          "source": "《舊唐書·高祖紀》"
+        },
+        {
+          "year": 660,
+          "label": "天可汗",
+          "source": "《舊唐書·高宗紀》《地理志》；《資治通鑑》唐高宗紀"
+        },
+        {
+          "year": 701,
+          "label": "極盛之後",
+          "source": "《舊唐書·則天皇后紀》《地理志》"
+        },
+        {
+          "year": 756,
+          "label": "安史入關",
+          "source": "《資治通鑑》卷二百十八"
+        },
+        {
+          "year": 820,
+          "label": "元和後",
+          "source": "《舊唐書·憲宗紀》"
+        },
+        {
+          "year": 880,
+          "label": "黃巢入京",
+          "source": "《舊唐書·黃巢傳》"
+        }
+      ]
+    },
+    {
+      "id": "wudai",
+      "title": "五代十國",
+      "yearMin": 907,
+      "yearMax": 960,
+      "snapshots": 5,
+      "carryYears": 49,
+      "years": [
+        {
+          "year": 907,
+          "label": "後梁",
+          "source": "《舊五代史·梁書》"
+        },
+        {
+          "year": 923,
+          "label": "後唐",
+          "source": "《舊五代史·唐書》"
+        },
+        {
+          "year": 936,
+          "label": "後晉",
+          "source": "《舊五代史·晉書》"
+        },
+        {
+          "year": 947,
+          "label": "後漢",
+          "source": "《舊五代史·漢書》"
+        },
+        {
+          "year": 960,
+          "label": "陳橋前夕",
+          "source": "《宋史·太祖紀》；《新五代史·東漢世家》"
+        }
+      ]
+    },
+    {
+      "id": "liaosong",
+      "title": "遼宋",
+      "yearMin": 960,
+      "yearMax": 1279,
+      "snapshots": 5,
+      "carryYears": 315,
+      "years": [
+        {
+          "year": 960,
+          "label": "北宋初",
+          "source": "《宋史·太祖紀》"
+        },
+        {
+          "year": 1004,
+          "label": "澶淵前後",
+          "source": "《宋史·真宗紀》；《遼史·地理志》"
+        },
+        {
+          "year": 1127,
+          "label": "靖康之變",
+          "source": "《宋史·欽宗紀》"
+        },
+        {
+          "year": 1141,
+          "label": "紹興和議後",
+          "source": "《宋史·高宗紀》"
+        },
+        {
+          "year": 1279,
+          "label": "崖山",
+          "source": "《宋史·瀛國公紀》；《元史·地理志》"
+        }
+      ]
+    },
+    {
+      "id": "yuanmingqing",
+      "title": "元明清",
+      "yearMin": 1271,
+      "yearMax": 1911,
+      "snapshots": 9,
+      "carryYears": 632,
+      "years": [
+        {
+          "year": 1271,
+          "label": "元朝",
+          "source": "《元史·世祖紀》"
+        },
+        {
+          "year": 1279,
+          "label": "元朝最大",
+          "source": "《元史·地理志》；譚其驤《中國歷史地圖集》元代幅"
+        },
+        {
+          "year": 1368,
+          "label": "明朝",
+          "source": "《明史·太祖紀》"
+        },
+        {
+          "year": 1420,
+          "label": "永樂盛時",
+          "source": "《明史·成祖紀》；《明史·地理志》"
+        },
+        {
+          "year": 1644,
+          "label": "甲申",
+          "source": "《明史·莊烈帝紀》；《清史稿·世祖紀》"
+        },
+        {
+          "year": 1668,
+          "label": "三藩未反",
+          "source": "《清史稿·吳三桂傳》《耿仲明傳》《尚可喜傳》"
+        },
+        {
+          "year": 1750,
+          "label": "清盛",
+          "source": "清史通說"
+        },
+        {
+          "year": 1860,
+          "label": "第二次鴉片戰爭後",
+          "source": "近代史通說"
+        },
+        {
+          "year": 1911,
+          "label": "辛亥革命",
+          "source": "近代史通說"
+        }
+      ]
+    },
+    {
+      "id": "minguo",
+      "title": "中華民國軍閥",
+      "yearMin": 1912,
+      "yearMax": 1949,
+      "snapshots": 6,
+      "carryYears": 32,
+      "years": [
+        {
+          "year": 1912,
+          "label": "民初",
+          "source": "來新夏《北洋軍閥史》通說；譚其驤《中國歷史地圖集》第八冊作地理底"
+        },
+        {
+          "year": 1916,
+          "label": "護國之後",
+          "source": "來新夏《北洋軍閥史》通說；譚其驤《中國歷史地圖集》第八冊作地理底"
+        },
+        {
+          "year": 1922,
+          "label": "第一次直奉之後",
+          "source": "來新夏《北洋軍閥史》通說；譚其驤《中國歷史地圖集》第八冊作地理底"
+        },
+        {
+          "year": 1928,
+          "label": "北伐後",
+          "source": "來新夏《北洋軍閥史》通說；譚其驤《中國歷史地圖集》第八冊作地理底"
+        },
+        {
+          "year": 1937,
+          "label": "全面抗戰",
+          "source": "抗戰史通說；譚其驤《中國歷史地圖集》第八冊作地理底"
+        },
+        {
+          "year": 1949,
+          "label": "一九四九年底",
+          "source": "近代史通說；譚其驤《中國歷史地圖集》第八冊作地理底"
+        }
+      ]
+    },
+    {
+      "id": "civilwar",
+      "title": "國共內戰",
+      "yearMin": 1945,
+      "yearMax": 1949,
+      "snapshots": 14,
+      "carryYears": -9,
+      "years": [
+        {
+          "year": 1945,
+          "label": "1945年8月",
+          "source": "譚其驤《中國歷史地圖集》現代底圖作地理底；軍事科學院《中國人民解放軍戰史》第三、四卷；郭廷以《中華民國史事日誌》",
+          "disputed": true
+        },
+        {
+          "year": 1945,
+          "label": "1945年11月",
+          "source": "譚其驤《中國歷史地圖集》現代底圖作地理底；軍事科學院《中國人民解放軍戰史》第三、四卷；郭廷以《中華民國史事日誌》",
+          "disputed": true
+        },
+        {
+          "year": 1946,
+          "label": "1946年6月",
+          "source": "譚其驤《中國歷史地圖集》現代底圖作地理底；軍事科學院《中國人民解放軍戰史》第三、四卷；郭廷以《中華民國史事日誌》",
+          "disputed": true
+        },
+        {
+          "year": 1947,
+          "label": "1947年3月",
+          "source": "譚其驤《中國歷史地圖集》現代底圖作地理底；軍事科學院《中國人民解放軍戰史》第三、四卷；郭廷以《中華民國史事日誌》",
+          "disputed": true
+        },
+        {
+          "year": 1947,
+          "label": "1947年8月",
+          "source": "譚其驤《中國歷史地圖集》現代底圖作地理底；軍事科學院《中國人民解放軍戰史》第三、四卷；郭廷以《中華民國史事日誌》",
+          "disputed": true
+        },
+        {
+          "year": 1947,
+          "label": "1947年12月",
+          "source": "譚其驤《中國歷史地圖集》現代底圖作地理底；軍事科學院《中國人民解放軍戰史》第三、四卷；郭廷以《中華民國史事日誌》",
+          "disputed": true
+        },
+        {
+          "year": 1948,
+          "label": "1948年9月",
+          "source": "譚其驤《中國歷史地圖集》現代底圖作地理底；軍事科學院《中國人民解放軍戰史》第三、四卷；郭廷以《中華民國史事日誌》",
+          "disputed": true
+        },
+        {
+          "year": 1948,
+          "label": "1948年11月",
+          "source": "譚其驤《中國歷史地圖集》現代底圖作地理底；軍事科學院《中國人民解放軍戰史》第三、四卷；郭廷以《中華民國史事日誌》",
+          "disputed": true
+        },
+        {
+          "year": 1949,
+          "label": "1949年4月",
+          "source": "譚其驤《中國歷史地圖集》現代底圖作地理底；軍事科學院《中國人民解放軍戰史》第三、四卷；郭廷以《中華民國史事日誌》",
+          "disputed": true
+        },
+        {
+          "year": 1949,
+          "label": "1949年5月",
+          "source": "譚其驤《中國歷史地圖集》現代底圖作地理底；軍事科學院《中國人民解放軍戰史》第三、四卷；郭廷以《中華民國史事日誌》",
+          "disputed": true
+        },
+        {
+          "year": 1949,
+          "label": "1949年7月",
+          "source": "譚其驤《中國歷史地圖集》現代底圖作地理底；軍事科學院《中國人民解放軍戰史》第三、四卷；郭廷以《中華民國史事日誌》",
+          "disputed": true
+        },
+        {
+          "year": 1949,
+          "label": "1949年8月",
+          "source": "譚其驤《中國歷史地圖集》現代底圖作地理底；軍事科學院《中國人民解放軍戰史》第三、四卷；郭廷以《中華民國史事日誌》",
+          "disputed": true
+        },
+        {
+          "year": 1949,
+          "label": "1949年10月",
+          "source": "譚其驤《中國歷史地圖集》現代底圖作地理底；軍事科學院《中國人民解放軍戰史》第三、四卷；郭廷以《中華民國史事日誌》",
+          "disputed": true
+        },
+        {
+          "year": 1949,
+          "label": "1949年11月",
+          "source": "譚其驤《中國歷史地圖集》現代底圖作地理底；軍事科學院《中國人民解放軍戰史》第三、四卷；郭廷以《中華民國史事日誌》",
+          "disputed": true
+        }
+      ]
+    },
+    {
+      "id": "prc",
+      "title": "中華人民共和國",
+      "yearMin": 1949,
+      "yearMax": 2026,
+      "snapshots": 7,
+      "carryYears": 71,
+      "years": [
+        {
+          "year": 1949,
+          "label": "成立",
+          "source": "當代史通說"
+        },
+        {
+          "year": 1951,
+          "label": "西藏與海南",
+          "source": "當代史通說"
+        },
+        {
+          "year": 1962,
+          "label": "中印邊境戰爭",
+          "source": "當代史通說"
+        },
+        {
+          "year": 1978,
+          "label": "改革開放起點",
+          "source": "當代史通說"
+        },
+        {
+          "year": 1979,
+          "label": "中越戰爭",
+          "source": "當代史通說"
+        },
+        {
+          "year": 1997,
+          "label": "香港回歸",
+          "source": "當代史通說"
+        },
+        {
+          "year": 2026,
+          "label": "當代",
+          "source": "時間線下界"
+        }
+      ]
+    },
+    {
+      "id": "zhou",
+      "title": "周（春秋戰國）",
+      "yearMin": -2070,
+      "yearMax": -221,
+      "snapshots": 15,
+      "carryYears": 1835,
+      "years": [
+        {
+          "year": -2070,
+          "label": "夏（文獻）",
+          "source": "《史記·夏本紀》；《竹書紀年》",
+          "disputed": true
+        },
+        {
+          "year": -1600,
+          "label": "商·殷墟",
+          "source": "殷墟甲骨；《史記·殷本紀》",
+          "disputed": true
+        },
+        {
+          "year": -1046,
+          "label": "西周",
+          "source": "西周金文；《史記·周本紀》",
+          "disputed": true
+        },
+        {
+          "year": -770,
+          "label": "東遷",
+          "source": "《史記·周本紀》《秦本紀》",
+          "disputed": true
+        },
+        {
+          "year": -632,
+          "label": "城濮後",
+          "source": "《左傳》僖公二十八年；《史記》晉、楚、齊、秦世家",
+          "disputed": true
+        },
+        {
+          "year": -473,
+          "label": "越滅吳",
+          "source": "《左傳》哀公二十二年；《史記·越王勾踐世家》",
+          "disputed": true
+        },
+        {
+          "year": -453,
+          "label": "三家分晉",
+          "source": "《史記·趙世家》《晉世家》",
+          "disputed": true
+        },
+        {
+          "year": -386,
+          "label": "田齊",
+          "source": "《史記·田敬仲完世家》；《資治通鑑》卷一",
+          "disputed": true
+        },
+        {
+          "year": -333,
+          "label": "楚取故吳",
+          "source": "《史記·越王勾踐世家》《楚世家》",
+          "disputed": true
+        },
+        {
+          "year": -316,
+          "label": "秦滅巴蜀",
+          "source": "《史記·秦本紀》《張儀列傳》"
+        },
+        {
+          "year": -312,
+          "label": "秦取漢中",
+          "source": "《史記·楚世家》《屈原賈生列傳》"
+        },
+        {
+          "year": -278,
+          "label": "拔郢",
+          "source": "《史記·白起王翦列傳》《楚世家》",
+          "disputed": true
+        },
+        {
+          "year": -260,
+          "label": "長平",
+          "source": "《史記·白起王翦列傳》《趙世家》；《資治通鑑》卷五",
+          "disputed": true
+        },
+        {
+          "year": -249,
+          "label": "秦滅東周",
+          "source": "《史記·周本紀》；《資治通鑑》卷一",
+          "disputed": true
+        },
+        {
+          "year": -221,
+          "label": "秦統一",
+          "source": "《史記·秦始皇本紀》；《資治通鑑》卷七",
+          "disputed": true
+        }
+      ]
+    },
+    {
+      "id": "qinhan",
+      "title": "秦漢",
+      "yearMin": -221,
+      "yearMax": 183,
+      "snapshots": 8,
+      "carryYears": 397,
+      "years": [
+        {
+          "year": -221,
+          "label": "秦郡縣",
+          "source": "《史記·秦始皇本紀》；《資治通鑑》卷七",
+          "disputed": true
+        },
+        {
+          "year": -214,
+          "label": "略取嶺南",
+          "source": "《史記·秦始皇本紀》",
+          "disputed": true
+        },
+        {
+          "year": -206,
+          "label": "楚漢",
+          "source": "《史記·項羽本紀》《高祖本紀》",
+          "disputed": true
+        },
+        {
+          "year": -202,
+          "label": "西漢初",
+          "source": "《史記·高祖本紀》；《漢書·高帝紀》",
+          "disputed": true
+        },
+        {
+          "year": -111,
+          "label": "西漢盛時",
+          "source": "《史記·孝武本紀》《衛將軍驃騎列傳》《南越列傳》；《資治通鑑》卷二十、卷二十一",
+          "disputed": true
+        },
+        {
+          "year": 9,
+          "label": "新莽",
+          "source": "《漢書·王莽傳》；《資治通鑑》卷三十七",
+          "disputed": true
+        },
+        {
+          "year": 25,
+          "label": "東漢初",
+          "source": "《後漢書·光武帝紀》；《資治通鑑》卷四十",
+          "disputed": true
+        },
+        {
+          "year": 36,
+          "label": "東漢定隴蜀",
+          "source": "《後漢書·光武帝紀》；《資治通鑑》卷四十三",
+          "disputed": true
+        }
+      ]
+    }
+  ]
+}
