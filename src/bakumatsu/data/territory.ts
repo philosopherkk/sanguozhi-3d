@@ -12,7 +12,7 @@ import type { JapanPaintShade } from '../../sengoku/data/japanKokugunPaint'
 import { hasBakumatsuHanMeshes } from './bakumatsuHanPaint'
 
 /**
- * 幾何出處要跟實際生效嘅圖層：藩界 mesh 需要時才載入，預設使用舊國級幾何，
+ * 幾何出處要跟實際生效的圖層：藩界 mesh 需要時才載入，預設使用舊國級幾何，
  * 因此預設出處係 CODH 舊國；只有藩界已載入並開啟時，先如實標為混合來源。
  */
 export function bakumatsuTerritoryProvenance(

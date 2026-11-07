@@ -101,7 +101,7 @@ interface TopicContextValue {
   setChinaEra: (e: ChinaEraSlot) => void
   japanEra: JapanEraSlot
   setJapanEra: (e: JapanEraSlot) => void
-  /** 由 URL 讀上嚟嘅年份（冇就 null）；比年代屏用作初始年。 */
+  /** 由 URL 讀上來的年份（無則 null）；比年代屏用作初始年。 */
   urlYear: number | null
 }
 
@@ -110,7 +110,7 @@ const JAPAN_ERA_IDS = new Set<string>(JAPAN_ERA_SLOTS.map((s) => s.id))
 
 /**
  * 讀 URL：`?c=china|japan`（或 country）、`?e=<era slot>`（或 era）、`?y=<年份>`（或 year）。
- * 呢度只係初始值；之後寫回 URL 由下面嘅 effect 負責。
+ * 此處只係初始值；之後寫回 URL 由下面的 effect 負責。
  */
 function readUrlState() {
   const empty = { topic: null as AppTopic | null, chinaEra: null as ChinaEraSlot | null, japanEra: null as JapanEraSlot | null, year: null as number | null }
@@ -130,7 +130,7 @@ const TopicContext = createContext<TopicContextValue | null>(null)
 
 export function TopicProvider({ children }: { children: ReactNode }) {
   const initial = readUrlState()
-  // URL 只寫咗時代（冇寫國家）都足以判斷邊邊；例如 ?e=edo 應該落日本。
+  // URL 只寫了時代（未寫國家）都足以判斷邊邊；例如 ?e=edo 應該落日本。
   const initialTopic: AppTopic =
     initial.topic ?? (initial.japanEra && !initial.chinaEra ? 'japan' : 'china')
   const [topic, setTopicState] = useState<AppTopic>(initialTopic)
@@ -141,7 +141,7 @@ export function TopicProvider({ children }: { children: ReactNode }) {
   const setChinaEra = useCallback((e: ChinaEraSlot) => setChinaEraState(e), [])
   const setJapanEra = useCallback((e: JapanEraSlot) => setJapanEraState(e), [])
 
-  // 國家／時代變更 → 寫返 URL（用 replaceState，唔好污染返回歷史）。
+  // 國家／時代變更 → 寫回 URL（用 replaceState，不要污染返回歷史）。
   useEffect(() => {
     if (typeof window === 'undefined') return
     const q = new URLSearchParams(window.location.search)
@@ -185,7 +185,7 @@ export function TopicProvider({ children }: { children: ReactNode }) {
       if (jpEra) setJapanEraState((cur) => (cur === jpEra ? cur : jpEra))
       const cnEra = next.chinaEra
       if (cnEra) setChinaEraState((cur) => (cur === cnEra ? cur : cnEra))
-      // 年份／月份同樣跟返 URL（各時代 context 會跟隨 tk:timeline 廣播）
+      // 年份／月份同樣跟隨 URL（各時代 context 會跟隨 tk:timeline 廣播）
       announceTimeline(readTimelineFromUrl())
     }, 1000)
     return () => window.clearInterval(id)

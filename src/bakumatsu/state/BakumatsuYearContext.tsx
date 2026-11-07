@@ -105,7 +105,7 @@ export function BakumatsuYearProvider({ children }: { children: ReactNode }) {
 
   const togglePlay = useCallback(() => setPlaying((p) => !p), [])
 
-  // 變更 → 寫入 URL（由 UrlBridge 統一負責）；popstate → 跟返 URL。
+  // 變更 → 寫入 URL（由 UrlBridge 統一負責）；popstate → 跟隨 URL。
   useEffect(() => {
     announceTimeline({ year, month })
   }, [year, month])

@@ -23,7 +23,7 @@ function pointsToPath(points: [number, number][]): string {
 }
 
 /**
- * 箭咀螢幕尺寸。闊度係深色邊嘅三倍：平常 7×3＝21，近本年 9×3＝27。
+ * 箭咀螢幕尺寸。闊度係深色邊的三倍：平常 7×3＝21，近本年 9×3＝27。
  * 長度平常 16、近本年 18。短段最多縮到約六成。不隨地圖縮放變大。
  */
 const ARROW_LENGTH_PX = { hot: 18, rest: 16 }

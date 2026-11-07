@@ -11,7 +11,7 @@ export interface DeepDiveDomain {
   d?: string
 }
 
-/** 矢量底圖（亞洲—太平洋戰區）；唔提供就用日本列島 relief */
+/** 矢量底圖（亞洲—太平洋戰區）；未提供就用日本列島 relief */
 export interface DeepDiveVectorBasemap {
   land: string[]
   graticule: string[]

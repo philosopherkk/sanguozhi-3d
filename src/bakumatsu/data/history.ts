@@ -11,7 +11,7 @@ export const BAKUMATSU_EVENTS: EraEvent[] = [
     datePrecision: 'day',
     calendarNote: 'gregorian',
     title: '黑船來航',
-    desc: '培理率美國艦隻進入江戶灣，要求通交。幕府不能再把外船只當作漂流事件。',
+    desc: '培理率美國艦個進入江戶灣，要求通交。幕府不能再把外船只當作漂流事件。',
     factions: ['幕府'],
     location: '江戶灣',
     type: 'politics',
@@ -258,12 +258,12 @@ export const BAKUMATSU_EVENTS: EraEvent[] = [
       year: 1867,
       month: 6,
       datePrecision: 'month',
-      title: '四侯会議',
+      title: '四侯會議',
       desc: '將軍慶喜試圖與薩摩、長州、宇和島、高知諸侯合議，以會議重建權威，但短期內崩解。',
       factions: ['幕府', '薩長'],
       location: '京都・大阪',
       type: 'politics',
-      source: '《徳川實紀》慶応3年條；《四侯会議関連記録》',
+      source: '《徳川實紀》慶応3年條；《四侯會議関連記録》',
       note: '合議的失敗是大政奉還（1867年10月）的直接背景；幕府需要「與諸藩對等合議」這個事實本身，就說明了支配的動搖。',
     },
   {
@@ -545,7 +545,7 @@ function layers(
 
 export const BAKUMATSU_READING: Record<string, EraReading> = {
   '1853-perry': {
-    quote: '嘉永六年，美國艦隻入江戶灣，求通交。幕府不能以漂流故事應之。',
+    quote: '嘉永六年，美國艦個入江戶灣，求通交。幕府不能以漂流故事應之。',
     source: '據日本近代史通說意譯，非條約原文',
     layers: layers(
       '美國的大船開到江戶附近，要日本開門做生意。幕府不知道怎麼拒絕。',

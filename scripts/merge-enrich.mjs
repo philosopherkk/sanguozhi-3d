@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-// merge-enrich.mjs — 逐條 entry 比較兩條工作線，只保留較豐富嘅版本，並記錄取捨理由。
+// merge-enrich.mjs — 逐條 entry 比較兩條工作線，只保留較豐富的版本，並記錄取捨理由。
 // 用法：node scripts/merge-enrich.mjs --base <A根目錄> --other <C根目錄> [--write] [--report <path>]
-// 硬閘（AGENTS.md）：含簡體字或以《三國演義》為出處嘅 entry 一律唔准取替。
+// 硬閘（AGENTS.md）：含簡體字或以《三國演義》為出處的 entry 一律不准取替。
 import { readFileSync, writeFileSync, readdirSync, existsSync, statSync, mkdirSync } from 'node:fs'
 import { join, relative, dirname } from 'node:path'
 
@@ -12,7 +12,7 @@ const INSERT = ARGV.includes('--insert-new')
 const REPORT = f('--report') || 'docs/ENRICH_MERGE.md'
 if (!BASE || !OTHER) { console.error('需要 --base <dir> --other <dir>'); process.exit(2) }
 
-// 只屬簡體、正體不用嘅字（避免收「余、后、里、会、占、干」等正體亦用之字）
+// 只屬簡體、正體不用的字（避免收「余、后、里、會、占、干」等正體亦用之字）
 const SIMP = new Set('战国发历传汉门马书东长风云军将帅师众敌达运进迁遗议论证设评识语词读误请谢货贸资赋狱级纪纲纳纵纸线练错邻荣营异弃卖桥检档样荐过远显区击称种却离关认灭协岁岂岛归禄祸详录尘尔术杰夺梦实宠审写丧举乐习乡买产亲仅从仓仪们优伤庆库应庙废学宁宪县坛坏坚垦声处备复窦对寻导层属帮弯彻忆态恳恶悬惊惧愿惨惯谨献环现啸单卫厂厉双叙恋悦报帜帧'.split(''))
 const FICTION = /三國演義|三国演义/
 const ID = /(^|[,{\s])id:\s*'([^']*)'/
@@ -20,7 +20,7 @@ const MARKER = /classicQuote|classicSource|causes:|course:|outcome:|zhwikiUrl|la
 
 const cjk = (s) => (String(s).match(/[\u3400-\u9fff]/g) || []).length
 
-// 平衡擷取所有 object literal，跳過字串與註釋內嘅括號
+// 平衡擷取所有 object literal，跳過字串與註釋內的括號
 function blocks(src) {
   const res = [], st = []
   let i = 0, mode = null
@@ -106,15 +106,15 @@ for (const rel of baseFiles) {
     if (!a) {
       stat.newIds++
       if (!INSERT) { notes.push(`base 缺 id \`${id}\`（只記錄，不自插）`); continue }
-      // 跟 other 嘅排列順序：搵出前面最接近、而且 base 都有嘅 entry，插喺佢後面，保持年份排序
+      // 跟 other 的排列順序：搵出前面最接近、而且 base 都有的 entry，插於它後面，保持年份排序
       const order = [...C.entries.keys()]
       let prev = null
       for (let k = order.indexOf(id) - 1; k >= 0; k--) { if (A.entries.has(order[k])) { prev = A.entries.get(order[k]); break } }
       const at = prev ? prev.end : [...A.entries.values()][0]?.start ?? 0
-      if (!prev) { notes.push(`插入 ${id} 失敗：base 冇同檔 entry 可錨定`); continue }
+      if (!prev) { notes.push(`插入 ${id} 失敗：base 無同檔 entry 可錨定`); continue }
       const indent = A.src.slice(at - 1, at).startsWith('}') ? '  ' : '  '
       splices.push({ start: at, end: at, text: `,\n${indent}${c.text.replace(/\n/g, '\n').trim()}` })
-      notes.push(`插入 base 缺嘅 id \`${id}\`（score ${c.total}）`)
+      notes.push(`插入 base 缺的 id \`${id}\`（score ${c.total}）`)
       continue
     }
     if (c.gates.length) { stat.gated++; notes.push(`拒絕 ${id}：${c.gates.join('；')}`); continue }
@@ -143,12 +143,12 @@ const L = []
 L.push('# 兩條工作線內容合併報告（逐條豐富度取捨）', '')
 L.push(`- base：\`${BASE}\``, `- other：\`${OTHER}\``, `- 模式：${WRITE ? '已寫入' : '試算（dry-run）'}`, '')
 L.push('## 摘要')
-L.push(`- 兩邊完全相同嘅資料檔：${stat.identical}`)
+L.push(`- 兩邊完全相同的資料檔：${stat.identical}`)
 L.push(`- 逐條取 other（較豐富）：${stat.took}`)
 L.push(`- 逐條保留 base：${stat.kept}`)
 L.push(`- 硬閘拒絕（簡體字／演義出處）：${stat.gated}`)
-L.push(`- base 缺、未自動插入嘅 id：${stat.newIds}`)
-L.push(`- 只在 other 出現嘅新檔：${stat.newFiles}`, '')
+L.push(`- base 缺、未自動插入的 id：${stat.newIds}`)
+L.push(`- 只在 other 出現的新檔：${stat.newFiles}`, '')
 if (fileLines.length) L.push('## 檔案層面', ...fileLines, '')
 L.push('## 逐檔取捨')
 for (const x of fileNotes) { L.push(`### \`${x.rel}\`（換入 ${x.n} 條）`, ...x.notes, '') }

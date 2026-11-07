@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
- * gen_asia_war_territory.mjs — 明治至當代／戰爭時代嘅勢力範圍多邊形
+ * gen_asia_war_territory.mjs — 明治至當代／戰爭時代的勢力範圍多邊形
  *
- * 做法：每塊範圍用經緯度矩形（通說控制範圍，唔係行政邊界），
+ * 做法：每塊範圍用經緯度矩形（通說控制範圍，不是行政邊界），
  * 再同 Natural Earth 1:50m 陸地求交集（polygon-clipping），
- * 所以色塊只会出現喺陸地上，海岸線跟真實地形，唔係手繪。
+ * 所以色塊只會出現於陸地上，海岸線跟真實地形，不是手繪。
  *
  * 輸出：src/geo/asiaWarTerritory.ts → ASIA_EXTENTS: {id,name,d,note}[]
  * 用法：node scripts/gen_asia_war_territory.mjs scripts/.cache/countries-50m.json
@@ -23,8 +23,8 @@ const TOL = Number(process.env.TOL || DEFAULT_TOL)
 
 /**
  * 範圍定義：rects = [西, 東, 南, 北]（經緯度）。
- * 呢啲係通說控制範圍嘅示意框，唔係行政區界，亦唔表示実効支配無爭議；
- * 實際控制線同爭議喺對應事件嘅起因／經過／結果說明。
+ * 這些係通說控制範圍的示意框，不是行政區界，亦不表示實効支配無爭議；
+ * 實際控制線同爭議於對應事件的起因／經過／結果說明。
  */
 const EXTENTS = [
   // ---- 日本本土與版圖變化 ----
@@ -69,7 +69,7 @@ const EXTENTS = [
   ['us_okinawa', '沖繩（米軍統治）', [[126.5, 128.6, 24.0, 27.6]], '1945年4月1日米軍登陸、6月22日組織抵抗終止（沖繩戰）；1952年4月28日《舊金山和約》生效後置於美國統治下，1972年5月15日施政權歸還'],
 ]
 
-// 南洋群島要剔除嘅陸地（菲律賓群島、グアム）
+// 南洋群島要剔除的陸地（菲律賓群島、グアム）
 const EXCLUDE = [
   [116.0, 127.0, 4.0, 19.5],
   [144.0, 145.2, 13.0, 13.8],
@@ -122,13 +122,13 @@ for (const [id, name, rects, note] of EXTENTS) {
 }
 
 const body = `/**
- * 明治至當代／戰爭時代嘅勢力範圍（自動生成，唔好手改）
+ * 明治至當代／戰爭時代的勢力範圍（自動生成，不要手改）
  *
  * 生成：node scripts/gen_asia_war_territory.mjs scripts/.cache/countries-50m.json
  * 方法：通說控制範圍以經緯度矩形定義，再同 Natural Earth 1:50m 陸地求交集，
- *       所以色塊只会出現喺陸地上，海岸線跟真實地形。
- * 注意：呢啲係控制範圍示意，唔係行政區界，亦唔表示実効支配無爭議；
- *       實際控制線同爭議喺對應事件嘅起因／經過／結果說明。
+ *       所以色塊只會出現於陸地上，海岸線跟真實地形。
+ * 注意：這些係控制範圍示意，不是行政區界，亦不表示實効支配無爭議；
+ *       實際控制線同爭議於對應事件的起因／經過／結果說明。
  * 坐標：同 asiaWarBase.ts 同一套畫布（${LON0}–${LON1}° / ${LAT0}–${LAT1}°）。
  */
 
@@ -151,15 +151,15 @@ ${out.map((e) => `  {
 fs.writeFileSync(OUT, body, 'utf8')
 console.log(`範圍寫入 ${out.length} 個  bytes=${(Buffer.byteLength(body) / 1024).toFixed(0)}KB  -> ${path.relative(process.cwd(), OUT)}`)
 
-// ---------- 驗證：關鍵地標應該（唔）應該喺範圍內 ----------
+// ---------- 驗證：關鍵地標應該（不）應該於範圍內 ----------
 const inExtent = (id, lon, lat) => {
   const rings = ringsById.get(id) || []
   const p = px(lon, lat)
   return rings.some((r) => inside(r, p))
 }
 /**
- * 環礁喺 1:50m 得返一粒塵（トラック等），填色睇唔到係資料精度問題，
- * 所以呢個驗證容許 0.6° 以內有陸地；實際地圖會用地名標記（places）表示。
+ * 環礁於 1:50m 得返一粒塵（トラック等），填色看不見係資料精度問題，
+ * 所以這個驗證容許 0.6° 以內有陸地；實際地圖會用地名標記（places）表示。
  */
 const inExtentNear = (id, lon, lat, tolDeg = 0.6) => {
   const rings = ringsById.get(id) || []
@@ -177,7 +177,7 @@ const CHECKS = [
   ['malaya', '新加坡', 103.82, 1.35, true], ['java', '巴達維亜', 106.85, -6.2, true],
   ['philippines', '馬尼拉', 120.98, 14.6, true],
   ['nansho', 'パラオ', 134.55, 7.45, true],
-  ['nansho', '馬尼拉（唔屬南洋群島）', 120.98, 14.6, false],
+  ['nansho', '馬尼拉（不屬南洋群島）', 120.98, 14.6, false],
   ['nansho', 'グアム（美領）', 144.79, 13.44, false],
   ['attu_kiska', 'アツ島', 172.9, 52.83, true],
   ['su_karafuto', '豊原（南樺太）', 142.9, 47.0, true],
@@ -188,9 +188,9 @@ for (const [id, label, lo, la, want] of CHECKS) {
   const hit = inExtent(id, lo, la)
   const ok = hit === want
   if (!ok) bad++
-  console.log(`  ${ok ? 'OK ' : 'BAD'} ${id} · ${label} -> ${hit ? '喺範圍內' : '唔喺範圍內'}（期望${want ? '喺' : '唔喺'}）`)
+  console.log(`  ${ok ? 'OK ' : 'BAD'} ${id} · ${label} -> ${hit ? '於範圍內' : '不於範圍內'}（期望${want ? '於' : '不於'}）`)
 }
 const trukOk = inExtentNear('nansho', 151.8, 7.4)
 if (!trukOk) bad++
 console.log(`  ${trukOk ? 'OK ' : 'BAD'} nansho · トラック（環礁：0.6° 內要有陸地）`)
-console.log(bad === 0 ? '範圍地標驗證全部通過' : `範圍地標驗證 ${bad} 個唔啱`)
+console.log(bad === 0 ? '範圍地標驗證全部通過' : `範圍地標驗證 ${bad} 個不啱`)

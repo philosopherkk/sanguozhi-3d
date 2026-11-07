@@ -5,7 +5,7 @@
  *   npm run audit:quotes                        摘要報告
  *   npm run audit:quotes -- --todo              待辦清單（附 qsrc.py 查證指令）
  *   npm run audit:quotes -- --live              逐字對 Wikisource 原文（可加 --mark-verified）
- *   npm run audit:quotes -- --todo --all        連明標意譯／通說嘅引文都列出
+ *   npm run audit:quotes -- --todo --all        連明標意譯／通說的引文都列出
  *   npm run audit:quotes -- --json              機器可讀輸出
  *   npm run audit:quotes -- --stats             只印統計
  *   npm run audit:quotes -- --mark <key> --page <書名/卷N>   記錄已查證
@@ -47,9 +47,9 @@ const ALLOWED_MARKERS = [
   '墓誌',
 ]
 
-// 常見簡體字（zh-Hant 規則）；只收無歧義嘅字，免得误報
+// 常見簡體字（zh-Hant 規則）；只收無歧義的字，免得误報
 const SIMPLIFIED =
-  /[让们这为与东车马长门问语记讲议谢请诸风龙页顶项国汉刘孙关赵陈绍备权军号历图书败众优应庙彻显写点炼坚击获处迁达遗职联顾献]/
+  /[让们这为与东车马长门问语记讲议谢请诸风龙页顶项国汉刘孙关赵陈绍备权军号历图书败众优应庙彻显写點炼坚击获处迁达遗职联顾献]/
 
 /* ------------------------------------------------------------------ 用法 */
 
@@ -204,7 +204,7 @@ function scanTs(file, src) {
   for (let i = 0; i < masked.length; ) {
     const c = masked[i]
     if (c === '{' || c === '[') {
-      // key 由原文攞（遮罩會食咗字串內容）
+      // key 由原文攞（遮罩會食了字串內容）
       const back = src.slice(Math.max(0, i - 200), i)
       const km = KEY_BEFORE.exec(back)
       const typed =
@@ -360,7 +360,7 @@ function scanJson(file, src) {
 }
 
 
-// 出處解析：埋「卷N」一齊攞，否則會跌咗喺索引頁
+// 出處解析：埋「卷N」一齊攞，否則會跌了於索引頁
 const CITE_RE = /《[^》]+》(?:\s*[卷卷]\s*[0-9〇零一二三四五六七八九十百千兩]+)?/
 const CITE_RE_G = /《[^》]+》(?:\s*[卷卷]\s*[0-9〇零一二三四五六七八九十百千兩]+)?/g
 
@@ -374,7 +374,7 @@ const hash = (s) => {
 
 const text = (v) => (v && v.kind === 'str' ? v.value : v && v.kind === 'dynamic' ? v.value : '')
 
-// 「不採演義」「非演義」呢類否定語唔算違規，得真正引用先報
+// 「不採演義」「非演義」此類否定語不算違規，只有真正引用才報
 function citesYanyue(s) {
   const re = /演義/g
   let m
@@ -406,13 +406,13 @@ function check(e, all) {
     issues.push(['info', '動態出處', '值在執行期組合，需查產生器'])
   if (e.source && e.source.kind === 'str') {
     if (citesYanyue(srcText)) issues.push(['error', '演義出處', 'AGENTS.md 禁止《三國演義》'])
-    // 只有引文先要求正史書名；路線、圖例呢類 secondary source 唔強制《》
+    // 只有引文才要求正史書名；路線、圖例此類 secondary source 不強制《》
     if (e.quote && !/《[^》]+》/.test(srcText) && !ALLOWED_MARKERS.some((m) => srcText.includes(m)))
       issues.push(['error', '引文出處無書名', `source: ${srcText.slice(0, 40)}`])
     if (/意譯|通說/.test(srcText))
       issues.push(['info', '意譯出處', '非逐字原文，查證只需對意思'])
   }
-  // disputed 嘅理由：note 最好，datesNote / 內文有清楚說明都算記錄咗
+  // disputed 的理由：note 最好，datesNote / 內文有清楚說明都算記錄了
   const HEDGE =
     /不詳|未詳|異說|爭議|異於|約數|推定|敘事|示意|總冊|不宜|失實|追述|不可|估算|前後|無.{0,4}戶籍|沒有|不是/
 
@@ -462,8 +462,8 @@ function stamp(e) {
 }
 
 function verifyState(e, ledger) {
-  if (!e.quote || e.quote.kind !== 'str') return 'na' // 動態引文冇得逐字查證
-  if (/意譯|通說/.test(text(e.source))) return 'paraphrase' // 明標意譯，冇原文可以逐字對
+  if (!e.quote || e.quote.kind !== 'str') return 'na' // 動態引文無得逐字查證
+  if (/意譯|通說/.test(text(e.source))) return 'paraphrase' // 明標意譯，無原文可以逐字對
   const rec = ledger[`${relative(ROOT, e.file)}#${e.key}`]
   if (!rec) return 'unverified'
   if (rec.stamp !== stamp(e)) return 'stale'
@@ -562,7 +562,7 @@ function main() {
     const tally = {}
     let marked = 0
     for (const it of items) {
-      const got = res.get(it.id) ?? { status: 'unresolved', why: 'qsrc.py 冇回呢筆' }
+      const got = res.get(it.id) ?? { status: 'unresolved', why: 'qsrc.py 無回此筆' }
       tally[got.status] = (tally[got.status] ?? 0) + 1
       if (got.status === 'ok') {
         if (MARK_VERIFIED) {
@@ -582,7 +582,7 @@ function main() {
       if (it.cite) console.log(`   出處: ${it.cite}${got.page ? ` → ${got.page}` : ''}`)
       if (got.why) console.log(`   原因: ${got.why}`)
       if (got.status === 'mismatch') {
-        console.log(`   對到 ${got.matched}/${got.chars} 字；呢度開始分岔：`)
+        console.log(`   對到 ${got.matched}/${got.chars} 字；此處開始分岔：`)
         console.log(`     我哋寫: ${got.ours}`)
         console.log(`     原文有: ${got.theirs}`)
       } else if (it.quote) {
@@ -591,9 +591,9 @@ function main() {
     }
     if (marked) writeFileSync(LEDGER_PATH, JSON.stringify(ledger, null, 2) + '\n')
     console.log(
-      `\n查證結果：對得上 ${tally.ok ?? 0}｜異文／漏字 ${tally.mismatch ?? 0}｜搵唔到 ${tally.absent ?? 0}｜出處解析唔到 ${tally.unresolved ?? 0}` +
+      `\n查證結果：對得上 ${tally.ok ?? 0}｜異文／漏字 ${tally.mismatch ?? 0}｜找不到 ${tally.absent ?? 0}｜出處解析不到 ${tally.unresolved ?? 0}` +
         (homeless ? `（另 ${homeless} 條無 Wikisource 頁亦無《》出處）` : '') +
-        (MARK_VERIFIED ? `；已自動記錄對咗嘅 ${marked} 條入 ledger` : '；加 --mark-verified 先會記錄對咗嘅'),
+        (MARK_VERIFIED ? `；已自動記錄對了的 ${marked} 條入 ledger` : '；加 --mark-verified 先會記錄對了的'),
     )
     return
   }
@@ -649,7 +649,7 @@ function main() {
     const para = ALL ? 0 : rows.filter((r) => r.state === 'paraphrase').length
     console.log(
       `\n待辦 ${n} 條` +
-        (para ? `（另 ${para} 條明標意譯／通說，冇原文可以逐字對；要睇加 --all）` : '') +
+        (para ? `（另 ${para} 條明標意譯／通說，無原文可以逐字對；要看加 --all）` : '') +
         `。查證後記錄： npm run audit:quotes -- --mark <key> --page <書名/卷N>` +
         `（寫入 ${relative(ROOT, LEDGER_PATH)}）`,
     )
@@ -688,6 +688,6 @@ function main() {
 
 if (process.argv[1]?.endsWith('audit_quotes.mjs')) main()
 
-// 俾測試 script 直接 import
+// 給測試 script 直接 import
 export { scanTs, scanJson, collect, check, maskLiterals, literalValue }
 
