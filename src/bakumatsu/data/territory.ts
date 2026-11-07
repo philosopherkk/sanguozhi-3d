@@ -11,12 +11,23 @@ import { JP_ERA_RINGS } from '../../geo/japanEraRings'
 import type { JapanPaintShade } from '../../sengoku/data/japanKokugunPaint'
 import { hasBakumatsuHanMeshes } from './bakumatsuHanPaint'
 
-export const BAKUMATSU_TERRITORY_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance =
-  hasBakumatsuHanMeshes() ? BAKUMATSU_HAN_PLUS_KOKUGUN_GEOMETRY : JAPAN_CODH_KOKUGUN_GEOMETRY
+/**
+ * 幾何出處要跟實際生效嘅圖層：藩界 mesh 需要時才載入，預設使用舊國級幾何，
+ * 因此預設出處係 CODH 舊國；只有藩界已載入並開啟時，先如實標為混合來源。
+ */
+export function bakumatsuTerritoryProvenance(
+  useHan: boolean,
+): TerritoryGeometryProvenance {
+  return useHan && hasBakumatsuHanMeshes()
+    ? BAKUMATSU_HAN_PLUS_KOKUGUN_GEOMETRY
+    : JAPAN_CODH_KOKUGUN_GEOMETRY
+}
 
-export const BAKUMATSU_TERRITORY_NOTE = hasBakumatsuHanMeshes()
-  ? BAKUMATSU_TERRITORY_NOTE_MIXED_ZH
-  : JAPAN_TERRITORY_NOTE_ZH
+export function bakumatsuTerritoryNote(useHan: boolean): string {
+  return useHan && hasBakumatsuHanMeshes()
+    ? BAKUMATSU_TERRITORY_NOTE_MIXED_ZH
+    : JAPAN_TERRITORY_NOTE_ZH
+}
 
 const PLACE: Record<string, string> = {
   d0: '會津',
