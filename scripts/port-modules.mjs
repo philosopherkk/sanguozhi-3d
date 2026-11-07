@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// port-modules.mjs — 由 other 工作線補入 base 缺失嘅模組（additive closure），
-// 每次跑 tsc，遇到 TS2307「Cannot find module」就去 other 搵同名檔复制過嚟，重複至收斂。
+// port-modules.mjs — 由 other 工作線補入 base 缺失的模組（additive closure），
+// 每次跑 tsc，遇到 TS2307「Cannot find module」就去 other 搵同名檔复制過來，重複至收斂。
 // 用法：node scripts/port-modules.mjs --other <C根目錄> [--max 8]
 import { execSync } from 'node:child_process'
 import { existsSync, mkdirSync, copyFileSync, readFileSync, statSync } from 'node:fs'
@@ -25,7 +25,7 @@ function tscErrors() {
 const copied = []
 for (let round = 1; round <= MAX; round++) {
   const errs = tscErrors()
-  if (!errs.length) { console.log(`第 ${round} 輪：tsc 冇錯誤`); break }
+  if (!errs.length) { console.log(`第 ${round} 輪：tsc 無錯誤`); break }
   const missing = new Set()
   for (const line of errs) {
     const m = line.match(/^(.+?)\(\d+,\d+\): error TS2307: Cannot find module '([^']+)'/)
@@ -59,7 +59,7 @@ for (let round = 1; round <= MAX; round++) {
 }
 
 function relativeFromBase(absPath) {
-  // 將 base 內嘅 import 目標對應返 other 树內嘅同名相對路徑
+  // 將 base 內的 import 目標對應返 other 树內的同名相對路徑
   const baseSrc = resolve('.', 'src')
   const rel = absPath.startsWith(baseSrc) ? absPath.slice(baseSrc.length) : absPath
   return join(OTHER, 'src', rel)

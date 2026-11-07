@@ -6,8 +6,8 @@ import {
 
 /**
  * 幕末「藩界」圖層狀態。預設關閉：藩級界線幾何體積大（原始檔約 6.5 MB），
- * 只在使用者主動開啟時下載。開啟偏好記錄於 localStorage，曾主動開啟過嘅
- * 使用者再次進入時會自動載返，其餘人唔會下載該檔案。
+ * 只在使用者主動開啟時下載。開啟偏好記錄於 localStorage，曾主動開啟過的
+ * 使用者再次進入時會自動載入，其餘人不會下載該檔案。
  */
 const STORAGE_KEY = 'bakumatsu-han-layer'
 
@@ -92,7 +92,7 @@ export function toggleBakumatsuHanLayer() {
   void downloadAndEnable()
 }
 
-/** 依偏好自動載返（只有曾主動開啟過嘅使用者才會下載）。 */
+/** 依偏好自動載入（只有曾主動開啟過的使用者才會下載）。 */
 export function restoreBakumatsuHanLayer() {
   if (state.loading || state.loaded) return
   if (readPreference()) void downloadAndEnable()

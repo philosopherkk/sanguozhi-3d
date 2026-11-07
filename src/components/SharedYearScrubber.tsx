@@ -1,8 +1,8 @@
 import { layoutTicks } from '../lib/tickCollisions'
 
 /**
- * 全闊年份滑桿（共用）：中國 Imperial、日本 DeepDive 都用呢個實作，
- * 確保每個時代嘅時間軸貼滿螢幕闊度、刻度用同一套防撞規則（Project B 一致性）。
+ * 全闊年份滑桿（共用）：中國 Imperial、日本 DeepDive 都用這個實作，
+ * 確保每個時代的時間軸貼滿螢幕闊度、刻度用同一套防撞規則（Project B 一致性）。
  */
 export function SharedYearScrubber({
   title,

@@ -1,8 +1,8 @@
 /**
- * geo_lib.mjs — 亞洲—太平洋戰區地圖嘅共用地理工具
+ * geo_lib.mjs — 亞洲—太平洋戰區地圖的共用地理工具
  *
  * 資料：Natural Earth 1:50m（world-atlas@2 countries-50m.json，公有領域）
- * 用家：scripts/gen_asia_war_base.mjs（陸地底圖）、
+ * 使用者：scripts/gen_asia_war_base.mjs（陸地底圖）、
  *       scripts/gen_asia_war_territory.mjs（勢力範圍，剪裁到真實海岸線）
  */
 import fs from 'node:fs'
@@ -45,8 +45,8 @@ export function ringOf(topo, arcIdxs) {
 }
 
 /**
- * 環展開：經度正規化之後，如果環嘅跨度超過 180°，把遠端帶嘅點減 360°，
- * 令成個環連續。唔樣會拖出一條橫跨太平洋嘅假陸帶，even-odd 填充會把海面變陸。
+ * 環展開：經度正規化之後，如果環的跨度超過 180°，把遠端帶的點減 360°，
+ * 令成個環連續。不樣會拖出一條橫跨太平洋的假陸帶，even-odd 填充會把海面變陸。
  */
 export function unwrapRing(ring) {
   const pts = ring.map(([lo, la]) => [normLon(lo), la])
@@ -60,7 +60,7 @@ export function unwrapRing(ring) {
   return pts.map(([lo, la]) => (lo > mid ? [lo - 360, la] : [lo, la]))
 }
 
-/** 讀入 Natural Earth，回傳 MultiPolygon（已展開經度；保留原始精度俾剪裁用） */
+/** 讀入 Natural Earth，回傳 MultiPolygon（已展開經度；保留原始精度給剪裁用） */
 export function loadLandMultiPolygon(srcPath) {
   const topo = JSON.parse(fs.readFileSync(srcPath, 'utf8'))
   const geoms = topo.objects.land ? topo.objects.land.geometries ?? [] : topo.objects.countries.geometries

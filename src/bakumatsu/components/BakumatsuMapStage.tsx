@@ -84,7 +84,7 @@ export function BakumatsuMapStage() {
               className={hanLayer.enabled ? 'is-active' : undefined}
               aria-pressed={hanLayer.enabled}
               disabled={hanLayer.loading}
-              title="藩級界線：由村級數據溶解而成（CC BY-SA 4.0），精細但檔案較大，僅在開啟時下載；藩級幾何未覆蓋嘅舊國仍以舊國級幾何補畫"
+              title="藩級界線：由村級數據溶解而成（CC BY-SA 4.0），精細但檔案較大，僅在開啟時下載；藩級幾何未覆蓋的舊國仍以舊國級幾何補畫"
               onClick={hanLayer.toggle}
             >
               {hanLayer.loading

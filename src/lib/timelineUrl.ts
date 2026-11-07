@@ -1,5 +1,5 @@
 /**
- * 年份／月份 ↔ URL 嘅共用契約。
+ * 年份／月份 ↔ URL 的共用契約。
  *
  * 舊況：只有操作年代滑桿（range input）才會寫入 `y`，月份完全未入 URL；
  * app 亦未監聽 `popstate`，因此瀏覽器前／後退、或同一份文件內切換 query
@@ -16,13 +16,13 @@ export interface TimelineState {
 
 export const TIMELINE_EVENT = 'tk:timeline'
 
-/** 時代 context 通知「我而家喺呢一年／月」。年份未知時唔好播。 */
+/** 時代 context 通知「我現在於該年／月」。年份未知時不要播。 */
 export function announceTimeline(state: TimelineState): void {
   if (typeof window === 'undefined' || state.year === null) return
   window.dispatchEvent(new CustomEvent<TimelineState>(TIMELINE_EVENT, { detail: state }))
 }
 
-/** 訂閱時序變更（UrlBridge 寫 URL；context 喺 popstate 時跟返 URL）。 */
+/** 訂閱時序變更（UrlBridge 寫 URL；context 於 popstate 時跟隨 URL）。 */
 export function onTimelineChange(cb: (state: TimelineState) => void): () => void {
   if (typeof window === 'undefined') return () => {}
   const handler = (ev: Event) => {
@@ -45,7 +45,7 @@ export function readTimelineFromUrl(): TimelineState {
   return { year, month: month !== null && month >= 1 && month <= 12 ? month : null }
 }
 
-/** 寫回 URL（replaceState，唔污染返回歷史）；冇變動就唔寫。 */
+/** 寫回 URL（replaceState，不污染返回歷史）；無變動就不寫。 */
 export function writeTimelineToUrl(state: TimelineState): void {
   if (typeof window === 'undefined') return
   const q = new URLSearchParams(window.location.search)

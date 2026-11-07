@@ -61,8 +61,8 @@ export function ChinaHistoryApp({
 
         <CollapsibleAppFooter>
           <p>
-            中國時間線（春秋–當代）· 本頁係其中一個時代嘅綱要 ·
-            三國地圖、原文同語譯喺「三國」時代
+            中國時間線（春秋–當代）· 本頁係其中一個時代的綱要 ·
+            三國地圖、原文同語譯於「三國」時代
           </p>
         </CollapsibleAppFooter>
       </div>

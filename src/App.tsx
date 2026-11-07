@@ -333,8 +333,8 @@ function TopicRoot() {
 
 /**
  * 年份 ↔ URL 橋。
- * 讀：`?y=` 送入而家邊個時代嘅滑桿（滑桿喺 lazy chunk 入面，所以要 retry 一段短時間）。
- * 寫：用家拖滑桿就將年份寫返入 URL，refresh 先可以還原。
+ * 讀：`?y=` 送入現在邊個時代的滑桿（滑桿於 lazy chunk 入面，所以要 retry 一段短時間）。
+ * 寫：使用者拖滑桿就將年份寫回入 URL，refresh 先可以還原。
  * 標題：跟國家／時代改 document.title 同 OG 標籤，方便分享卡同 SEO。
  */
 function UrlBridge() {
@@ -355,7 +355,7 @@ function UrlBridge() {
       })
     }
     document.addEventListener('input', onInput, true)
-    // 各時代 context 的年份／月份變更 → 統一寫返 URL
+    // 各時代 context 的年份／月份變更 → 統一寫回 URL
     const unsubscribe = onTimelineChange((state) => writeTimelineToUrl(state))
     return () => {
       document.removeEventListener('input', onInput, true)
@@ -376,7 +376,7 @@ function UrlBridge() {
       const lo = Number(input.min)
       const hi = Number(input.max)
       if (Number.isFinite(lo) && Number.isFinite(hi) && (urlYear < lo || urlYear > hi)) {
-        window.clearInterval(timer) // URL 嘅年份喺呢個時代範圍之外，唔好亂設
+        window.clearInterval(timer) // URL 的年份於這個時代範圍之外，不要亂設
         return
       }
       const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set

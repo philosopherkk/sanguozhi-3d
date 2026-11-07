@@ -12,7 +12,7 @@ function readStep(): number {
     const n = raw ? Number(raw) : 1
     if (Number.isInteger(n) && n >= 0 && n < FONT_STEPS.length) return n
   } catch {
-    /* 讀唔到就用預設字級 */
+    /* 讀取失敗就用預設字級 */
   }
   return 1
 }
@@ -42,7 +42,7 @@ export function ReadingControls() {
       localStorage.setItem(FONT_KEY, String(step))
       localStorage.setItem(THEME_KEY, theme)
     } catch {
-      /* 寫唔入仍然保持畫面 */
+      /* 寫入失敗仍然保持畫面 */
     }
   }, [step, theme])
 

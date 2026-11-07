@@ -8,8 +8,8 @@
  * 輸出：src/geo/asiaWarBase.ts —— 陸地輪廓 SVG path + 經緯網 + asiaPx(lon,lat)
  *
  * 坐標系：等圓柱投影；經度正規化入 [60, 420)，畫面顯示 60–190。
- * 揀 60°E 做接缝（SEAM）：張圖要跨過 180°（中途島 177°W），环喺接缝切開後，
- * 縫正好喺画面左边之外，唔會出現橫跨太平洋嘅假陸帶。
+ * 選定 60°E 做接缝（SEAM）：張圖要跨過 180°（中途島 177°W），环於接缝切開後，
+ * 縫正好於畫面左边之外，不會出現橫跨太平洋的假陸帶。
  *
  * 覆蓋：經 60–190°、緯 -14–62°：英帕爾、科倫坡、新加坡、荷屬東印度、
  * 澳洲北岸、中途島、阿留申、樺太同北海道德全部入面。
@@ -60,9 +60,9 @@ function ringOf(topo, arcIdxs) {
 }
 
 /**
- * 把环展開：先將經度正規化入 [60,420)。如果環嘅經度跨度超過 180°，
- * 代表有段海岸喺「遠端帶」（例如歐洲 30°E 被映射成 390°），把嗰啲點減 360°
- * 之後成個環就連續，唔會出現橫跨畫面嘅假陸帶，亦唔使切開環。
+ * 把环展開：先將經度正規化入 [60,420)。如果環的經度跨度超過 180°，
+ * 代表有段海岸於「遠端帶」（例如歐洲 30°E 被映射成 390°），把嗰啲點減 360°
+ * 之後成個環就連續，不會出現橫跨畫面的假陸帶，亦不使切開環。
  */
 function unwrapRing(ring) {
   const pts = ring.map(([lo, la]) => [normLon(lo), la])
@@ -102,7 +102,7 @@ function dp(pts, tol) {
 }
 
 /**
- * 封閉環簡化：唔可以對「首尾同點」嘅環直接落 DP（基線長 0，成個環會塌晒）。
+ * 封閉環簡化：不可以對「首尾同點」的環直接落 DP（基線長 0，成個環會塌晒）。
  * 方法：去重尾點，搵最遠兩點分兩段，分段 DP 再砌返。
  */
 function simplifyRing(pts, tol) {
@@ -145,7 +145,7 @@ const inside = (poly, p) => {
 
 // ---------- 主流程 ----------
 const topo = JSON.parse(fs.readFileSync(path.resolve(SRC), 'utf8'))
-// 用合併後嘅 land（冇現代國界，避免把今天嘅邊界帶入歷史地圖）
+// 用合併後的 land（無現代國界，避免把今天的邊界帶入歷史地圖）
 const rawLand = topo.objects.land ? topo.objects.land.geometries ?? [] : topo.objects.countries.geometries
 const land = []
 const testRings = []
@@ -160,7 +160,7 @@ for (const g of rawLand) {
     for (const arcIdxs of rings) {
       ringsIn++
       const piece = unwrapRing(ringOf(topo, arcIdxs))
-      // 只做 bbox 相交篩選，唔剪裁凹多邊形（剪裁會整烂南亞、中南半島、澳洲北岸）
+      // 只做 bbox 相交篩選，不剪裁凹多邊形（剪裁會整烂南亞、中南半島、澳洲北岸）
       let minLo = Infinity, maxLo = -Infinity, minLa = Infinity, maxLa = -Infinity
       for (const [lo, la] of piece) {
         if (lo < minLo) minLo = lo
@@ -171,7 +171,7 @@ for (const g of rawLand) {
       if (maxLo < LON0 || minLo > LON1 || maxLa < LAT0 || minLa > LAT1) continue
       const projected = piece.map(([lo, la]) => pxRaw(lo, la))
       const simple = simplifyRing(projected, TOL)
-      // 簡化後面積偏差過大就保留原環（唔好把海灣、海峡抹走）
+      // 簡化後面積偏差過大就保留原環（不要把海灣、海峡抹走）
       const a0 = area(projected), a1 = area(simple)
       const use = simple.length >= 3 && (a0 === 0 || Math.abs(a1 - a0) / Math.max(a0, 1) < 0.02)
         ? simple
@@ -206,12 +206,12 @@ for (let la = -10; la <= 60; la += 10) {
 }
 
 const body = `/**
- * 亞太戰區底圖（自動生成，唔好手改）
+ * 亞太戰區底圖（自動生成，不要手改）
  *
  * 資料：Natural Earth 1:50m 陸地（world-atlas@2 countries-50m.json，公有領域）
  * 生成：node scripts/gen_asia_war_base.mjs scripts/.cache/countries-50m.json
  * 投影：等圓柱；畫面經 ${LON0}–${LON1}°、緯 ${LAT0}–${LAT1}°；畫布 ${W}×${H}
- * 渲染：陸地 path 用 fill-rule="evenodd"；勢力範圍用 clipPath 夹喺陸地之上
+ * 渲染：陸地 path 用 fill-rule="evenodd"；勢力範圍用 clipPath 夹於陸地之上
  */
 
 export const ASIA_WAR_W = ${W}
@@ -243,7 +243,7 @@ fs.writeFileSync(OUT, body, 'utf8')
 const bytes = Buffer.byteLength(body)
 console.log(`rings in=${ringsIn} kept=${testRings.length} polys=${polysKept} grat=${grat.length} asset=${(bytes / 1024).toFixed(0)}KB`)
 
-// ---------- 驗證：地標應該落喺陸地／海面 ----------
+// ---------- 驗證：地標應該落於陸地／海面 ----------
 const MARKS = [
   ['新加坡', 103.82, 1.35, true], ['雅加達', 106.85, -6.2, true],
   ['曼德勒', 96.08, 21.98, true], ['英帕爾', 93.94, 24.81, true],
@@ -261,9 +261,9 @@ for (const [name, lo, la, wantLand] of MARKS) {
   if (!ok) bad++
   console.log(`  ${ok ? 'OK ' : 'BAD'} ${name} -> ${hit ? '陸' : '海'}（期望${wantLand ? '陸' : '海'}）`)
 }
-console.log(bad === 0 ? '地標驗證全部通過' : `地標驗證 ${bad} 個唔啱`)
+console.log(bad === 0 ? '地標驗證全部通過' : `地標驗證 ${bad} 個不啱`)
 
-// ---------- ASCII 預覽：冇圖都得睇吓shape啱唔啱 ----------
+// ---------- ASCII 預覽：無圖都得看吓shape啱不啱 ----------
 if (process.argv.includes('--preview')) {
   const COLS = 118, ROWS = 40
   const bbox = testRings.map((poly) => {

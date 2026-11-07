@@ -60,13 +60,13 @@ function DeepDiveHeader({ pack }: { pack: JapanDeepDivePack }) {
 
 /**
  * 年代滑桿：放在 EraBar 之下，與其他時代（戰國、幕末、日本通史）一致。
- * 之前嵌喺 header 內，令安土桃山與江戶嘅 header 出現 5–9 個年多按鈕，
- * 與其佢時代嘅 chrome 不一致。
+ * 之前嵌於 header 內，令安土桃山與江戶的 header 出現 5–9 個年多按鈕，
+ * 與其他時代的 chrome 不一致。
  */
 function DeepDiveYearScrubber({ pack }: { pack: JapanDeepDivePack }) {
   const { year, setYear, yearMin, yearMax } = useDeepDiveYear()
-  // 與其他時代一致：刻度以絕對定位分佈喺整條滑桿上（之前係一般 <li> 列表，
-  // 全部疊喺左邊，令安土桃山、江戶嘅年代軸睇落好短）。
+  // 與其他時代一致：刻度以絕對定位分佈於整條滑桿上（之前係一般 <li> 列表，
+  // 全部疊於左邊，令安土桃山、江戶的年代軸看落好短）。
   const laid = layoutTicks(pack.ticks, yearMin, yearMax, year)
   return (
     <div className="year-scrubber year-scrubber--compact" role="group" aria-label={`${pack.title}年份`}>
