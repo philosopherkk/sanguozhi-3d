@@ -29,13 +29,16 @@ jobs:
           GITHUB_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
+          # 先確認建置產物存在，避免清空 gh-pages 後無東西可發佈
+          test -f "$GITHUB_WORKSPACE/dist/index.html"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch -q origin gh-pages
           git worktree add -q --detach /tmp/ghp origin/gh-pages
           cd /tmp/ghp
-          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name .nojekyll -delete
-          touch .nojekyll
+          # 必須完整清除舊內容（含舊 hash 檔名）；find -delete 配 -maxdepth 無法刪非空目錄
+          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name .nojekyll -exec rm -rf {} +
+          test -f .nojekyll || touch .nojekyll
           cp -r "$GITHUB_WORKSPACE/dist"/. .
           git add -A
           if git diff --cached --quiet; then
