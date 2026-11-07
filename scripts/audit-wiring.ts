@@ -36,9 +36,12 @@ function add(level: Level, code: string, location: string, message: string) {
  * 否則 app-unrouted 會直接 fail——這樣「孤兒 app」就不可能再默默存在。
  */
 const UNROUTED_APPS: Record<string, string> = {
-  // ChinaHistoryApp 已在 2026-11-01 刪除：它沒掛路由、各時代已有自己的專題包，
-  // 而且正是「成語面板掛在永遠不會出現的 app 上」那個 bug 的來源（見 HANDOVER §1P）。
-  // 它的通史時間軸與人物留檔在 docs/reference/，要沿用再搬回 src。
+  // ChinaHistoryApp：沒掛路由、17 個中國時代槽各有專題包，而且正是「成語面板掛在
+  // 永遠不會出現的 app 上」那個 bug 的來源（HANDOVER §1P）。
+  // 更正（2026-11-08）：本檔原寫「已在 2026-11-01 刪除」，實屬文件漂移——該檔其實一直在
+  // 樹內（git log 只有一個新增提交 ae9ead9，無刪除記錄），且 #31 曾往其 data 追加 110 行
+  // 使用者永遠看不到的 timeline/people。現已真正移除，通史時間軸與人物留檔
+  // docs/reference/chinaHistory/，要沿用再搬回 src。
   // 新的孤兒 app 一律 fail——要留檔就在這裡寫理由。
   JapanHistoryApp:
     '明治至當代已改由 MODERN_JAPAN_PACK 戰區圖承接（src/modernJapan/ModernJapanApp.tsx），' +
