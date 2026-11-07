@@ -186,7 +186,7 @@ const DETAILS: Record<string, EraDetail> = {
       { name: '最上德內', role: '其後受松前藩委托探查樺太（事件後的北方對策）' },
     ],
     brief: '北海道北方第二次大規模衝突，把幕府推向直辖蝦夷的討論。',
-    zhwikiUrl: WIKI_JA('メナシ・クナシルの戦い'),
+    zhwikiUrl: WIKI_JA('メナシ・クナシルの戰い'),
   },
 }
 const READINGS: Record<string, EraReading> = {
@@ -278,7 +278,7 @@ export const EDO_PACK: JapanDeepDivePack = {
   factions: [
     { id: F.bakufu, name: F.bakufu, color: '#2a4a5a', activeFrom: 1603, activeTo: 1868, source: '日本近世史通說' },
     { id: F.han, name: F.han, color: '#6a5a4a', activeFrom: 1603, activeTo: 1868, source: '日本近世史通說' },
-    { id: F.matsumae, name: F.matsumae, color: '#8a6a4a', activeFrom: 1604, activeTo: 1868, source: '松前黑印記載（《徳川実紀》系）' },
+    { id: F.matsumae, name: F.matsumae, color: '#8a6a4a', activeFrom: 1604, activeTo: 1868, source: '松前黑印記載（《徳川實紀》系）' },
     { id: F.ainu, name: F.ainu, color: '#5a6a5a', activeFrom: 1603, activeTo: 1868, source: '日本近世史通說；阿伊努自有領域' },
     { id: F.ryukyu, name: F.ryukyu, color: '#4a7a6a', activeFrom: 1603, activeTo: 1868, source: '琉球王國通說；1609年後為薩摩附庸' },
   ],
@@ -319,7 +319,7 @@ export const EDO_PACK: JapanDeepDivePack = {
       factions: ['幕府直轄', '諸藩'],
       location: '江戶',
       type: 'politics',
-      source: '《徳川実紀》；日本近世史通說',
+      source: '《徳川實紀》；日本近世史通說',
     },
     {
       id: 'edo-1604-matsumae',
@@ -350,7 +350,7 @@ export const EDO_PACK: JapanDeepDivePack = {
       factions: ['幕府直轄', '諸藩'],
       location: '大坂',
       type: 'war',
-      source: '《徳川実紀》；日本近世史通說',
+      source: '《徳川實紀》；日本近世史通說',
     },
     {
       id: 'edo-1635-sankin',
@@ -406,7 +406,7 @@ export const EDO_PACK: JapanDeepDivePack = {
       type: 'war',
       source: '日本近世史通說；松前藩側史料《新羅東志》等',
       disputed: true,
-      note: '戰場位置、參戰コタン範圍與死者數均有爭議；阿伊努側無自己的文字記録。',
+      note: '戰場位置、參戰コタン範圍與死者數均有爭議；阿伊努側無自己的文字記錄。',
     },
     {
       id: 'edo-1716-yoshimune',
@@ -458,7 +458,7 @@ export const EDO_PACK: JapanDeepDivePack = {
       factions: ['幕府直轄'],
       location: '浦賀・江戶灣',
       type: 'politics',
-      source: '日本近代史通說（培理遠征記録）',
+      source: '日本近代史通說（培理遠征記錄）',
     },
     {
       id: 'edo-1858-treaty',
@@ -490,7 +490,7 @@ export const EDO_PACK: JapanDeepDivePack = {
       faction: '幕府直轄',
       role: '開府將軍',
       summary: '關原之後掌握關東與全國秩序，1603年開府。晚年退居駿府仍掌決策（大御台）。',
-      source: '《徳川実紀》；日本近世史通說',
+      source: '《徳川實紀》；日本近世史通說',
     },
     {
       id: 'ed-p-iemitsu',
@@ -538,7 +538,7 @@ export const EDO_PACK: JapanDeepDivePack = {
       death: 1672,
       faction: '蝦夷（阿伊努）',
       role: 'コタン連合領袖（1669年）',
-      summary: '松前藩貿易與場所糾紛中整合道東各コタン抗爭；1671年和談後被殺。其名與事跡出松前藩側記録。',
+      summary: '松前藩貿易與場所糾紛中整合道東各コタン抗爭；1671年和談後被殺。其名與事跡出松前藩側記錄。',
       source: '《新羅東志》等松前藩史料；日本近世史通說',
       disputed: true,
       note: '本名、出身コタン與戰役細節在阿伊努口傳與藩側記錄中不一致。',
@@ -555,7 +555,7 @@ export const EDO_PACK: JapanDeepDivePack = {
     },
     {
       id: 'ed-p-mamiya',
-      name: '間宮林蔵',
+      name: '間宮林藏',
       birth: 1780,
       death: 1850,
       faction: '幕府直轄',
@@ -580,7 +580,7 @@ export const EDO_PACK: JapanDeepDivePack = {
       economy: fact('藩領年貢＋領內特產與馬市、港灣收入；大阪市場與諸藩藏屋敷是核心。', '日本近世史通說'),
     }),
     '松前藩': profile({
-      population: fact('渡島南部與人地口數見於藩政記録，數字有出入。', '松前藩政記録；日本近世史通說', true),
+      population: fact('渡島南部與人地口數見於藩政記錄，數字有出入。', '松前藩政記錄；日本近世史通說', true),
       military: fact('動員規模有限；對蝦夷用場所番屋與鐵砲，兵力不大。', '日本近世史通說', true),
       grain: fact('渡島南部產量有限，藩庫主要靠對阿伊努貿易與海產。', '日本近世史通說'),
       politics: fact('1604年賜黑印，專營對蝦夷貿易；1669、1789年兩度出現大規模衝突。', '日本近世史通說'),
@@ -594,7 +594,7 @@ export const EDO_PACK: JapanDeepDivePack = {
       economy: fact('對松前藩的交易場納物交換米、鐵、酒；利益分配是衝突主因。', '日本近世史通說'),
     }),
     '琉球國': profile({
-      population: fact('王國戶口見於中國與琉球側記録，數字各家不一。', '琉球王國史通說', true),
+      population: fact('王國戶口見於中國與琉球側記錄，數字各家不一。', '琉球王國史通說', true),
       military: fact('1609年對薩摩戰敗後不另建大軍；防衛由薩摩影子承擔。', '琉球王國史通說', true),
       grain: fact('沖繩本島與離島的石高統計以王府帳簿為準，口徑不一。', '琉球王國史通說', true),
       politics: fact('尚氏王統，首里王府；1609年後一面事薩摩、一面受明清冊封（雙屬）。', '琉球王國史通說'),
@@ -602,10 +602,10 @@ export const EDO_PACK: JapanDeepDivePack = {
     }),
   },
   leadersByYear: {
-    1603: [{ faction: '幕府直轄', name: '德川家康', role: '征夷大將軍', source: '《徳川実紀》' }],
+    1603: [{ faction: '幕府直轄', name: '德川家康', role: '征夷大將軍', source: '《徳川實紀》' }],
     1615: [
-      { faction: '幕府直轄', name: '德川秀忠', role: '第二代將軍', source: '《徳川実紀》' },
-      { faction: '幕府直轄', name: '德川家康', role: '大御台（駿府）', source: '《徳川実紀》' },
+      { faction: '幕府直轄', name: '德川秀忠', role: '第二代將軍', source: '《徳川實紀》' },
+      { faction: '幕府直轄', name: '德川家康', role: '大御台（駿府）', source: '《徳川實紀》' },
     ],
     1635: [{ faction: '幕府直轄', name: '德川家光', role: '第三代將軍', source: '日本近世史通說' }],
     1669: [

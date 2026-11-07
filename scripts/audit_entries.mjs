@@ -119,7 +119,7 @@ const JP = [ ['kofunPack','古墳'],['asukaPack','飛鳥'],['naraPack','奈良']
 /** pack 檔嘅事件陣列同詳情／語譯 map 可能用唔同嘅寫法，一次過攪埋。 */
 const packEv = (f) => [[`src/japanEras/packs/${f}.ts`,'events: ['],[`src/japanEras/packs/${f}.ts`,'const events']]
 const packDet = (f) => [[`src/japanEras/packs/${f}.ts`,'const DETAILS'],[`src/japanEras/packs/${f}.ts`,'Object.assign(DETAILS'],[`src/japanEras/packs/${f}.ts`,'details: {'],[`src/japanEras/packs/${f}.ts`,'DETAILS: {']]
-const packRea = (f) => [[`src/japanEras/packs/${f}.ts`,'const READINGS'],[`src/japanEras/packs/${f}.ts`,'readings: {'],[`src/japanEras/packs/${f}.ts`,'READINGS: {']]
+const packRea = (f) => [[`src/japanEras/packs/${f}.ts`,'const READINGS'],[`src/japanEras/packs/${f}.ts`,'Object.assign(READINGS'],[`src/japanEras/packs/${f}.ts`,'readings: {'],[`src/japanEras/packs/${f}.ts`,'READINGS: {']]
 const IMP = [ ['jinPack','晉'],['nanbeiPack','十六國南北朝'],['suiPack','隋'],['tangPack','唐'],
   ['wudaiPack','五代十國'],['liaosongPack','遼宋'],['yuanMingQingPack','元明清'],
   ['minguoPack','民國・內戰',1],['prcPack','共和國',1] ]
@@ -149,6 +149,19 @@ ERAS[2].rea = [['src/data/readingLayers.ts', 'READING_LAYERS']]
 ERAS[4].det = [['src/sengoku/data/timelineDetails.ts', 'SENGOKU_TIMELINE_DETAILS']]
 ERAS[4].rea = [['src/sengoku/data/readingLayers.ts', 'SENGOKU_READING']]
 
+const escRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+/** 由指定位置搵紧随嘅陣列／map 開括號（findContainer 嘅 index 版）。 */
+function containerNear(src, pos) {
+  const eq = src.indexOf('=', pos)
+  const from = eq >= 0 && eq - pos < 160 ? eq : pos
+  const a = src.indexOf('[', from)
+  const o = src.indexOf('{', from)
+  if (a < 0 && o < 0) return null
+  if (o < 0 || (a >= 0 && a < o)) return { idx: a }
+  return { idx: o }
+}
+
 function collect(spec) {
   const byId = new Map()
   const slot = (id) => {
@@ -162,7 +175,9 @@ function collect(spec) {
       const starts = marker === 'export const'
         ? [...src.matchAll(/export const\s+[A-Za-z0-9_]+\s*(?::[^=]*)?=\s*([[{])/g)]
             .map((m) => ({ idx: m.index + m[0].length - 1 }))
-        : [findContainer(src, marker)].filter(Boolean)
+        : [...src.matchAll(new RegExp(escRe(marker), 'g'))]
+            .map((m) => containerNear(src, m.index))
+            .filter(Boolean)
       for (const { idx, isMap } of starts) {
         for (const b of blocksFrom(src, idx, isMap)) {
           const id = idOf(b)
