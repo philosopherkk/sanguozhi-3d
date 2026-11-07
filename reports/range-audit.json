@@ -1,13 +1,7 @@
 {
-  "generatedAt": "2026-11-07T16:46:19.047Z",
+  "generatedAt": "2026-11-07T17:48:18.998Z",
   "snapshotCount": 89,
   "issues": [
-    {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "jin[3] 316「西晉亡」",
-      "message": "與 311 年快照幾何完全相同，卻沒有標 geometryFrom: 311（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
-    },
     {
       "level": "info",
       "code": "coverage",
@@ -35,20 +29,38 @@
     {
       "level": "warn",
       "code": "note-thin",
-      "location": "sui[0] 581「楊堅代周」",
-      "message": "note 少於 40 字，未能交代範圍與出處的限度（37 字）"
-    },
-    {
-      "level": "warn",
-      "code": "note-thin",
       "location": "sui[1] 589「滅陳一統」",
       "message": "note 少於 40 字，未能交代範圍與出處的限度（38 字）"
+    },
+    {
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "sui[0] 581「楊堅代周」 · 隋",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
+    },
+    {
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "sui[1] 589「滅陳一統」 · 隋",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
     },
     {
       "level": "info",
       "code": "coverage",
       "location": "sui（581–618）",
       "message": "3 張快照蓋 38 年，另外 35 年要靠沿用"
+    },
+    {
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "tang[1] 660「天可汗」 · 唐",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
+    },
+    {
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "tang[2] 701「極盛之後」 · 唐",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
     },
     {
       "level": "info",
@@ -75,10 +87,22 @@
       "message": "1004 年尚未有「西夏」這個政權號（最早 1038 年）"
     },
     {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "liaosong[3] 1141「紹興和議後」",
-      "message": "與 1127 年快照幾何完全相同，卻沒有標 geometryFrom: 1127（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "liaosong[1] 1004「澶淵前後」 · 宋",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
+    },
+    {
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "liaosong[3] 1141「紹興和議後」 · 宋",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
+    },
+    {
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "liaosong[4] 1279「崖山」 · 蒙古",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
     },
     {
       "level": "info",
@@ -99,34 +123,64 @@
       "message": "source 未含《書名》：清史通說"
     },
     {
-      "level": "warn",
-      "code": "source-format",
-      "location": "yuanmingqing[7] 1860「第二次鴉片戰爭後」",
-      "message": "source 未含《書名》：近代史通說"
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "yuanmingqing[0] 1271「元朝」 · 元",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
     },
     {
-      "level": "warn",
-      "code": "source-format",
-      "location": "yuanmingqing[8] 1911「辛亥革命」",
-      "message": "source 未含《書名》：近代史通說"
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "yuanmingqing[0] 1271「元朝」 · 宋",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
     },
     {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "yuanmingqing[6] 1750「清盛」",
-      "message": "與 1668 年快照幾何完全相同，卻沒有標 geometryFrom: 1668（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "yuanmingqing[1] 1279「元朝最大」 · 元",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
     },
     {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "yuanmingqing[7] 1860「第二次鴉片戰爭後」",
-      "message": "與 1750 年快照幾何完全相同，卻沒有標 geometryFrom: 1750（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "yuanmingqing[2] 1368「明朝」 · 明",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
     },
     {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "yuanmingqing[8] 1911「辛亥革命」",
-      "message": "與 1860 年快照幾何完全相同，卻沒有標 geometryFrom: 1860（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "yuanmingqing[2] 1368「明朝」 · 元",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
+    },
+    {
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "yuanmingqing[3] 1420「永樂盛時」 · 明",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
+    },
+    {
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "yuanmingqing[4] 1644「甲申」 · 清",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
+    },
+    {
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "yuanmingqing[4] 1644「甲申」 · 明",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
+    },
+    {
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "yuanmingqing[5] 1668「三藩未反」 · 清",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
+    },
+    {
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "yuanmingqing[6] 1750「清盛」 · 清",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
     },
     {
       "level": "info",
@@ -155,18 +209,6 @@
     {
       "level": "warn",
       "code": "source-format",
-      "location": "prc[0] 1949「成立」",
-      "message": "source 未含《書名》：當代史通說"
-    },
-    {
-      "level": "warn",
-      "code": "source-format",
-      "location": "prc[1] 1951「西藏與海南」",
-      "message": "source 未含《書名》：當代史通說"
-    },
-    {
-      "level": "warn",
-      "code": "source-format",
       "location": "prc[2] 1962「中印邊境戰爭」",
       "message": "source 未含《書名》：當代史通說"
     },
@@ -180,12 +222,6 @@
       "level": "warn",
       "code": "source-format",
       "location": "prc[4] 1979「中越戰爭」",
-      "message": "source 未含《書名》：當代史通說"
-    },
-    {
-      "level": "warn",
-      "code": "source-format",
-      "location": "prc[5] 1997「香港回歸」",
       "message": "source 未含《書名》：當代史通說"
     },
     {
@@ -195,40 +231,46 @@
       "message": "source 未含《書名》：時間線下界"
     },
     {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "prc[1] 1951「西藏與海南」",
-      "message": "與 1949 年快照幾何完全相同，卻沒有標 geometryFrom: 1949（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "prc[0] 1949「成立」 · 中華人民共和國",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
     },
     {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "prc[2] 1962「中印邊境戰爭」",
-      "message": "與 1951 年快照幾何完全相同，卻沒有標 geometryFrom: 1951（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "prc[1] 1951「西藏與海南」 · 中華人民共和國",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
     },
     {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "prc[3] 1978「改革開放起點」",
-      "message": "與 1962 年快照幾何完全相同，卻沒有標 geometryFrom: 1962（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "prc[2] 1962「中印邊境戰爭」 · 中華人民共和國",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
     },
     {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "prc[4] 1979「中越戰爭」",
-      "message": "與 1978 年快照幾何完全相同，卻沒有標 geometryFrom: 1978（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "prc[3] 1978「改革開放起點」 · 中華人民共和國",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
     },
     {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "prc[5] 1997「香港回歸」",
-      "message": "與 1979 年快照幾何完全相同，卻沒有標 geometryFrom: 1979（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "prc[4] 1979「中越戰爭」 · 中華人民共和國",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
     },
     {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "prc[6] 2026「當代」",
-      "message": "與 1997 年快照幾何完全相同，卻沒有標 geometryFrom: 1997（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "prc[5] 1997「香港回歸」 · 中華人民共和國",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
+    },
+    {
+      "level": "info",
+      "code": "monolith-realm-qualified",
+      "location": "prc[6] 2026「當代」 · 中華人民共和國",
+      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
     },
     {
       "level": "info",
@@ -269,12 +311,6 @@
     {
       "level": "warn",
       "code": "note-thin",
-      "location": "zhou[12] -260「長平」",
-      "message": "note 少於 40 字，未能交代範圍與出處的限度（34 字）"
-    },
-    {
-      "level": "warn",
-      "code": "note-thin",
       "location": "zhou[13] -249「秦滅東周」",
       "message": "note 少於 40 字，未能交代範圍與出處的限度（33 字）"
     },
@@ -285,36 +321,6 @@
       "message": "note 少於 40 字，未能交代範圍與出處的限度（36 字）"
     },
     {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "zhou[8] -333「楚取故吳」",
-      "message": "與 -386 年快照幾何完全相同，卻沒有標 geometryFrom: -386（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
-    },
-    {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "zhou[9] -316「秦滅巴蜀」",
-      "message": "與 -333 年快照幾何完全相同，卻沒有標 geometryFrom: -333（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
-    },
-    {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "zhou[10] -312「秦取漢中」",
-      "message": "與 -316 年快照幾何完全相同，卻沒有標 geometryFrom: -316（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
-    },
-    {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "zhou[11] -278「拔郢」",
-      "message": "與 -312 年快照幾何完全相同，卻沒有標 geometryFrom: -312（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
-    },
-    {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "zhou[12] -260「長平」",
-      "message": "與 -278 年快照幾何完全相同，卻沒有標 geometryFrom: -278（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
-    },
-    {
       "level": "info",
       "code": "coverage",
       "location": "zhou（-2070–-221）",
@@ -323,32 +329,8 @@
     {
       "level": "warn",
       "code": "note-thin",
-      "location": "qinhan[3] -202「西漢初」",
-      "message": "note 少於 40 字，未能交代範圍與出處的限度（36 字）"
-    },
-    {
-      "level": "warn",
-      "code": "note-thin",
       "location": "qinhan[5] 9「新莽」",
       "message": "note 少於 40 字，未能交代範圍與出處的限度（36 字）"
-    },
-    {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "qinhan[1] -214「略取嶺南」",
-      "message": "與 -221 年快照幾何完全相同，卻沒有標 geometryFrom: -221（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
-    },
-    {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "qinhan[4] -111「西漢盛時」",
-      "message": "與 -202 年快照幾何完全相同，卻沒有標 geometryFrom: -202（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
-    },
-    {
-      "level": "fail",
-      "code": "geometry-reuse-undeclared",
-      "location": "qinhan[7] 36「東漢定隴蜀」",
-      "message": "與 25 年快照幾何完全相同，卻沒有標 geometryFrom: 25（或更早、幾何相同的一年）；要縮小範圍，或註明沿用"
     },
     {
       "level": "info",
@@ -529,18 +511,6 @@
       "code": "source-generic",
       "location": "yuanmingqing 快照 1750",
       "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：清史通說"
-    },
-    {
-      "level": "warn",
-      "code": "source-generic",
-      "location": "yuanmingqing 快照 1860",
-      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
-    },
-    {
-      "level": "warn",
-      "code": "source-generic",
-      "location": "yuanmingqing 快照 1911",
-      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：近代史通說"
     },
     {
       "level": "warn",
@@ -1133,18 +1103,6 @@
     {
       "level": "warn",
       "code": "source-generic",
-      "location": "prc 快照 1949",
-      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：當代史通說"
-    },
-    {
-      "level": "warn",
-      "code": "source-generic",
-      "location": "prc 快照 1951",
-      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：當代史通說"
-    },
-    {
-      "level": "warn",
-      "code": "source-generic",
       "location": "prc 快照 1962",
       "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：當代史通說"
     },
@@ -1158,12 +1116,6 @@
       "level": "warn",
       "code": "source-generic",
       "location": "prc 快照 1979",
-      "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：當代史通說"
-    },
-    {
-      "level": "warn",
-      "code": "source-generic",
-      "location": "prc 快照 1997",
       "message": "出處只寫通說，未點名書名、條約名、制書名或檔案名：當代史通說"
     },
     {
@@ -1620,7 +1572,7 @@
       "level": "info",
       "code": "source-naming",
       "location": "imperial（11 包）＋japanEras（6 包）",
-      "message": "322 條出處點名了書名／條約名／制書名／檔案名；未點名 182 條"
+      "message": "327 條出處點名了書名／條約名／制書名／檔案名；未點名 177 條"
     },
     {
       "level": "info",
@@ -1656,7 +1608,7 @@
       "level": "info",
       "code": "ring-provenance",
       "location": "疆域幾何出處登記",
-      "message": "被引用的環 38 條：以現代／民國行政界代替當時政區 37 條、依文獻地望手繪 1 條、朝代大勢框 0 條、圖幅矢量化 0 條、GIS 匯入 0 條。目標是把 proxy 逐條換成 plate-traced／gis-import（見 src/data/territory/README.md）"
+      "message": "被引用的環 98 條：以現代／民國行政界代替當時政區 46 條、依文獻地望手繪 24 條、朝代大勢框 28 條、圖幅矢量化 0 條、GIS 匯入 0 條。目標是把 proxy 逐條換成 plate-traced／gis-import（見 src/data/territory/README.md）"
     }
   ],
   "coverage": [
@@ -1856,7 +1808,9 @@
         {
           "year": 1127,
           "label": "靖康之變",
-          "source": "《宋史·欽宗紀》"
+          "source": "《宋史·欽宗紀》",
+          "geometryFrom": 1141,
+          "disputed": true
         },
         {
           "year": 1141,
@@ -1916,12 +1870,15 @@
         {
           "year": 1860,
           "label": "第二次鴉片戰爭後",
-          "source": "近代史通說"
+          "source": "《中俄璦琿條約》（1858年）、《中俄北京條約》（1860年11月14日簽訂）、《中英北京條約》（1860年10月24日簽訂）；近代史通說",
+          "geometryFrom": 1750,
+          "disputed": true
         },
         {
           "year": 1911,
           "label": "辛亥革命",
-          "source": "近代史通說"
+          "source": "《清史稿·宣統帝紀》；近代史通說",
+          "disputed": true
         }
       ]
     },
@@ -2070,37 +2027,42 @@
         {
           "year": 1949,
           "label": "成立",
-          "source": "當代史通說"
+          "source": "《中國人民政治協商會議共同綱領》（1949年9月29日通過）；當代史通說"
         },
         {
           "year": 1951,
           "label": "西藏與海南",
-          "source": "當代史通說"
+          "source": "《中央人民政府和西藏地方政府關於和平解放西藏辦法的協議》（1951年5月23日簽訂）；當代史通說"
         },
         {
           "year": 1962,
           "label": "中印邊境戰爭",
-          "source": "當代史通說"
+          "source": "當代史通說",
+          "geometryFrom": 1951
         },
         {
           "year": 1978,
           "label": "改革開放起點",
-          "source": "當代史通說"
+          "source": "當代史通說",
+          "geometryFrom": 1951
         },
         {
           "year": 1979,
           "label": "中越戰爭",
-          "source": "當代史通說"
+          "source": "當代史通說",
+          "geometryFrom": 1951
         },
         {
           "year": 1997,
           "label": "香港回歸",
-          "source": "當代史通說"
+          "source": "《中英聯合聲明》（1984年12月19日簽署）；當代史通說",
+          "geometryFrom": 1951
         },
         {
           "year": 2026,
           "label": "當代",
-          "source": "時間線下界"
+          "source": "時間線下界",
+          "geometryFrom": 1951
         }
       ]
     },
@@ -2186,6 +2148,7 @@
           "year": -260,
           "label": "長平",
           "source": "《史記·白起王翦列傳》《趙世家》；《資治通鑑》卷五",
+          "geometryFrom": -278,
           "disputed": true
         },
         {
