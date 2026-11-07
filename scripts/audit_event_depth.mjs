@@ -116,6 +116,41 @@ for (const key of KEYS) {
     below: list.filter((r) => !r.ok).length,
   }
 }
+
+/**
+ * 三層意譯（小學生／中學生／大學生）。使用者明確要求三層都要有內容，
+ * 而舊閘門只量起因／經過／結果，所以「小學生層完全未寫」呢類缺口一直不可見。
+ * 門檻屬初版政策：腳本同時報每層筆數與中位，覆核後可調。
+ */
+const LAYERS = {
+  elementary: { label: '小學生', min: 60 },
+  secondary: { label: '中學生', min: 120 },
+  university: { label: '大學生', min: 300 },
+}
+const layerStats = {}
+for (const [key, cfg] of Object.entries(LAYERS)) {
+  const lens = []
+  for (const file of walk(join(ROOT, ONLY), [])) {
+    const text = readFileSync(file, 'utf8')
+    for (const m of text.matchAll(new RegExp(`(?:^|[{,\\s])${key}\\s*:\\s*`, 'g'))) {
+      const lit = readLiteral(text, m.index + m[0].length)
+      if (!lit) continue
+      lens.push(lit.value.replace(/\s+/g, '').length)
+    }
+  }
+  lens.sort((a, b) => a - b)
+  layerStats[key] = {
+    label: cfg.label,
+    min: cfg.min,
+    entries: lens.length,
+    median: lens.length ? lens[Math.floor(lens.length / 2)] : 0,
+    below: lens.filter((n) => n < cfg.min).length,
+  }
+}
+const layerMissing = {
+  小學生: layerStats.university.entries - layerStats.elementary.entries,
+  中學生: layerStats.university.entries - layerStats.secondary.entries,
+}
 const gaps = rows.filter((r) => !r.ok)
 const empty = rows.filter((r) => r.chars === 0)
 
@@ -142,6 +177,8 @@ if (has('--json')) {
         emptySegments: empty.length,
         byField,
         byModule,
+        readingLayers: layerStats,
+        readingLayerMissing: layerMissing,
       },
       null,
       2,
@@ -179,6 +216,18 @@ if (has('--json')) {
     L.push(`| ${LABEL[r.field]} | ${r.chars} | \`${r.file}\` | ${r.id} | ${r.line} |`)
   }
   L.push('')
+  L.push('## 三層意譯（小學生／中學生／大學生）')
+  L.push('')
+  L.push('| 層 | 筆數 | 中位字數 | 門檻 | 未達標 |')
+  L.push('|---|---|---|---|---|')
+  for (const cfg of Object.values(layerStats)) {
+    L.push(`| ${cfg.label} | ${cfg.entries} | ${cfg.median} | ≥${cfg.min} | ${cfg.below} |`)
+  }
+  L.push('')
+  L.push(
+    `以大學層筆數（${layerStats.university.entries}）為基準：**完全缺小學生層 ${layerMissing.小學生} 個**、缺中學生層 ${layerMissing.中學生} 個。`,
+  )
+  L.push('')
   L.push('## 「大學生程度」的實質要求（不是湊字數）')
   L.push('')
   L.push('- 起因分兩層：結構性原因（制度、財政、正統性、地緣等慢變數）＋直接觸發（哪一件事令它在此年發生）。')
@@ -190,7 +239,7 @@ if (has('--json')) {
   mkdirSync(join(ROOT, 'reports'), { recursive: true })
   writeFileSync(join(ROOT, 'reports/event-depth.md'), L.join('\n'), 'utf8')
   console.log(
-    `audit:event-depth — 段落 ${rows.length}／缺口 ${gaps.length}（起因 ${byField.causes.below}／經過 ${byField.course.below}／結果 ${byField.outcome.below}）→ reports/event-depth.md`,
+    `audit:event-depth — 段落 ${rows.length}／缺口 ${gaps.length}（起因 ${byField.causes.below}／經過 ${byField.course.below}／結果 ${byField.outcome.below}）｜三層意譯：小學生 ${layerStats.elementary.entries}・中學生 ${layerStats.secondary.entries}・大學 ${layerStats.university.entries}（缺小學生層 ${layerMissing.小學生}）→ reports/event-depth.md`,
   )
 }
 
