@@ -206,6 +206,17 @@ function evaluate(e, mode) {
   return miss
 }
 
+/** zh-Hant 規則閘：只放「只有簡體先會咁寫」嘅字，避開正字（后、里、于、台、乾 等）。 */
+const HAN_SRC = '爱坝摆败颁办绊帮绑谤宝报备笔毕币闭边变标宾拨补参仓测层产长厂场彻尘陈称惩迟冲处触传辞从错达带担单当导灯敌递点电调叠订丢东动独断对队发飞坟纷丰凤辐该盖纲钢个给宫沟构购顾挂关观规柜归国过汉韩号贺会获击积级极计记继夹价艰检舰将奖觉绝军开凯编来蓝览滥捞乐类离礼连联练凉两疗辽邻临领刘龙楼录陆虑绿马码买卖满没麦谬儿纳脑拟欧盘庞贫凭扑齐签迁谦墙窍亲钦穷趋权劝确让绕热认绒软赛扫杀闪伤舍设审胜师时实势视适饰术树数帅双税顺说肃虽随岁损缩态摊贪坛叹誉条铁听厅统头图团湾网卫温闻纹问无吴习袭牺戏峡宪县乡详写谢兴须叙学压严颜盐阳养样药爷页义艺忆议阴银饮隐应犹鱼与语员园远愿约悦运载凿贼赠战张赵贞针郑证质摄钟终种众诸烛猪筑转庄装资渍踪总组广么见营础赖据预农户间异弃彦侧讨谋宽独'
+const HAN_RE = new RegExp('[' + [...new Set(HAN_SRC)].join('') + ']', 'g')
+
+function simplifiedHits(text) {
+  const clean = text.split('\n').filter((l) => !/^\s*quote:/.test(l)).join('\n')
+  const seen = new Set()
+  for (const m of clean.matchAll(HAN_RE)) seen.add(m[0])
+  return [...seen]
+}
+
 const rows = ERAS.map((spec) => {
   const entries = collect(spec)
   const mode = spec.mode ?? 'classical'
@@ -239,6 +250,19 @@ for (const r of rows) {
     `${cnt(e,'causes')} | ${cnt(e,'course')} | ${cnt(e,'figures')} | ${cnt(e,'outcome')} | ` +
     `${cnt(e,'wiki')} | **${full}/${e.length}** |`)
 }
+L.push('', '## 正體中文檢查（AGENTS.md：唔准簡體）')
+let hanTotal = 0
+for (const r of rows) {
+  const bad = r.entries
+    .map((x) => ({ id: x.id, hit: simplifiedHits(x.ev + x.det + x.rea) }))
+    .filter((x) => x.hit.length)
+  if (!bad.length) continue
+  hanTotal += bad.length
+  L.push('', `### ${r.spec.era}（${bad.length} 條含簡體）`)
+  for (const x of bad.slice(0, 8)) L.push(`- \`${x.id}\`：${x.hit.join('')}`)
+  if (bad.length > 8) L.push(`- …另有 ${bad.length - 8} 條`)
+}
+if (!hanTotal) L.push('', '全部條目無簡體殘留（`quote:` 逐字原文行不計在內）。')
 L.push('', '## 逐條缺項（每時代最多 12 條）')
 for (const r of rows) {
   const bad = r.entries.filter((x) => x.miss.length)
