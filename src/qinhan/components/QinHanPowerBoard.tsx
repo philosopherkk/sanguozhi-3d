@@ -110,7 +110,7 @@ export function QinHanPowerBoard() {
           )
         })}
       </ol>
-      <p className="power-board__note">面積按本時代的示意塊，不是三國州界，也不是郡界。</p>
+      <p className="power-board__note">面積按本時代的示意塊，不是三國州界，也不是郡界。百分比為示意面積占比，非戶籍。</p>
     </aside>
   )
 }

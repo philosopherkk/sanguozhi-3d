@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# 站內內容全部由用戶點擊逐年展開；呢度列出各个時代嘅入口。
+Sitemap: https://historyfirst.vercel.app/sitemap.xml

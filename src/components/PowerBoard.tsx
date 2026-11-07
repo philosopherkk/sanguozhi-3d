@@ -44,10 +44,60 @@ export function PowerBoard({ embedded = false }: { embedded?: boolean }) {
         </button>
       ) : null}
 
-      <ol className="power-board__list">
-        {rows.map((row, i) => {
-          const active = selectedFaction === row.faction
-          return (
+      {expanded ? (
+        <>
+          <ol className="power-board__list">
+            {rows.map((row, i) => {
+              const active = selectedFaction === row.faction
+              return (
+                <li key={row.faction}>
+                  <button
+                    type="button"
+                    className={
+                      active
+                        ? 'power-board__row power-board__row--btn is-active'
+                        : 'power-board__row power-board__row--btn'
+                    }
+                    onClick={() => selectFaction(row.faction)}
+                    aria-pressed={active}
+                  >
+                    <div className="power-board__label">
+                      <span
+                        className="power-board__swatch"
+                        style={{ background: factionColor(row.faction) }}
+                        aria-hidden
+                      />
+                      <span className="power-board__name">
+                        {i + 1}. {factionName(row.faction)}
+                      </span>
+                      <span className="power-board__nums">
+                        {row.percent.toFixed(0)}% · {row.provinceCount} 州
+                      </span>
+                    </div>
+                    <div className="power-board__track">
+                      <div
+                        className="power-board__bar"
+                        style={{
+                          width: `${(row.percent / maxPercent) * 100}%`,
+                          background: factionColor(row.faction),
+                        }}
+                      />
+                    </div>
+                    <p className="power-board__provinces">
+                      {row.provinces.join('、')}
+                    </p>
+                  </button>
+                </li>
+              )
+            })}
+          </ol>
+          <p className="power-board__note">
+            點色塊或勢力列可看該年人口、戰力、糧食與境內政治、經濟。百分比為色塊的示意面積占比，不是戶籍、稅賦或兵力；州數只表示色塊。黃巾為起事區示意；劉備集團自得益州起標「蜀漢」。
+          </p>
+        </>
+      ) : (
+        <ul className="power-board__mini">
+          {rows.slice(0, 4).map((row) => (
             <li key={row.faction}>
               <button
                 type="button"

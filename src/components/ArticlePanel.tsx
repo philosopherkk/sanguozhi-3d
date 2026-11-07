@@ -172,7 +172,7 @@ export function ArticlePanel() {
           <div className="article-panel__links">
             {grokUrl ? (
               <a href={grokUrl} target="_blank" rel="noreferrer">
-                開啟 Grok 百科
+                開啟 Grokipedia（未審，非正史）
               </a>
             ) : null}
             <a href={wikiUrl} target="_blank" rel="noreferrer">

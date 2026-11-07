@@ -210,7 +210,7 @@ export function PeoplePanel({ compact = false }: { compact?: boolean }) {
                 </a>
                 {p.grokipedia_url ? (
                   <a href={p.grokipedia_url} target="_blank" rel="noreferrer">
-                    Grok 百科
+                    Grokipedia（未審）
                   </a>
                 ) : null}
               </div>
