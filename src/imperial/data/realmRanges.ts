@@ -287,7 +287,25 @@ export const QING_1668: FactionRange[] = [cover('清', 'realm_qing_1668')]
 export const QING_1750: FactionRange[] = [cover('清', 'realm_qing_high')]
 
 export const QING_1860: FactionRange[] = QING_1750
-export const QING_1911: FactionRange[] = QING_1750
+
+/**
+ * 1911 年（辛亥）的清：盛時大環減去外蒙古。
+ * 1911年12月29日外蒙古在庫倫宣布博克多格根政府、脫離清廷，故漠北不塗清；
+ * 內蒙古各盟此時未響應，仍留色塊。西藏色塊保留但屬爭議（駐藏大臣與清軍
+ * 在1912年2月被拘禁送印）。這裡不另立 realm_* 大環，改用已登記的省級環
+ * 組合：一方面少掉的是哪一塊一目了然，另一方面不必新增環編號。
+ */
+const QING_1911_IDS: string[] = [
+  'hebei', 'shanxi', 'shandong', 'henan', 'shaanxi', 'hubei', 'hunan',
+  'jiangxi', 'anhui', 'jiangsu', 'zhejiang', 'fujian', 'guangdong',
+  'guangxi', 'hainan', 'sichuan', 'hanzhong', 'gansu', 'ningxia',
+  'yunnan', 'guizhou', 'qinghai',
+  'hlj', 'jl', 'ln',
+  'rehe', 'chahar', 'suiyuan', 'neimeng_w',
+  'xinjiang', 'tibet', 'taiwan',
+]
+
+export const QING_1911: FactionRange[] = [cover('清', ...QING_1911_IDS)]
 
 export const MINGUO_1912: FactionRange[] = [
   cover('北洋', 'hebei', 'shandong', 'henan', 'jiangsu', 'anhui', 'hubei', ...MANCHURIA, 'rehe'),
