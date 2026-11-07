@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { AppSideRail } from '../components/AppSideRail'
 import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraBar } from '../components/EraBar'
+import { layoutTicks } from '../lib/tickCollisions'
 import { ReadingControls } from '../components/ReadingControls'
 import { TopicSwitcher } from '../components/TopicSwitcher'
 import type { JapanDeepDivePack } from './deepDiveTypes'
@@ -64,25 +65,47 @@ function DeepDiveHeader({ pack }: { pack: JapanDeepDivePack }) {
  */
 function DeepDiveYearScrubber({ pack }: { pack: JapanDeepDivePack }) {
   const { year, setYear, yearMin, yearMax } = useDeepDiveYear()
+  // 與其他時代一致：刻度以絕對定位分佈喺整條滑桿上（之前係一般 <li> 列表，
+  // 全部疊喺左邊，令安土桃山、江戶嘅年代軸睇落好短）。
+  const laid = layoutTicks(pack.ticks, yearMin, yearMax, year)
   return (
-    <div className="year-scrubber" role="group" aria-label="年份">
+    <div className="year-scrubber year-scrubber--compact" role="group" aria-label={`${pack.title}年份`}>
       <input
         type="range"
+        className="year-scrubber__range"
         min={yearMin}
         max={yearMax}
         value={year}
         aria-valuetext={`${year} 年`}
         onChange={(e) => setYear(Number(e.target.value))}
       />
-      <ol className="year-scrubber__ticks">
-        {pack.ticks.map((t) => (
-          <li key={t.year}>
-            <button type="button" onClick={() => setYear(t.year)}>
-              {t.label}
-            </button>
-          </li>
+      <div className="year-scrubber__ticks">
+        {laid.map((t) => (
+          <button
+            key={t.year}
+            type="button"
+            className={
+              year === t.year
+                ? 'year-scrubber__tick is-active'
+                : t.pct <= 0
+                  ? 'year-scrubber__tick year-scrubber__tick--start'
+                  : t.pct >= 100
+                    ? 'year-scrubber__tick year-scrubber__tick--end'
+                    : 'year-scrubber__tick'
+            }
+            style={{ left: `${t.pct}%`, opacity: t.faint ? 0.25 : undefined }}
+            onClick={() => setYear(t.year)}
+            title={`${t.year}${t.label ? ` ${t.label}` : ''}`}
+          >
+            <span className="year-scrubber__tick-year">{t.year}</span>
+            {t.showLabel && t.label ? (
+              <span className="year-scrubber__tick-label">{t.label}</span>
+            ) : t.showDot ? (
+              <span className="year-scrubber__tick-dot" />
+            ) : null}
+          </button>
         ))}
-      </ol>
+      </div>
     </div>
   )
 }
