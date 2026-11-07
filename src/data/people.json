@@ -5,7 +5,18 @@
     "字": "孟德",
     "birth": 155,
     "death": 220,
-    "faction_by_year": [{ "faction": "曹魏", "from": 184, "to": 220 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 184,
+        "to": 195
+      },
+      {
+        "faction": "曹魏",
+        "from": 196,
+        "to": 220
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/曹操",
     "grokipedia_url": "https://grokipedia.com/page/Cao_Cao",
@@ -17,7 +28,13 @@
     "字": "子桓",
     "birth": 187,
     "death": 226,
-    "faction_by_year": [{ "faction": "曹魏", "from": 220, "to": 226 }],
+    "faction_by_year": [
+      {
+        "faction": "曹魏",
+        "from": 220,
+        "to": 226
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/曹丕",
     "grokipedia_url": "https://grokipedia.com/page/Cao_Pi",
@@ -29,7 +46,13 @@
     "字": "元仲",
     "birth": 205,
     "death": 239,
-    "faction_by_year": [{ "faction": "曹魏", "from": 226, "to": 239 }],
+    "faction_by_year": [
+      {
+        "faction": "曹魏",
+        "from": 226,
+        "to": 239
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/曹叡",
     "grokipedia_url": "https://grokipedia.com/page/Cao_Rui",
@@ -43,7 +66,13 @@
     "字": "仲達",
     "birth": 179,
     "death": 251,
-    "faction_by_year": [{ "faction": "曹魏", "from": 208, "to": 251 }],
+    "faction_by_year": [
+      {
+        "faction": "曹魏",
+        "from": 208,
+        "to": 251
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/司馬懿",
     "grokipedia_url": "https://grokipedia.com/page/Sima_Yi",
@@ -55,7 +84,13 @@
     "字": "子上",
     "birth": 211,
     "death": 265,
-    "faction_by_year": [{ "faction": "曹魏", "from": 249, "to": 265 }],
+    "faction_by_year": [
+      {
+        "faction": "曹魏",
+        "from": 249,
+        "to": 265
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/司馬昭",
     "grokipedia_url": "https://grokipedia.com/page/Sima_Zhao",
@@ -68,8 +103,16 @@
     "birth": 236,
     "death": 290,
     "faction_by_year": [
-      { "faction": "曹魏", "from": 255, "to": 265 },
-      { "faction": "西晉", "from": 265, "to": 290 }
+      {
+        "faction": "曹魏",
+        "from": 255,
+        "to": 265
+      },
+      {
+        "faction": "西晉",
+        "from": 265,
+        "to": 290
+      }
     ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/司馬炎",
@@ -82,7 +125,18 @@
     "字": "玄德",
     "birth": 161,
     "death": 223,
-    "faction_by_year": [{ "faction": "蜀漢", "from": 184, "to": 223 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 184,
+        "to": 213
+      },
+      {
+        "faction": "蜀漢",
+        "from": 214,
+        "to": 223
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/劉備",
     "grokipedia_url": "https://grokipedia.com/page/Liu_Bei",
@@ -94,7 +148,13 @@
     "字": "公嗣",
     "birth": 207,
     "death": 271,
-    "faction_by_year": [{ "faction": "蜀漢", "from": 223, "to": 263 }],
+    "faction_by_year": [
+      {
+        "faction": "蜀漢",
+        "from": 223,
+        "to": 263
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/劉禪",
     "grokipedia_url": "https://grokipedia.com/page/Liu_Shan",
@@ -106,7 +166,18 @@
     "字": "孔明",
     "birth": 181,
     "death": 234,
-    "faction_by_year": [{ "faction": "蜀漢", "from": 207, "to": 234 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 207,
+        "to": 213
+      },
+      {
+        "faction": "蜀漢",
+        "from": 214,
+        "to": 234
+      }
+    ],
     "role": "謀士",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/諸葛亮",
     "grokipedia_url": "https://grokipedia.com/page/Zhuge_Liang",
@@ -117,7 +188,18 @@
     "name": "關羽",
     "字": "雲長",
     "death": 220,
-    "faction_by_year": [{ "faction": "蜀漢", "from": 184, "to": 220 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 184,
+        "to": 213
+      },
+      {
+        "faction": "蜀漢",
+        "from": 214,
+        "to": 220
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/關羽",
     "grokipedia_url": "https://grokipedia.com/page/Guan_Yu",
@@ -129,7 +211,18 @@
     "name": "張飛",
     "字": "益德",
     "death": 221,
-    "faction_by_year": [{ "faction": "蜀漢", "from": 184, "to": 221 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 184,
+        "to": 213
+      },
+      {
+        "faction": "蜀漢",
+        "from": 214,
+        "to": 221
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/張飛",
     "grokipedia_url": "https://grokipedia.com/page/Zhang_Fei",
@@ -140,7 +233,18 @@
     "name": "趙雲",
     "字": "子龍",
     "death": 229,
-    "faction_by_year": [{ "faction": "蜀漢", "from": 200, "to": 229 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 200,
+        "to": 213
+      },
+      {
+        "faction": "蜀漢",
+        "from": 214,
+        "to": 229
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/趙雲",
     "grokipedia_url": "https://grokipedia.com/page/Zhao_Yun",
@@ -153,8 +257,16 @@
     "birth": 176,
     "death": 222,
     "faction_by_year": [
-      { "faction": "馬超韓遂", "from": 211, "to": 214 },
-      { "faction": "蜀漢", "from": 214, "to": 222 }
+      {
+        "faction": "馬超韓遂",
+        "from": 211,
+        "to": 214
+      },
+      {
+        "faction": "蜀漢",
+        "from": 214,
+        "to": 222
+      }
     ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/馬超",
@@ -166,7 +278,18 @@
     "name": "黃忠",
     "字": "漢升",
     "death": 220,
-    "faction_by_year": [{ "faction": "蜀漢", "from": 208, "to": 220 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 208,
+        "to": 213
+      },
+      {
+        "faction": "蜀漢",
+        "from": 214,
+        "to": 220
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/黃忠",
     "grokipedia_url": "https://grokipedia.com/page/Huang_Zhong",
@@ -178,7 +301,18 @@
     "字": "士元",
     "birth": 179,
     "death": 214,
-    "faction_by_year": [{ "faction": "蜀漢", "from": 209, "to": 214 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 209,
+        "to": 213
+      },
+      {
+        "faction": "蜀漢",
+        "from": 214,
+        "to": 214
+      }
+    ],
     "role": "謀士",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/龐統",
     "grokipedia_url": "https://grokipedia.com/page/Pang_Tong",
@@ -191,8 +325,21 @@
     "birth": 176,
     "death": 220,
     "faction_by_year": [
-      { "faction": "劉璋", "from": 194, "to": 211 },
-      { "faction": "蜀漢", "from": 211, "to": 220 }
+      {
+        "faction": "劉璋",
+        "from": 194,
+        "to": 211
+      },
+      {
+        "faction": "東漢",
+        "from": 211,
+        "to": 213
+      },
+      {
+        "faction": "蜀漢",
+        "from": 214,
+        "to": 220
+      }
     ],
     "role": "謀士",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/法正",
@@ -204,7 +351,13 @@
     "name": "魏延",
     "字": "文長",
     "death": 234,
-    "faction_by_year": [{ "faction": "蜀漢", "from": 214, "to": 234 }],
+    "faction_by_year": [
+      {
+        "faction": "蜀漢",
+        "from": 214,
+        "to": 234
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/魏延",
     "grokipedia_url": "https://grokipedia.com/page/Wei_Yan",
@@ -217,8 +370,16 @@
     "birth": 202,
     "death": 264,
     "faction_by_year": [
-      { "faction": "曹魏", "from": 220, "to": 228 },
-      { "faction": "蜀漢", "from": 228, "to": 264 }
+      {
+        "faction": "曹魏",
+        "from": 220,
+        "to": 228
+      },
+      {
+        "faction": "蜀漢",
+        "from": 228,
+        "to": 264
+      }
     ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/姜維",
@@ -231,7 +392,13 @@
     "字": "幼常",
     "birth": 190,
     "death": 228,
-    "faction_by_year": [{ "faction": "蜀漢", "from": 214, "to": 228 }],
+    "faction_by_year": [
+      {
+        "faction": "蜀漢",
+        "from": 214,
+        "to": 228
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/馬謖",
     "grokipedia_url": "https://grokipedia.com/page/Ma_Su",
@@ -242,7 +409,18 @@
     "name": "孫堅",
     "字": "文臺",
     "death": 191,
-    "faction_by_year": [{ "faction": "孫吳", "from": 184, "to": 191 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 184,
+        "to": 199
+      },
+      {
+        "faction": "孫吳",
+        "from": 200,
+        "to": 191
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/孫堅",
     "grokipedia_url": "https://grokipedia.com/page/Sun_Jian",
@@ -255,7 +433,18 @@
     "字": "伯符",
     "birth": 175,
     "death": 200,
-    "faction_by_year": [{ "faction": "孫吳", "from": 194, "to": 200 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 194,
+        "to": 199
+      },
+      {
+        "faction": "孫吳",
+        "from": 200,
+        "to": 200
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/孫策",
     "grokipedia_url": "https://grokipedia.com/page/Sun_Ce",
@@ -267,7 +456,13 @@
     "字": "仲謀",
     "birth": 182,
     "death": 252,
-    "faction_by_year": [{ "faction": "孫吳", "from": 200, "to": 252 }],
+    "faction_by_year": [
+      {
+        "faction": "孫吳",
+        "from": 200,
+        "to": 252
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/孫權",
     "grokipedia_url": "https://grokipedia.com/page/Sun_Quan",
@@ -279,7 +474,18 @@
     "字": "公瑾",
     "birth": 175,
     "death": 210,
-    "faction_by_year": [{ "faction": "孫吳", "from": 198, "to": 210 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 198,
+        "to": 199
+      },
+      {
+        "faction": "孫吳",
+        "from": 200,
+        "to": 210
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/周瑜",
     "grokipedia_url": "https://grokipedia.com/page/Zhou_Yu",
@@ -291,7 +497,13 @@
     "字": "子敬",
     "birth": 172,
     "death": 217,
-    "faction_by_year": [{ "faction": "孫吳", "from": 200, "to": 217 }],
+    "faction_by_year": [
+      {
+        "faction": "孫吳",
+        "from": 200,
+        "to": 217
+      }
+    ],
     "role": "謀士",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/魯肅",
     "grokipedia_url": "https://grokipedia.com/page/Lu_Su",
@@ -303,7 +515,13 @@
     "字": "子明",
     "birth": 178,
     "death": 220,
-    "faction_by_year": [{ "faction": "孫吳", "from": 200, "to": 220 }],
+    "faction_by_year": [
+      {
+        "faction": "孫吳",
+        "from": 200,
+        "to": 220
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/呂蒙",
     "grokipedia_url": "https://grokipedia.com/page/Lu_Meng",
@@ -315,7 +533,13 @@
     "字": "伯言",
     "birth": 183,
     "death": 245,
-    "faction_by_year": [{ "faction": "孫吳", "from": 200, "to": 245 }],
+    "faction_by_year": [
+      {
+        "faction": "孫吳",
+        "from": 200,
+        "to": 245
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/陸遜",
     "grokipedia_url": "https://grokipedia.com/page/Lu_Xun_(Three_Kingdoms)",
@@ -327,7 +551,13 @@
     "字": "幼節",
     "birth": 226,
     "death": 274,
-    "faction_by_year": [{ "faction": "孫吳", "from": 245, "to": 274 }],
+    "faction_by_year": [
+      {
+        "faction": "孫吳",
+        "from": 245,
+        "to": 274
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/陸抗",
     "grokipedia_url": "https://grokipedia.com/page/Lu_Kang_(Three_Kingdoms)",
@@ -339,7 +569,13 @@
     "字": "元宗",
     "birth": 242,
     "death": 284,
-    "faction_by_year": [{ "faction": "孫吳", "from": 264, "to": 280 }],
+    "faction_by_year": [
+      {
+        "faction": "孫吳",
+        "from": 264,
+        "to": 280
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/孫皓",
     "grokipedia_url": "https://grokipedia.com/page/Sun_Hao",
@@ -350,7 +586,13 @@
     "name": "董卓",
     "字": "仲穎",
     "death": 192,
-    "faction_by_year": [{ "faction": "董卓", "from": 189, "to": 192 }],
+    "faction_by_year": [
+      {
+        "faction": "董卓",
+        "from": 189,
+        "to": 192
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/董卓",
     "grokipedia_url": "https://grokipedia.com/page/Dong_Zhuo",
@@ -361,7 +603,13 @@
     "name": "呂布",
     "字": "奉先",
     "death": 198,
-    "faction_by_year": [{ "faction": "呂布", "from": 192, "to": 198 }],
+    "faction_by_year": [
+      {
+        "faction": "呂布",
+        "from": 192,
+        "to": 198
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/呂布",
     "grokipedia_url": "https://grokipedia.com/page/Lu_Bu",
@@ -372,7 +620,18 @@
     "name": "袁紹",
     "字": "本初",
     "death": 202,
-    "faction_by_year": [{ "faction": "袁紹", "from": 189, "to": 202 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 189,
+        "to": 189
+      },
+      {
+        "faction": "袁紹",
+        "from": 190,
+        "to": 202
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/袁紹",
     "grokipedia_url": "https://grokipedia.com/page/Yuan_Shao",
@@ -383,7 +642,18 @@
     "name": "袁術",
     "字": "公路",
     "death": 199,
-    "faction_by_year": [{ "faction": "袁術", "from": 189, "to": 199 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 189,
+        "to": 189
+      },
+      {
+        "faction": "袁術",
+        "from": 190,
+        "to": 199
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/袁術",
     "grokipedia_url": "https://grokipedia.com/page/Yuan_Shu",
@@ -395,7 +665,13 @@
     "字": "景升",
     "birth": 142,
     "death": 208,
-    "faction_by_year": [{ "faction": "劉表", "from": 190, "to": 208 }],
+    "faction_by_year": [
+      {
+        "faction": "劉表",
+        "from": 190,
+        "to": 208
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/劉表",
     "grokipedia_url": "https://grokipedia.com/page/Liu_Biao",
@@ -406,7 +682,13 @@
     "name": "劉璋",
     "字": "季玉",
     "death": 219,
-    "faction_by_year": [{ "faction": "劉璋", "from": 194, "to": 214 }],
+    "faction_by_year": [
+      {
+        "faction": "劉璋",
+        "from": 194,
+        "to": 214
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/劉璋",
     "grokipedia_url": "https://grokipedia.com/page/Liu_Zhang_(warlord)",
@@ -417,7 +699,13 @@
     "name": "公孫淵",
     "字": "文淵",
     "death": 238,
-    "faction_by_year": [{ "faction": "公孫氏", "from": 228, "to": 238 }],
+    "faction_by_year": [
+      {
+        "faction": "公孫氏",
+        "from": 228,
+        "to": 238
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/公孫淵",
     "grokipedia_url": "https://grokipedia.com/page/Gongsun_Yuan",
@@ -430,8 +718,16 @@
     "birth": 169,
     "death": 222,
     "faction_by_year": [
-      { "faction": "呂布", "from": 192, "to": 198 },
-      { "faction": "曹魏", "from": 198, "to": 222 }
+      {
+        "faction": "呂布",
+        "from": 192,
+        "to": 198
+      },
+      {
+        "faction": "曹魏",
+        "from": 198,
+        "to": 222
+      }
     ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/張遼",
@@ -445,7 +741,13 @@
     "name": "徐晃",
     "字": "公明",
     "death": 227,
-    "faction_by_year": [{ "faction": "曹魏", "from": 196, "to": 227 }],
+    "faction_by_year": [
+      {
+        "faction": "曹魏",
+        "from": 196,
+        "to": 227
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/徐晃",
     "grokipedia_url": "https://grokipedia.com/page/Xu_Huang",
@@ -457,8 +759,16 @@
     "字": "儁乂",
     "death": 231,
     "faction_by_year": [
-      { "faction": "袁紹", "from": 191, "to": 200 },
-      { "faction": "曹魏", "from": 200, "to": 231 }
+      {
+        "faction": "袁紹",
+        "from": 191,
+        "to": 200
+      },
+      {
+        "faction": "曹魏",
+        "from": 200,
+        "to": 231
+      }
     ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/張郃",
@@ -470,7 +780,18 @@
     "name": "夏侯惇",
     "字": "元讓",
     "death": 220,
-    "faction_by_year": [{ "faction": "曹魏", "from": 189, "to": 220 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 189,
+        "to": 195
+      },
+      {
+        "faction": "曹魏",
+        "from": 196,
+        "to": 220
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/夏侯惇",
     "grokipedia_url": "https://grokipedia.com/page/Xiahou_Dun",
@@ -481,7 +802,18 @@
     "name": "夏侯淵",
     "字": "妙才",
     "death": 219,
-    "faction_by_year": [{ "faction": "曹魏", "from": 190, "to": 219 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 190,
+        "to": 195
+      },
+      {
+        "faction": "曹魏",
+        "from": 196,
+        "to": 219
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/夏侯淵",
     "grokipedia_url": "https://grokipedia.com/page/Xiahou_Yuan",
@@ -493,7 +825,13 @@
     "字": "奉孝",
     "birth": 170,
     "death": 207,
-    "faction_by_year": [{ "faction": "曹魏", "from": 196, "to": 207 }],
+    "faction_by_year": [
+      {
+        "faction": "曹魏",
+        "from": 196,
+        "to": 207
+      }
+    ],
     "role": "謀士",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/郭嘉",
     "grokipedia_url": "https://grokipedia.com/page/Guo_Jia",
@@ -505,7 +843,18 @@
     "字": "文若",
     "birth": 163,
     "death": 212,
-    "faction_by_year": [{ "faction": "曹魏", "from": 191, "to": 212 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 191,
+        "to": 195
+      },
+      {
+        "faction": "曹魏",
+        "from": 196,
+        "to": 212
+      }
+    ],
     "role": "謀士",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/荀彧",
     "grokipedia_url": "https://grokipedia.com/page/Xun_Yu",
@@ -517,7 +866,13 @@
     "字": "公達",
     "birth": 157,
     "death": 214,
-    "faction_by_year": [{ "faction": "曹魏", "from": 196, "to": 214 }],
+    "faction_by_year": [
+      {
+        "faction": "曹魏",
+        "from": 196,
+        "to": 214
+      }
+    ],
     "role": "謀士",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/荀攸",
     "grokipedia_url": "https://grokipedia.com/page/Xun_You",
@@ -529,9 +884,21 @@
     "字": "文和",
     "death": 223,
     "faction_by_year": [
-      { "faction": "董卓", "from": 189, "to": 192 },
-      { "faction": "其他", "from": 192, "to": 199 },
-      { "faction": "曹魏", "from": 199, "to": 223 }
+      {
+        "faction": "董卓",
+        "from": 189,
+        "to": 192
+      },
+      {
+        "faction": "其他",
+        "from": 192,
+        "to": 199
+      },
+      {
+        "faction": "曹魏",
+        "from": 199,
+        "to": 223
+      }
     ],
     "role": "謀士",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/賈詡",
@@ -545,7 +912,18 @@
     "字": "仲德",
     "birth": 141,
     "death": 220,
-    "faction_by_year": [{ "faction": "曹魏", "from": 192, "to": 220 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 192,
+        "to": 195
+      },
+      {
+        "faction": "曹魏",
+        "from": 196,
+        "to": 220
+      }
+    ],
     "role": "謀士",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/程昱",
     "grokipedia_url": "https://grokipedia.com/page/Cheng_Yu",
@@ -555,7 +933,18 @@
     "id": "dian-wei",
     "name": "典韋",
     "death": 197,
-    "faction_by_year": [{ "faction": "曹魏", "from": 193, "to": 197 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 193,
+        "to": 195
+      },
+      {
+        "faction": "曹魏",
+        "from": 196,
+        "to": 197
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/典韋",
     "grokipedia_url": "https://grokipedia.com/page/Dian_Wei",
@@ -566,7 +955,13 @@
     "name": "許褚",
     "字": "仲康",
     "death": 230,
-    "faction_by_year": [{ "faction": "曹魏", "from": 197, "to": 230 }],
+    "faction_by_year": [
+      {
+        "faction": "曹魏",
+        "from": 197,
+        "to": 230
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/許褚",
     "grokipedia_url": "https://grokipedia.com/page/Xu_Chu",
@@ -579,7 +974,18 @@
     "name": "于禁",
     "字": "文則",
     "death": 221,
-    "faction_by_year": [{ "faction": "曹魏", "from": 192, "to": 221 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 192,
+        "to": 195
+      },
+      {
+        "faction": "曹魏",
+        "from": 196,
+        "to": 221
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/于禁",
     "grokipedia_url": "https://grokipedia.com/page/Yu_Jin",
@@ -591,8 +997,16 @@
     "字": "令明",
     "death": 219,
     "faction_by_year": [
-      { "faction": "馬超韓遂", "from": 211, "to": 214 },
-      { "faction": "曹魏", "from": 214, "to": 219 }
+      {
+        "faction": "馬超韓遂",
+        "from": 211,
+        "to": 214
+      },
+      {
+        "faction": "曹魏",
+        "from": 214,
+        "to": 219
+      }
     ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/龐德",
@@ -604,7 +1018,13 @@
     "name": "鄧艾",
     "字": "士載",
     "death": 264,
-    "faction_by_year": [{ "faction": "曹魏", "from": 235, "to": 264 }],
+    "faction_by_year": [
+      {
+        "faction": "曹魏",
+        "from": 235,
+        "to": 264
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/鄧艾",
     "grokipedia_url": "https://grokipedia.com/page/Deng_Ai",
@@ -617,7 +1037,13 @@
     "字": "士季",
     "birth": 225,
     "death": 264,
-    "faction_by_year": [{ "faction": "曹魏", "from": 249, "to": 264 }],
+    "faction_by_year": [
+      {
+        "faction": "曹魏",
+        "from": 249,
+        "to": 264
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/鍾會",
     "grokipedia_url": "https://grokipedia.com/page/Zhong_Hui",
@@ -628,7 +1054,13 @@
     "name": "曹爽",
     "字": "昭伯",
     "death": 249,
-    "faction_by_year": [{ "faction": "曹魏", "from": 239, "to": 249 }],
+    "faction_by_year": [
+      {
+        "faction": "曹魏",
+        "from": 239,
+        "to": 249
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/曹爽",
     "grokipedia_url": "https://grokipedia.com/page/Cao_Shuang",
@@ -639,7 +1071,13 @@
     "name": "皇甫嵩",
     "字": "義真",
     "death": 195,
-    "faction_by_year": [{ "faction": "東漢", "from": 184, "to": 195 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 184,
+        "to": 195
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/皇甫嵩",
     "grokipedia_url": "https://grokipedia.com/page/Huangfu_Song",
@@ -651,7 +1089,13 @@
     "字": "伯和",
     "birth": 181,
     "death": 234,
-    "faction_by_year": [{ "faction": "東漢", "from": 189, "to": 220 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 189,
+        "to": 220
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/漢獻帝",
     "grokipedia_url": "https://grokipedia.com/page/Emperor_Xian_of_Han",
@@ -663,7 +1107,13 @@
     "字": "子布",
     "birth": 156,
     "death": 236,
-    "faction_by_year": [{ "faction": "孫吳", "from": 200, "to": 236 }],
+    "faction_by_year": [
+      {
+        "faction": "孫吳",
+        "from": 200,
+        "to": 236
+      }
+    ],
     "role": "謀士",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/張昭_(東吳)",
     "grokipedia_url": "https://grokipedia.com/page/Zhang_Zhao_(Eastern_Wu)",
@@ -674,7 +1124,13 @@
     "name": "甘寧",
     "字": "興霸",
     "death": 220,
-    "faction_by_year": [{ "faction": "孫吳", "from": 208, "to": 220 }],
+    "faction_by_year": [
+      {
+        "faction": "孫吳",
+        "from": 208,
+        "to": 220
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/甘寧",
     "grokipedia_url": "https://grokipedia.com/page/Gan_Ning",
@@ -688,7 +1144,18 @@
     "字": "子義",
     "birth": 166,
     "death": 206,
-    "faction_by_year": [{ "faction": "孫吳", "from": 198, "to": 206 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 198,
+        "to": 199
+      },
+      {
+        "faction": "孫吳",
+        "from": 200,
+        "to": 206
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/太史慈",
     "grokipedia_url": "https://grokipedia.com/page/Taishi_Ci",
@@ -698,7 +1165,18 @@
     "id": "huang-gai",
     "name": "黃蓋",
     "字": "公覆",
-    "faction_by_year": [{ "faction": "孫吳", "from": 190, "to": 215 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 190,
+        "to": 199
+      },
+      {
+        "faction": "孫吳",
+        "from": 200,
+        "to": 215
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/黃蓋",
     "grokipedia_url": "https://grokipedia.com/page/Huang_Gai",
@@ -712,7 +1190,13 @@
     "字": "子瑜",
     "birth": 174,
     "death": 241,
-    "faction_by_year": [{ "faction": "孫吳", "from": 200, "to": 241 }],
+    "faction_by_year": [
+      {
+        "faction": "孫吳",
+        "from": 200,
+        "to": 241
+      }
+    ],
     "role": "謀士",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/諸葛瑾",
     "grokipedia_url": "https://grokipedia.com/page/Zhuge_Jin",
@@ -723,7 +1207,13 @@
     "name": "蔣琬",
     "字": "公琰",
     "death": 246,
-    "faction_by_year": [{ "faction": "蜀漢", "from": 214, "to": 246 }],
+    "faction_by_year": [
+      {
+        "faction": "蜀漢",
+        "from": 214,
+        "to": 246
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/蔣琬",
     "grokipedia_url": "https://grokipedia.com/page/Jiang_Wan",
@@ -734,7 +1224,13 @@
     "name": "費禕",
     "字": "文偉",
     "death": 253,
-    "faction_by_year": [{ "faction": "蜀漢", "from": 223, "to": 253 }],
+    "faction_by_year": [
+      {
+        "faction": "蜀漢",
+        "from": 223,
+        "to": 253
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/費禕",
     "grokipedia_url": "https://grokipedia.com/page/Fei_Yi",
@@ -747,8 +1243,16 @@
     "birth": 221,
     "death": 278,
     "faction_by_year": [
-      { "faction": "曹魏", "from": 250, "to": 265 },
-      { "faction": "西晉", "from": 265, "to": 278 }
+      {
+        "faction": "曹魏",
+        "from": 250,
+        "to": 265
+      },
+      {
+        "faction": "西晉",
+        "from": 265,
+        "to": 278
+      }
     ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/羊祜",
@@ -761,7 +1265,13 @@
     "字": "元凱",
     "birth": 222,
     "death": 285,
-    "faction_by_year": [{ "faction": "西晉", "from": 265, "to": 285 }],
+    "faction_by_year": [
+      {
+        "faction": "西晉",
+        "from": 265,
+        "to": 285
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/杜預",
     "grokipedia_url": "https://grokipedia.com/page/Du_Yu",
@@ -773,7 +1283,13 @@
     "字": "士治",
     "birth": 206,
     "death": 286,
-    "faction_by_year": [{ "faction": "西晉", "from": 265, "to": 286 }],
+    "faction_by_year": [
+      {
+        "faction": "西晉",
+        "from": 265,
+        "to": 286
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/王濬_(西晉)",
     "grokipedia_url": "https://grokipedia.com/page/Wang_Jun_(Jin_dynasty)",
@@ -784,7 +1300,18 @@
     "name": "韓遂",
     "字": "文約",
     "death": 215,
-    "faction_by_year": [{ "faction": "馬超韓遂", "from": 184, "to": 215 }],
+    "faction_by_year": [
+      {
+        "faction": "東漢",
+        "from": 184,
+        "to": 189
+      },
+      {
+        "faction": "馬超韓遂",
+        "from": 190,
+        "to": 215
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/韓遂",
     "grokipedia_url": "https://grokipedia.com/page/Han_Sui",
@@ -795,7 +1322,13 @@
     "name": "張魯",
     "字": "公祺",
     "death": 216,
-    "faction_by_year": [{ "faction": "其他", "from": 191, "to": 215 }],
+    "faction_by_year": [
+      {
+        "faction": "其他",
+        "from": 191,
+        "to": 215
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/張魯",
     "grokipedia_url": "https://grokipedia.com/page/Zhang_Lu_(warlord)",
@@ -807,7 +1340,13 @@
     "name": "滿寵",
     "字": "伯寧",
     "death": 242,
-    "faction_by_year": [{ "faction": "曹魏", "from": 196, "to": 242 }],
+    "faction_by_year": [
+      {
+        "faction": "曹魏",
+        "from": 196,
+        "to": 242
+      }
+    ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/滿寵",
     "grokipedia_url": "https://grokipedia.com/page/Man_Chong",
@@ -819,7 +1358,13 @@
     "字": "元遜",
     "birth": 203,
     "death": 253,
-    "faction_by_year": [{ "faction": "孫吳", "from": 229, "to": 253 }],
+    "faction_by_year": [
+      {
+        "faction": "孫吳",
+        "from": 229,
+        "to": 253
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/諸葛恪",
     "grokipedia_url": "https://grokipedia.com/page/Zhuge_Ke",
@@ -830,7 +1375,13 @@
     "name": "陳群",
     "字": "長文",
     "death": 236,
-    "faction_by_year": [{ "faction": "曹魏", "from": 196, "to": 236 }],
+    "faction_by_year": [
+      {
+        "faction": "曹魏",
+        "from": 196,
+        "to": 236
+      }
+    ],
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/陳群",
     "grokipedia_url": "https://grokipedia.com/page/Chen_Qun",
@@ -842,8 +1393,16 @@
     "字": "子均",
     "death": 248,
     "faction_by_year": [
-      { "faction": "曹魏", "from": 215, "to": 219 },
-      { "faction": "蜀漢", "from": 219, "to": 248 }
+      {
+        "faction": "曹魏",
+        "from": 215,
+        "to": 219
+      },
+      {
+        "faction": "蜀漢",
+        "from": 219,
+        "to": 248
+      }
     ],
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/王平_(三國)",
