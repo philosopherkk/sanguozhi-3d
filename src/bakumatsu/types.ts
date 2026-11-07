@@ -1,4 +1,4 @@
-export type BakumatsuFactionId = '幕府' | '薩長' | '奧羽' | '未確定'
+export type BakumatsuFactionId = '幕府' | '薩長' | '奧羽'
 
 export const BAKUMATSU_FACTIONS: {
   id: BakumatsuFactionId
@@ -38,16 +38,5 @@ export const BAKUMATSU_FACTIONS: {
     source: '日本近代史通說：奧羽越列藩同盟。1868年抵抗，1869年已不能再守本州',
     eraIntro:
       '1868年東北諸藩組成奧羽越列藩同盟，對抗新政府東征。同盟在當年瓦解，1869年已不能再守本州。箱館的殘餘是榎本武揚一軍，不是這個同盟的延續。色塊只覆蓋1868年的抵抗，不是整個江戶時代的奧羽。',
-  },
-  {
-    id: '未確定',
-    name: '未確定',
-    color: '#6B7280',
-    activeFrom: 1853,
-    activeTo: 1869,
-    source:
-      '通說整理，非逐條引文：本圖只在可考的舊國著上勢力；其餘舊國在戊辰戰爭中的立場未經逐藩考訂，故不歸入幕府、薩長或奧羽任何一方',
-    eraIntro:
-      '灰色不是「無人支配」，而是本圖沒有該舊國的歸屬證據。要把灰色變回實際立場，需要逐藩查《藩翰譜》《德川実紀》與戊辰戰爭各藩参戰記錄，再標上出處。',
   },
 ]
