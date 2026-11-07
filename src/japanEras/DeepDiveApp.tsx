@@ -12,7 +12,7 @@ import { EraPeople } from './EraPeople'
 import { EraTimeline } from './EraTimeline'
 
 function DeepDiveHeader({ pack }: { pack: JapanDeepDivePack }) {
-  const { year, setYear, step, playing, togglePlay, yearMin, yearMax } =
+  const { year, step, playing, togglePlay, yearMin, yearMax } =
     useDeepDiveYear()
   return (
     <header className="app-header">
@@ -53,25 +53,37 @@ function DeepDiveHeader({ pack }: { pack: JapanDeepDivePack }) {
           {playing ? '暫停' : '播放'}
         </button>
       </div>
-      <div className="year-scrubber year-scrubber--inline" aria-label="年份">
-        <input
-          type="range"
-          min={yearMin}
-          max={yearMax}
-          value={year}
-          onChange={(e) => setYear(Number(e.target.value))}
-        />
-        <ol className="year-scrubber__ticks">
-          {pack.ticks.map((t) => (
-            <li key={t.year}>
-              <button type="button" onClick={() => setYear(t.year)}>
-                {t.label}
-              </button>
-            </li>
-          ))}
-        </ol>
-      </div>
     </header>
+  )
+}
+
+/**
+ * 年代滑桿：放在 EraBar 之下，與其他時代（戰國、幕末、日本通史）一致。
+ * 之前嵌喺 header 內，令安土桃山與江戶嘅 header 出現 5–9 個年多按鈕，
+ * 與其佢時代嘅 chrome 不一致。
+ */
+function DeepDiveYearScrubber({ pack }: { pack: JapanDeepDivePack }) {
+  const { year, setYear, yearMin, yearMax } = useDeepDiveYear()
+  return (
+    <div className="year-scrubber" role="group" aria-label="年份">
+      <input
+        type="range"
+        min={yearMin}
+        max={yearMax}
+        value={year}
+        aria-valuetext={`${year} 年`}
+        onChange={(e) => setYear(Number(e.target.value))}
+      />
+      <ol className="year-scrubber__ticks">
+        {pack.ticks.map((t) => (
+          <li key={t.year}>
+            <button type="button" onClick={() => setYear(t.year)}>
+              {t.label}
+            </button>
+          </li>
+        ))}
+      </ol>
+    </div>
   )
 }
 
@@ -87,6 +99,7 @@ function DeepDiveBody({ pack }: { pack: JapanDeepDivePack }) {
     <div className="app-shell app-shell--japan">
       <DeepDiveHeader pack={pack} />
       <EraBar />
+      <DeepDiveYearScrubber pack={pack} />
       <div className="app-shell__main app-shell__main--map-side">
         <DeepDiveMapStage pack={pack} />
         <AppSideRail
