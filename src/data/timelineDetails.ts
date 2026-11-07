@@ -368,7 +368,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
   },
   '222-yiling': {
     causes:
-      '關羽敗亡、荊州入吳；劉備執意東征報仇，孫權以陸遜拒之。',
+      '關羽敗亡、荊州入吳；劉備執意東征（〈陸遜傳〉以荊州、名分為緣由），孫權以陸遜拒之。',
     course:
       '章武元年備親征，吳堅守不戰。次年蜀軍疲敝、連營林木，陸遜於猇亭火攻大破之；備退入白帝。五溪蠻曾響應備，沙摩柯等戰死。',
     keyFigures: [
