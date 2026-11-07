@@ -1,3 +1,5 @@
+import { ChengyuPanel } from '../chengyu/components/ChengyuPanel'
+import { localesForJapanTrack } from '../chengyu/lib/filterByYear'
 import { AppSideRail } from '../components/AppSideRail'
 import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraPeople } from '../japanEras/EraPeople'
@@ -24,7 +26,7 @@ function nameFor(id: string) {
 }
 
 function HeianBody() {
-  const { year, setYear } = useHeianYear()
+  const { year, setYear, yearMin, yearMax } = useHeianYear()
   const { selectedFaction, selectFaction } = useHeianSelection()
   return (
     <div className="app-shell app-shell--japan">
@@ -55,6 +57,15 @@ function HeianBody() {
                 onClearFaction={() => selectFaction(null)}
                 factionName={nameFor}
                 colorFor={colorFor}
+              />
+            }
+            chengyu={
+              <ChengyuPanel
+                year={year}
+                yearMin={yearMin}
+                yearMax={yearMax}
+                locales={localesForJapanTrack()}
+                onJumpYear={setYear}
               />
             }
           />
