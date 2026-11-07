@@ -1,4 +1,5 @@
 import polygonClipping from 'polygon-clipping'
+import { ERA_RINGS } from '../geo/eraRegions'
 import type { RingPt } from './mergeFactionPolygons'
 
 export interface EraShape {
@@ -93,6 +94,29 @@ export function shapesFromExtensions(
   }
   out.sort((a, b) => b.area - a.area)
   return out.map((item) => item.shape)
+}
+
+/**
+ * 將 control 中可由 `ERA_RINGS` 解析的省級 id 轉成與 extensions 同形的來源，
+ * 令 renderer 用同一套「同勢力先併外輪廓」的路徑作圖。
+ *
+ * 三國以內的 pack 用 provinces.ts 的 ProvinceId，此處解不到即略過；
+ * 民國以後的 pack（國共內戰）用的正是 ERA_RINGS 的省級 id，因此得回色塊。
+ */
+export function controlToExtensions(
+  control: Record<string, string> | undefined,
+): { faction: string; rings: RingPt[][] }[] {
+  const byFaction = new Map<string, RingPt[][]>()
+  for (const [id, faction] of Object.entries(control ?? {})) {
+    const rings = ERA_RINGS[id]
+    if (!rings) continue
+    const list = byFaction.get(faction) ?? []
+    for (const ring of rings) {
+      if (ring.length >= 3) list.push(ring as RingPt[])
+    }
+    if (list.length > 0) byFaction.set(faction, list)
+  }
+  return [...byFaction.entries()].map(([faction, rings]) => ({ faction, rings }))
 }
 
 export function extensionAreaStats(

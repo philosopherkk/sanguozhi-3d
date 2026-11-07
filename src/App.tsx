@@ -150,6 +150,16 @@ const MinguoApp = lazyPack(() =>
     },
   })),
 )
+const CivilWarApp = lazyPack(() =>
+  Promise.all([
+    import('./imperial/ImperialApp'),
+    import('./imperial/data/civilWarPack'),
+  ]).then(([app, data]) => ({
+    default: function CivilWarEra() {
+      return <app.ImperialApp pack={data.CIVIL_WAR_PACK} />
+    },
+  })),
+)
 const PrcApp = lazyPack(() =>
   Promise.all([
     import('./imperial/ImperialApp'),
@@ -277,6 +287,9 @@ function TopicRoot() {
         break
       case 'minguo':
         screen = <MinguoApp />
+        break
+      case 'civilwar':
+        screen = <CivilWarApp />
         break
       case 'prc':
         screen = <PrcApp />
