@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "audit:ranges": "node --experimental-strip-types scripts/audit-ranges.ts",
     "audit:wiring": "node --experimental-strip-types scripts/audit-wiring.ts",
-    "audit:geo": "python3 scripts/audit_geo.py"
+    "audit:geo": "python3 scripts/audit_geo.py",
+    "audit:event-depth": "node scripts/audit_event_depth.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
