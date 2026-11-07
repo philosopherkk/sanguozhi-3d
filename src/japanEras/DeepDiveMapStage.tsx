@@ -7,6 +7,11 @@ import { useDeepDiveSelection } from './DeepDiveSelectionContext'
 import { useDeepDiveYear } from './DeepDiveYearContext'
 import { shadesFromDomainControl } from '../sengoku/data/japanKokugunPaint'
 import { CODH_KOKUGUN_MESHES } from '../sengoku/data/codhKokugunMeshes'
+import { pathLabelPoint } from '../geo/pathLabelPoint'
+import {
+  ASIA_WAR_EXTENTS_GEOMETRY,
+  ASIA_WAR_TERRITORY_NOTE_ZH,
+} from '../data/territory/provenance'
 
 /** 舊國 mesh 已覆蓋嘅 domainId；其余（蝦夷地、東蝦夷地、松前、琉球等）要另行渲染。 */
 const KOKUGUN_DOMAIN_IDS = new Set(CODH_KOKUGUN_MESHES.map((m) => m.domainId))
@@ -21,6 +26,22 @@ export function DeepDiveMapStage({ pack }: { pack: JapanDeepDivePack }) {
     pack.factions.find((f) => f.id === id)?.name ?? id
 
   const domains = useMemo(() => {
+    /**
+     * 戰爭時代（明治至當代）用矢量戰區底圖：區塊以現成 SVG path 表達
+     * （經緯度區間剪裁到真實海岸線），不適用日本舊國 mesh。
+     */
+    if (pack.mapBase) {
+      return pack.domains
+        .filter((d): d is typeof d & { d: string } => Boolean(d.d))
+        .map((d) => ({
+          id: d.id,
+          name: d.name,
+          d: d.d,
+          labelAt: pathLabelPoint(d.d),
+          faction: control[d.id] ?? '',
+        }))
+        .filter((s) => s.faction !== '')
+    }
     const names = Object.fromEntries(pack.domains.map((d) => [d.id, d.name]))
     const kokugun = shadesFromDomainControl(control, names)
     /**
@@ -40,7 +61,7 @@ export function DeepDiveMapStage({ pack }: { pack: JapanDeepDivePack }) {
       ]
     }).filter((s) => s.faction !== '')
     return [...kokugun, ...extras]
-  }, [pack.domains, control])
+  }, [pack.domains, pack.mapBase, control])
 
   const legend = pack.factions.filter(
     (f) => year >= f.activeFrom && year <= f.activeTo,
@@ -63,6 +84,11 @@ export function DeepDiveMapStage({ pack }: { pack: JapanDeepDivePack }) {
           onSelectFaction={selectFaction}
           visibleYears={MARCH_ROUTE_SAME_YEAR}
           hideInlineRouteLegend
+          mapBase={pack.mapBase}
+          domainGeometryProvenance={
+            pack.mapBase ? ASIA_WAR_EXTENTS_GEOMETRY : undefined
+          }
+          territoryNote={pack.mapBase ? ASIA_WAR_TERRITORY_NOTE_ZH : undefined}
         />
       </div>
       <EraRouteDock pack={pack} />
