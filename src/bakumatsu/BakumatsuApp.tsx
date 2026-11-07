@@ -10,7 +10,8 @@ import {
   bakumatsuDetailFor,
   bakumatsuReadingFor,
 } from './data/history'
-import { BAKUMATSU_TERRITORY_NOTE } from './data/territory'
+import { bakumatsuTerritoryNote } from './data/territory'
+import { useBakumatsuHanLayer } from './state/bakumatsuHanLayer'
 import {
   BakumatsuSelectionProvider,
   useBakumatsuSelection,
@@ -29,6 +30,7 @@ function nameFor(id: string) {
 function BakumatsuBody() {
   const { year, setYear, month } = useBakumatsuYear()
   const { selectedFaction, selectFaction } = useBakumatsuSelection()
+  const hanLayer = useBakumatsuHanLayer()
   return (
     <div className="app-shell app-shell--japan">
       <BakumatsuFrame>
@@ -67,7 +69,7 @@ function BakumatsuBody() {
       <CollapsibleAppFooter>
         <p>
           幕末（1853–1868）· 只是德川江戶的最後一段 · 據日本近代史通說 · 1853至1868可逐月 · 沒有專條的月份標「本月無專條」 · 1869年箱館與開拓使見「明治至當代」 ·
-          不用遊戲劇情 · 行軍只顯示該月 · 與戰國、平安、三國志資料分離 · {BAKUMATSU_TERRITORY_NOTE}
+          不用遊戲劇情 · 行軍只顯示該月 · 與戰國、平安、三國志資料分離 · {bakumatsuTerritoryNote(hanLayer.enabled)}
         </p>
       </CollapsibleAppFooter>
     </div>

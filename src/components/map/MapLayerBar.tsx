@@ -10,6 +10,8 @@ export function MapLayerBar({
   showFrontier,
   onToggleFrontier,
   frontierPanel,
+  extraTabs,
+  extraTabsOn = false,
 }: {
   showTerritory: boolean
   showRoutes: boolean
@@ -20,6 +22,9 @@ export function MapLayerBar({
   showFrontier?: boolean
   onToggleFrontier?: () => void
   frontierPanel?: ReactNode
+  /** 時代專用圖層按鈕（例如幕末「藩界」），沿用同一列樣式與計數 */
+  extraTabs?: ReactNode
+  extraTabsOn?: boolean
 }) {
   const [open, setOpen] = useState(false)
   const onCount = [
@@ -27,6 +32,7 @@ export function MapLayerBar({
     showRoutes,
     onTogglePlaces ? showPlaces : false,
     onToggleFrontier ? showFrontier : false,
+    extraTabs ? extraTabsOn : false,
   ].filter(Boolean).length
 
   return (
@@ -79,6 +85,7 @@ export function MapLayerBar({
               塞外部族
             </button>
           ) : null}
+          {extraTabs}
         </div>
       ) : null}
       {open && showFrontier ? frontierPanel : null}

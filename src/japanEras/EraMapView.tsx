@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useMemo, useRef, useState, type ReactNode } from 'react'
 import { MapLayerBar } from '../components/map/MapLayerBar'
 import { MapRouteLegend } from '../components/map/MapRouteLegend'
 import {
@@ -103,6 +103,9 @@ export function EraMapView({
   hideInlineRouteLegend = false,
   japanFringe,
   domainGeometryProvenance,
+  extraLayerTabs,
+  extraLayerOn = false,
+  territoryNote = JAPAN_TERRITORY_NOTE_ZH,
   fringeGeometryProvenance = JP_ERA_RINGS_GEOMETRY,
 }: {
   ariaLabel: string
@@ -120,6 +123,10 @@ export function EraMapView({
   hideInlineRouteLegend?: boolean
   japanFringe?: 'bakumatsu'
   domainGeometryProvenance?: TerritoryGeometryProvenance
+  extraLayerTabs?: ReactNode
+  extraLayerOn?: boolean
+  /** 色塊著色口徑；幕末需要跟「藩界」圖層實際狀態切換 */
+  territoryNote?: string
   fringeGeometryProvenance?: TerritoryGeometryProvenance
 }) {
   const rootRef = useRef<HTMLDivElement>(null)
@@ -261,6 +268,8 @@ export function EraMapView({
           onToggleTerritory={() => setShowTerritory((v) => !v)}
           onToggleRoutes={() => setShowRoutes((v) => !v)}
           onTogglePlaces={() => setShowPlaces((v) => !v)}
+          extraTabs={extraLayerTabs}
+          extraTabsOn={extraLayerOn}
         />
         {showRoutes && !hideInlineRouteLegend ? (
           <div className="map-2d__route-legend">
@@ -281,7 +290,7 @@ export function EraMapView({
           {basemap.credit}
         </a>
         {basemap.license ? `（${basemap.license}）` : ''}
-        。現代列島地勢，平安、戰國、幕末、江戶共用。{JAPAN_TERRITORY_NOTE_ZH}
+        。現代列島地勢，平安、戰國、幕末、江戶共用。{territoryNote}
         {domainFootnote ? ` ${domainFootnote}` : ''}
         {fringeFootnote ? ` 外周：${fringeFootnote}` : ''}
         渡海只標壇之浦與箱館。色塊預設半透明（約
