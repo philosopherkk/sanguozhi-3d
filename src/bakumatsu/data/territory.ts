@@ -80,19 +80,19 @@ export const BAKUMATSU_TERRITORY_BY_YEAR: Record<
   Record<string, BakumatsuFactionId>
 > = {
   1853: paint([], '幕府'),
-  /** 第二次長州征討失敗。薩摩與長州（以毛利舊領示意）已不聽幕府。 */
-  1866: paint([[SATCHO, '薩長']], '幕府'),
-  1867: paint([[SATCHO, '薩長']], '幕府'),
-  /** 鳥羽伏見與江戶開城之後。奧羽越仍在抵抗。幕府不再有成片領地。 */
+  /** 第二次長州征討失敗。薩摩與長州（以毛利舊領示意）已不聽幕府。其餘舊國立場未經逐藩考訂，故不著勢力色。 */
+  1866: paint([[SATCHO, '薩長']], '未確定'),
+  1867: paint([[SATCHO, '薩長']], '未確定'),
+  /** 鳥羽伏見與江戶開城之後。奧羽越仍在抵抗。幕府不再有成片領地；未参戰或立場無考者不著色。 */
   1868: paint(
     [
       [OU, '奧羽'],
       [ECHIGO, '奧羽'],
     ],
-    '薩長',
+    '未確定',
   ),
   /** 本州戰事結束。箱館在蝦夷地；1869 起以 JP_ERA_RINGS 示意著色北海道（開拓使，approx）。 */
-  1869: paint([], '薩長'),
+  1869: paint([], '未確定'),
 }
 
 const NOTES: Record<BakumatsuKeyYear, string> = {
@@ -289,7 +289,7 @@ export function bakumatsuFactionCounts(
     .sort((a, b) => b.n - a.n)
 }
 
-const BAKUMATSU_FACTIONS_ORDER: BakumatsuFactionId[] = ['幕府', '薩長', '奧羽']
+const BAKUMATSU_FACTIONS_ORDER: BakumatsuFactionId[] = ['幕府', '薩長', '奧羽', '未確定']
 
 /** 1869 起以 CODH K75–K85 示意北海道開拓使行政；箱館戰爭仍靠箭咀敘事。 */
 export function bakumatsuFringeShades(

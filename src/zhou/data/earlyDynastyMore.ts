@@ -9,20 +9,7 @@ import type { ZhouTimelineEvent } from './timeline'
  */
 
 export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
-  {
-    id: 'xia-zhongkang',
-    name: '仲康',
-    faction: '夏',
-    role: '政治',
-    activeFrom: -1898,
-    activeTo: -1876,
-    datesNote: '在位年未詳。前1890前後只是太康與相之間的架子。',
-    summary:
-      '《夏本紀》說太康死後，弟弟中康繼位。本紀把〈胤征〉繫在他的時代，說羲和沉湎、廢時亂日。〈胤征〉是傳世《尚書》的一篇，不能當成夏代檔案。',
-    source: '《史記·夏本紀》',
-    disputed: true,
-    note: '本紀作「中康」。仲、中古書常通。〈胤征〉不當作夏代原文。',
-  },
+  
   {
     id: 'xia-xiang',
     name: '相',
@@ -38,20 +25,6 @@ export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
     note: '前1870前後是架子，不是紀年。',
   },
   {
-    id: 'xia-hanzhuo',
-    name: '寒浞',
-    faction: '夏',
-    role: '政治',
-    activeFrom: -1890,
-    activeTo: -1851,
-    datesNote: '代羿的年份未詳。不是《夏本紀》世系裡的夏后。',
-    summary:
-      '《左傳》襄公四年說寒浞是伯明氏的讒子弟，后羿收用他，後來家眾殺羿，寒浞取其室，生澆與豷。他不是夏后氏的新色塊。地圖仍只有夏一塊。',
-    source: '《左傳》襄公四年',
-    disputed: true,
-    note: '《夏本紀》不載寒浞之名。敘事是春秋晉人魏絳追述。',
-  },
-  {
     id: 'xia-jiao',
     name: '澆',
     faction: '夏',
@@ -64,62 +37,6 @@ export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
     source: '《左傳》哀公元年、襄公四年',
     disputed: true,
     note: '澆是寒浞之子，不是夏后。一成、一旅不能換算成兵籍。',
-  },
-  {
-    id: 'shang-taijia',
-    name: '太甲',
-    faction: '商',
-    role: '政治',
-    activeFrom: -1580,
-    activeTo: -1540,
-    datesNote: '被放與復位的年份未詳。前1570前後只是湯之後的架子。',
-    summary:
-      '《殷本紀》說太甲暴虐，伊尹把他放在桐宮，三年後迎回復位。甲骨裡太甲是受祭的先王，不能逐句證明被放的細節。桐在哪裡隨亳的異說移動。',
-    source: '《史記·殷本紀》',
-    disputed: true,
-    note: '《尚書·太甲》三篇屬傳世古文，不當作當時檔案。古本《竹書紀年》另有伊尹自立之說。',
-  },
-  {
-    id: 'shang-taiwu',
-    name: '太戊',
-    faction: '商',
-    role: '政治',
-    activeFrom: -1480,
-    activeTo: -1410,
-    datesNote: '在位年數是後世所排。前1460只為插在太甲之後、盤庚之前。',
-    summary:
-      '《殷本紀》寫太戊時祥桑與穀共生於朝，伊陟勸他修德，桑穀枯死。這是災異敘事，不是年輪或氣象紀錄。太戊在卜辭裡多作受祭的先王，不能把災異倒讀成殷墟的日記。',
-    source: '《史記·殷本紀》',
-    disputed: true,
-    note: '亳的地點未定，祥桑長在哪一座城，本紀不能標死。',
-  },
-  {
-    id: 'shang-wuyi',
-    name: '武乙',
-    faction: '商',
-    role: '政治',
-    activeFrom: -1145,
-    activeTo: -1106,
-    datesNote: '前1140前後是末段商王的架子，不是某一版卜辭上的公元。',
-    summary:
-      '《殷本紀》寫武乙做偶人、以革囊盛血射天，又說他在河渭之間打獵，被暴雷震死。射天和震死都沒有甲骨可核。卜辭只證明這一代王名前後，殷仍有占卜。',
-    source: '《史記·殷本紀》；殷墟甲骨有可排在武乙前後的卜辭',
-    disputed: true,
-    note: '河渭之間是本紀的話，不能畫成從殷墟到關中的巡狩線。',
-  },
-  {
-    id: 'shang-di-yi',
-    name: '帝乙',
-    faction: '商',
-    role: '政治',
-    activeFrom: -1105,
-    activeTo: -1076,
-    datesNote: '前1100前後放在武乙與帝辛之間。不是連續紀年。',
-    summary:
-      '《殷本紀》說帝乙時殷更衰，長子微子的母親地位低，不能繼位，少子辛的母親是正后，辛於是繼位。帝乙在卜辭裡是受祭的先王。嫡庶對比是史公的寫法。',
-    source: '《史記·殷本紀》',
-    disputed: true,
-    note: '《宋微子世家》作微子開，開是避漢諱。人仍是微子啟。',
   },
   {
     id: 'shang-weizi',
@@ -162,20 +79,6 @@ export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
     source: '《史記·齊太公世家》《周本紀》',
     disputed: true,
     note: '本姓姜、氏呂，世家兩說並存。色塊不因此改到青州。',
-  },
-  {
-    id: 'zhou-boqin',
-    name: '伯禽',
-    faction: '周',
-    role: '政治',
-    activeFrom: -1042,
-    activeTo: -990,
-    datesNote: '就封之年未詳，放在東征之後的架子上。卒年各書不同。',
-    summary:
-      '《魯周公世家》說周公不就封，留在王室，讓兒子伯禽代他到魯。魯在曲阜。受封是氏族和城邑的故事，不是把海岱塗成周。',
-    source: '《史記·魯周公世家》',
-    disputed: true,
-    note: '《尚書·費誓》或繫於伯禽，成篇年代另有討論，不當作出兵名冊。',
   },
   {
     id: 'zhou-kang',
@@ -274,20 +177,6 @@ export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
     source: '《史記·周本紀》',
     disputed: true,
     note: '不與銅器上的虢季子白、戰國書裡的虢公長父直接等同。',
-  },
-  {
-    id: 'zhou-shenhou',
-    name: '申侯',
-    faction: '周',
-    role: '政治',
-    activeFrom: -781,
-    activeTo: -771,
-    datesNote: '本紀未載他的私名。活動年只計幽王在位。',
-    summary:
-      '《周本紀》寫幽王廢申后、去太子宜臼。申侯怒，與繒、犬戎攻鎬京。申的地望在南陽一帶是通說，本紀沒有從申到鎬的里程，所以不另畫一支穿山的長箭。',
-    source: '《史記·周本紀》',
-    disputed: true,
-    note: '掛在周，是因為沒有申的色塊。他不是周王。烽火徵兵不當作他的全部事蹟。',
   },
 ]
 

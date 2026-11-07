@@ -28,15 +28,28 @@ export interface EraDomainShade {
   faction: string
 }
 
+/**
+ * 環路徑與形心對同一份幾何永遠不變，但每次 pan/zoom 都會重新 render。
+ * 幕末嘅藩 dissolve mesh 有 20 萬個座標數，逐幀重建字串會令地圖嚴重卡頓，
+ * 因此以 ring 嘅物件身份做快取（資料模組內嘅 ring 是穩定參照）。
+ */
+const pathCache = new Map<[number, number][], string>()
+const centroidCache = new Map<[number, number][], [number, number]>()
+
 function ringPath(ring: [number, number][]): string {
-  return (
+  const hit = pathCache.get(ring)
+  if (hit !== undefined) return hit
+  const d =
     ring
       .map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`)
       .join(' ') + ' Z'
-  )
+  pathCache.set(ring, d)
+  return d
 }
 
 function centroid(ring: [number, number][]): [number, number] {
+  const hit = centroidCache.get(ring)
+  if (hit !== undefined) return hit
   let x = 0
   let y = 0
   for (const [a, b] of ring) {
@@ -44,7 +57,9 @@ function centroid(ring: [number, number][]): [number, number] {
     y += b
   }
   const n = ring.length || 1
-  return [x / n, y / n]
+  const c: [number, number] = [x / n, y / n]
+  centroidCache.set(ring, c)
+  return c
 }
 
 function darken(hex: string, amount = 0.35): string {
@@ -93,9 +108,8 @@ export function EraMapView({
 }) {
   const rootRef = useRef<HTMLDivElement>(null)
   const [showTerritory, setShowTerritory] = useState(true)
-  // 同中國地圖一致：行軍路線預設開。之前預設閘，各時代嘅行軍數據（元寇、
-  // 白村江、文祿渡海、蝦夷遠征）一直睇唔到。
-  const [showRoutes, setShowRoutes] = useState(true)
+  // 日本各地圖預設收起行軍線（與合并前一致）；要看得見可按下方「行軍」開關。
+  const [showRoutes, setShowRoutes] = useState(false)
   const [showPlaces, setShowPlaces] = useState(false)
   const basemap = SENGOKU_BASEMAP
   const view = useMapViewport(SENGOKU_MAP_W, SENGOKU_MAP_H)

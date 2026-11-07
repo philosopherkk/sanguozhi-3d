@@ -2,7 +2,7 @@
 
 由 `npm run audit:data` 產生。範圍：`src/data/` 三國專題（184–280），另掃描 `SanguozhiApp` 與 `src/components/**` 簡體字。
 
-**產生時間：** 2026-11-07T11:51:01.223Z
+**產生時間：** 2026-11-07T12:10:25.055Z
 
 ## 摘要
 
@@ -50,8 +50,8 @@ _（無）_
 - **source-allowlist** · `src/data/marchRoutes.ts:CHINA_MARCH_ROUTES[17] (nanzhong)` — source 含非主允許書名《華陽國志·南中志》（允許：三國志、裴注、後漢書、資治通鑑、晉書）
 - **source-allowlist** · `src/data/marchRoutes.ts:CHINA_MARCH_ROUTES[18] (nanzhong-west)` — source 含非主允許書名《華陽國志·南中志》（允許：三國志、裴注、後漢書、資治通鑑、晉書）
 - **source-allowlist** · `src/data/marchRoutes.ts:CHINA_MARCH_ROUTES[19] (nanzhong-east)` — source 含非主允許書名《華陽國志·南中志》（允許：三國志、裴注、後漢書、資治通鑑、晉書）
-- **source-allowlist** · `src/data/marchRoutes.ts:FRONTIER_ZONES[5] (di)` — source 含非主允許書名《魏略·西戎傳》（允許：三國志、裴注、後漢書、資治通鑑、晉書）
-- **source-allowlist** · `src/data/marchRoutes.ts:FRONTIER_ZONES[6] (liao)` — source 含非主允許書名《魏書·僚傳》（允許：三國志、裴注、後漢書、資治通鑑、晉書）
+- **source-allowlist** · `src/data/marchRoutes.ts:FRONTIER_ZONES[4] (di)` — source 含非主允許書名《魏略·西戎傳》（允許：三國志、裴注、後漢書、資治通鑑、晉書）
+- **source-allowlist** · `src/data/marchRoutes.ts:FRONTIER_ZONES[5] (liao)` — source 含非主允許書名《魏書·僚傳》（允許：三國志、裴注、後漢書、資治通鑑、晉書）
 - **source-allowlist** · `src/data/personProfiles.ts.zhao-yun` — source 含非主允許書名《雲別傳》（允許：三國志、裴注、後漢書、資治通鑑、晉書）
 - **source-allowlist** · `src/data/factionSituation.ts.東漢.population` — source 含非主允許書名《帝王世紀》（允許：三國志、裴注、後漢書、資治通鑑、晉書）
 - **source-allowlist** · `src/data/factionSituation.ts.劉璋.population` — source 含非主允許書名《蜀記》（允許：三國志、裴注、後漢書、資治通鑑、晉書）
