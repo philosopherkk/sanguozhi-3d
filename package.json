@@ -16,7 +16,8 @@
     "audit:geo": "python3 scripts/audit_geo.py",
     "audit:event-depth": "node scripts/audit_event_depth.mjs",
     "audit:chengyu": "node scripts/audit_chengyu.mjs",
-    "audit:map": "node scripts/audit_map_accuracy.mjs"
+    "audit:map": "node scripts/audit_map_accuracy.mjs",
+    "audit:chars": "node --experimental-strip-types scripts/audit-chars.ts"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
