@@ -6,6 +6,10 @@ import { EraLegend, EraMapView } from './EraMapView'
 import { useDeepDiveSelection } from './DeepDiveSelectionContext'
 import { useDeepDiveYear } from './DeepDiveYearContext'
 import { shadesFromDomainControl } from '../sengoku/data/japanKokugunPaint'
+import { CODH_KOKUGUN_MESHES } from '../sengoku/data/codhKokugunMeshes'
+
+/** 舊國 mesh 已覆蓋嘅 domainId；其余（蝦夷地、東蝦夷地、松前、琉球等）要另行渲染。 */
+const KOKUGUN_DOMAIN_IDS = new Set(CODH_KOKUGUN_MESHES.map((m) => m.domainId))
 
 export function DeepDiveMapStage({ pack }: { pack: JapanDeepDivePack }) {
   const { year, territoryYear, control, shadeNote } = useDeepDiveYear()
@@ -18,7 +22,24 @@ export function DeepDiveMapStage({ pack }: { pack: JapanDeepDivePack }) {
 
   const domains = useMemo(() => {
     const names = Object.fromEntries(pack.domains.map((d) => [d.id, d.name]))
-    return shadesFromDomainControl(control, names)
+    const kokugun = shadesFromDomainControl(control, names)
+    /**
+     * pack.domains 中唔屬於舊國 mesh 嘅區塊（蝦夷地、東蝦夷地、松前、琉球…）
+     * 之前完全冇進入渲染，只用於名字，所以北海道嘅逐年變化喺地圖上睇唔到。
+     */
+    const extras = pack.domains.flatMap((d) => {
+      if (KOKUGUN_DOMAIN_IDS.has(d.id) || !d.ring) return []
+      return [
+        {
+          id: d.id,
+          name: d.name,
+          ring: d.ring,
+          extraRings: d.extraRings,
+          faction: control[d.id] ?? '',
+        },
+      ]
+    }).filter((s) => s.faction !== '')
+    return [...kokugun, ...extras]
   }, [pack.domains, control])
 
   const legend = pack.factions.filter(

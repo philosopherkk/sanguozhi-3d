@@ -1,5 +1,7 @@
 import type { MarchRoute } from '../../data/marchRoutes'
 import { JP_ERA_RINGS } from '../../geo/japanEraRings'
+import { HOKKAIDO_ADMIN_RINGS } from '../../geo/hokkaidoAdminRings'
+import { BAKUMATSU_MARCH_ROUTES } from '../../bakumatsu/data/marchRoutes'
 import type { JapanDeepDivePack } from '../deepDiveTypes'
 import type { EraDetail, EraReading } from '../types'
 import { JP_DOMAINS, paintDomains } from '../jpDomains'
@@ -24,6 +26,18 @@ const EXTRA_DOMAINS = [
     name: '蝦夷地',
     ring: JP_ERA_RINGS.hokkaido[0],
     extraRings: [JP_ERA_RINGS.hokkaido[1]],
+  },
+  /**
+   * 東蝦夷地（1799 寛政12年幕府直轄；1807 文化5年擴展至全蝦夷地；
+   * 1821 文政4年松前藩還領）。幾何由 scripts/build_hokkaido_admin_rings.py
+   * 自 CODH 旧國 K75–K85（CC BY-NC 4.0）產出，唔係手繪。
+   * 擺喺 ezochi 之後，令東部窗口覆蓋喺全島環上面。
+   */
+  {
+    id: 'ezo_east',
+    name: '東蝦夷地',
+    ring: HOKKAIDO_ADMIN_RINGS.ezo_east[0],
+    extraRings: HOKKAIDO_ADMIN_RINGS.ezo_east.slice(1),
   },
   { id: 'matsumae', name: '松前（渡島南部）', ring: JP_ERA_RINGS.matsumae[0] },
   { id: 'ryukyu', name: '琉球諸島', ring: JP_ERA_RINGS.ryukyu[0] },
@@ -88,17 +102,36 @@ const routes: MarchRoute[] = [
 /** 代表天領：大坂・甲府・駿府・佐渡・長崎・房州。大區劃示意，唔逐領劃色。 */
 const BAKURYO = ['d2', 'd1', 'd15', 'd17', 'd26']
 
+/**
+ * 蝦夷地嘅歸屬要逐年分層，唔可以由 1603 一路涂到 1868：
+ *  - 1799（寛政12年）：東蝦夷地幕府直轄（天明蝦夷地調査之後）
+ *  - 1807（文化5年）：松前藩領知上知，全蝦夷地幕府直轄
+ *  - 1821（文政4年）：松前藩還領，蝦夷地返返松前藩
+ * 之前一律係「蝦夷（阿伊努）」，等於抹掉咗幕府北進嘅過程。
+ */
 function paint(year: number): Record<string, string> {
   const groups: [string[], string][] = [
-    [['ezochi'], F.ainu],
     [['ryukyu'], F.ryukyu],
     [BAKURYO, F.bakufu],
   ]
+  if (year >= 1807 && year < 1821) {
+    groups.push([['ezochi'], F.bakufu])
+  } else if (year >= 1799 && year < 1821) {
+    groups.push([['ezochi'], F.ainu])
+    groups.push([['ezo_east'], F.bakufu])
+  } else if (year >= 1821) {
+    groups.push([['ezochi'], F.matsumae])
+  } else {
+    groups.push([['ezochi'], F.ainu])
+  }
   if (year >= 1604) groups.push([['matsumae'], F.matsumae])
   return paintDomains(groups, F.han)
 }
 
-const KEY_YEARS = [1603, 1604, 1609, 1615, 1635, 1639, 1669, 1716, 1789, 1853, 1867]
+const KEY_YEARS = [
+  1603, 1604, 1609, 1615, 1635, 1637, 1639, 1669, 1716, 1739, 1789, 1799, 1804,
+  1807, 1821, 1853, 1867,
+]
 const CONTROL: Record<number, Record<string, string>> = {}
 for (const y of KEY_YEARS) CONTROL[y] = paint(y)
 
@@ -109,6 +142,76 @@ const WIKI = (t: string) => `https://zh.wikipedia.org/wiki/${t}`
 const WIKI_JA = (t: string) => `https://ja.wikipedia.org/wiki/${t}`
 
 const DETAILS: Record<string, EraDetail> = {
+  'edo-1739-eshi': {
+    causes:
+      '松前藩在東岸以「場所」把貿易權交給家臣或商人經營，場所主對阿伊努的壓取與赊欠糾紛積累成長期不滿。',
+    course:
+      '1739年（元文4年），十勝、目梨一帶的阿伊努抗爭，殺害場所經營者與商人；松前藩出兵鎮壓並處刑首謀者。事件事後被歸入松前藩處理事項，幕府沒有因此直接接管蝦夷地。',
+    outcome:
+      '藩的貿易管制更嚴，但場所制度的矛盾未解，為1789年目梨・國後起事與1799年幕府直轄埋下背景。',
+    keyFigures: [
+      { name: '松前邦広', role: '松前藩主（元文期藩政）' },
+      { name: '場所經營者（名不詳）', role: '東岸場所貿易的承辦者' },
+    ],
+    brief: '元文年間十勝・目梨的阿伊努抗爭，暴露松前藩場所經營的剝削。',
+    zhwikiUrl: WIKI_JA('元文の蝦夷崩れ'),
+  },
+  'edo-1799-ezo-east': {
+    causes:
+      '俄船出現在北方海域，加上松前藩應對力弱；天明蝦夷地調査（最上徳内等）回報令幕府認為東部需由幕府直接處理。',
+    course:
+      '1799年（寛政12年）幕府將東蝦夷地改為直轄，派役人駐知床、根室等處，管理場所貿易、警備與對阿伊努的處置。',
+    outcome:
+      '幕府在北方首次直接統治；八年後（1807）更把全蝦夷地收為直轄。本圖以 CODH 舊國合成的東蝦夷窗口示意其範圍。',
+    keyFigures: [
+      { name: '最上徳内', role: '蝦夷地調査者（天明・寛政期）' },
+      { name: '伊勢徳三郎', role: '択捉・國後方面調査者' },
+    ],
+    brief: '寛政12年東蝦夷地入幕府直轄，幕府開始直接經管北方。',
+    zhwikiUrl: WIKI_JA('東蝦夷地'),
+  },
+  'edo-1804-kunashir': {
+    causes:
+      '直轄後貿易仍由商人經手，價格與債項糾紛引發衝突；幕府役人的管制能力有限。',
+    course:
+      '1804年（文化元年），松前系商人在國後與阿伊努發生衝突並造成死傷，幕府介入調查並處分相關者。',
+    outcome:
+      '事件說明直轄並未緩解貿易矛盾，反而令幕府直接承擔北方治安責任，成為1807年全面直轄的推力之一。',
+    keyFigures: [
+      { name: '佐屋九兵衛', role: '國後方面商人（事件当事者）' },
+      { name: '幕府勘定奉行所', role: '調查與處分機關' },
+    ],
+    brief: '國後事件：直轄后的貿易衝突未息，幕府直接背負北方治安。',
+    zhwikiUrl: WIKI_JA('国後事件'),
+  },
+  'edo-1807-ezo-all': {
+    causes:
+      '北方防務（俄船來航）與松前藩應對不力；幕府決定把整個蝦夷地交由自己直接管理。',
+    course:
+      '1807年（文化5年）幕府把松前藩領知上知，蝦夷地全部轉為幕府直轄，役人進駐箱館、江差等地，松前藩主被移封。',
+    outcome:
+      '蝦夷地首次全境由幕府經管，設置箱館奉行等職；但行政與財政負擔沉重，十四年後決定還領。',
+    keyFigures: [
+      { name: '松前章広', role: '松前藩主（領知上知、移封）' },
+      { name: '箱館奉行', role: '幕府在蝦夷的行政・警備機關' },
+    ],
+    brief: '文化5年松前藩上知，全蝦夷地改幕府直轄。',
+    zhwikiUrl: WIKI('蝦夷地'),
+  },
+  'edo-1821-matsumae-return': {
+    causes:
+      '直轄十四年，行政成本與物資輸送負擔過重，成效不彰；幕府評估後決定返還。',
+    course:
+      '1821年（文政4年）幕府把蝦夷地還給松前藩，恢復藩的貿易與警備責任；松前藩回到松前。',
+    outcome:
+      '幕府的北方直轄試驗告終；松前藩的实际控制比1807年前更弱，北方問題延續到幕末與明治的「北海道」設置。',
+    keyFigures: [
+      { name: '松前章広', role: '還領後的松前藩主' },
+      { name: '幕府老中', role: '決定還領的幕政決策層' },
+    ],
+    brief: '文政4年蝦夷地還領松前藩，幕府直轄告終。',
+    zhwikiUrl: WIKI('松前藩'),
+  },
   'edo-1604-matsumae': {
     causes: '德川家康要整理北海道一帶的交易與防務：蝦夷地的毛皮、鷹羽貿易由松前氏世代經營，幕府需要確認當地的支配者。',
     course: '1604年，松前慶廣謁見家康，獲赐藩名「松前」與領知，幕府承認其對蝦夷地的統治權。此後藩方以場所（交易據點）支配與阿伊努人的貿易，並把各地在鄉、族群數目記錄下來，即《松前島郷帳》一類文書。',
@@ -190,6 +293,67 @@ const DETAILS: Record<string, EraDetail> = {
   },
 }
 const READINGS: Record<string, EraReading> = {
+  'edo-1739-eshi': {
+    quote: '元文の蝦夷崩れ：場所經營與處刑',
+    source:
+      '通說整理，非逐字引文。松前藩側記録（『新羅之記録』系）在 ja.wikisource 未取得可逐字比對之本文，故不引原文',
+    layers: {
+      elementary:
+        '在日本最北邊，松前藩把做買賣的權利交給商人。商人對當地原住民很兇，終於有人起來反抗，藩就派人把他們壓下去。',
+      secondary:
+        '1739年元文事件源自「場所」制度：藩把對阿伊努的貿易權外包給家臣與商人，剝削與債項糾紛因此累積。藩自行鎮壓處刑，幕府沒有接管，仍靠藩的報告認識北方。',
+      university:
+        '元文事件揭示幕藩體制在邊疆的治理方式：支配權外包、責任亦外包。藩既是幕府的北方代理人，又是利益取得者，這個雙重角色令衝突反复出現，最終把幕府自己推向直接統治（1799、1807）。',
+    },
+  },
+  'edo-1799-ezo-east': {
+    quote: '寛政12年、東蝦夷地を直轄とする',
+    source: '通說整理，非逐字引文。相关幕府指令未取得可逐字比對之本文',
+    layers: {
+      elementary:
+        '三百年前，幕府擔心北方的船越來越常出現，就派人去調查北海道東邊，然後決定由自己直接管理那一帶。',
+      secondary:
+        '天明蝦夷地調査之後，1799年幕府把東蝦夷地改為直轄，派役人管理場所貿易與警備。這是幕府在北方第一次直接統治。',
+      university:
+        '東蝦夷直轄是「防務邏輯」壓過「貿易邏輯」的轉折：幕府不再滿意的松前藩的信息壟斷，改用調査（最上徳内等）建立自己的知識與管治基礎，為1807年全面直轄鋪路。',
+    },
+  },
+  'edo-1804-kunashir': {
+    quote: '國後事件：幕府介入處分',
+    source: '通說整理，非逐字引文。事件始末各方記載有出入，故不引原文',
+    layers: {
+      elementary:
+        '幕府接手管理之後，做生意的人和當地原住民還是打架，死咗人，最後幕府親自處理呢件事。',
+      secondary:
+        '1804年國後事件中，松前系商人在國後引發衝突，幕府調查處分。直轄改變了責任歸屬：糾紛不再只是藩的内部事。',
+      university:
+        '呢件事說明行政主體改變但經濟結構不變：場所貿易照舊，衝突照舊，但代價由幕府承擔，形成繼續擴張直轄的壓力。',
+    },
+  },
+  'edo-1807-ezo-all': {
+    quote: '文化5年、松前藩領知上知',
+    source: '通說整理，非逐字引文。《徳川実紀》文化期條文未取得可逐字比對之本文',
+    layers: {
+      elementary:
+        '1807年，將軍把整個北海道收做自己管，松前藩的藩主被調走。',
+      secondary:
+        '文化5年幕府上知松前領地，蝦夷地全境直轄，設箱館奉行等職管理貿易與警備，是江戶時代北方政策的高峰。',
+      university:
+        '直轄把邊疆從特許貿易改為行政直管，但也把成本搬到自己身上：物資、人員、與阿伊努關係都要幕府承擔，為1821年的退却埋因。',
+    },
+  },
+  'edo-1821-matsumae-return': {
+    quote: '文政4年、蝦夷地を松前藩に返す',
+    source: '通說整理，非逐字引文。還領決策的过程未取得可逐字比對之本文',
+    layers: {
+      elementary:
+        '十四年後，幕府覺得管理北海道太貴太辛苦，就把地方還給松前藩。',
+      secondary:
+        '文政4年蝦夷地還領，幕府結束直轄；松前藩恢复名義上的責任，但實力已不如1807年以前。',
+      university:
+        '還領反映前近代邊疆行政的極限：沒有常設財政與運輸體系，直接統治難以維持。北方真空一直延續到幕末，最後由明治的「北海道」設置接手。',
+    },
+  },
   'edo-1604-matsumae': {
     quote: '従松前西在郷并蝦夷地之覚',
     source: '《松前島郷帳》首行（ja.wikisource「松前島郷帳」頁，逐字原文；題意為「自松前以西在鄉及蝦夷地之記錄」）',
@@ -268,10 +432,15 @@ export const EDO_PACK: JapanDeepDivePack = {
     { year: 1603, label: '開幕' },
     { year: 1615, label: '大坂' },
     { year: 1635, label: '參勤' },
+    { year: 1637, label: '島原' },
     { year: 1639, label: '鎖國' },
     { year: 1669, label: 'シャクシャイン' },
     { year: 1716, label: '吉宗' },
+    { year: 1739, label: '元文蝦夷' },
     { year: 1789, label: '目梨' },
+    { year: 1799, label: '東蝦夷直轄' },
+    { year: 1807, label: '全蝦夷直轄' },
+    { year: 1821, label: '松前還領' },
     { year: 1853, label: '黑船' },
     { year: 1867, label: '奉還' },
   ],
@@ -281,11 +450,16 @@ export const EDO_PACK: JapanDeepDivePack = {
     { id: F.matsumae, name: F.matsumae, color: '#8a6a4a', activeFrom: 1604, activeTo: 1868, source: '松前黑印記載（《徳川實紀》系）' },
     { id: F.ainu, name: F.ainu, color: '#5a6a5a', activeFrom: 1603, activeTo: 1868, source: '日本近世史通說；阿伊努自有領域' },
     { id: F.ryukyu, name: F.ryukyu, color: '#4a7a6a', activeFrom: 1603, activeTo: 1868, source: '琉球王國通說；1609年後為薩摩附庸' },
+    // 德川江戶含幕末：戊辰行軍線沿用「幕末」專題嘅勢力名，配色一致
+    { id: '幕府', name: '幕府（幕末）', color: '#1E3A8A', activeFrom: 1853, activeTo: 1868, source: '日本近代史通說' },
+    { id: '薩長', name: '薩長（新政府）', color: '#B91C1C', activeFrom: 1866, activeTo: 1868, source: '日本近代史通說' },
+    { id: '奧羽', name: '奧羽', color: '#0F766E', activeFrom: 1868, activeTo: 1868, source: '日本近代史通說：奧羽越列藩同盟' },
   ],
   domains: DOMAINS,
   keyYears: KEY_YEARS,
   territoryByYear: CONTROL,
-  routes,
+  // 江戶含幕末：戊辰（東海道・北越・會津・箱館）行軍線一併顯示
+  routes: [...routes, ...BAKUMATSU_MARCH_ROUTES],
   places: [
     { name: '江戶', x: 890.1, y: 713.0 },
     { name: '京都', x: 691.0, y: 753.2 },
@@ -429,6 +603,63 @@ export const EDO_PACK: JapanDeepDivePack = {
       source: '日本近世史通說；松前藩史料',
       disputed: true,
       note: '起因細節與死者數各方記載不一。',
+    },
+    {
+      id: 'edo-1739-eshi',
+      year: 1739,
+      title: '元文蝦夷事件（十勝・目梨）',
+      desc: '松前藩的場所經營與貿易糾紛引發十勝、目梨一帶阿伊努抗爭，藩方鎮壓後處刑首謀者。幕府事後並未直接接管蝦夷地，仍依賴松前藩報告。',
+      factions: ['松前藩', '蝦夷（阿伊努）'],
+      location: '十勝・目梨',
+      type: 'war',
+      source: '日本近世史通說；『新羅之記録』系松前藩記録（通說整理，非逐字引文）',
+      disputed: true,
+      note: '事件規模、參與族群與處刑人數各方記載不一；中文維基無條目，見日本維基「元文の蝦夷崩れ」。',
+    },
+    {
+      id: 'edo-1799-ezo-east',
+      year: 1799,
+      title: '東蝦夷地劃入幕府直轄',
+      desc: '天明蝦夷地調査（最上徳内、伊勢德三郎等）之後，幕府鑒於北方海防與俄人來航的壓力，於寛政12年把東蝦夷地改為幕府直轄，派幕府役人管理場所貿易與警備。',
+      factions: ['幕府直轄', '蝦夷（阿伊努）'],
+      location: '東蝦夷地（知床・根室一带）',
+      type: 'politics',
+      source: '日本近世史通說；『徳川実紀』寛政期蝦夷地対応記載（通說整理，非逐字引文）',
+      disputed: true,
+      note: '直轄範圍嘅西界各方界定唔同，本圖用 CODH 舊國 K75–K85 合成嘅東蝦夷窗口示意。中文維基無條目，見日本維基「東蝦夷地」。',
+    },
+    {
+      id: 'edo-1804-kunashir',
+      year: 1804,
+      title: '國後事件',
+      desc: '幕府直轄東蝦夷地後，松前藩商人佐屋九兵衛等在國後與阿伊努發生衝突並造成死傷，幕府介入處分。呢件事顯示直轄之後貿易糾紛並未平息。',
+      factions: ['幕府直轄', '蝦夷（阿伊努）'],
+      location: '國後',
+      type: 'war',
+      source: '日本近世史通說（通說整理，非逐字引文）',
+      disputed: true,
+      note: '起因與處分範圍記載有分歧；中文維基無條目，見日本維基「國後事件」。',
+    },
+    {
+      id: 'edo-1807-ezo-all',
+      year: 1807,
+      title: '全蝦夷地幕府直轄（松前藩上知）',
+      desc: '文化5年，幕府以北方防務為由把松前藩領知上知，蝦夷地全部改由幕府直轄，幕府役人進駐箱館等地；松前藩本領（渡島以南）亦被移封。',
+      factions: ['幕府直轄'],
+      location: '蝦夷地（箱館・松前）',
+      type: 'politics',
+      source: '日本近世史通說；『徳川実紀』文化期記載（通說整理，非逐字引文）',
+    },
+    {
+      id: 'edo-1821-matsumae-return',
+      year: 1821,
+      title: '松前藩還領，蝦夷地返返藩',
+      desc: '文政4年，幕府以統治成本高、成效不彰為由把蝦夷地還給松前藩，恢复藩的经营；幕府在北方的直轄试验结束。',
+      factions: ['松前藩', '蝦夷（阿伊努）'],
+      location: '蝦夷地',
+      type: 'politics',
+      source: '日本近世史通說（通說整理，非逐字引文）',
+      note: '還領後松前藩嘅實際控制範圍比1807年前更弱，本圖仍以松前藩色示意。',
     },
     {
       id: 'edo-1825-harai',
