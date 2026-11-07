@@ -118,5 +118,26 @@
     "activeFrom": 184,
     "activeTo": 280,
     "source": "《後漢書·南蠻西南夷列傳》；靈帝中平三年五溪蠻復叛（《後漢書·南蠻傳》）"
+  },
+  {
+    "id": "曹操",
+    "name": "曹操",
+    "color": "#17456B",
+    "activeFrom": 184,
+    "activeTo": 219
+  },
+  {
+    "id": "劉備",
+    "name": "劉備",
+    "color": "#2E7D46",
+    "activeFrom": 184,
+    "activeTo": 220
+  },
+  {
+    "id": "孫權",
+    "name": "孫權",
+    "color": "#A93226",
+    "activeFrom": 200,
+    "activeTo": 221
   }
 ]

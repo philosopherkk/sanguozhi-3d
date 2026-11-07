@@ -7,14 +7,9 @@
     "death": 220,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "曹操",
         "from": 184,
-        "to": 195
-      },
-      {
-        "faction": "曹魏",
-        "from": 196,
-        "to": 220
+        "to": 219
       }
     ],
     "role": "政治",
@@ -68,8 +63,13 @@
     "death": 251,
     "faction_by_year": [
       {
-        "faction": "曹魏",
+        "faction": "曹操",
         "from": 208,
+        "to": 219
+      },
+      {
+        "faction": "曹魏",
+        "from": 220,
         "to": 251
       }
     ],
@@ -127,7 +127,7 @@
     "death": 223,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "劉備",
         "from": 184,
         "to": 213
       },
@@ -168,7 +168,7 @@
     "death": 234,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "劉備",
         "from": 207,
         "to": 213
       },
@@ -190,7 +190,7 @@
     "death": 220,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "劉備",
         "from": 184,
         "to": 213
       },
@@ -213,7 +213,7 @@
     "death": 221,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "劉備",
         "from": 184,
         "to": 213
       },
@@ -235,7 +235,7 @@
     "death": 229,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "劉備",
         "from": 200,
         "to": 213
       },
@@ -280,7 +280,7 @@
     "death": 220,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "劉備",
         "from": 208,
         "to": 213
       },
@@ -303,7 +303,7 @@
     "death": 214,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "劉備",
         "from": 209,
         "to": 213
       },
@@ -331,7 +331,7 @@
         "to": 211
       },
       {
-        "faction": "東漢",
+        "faction": "劉備",
         "from": 211,
         "to": 213
       },
@@ -411,14 +411,9 @@
     "death": 191,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "孫權",
         "from": 184,
         "to": 199
-      },
-      {
-        "faction": "孫吳",
-        "from": 200,
-        "to": 191
       }
     ],
     "role": "軍事",
@@ -435,13 +430,8 @@
     "death": 200,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "孫權",
         "from": 194,
-        "to": 199
-      },
-      {
-        "faction": "孫吳",
-        "from": 200,
         "to": 200
       }
     ],
@@ -458,8 +448,13 @@
     "death": 252,
     "faction_by_year": [
       {
-        "faction": "孫吳",
+        "faction": "孫權",
         "from": 200,
+        "to": 221
+      },
+      {
+        "faction": "孫吳",
+        "from": 222,
         "to": 252
       }
     ],
@@ -476,13 +471,8 @@
     "death": 210,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "孫權",
         "from": 198,
-        "to": 199
-      },
-      {
-        "faction": "孫吳",
-        "from": 200,
         "to": 210
       }
     ],
@@ -499,7 +489,7 @@
     "death": 217,
     "faction_by_year": [
       {
-        "faction": "孫吳",
+        "faction": "孫權",
         "from": 200,
         "to": 217
       }
@@ -517,7 +507,7 @@
     "death": 220,
     "faction_by_year": [
       {
-        "faction": "孫吳",
+        "faction": "孫權",
         "from": 200,
         "to": 220
       }
@@ -535,8 +525,13 @@
     "death": 245,
     "faction_by_year": [
       {
-        "faction": "孫吳",
+        "faction": "孫權",
         "from": 200,
+        "to": 221
+      },
+      {
+        "faction": "孫吳",
+        "from": 222,
         "to": 245
       }
     ],
@@ -724,8 +719,13 @@
         "to": 198
       },
       {
-        "faction": "曹魏",
+        "faction": "曹操",
         "from": 198,
+        "to": 219
+      },
+      {
+        "faction": "曹魏",
+        "from": 220,
         "to": 222
       }
     ],
@@ -743,8 +743,13 @@
     "death": 227,
     "faction_by_year": [
       {
-        "faction": "曹魏",
+        "faction": "曹操",
         "from": 196,
+        "to": 219
+      },
+      {
+        "faction": "曹魏",
+        "from": 220,
         "to": 227
       }
     ],
@@ -765,8 +770,13 @@
         "to": 200
       },
       {
-        "faction": "曹魏",
+        "faction": "曹操",
         "from": 200,
+        "to": 219
+      },
+      {
+        "faction": "曹魏",
+        "from": 220,
         "to": 231
       }
     ],
@@ -782,13 +792,13 @@
     "death": 220,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "曹操",
         "from": 189,
-        "to": 195
+        "to": 219
       },
       {
         "faction": "曹魏",
-        "from": 196,
+        "from": 220,
         "to": 220
       }
     ],
@@ -804,13 +814,8 @@
     "death": 219,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "曹操",
         "from": 190,
-        "to": 195
-      },
-      {
-        "faction": "曹魏",
-        "from": 196,
         "to": 219
       }
     ],
@@ -827,7 +832,7 @@
     "death": 207,
     "faction_by_year": [
       {
-        "faction": "曹魏",
+        "faction": "曹操",
         "from": 196,
         "to": 207
       }
@@ -845,13 +850,8 @@
     "death": 212,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "曹操",
         "from": 191,
-        "to": 195
-      },
-      {
-        "faction": "曹魏",
-        "from": 196,
         "to": 212
       }
     ],
@@ -868,7 +868,7 @@
     "death": 214,
     "faction_by_year": [
       {
-        "faction": "曹魏",
+        "faction": "曹操",
         "from": 196,
         "to": 214
       }
@@ -895,8 +895,13 @@
         "to": 199
       },
       {
-        "faction": "曹魏",
+        "faction": "曹操",
         "from": 199,
+        "to": 219
+      },
+      {
+        "faction": "曹魏",
+        "from": 220,
         "to": 223
       }
     ],
@@ -914,13 +919,13 @@
     "death": 220,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "曹操",
         "from": 192,
-        "to": 195
+        "to": 219
       },
       {
         "faction": "曹魏",
-        "from": 196,
+        "from": 220,
         "to": 220
       }
     ],
@@ -935,13 +940,8 @@
     "death": 197,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "曹操",
         "from": 193,
-        "to": 195
-      },
-      {
-        "faction": "曹魏",
-        "from": 196,
         "to": 197
       }
     ],
@@ -957,8 +957,13 @@
     "death": 230,
     "faction_by_year": [
       {
-        "faction": "曹魏",
+        "faction": "曹操",
         "from": 197,
+        "to": 219
+      },
+      {
+        "faction": "曹魏",
+        "from": 220,
         "to": 230
       }
     ],
@@ -976,13 +981,13 @@
     "death": 221,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "曹操",
         "from": 192,
-        "to": 195
+        "to": 219
       },
       {
         "faction": "曹魏",
-        "from": 196,
+        "from": 220,
         "to": 221
       }
     ],
@@ -1003,7 +1008,7 @@
         "to": 214
       },
       {
-        "faction": "曹魏",
+        "faction": "曹操",
         "from": 214,
         "to": 219
       }
@@ -1109,8 +1114,13 @@
     "death": 236,
     "faction_by_year": [
       {
-        "faction": "孫吳",
+        "faction": "孫權",
         "from": 200,
+        "to": 221
+      },
+      {
+        "faction": "孫吳",
+        "from": 222,
         "to": 236
       }
     ],
@@ -1126,7 +1136,7 @@
     "death": 220,
     "faction_by_year": [
       {
-        "faction": "孫吳",
+        "faction": "孫權",
         "from": 208,
         "to": 220
       }
@@ -1146,13 +1156,8 @@
     "death": 206,
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "孫權",
         "from": 198,
-        "to": 199
-      },
-      {
-        "faction": "孫吳",
-        "from": 200,
         "to": 206
       }
     ],
@@ -1167,13 +1172,8 @@
     "字": "公覆",
     "faction_by_year": [
       {
-        "faction": "東漢",
+        "faction": "孫權",
         "from": 190,
-        "to": 199
-      },
-      {
-        "faction": "孫吳",
-        "from": 200,
         "to": 215
       }
     ],
@@ -1192,8 +1192,13 @@
     "death": 241,
     "faction_by_year": [
       {
-        "faction": "孫吳",
+        "faction": "孫權",
         "from": 200,
+        "to": 221
+      },
+      {
+        "faction": "孫吳",
+        "from": 222,
         "to": 241
       }
     ],
@@ -1342,8 +1347,13 @@
     "death": 242,
     "faction_by_year": [
       {
-        "faction": "曹魏",
+        "faction": "曹操",
         "from": 196,
+        "to": 219
+      },
+      {
+        "faction": "曹魏",
+        "from": 220,
         "to": 242
       }
     ],
@@ -1377,8 +1387,13 @@
     "death": 236,
     "faction_by_year": [
       {
-        "faction": "曹魏",
+        "faction": "曹操",
         "from": 196,
+        "to": 219
+      },
+      {
+        "faction": "曹魏",
+        "from": 220,
         "to": 236
       }
     ],
@@ -1394,7 +1409,7 @@
     "death": 248,
     "faction_by_year": [
       {
-        "faction": "曹魏",
+        "faction": "曹操",
         "from": 215,
         "to": 219
       },
