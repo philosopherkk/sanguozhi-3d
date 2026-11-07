@@ -9,6 +9,11 @@ import {
 } from 'react'
 import type { JapanDeepDivePack } from './deepDiveTypes'
 import { resolveKeyYear } from './jpDomains'
+import {
+  announceTimeline,
+  onTimelineChange,
+  readTimelineFromUrl,
+} from '../lib/timelineUrl'
 
 interface DeepDiveYearContextValue {
   year: number
@@ -33,7 +38,12 @@ export function DeepDiveYearProvider({
   pack: JapanDeepDivePack
   children: ReactNode
 }) {
-  const [year, setYearState] = useState(pack.initialYear)
+  // 初始年以 URL 為準（?y=），使「?e=modern&y=1942」等分享連結直落該年。
+  const [year, setYearState] = useState(() => {
+    const y = readTimelineFromUrl().year
+    if (y === null) return pack.initialYear
+    return Math.max(pack.yearMin, Math.min(pack.yearMax, y))
+  })
   const [playing, setPlaying] = useState(false)
 
   const setYear = useCallback(
@@ -53,6 +63,19 @@ export function DeepDiveYearProvider({
   )
 
   const togglePlay = useCallback(() => setPlaying((p) => !p), [])
+
+  // 變更 → 寫入 URL；popstate／同文件切換 → 跟返 URL。
+  useEffect(() => {
+    announceTimeline({ year, month: null })
+  }, [year])
+  useEffect(
+    () =>
+      onTimelineChange((next) => {
+        if (next.year === null || next.year === year) return
+        setYear(next.year)
+      }),
+    [year, setYear],
+  )
 
   useEffect(() => {
     if (!playing) return

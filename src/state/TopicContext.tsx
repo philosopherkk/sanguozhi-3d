@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from 'react'
+import { announceTimeline, readTimelineFromUrl } from '../lib/timelineUrl'
 
 /** 頂欄只得兩項。中國＝三國志深潛；日本＝戰國深潛。 */
 export type AppTopic = 'china' | 'japan'
@@ -149,6 +150,46 @@ export function TopicProvider({ children }: { children: ReactNode }) {
     const qs = q.toString()
     window.history.replaceState(null, '', `${window.location.pathname}${qs ? `?${qs}` : ''}`)
   }, [topic, chinaEra, japanEra])
+
+  /**
+   * 瀏覽器前／後退，或同一份文件內切換 query 時，以 URL 為權威來源。
+   * 此處重讀 URL 更新國家與時代，並將年份、月份廣播給各時代的年代
+   * context（context 自行透過 onTimelineChange 訂閱）。
+   */
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const onPop = () => {
+      const next = readUrlState()
+      if (next.topic) setTopicState(next.topic)
+      if (next.chinaEra) setChinaEraState(next.chinaEra)
+      if (next.japanEra) setJapanEraState(next.japanEra)
+      announceTimeline(readTimelineFromUrl())
+    }
+    window.addEventListener('popstate', onPop)
+    return () => window.removeEventListener('popstate', onPop)
+  }, [])
+
+  /**
+   * 兜底校對：某些導航情境（同一份文件內 query 被改寫、歷史導覽未派送
+   * popstate）不會觸發上面的監聽。此處以極輕量的定時比對（只比較字串，
+   * 不重複解析大資料）確保 URL 與狀態一致，分享連結永遠落在正確的時代。
+   */
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const id = window.setInterval(() => {
+      const next = readUrlState()
+      const target: AppTopic | null =
+        next.topic ?? (next.japanEra && !next.chinaEra ? 'japan' : null)
+      if (target) setTopicState((cur) => (cur === target ? cur : target))
+      const jpEra = next.japanEra
+      if (jpEra) setJapanEraState((cur) => (cur === jpEra ? cur : jpEra))
+      const cnEra = next.chinaEra
+      if (cnEra) setChinaEraState((cur) => (cur === cnEra ? cur : cnEra))
+      // 年份／月份同樣跟返 URL（各時代 context 會跟隨 tk:timeline 廣播）
+      announceTimeline(readTimelineFromUrl())
+    }, 1000)
+    return () => window.clearInterval(id)
+  }, [])
 
   const value = useMemo(
     () => ({
