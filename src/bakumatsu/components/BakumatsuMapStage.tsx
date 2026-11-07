@@ -35,7 +35,7 @@ export function BakumatsuMapStage() {
   const { selectedFaction, selectFaction } = useBakumatsuSelection()
   const domains = useMemo(() => {
     const names = Object.fromEntries(BAKUMATSU_DOMAINS.map((d) => [d.id, d.name]))
-    const base = shadesFromHanDomainControl(control, names, '未確定')
+    const base = shadesFromHanDomainControl(control, names, '幕府')
     return [...base, ...bakumatsuFringeShades(year, control)]
   }, [control, year])
   const rows = useMemo(() => bakumatsuFactionCounts(control), [control])
