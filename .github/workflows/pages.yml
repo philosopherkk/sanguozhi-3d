@@ -1,0 +1,47 @@
+# 每次 push 到 main 自動將建置成果發佈至 gh-pages 分支（GitHub Pages）。
+# Vercel 端已設定 Ignored Build Step：commit ref 為 gh-pages 時跳過建置，
+# 因此本 workflow 的推送不會在 Vercel 產生失敗的部署。
+name: pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: 安裝依賴
+        run: npm ci --no-audit --no-fund
+      - name: 建置（未設定 VERCEL 環境變數，故 base 為 /sanguozhi-3d/）
+        run: npm run build
+      - name: 發佈至 gh-pages 分支
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch -q origin gh-pages
+          git worktree add -q --detach /tmp/ghp origin/gh-pages
+          cd /tmp/ghp
+          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name .nojekyll -delete
+          touch .nojekyll
+          cp -r "$GITHUB_WORKSPACE/dist"/. .
+          git add -A
+          if git diff --cached --quiet; then
+            echo "gh-pages 內容無變動，略過本輪發佈"
+          else
+            git commit -q -m "chore(pages): 自動部署 $GITHUB_SHA"
+            git push -q origin HEAD:gh-pages
+            echo "已發佈至 gh-pages"
+          fi
