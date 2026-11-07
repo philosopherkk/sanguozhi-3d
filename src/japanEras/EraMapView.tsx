@@ -47,6 +47,22 @@ function ringPath(ring: [number, number][]): string {
   return d
 }
 
+/**
+ * 同一個 domain 的所有 ring 合成單一 path（多個 subpath）。
+ * 幕末嘅藩 mesh 每個 domain 有幾百條 extraRings，逐條出 `<path>` 會產生
+ * 數千個 SVG 節點，pan/zoom 時要逐個重新佈局，係地圖卡頓嘅主因。
+ */
+const domainPathCache = new Map<object, string>()
+
+function domainPath(ring: [number, number][], extraRings?: [number, number][][]): string {
+  const key = extraRings ?? ring
+  const hit = domainPathCache.get(key)
+  if (hit !== undefined) return hit
+  const d = (extraRings ? [ring, ...extraRings] : [ring]).map(ringPath).join(' ')
+  domainPathCache.set(key, d)
+  return d
+}
+
 function centroid(ring: [number, number][]): [number, number] {
   const hit = centroidCache.get(ring)
   if (hit !== undefined) return hit
@@ -174,31 +190,26 @@ export function EraMapView({
                 const color = colorFor(d.faction)
                 return (
                   <g key={d.id} className="map-2d__faction">
-                    {(d.extraRings ? [d.ring, ...d.extraRings] : [d.ring]).map(
-                      (ring, index) => (
-                        <path
-                          key={index}
-                          d={ringPath(ring)}
-                          fill={color}
-                          fillOpacity={active ? 0.78 : 0.62}
-                          stroke={active ? '#fff8ea' : darken(color, 0.45)}
-                          strokeWidth={active ? 2.6 : 1.35}
-                          strokeLinejoin="round"
-                          className="map-2d__province"
-                          onClick={() => {
-                            if (view.suppressClickRef.current) {
-                              view.suppressClickRef.current = false
-                              return
-                            }
-                            onSelectFaction(active ? null : d.faction)
-                          }}
-                        >
-                          <title>
-                            {d.name} · {nameFor(d.faction)}
-                          </title>
-                        </path>
-                      ),
-                    )}
+                    <path
+                      d={domainPath(d.ring, d.extraRings)}
+                      fill={color}
+                      fillOpacity={active ? 0.78 : 0.62}
+                      stroke={active ? '#fff8ea' : darken(color, 0.45)}
+                      strokeWidth={active ? 2.6 : 1.35}
+                      strokeLinejoin="round"
+                      className="map-2d__province"
+                      onClick={() => {
+                        if (view.suppressClickRef.current) {
+                          view.suppressClickRef.current = false
+                          return
+                        }
+                        onSelectFaction(active ? null : d.faction)
+                      }}
+                    >
+                      <title>
+                        {d.name} · {nameFor(d.faction)}
+                      </title>
+                    </path>
                   </g>
                 )
               })
