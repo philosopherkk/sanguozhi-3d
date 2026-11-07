@@ -28,7 +28,8 @@ function stripHtml(html: string): string {
   return text.slice(0, 2800)
 }
 
-async function fetchGrokipedia(slug: string): Promise<InlineArticle | null> {
+/** 保留俾「開啟 Grokipedia」出口連結同將來嘅審閱用途；內文預設唔再用佢。 */
+export async function fetchGrokipedia(slug: string): Promise<InlineArticle | null> {
   const path = `/page/${encodeURIComponent(slug)}`
   const candidates = [
     `/api/grok${path}`, // vite proxy (dev)
@@ -197,11 +198,9 @@ export async function loadFactionInlineArticle(opts: {
   fallbackTitle: string
   fallbackBlurb: string
 }): Promise<InlineArticle> {
-  const grok = await fetchGrokipedia(opts.grokipediaSlug)
-  if (grok) return { ...grok, title: opts.fallbackTitle }
-
+  // 優先正體中文維基摘要；Grokipedia（英文、未審）只做出口連結，唔做內文。
   const wiki = await fetchWikipediaSummary(opts.zhwikiTitle, 'zh')
-  if (wiki) return wiki
+  if (wiki) return { ...wiki, note: undefined }
 
   return {
     title: opts.fallbackTitle,
@@ -209,7 +208,7 @@ export async function loadFactionInlineArticle(opts: {
     source: 'local',
     sourceLabel: '本站說明',
     url: `https://grokipedia.com/page/${opts.grokipediaSlug}`,
-    note: '未能擷取遠端條目；請用下方連結開啟 Grok 百科或維基百科。',
+    note: '中文維基摘要未能載入；可用下方連結開啟維基或 Grokipedia（未審）。',
   }
 }
 
@@ -219,17 +218,6 @@ export async function loadPersonInlineArticle(opts: {
   zhwikiUrl: string
   localNote?: string
 }): Promise<InlineArticle> {
-  let slug: string | undefined
-  if (opts.grokipediaUrl) {
-    const m = opts.grokipediaUrl.match(/\/page\/([^?#]+)/)
-    slug = m ? decodeURIComponent(m[1]) : undefined
-  }
-
-  if (slug) {
-    const grok = await fetchGrokipedia(slug)
-    if (grok) return { ...grok, title: opts.name }
-  }
-
   // Derive wiki title from zh URL path
   let wikiTitle = opts.name
   try {
@@ -241,8 +229,9 @@ export async function loadPersonInlineArticle(opts: {
     // keep name
   }
 
+  // 內文一律先用正體中文維基摘要；Grokipedia 只保留為出口連結（未審，英文）。
   const wiki = await fetchWikipediaSummary(wikiTitle, 'zh')
-  if (wiki) return { ...wiki, title: opts.name }
+  if (wiki) return { ...wiki, title: opts.name, note: undefined }
 
   return {
     title: opts.name,
@@ -250,6 +239,7 @@ export async function loadPersonInlineArticle(opts: {
     source: 'local',
     sourceLabel: '本站說明',
     url: opts.grokipediaUrl ?? opts.zhwikiUrl,
-    note: '未能擷取遠端條目；請用下方連結開啟。',
+    note: '中文維基摘要未能載入，改以本站提要；可用下方連結開啟維基或 Grokipedia（未審）。',
   }
 }
+

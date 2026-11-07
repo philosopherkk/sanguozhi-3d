@@ -1,5 +1,10 @@
-import { lazy, Suspense, type ComponentType } from 'react'
-import { TopicProvider, useTopic } from './state/TopicContext'
+import { lazy, Suspense, useEffect, type ComponentType } from 'react'
+import {
+  CHINA_ERA_SLOTS,
+  JAPAN_ERA_SLOTS,
+  TopicProvider,
+  useTopic,
+} from './state/TopicContext'
 import './App.css'
 
 const ZhouApp = lazy(() =>
@@ -42,6 +47,16 @@ const MuromachiApp = lazy(() =>
 )
 const AzuchiApp = lazy(() =>
   import('./azuchi/AzuchiApp').then((m) => ({ default: m.AzuchiApp })),
+)
+const EdoJapanApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./japanEras/packs/edoPack'),
+  ]).then(([app, data]) => ({
+    default: function EdoEra() {
+      return <app.DeepDiveApp pack={data.EDO_PACK} />
+    },
+  })),
 )
 
 function lazyPack(
@@ -140,19 +155,6 @@ const PrcApp = lazyPack(() =>
     },
   })),
 )
-
-function EdoJapan() {
-  return (
-    <JapanHistoryApp
-      initialYear={1603}
-      yearMin={1603}
-      yearMax={1868}
-      heading="德川江戶"
-      tag="1603–1868 · 松前與琉球在此 · 幕末詳圖另見"
-      footer="日本 · 德川江戶（1603–1868）· 1603年家康任征夷大將軍 · 1604年松前黑印只是渡島南部的交易 · 1609年島津入侵琉球，國王仍在，虛線附庸 · 1615年大坂之陣是幕府開府後的戰事 · 1853年起的逐月地圖在「幕末」· 1868年以後見「明治至當代」· 家康沒有征服整個北海道或沖繩"
-    />
-  )
-}
 
 function ModernJapan() {
   return (
@@ -319,7 +321,7 @@ function TopicRoot() {
         screen = <AzuchiApp />
         break
       case 'edo':
-        screen = <EdoJapan />
+        screen = <EdoJapanApp />
         break
       case 'bakumatsu':
         screen = <BakumatsuApp />
@@ -337,9 +339,88 @@ function TopicRoot() {
   return <Suspense fallback={<p className="era-loading">載入中…</p>}>{screen}</Suspense>
 }
 
+/**
+ * 年份 ↔ URL 橋。
+ * 讀：`?y=` 送入而家邊個時代嘅滑桿（滑桿喺 lazy chunk 入面，所以要 retry 一段短時間）。
+ * 寫：用家拖滑桿就將年份寫返入 URL，refresh 先可以還原。
+ * 標題：跟國家／時代改 document.title 同 OG 標籤，方便分享卡同 SEO。
+ */
+function UrlBridge() {
+  const { topic, chinaEra, japanEra, urlYear } = useTopic()
+  const eraId = topic === 'china' ? chinaEra : japanEra
+  const eraKey = `${topic}:${eraId}`
+
+  useEffect(() => {
+    const onInput = (ev: Event) => {
+      const el = ev.target as HTMLElement | null
+      if (!el || typeof el.closest !== 'function' || !el.closest('.year-scrubber')) return
+      const input = el as HTMLInputElement
+      if (input.type !== 'range') return
+      const q = new URLSearchParams(window.location.search)
+      q.set('y', input.value)
+      window.history.replaceState(null, '', `${window.location.pathname}?${q}`)
+    }
+    document.addEventListener('input', onInput, true)
+    return () => document.removeEventListener('input', onInput, true)
+  }, [])
+
+  useEffect(() => {
+    if (urlYear === null) return
+    let tries = 0
+    const timer = window.setInterval(() => {
+      tries += 1
+      const input = document.querySelector<HTMLInputElement>('.year-scrubber input[type=range]')
+      if (!input) {
+        if (tries > 20) window.clearInterval(timer)
+        return
+      }
+      const lo = Number(input.min)
+      const hi = Number(input.max)
+      if (Number.isFinite(lo) && Number.isFinite(hi) && (urlYear < lo || urlYear > hi)) {
+        window.clearInterval(timer) // URL 嘅年份喺呢個時代範圍之外，唔好亂設
+        return
+      }
+      const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set
+      if (!setter || input.value === String(urlYear)) {
+        window.clearInterval(timer)
+        return
+      }
+      setter.call(input, String(urlYear))
+      input.dispatchEvent(new Event('input', { bubbles: true }))
+      window.clearInterval(timer)
+    }, 150)
+    return () => window.clearInterval(timer)
+  }, [eraKey, urlYear])
+
+  useEffect(() => {
+    const slots = topic === 'china' ? CHINA_ERA_SLOTS : JAPAN_ERA_SLOTS
+    const slot = slots.find((s) => s.id === eraId)
+    const country = topic === 'china' ? '中國' : '日本'
+    const title = slot
+      ? `${country}·${slot.label}（${slot.range}）｜中日歷史回顧`
+      : '中日歷史回顧'
+    document.title = title
+    const setMeta = (selector: string, content: string) => {
+      const el = document.head.querySelector(selector)
+      if (el) el.setAttribute('content', content)
+    }
+    setMeta('meta[property="og:title"]', title)
+    setMeta('meta[name="twitter:title"]', title)
+    const desc = slot
+      ? `${country}${slot.label}（${slot.range}）——正史疆域、勢力與人物、行軍路徑逐年對照`
+      : '中日歷史回顧——中國（夏—當代）與日本（有史以來—當代）的正史疆域、勢力與人物互動年表'
+    setMeta('meta[property="og:description"]', desc)
+    setMeta('meta[name="description"]', desc)
+    setMeta('meta[name="twitter:description"]', desc)
+  }, [topic, eraId])
+
+  return null
+}
+
 function App() {
   return (
     <TopicProvider>
+      <UrlBridge />
       <TopicRoot />
     </TopicProvider>
   )

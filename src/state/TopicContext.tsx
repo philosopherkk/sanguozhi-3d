@@ -2,6 +2,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
@@ -99,17 +100,56 @@ interface TopicContextValue {
   setChinaEra: (e: ChinaEraSlot) => void
   japanEra: JapanEraSlot
   setJapanEra: (e: JapanEraSlot) => void
+  /** 由 URL 讀上嚟嘅年份（冇就 null）；比年代屏用作初始年。 */
+  urlYear: number | null
+}
+
+const CHINA_ERA_IDS = new Set<string>(CHINA_ERA_SLOTS.map((s) => s.id))
+const JAPAN_ERA_IDS = new Set<string>(JAPAN_ERA_SLOTS.map((s) => s.id))
+
+/**
+ * 讀 URL：`?c=china|japan`（或 country）、`?e=<era slot>`（或 era）、`?y=<年份>`（或 year）。
+ * 呢度只係初始值；之後寫回 URL 由下面嘅 effect 負責。
+ */
+function readUrlState() {
+  const empty = { topic: null as AppTopic | null, chinaEra: null as ChinaEraSlot | null, japanEra: null as JapanEraSlot | null, year: null as number | null }
+  if (typeof window === 'undefined') return empty
+  const q = new URLSearchParams(window.location.search)
+  const c = (q.get('c') ?? q.get('country') ?? '').toLowerCase()
+  const topic: AppTopic | null = c === 'japan' ? 'japan' : c === 'china' ? 'china' : null
+  const e = (q.get('e') ?? q.get('era') ?? '').trim()
+  const chinaEra = CHINA_ERA_IDS.has(e) ? (e as ChinaEraSlot) : null
+  const japanEra = JAPAN_ERA_IDS.has(e) ? (e as JapanEraSlot) : null
+  const yRaw = q.get('y') ?? q.get('year')
+  const year = yRaw && /^-?\d{1,4}$/.test(yRaw.trim()) ? Number(yRaw.trim()) : null
+  return { topic, chinaEra, japanEra, year }
 }
 
 const TopicContext = createContext<TopicContextValue | null>(null)
 
 export function TopicProvider({ children }: { children: ReactNode }) {
-  const [topic, setTopicState] = useState<AppTopic>('china')
-  const [chinaEra, setChinaEraState] = useState<ChinaEraSlot>('sanguo')
-  const [japanEra, setJapanEraState] = useState<JapanEraSlot>('sengoku')
+  const initial = readUrlState()
+  // URL 只寫咗時代（冇寫國家）都足以判斷邊邊；例如 ?e=edo 應該落日本。
+  const initialTopic: AppTopic =
+    initial.topic ?? (initial.japanEra && !initial.chinaEra ? 'japan' : 'china')
+  const [topic, setTopicState] = useState<AppTopic>(initialTopic)
+  const [chinaEra, setChinaEraState] = useState<ChinaEraSlot>(initial.chinaEra ?? 'sanguo')
+  const [japanEra, setJapanEraState] = useState<JapanEraSlot>(initial.japanEra ?? 'sengoku')
+  const urlYear = initial.year
   const setTopic = useCallback((t: AppTopic) => setTopicState(t), [])
   const setChinaEra = useCallback((e: ChinaEraSlot) => setChinaEraState(e), [])
   const setJapanEra = useCallback((e: JapanEraSlot) => setJapanEraState(e), [])
+
+  // 國家／時代變更 → 寫返 URL（用 replaceState，唔好污染返回歷史）。
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const q = new URLSearchParams(window.location.search)
+    q.set('c', topic)
+    q.set('e', topic === 'china' ? chinaEra : japanEra)
+    const qs = q.toString()
+    window.history.replaceState(null, '', `${window.location.pathname}${qs ? `?${qs}` : ''}`)
+  }, [topic, chinaEra, japanEra])
+
   const value = useMemo(
     () => ({
       topic,
@@ -118,8 +158,9 @@ export function TopicProvider({ children }: { children: ReactNode }) {
       setChinaEra,
       japanEra,
       setJapanEra,
+      urlYear,
     }),
-    [topic, setTopic, chinaEra, setChinaEra, japanEra, setJapanEra],
+    [topic, setTopic, chinaEra, setChinaEra, japanEra, setJapanEra, urlYear],
   )
   return (
     <TopicContext.Provider value={value}>{children}</TopicContext.Provider>

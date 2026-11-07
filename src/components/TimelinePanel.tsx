@@ -179,6 +179,7 @@ export function TimelinePanel({
                   </span>
                   ：{b.result}
                 </p>
+                {b.quote ? <p className="battle-quote">「{b.quote}」</p> : null}
                 <p className="person-source">{b.source}</p>
               </li>
             ))}

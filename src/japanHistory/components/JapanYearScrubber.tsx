@@ -1,3 +1,4 @@
+import { layoutTicks } from '../../lib/tickCollisions'
 import { JAPAN_KEY_YEARS } from '../data/eras'
 import { useJapanYear } from '../state/JapanYearContext'
 
@@ -35,7 +36,15 @@ const SNAP_LABELS: Partial<Record<number, string>> = {
 
 export function JapanYearScrubber() {
   const { year, setYear, yearMin, yearMax, keyYear } = useJapanYear()
-  const ticks = JAPAN_KEY_YEARS.filter((y) => y >= yearMin && y <= yearMax)
+  const ticks = layoutTicks(
+    JAPAN_KEY_YEARS.filter((y) => y >= yearMin && y <= yearMax).map((y) => ({
+      year: y,
+      label: SNAP_LABELS[y],
+    })),
+    yearMin,
+    yearMax,
+    keyYear,
+  )
 
   return (
     <div className="year-scrubber" role="group" aria-label="日本通史年代滑桿">
@@ -64,22 +73,33 @@ export function JapanYearScrubber() {
       />
 
       <div className="year-scrubber__ticks year-scrubber__ticks--dense">
-        {ticks.map((y) => (
+        {ticks.map((t) => (
           <button
-            key={y}
+            key={t.year}
             type="button"
             className={
-              y === keyYear ? 'year-scrubber__tick is-active' : 'year-scrubber__tick'
+              t.year === keyYear
+                ? 'year-scrubber__tick is-active'
+                : 'year-scrubber__tick'
             }
             style={{
-              left: `${((y - yearMin) / (yearMax - yearMin)) * 100}%`,
+              left: `${t.pct}%`,
+              opacity: t.faint ? 0.25 : undefined,
             }}
-            onClick={() => setYear(y)}
-            title={`${y}${SNAP_LABELS[y] ? ` ${SNAP_LABELS[y]}` : ''}`}
+            onClick={() => setYear(t.year)}
+            title={`${t.year}${t.label ? ` ${t.label}` : ''}`}
           >
-            <span className="year-scrubber__tick-year">{y}</span>
-            {SNAP_LABELS[y] ? (
-              <span className="year-scrubber__tick-label">{SNAP_LABELS[y]}</span>
+            <span
+              className={
+                t.showYear
+                  ? 'year-scrubber__tick-year'
+                  : 'year-scrubber__tick-dot'
+              }
+            >
+              {t.showYear ? t.year : t.showDot ? '·' : ''}
+            </span>
+            {t.showLabel && t.label ? (
+              <span className="year-scrubber__tick-label">{t.label}</span>
             ) : null}
           </button>
         ))}

@@ -71,6 +71,7 @@ export interface Person extends Sourced {
   role: PersonRole
   zhwiki_url: string
   grokipedia_url?: string
+  quote?: string // 史籍原文，逐字對 Wikisource 驗證
 }
 
 export interface Battle extends Sourced, TimelineDateFields {
@@ -90,4 +91,5 @@ export interface Battle extends Sourced, TimelineDateFields {
   }
   result: string
   territory_change?: string
+  quote?: string // 史籍原文，逐字對 Wikisource 驗證
 }

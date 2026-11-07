@@ -1,11 +1,32 @@
-# 三國志 3D — Agent rules
+# 中日歷史回顧（repo: sanguozhi-3d）— Agent rules
 
 - All UI text is in Traditional Chinese (zh-Hant). No Simplified characters.
 - History must come from primary sources: 陳壽《三國志》with 裴松之注, 范曄《後漢書》,
   司馬光《資治通鑑》, and 《晉書》. Never use 《三國演義》.
+- **日本史料（同等級要求）**：一手用《日本書紀》、《古事記》、『吾妻鏡』、
+  《徳川実紀》、法令原文（《武家諸法度》《禁中並公家諸法度》《松前島郷帳》條文）、條約文、
+  公文書（防衛省『防衛白書』、內閣決定、『日本外交文書』、防衛研究所『戦史叢書』）。
+  軍記文學（《平家物語》《治戰記》《保元物語》《平治物語》等）可以引用，但必須喺 `source`
+  標明「文學作品，非史實記錄」。絕不用二次創作（《三國演義》式）文獻當史料。
+- **唔准扮作原文**：只有可以喺 Wikisource（zh 用 `zh.wikisource.org`、日本用 `ja.wikisource.org`；
+  工具 `scripts/qsrc.py --host ja.wikisource.org --search <詞>`）攞到**可逐字比對**嘅文字，
+  先可以逐字引用。攞唔到（例如 ja.wikisource 嘅 ProofRead 掃描頁、正文喺 `Page:` 空間抽唔到）就
+  一律喺 `source` 寫明「通說整理，非逐字引文」，並喺 `note` 解釋點解。引用前用
+  `npm run audit:quotes -- --live --mark-verified`（中文）或 `qsrc.py --host ja.wikisource.org`（日本）查證。
+- **近現代（中國 1912 年起／日本 1868 年起）**：唔使文言原文；用現代中文簡述（`desc`）＋三層意譯＋四段。
+  出處用條約、法令、白書、公文書。凡遇各方分歧嘅數字（南京事件、沖繩戰、英帕爾、
+  戰時動員人數等），一律 `disputed: true`、喺 `note` 講明分歧，**唔寫定數**。
+- **人物連結**：維基連結以中文條目優先；如果無中文條目（例：シャクシャイン、メナシ・クナシルの戦い），
+  可用日本維基，並喺 `note` 或 `brief` 講明「中文維基無條目」。
 - Every data entry (event, person, number) needs a `source` field, e.g. "《三國志·魏書·武帝紀》".
 - If a fact is uncertain or disputed, set `"disputed": true` and explain why in `note`.
-- Map borders are approximate. Base them on 譚其驤《中國歷史地圖集》第三冊.
+- Map borders are approximate. Base them on 譚其驤《中國歷史地圖集》第三冊。
+  日本時代用歴史的藩域／郡界示意（`src/geo/japanEraRings`、`jpDomains`）；
+  戰爭時代（明治至當代、二次大戰）先用寬域亞洲底圖（Natural Earth 1:50m 海岸線，
+  `scripts/gen_asia_war_*.mjs` 產生），非戰爭時代返回日本地圖。
+- Structure for every deep-dive entry: 原文（或現代簡述）→ 三層意譯（小學生／中學生／大學生）→
+  起因 → 經過 → 關鍵人物（連維基）→ 結果及影響。用 `node scripts/audit_entries.mjs` 篩缺項。
+
 - Commit after each phase. Use Conventional Commits.
 - Agent chat replies to the user may use Cantonese (粵語口語).
 - Code comments, data fields (names, notes, sources), and all in-app UI copy must use formal Traditional Chinese (書面語). Do not use Cantonese colloquial particles or wording (例如：嘅、唔、咗、咩、佢等).
