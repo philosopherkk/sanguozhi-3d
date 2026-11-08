@@ -50,7 +50,7 @@ import time
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import wikisource as W  # noqa: E402  清洗／比對唯一來源
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 AUDIT = ROOT / 'reports' / 'quotes-audit.json'
 OUT = ROOT / 'reports' / 'quote-forensics.json'
 

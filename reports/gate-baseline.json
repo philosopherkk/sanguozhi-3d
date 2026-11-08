@@ -1,0 +1,42 @@
+{
+  "audit:data": {
+    "exit": 0,
+    "fail": 0,
+    "warn": 59
+  },
+  "audit:wiring": {
+    "exit": 1,
+    "fail": 7
+  },
+  "audit:ranges": {
+    "exit": 0,
+    "fail": 0,
+    "warn": 211
+  },
+  "audit:quotes": {
+    "exit": 0,
+    "errors": 25,
+    "warns": 16
+  },
+  "audit:chengyu": {
+    "exit": 0,
+    "fail": 18,
+    "warn": 9
+  },
+  "audit:map": {
+    "exit": 0,
+    "fail": 0,
+    "warn": 0
+  },
+  "audit:chars": {
+    "exit": 0,
+    "hard": 274
+  },
+  "audit:event-depth": {
+    "exit": 0,
+    "gap": 578
+  },
+  "audit:geo": {
+    "exit": 0
+  }
+}

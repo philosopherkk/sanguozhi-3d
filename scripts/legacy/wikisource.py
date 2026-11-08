@@ -19,7 +19,7 @@ import sys
 import time
 import urllib.parse
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 CACHE = ROOT / 'vendor' / 'wikisource'
 PAGES = ROOT / 'reports' / 'wikisource-pages.txt'
 INVIS = re.compile('[\u200b\u200c\u200d\ufe00-\ufe0f]')

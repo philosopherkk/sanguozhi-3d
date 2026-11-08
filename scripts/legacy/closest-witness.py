@@ -43,7 +43,7 @@ import pathlib
 import sys
 import time
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts'))
 import wikisource as W  # noqa: E402  清洗／比對唯一來源
 

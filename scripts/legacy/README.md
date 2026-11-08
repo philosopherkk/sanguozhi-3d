@@ -18,6 +18,17 @@
 2. 先接 `resolve-unchecked.py`（定位器）→ 再接 `closest-witness.py`（轉錄本對照）→ 最後 `verifier-teeth.py`（比對器咬合力測試，防判定層退化成橡皮章）
 3. TS 嗰兩支要改 import 路徑（用檔案而不是目錄 barrel）
 
+## 2026-11-08 更新：JSON 契約已補上
+- `npm run audit:quotes:json`（即 `audit_quotes.mjs --rows`）會輸出 `reports/quotes-audit.json`，形狀為 `{"totals":…, "rows":[{id,file,line,key,kind,state,quote,source,pages,disputed,issues}]}`
+- `kind` 對齊舊契約：`original / unchecked / paraphrase / missing / modern`
+- 交叉核對通過（同文字報告逐數一致）：`unchecked 166` = 未查證 166、`paraphrase 53` = 意譯 53、`missing 1556` = 1811 − 255 有引文、`original 36` = 已查證 21 ＋ 引文已改 13（另 2 筆同類）
+- 遷入時造成嘅路徑錯已修：`ROOT` 原以 `parent.parent` 計算，放進 `scripts/legacy/` 後會指向 `scripts/`，令佢哋搵 `scripts/scripts/…`；已改 `parents[2]`／多一層 `dirname`
+- 修正過程中我一度把「冇引文」嘅 1556 條全部歸做 `modern`（近現代），等於把最大宗缺口隱瞞；已改為先歸 `missing`，`modern` 只留給近現代標籤者
+
+**仍然跑唔通，原因只剩一個**：`closest-witness / quote-forensics / resolve-unchecked / verifier-teeth` 都 `import wikisource`（舊線嘅清洗、正規化、快取、`witness_ok` 單一實作），而本 repo 嘅同一功能是 `scripts/qsrc.py`（有 `verify_batch`／`PUNCT`，但無 `clean`／`norm`／`VARIANT`／`witness_ok` 同名 API）。
+下一步應係**寫一個門面轉接（約數十行，含測試）把 `wikisource` 導向 `qsrc` 的同一實作**，而唔係把舊 `wikisource.py` 當第二份實作放進 `scripts/`——兩份清洗／比對邏輯正係舊線文檔反覆警告嘅做法（兩份實作會各自漂移，令「與轉錄本一致」呢類判定失效）。
+順序：門面 → `resolve-unchecked.py --classify`（產 `reports/remaining-unchecked.json`）→ `human-decision-sheet.py` → `closest-witness.py` → `verifier-teeth.py`（咬合力測試）。
+
 ## 已經接上嘅（唔喺呢度）
 - `scripts/audit-chars.ts`：預設掃成個 `src`，`src/imperial` 命中 189 處——正正補上 `audit:data` 只掃 `src/data` 嘅缺口；已入 `npm run audit:chars`
 - `scripts/gen_civil_war.py`：內戰 pack 嘅生成器（我哋一直只有產物無生成器）。原產出簡體「三大战役」，已改正；而家重跑與已提交 pack **逐字節一致**

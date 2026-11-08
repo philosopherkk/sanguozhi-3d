@@ -17,3 +17,6 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run audit:data
+      # 護欄式閘門：與 reports/gate-baseline.json 比較，只在惡化時失敗。
+      # 基線由本地 `npm run gates -- --update-baseline` 產生，隨 PR 一起提交。
+      - run: npm run gates

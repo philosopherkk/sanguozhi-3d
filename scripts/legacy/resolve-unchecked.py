@@ -32,7 +32,7 @@ import urllib.parse
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import wikisource as ws  # noqa: E402  清洗／正規化／快取只用這一份
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 AUDIT = ROOT / 'reports' / 'quotes-audit.json'
 OUT = ROOT / 'reports' / 'unchecked-resolved.json'
 LOG = ROOT / 'reports' / 'overnight-log.md'
