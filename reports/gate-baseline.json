@@ -15,7 +15,7 @@
   },
   "audit:quotes": {
     "exit": 0,
-    "errors": 4,
+    "errors": 2,
     "warns": 45
   },
   "audit:chengyu": {
@@ -26,11 +26,11 @@
   "audit:map": {
     "exit": 0,
     "fail": 0,
-    "warn": 0
+    "warn": 5
   },
   "audit:chars": {
     "exit": 0,
-    "hard": 233
+    "hard": 0
   },
   "audit:event-depth": {
     "exit": 0,
