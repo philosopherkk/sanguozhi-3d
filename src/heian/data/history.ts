@@ -338,6 +338,11 @@ export const HEIAN_EVENTS: EraEvent[] = [
     },
 ]
 
+/*
+ * 本輪加厚佇列（占位標記）：1156-hogen、1159-heiji、1180-ishibashi、1180-fuji。
+ * 這四條的起因／經過／結果將逐條改寫至大學生程度，起因分結構性原因與直接觸發，
+ * 經過依時間順序並標出轉折，結果分短期、長期、分期爭議與史料批判四層。
+ */
 export const HEIAN_DETAILS: Record<string, EraDetail> = {
   '1156-hogen': {
     causes: '鳥羽法皇死後，崇德上皇與後白河天皇爭朝政，雙方都召武士入京。',
