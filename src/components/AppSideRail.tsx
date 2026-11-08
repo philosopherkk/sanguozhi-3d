@@ -19,9 +19,12 @@ export function AppSideRail({
   chengyu,
   storageKey = 'side-rail',
 }: AppSideRailProps) {
+  // 窄螢幕預設展開：行動版把地圖與內容分成兩屏後，「收合只剩一排標籤」
+  // 會讓第二屏變成一條被拉滿的空欄（實測截圖所見）。地圖已經獨立成第一屏，
+  // 收合在手機上沒有意義，故預設展開；工具列的「顯示地圖」仍可回到第一屏。
   const [open, setOpen] = usePersistedOpenResponsive(storageKey, {
     desktop: true,
-    mobile: false,
+    mobile: true,
   })
   const [tab, setTab] = useState<ContentDockTab>('events')
 
