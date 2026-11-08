@@ -50,7 +50,7 @@ export interface ImperialSnapshot {
     dy?: number
     anchor?: 'start' | 'middle' | 'end'
   }[]
-  /** 主圖畫布蓋不到的海域用附图（例如南海諸島，主圖南界約在北緯18.5°）。 */
+  /** 主圖畫布蓋不到的海域用附圖（例如南海諸島，主圖南界約在北緯18.5°）。 */
   inset?: 'south-china-sea'
 }
 

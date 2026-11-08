@@ -32,7 +32,7 @@
 
 | 路徑 | 用途 |
 |------|------|
-| `japan_bakumatsu_1867/vendor/villages/Hxxx.geojson` | 村多邊形（依 `ryobun` 對應藩；**非**旧国切分） |
+| `japan_bakumatsu_1867/vendor/villages/Hxxx.geojson` | 村多邊形（依 `ryobun` 對應藩；**非**舊國切分） |
 | `japan_bakumatsu_1867/vendor/staged_han.json` | v1 階段性收錄之藩與 `ryobun` 鍵 |
 | `japan_bakumatsu_1867/collection.geojson` | 藩 dissolve 索引（`approx: true`） |
 | `src/bakumatsu/data/bakumatsuHanMeshes.ts` | 投影 mesh（`scripts/build_bakumatsu_han_rings.py` 生成） |
@@ -42,7 +42,7 @@
 - 自 **村領域** 改作之 **藩 dissolve GeoJSON／mesh** 沿用 **CC BY-SA 4.0**；不得以 MIT 等條款再授權改作幾何。
 - 應用程式原始碼授權與資料授權分離；見本檔與 UI `provenance` 標示。
 
-## 與旧国 mesh（BY-NC）之區別
+## 與舊國 mesh（BY-NC）之區別
 
 | 圖層 | 資料 | 授權 | 用途 |
 |------|------|------|------|
@@ -51,8 +51,8 @@
 
 ## 非臆造部分（誠實標示）
 
-- **`approx: true` 永久**：現代農業集落邊界接合，非慶応地籍級藩界。
-- **旧国 ≠ 藩**：未以 K01–K73 假裝幕末藩界。
+- **`approx: true` 永久**：現代農業集落邊界接合，非慶應地籍級藩界。
+- **舊國 ≠ 藩**：未以 K01–K73 假裝幕末藩界。
 - **琉球（K74）**：不將薩摩藩 mesh 當沖繩縣界；附庸虛線仍用 `JP_ERA_RINGS`。
 - **松前／北海道**：1604 渡島南部交易領與 ≥1869 開拓使仍用 CB-02a fringe；**不**臆造阿イヌ內陸政治界（Emishi ≠ Ainu）。
 - **v1 階段性**：僅收錄 `staged_han.json` 所列 major 藩；其餘待擴充或代表點 fallback。

@@ -16,7 +16,7 @@
 
 | 路徑 | 用途 |
 |------|------|
-| `src/data/territory/japan_kokugun/vendor/K01.geojson` … `K85.geojson` | 原始 GeoJSON（舊国 K01–K73、琉球 K74、北海道 K75–K85） |
+| `src/data/territory/japan_kokugun/vendor/K01.geojson` … `K85.geojson` | 原始 GeoJSON（舊國 K01–K73、琉球 K74、北海道 K75–K85） |
 | `src/data/territory/japan_kokugun/index.geojson` | 本州・四国・九州旧国索引（屬性含 `source_plate`） |
 | `src/sengoku/data/codhKokugunMeshes.ts` | 投影至日本地勢 1482×1477 的著色 mesh（`scripts/build_japan_kokugun_rings.py` 生成） |
 | `src/geo/japanEraRings.ts` | 松前（K78 南部切分）、北海道（K75–K85）、琉球（K74）外周環 |

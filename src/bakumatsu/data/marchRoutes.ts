@@ -106,7 +106,7 @@ export const BAKUMATSU_MARCH_ROUTES: MarchRoute[] = [
     year: 1868,
     month: 5,
     faction: '薩長',
-    source: '日本近代史通說。西鄉吉之助與勝海舟交渉開城，不是攻陷屠城',
+    source: '日本近代史通說。西鄉吉之助與勝海舟交涉開城，不是攻陷屠城',
     points: [
       [889.0, 715.0],
       [890.1, 712.4],

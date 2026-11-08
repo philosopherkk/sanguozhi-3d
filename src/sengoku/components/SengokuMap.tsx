@@ -180,7 +180,7 @@ export function SengokuMap() {
           {basemap.credit}
         </a>
         {basemap.license ? `（${basemap.license}）` : ''}
-        。現代列島地勢，平安、戰國、幕末、江戶共用，不按時代換古圖。域界為 CODH 旧国 mesh（CC BY-NC 4.0）。{SENGOKU_TERRITORY_NOTE}{' '}
+        。現代列島地勢，平安、戰國、幕末、江戶共用，不按時代換古圖。域界為 CODH 舊國 mesh（CC BY-NC 4.0）。{SENGOKU_TERRITORY_NOTE}{' '}
         {formatGeometryProvenance(SENGOKU_TERRITORY_GEOMETRY_PROVENANCE)}大名用漢字。渡海只標文祿。
       </p>
     </div>
