@@ -219,7 +219,7 @@ const BAKUMATSU_MONTH_NOTES: Record<string, { note: string; control?: Record<str
     control: ouetsu,
   },
   '1868-9': {
-    note: '九月新政府軍稳住越後。越後改著薩長，會津仍在抵抗。',
+    note: '九月新政府軍穩住越後。越後改著薩長，會津仍在抵抗。',
     control: aizuOnly,
   },
   '1868-10': {

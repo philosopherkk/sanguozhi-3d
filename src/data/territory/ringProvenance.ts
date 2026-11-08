@@ -106,7 +106,7 @@ export const RING_PROVENANCE: Record<string, RingProvenance> = {
   realm_prc_1949: { basis: '1949 實控：依政書清單的手繪大勢框，非圖幅矢量化', source: '《共同綱領》；其時西南、沿海未定', institution: '省', kind: 'schematic-box', approx: true },
   realm_prc_1951: { basis: '1951 西藏協議後：依政書清單的手繪大勢框，非圖幅矢量化', source: '十七條協議；協議不等於行政推行', institution: '省', kind: 'schematic-box', approx: true },
   realm_qing_1668: { basis: '清康熙初：依政書清單的手繪大勢框，非圖幅矢量化', source: '《清史稿·地理志》', institution: '省', kind: 'schematic-box', approx: true },
-  realm_qing_high: { basis: '清盛時邊疆區：依政書清單的手繪大勢框，非圖幅矢量化', source: '《清史稿·地理志》；將軍辖區', institution: '省', kind: 'schematic-box', approx: true },
+  realm_qing_high: { basis: '清盛時邊疆區：依政書清單的手繪大勢框，非圖幅矢量化', source: '《清史稿·地理志》；將軍轄區', institution: '省', kind: 'schematic-box', approx: true },
   realm_ming_1368: { basis: '明初：依政書清單的手繪大勢框，非圖幅矢量化', source: '《明史·地理志》；《明太祖實錄》', institution: '省', kind: 'schematic-box', approx: true },
   realm_yuan_1368: { basis: '元末：依政書清單的手繪大勢框，非圖幅矢量化', source: '《元史·地理志》', institution: '省', kind: 'schematic-box', approx: true },
   realm_ming_1420: { basis: '明永樂後：依政書清單的手繪大勢框，非圖幅矢量化', source: '《明史·地理志》13 布政司；交趾布政司', institution: '省', kind: 'schematic-box', approx: true },

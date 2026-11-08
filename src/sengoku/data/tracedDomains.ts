@@ -1,4 +1,4 @@
-/** 勢力域 d0–d27 元資料（zone／clan）；著色幾何改 CODH 旧国 mesh（codhKokugunMeshes.ts）。 */
+/** 勢力域 d0–d27 元資料（zone／clan）；著色幾何改 CODH 舊國 mesh（codhKokugunMeshes.ts）。 */
 import type { SengokuFactionId, SengokuRegionId } from '../types'
 import {
   JAPAN_CODH_KOKUGUN_GEOMETRY,

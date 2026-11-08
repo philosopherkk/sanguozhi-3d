@@ -18,7 +18,7 @@ export const TK_PROVINCE_GEOMETRY: TerritoryGeometryProvenance = {
   note: '目標檔：tk_262_zhou.geojson',
 }
 
-/** 日本大名域 seed-Voronoi（d0–d27 對照表；幾何已改 CODH 旧国 mesh） */
+/** 日本大名域 seed-Voronoi（d0–d27 對照表；幾何已改 CODH 舊國 mesh） */
 export const JAPAN_VORONOI_DOMAINS: TerritoryGeometryProvenance = {
   approx: true,
   source:
@@ -84,28 +84,28 @@ export const BAKUMATSU_HAN_GEOMETRY: TerritoryGeometryProvenance = {
   approx: true,
   source:
     'CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · https://geoshape.ex.nii.ac.jp/av/ · 本田謙一氏原典加工 · CC BY-SA 4.0',
-  note: '村領域→藩 unary_union 示意；旧国 mesh（BY-NC）≠藩界；2015 農業集落邊界接合。',
+  note: '村領域→藩 unary_union 示意；舊國 mesh（BY-NC）≠藩界；2015 農業集落邊界接合。',
 }
 
 export const BAKUMATSU_TERRITORY_NOTE_ZH =
-  '色塊為幕末村領域→藩 dissolve 示意（approx）；旧国≠藩界。資料：本田／CODH 幕末期近世村領域（CC BY-SA，見 ATTRIBUTION-CODH-HAN-BY-SA.md）。v1 僅 major 藩；歸屬色仍依戊辰勢力對照。'
+  '色塊為幕末村領域→藩 dissolve 示意（approx）；舊國≠藩界。資料：本田／CODH 幕末期近世村領域（CC BY-SA，見 ATTRIBUTION-CODH-HAN-BY-SA.md）。v1 僅 major 藩；歸屬色仍依戊辰勢力對照。'
 
 /**
  * 幕末地圖實際係混合幾何：藩級 mesh 只覆蓋 28 個舊國中的 21 個，
- * 未覆蓋的舊國改用旧国 mesh 補畫。出处要如實反映兩套來源。
+ * 未覆蓋的舊國改用舊國 mesh 補畫。出处要如實反映兩套來源。
  */
 export const BAKUMATSU_HAN_PLUS_KOKUGUN_GEOMETRY: TerritoryGeometryProvenance = {
   approx: true,
   source:
     '藩級：CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · 本田謙一氏原典加工 · CC BY-SA 4.0；舊國級補完：CODH 舊國 mesh（BY-NC）',
-  note: '藩級 mesh 覆蓋 d0–d27 之中的 21 個舊國；其餘 7 個舊國以旧国 mesh 補畫，同幅圖因此混合兩套幾何來源。',
+  note: '藩級 mesh 覆蓋 d0–d27 之中的 21 個舊國；其餘 7 個舊國以舊國 mesh 補畫，同幅圖因此混合兩套幾何來源。',
 }
 
 export const BAKUMATSU_TERRITORY_NOTE_MIXED_ZH =
-  '色塊為幕末村領域→藩 dissolve 示意（approx）；旧国≠藩界。藩級幾何只覆蓋 28 個舊國中的 21 個，未覆蓋者（d1、d2、d8、d14、d22、d26、d27）改用 CODH 旧国 mesh 補畫，所以該圖混合 CC BY-SA 藩級與 BY-NC 旧国兩套幾何。歸屬色仍依戊辰勢力對照。'
+  '色塊為幕末村領域→藩 dissolve 示意（approx）；舊國≠藩界。藩級幾何只覆蓋 28 個舊國中的 21 個，未覆蓋者（d1、d2、d8、d14、d22、d26、d27）改用 CODH 舊國 mesh 補畫，所以該圖混合 CC BY-SA 藩級與 BY-NC 舊國兩套幾何。歸屬色仍依戊辰勢力對照。'
 
 export const JAPAN_TERRITORY_NOTE_ZH =
-  '色塊邊界為 CODH 幕末明治旧国 mesh（CC BY-NC，見 ATTRIBUTION-CODH-BY-NC.md）；大名／藩歸屬仍示意，非村→藩 dissolve（CB-02b 後續）。'
+  '色塊邊界為 CODH 幕末明治舊國 mesh（CC BY-NC，見 ATTRIBUTION-CODH-BY-NC.md）；大名／藩歸屬仍示意，非村→藩 dissolve（CB-02b 後續）。'
 
 /**
  * 亞洲—太平洋戰區（明治至當代）色塊：以通說控制範圍之經緯度區間界定，
@@ -124,7 +124,7 @@ export const ASIA_WAR_TERRITORY_NOTE_ZH =
 
 /** 幕末／總覽共用：JP_ERA_RINGS 北海道窗（1869 開拓使，仍 approx） */
 export const JP_ERA_RINGS_HOKKAIDO_1869_NOTE_ZH =
-  '1869年7月開拓使設置、蝦夷地改称北海道之行政示意（approx）；同年箱館戰爭，非全島即時平定。幾何為 CODH K75–K85。'
+  '1869年7月開拓使設置、蝦夷地改稱北海道之行政示意（approx）；同年箱館戰爭，非全島即時平定。幾何為 CODH K75–K85。'
 
 export const JP_ERA_RINGS_MATSUMAE_NOTE_ZH =
   '1604年起松前交易領（渡島南部示意），非全島征服；見《德川實紀》慶長九年。'

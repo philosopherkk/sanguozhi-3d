@@ -17,6 +17,9 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run audit:data
+      # 2026-11-08 補：test 指令曾指向一個從未入庫的檔案，而 CI 又未執行 test，
+      # 因此「測試全綠」長期為空話。加入 CI，讓同類失靈下次即被抓到。
+      - run: npm run test
       # 護欄式閘門：與 reports/gate-baseline.json 比較，只在惡化時失敗。
       # 基線由本地 `npm run gates -- --update-baseline` 產生，隨 PR 一起提交。
       - run: npm run gates

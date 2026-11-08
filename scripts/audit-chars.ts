@@ -43,6 +43,24 @@ const HARD: Record<string, string> = {
   历: '歷', 陈: '陳', 萨: '薩', 双: '雙', 动: '動', 务: '務', 参: '參',
   论: '論', 许: '許', 访: '訪', 诉: '訴', 详: '詳', 趋: '趨', 宪: '憲',
   协: '協', 简: '簡', 卖: '賣', 厅: '廳', 圣: '聖', 决: '決', 权: '權', 谁: '誰', 无: '無',
+  // 2026-11-08 補四：排程 agent 回報閘門通過但資料含有簡體字，逐字核對後確認表內缺下列各字。
+  // 收錄條件：該字形只出現於簡體、繁體一律用正體者始入表：
+  //   阅→閱 叹→嘆 谢→謝 叙→敘 场→場 灭→滅 层→層 践→踐 离→離 联→聯 诸→諸
+  //   礼→禮 节→節 数→數 编→編 贷→貸 与→與 满→滿 渐→漸 辖→轄 桩→樁
+  // 另補兩個本輪實際查到的錯字：孙（馬陵 outcomeSource）、荆（滅楚舊引文）。
+  // 刻意不收：「于」（繁體本字，如「作藩于外」）、「愿」（古典有「愿，谨也」一義，恐誤殺引文，留待人工）。
+  阅: '閱', 叹: '嘆', 谢: '謝', 叙: '敘', 场: '場', 灭: '滅', 层: '層', 践: '踐',
+  离: '離', 联: '聯', 诸: '諸', 礼: '禮', 节: '節', 数: '數', 编: '編', 贷: '貸',
+  与: '與', 满: '滿', 渐: '漸', 辖: '轄', 桩: '樁', 孙: '孫', 荆: '荊',
+  // 2026-11-08 補五：修完上一批後再掃出來的兩個——
+  // 「庆応3年」（慶応／慶應，簡體庆＋日本新字応同時出現）與「関速」類同形問題。
+  // 注意：『』內的日文書名與「」內的日文引文照舊豁免，不受此條影響。
+  庆: '慶', 応: '應', 忧: '憂', 扰: '擾', 华: '華', 领: '領',
+}
+// 簡繁混寫：「關于」此類寫法既非繁體（應作「關於」），亦非簡體（應作「关于」），
+// 多數是把簡體文件標題直接放入繁體句子所留下的殘跡。2026-11-08 查 minguoPack 領海聲明一節時發現。
+const MIXED_USAGE: Record<string, string> = {
+  關于: '關於',
 }
 // 兩用／視語境：古典引文常合法使用（作藩于外、秦并天下），列 info 不自動改
 // 着：繁體裡「著色／著陸」作動詞應寫「著」，但「看着」這類動態助詞
@@ -54,7 +72,10 @@ const SOFT = ['来', '并', '于', '干', '内', '会', '没', '余', '与', '�
 // 全在幕末事件檔的 source／outcomeSource 欄位。這類比簡體字更危險：
 // 簡體字只是字形錯，佔位符是**看起來像出處但沒有出處**，正是編造的入口。
 // 修法只有兩種：換成真的具名著作，或降格為「（未具名）」並承認沒有來源。
-const PLACEHOLDER_TITLE = /《[^》]{0,20}(相關記錄|相關記載|相關文獻|相關檔案|相關文件|関連記録|関連記載|関連文書)[^》]{0,10}》/
+// 含糊「書名」偵測：《…相關記錄》《…關連記載》此類名稱既查無此書、也無法逐字核對，
+// 等同把讀者引向一個不存在的出處。2026-11-08 先把「關連記錄」這一變體補進來。
+const PLACEHOLDER_TITLE =
+  /《[^》]{0,24}(相關|關連|関連|关联|有關|對應)[^》]{0,4}(記錄|記録|記載|文獻|檔案|文件|資料)/
 const QUOTE_LINE = /(quote|classicQuote|source|title|name|id):\s*['“]/
 
 // 生成的分診表會**照抄原文行**，包括依 §1AJ 合法保留的日文原題字形。
@@ -123,18 +144,35 @@ const files = roots.flatMap((r) => (statSync(r).isDirectory() ? walk(r) : [r]))
 let hard = 0
 let soft = 0
 let allowed = 0
+let quoteHits = 0
+// 「引文內的簡體／日字」預設豁免，需要清單時用 --inspect-quotes（只報告）。
+const INSPECT_QUOTES = flags.includes('--inspect-quotes')
 for (const f of files) {
-    const lines = readFileSync(f, 'utf8').split('\n')
+    const full = readFileSync(f, 'utf8')
+    // 反引號區段要喺成個檔案層面判：加厚後嘅敘事（起因／經過／結果／三層意譯）
+    // 正正擺喺模板字面值入面。舊做法逐行 `/`[^`]*`/` 剝掉，等於簡體閘門對主要內容失明。
+    // 只保留原本嘅豁免對象：短區段（程式碼，或文件裡「正在討論的那個字本身」）。
+    // 判準：跨行，或含 ≥12 個中日韓字 → 敘事內容，要掃；否則照舊跳過。
+    const narrative = new Set<number>()
+    for (const m of full.matchAll(/`[^`]*`/gs)) {
+      const span = m[0]
+      const cjk = (span.match(/[\u3400-\u4dbf\u4e00-\u9fff\u3040-\u30ff]/g) ?? []).length
+      if (span.includes('\n') || cjk >= 12) {
+        const startLine = full.slice(0, m.index).split('\n').length
+        const spanLines = span.split('\n').length
+        for (let i = 0; i < spanLines; i += 1) narrative.add(startLine - 1 + i)
+      }
+    }
+    const lines = full.split('\n')
     lines.forEach((line, i) => {
       if (SKIP_LINE.test(line) || JP_LINE.test(line)) return
       // 『…』 之內是日文書名（『徳川実紀』『島津国衆軍前軍忠次第』），
       // 実・国・録・徳在日文是正確字形，不是簡體字，掃之前先拿掉。
-      // `…` 之內是程式碼或「正在討論的那個字本身」（如文件裡列出的簡體字清單），
-      // 同樣不是寫錯的正文。
-      const scanned = line
-        .replace(/『[^』]*』/g, '')
-        .replace(/`[^`]*`/g, '')
-        .replace(/「[^」]*」/g, '')
+      // 「…」 之內是引文（古典原文可能合法使用舊字形），預設亦拿掉；
+      // 需要覆核引文內的簡體／日字用 `--inspect-quotes`（只報告、不計入失敗）。
+      let scanned = line.replace(/『[^』]*』/g, '').replace(/「[^」]*」/g, '')
+      if (!narrative.has(i)) scanned = scanned.replace(/`[^`]*`/g, '')
+
       const isQuote = QUOTE_LINE.test(line)
       for (const [ch, fix] of Object.entries(HARD)) {
         if (scanned.includes(ch)) {
@@ -148,10 +186,29 @@ for (const f of files) {
           console.log(`HARD ${f}:${i + 1} ${ch}→${fix}  ${line.trim().slice(0, 60)}`)
         }
       }
+      // 「…」 之內預設豁免（古典引文可能合法用舊字形、日文引文用日本字形）。
+      // 但豁免不等於無問題：--inspect-quotes 把它們列出來交人工／引文 agent 逐條判，
+      // 只報告、不計入硬傷，避免為了數字好看而改壞引文原形。
+      if (INSPECT_QUOTES) {
+        for (const sp of line.matchAll(/「[^」]*」/g)) {
+          for (const [ch, fix] of Object.entries(HARD)) {
+            if (sp[0].includes(ch)) {
+              quoteHits += 1
+              console.log(`info-quote ${f}:${i + 1} ${ch}→${fix}  ${sp[0].slice(0, 44)}`)
+            }
+          }
+        }
+      }
       const ph = scanned.match(PLACEHOLDER_TITLE)
       if (ph) {
         hard += 1
         console.log(`HARD ${f}:${i + 1} 佔位符出處  ${ph[0]}  ${line.trim().slice(0, 50)}`)
+      }
+      for (const [word, fix] of Object.entries(MIXED_USAGE)) {
+        if (scanned.includes(word)) {
+          hard += 1
+          console.log(`HARD ${f}:${i + 1} 簡繁混寫 ${word}→${fix}  ${line.trim().slice(0, 50)}`)
+        }
       }
       if (!isQuote) {
         for (const ch of SOFT) {
@@ -166,6 +223,9 @@ for (const f of files) {
 console.log(
   `\naudit:chars — 硬傷 ${hard} 處、已核准 ${allowed} 處、待判 ${soft} 處（引文行的視境字已跳過）`,
 )
+if (INSPECT_QUOTES) {
+  console.log(`引文區（「…」內）待判 ${quoteHits} 處——只報告，不計入失敗；請逐條判：真錯字抑或引文原形`)
+}
 // 硬傷的已知數（史料原文字形）記成基準；變多就失敗。
 // --gate 讓同一支腳本對不同範圍各記一條基準（src 與 docs 的既存狀態差很多）。
 const gateFlag = flags.find((f) => f.startsWith('--gate='))

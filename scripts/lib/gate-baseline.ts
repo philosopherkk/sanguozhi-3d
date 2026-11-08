@@ -17,7 +17,12 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
-const BASELINE = join(HERE, '..', '..', 'reports', 'gate-baseline.json')
+// 2026-11-08 改檔：本檔原先與 scripts/gate-ci.mjs 共用 reports/gate-baseline.json，
+// 但兩邊格式不同——gate-ci 寫的是 {"audit:chars": {"exit":0,"hard":233}}，
+// 本檔當成 {"audit:chars": 233} 來比。結果 `269 > {…}` 恆為 false，
+// audit-chars 的閘門自那次改動起永遠通過（即使 999999 也不會失敗）。
+// 兩條曲線各用自己的檔，並在下文強制檢查類型，杜絕同形失靈再發生。
+const BASELINE = join(HERE, '..', '..', 'reports', 'audit-baselines.json')
 
 type Baseline = Record<string, number>
 
@@ -54,6 +59,14 @@ export function enforceGate(
     return false
   }
   const allowed = base[gate]
+  // 基準值一旦不是數字（例如別支腳本把同一個 key 寫成物件），
+  // count > allowed 會恆為 false，閘門就無聲變成橡皮章。寧可硬失敗。
+  if (allowed != null && typeof allowed !== 'number') {
+    console.error(
+      `✗ ${gate}：基準值不是數字（${JSON.stringify(allowed)}）——數值比較會恆為 false，閘門等於不存在。請重記基準。`,
+    )
+    return true
+  }
   if (allowed == null) {
     console.log(`? ${gate}：${count} 項——尚未記基準（跑一次 ${gate} --update-baseline）`)
     return false

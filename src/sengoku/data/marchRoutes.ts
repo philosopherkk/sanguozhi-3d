@@ -20,7 +20,7 @@ export const SENGOKU_MARCH_ROUTES: MarchRoute[] = [
     name: '嚴島',
     year: 1555,
     faction: '毛利',
-    source: '《陰徳永日》；毛利沿安藝、瀨戶內北岸西進，示意止於岸上',
+    source: '《陰德永日》；毛利沿安藝、瀨戶內北岸西進，示意止於岸上',
     points: [
       [598.4, 774.2],
       [570.4, 784.4],
@@ -242,7 +242,7 @@ export const SENGOKU_MARCH_ROUTES: MarchRoute[] = [
     name: '文祿渡海',
     year: 1592,
     faction: '豐臣',
-    source: '《言経卿記》；《征韓録》（軍記）；山陽道至肥前北岸後渡海向朝鮮。海路只作示意，陸上各段不入海',
+    source: '《言経卿記》；《征韓錄》（軍記）；山陽道至肥前北岸後渡海向朝鮮。海路只作示意，陸上各段不入海',
     points: [
       [691.0, 753.2],
       [662.4, 772.4],
@@ -294,7 +294,7 @@ export const SENGOKU_MARCH_ROUTES: MarchRoute[] = [
     name: '關原',
     year: 1600,
     faction: '德川',
-    source: '《慶長記》（實徳寺慶保）；《関原軍記大成》（軍記）；東軍沿中山道至美濃關原內陸，不入若狹灣',
+    source: '《慶長記》（實德寺慶保）；《關原軍記大成》（軍記）；東軍沿中山道至美濃關原內陸，不入若狹灣',
     points: [
       [890.1, 713.0],
       [852.6, 674.6],
@@ -310,7 +310,7 @@ export const SENGOKU_MARCH_ROUTES: MarchRoute[] = [
     name: '大坂之陣行軍',
     year: 1615,
     faction: '德川',
-    source: '《徳川實紀》元和元年條；《落城記》系軍記；幕府軍沿東海道西上至攝津東岸，不橫切大阪灣',
+    source: '《德川實紀》元和元年條；《落城記》系軍記；幕府軍沿東海道西上至攝津東岸，不橫切大阪灣',
     points: [
       [890.1, 713.0],
       [860.1, 738.2],

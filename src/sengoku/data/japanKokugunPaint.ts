@@ -12,7 +12,7 @@ export interface JapanPaintShade {
   zone: SengokuRegionId
 }
 
-/** 依 d0–d27 勢力對照表著色，幾何為 CODH 旧国 mesh。 */
+/** 依 d0–d27 勢力對照表著色，幾何為 CODH 舊國 mesh。 */
 export function shadesFromDomainControl(
   control: Record<string, string>,
   nameByDomain?: Record<string, string>,

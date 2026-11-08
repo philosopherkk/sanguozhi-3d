@@ -1,4 +1,4 @@
-# 日本旧国（CODH CB-02a）
+# 日本舊國（CODH CB-02a）
 
 ## 來源
 
@@ -22,10 +22,10 @@ python3 scripts/build_japan_kokugun_rings.py # → codhKokugunMeshes.ts + japanE
 
 ## 應用內著色 hook
 
-1. **`CODH_KOKUGUN_MESHES`**（`src/sengoku/data/codhKokugunMeshes.ts`）— 旧国多邊形（像素環）。
+1. **`CODH_KOKUGUN_MESHES`**（`src/sengoku/data/codhKokugunMeshes.ts`）— 舊國多邊形（像素環）。
 2. **`shadesFromDomainControl` / `shadesFromZoneControl`**（`src/sengoku/data/japanKokugunPaint.ts`）— 將 mesh 配上勢力色。
 3. **戰國** `SengokuMap.tsx` → `shadesFromZoneControl(control)`。
 4. **幕末／平安／Deep Dive** → `shadesFromDomainControl(control, …)`；幕末 **1869+** 另加 `bakumatsuFringeShades`（K75–K85 北海道）。
 5. **日本通史總覽** `JapanEraMap.tsx` → `JP_ERA_RINGS`（松前／北海道／琉球時間窗）。
 
-`approx: true`：mesh 為幕末明治旧国界，與各時代實際藩界或王國邊界未必重合；歸屬色仍示意。
+`approx: true`：mesh 為幕末明治舊國界，與各時代實際藩界或王國邊界未必重合；歸屬色仍示意。
