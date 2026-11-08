@@ -61,3 +61,38 @@
 
 （上一輪記錄：無；本檔自上一輪起。）
 
+## 五、本輪（2026-11-08 第二次深度排程）記錄
+
+本輪做三個模組、19 條、57 段：`src/zhou/data`（夏啟至盤庚 6 條）、`src/japanEras/packs`（馬關至安保三文書 6 條）、`src/data`（征烏桓至夷陵 7 條）。缺口 426 降至 369（起因 139→120、經過 177→158、結果 110→91）。
+
+### 5.1 加厚時補不出合格出處、故只寫意理不寫細節的項目
+
+1. **《尚書》的「同書不同篇」延伸**：模組別處只引《禹貢》《甘誓》《牧誓》《多士》《大誥》等篇，本輪新增引用〈盤庚〉〈湯誓〉。書名係模組已引、時代與地域亦相符，但篇名屬本輪新增，請人工確認「已引著作之其他篇」是否視為合格出處。同一處理亦見《三國志》之〈田疇傳〉〈法正傳〉〈郭嘉傳〉〈趙雲傳〉（模組已引《三國志》與部分紀傳）。
+2. **安陽洹北商城**（「盤庚遷殷」考古之說之一）：屬近世考古報告，模組書目無此項，故只寫學說分歧之方向，不點名報告。
+3. **岳石類型、偃師與鄭州商城的相對年代**：同上，只寫方向，不以出土材料證明任何事件。
+4. **殷墟發掘的機構與起始年（1928 年，中央研究院歷史盤掘所）**：通識性事實，模組無對應書目，敘事中不入出處欄。
+5. **馬關談判的減額情節（日方先索三億兩、後定二億兩）與贖遼東費三千萬兩**：條約集收的是條文而非交涉紀錄，模組內無『日本外交文書』的卷次可指，故只寫「日方先索…後定…」的交涉結果與『明治條約集』的條文層級，不標卷頁。
+6. **三一運動、空襲、原爆、遣返、徵用的人數**：各方統計差距達數倍，依規則只標口徑、不寫定數；亦未取得可逐字比對之公文書卷次，故不寫檔案號。
+7. **六三法、產米增殖計劃、文化政治、存立危機事態**：屬法令與政策的通稱，模組無原始法令文本或官報出處，敘事中只用通稱並說明效果，不標法令條號。
+8. **「一億總懺悔」**：未能取得可核對之原文與日期，故只寫「戰後初期出現的說法」，不點發言者與刊載。
+9. **2022 年防衛費「國內生產總值百分之二」**：財源口徑含地方政府費與非防衛項目，各方算法不一，故寫「百分之二左右」而不寫精確比例。
+
+### 5.2 本輪發現的閘門與工具問題（本輪未改任何門檻腳本）
+
+1. **`audit:chars` 對模板字面值失明**（重要）：`scripts/audit-chars.ts` 在掃描前先做 `line.replace(/`[^`]*`/g, '')`，把反引號包住的內容整段拿掉；而加厚後的敘事正以多行模板字面值存放。後果是把事件三段寫成模板字面值時，簡體字閘門看不到其中的簡體字。本輪改用 `src/lib/fetchArticle.ts` 的 `HANS_MARKS` 加補充表掃描新增行，另以「全倉庫其他地方從未出現之字」作高精度偵測器，抓到 `铁 强 宪 剥 频 担 须 帅 团 这 胜 负 权 国 请 谁` 等 Hard 表未收之字，並全部改正。建議：把 `HANS_MARKS` 併入 HARD 表，或讓 `audit-chars` 亦掃描模板字面值內容。
+2. **`HANS_MARKS` 自身混入繁體字**：表內第 8 字為「會」（繁體），應為「会」；以該表作偵測器時會把正確的繁體「會」誤判為簡體。依指示未改 `src/lib/fetchArticle.ts`，請人工定奪。
+3. **`npm run test` 仍永遠失敗**：`package.json` 的 `test` 指向 `scripts/test_audit_quotes.mjs`，該檔在 git index 與 origin/main 均不存在（與上一輪記錄相同，仍未處理）。本輪未自行補寫，因它屬門檻腳本。
+4. **`audit:quotes` 兩個口徑並存**：文字輸出為「錯誤 4／提醒 45」，`reports/gate-baseline.json` 記的是 errors 4／warns 16，`gates` 取字串第一處匹配，故顯示 16；兩者非同一口徑，容易誤讀。本輪改動前後皆為「錯誤 4／提醒 45」，未變差。
+5. **`audit:chars` 由 236 降至 233**：本輪重寫 `modernJapanPack.ts` 時，被替換的舊行內含日文字形「渉」（三國干渉等），隨改寫消失，屬改善而非惡化；但 `reports/gate-baseline.json` 未更新（依 #63 的說明，基線應由人工更新）。
+
+### 5.3 排程撞車記錄（請人工注意）
+
+1. 本輪開始時 `origin/content/event-depth` 已隨 #65 squash-merge 被刪除，本地 10 個舊 commit 的內容全部已在 main；舊 branch 直接 rebase 會在 `reports/outcome-source-gaps.md` 撞Conflict 並回退 #64 的引文校勘。故以 `git reset --hard origin/main` 重置本地 branch（先存 `backup/pre-reset-20261108` 標籤），未回退任何他人的 #62／#64／#66／#67 改進。
+2. 中途發現 `/Users/ka-kinpoon/Projects/3kingdoms-wt-depth` 這個 worktree 以**同一 branch 名** `content/event-depth` 在進行「近代日本包」三段加厚（另一條深度排程），並提交 `7529f65`（訊息寫 content(japanEras) 未人工覆核，實際只改 `reports/event-depth.md`）；同時本 checkout 被切到 `main`，使本輪尚未提交的 `src/data/timelineDetails.ts` 改動懸置。**本輪未回退他人任何 commit**，改為自 origin/main 重建 `content/event-depth-r2` 並 cherry-pick 本輪兩條 commit，第三條在本支上直接提交。
+3. 後果：`content/event-depth`（另一 worktree）與 `content/event-depth-r2`（本輪 PR）是同源的兩條線，需要人工決定合併順序；兩者都改 `src/japanEras/packs/modernJapanPack.ts`，合併時預期會衝突。建議同一時間只留一條深度排程使用同一 branch 名。
+
+### 5.4 下一輪的排序建議（依本輪結束時 369 段）
+
+`src/japanEras/packs/modernJapanPack.ts` 57 段（剩 19 條，皆三段全短）；`src/imperial/data/depthNarrative.ts` 45 段（此檔只有 course／outcome／paraphrase，口徑與其他 pack 不同，先讀檔頭規則）；`src/bakumatsu/data/history.ts` 45 段（出處多為通說，需先補具名文書）；`src/qinhan/data/timeline.ts` 44、`src/data/timelineDetails.ts` 44（自 215-xiaoyaotin、219-hanzhong、221-liubei-emperor 起）、`src/sengoku/data/timelineDetails.ts` 39（軍記文學須標「文學作品，非史實記錄」）、`src/zhou/data` 60（earlyDynastyMore 34、earlyDynasty 26）、`src/heian/data/history.ts` 27。
+
+（上一輪記錄：見第四節。）
