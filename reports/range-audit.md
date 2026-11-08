@@ -3,17 +3,17 @@
 由 `npm run audit:ranges` 產生。範圍：九個帝國包、周、秦漢的**疆域快照**（不含事件與人物）。
 只讀稽核，**沒有改動任何座標或幾何**。
 
-**產生時間：** 2026-11-08T04:42:19.421Z
+**產生時間：** 2026-11-08T07:09:07.133Z
 
 ## 摘要
 
 | 級別 | 數量 |
 |------|------|
 | fail | 0 |
-| warn | 211 |
-| info | 57 |
+| warn | 206 |
+| info | 56 |
 
-快照總數：89（12 個包）
+快照總數：90（12 個包）
 
 ### fail 按 code
 
@@ -21,8 +21,6 @@ _（無）_
 
 ### warn 按 code
 
-- `anachronism`: 4
-- `faction-undeclared`: 1
 - `jp-event-note-missing`: 12
 - `note-thin`: 10
 - `source-format`: 5
@@ -55,7 +53,7 @@ _（無）_
 | 包 | 年份範圍 | 自帶快照 | 需沿用的年份 | 覆蓋率 |
 |----|----------|----------|--------------|--------|
 | jin | 280–316 | 4 | 33 | 10.8% |
-| nanbei | 304–589 | 7 | 279 | 2.4% |
+| nanbei | 304–589 | 8 | 278 | 2.8% |
 | sui | 581–618 | 3 | 35 | 7.9% |
 | tang | 618–907 | 6 | 284 | 2.1% |
 | wudai | 907–960 | 5 | 49 | 9.3% |
@@ -77,12 +75,7 @@ _（無）_
 
 ## warn 明細
 
-- **anachronism** · `nanbei[1] 317「東晉、後趙」 · 後趙` — 317 年尚未有「後趙」這個政權號（最早 319 年）
-- **anachronism** · `nanbei[5] 534「東西魏、梁」 · 西魏` — 534 年尚未有「西魏」這個政權號（最早 535 年）
 - **note-thin** · `sui[1] 589「滅陳一統」` — note 少於 40 字，未能交代範圍與出處的限度（38 字）
-- **anachronism** · `liaosong[0] 960「北宋初」 · 西夏` — 960 年尚未有「西夏」這個政權號（最早 1038 年）
-- **anachronism** · `liaosong[1] 1004「澶淵前後」 · 西夏` — 1004 年尚未有「西夏」這個政權號（最早 1038 年）
-- **faction-undeclared** · `yuanmingqing[0] 1271「元朝」 · 宋` — 該勢力不在 pack.factions，圖例與顏色會缺漏
 - **source-format** · `yuanmingqing[6] 1750「清盛」` — source 未含《書名》：清史通說
 - **note-thin** · `civilwar[0] 1945-08「1945年8月」` — note 少於 40 字，未能交代範圍與出處的限度（21 字）
 - **source-format** · `prc[2] 1962「中印邊境戰爭」` — source 未含《書名》：當代史通說
@@ -293,7 +286,7 @@ _（無）_
 ## info（覆蓋率）
 
 - **coverage** · `jin（280–316）` — 4 張快照蓋 37 年，另外 33 年要靠沿用
-- **coverage** · `nanbei（304–589）` — 7 張快照蓋 286 年，另外 279 年要靠沿用
+- **coverage** · `nanbei（304–589）` — 8 張快照蓋 286 年，另外 278 年要靠沿用
 - **monolith-realm-qualified** · `sui[0] 581「楊堅代周」 · 隋` — 整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」
 - **monolith-realm-qualified** · `sui[1] 589「滅陳一統」 · 隋` — 整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」
 - **coverage** · `sui（581–618）` — 3 張快照蓋 38 年，另外 35 年要靠沿用
@@ -306,7 +299,6 @@ _（無）_
 - **monolith-realm-qualified** · `liaosong[4] 1279「崖山」 · 蒙古` — 整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」
 - **coverage** · `liaosong（960–1279）` — 5 張快照蓋 320 年，另外 315 年要靠沿用（覆蓋極疏，宜補快照）
 - **monolith-realm-qualified** · `yuanmingqing[0] 1271「元朝」 · 元` — 整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」
-- **monolith-realm-qualified** · `yuanmingqing[0] 1271「元朝」 · 宋` — 整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」
 - **monolith-realm-qualified** · `yuanmingqing[1] 1279「元朝最大」 · 元` — 整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」
 - **monolith-realm-qualified** · `yuanmingqing[2] 1368「明朝」 · 明` — 整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」
 - **monolith-realm-qualified** · `yuanmingqing[2] 1368「明朝」 · 元` — 整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」
@@ -342,7 +334,7 @@ _（無）_
 - **fringe-coverage** · `japan（1604–2026）` — 14 個外周窗：松前交易領、琉球附庸、開拓使、沖繩縣、美治、歸還
 - **narrative-coverage** · `imperial（晉至共和國）` — 44 條事件全部有獨立的 course／outcome／意譯，無重複句
 - **jp-timeline-coverage** · `japan（1603–2026）` — 23 條江戶以後條目全部有 source 與 note
-- **source-naming** · `imperial（11 包）＋japanEras（6 包）` — 327 條出處點名了書名／條約名／制書名／檔案名；未點名 177 條
+- **source-naming** · `imperial（11 包）＋japanEras（6 包）` — 328 條出處點名了書名／條約名／制書名／檔案名；未點名 177 條
 - **outcome-depth** · `周（夏商周、春秋、戰國）` — 81 條之中 61 條已補依據並達標；平均 482 字，約 1.9 分鐘
 - **outcome-depth** · `秦漢` — 21 條之中 20 條已補依據並達標；平均 447 字，約 1.8 分鐘
 - **outcome-depth** · `帝國包（晉至共和國）` — 44 條之中 44 條已補依據並達標；平均 473 字，約 1.9 分鐘

@@ -78,9 +78,21 @@ export const NANBEI_304: FactionRange[] = [
   cover('成漢', 'sichuan'),
 ]
 
+/**
+ * 317 年劉曜與石勒同奉漢趙之號：石勒至 318 年仍承漢趙官爵，太興二年（319）
+ * 始稱趙王、改稱趙王元年（《晉書·石勒載記》），故此年不標後趙。
+ * 兩塊分開畫，是因為石勒部已自立，不代表兩塊之間有實測界線。
+ */
 export const NANBEI_317: FactionRange[] = [
   cover('漢趙', 'shaanxi', 'longxi'),
-  cover('後趙', 'hebei', 'henan', 'shandong', 'shanxi'),
+  cover('漢趙（石勒）', 'hebei', 'henan', 'shandong', 'shanxi'),
+  cover('東晉', ...JIANGNAN),
+  cover('成漢', 'sichuan'),
+]
+
+/** 319 年稱趙王、329 年滅劉曜之後，黃河流域主要州郡同歸後趙（《晉書·劉曜載記》）。 */
+export const NANBEI_329: FactionRange[] = [
+  cover('後趙', 'hebei', 'henan', 'shandong', 'shanxi', 'shaanxi', 'longxi'),
   cover('東晉', ...JIANGNAN),
   cover('成漢', 'sichuan'),
 ]
@@ -113,7 +125,11 @@ export const NANBEI_439: FactionRange[] = [
   cover('劉宋', 'shandong', ...JIANGNAN, 'sichuan', 'hanzhong'),
 ]
 
-export const NANBEI_534: FactionRange[] = [
+/**
+ * 取 535 年而非 534 年：東魏之號在 534 年（孝靜帝即位於鄴），西魏之號在
+ * 大統元年（535）正月改元之後才開始（《周書·文帝紀》）。
+ */
+export const NANBEI_535: FactionRange[] = [
   cover('東魏', 'hebei', 'shanxi', 'shandong', 'henan'),
   cover('西魏', 'shaanxi', 'gansu', 'ningxia'),
   cover('蕭梁', ...JIANGNAN, 'sichuan', 'hanzhong'),
@@ -235,17 +251,22 @@ export const WUDAI_960: FactionRange[] = [
   cover('南平', 'jingnan'),
 ]
 
+/**
+ * 960 與 1004 兩年只標「定難軍」：這是唐末以來的軍號，統銀、夏、綏、宥、靜
+ * 五州（《宋史·夏國傳》）。「夏國」之號始於 1038 年（《宋史·夏國傳》記元昊
+ * 於十月十一日郊壇備禮、國號大夏），本年不書西夏。
+ */
 export const LIAOSONG_960: FactionRange[] = [
   cover('宋', 'hebei_song', 'henan', 'shandong', 'anhui_n', 'jiangsu_n', 'hubei'),
   cover('遼', 'realm_liao'),
   cover('北漢', 'shanxi'),
-  cover('西夏', 'xia_yin'),
+  cover('定難軍', 'xia_yin'),
 ]
 
 export const LIAOSONG_1004: FactionRange[] = [
   cover('宋', 'realm_song_1004'),
   cover('遼', 'realm_liao'),
-  cover('西夏', 'xia_yin', 'ningxia', 'hexie'),
+  cover('定難軍', 'xia_yin', 'ningxia', 'hexie'),
 ]
 
 export const LIAOSONG_1127: FactionRange[] = [
@@ -262,9 +283,10 @@ export const LIAOSONG_1141: FactionRange[] = [
 
 export const LIAOSONG_1279: FactionRange[] = [cover('蒙古', 'realm_yuan_1279')]
 
+/** 1271 年（至元八年十一月建國號大元）南宋尚在，江南、荊湖、嶺南不入元。 */
 export const YUAN_1271: FactionRange[] = [
   cover('元', 'realm_yuan_1271'),
-  cover('宋', 'realm_song_1271'),
+  cover('南宋', 'realm_song_1271'),
 ]
 
 export const YUAN_1279: FactionRange[] = [cover('元', 'realm_yuan_1279')]
