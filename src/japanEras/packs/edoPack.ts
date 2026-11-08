@@ -311,7 +311,7 @@ const READINGS: Record<string, EraReading> = {
   },
   'edo-1799-ezo-east': {
     quote: '寛政12年、東蝦夷地を直轄とする',
-    source: '通說整理，非逐字引文。相关幕府指令未取得可逐字比對之本文',
+    source: '通說整理，非逐字引文。相關幕府指令未取得可逐字比對之本文',
     layers: {
       elementary:
         '三百年前，幕府擔心北方的船越來越常出現，就派人去調查北海道東邊，然後決定由自己直接管理那一帶。',

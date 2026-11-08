@@ -20,24 +20,24 @@
     "at": "2026-11-06"
   },
   "src/zhou/data/earlyDynasty.ts#xia-taikang": {
-    "stamp": "1a1a3e1d",
+    "stamp": "e3bdb049",
     "page": "史記/卷002",
-    "at": "2026-11-06"
+    "at": "2026-11-08"
   },
   "src/zhou/data/earlyDynasty.ts#xia-jie": {
-    "stamp": "c9b020ed",
+    "stamp": "cbd2ea8c",
     "page": "史記/卷002",
-    "at": "2026-11-06"
+    "at": "2026-11-08"
   },
   "src/zhou/data/earlyDynasty.ts#shang-tang": {
-    "stamp": "6f7910dd",
+    "stamp": "18928233",
     "page": "史記/卷003",
-    "at": "2026-11-06"
+    "at": "2026-11-08"
   },
   "src/zhou/data/earlyDynasty.ts#shang-pangeng": {
-    "stamp": "9b345152",
+    "stamp": "91874922",
     "page": "史記/卷003",
-    "at": "2026-11-06"
+    "at": "2026-11-08"
   },
   "src/zhou/data/earlyDynasty.ts#shang-wuding": {
     "stamp": "9c92c2ad",
@@ -55,39 +55,39 @@
     "at": "2026-11-06"
   },
   "src/zhou/data/earlyDynasty.ts#zhou-zhao": {
-    "stamp": "8dca0e48",
+    "stamp": "74b04729",
     "page": "史記/卷004",
-    "at": "2026-11-06"
+    "at": "2026-11-08"
   },
   "src/zhou/data/earlyDynasty.ts#zhou-xuan": {
-    "stamp": "11a4429f",
+    "stamp": "fc83e766",
     "page": "史記/卷004",
-    "at": "2026-11-06"
+    "at": "2026-11-08"
   },
   "src/zhou/data/earlyDynasty.ts#zhou-you": {
-    "stamp": "62b107ee",
+    "stamp": "4440ac9c",
     "page": "史記/卷004",
-    "at": "2026-11-06"
+    "at": "2026-11-08"
   },
   "src/zhou/data/earlyDynastyMore.ts#xia-zhongkang": {
-    "stamp": "653e1f35",
+    "stamp": "fb254d84",
     "page": "史記/卷002",
-    "at": "2026-11-06"
+    "at": "2026-11-08"
   },
   "src/zhou/data/earlyDynastyMore.ts#shang-taijia": {
-    "stamp": "6f7910dd",
+    "stamp": "e6166c79",
     "page": "史記/卷003",
-    "at": "2026-11-06"
+    "at": "2026-11-08"
   },
   "src/zhou/data/earlyDynastyMore.ts#shang-taiwu": {
-    "stamp": "6f7910dd",
+    "stamp": "4f4a5259",
     "page": "史記/卷003",
-    "at": "2026-11-06"
+    "at": "2026-11-08"
   },
   "src/zhou/data/earlyDynastyMore.ts#shang-di-yi": {
-    "stamp": "6f7910dd",
+    "stamp": "58f7c01e",
     "page": "史記/卷003",
-    "at": "2026-11-06"
+    "at": "2026-11-08"
   },
   "src/zhou/data/earlyDynastyMore.ts#zhou-liyue": {
     "stamp": "a05cc94c",
@@ -105,9 +105,9 @@
     "at": "2026-11-06"
   },
   "src/zhou/data/earlyDynastyMore.ts#zhou-shenhou": {
-    "stamp": "62b107ee",
+    "stamp": "4b1ec83",
     "page": "史記/卷004",
-    "at": "2026-11-06"
+    "at": "2026-11-08"
   },
   "src/zhou/data/earlyDynastyMore.ts#zhou-gonghe-jing": {
     "stamp": "3ee15203",
@@ -543,5 +543,415 @@
     "stamp": "f23ea90",
     "page": "三國志/卷43",
     "at": "2026-11-06"
+  },
+  "src/imperial/data/jinPack.ts#jin-291": {
+    "stamp": "92b06320",
+    "page": "資治通鑑/卷082",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/liaosongPack.ts#ls-960": {
+    "stamp": "3058ba89",
+    "page": "宋史/卷001",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/liaosongPack.ts#ls-1127": {
+    "stamp": "ec1c86e3",
+    "page": "宋史/卷023",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/suiPack.ts#sui-589": {
+    "stamp": "288b3a60",
+    "page": "資治通鑑/卷177",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/suiPack.ts#sui-612": {
+    "stamp": "9ccdffaa",
+    "page": "資治通鑑/卷181",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/tangPack.ts#tang-618": {
+    "stamp": "5f355d76",
+    "page": "資治通鑑/卷185",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/tangPack.ts#tang-663": {
+    "stamp": "c9b1d342",
+    "page": "資治通鑑/卷201",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/tangPack.ts#tang-817": {
+    "stamp": "2815ba0d",
+    "page": "資治通鑑/卷240",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/tangPack.ts#tang-907": {
+    "stamp": "70bd6ebf",
+    "page": "資治通鑑/卷266",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/wudaiPack.ts#wd-907": {
+    "stamp": "445c30fc",
+    "page": "資治通鑑/卷266",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/wudaiPack.ts#wd-936": {
+    "stamp": "d6d63eb1",
+    "page": "資治通鑑/卷280",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/wudaiPack.ts#wd-960": {
+    "stamp": "5f027837",
+    "page": "宋史/卷001",
+    "at": "2026-11-08"
+  },
+  "src/qinhan/data/timeline.ts#fenshu": {
+    "stamp": "844730a2",
+    "page": "資治通鑑/卷007",
+    "at": "2026-11-08"
+  },
+  "src/qinhan/data/timeline.ts#juliu": {
+    "stamp": "ecf3c783",
+    "page": "史記/卷007",
+    "at": "2026-11-08"
+  },
+  "src/qinhan/data/timeline.ts#ruguan": {
+    "stamp": "ff657aa5",
+    "page": "史記/卷008",
+    "at": "2026-11-08"
+  },
+  "src/qinhan/data/timeline.ts#pengcheng": {
+    "stamp": "d13aec66",
+    "page": "資治通鑑/卷009",
+    "at": "2026-11-08"
+  },
+  "src/qinhan/data/timeline.ts#xingyang": {
+    "stamp": "4831d3b7",
+    "page": "史記/卷007",
+    "at": "2026-11-08"
+  },
+  "src/qinhan/data/timeline.ts#honggou": {
+    "stamp": "c25303fb",
+    "page": "史記/卷007",
+    "at": "2026-11-08"
+  },
+  "src/qinhan/data/timeline.ts#gaixia": {
+    "stamp": "13ebf79a",
+    "page": "史記/卷007",
+    "at": "2026-11-08"
+  },
+  "src/qinhan/data/timeline.ts#qiguo": {
+    "stamp": "a2bde9b4",
+    "page": "資治通鑑/卷016",
+    "at": "2026-11-08"
+  },
+  "src/qinhan/data/timeline.ts#mobei": {
+    "stamp": "816644f5",
+    "page": "史記/卷111",
+    "at": "2026-11-08"
+  },
+  "src/qinhan/data/timeline.ts#nanyue": {
+    "stamp": "5b9f315d",
+    "page": "資治通鑑/卷020",
+    "at": "2026-11-08"
+  },
+  "src/qinhan/data/timeline.ts#kunyang": {
+    "stamp": "3a1dae16",
+    "page": "資治通鑑/卷039",
+    "at": "2026-11-08"
+  },
+  "src/qinhan/data/timeline.ts#hebei": {
+    "stamp": "c8751525",
+    "page": "資治通鑑/卷039",
+    "at": "2026-11-08"
+  },
+  "src/qinhan/data/timeline.ts#jianwu": {
+    "stamp": "cb275324",
+    "page": "資治通鑑/卷040",
+    "at": "2026-11-08"
+  },
+  "src/qinhan/data/timeline.ts#danggu": {
+    "stamp": "48a7500b",
+    "page": "資治通鑑/卷055",
+    "at": "2026-11-08"
+  },
+  "src/qinhan/data/timeline.ts#huangjin-prelude": {
+    "stamp": "e1eb2322",
+    "page": "資治通鑑/卷058",
+    "at": "2026-11-08"
+  },
+  "src/zhou/data/studentEvents.ts#qi-yan-meng": {
+    "stamp": "d34738eb",
+    "page": "資治通鑑/卷003",
+    "at": "2026-11-08"
+  },
+  "src/zhou/data/timeline.ts#fenjin": {
+    "stamp": "c951c20b",
+    "page": "資治通鑑/卷001",
+    "at": "2026-11-08"
+  },
+  "src/zhou/data/timeline.ts#tianqi": {
+    "stamp": "ac37eb87",
+    "page": "資治通鑑/卷001",
+    "at": "2026-11-08"
+  },
+  "src/zhou/data/timeline.ts#chu-yue": {
+    "stamp": "ce308877",
+    "page": "史記/卷041",
+    "at": "2026-11-08"
+  },
+  "src/zhou/data/timeline.ts#bashu": {
+    "stamp": "a989fdb1",
+    "page": "資治通鑑/卷003",
+    "at": "2026-11-08"
+  },
+  "src/zhou/data/timeline.ts#baying": {
+    "stamp": "1760acbb",
+    "page": "史記/卷073",
+    "at": "2026-11-08"
+  },
+  "src/zhou/data/timeline.ts#changping": {
+    "stamp": "69578ec4",
+    "page": "史記/卷073",
+    "at": "2026-11-08"
+  },
+  "src/zhou/data/timelineMore.ts#yanyu": {
+    "stamp": "b757e582",
+    "page": "資治通鑑/卷005",
+    "at": "2026-11-08"
+  },
+  "src/zhou/data/timelineMore.ts#handan-relief": {
+    "stamp": "ef4be723",
+    "page": "資治通鑑/卷005",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#184-huangjin": {
+    "stamp": "b0f71961",
+    "page": "後漢書/卷71",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#189-dongzhuo": {
+    "stamp": "1610b72e",
+    "page": "後漢書/卷72",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#190-guandong": {
+    "stamp": "867f6195",
+    "page": "資治通鑑/卷059",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#192-dongzhuo-killed": {
+    "stamp": "6ba5d51a",
+    "page": "後漢書/卷72",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#196-xudu": {
+    "stamp": "d2119388",
+    "page": "三國志/卷01",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#200-guandu": {
+    "stamp": "c7adcc24",
+    "page": "資治通鑑/卷063",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#207-wuhuan": {
+    "stamp": "606c8a4c",
+    "page": "資治通鑑/卷065",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#208-chibi": {
+    "stamp": "5bacf4e5",
+    "page": "資治通鑑/卷065",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#211-tongguan": {
+    "stamp": "7378ecd3",
+    "page": "資治通鑑/卷066",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#214-yizhou": {
+    "stamp": "28a3f6f0",
+    "page": "資治通鑑/卷067",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#215-xiaoyaotin": {
+    "stamp": "5ea2e95d",
+    "page": "資治通鑑/卷067",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#219-hanzhong": {
+    "stamp": "6c2c6af",
+    "page": "資治通鑑/卷068",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#219-xiangfan": {
+    "stamp": "96c6b508",
+    "page": "資治通鑑/卷068",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#222-yiling": {
+    "stamp": "23b0826d",
+    "page": "資治通鑑/卷069",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#223-liubei-death": {
+    "stamp": "69284d2b",
+    "page": "資治通鑑/卷070",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#228-beifa-start": {
+    "stamp": "25c71e6c",
+    "page": "資治通鑑/卷071",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#229-sunquan-emperor": {
+    "stamp": "20f94210",
+    "page": "資治通鑑/卷071",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#234-wuzhangyuan": {
+    "stamp": "d830b394",
+    "page": "資治通鑑/卷072",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#238-gongsun": {
+    "stamp": "1f3dff90",
+    "page": "資治通鑑/卷074",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#249-gaopingling": {
+    "stamp": "6fe7aa6e",
+    "page": "資治通鑑/卷075",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#252-sunquan-death": {
+    "stamp": "670c3c29",
+    "page": "三國志/卷47",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#263-fall-of-shu": {
+    "stamp": "f20932f1",
+    "page": "資治通鑑/卷078",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#265-western-jin": {
+    "stamp": "2feb7a99",
+    "page": "資治通鑑/卷079",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#280-fall-of-wu": {
+    "stamp": "5e0ad6a7",
+    "page": "資治通鑑/卷081",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#280-feihan": {
+    "stamp": "b95abc33",
+    "page": "後漢書/卷86",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#220-caopi": {
+    "stamp": "d5e1acf",
+    "page": "資治通鑑/卷069",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#221-liubei-emperor": {
+    "stamp": "14a56379",
+    "page": "資治通鑑/卷069",
+    "at": "2026-11-08"
+  },
+  "src/data/timelineDetails.ts#225-nanzhong": {
+    "stamp": "b9e05680",
+    "page": "資治通鑑/卷070",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#jin-290": {
+    "stamp": "5756046",
+    "page": "資治通鑑/卷082",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#jin-300": {
+    "stamp": "1c3d1daa",
+    "page": "資治通鑑/卷083",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#nb-347": {
+    "stamp": "3983fd8f",
+    "page": "資治通鑑/卷097",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#nb-383": {
+    "stamp": "bad5e90a",
+    "page": "資治通鑑/卷105",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#nb-420": {
+    "stamp": "3033a6c7",
+    "page": "資治通鑑/卷119",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#nb-439": {
+    "stamp": "ee5a3b4e",
+    "page": "資治通鑑/卷123",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#nb-548": {
+    "stamp": "a5b19a0c",
+    "page": "資治通鑑/卷161",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#nb-577": {
+    "stamp": "1afac667",
+    "page": "資治通鑑/卷173",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#sui-581": {
+    "stamp": "3b06ab1",
+    "page": "資治通鑑/卷175",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#sui-590": {
+    "stamp": "e3862bde",
+    "page": "資治通鑑/卷177",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#sui-604": {
+    "stamp": "81d7369",
+    "page": "資治通鑑/卷180",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#sui-616": {
+    "stamp": "4c8b478",
+    "page": "資治通鑑/卷183",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#wd-923b": {
+    "stamp": "35ca71f2",
+    "page": "資治通鑑/卷273",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#wd-947": {
+    "stamp": "fa3f2d4",
+    "page": "資治通鑑/卷286",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#wd-951": {
+    "stamp": "34b8ff3",
+    "page": "資治通鑑/卷290",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#wd-959": {
+    "stamp": "af3be9ab",
+    "page": "資治通鑑/卷294",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#ls-979": {
+    "stamp": "51346f50",
+    "page": "宋史/卷004",
+    "at": "2026-11-08"
+  },
+  "src/imperial/data/depthNarrative.ts#ymq-1449": {
+    "stamp": "11e19925",
+    "page": "明史/卷10",
+    "at": "2026-11-08"
   }
 }
