@@ -22,6 +22,12 @@ export interface ZhouSnapshot {
   source: string
   note: string
   disputed?: boolean
+  /**
+   * 本張快照的色塊沿用哪一年的界線（該年要有同一組環編號）。
+   * 沒有新的劃界依據時必須填這一欄，介面與 audit:ranges 都靠它分清
+   * 「該年真的改了邊界」與「只是沿用舊界」。
+   */
+  geometryFrom?: number
   control: ZhouControl
   ranges: FactionRange[]
 }
@@ -277,8 +283,9 @@ export const ZHOU_SNAPSHOTS: ZhouSnapshot[] = [
     year: -260,
     label: '長平',
     source: '《史記·白起王翦列傳》《趙世家》；《資治通鑑》卷五',
-    note: '長平在上黨。邯鄲未下，所以趙的色塊還在。秦已有關中、巴蜀、漢中與郢。',
+    note: '長平在上黨。邯鄲未下，所以趙的色塊還在。秦已有關中、巴蜀、漢中與郢。前260年這一役沒有改動界線：秦雖坑趙降卒，次年圍邯鄲不克，諸國合救，故色塊沿用前278年白起拔郢後的形勢，不另畫新界。',
     disputed: true,
+    geometryFrom: -278,
     control: empty,
     ranges: hold([
       ['zhou_luoyi', '周'],

@@ -28,6 +28,7 @@ const routes: MarchRoute[] = [
     name: '白村江',
     year: 663,
     faction: F.court,
+    kind: 'sea',
     source:
       '《日本書紀》；《舊唐書》相關紀。倭軍援百濟，於白村江敗於唐羅。地圖只畫自九州西岸出海示意',
     points: [

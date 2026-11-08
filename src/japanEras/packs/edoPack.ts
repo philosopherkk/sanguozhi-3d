@@ -55,6 +55,7 @@ const routes: MarchRoute[] = [
     name: '島津征琉球',
     year: 1609,
     faction: F.han,
+    kind: 'sea',
     source:
       '日本近世史通說；《琉球國舊記》等。薩摩藩兵由薩摩出海，於沖繩本島登陸。箭咀於海面，係航路示意',
     points: [
@@ -70,6 +71,7 @@ const routes: MarchRoute[] = [
     name: 'シャクシャイン之役（松前藩出兵）',
     year: 1669,
     faction: F.matsumae,
+    kind: 'sea',
     source:
       '日本近世史通說；松前藩側史料《新羅東志》等。松前藩船沿道南海岸北上，雙方於道東交戰。海路示意，戰場位置有爭議',
     points: [
@@ -87,6 +89,7 @@ const routes: MarchRoute[] = [
     name: '目梨・國後起事',
     year: 1789,
     faction: F.matsumae,
+    kind: 'sea',
     source:
       '日本近世史通說；松前藩史料。商人衝突殺死阿伊努首領，藩廳派船彈壓。海路示意；本役無大規模戰鬥',
     points: [

@@ -2,8 +2,8 @@ import type { MarchRoute } from '../../data/marchRoutes'
 
 /**
  * 幕末行軍，像素對齊現代日本地勢（1482×1477）。
- * 陸上沿山陽道、東海道、日本海側與奧羽山地。
- * 唯一入海的是箱館渡海。
+ * 陸上沿山陽道、東海道、日本海側與奧羽山地，一律 kind: 'land'。
+ * 入海者標 kind: 'sea'：黑船兩度入江戶灣（線段全在灣內水面）、箱館渡海（越津輕海峽）。
  */
 export const BAKUMATSU_MARCH_ROUTES: MarchRoute[] = [
   {
@@ -12,6 +12,7 @@ export const BAKUMATSU_MARCH_ROUTES: MarchRoute[] = [
     year: 1853,
     month: 6,
     faction: '幕府',
+    kind: 'sea',
     source: '日本近代史通說。培理艦隊進入江戶灣，在浦賀呈國書。箭咀只表示入灣，不是陸上行軍',
     points: [
       [886.6, 744.8],
@@ -24,6 +25,7 @@ export const BAKUMATSU_MARCH_ROUTES: MarchRoute[] = [
     year: 1854,
     month: 3,
     faction: '幕府',
+    kind: 'sea',
     source: '日本近代史通說。培理再來，幕府簽神奈川條約。不是開戰',
     points: [
       [886.6, 744.8],
@@ -176,6 +178,7 @@ export const BAKUMATSU_MARCH_ROUTES: MarchRoute[] = [
     year: 1869,
     month: 5,
     faction: '幕府',
+    kind: 'sea',
     source: '日本近代史通說。榎本武揚等率舊幕府軍渡海至蝦夷地，據五稜郭。箭咀越過津輕海峽，落到函館',
     points: [
       [922.6, 390.7],
