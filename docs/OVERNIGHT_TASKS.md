@@ -65,3 +65,61 @@
 3. 合併後把 `audit-chars.ts` 的預設掃描範圍擴大為 `['src','scripts']`，
    並把豁免清單收斂到只剩該表模組一檔；`scripts/` 內的註釋錯字必須修掉
    （本輪已知 `audit_entries.mjs:16 每个`、`:76 括号`、`gate-ci.mjs` 舊有「本轮」已修）。
+
+---
+
+## 2026-11-08 主線交辦（所有內容 agent 適讀）
+
+### 一、Exa 語意搜尋已經可用（查證用，唔使自己 curl）
+
+金鑰原本只在 `~/.zshrc` 第 17 行（只有互動式 zsh 才會 source），而排程 agent 與
+本機腳本都跑在 `/bin/bash -c` 這種非互動 shell，所以 `process.env.EXA_API_KEY`
+一直是空——`node scripts/exa.mjs` 因此回報「找不到 EXA_API_KEY」。
+現已在 repo 根建立 `.env`（已被 `.gitignore` 第 54 行排除，**絕不可提交**），
+腳本會自動讀取，實測可正常搜尋。
+
+用法（在本機跑，腳本在任何情況下都不印出金鑰）：
+
+    node scripts/exa.mjs search "文治の勅許 吾妻鏡 守護地頭" --num 5
+    node scripts/exa.mjs search "關原 石田三成 兵力 爭議" --category "research paper"
+    node scripts/exa.mjs contents <上一步回傳的 id>
+    node scripts/exa.mjs similar <某個可靠頁面的 URL>
+
+使用紀律（用錯會反害自己）：
+- Exa 回傳的是**二手網頁**，不是第一手史料。它的價值在於「一手引文在哪裡」與
+  「學界哪裡有爭議」；引文仍要回到原典或 `scripts/qsrc.py` 逐字核對才能標「已查證」。
+- 實測一例：查「文治元年 守護 地頭」可直接取到《吾妻鏡》文治元年十一月廿八日條的
+  逐字原文（「廿八日丁未、諸国平均に守護地頭を補任し、権門勢家の庄公を論ぜず、
+  兵粮米段別五升を宛て課すべきの由、今夜、北条殿、藤中納言経房卿に謁し申すと云々」），
+  同時取到石母田正「一國地頭職」說與川合康的反對意見——正是規則要求的「有爭議寫爭議」。
+- `scripts/check_bundle_secrets.mjs` 會掃建置產物的金鑰外形，已納入 CI。
+  **絕對不要**使用 `VITE_` 前綴或在 `src/` 任何位置引用金鑰，那是公開洩漏。
+
+### 二、海陸判定只有一個來源：`ASIA_LAND`（在 `src/geo/asiaWarBase.ts`）
+
+主線已合併 PR #75：`scripts/audit_map_accuracy.mjs` 的海陸判定改用地理參考的
+`ASIA_LAND`（Natural Earth 1:50m 海岸線），遼東灣 5 條路線的假陽性因此消除。
+
+**不准再手動修改 `src/geo/landMask.ts` 的海岸線來遷就閘門。** 原因：
+`landMask.ts` 是**執行時**檔案，被 `src/geo/elevation.ts` 與
+`src/lib/mergeFactionPolygons.ts` 使用；改動它等於改變地圖上勢力多邊形被裁剪的
+結果，是把示意遮罩當地理資料用。
+
+已發現一處此類未提交的改動（工作區 `3kingdoms-wt-map`，9 個檔案、+247/−39），
+整份已存成 `/tmp/map-agent-salvage.patch`（524 行），不會遺失。其中**真正有價值的是
+新增的東北亞錨點群**（渤海海峽、遼東灣中央、大遼河口外、鴨綠江口外、朝鮮灣口、
+黃海北部、日本海束草外海、珍島海峽外，以及對應的陸側點）——錨點越多，閘門越難被
+蒙混過關，這是要保留的方向。正確的回收步驟：
+
+1. **只取錨點**，加入 `scripts/audit_map_accuracy.mjs` 的 `ANCHORS`；
+2. `ANCHORS` 一律由 `ASIA_LAND` 判海陸，**不要**動 `landMask.ts`；
+3. 提交前跑 `npm run audit:geo` 與 `npm run audit:map`，確認新錨點在 `ASIA_LAND`
+   下全部通過，回報時貼出前後數字。
+
+### 三、簡體字偵測表合併（規格見本檔上一節）
+
+這件事做完之前，不要試圖把 `audit-chars.ts` 的預設掃描範圍擴大到 `scripts/`——
+那需要按名字豁免 5 個自帶偵測表的檔案，等於把洞偽裝成閘門。
+在此期間 `scripts/` 內的註釋錯字無人擋得住：本輪主線自己就寫錯過 5 次簡體字形
+（見本輪 commit 紀錄與 PR #76 說明），全部靠臨時把掃描範圍擴充到 `.css` 與 `.mjs` 才抓到。
+
