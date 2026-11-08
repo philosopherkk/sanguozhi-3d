@@ -96,3 +96,53 @@
 `src/japanEras/packs/modernJapanPack.ts` 57 段（剩 19 條，皆三段全短）；`src/imperial/data/depthNarrative.ts` 45 段（此檔只有 course／outcome／paraphrase，口徑與其他 pack 不同，先讀檔頭規則）；`src/bakumatsu/data/history.ts` 45 段（出處多為通說，需先補具名文書）；`src/qinhan/data/timeline.ts` 44、`src/data/timelineDetails.ts` 44（自 215-xiaoyaotin、219-hanzhong、221-liubei-emperor 起）、`src/sengoku/data/timelineDetails.ts` 39（軍記文學須標「文學作品，非史實記錄」）、`src/zhou/data` 60（earlyDynastyMore 34、earlyDynasty 26）、`src/heian/data/history.ts` 27。
 
 （上一輪記錄：見第四節。）
+
+---
+
+## 第六節：2026-11-09 排程（日本三層優先：古墳・室町・江戶）
+
+### 6.1 工作區事故（請人工注意）
+
+1. 交辦指定的 `/Users/ka-kinpoon/Projects/3kingdoms-wt-depth` **在本輪開始時不存在**。`git worktree list` 顯示 `content/event-depth` 已被搬到 `/private/tmp/depth-event`，且該處 `node_modules` 是指向 `/Users/ka-kinpoon/Projects/3kingdoms-wt-depth/node_modules` 的**懸空符號連結**，因此任何閘門都跑不起來。
+2. 本輪的處理：把目錄搬回指定路徑 → `git worktree repair`（修正 `.git/worktrees/depth-event/gitdir`）→ 以 APFS clone 由同倉 worktree 複製 `node_modules`。未動主 checkout（`/Users/ka-kinpoon/Projects/3kingdoms/sanguozhi-3d`）任何檔案。
+3. 搬遷時工作區留有**上一輪本人的半成品** `src/japanEras/packs/edoPack.ts`（三層改寫），依交付鐵律「只可續做自己的半成品」予以完成並提交，未回退。
+4. **合併後的 `scripts/audit_event_depth.mjs` 沒有「按戰區」表與 `jpGap`**——該改動屬尚未合併的 PR #74（`feat/japan-reading-layers`）。任務要求只看該表，故本輪在**倉外** `/tmp/jpgap_round.mjs` 以同一算法（`JP_PATHS`／門檻 60/120/300／去空白計字）複現量測；先以乾淨 HEAD 校準，得 `日本三層未達 145｜小 45／中 50／大 50（筆數 59/59/59）`，與交辦基線**逐字相同**，再用於前後對照。**本輪未修改任何閘門腳本或基線檔。**
+
+### 6.2 本輪補強（每個 pack 一條 commit）
+
+| pack | 事件 id | 三層長度（小／中／大） | 引文口徑 |
+|---|---|---|---|
+| `kofunPack` | kf-250 | 106／189／555 | 《三國志》卷三十 倭人條，逐字 |
+| `kofunPack` | kf-350 | 114／215／569 | 《日本書紀》卷第七 景行天皇廿七年條，逐字（另標「日本武尊東征屬傳說」） |
+| `kofunPack` | kf-400 | 98／240／538 | 《宋書》卷九十七 倭王武昇明二年表，逐字 |
+| `kofunPack` | kf-500 | 114／219／552 | 《日本書紀》卷第十七 繼體天皇廿二年條，逐字 |
+| `muromachiPack` | mu-1336 | 96／201／696 | 『建武式目』守護條，逐字（底本『群書類従』） |
+| `muromachiPack` | mu-1350 | 91／225／667 | 『太平記』巻第二十六，逐字；標「軍記文學，非史實記錄」 |
+| `muromachiPack` | mu-1392 | 89／210／527 | 未取得本文，寫「通說整理，非逐字引文」＋具名實書 |
+| `muromachiPack` | mu-1467 | 89／189／535 | 同上；《應仁記》標軍記文學，本篇為本輪新增引用 |
+| `edoPack` | 12 條（半成品補完） | 小 60–93／中 122–165／大 326–421 | 承前；本輪補齊 8 項未達標 |
+
+兩個 pack 原先都是 `readingFor: noReading`，面板三層靠 `desc／note／source` 佔位填充；現已改為 `readingFor: (id) => READINGS[id]`，並移除 `noReading` import（避免 TS6133）。
+
+### 6.3 逐條驗證輸出（不靠感覺）
+
+1. `audit:event-depth` 三層筆數 `59 → 63`（古墳 4 條 ×3 層），日本側未達 `145 → 111`（小 45→35／中 50→38／大 50→38）；中國側 `564` 未動（本輪未寫中國模組）。
+2. `audit:chars` 前後皆「硬傷 0／與基準相同」。過程中閘門抓出**兩處真錯**並改正：本輪草稿的「交渉」（日本新字體 U+6E09，應作「交涉」）、以及「体」（應作「體」，繼體天皇）。
+3. 自製掃描 `/tmp/check_english.py`：kofun／muromachi／asuka／nara 敘事層英文 **0**；edoPack 原有 4 處把 `Wikisource` 寫進大學生層，本輪一律改為中文表述（網站名只留在 `source` 欄）。
+4. 自製掃描 `/tmp/measure_layers.mjs`：兩 pack 12 條全部達標（小 ≥60／中 ≥120／大 ≥300），主 agent 曾提醒第一批寫到 8/9 條大學生層不足 300 字，本輪全部大學生層實測 326–696 字。
+5. 引文查證一律 `python3 scripts/qsrc.py <書/卷> <詞>`（日本加 `--host ja.wikisource.org`，positional，無 `--page`）。查無正文者（『花営三代記』『園太歴』『應仁記』）一律不引原文，改寫「通說整理，非逐字引文」＋具名實書。
+
+### 6.4 本輪查證所得、值得人工覆核的幾點
+
+1. **《三國志》倭人賜物**：本文作「金八兩，五尺刀二口，銅鏡百枚，真珠、鉛丹各五十斤」。本輪**撤回**草稿中「通俗讀物常作鏡千枚」的斷言（未經查證），改寫為可核的賜物清單與「後世將鏡數與出土銅鏡相扣合多屬推測」。
+2. **《宋書》倭國傳**：倭王珍自稱「都督倭百濟新羅任那秦韓慕韓六國諸軍事」，詔只除「安東將軍、倭國王」；倭王濟元嘉二十八年加「都督倭新羅任那加羅秦韓慕韓六國諸軍事」（有加羅、無百濟）；倭王武自稱「七國」。六國／七國與有無加羅之異，屬舊有爭議，本條不取定說。
+3. **『建武式目』的版本**：通行本末頁題記自稱「永祿十二年閏五月中旬之頃於播州英賀」寫成，並註「以畠山牛庵藏本書寫，以二本校合畢」，即現行文本出自 1569 年寫本系統，距 1336 年二百三十餘年；本文另有「一作」異文注。故本輪不把「十七條」當成 1336 年定本使用。
+4. **天龍寺**：『太平記』原文只寫直義在天龍寺「陞座拈香の招請無隙」，未言其創建；創建通說屬尊氏。本輪把小學生層原先「直義花大錢建天龍寺」的寫法改掉，避免以軍記為史實。
+5. **室町年號並行**：1350—1352「觀應」（北朝）對「正平」（南朝）；1392「明德三年」對「元中九年」；1336 建武三年已與南朝「延元」並行。凡涉本時代日期都需標明所據何朝。
+
+### 6.5 未做與原因
+
+1. `kamakuraPack`／`azuchiPack` 的 `noReading` **未動**：主 agent 已在 OPEN PR #74 補 9 條示範，重複改會衝突。
+2. 中國側缺口 **未動**（jpGap 尚未歸零，依交辦「中國每輪最多一個模組」且日本優先，本輪全力做日本）。
+3. `src/heian/data/history.ts`、`src/bakumatsu/data/history.ts` 未動：交辦要求先確認實際渲染路徑，本輪預算用在兩個完整 pack。
+4. 灌水嫌疑維持 1 段（既有 `src/imperial/data` 之「地圖上這是制度年不畫界線」），屬中國側、非本輪範圍，未改。
