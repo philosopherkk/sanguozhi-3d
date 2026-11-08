@@ -50,7 +50,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '中央權威大損，州郡始得擁兵自重；董卓、曹操、孫堅、劉備等日後勢力，多由此亂中起家或壯大。東漢政權崩解之先聲。',
     classicQuote:
-      '鉅鹿張角自稱「大賢良師」，奉事黃老道……十余年間，眾徒數十萬，連結郡國，自青、徐、幽、冀、荊、揚、兗、豫八州之人，莫不畢應。遂置三十六方。……訛言「蒼天已死，黃天當立，歲在甲子，天下大吉」。',
+      '鉅鹿張角自稱「大賢良師」……奉事黃老道，畜養弟子，跪拜首過……符水呪說以療病，病者頗愈，百姓信向之。角因遣弟子八人使於四方，以善道教化天下，轉相誑惑。十餘年閒，衆徒數十萬，連結郡國，自青、徐、幽、冀、荊、楊、兗、豫八州之人，莫不畢應。遂置三十六方。……訛言「蒼天已死，黃天當立，歲在甲子，天下大吉」。',
     classicSource: '《後漢書·皇甫嵩傳》；參《資治通鑑》卷五十八',
     source: '《後漢書·皇甫嵩傳》',
     modernParaphrase:
@@ -77,7 +77,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '漢室名器淪為權臣工具；關東州牧郡守相繼起兵，開啟軍閥混戰時代。',
     classicQuote:
-      '董卓……廢少帝為弘農王而立陳留王，是為獻帝。……卓遷太尉……尋進相國，入朝不趨，劍履上殿。',
+      '遂脅太后，策廢少帝。……今廢為弘農王。」乃立陳留王，是為獻帝。……尋進卓為相國，入朝不趨，劔履上殿。',
     classicSource: '《後漢書·董卓傳》；《資治通鑑》卷五十九',
     source: '《後漢書·董卓傳》',
     modernParaphrase:
@@ -104,7 +104,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '討卓無功，州牧各自專兵；漢室號令不行於關東，群雄割據正式展開。',
     classicQuote:
-      '初平元年春正月……袁紹等同時俱起兵，眾各數萬……推紹為盟主。……董卓聞之，甚懼……乃徙天子都長安。……悉燒宮廟、官府、居家，二百里內無復孑遺。',
+      '春，正月，關東州郡皆起兵以討董卓，推渤海太守袁紹為盟主。……卓大會公卿議，曰：「高祖都關中，十有一世，光武宮雒陽，於今亦十一世矣。案《石包讖》，宜徙都長安，以應天人之意。」百官皆默然。',
     classicSource: '《資治通鑑》卷五十九；參《後漢書·董卓傳》',
     source: '《資治通鑑》卷五十九',
     modernParaphrase:
@@ -131,7 +131,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '卓雖死，關中益亂，獻帝播遷；關東州郡更不相統，曹操迎帝之機漸熟。',
     classicQuote:
-      '（王）允與呂布及僕射士孫瑞謀誅卓。……（布）刺之，趣兵斬之。……長安士女賣其珠玉裝具與軍人為歡飲者，填滿街肆。',
+      '時王允與呂布及僕射士孫瑞謀誅卓。……布應聲持矛刺卓，趣兵斬之。……長安中士女賣其珠玉衣裝市酒肉相慶者，填滿街肆。',
     classicSource: '《後漢書·董卓傳》；《資治通鑑》卷六十',
     source: '《後漢書·董卓傳》',
     modernParaphrase:
@@ -152,8 +152,8 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '「挾天子而令諸侯」之局始定；操得政治名分與河南屯田之資，為官渡、赤壁前北方整合奠基。',
     classicQuote:
-      '太祖將迎天子……遂至洛陽，衛京都。……（帝）假太祖節鉞，錄尚書事。……是歲……始興屯田。……遷都許。',
-    classicSource: '《資治通鑑》卷六十二；參《三國志·魏書·武帝紀》',
+      '太祖遂至洛陽，衞京都，暹遁走。天子假太祖節鉞，錄尚書事。……洛陽殘破，董昭等勸太祖都許。九月，車駕出轘轅而東，以太祖爲大將軍，封武平侯。',
+    classicSource: '《三國志·魏書·武帝紀》；參《資治通鑑》卷六十二',
     source: '《資治通鑑》卷六十二',
     modernParaphrase:
       '曹操迎天子到洛陽保衛京師，獲節鉞、錄尚書事；同年開始屯田，並遷都許縣。',
@@ -173,7 +173,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '北方大勢歸曹；其後操陸續平冀、青、幽、并，為南征荊州創造條件。',
     classicQuote:
-      '（許）攸曰：「……今袁氏輜重有萬餘乘，在故市、烏巢……若輕兵襲之，燔其積聚，不過三日，袁氏自敗也。」……夜從間道出……既至，圍屯大放火，營中驚亂。',
+      '袁氏輜重萬餘乘，在故市、烏巢，屯軍無嚴備，若以輕兵襲之，不意而至，燔其積聚，不過三日，袁氏自敗也。」……夜從間道出，人抱束薪……既至，圍屯，大放火，營中驚亂。',
     classicSource: '《資治通鑑》卷六十三；參《三國志·魏書·武帝紀》',
     source: '《資治通鑑》卷六十三',
     modernParaphrase:
@@ -194,7 +194,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '塞北威脅暫息，操始得專意南顧荊州；遼東公孫氏仍半獨立。',
     classicQuote:
-      '夏五月，至無終。……引軍出盧龍塞……登白狼山，卒與虜遇……縱兵擊之，虜眾大崩，斬蹋頓及名王已下。',
+      '八月，操登白狼山，卒與虜遇，眾甚盛。……乃縱兵擊之，使張遼為先鋒，虜眾大崩，斬蹋頓及名王已下，胡、漢降者二十餘萬口。',
     classicSource: '《資治通鑑》卷六十五；參《三國志·魏書·武帝紀》',
     source: '《資治通鑑》卷六十五',
     modernParaphrase:
@@ -215,7 +215,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '江東保全，劉備略有荊南；南北對峙、三分雛形自此漸明。',
     classicQuote:
-      '時操軍眾已有疾疫……瑜部將黃蓋曰：「……操軍方連船艦，首尾相接，可燒而走也。」……蓋放諸船，同時發火。……煙炎張天，人馬燒溺死者甚眾。',
+      '時操軍眾已有疾疫，初一交戰，操軍不利，引次江北。……瑜部將黃蓋曰：「今寇眾我寡，難與持久。操軍方連船艦，首尾相接，可燒而走也。」……去北軍二里餘，同時發火，火烈風猛，船往如箭，燒盡北船，延及岸上營落。頃之，煙炎張天，人馬燒溺死者甚眾。',
     classicSource: '《資治通鑑》卷六十五；參《三國志·吳書·周瑜傳》',
     source: '《資治通鑑》卷六十五',
     modernParaphrase:
@@ -236,7 +236,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '關中郡縣多入操手；馬超南依張魯，後歸劉備。',
     classicQuote:
-      '（操）乃間行從蒲阪渡……潛以舟載兵入渭……夜分兵結營於渭南。',
+      '遂自蒲阪渡西河，循河為甬道而南。……操乃多設疑兵，潛以舟載兵入渭，為浮橋，夜，分兵結營於渭南。',
     classicSource: '《資治通鑑》卷六十六；參《三國志·魏書·武帝紀》',
     source: '《資治通鑑》卷六十六',
     modernParaphrase:
@@ -257,7 +257,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '備得益州殷富之地，始有爭天下之資；蜀漢政權基礎奠定。',
     classicQuote:
-      '璋言：「父子在州二十餘年，無恩德以加百姓。百姓攻戰三年，肌膏草野者，以璋故也，何心能安！」遂開城出降。',
+      '璋言：「父子在州二十餘年，無恩德以加百姓。百姓攻戰三年，肌膏草野者，以璋故也，何心能安！」遂開城，與簡雍同輿出降，群下莫不流涕。',
     classicSource: '《資治通鑑》卷六十七；參《三國志·蜀書·先主傳》',
     source: '《資治通鑑》卷六十七',
     modernParaphrase:
@@ -277,7 +277,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '合肥長期為魏東南重鎮；遼威震江東，吳短期內難北進。',
     classicQuote:
-      '遼被甲持戟，先登陷陳，殺數十人，斬二將，大呼自名，衝壘入至權麾下。……遼率諸軍追擊，幾復獲權。',
+      '於是遼夜募敢從之士，得八百人，椎牛犒饗。明旦，遼被甲持戟，先登陷陣，殺數十人，斬二大將，大呼自名，沖壘入至權麾下。',
     classicSource: '《資治通鑑》卷六十七；參《三國志·魏書·張遼傳》',
     source: '《資治通鑑》卷六十七',
     modernParaphrase:
@@ -298,7 +298,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '蜀漢北進門戶一時穩固；關羽督荊州，形成東西並進之勢（旋因襄樊之敗瓦解）。',
     classicQuote:
-      '夏侯淵與劉備戰於陽平，為備所殺。……太祖遂棄漢中，還長安。……（備）遂有漢中。',
+      '備自陽平南渡沔水，緣山稍前，營於定軍山。淵引兵爭之。……備使討虜將軍黃忠乘高鼓噪攻之，淵軍大敗，斬淵及益州刺史趙顒。',
     classicSource: '《資治通鑑》卷六十八；參《三國志·魏書·武帝紀》',
     source: '《資治通鑑》卷六十八',
     modernParaphrase:
@@ -319,7 +319,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '荊州入吳，蜀失東聯北進之勢；夷陵之戰與吳蜀長期猜忌伏線於此。',
     classicQuote:
-      '羽……圍曹仁。……會漢水暴溢，于禁七軍皆沒。……（孫）權已據江陵……羽軍遂散。……遂斬羽及子平于臨沮。',
+      '羽自率眾攻曹仁於樊。仁使左將軍于禁、立義將軍龐德等屯樊北。八月，大霖雨，漢水溢，平地數丈，于禁等七軍皆沒。',
     classicSource: '《資治通鑑》卷六十八；參《三國志·蜀書·關羽傳》',
     source: '《資治通鑑》卷六十八',
     modernParaphrase:
@@ -339,7 +339,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '形式上完成以魏代漢；蜀、吳稍後亦稱帝，三國政治名分齊備。',
     classicQuote:
-      '冬十月乙卯，漢帝使御史大夫張音持節奉璽綬禪位……（丕）乃為壇於繁陽……升壇即阼，改元黃初。',
+      '冬，十月，乙卯，漢帝告祠高廟，使行御史大夫張音持節奉璽綬詔冊，禪位于魏。……辛未，升壇受璽綬，即皇帝位，燎祭天地、岳瀆，改元，大赦。',
     classicSource: '《資治通鑑》卷六十九；參《三國志·魏書·文帝紀》',
     source: '《資治通鑑》卷六十九',
     modernParaphrase:
@@ -359,7 +359,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '蜀漢政權名號確立；同年秋即大舉伐吳，通向夷陵。',
     classicQuote:
-      '夏四月丙午，先主即皇帝位於武擔之南……改元章武。……以諸葛亮為丞相。',
+      '漢中王即皇帝位於武擔之南，大赦，改元章武。以諸葛亮為丞相。',
     classicSource: '《資治通鑑》卷六十九；參《三國志·蜀書·先主傳》',
     source: '《資治通鑑》卷六十九',
     modernParaphrase:
@@ -380,7 +380,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '蜀漢元氣大傷，無力大舉東進；吳蜀旋又媾和，共抗曹魏。',
     classicQuote:
-      '（陸遜）乃敕各持一把茅，以火攻拔之……破其四十餘營。……先主升馬鞍山……土崩瓦解，死者萬數。',
+      '乃敕各持一把茅，以火攻，拔之；一爾勢成，通率諸軍，同時俱攻，斬張南、馮習及胡王沙摩柯等首，破其四十餘營。',
     classicSource: '《資治通鑑》卷六十九；參《三國志·吳書·陸遜傳》',
     source: '《資治通鑑》卷六十九',
     modernParaphrase:
@@ -401,7 +401,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '蜀漢進入諸葛亮執政時期；吳蜀修好，專力抗魏。',
     classicQuote:
-      '先主病篤，託孤於丞相亮……謂亮曰：「君才十倍曹丕……若嗣子可輔，輔之；如其不才，君可自取。」',
+      '漢主病篤，命丞相亮輔太子，以尚書令李嚴為副。漢主謂亮曰：「君才十倍曹丕，必能安國，終定大事。若嗣子可輔，輔之；如其不才，君可自取。」',
     classicSource: '《資治通鑑》卷七十；參《三國志·蜀書·諸葛亮傳》',
     source: '《資治通鑑》卷七十',
     modernParaphrase:
@@ -422,13 +422,13 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '南中安定，軍資兵源得濟；「南人不復反」為北伐準備後方（記載見注引，學術上對「七擒」細節有討論）。',
     classicQuote:
-      '夫用兵之道，攻心為上，攻城為下……（亮）七縱七擒……獲止不去，曰：「公，天威也，南人不復反矣。」',
+      '夫用兵之道，攻心為上，攻城為下，心戰為上，兵戰為下，願公服其心而已。」亮納其言。',
     classicSource: '《資治通鑑》卷七十；《三國志·蜀書·諸葛亮傳》注引《漢晉春秋》',
     source:
       '《三國志·蜀書·諸葛亮傳》注引《漢晉春秋》；《資治通鑑》卷七十',
     disputed: true,
     note:
-      '「七縱七擒」細節僅見裴注引《漢晉春秋》及通鑑綜述，陳壽正文不載。',
+      '「七縱七擒」細節僅見裴注引《漢晉春秋》及通鑑綜述，陳壽正文不載；本條所引原文為《資治通鑑》卷七十所載馬謖語，已逐字核對，「七縱七擒」云云未錄入引文。',
     modernParaphrase:
       '注引《漢晉春秋》及《資治通鑑》載七縱七擒孟獲；陳壽《諸葛亮傳》正文不載細節。南征平四郡，後方得濟。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/諸葛亮南征',
@@ -447,7 +447,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '首役不利，然開魏蜀西北長期交兵；其後亮屢出祁山、陳倉、斜谷。',
     classicQuote:
-      '亮身率諸軍攻祁山……（馬）謖違亮節度……大為（張）郃所破。……戮謖以謝眾。',
+      '亮身率大軍攻祁山，戎陳整齊，號令明肅。……及出軍祁山，亮不用舊將魏延、吳懿等為先鋒，而以謖督諸軍在前，與張郃戰于街亭。',
     classicSource: '《資治通鑑》卷七十一；參《三國志·蜀書·諸葛亮傳》',
     source: '《三國志·蜀書·諸葛亮傳》；《三國志·蜀書·馬謖傳》',
     disputed: true,
@@ -468,7 +468,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '魏、蜀、吳三方皆具皇帝名號，三國政治格局完全成形。',
     classicQuote:
-      '夏四月，孫權即皇帝位，大赦，改元黃龍。……秋九月，權遷都建業。',
+      '夏，四月，丙申，吳王即皇帝位，大赦，改元黃龍。',
     classicSource: '《資治通鑑》卷七十一；參《三國志·吳書·吳主傳》',
     source: '《資治通鑑》卷七十一',
     modernParaphrase:
@@ -489,7 +489,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '蜀漢失去主政二十年之中樞，國策轉守；蔣琬、費禕相繼執政。',
     classicQuote:
-      '相持百餘日。……其年八月，亮疾病，卒于軍……（懿）案行其營壘處所，曰：「天下奇才也！」',
+      '諸葛亮至郿，軍於渭水之南。司馬懿引軍渡渭，背水為壘拒之。……亮果屯五丈原。……是月，亮卒於軍中。長史楊儀整軍而出。',
     classicSource: '《資治通鑑》卷七十二；參《三國志·蜀書·諸葛亮傳》《晉書·宣帝紀》',
     source: '《資治通鑑》卷七十二',
     modernParaphrase:
@@ -508,7 +508,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '東北威脅消除；司馬氏軍功與威望再增，為日後高平陵之變蓄積資本。',
     classicQuote:
-      '公孫淵自立為燕王……帝以司馬懿為太尉，往討之。……襄平城潰，斬淵父子，傳首洛陽。',
+      '春，正月，帝召司馬懿於長安，使將兵四萬討遼東。……帝謂懿曰：「公孫淵將何計以待君？」對曰：「淵棄城豫走，上計也；據遼東拒大軍，其次也；坐守襄平，此成禽耳。」',
     classicSource: '《資治通鑑》卷七十四；參《三國志·魏書·公孫度傳》',
     source: '《資治通鑑》卷七十四',
     modernParaphrase:
@@ -529,7 +529,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '魏國軍政實歸司馬氏；「高平陵之變」為西晉代魏關鍵轉折。',
     classicQuote:
-      '帝謁高平陵，大將軍爽與弟……皆從。……（司馬懿）閉諸城門……遂免爽……俱夷三族。',
+      '春，正月，甲午，帝謁高平陵，大將軍爽與弟中領軍羲、武衛將軍訓、散騎常侍彥皆從。太傅懿以皇太后令，閉諸城門，勒兵據武庫，授兵出屯洛水浮橋。',
     classicSource: '《資治通鑑》卷七十五；參《晉書·宣帝紀》《三國志·魏書·曹爽傳》',
     source: '《資治通鑑》卷七十五',
     modernParaphrase:
@@ -549,8 +549,8 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '吳廷政爭迭起，國力內耗，為晉平吳埋下遠因。',
     classicQuote:
-      '夏四月，權薨……太子亮即皇帝位……（諡）曰大皇帝。',
-    classicSource: '《資治通鑑》卷七十五；參《三國志·吳書·吳主傳》',
+      '二月，大赦，改元爲神鳳。……夏四月，權薨，時年七十一，謚曰大皇帝。',
+    classicSource: '《三國志·吳書·吳主傳》；《資治通鑑》卷七十五',
     source: '《資治通鑑》卷七十五',
     modernParaphrase:
       '四月孫權去世，太子亮即位，諡大皇帝。',
@@ -571,7 +571,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '蜀漢亡；三國缺一角，晉統一只餘平吳。',
     classicQuote:
-      '（鄧）艾自陰平道行無人之地七百餘里……進破諸葛瞻於綿竹……後主……面縛輿�……進破諸葛瞻於綿竹……後主……面縛輿櫬，詣軍門降。',
+      '將士皆攀木緣崖，魚貫而進。先登至江油，蜀守將馬邈降。……艾遂長驅而前，擊破瞻前鋒，瞻退往綿竹。',
     classicSource: '《資治通鑑》卷七十八；參《三國志·魏書·鄧艾傳》《蜀書·後主傳》',
     source: '《資治通鑑》卷七十八',
     modernParaphrase:
@@ -591,7 +591,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '曹魏亡；晉承魏土與吳對峙。十餘年後滅吳，接收的是郡縣，不是把山谷與塞外都收為編戶。',
     classicQuote:
-      '十二月……魏帝禪位于晉……（炎）即皇帝位，改元泰始。大赦。',
+      '十二月，壬戌，魏帝禪位於晉；甲子，出捨於金墉城。……丙寅，王卽皇帝位，大赦，改元。',
     classicSource: '《資治通鑑》卷七十九；《晉書·武帝紀》',
     source: '《資治通鑑》卷七十九',
     modernParaphrase:
@@ -612,7 +612,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '吳亡，三個朝廷結束，晉接收孫吳郡縣。這不是把五溪蠻、僚、俚、爨、山越，以及塞外鮮卑、高句麗、并州南匈奴都收為編戶。見本年「未入編戶」條。不久八王之亂，連郡縣上的統一也未能長久。',
     classicQuote:
-      '（王濬）戎卒八萬，方舟百里……入於石頭。……（孫）皓面縛輿櫬，詣軍門降。',
+      '呉人於江磧要害之處，並以鐵鎖橫截之；……是日，濬戎卒八萬，方舟百里，鼓噪入於石頭，呉主皓面縛輿櫬，詣軍門降。',
     classicSource: '《資治通鑑》卷八十一；《晉書·武帝紀》',
     source: '《資治通鑑》卷八十一',
     modernParaphrase:
@@ -635,7 +635,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     outcome:
       '280 年的晉色表示郡縣官守，不是全國編戶。五溪蠻不併入西晉，也不把荊州整片塗成蠻。南匈奴、鮮卑、西羌、武都氐、高句麗、山越、僚、俚、爨在「塞外部族」用示意色標活動帶，不是郡界，也不是獨立王國。',
     classicQuote:
-      '名渠帥曰精夫，相呼爲姎徒。今長沙武陵蠻是也。漢興，改爲武陵。歲令大人輸布一匹，小口二丈，是謂賨布。雖時爲寇盜，而不足爲郡國患。',
+      '名渠帥曰精夫，相呼爲姎徒。今長沙武陵蠻是也。……秦昭王使白起伐楚，略取蠻夷，始置黔中郡。漢興，改爲武陵。歲令大人輸布一匹，小口二丈，是謂賨布。',
     classicSource:
       '《後漢書·南蠻傳》；《晉書·武帝紀》',
     source: '《後漢書·南蠻傳》；《晉書·武帝紀》',
