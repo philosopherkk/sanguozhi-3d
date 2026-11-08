@@ -19,17 +19,35 @@ const BASELINE = join(ROOT, 'reports', 'gate-baseline.json')
 
 /** 每條閘門：指令 + 從輸出抽幾個數字（名字要穩定，基線靠它對照）。 */
 const GATES = [
-  { name: 'audit:data', cmd: 'npm run audit:data', metrics: { fail: /fail (\d+)/, warn: /warn (\d+)/ } },
-  { name: 'audit:wiring', cmd: 'npm run audit:wiring', metrics: { fail: /fail (\d+)/ } },
-  { name: 'audit:ranges', cmd: 'npm run audit:ranges', metrics: { fail: /fail (\d+)/, warn: /warn (\d+)/ } },
-  { name: 'audit:quotes', cmd: 'npm run audit:quotes', metrics: { errors: /錯誤 (\d+)/, warns: /提醒 (\d+)/ } },
-  { name: 'audit:chengyu', cmd: 'npm run audit:chengyu', metrics: { fail: /fail (\d+)/, warn: /warn (\d+)/ } },
-  { name: 'audit:map', cmd: 'npm run audit:map', metrics: { fail: /fail (\d+)/, warn: /warn (\d+)/ } },
+  {
+    name: 'audit:data',
+    cmd: 'npm run audit:data',
+    metrics: { fail: /audit:data — fail (\d+)/, warn: /audit:data — fail \d+, warn (\d+)/ },
+  },
+  { name: 'audit:wiring', cmd: 'npm run audit:wiring', metrics: { fail: /audit:wiring — fail (\d+)/ } },
+  {
+    name: 'audit:ranges',
+    cmd: 'npm run audit:ranges',
+    metrics: { fail: /audit:ranges — fail (\d+)/, warn: /audit:ranges — fail \d+, warn (\d+)/ },
+  },
+  // 注意：audit:quotes 每檔都會印「錯誤 N｜提醒 N」，錨定要落在「合計」行，
+  // 否則量到嘅係第一個檔案嘅數字（呢個 bug 曾令護欄一直睇錯引文缺口）。
+  { name: 'audit:quotes', cmd: 'npm run audit:quotes', metrics: { errors: /合計：[^\n]*錯誤 (\d+)/, warns: /合計：[^\n]*提醒 (\d+)/ } },
+  {
+    name: 'audit:chengyu',
+    cmd: 'npm run audit:chengyu',
+    metrics: { fail: /audit:chengyu — 條目 \d+｜fail (\d+)/, warn: /｜fail \d+｜warn (\d+)/ },
+  },
+  {
+    name: 'audit:map',
+    cmd: 'npm run audit:map',
+    metrics: { fail: /audit:map —[^\n]*fail (\d+)/, warn: /｜fail \d+｜warn (\d+)/ },
+  },
   { name: 'audit:chars', cmd: 'npm run audit:chars', metrics: { hard: /硬傷 (\d+)/ } },
   {
     name: 'audit:event-depth',
     cmd: 'npm run audit:event-depth',
-    metrics: { gap: /缺口 (\d+)/ },
+    metrics: { gap: /缺口 (\d+)/, padding: /灌水嫌疑 (\d+) 段/ },
   },
 ]
 
@@ -64,6 +82,9 @@ function measure() {
     for (const [key, re] of Object.entries(g.metrics)) {
       const hit = out.match(re)
       if (hit) m[key] = Number(hit[1])
+      // 抽唔到數字一定係壞事：輸出格式改咗之後，護欄會以為「冇呢個指標」
+      // 而永遠跳過該項比較——即係無聲消失。必須當失敗，唔可以靜落。
+      else m[`__miss_${key}`] = 1
     }
     got[g.name] = m
   }
@@ -72,6 +93,19 @@ function measure() {
 
 const UPDATE = process.argv.includes('--update-baseline')
 const current = measure()
+
+const missing = []
+for (const [name, m] of Object.entries(current)) {
+  for (const k of Object.keys(m)) {
+    if (k.startsWith('__miss_')) missing.push(`${name}.${k.slice(7)}`)
+  }
+}
+if (missing.length) {
+  console.error(
+    '\ngates — 以下指標喺閘門輸出抽唔到，護欄等於冇檢查，請修正比對式或輸出格式：\n  ' + missing.join('\n  '),
+  )
+  process.exit(1)
+}
 
 if (UPDATE || !existsSync(BASELINE)) {
   writeFileSync(BASELINE, JSON.stringify(current, null, 2) + '\n')
