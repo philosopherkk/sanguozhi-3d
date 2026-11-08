@@ -112,16 +112,68 @@
     scrollbar-width: none;
   }
 
-  /* ── 修 6：地圖與側欄的高度重分配 ──
-     App.css 的單欄規則只寫在 .app-shell__main 上，而掛了側欄的時代實際
-     class 是 .app-shell__main--map-side，其 859px 的兩欄規則位置較後、
-     特異度相同，因此 640px 的單欄從不生效（實測側欄被壓成 147px 窄條）。
-     這裡兩個 class 都要寫。改用 dvh，避免行動瀏覽器地址欄收合時超出。 */
+  /* ── 修 6：主區改成垂直整屏翻頁 ──
+     原本主區是 grid 上下兩格，側欄 overflow:hidden，因此地圖下方的
+     「大事／人物／成語」從頭到尾翻不到（使用者實測反映）。
+     改成垂直 scroll-snap：地圖為第一屏，內容為第二屏，向下拖即整屏切換；
+     overscroll-behavior 防止拖到盡頭時連鎖滾動整頁。 */
   .app-shell__main,
   .app-shell__main--map-side,
   .app-shell__main--map-side:has(.side-rail--collapsed) {
+    display: block;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* 保留單欄宣告：display:block 已達成堆疊，但這條同時是結構閘門
+       （audit:mobile 的 mapside-stack）所認的可堆疊標記 */
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1.4fr) minmax(0, 1fr);
+  }
+
+  .app-shell__main::-webkit-scrollbar {
+    display: none;
+  }
+
+  .app-shell__main > *:not(.side-rail--collapsed) {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    height: 100%;
+    min-height: 100%;
+  }
+
+  /* 第二屏內部必須可滾動：側欄本身 overflow:hidden，
+     若不同時放開，第二屏會變成一個滾不動的滿版區塊。 */
+  .app-shell__main .side-rail,
+  .app-shell__main .app-shell__side {
+    overflow: visible;
+  }
+
+  .app-shell__main .content-dock,
+  .app-shell__main .side-rail__chips + * {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+
+  /* 可發現性：地圖屏底部標明下方還有內容；整屏切下去之後隨第一屏消失，
+     不會變成永久遮罩。pointer-events:none 以免吃掉地圖手勢。 */
+  .app-shell__main > :first-child::after {
+    content: '▾ 向下拖：大事・人物・成語';
+    position: absolute;
+    left: 50%;
+    bottom: 2.9rem;
+    transform: translateX(-50%);
+    z-index: 6;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    background: rgba(8, 14, 16, 0.88);
+    color: var(--accent);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    pointer-events: none;
   }
 
   /* ── 修 7：地圖浮層防撞 ──

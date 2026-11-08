@@ -124,18 +124,31 @@ function check(css) {
   )
   if (!blow) fails.push('blowout')
 
-  // 2 側欄時代沒被改成單欄
+  // 2 側欄時代沒被改成單欄／堆疊
+  //   認三種等價寫法：單欄 grid、display:block、flex 直向。
+  //   只認 grid-template-columns 會讓「改成 block 滾動翻頁」這種正確做法誤報。
   const stacksTo1col = (cls) =>
     rules.some(
       (r) =>
         narrow(r) &&
         selHas(r, cls) &&
-        /grid-template-columns/.test(r.body) &&
-        /(^|\D)1fr(\D|$)/.test(declOf(r.body, 'grid-template-columns') ?? ''),
+        (/(^|\D)1fr(\D|$)/.test(declOf(r.body, 'grid-template-columns') ?? '') ||
+          declOf(r.body, 'display') === 'block' ||
+          declOf(r.body, 'flex-direction') === 'column'),
     )
   if (stacksTo1col('app-shell__main') && !stacksTo1col('app-shell__main--map-side')) {
     fails.push('mapside-stack')
   }
+
+  // 2b 地圖下方的內容必須翻得到：主區要有垂直整屏翻頁（或等價的可滾動容器）
+  const pager = rules.some(
+    (r) =>
+      narrow(r) &&
+      selHas(r, 'app-shell__main') &&
+      /y/.test(declOf(r.body, 'scroll-snap-type') ?? '') &&
+      declOf(r.body, 'overflow-y') === 'auto',
+  )
+  if (!pager) fails.push('mobile-pager')
 
   // 3 安全區
   for (const cls of ['map-layer-bar', 'app-footer']) {
@@ -186,6 +199,15 @@ if (process.argv.includes('--teeth')) {
     ['safe-area', (s) => s.replace(/bottom: calc\(0\.45rem \+ var\(--safe-bottom\)\);/, 'bottom: 0.45rem;')],
     ['bare-vh', (s) => s.replace(/(\.app-shell \{\n\s*height: )100dvh/, '$1100vh')],
     [
+      'mobile-pager',
+      // 模擬有人把整屏翻頁換回不可滾動的版面（地圖下方內容再度翻不到）
+      (s) =>
+        s.replace(
+          /display: block;\n\s*overflow-y: auto;\n\s*overscroll-behavior-y: contain;\n\s*scroll-snap-type: y mandatory;/,
+          'display: grid;\n    grid-template-rows: minmax(0, 1.4fr) minmax(0, 1fr);',
+        ),
+    ],
+    [
       'tap-min',
       // 模擬有人把全域按擊區下限調細（同時驗證 var() 解析真的在做事）
       (s) => s.replace(/--tap-min:\s*2\.75rem/, '--tap-min: 1rem'),
@@ -204,7 +226,7 @@ if (process.argv.includes('--teeth')) {
     console.log(`  ${caught ? '✓' : '✗'} ${name} 注入後 ${caught ? '被抓到' : '沒被抓到'}（報出 ${got.length} 項）`)
     if (!caught) bad++
   }
-  console.log(bad ? `✗ 咬合力測試 ${bad} 項失敗` : '✓ 五條規則全部有牙')
+  console.log(bad ? `✗ 咬合力測試 ${bad} 項失敗` : '✓ 六條規則全部有牙')
   process.exit(bad ? 1 : 0)
 }
 
@@ -214,4 +236,4 @@ if (base.length) {
   console.error('（背景與實測數據見 docs/MOBILE_PLAN.md）')
   process.exit(1)
 }
-console.log('✓ audit:mobile — 5 項結構不變量全部成立')
+console.log('✓ audit:mobile — 6 項結構不變量全部成立')
