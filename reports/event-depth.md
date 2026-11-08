@@ -1,20 +1,20 @@
 # 事件三段深度審計
 
-範圍 `src`｜事件段落 782 筆｜未達標 **578 段**（其中空段落 0 段）
+範圍 `src`｜事件段落 782 筆｜未達標 **426 段**（其中空段落 0 段）
 
 | 段 | 筆數 | 中位字數 | 平均字數 | 門檻 | 未達標 |
 |---|---|---|---|---|---|
-| 起因 | 204 | 34 | 36 | ≥200 | 204 |
-| 經過 | 248 | 63 | 65 | ≥200 | 245 |
-| 結果 | 330 | 420 | 300 | ≥400 | 129 |
+| 起因 | 204 | 42 | 134 | ≥200 | 139 |
+| 經過 | 248 | 73 | 159 | ≥200 | 177 |
+| 結果 | 330 | 428 | 326 | ≥400 | 110 |
 
 ## 按模組（未達標段數）
 
 | 模組 | 段數 | 未達標 | 起因 | 經過 | 結果 |
 |---|---|---|---|---|---|
-| `src/zhou/data` | 243 | **181** | 81 | 79 | 21 |
-| `src/japanEras/packs` | 111 | **111** | 37 | 37 | 37 |
-| `src/data` | 84 | **83** | 28 | 27 | 28 |
+| `src/zhou/data` | 243 | **83** | 34 | 29 | 20 |
+| `src/japanEras/packs` | 111 | **75** | 25 | 25 | 25 |
+| `src/data` | 84 | **65** | 22 | 21 | 22 |
 | `src/imperial/data` | 170 | **48** | 0 | 44 | 4 |
 | `src/bakumatsu/data` | 45 | **45** | 15 | 15 | 15 |
 | `src/qinhan/data` | 63 | **44** | 21 | 21 | 2 |
@@ -29,17 +29,17 @@
 | 起因 | 16 | `src/data/timelineDetails.ts` | (未識別 id) | 540 |
 | 結果 | 16 | `src/heian/data/history.ts` | (未識別 id) | 432 |
 | 結果 | 17 | `src/sengoku/data/timelineDetails.ts` | (未識別 id) | 165 |
-| 起因 | 17 | `src/zhou/data/timeline.ts` | mie-wei | 711 |
 | 結果 | 18 | `src/data/timelineDetails.ts` | (未識別 id) | 571 |
 | 起因 | 18 | `src/sengoku/data/timelineDetails.ts` | (未識別 id) | 115 |
-| 起因 | 18 | `src/zhou/data/studentEvents.ts` | jiagu | 340 |
-| 結果 | 18 | `src/zhou/data/timeline.ts` | mie-yan | 688 |
 | 起因 | 19 | `src/bakumatsu/data/history.ts` | 1869-hakodate | 392 |
 | 結果 | 19 | `src/bakumatsu/data/history.ts` | 1869-hakodate | 407 |
 | 結果 | 19 | `src/bakumatsu/data/history.ts` | (未識別 id) | 465 |
 | 結果 | 19 | `src/bakumatsu/data/history.ts` | (未識別 id) | 476 |
 | 起因 | 19 | `src/heian/data/history.ts` | (未識別 id) | 391 |
 | 起因 | 19 | `src/sengoku/data/timelineDetails.ts` | (未識別 id) | 171 |
+| 起因 | 19 | `src/zhou/data/earlyDynasty.ts` | zhou-zhao | 564 |
+| 起因 | 20 | `src/heian/data/history.ts` | (未識別 id) | 426 |
+| 起因 | 20 | `src/sengoku/data/timelineDetails.ts` | (未識別 id) | 74 |
 
 ## 三層意譯（小學生／中學生／大學生）
 
