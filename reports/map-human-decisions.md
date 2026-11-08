@@ -155,3 +155,23 @@
 
 
 
+
+
+## 2026-11-08 海陸路線閘門（audit:map 規則 4–6）交做人
+
+新增規則：sea-route-over-land（fail）、land-route-crosses-sea（暫 warn）、land-route-sea-point（warn）、
+route-scan-coverage（fail，解析器自校）。陸地遮罩取 src/geo/landMask.ts，用 scripts/audit_geo.py 的
+china_px 投到路線所在畫布；啟動前以 9 個海陸錨點自校，自校不過即整支腳本失敗。
+
+### 待判（本輪不自己決定）
+1. **遼東灣一帶 5 條路線被判貼海**：liaodong、qh-liaodong、qin-liaodong（各 1 點）、
+   f-liaoshen、f-kmt-ne（各 2/3 點）。三種可能，需逐條定：
+   (a) landMask.ts 的遼東半島切口太緊（目前只到 121.2–122.3E、39.2–41.2N）；
+   (b) 路線點本身就擺在海面；
+   (c) 該段本就是海路，應補 kind: 'sea'。
+   判完請把 land-route-crosses-sea 由 warn 升回 fail。
+2. **渤海不判定**：audit_geo.py 的「渤海中央(119.8,39)」錨點是以實景 relief 像素判海陸，
+   而 landMask.ts 的渤海缺口只畫到 38.2°N，39°N 落在陸側。本規則把渤海整帶列為不判定
+   （BOHAI_BOX）。要在渤海判海陸，得改用 relief 像素或把遮罩缺口向北延伸——屬資料變更，交人工定。
+3. **日本戰區 67 條路線未判定**：src/sengoku、src/bakumatsu、src/japanEras 同用 1968×1567 畫布，
+   但地理映射不同，拿中國遮罩去判會全錯，故目前跳過並計數。要覆蓋需另建日本遮罩與映射。
