@@ -41,7 +41,7 @@ import subprocess
 import sys
 import time
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts'))
 import wikisource as W  # noqa: E402  清洗／清單／快取路徑只有一家
 

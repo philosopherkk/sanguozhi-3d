@@ -13,7 +13,7 @@
  * 規則取自 AGENTS.md：每條都要 source；出處要正史《》；不用《三國演義》；
  * disputed 要 note；文字用繁體。查證原文用 /tmp/qsrc.py 對 Wikisource。
  */
-import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs'
+import { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
 import { join, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -60,6 +60,10 @@ const opt = (name) => {
   return i >= 0 ? argv[i + 1] : undefined
 }
 const MODE = has('json') ? 'json' : has('live') ? 'live' : has('todo') ? 'todo' : 'report'
+// --rows：照 scripts/legacy/* 的契約輸出 {"rows":[{kind,quote,source,...}]}，
+// 令 closest-witness／verifier-teeth／quote-forensics／human-decision-sheet 有得食。
+const ROWS_OUT = has('rows')
+const ROWS_PATH = join(ROOT, 'reports', 'quotes-audit.json')
 const ONLY_STATS = has('stats')
 const ALL = has('all')
 const MARK_VERIFIED = has('mark-verified')
@@ -529,6 +533,59 @@ function main() {
   const stale = rows.filter((r) => r.state === 'stale')
   const unverified = rows.filter((r) => r.state === 'unverified')
   const withQuote = rows.filter((r) => r.e.quote)
+
+  if (ROWS_OUT) {
+    /**
+     * kind 对口 scripts/legacy：original（已判原文）／unchecked（未核）／
+     * paraphrase（明標意譯通說）／missing（無原文）／modern（近現代，不逐字對）。
+     * 判定只用 verifyState 與稽核標籤本身，不在這裡另起一套標準。
+     */
+    const kindOf = (r) => {
+      const tags = r.issues.map((i) => i[1]).join('、')
+      // 冇原文的條目先歸 missing（近現代只是其中一個例外原因），
+      // 否則全部無引文條目都會被當成「近現代不逐字對」而隱瞞過去。
+      if (!r.e.quote) return /近現代/.test(tags) ? 'modern' : 'missing'
+      if (/近現代/.test(tags)) return 'modern'
+      if (r.state === 'paraphrase') return 'paraphrase'
+      if (r.state === 'unverified') return 'unchecked'
+      return 'original'
+    }
+    const out = rows.map((r) => ({
+      id: `${relative(ROOT, r.e.file)}#${r.e.key}`,
+      file: relative(ROOT, r.e.file),
+      line: r.e.line,
+      key: r.e.key,
+      title: r.e.title ?? '',
+      kind: kindOf(r),
+      state: r.state,
+      quote: text(r.e.quote) ?? '',
+      source: text(r.e.source) ?? '',
+      pages: r.e.wikisource ?? [],
+      disputed: r.e.disputed === true,
+      issues: r.issues.map(([sev, tag, why]) => ({ sev, tag, why })),
+    }))
+    const tally = {}
+    for (const r of out) tally[r.kind] = (tally[r.kind] ?? 0) + 1
+    mkdirSync(join(ROOT, 'reports'), { recursive: true })
+    writeFileSync(
+      ROWS_PATH,
+      JSON.stringify(
+        {
+          generatedAt: new Date().toISOString(),
+          source: 'scripts/audit_quotes.mjs --rows',
+          totals: tally,
+          rows: out,
+        },
+        null,
+        2,
+      ) + '\n',
+    )
+    console.log(
+      `audit:quotes --rows — ${out.length} 筆 → reports/quotes-audit.json（` +
+        Object.entries(tally).map(([k, v]) => `${k} ${v}`).join('／') + '）',
+    )
+    return
+  }
 
   if (MODE === 'live') {
     const script = existsSync(join(ROOT, 'scripts', 'qsrc.py'))

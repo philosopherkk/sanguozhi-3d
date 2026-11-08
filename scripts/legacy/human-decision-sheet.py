@@ -22,7 +22,7 @@ import os
 import sys
 from collections import Counter, OrderedDict
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 AUDIT = os.path.join(ROOT, "reports", "quotes-audit.json")
 CLASSIFIED = os.path.join(ROOT, "reports", "remaining-unchecked.json")
 OUT = os.path.join(ROOT, "reports", "human-decision-sheet.md")
