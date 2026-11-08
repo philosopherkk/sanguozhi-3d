@@ -211,32 +211,40 @@ function chinaPx(lat, lon, w, h) {
       (1.3713469994670882 - (1.9996655301850468 - (lat * PI) / 180) * Math.cos((0.5867115434267053 * (lon - 104) * PI) / 180))
   return [(x / 100) * w, (y / 100) * h]
 }
-/** 遮罩頂點經緯度 → 畫布 px。 */
+/**
+ * 陸地遮罩：用 src/geo/asiaWarBase.ts 的 ASIA_LAND（Natural Earth 1:50m，戰區 60–190E／−14–62N）。
+ * 為什麼不用 src/geo/landMask.ts：那是一塊「東漢／三國海岸線」示意多邊形，北界只到 42.8°N 且不含滿洲，
+ * 拿它判遼瀋戰役或抗日路線會把瀋陽、長春判成外海（實測如此），屬系統性誤判。
+ * ASIA_LAND 是戰區畫布（1710×1000）的線性投影，可先反算成經緯度，再用 china_px 投到路線所在畫布。
+ */
 const LAND_POLYS = []
 {
-  const src = read(join(ROOT, 'src/geo/landMask.ts'))
-  const key = src.indexOf('LAND_MASK_RING')
-  const open = src.indexOf('[', src.indexOf('=', key))
-  let depth = 0
-  let close = -1
-  for (let i = open; i < src.length; i++) {
-    if (src[i] === '[') depth += 1
-    else if (src[i] === ']') {
-      depth -= 1
-      if (depth === 0) {
-        close = i
-        break
+  const war = read(join(ROOT, 'src/geo/asiaWarBase.ts'))
+  const num = (name) => {
+    const m = war.match(new RegExp(`export const ${name} = (-?[\\d.]+)`))
+    return m ? Number(m[1]) : null
+  }
+  const ww = num('ASIA_WAR_W')
+  const wh = num('ASIA_WAR_H')
+  const lo0 = num('ASIA_LON0')
+  const lo1 = num('ASIA_LON1')
+  const la0 = num('ASIA_LAT0')
+  const la1 = num('ASIA_LAT1')
+  const body = war.match(/export const ASIA_LAND: string\[\] = \[([\s\S]*?)\n\]/)
+  if (body && [ww, wh, lo0, lo1, la0, la1].every((v) => v != null)) {
+    for (const s of body[1].matchAll(/'([^']{60,})'/g)) {
+      const ring = []
+      for (const seg of s[1].matchAll(/([ML])(-?[\d.]+)\s+(-?[\d.]+)/g)) {
+        const wx = Number(seg[2])
+        const wy = Number(seg[3])
+        if (wx < -ww || wx > ww * 2 || wy < -wh || wy > wh * 2) continue // 超出戰區的折返點
+        const lon = lo0 + (wx / ww) * (lo1 - lo0)
+        const lat = la1 - (wy / wh) * (la1 - la0)
+        ring.push(chinaPx(lat, lon, CANVAS.w, CANVAS.h))
       }
+      if (ring.length >= 8) LAND_POLYS.push(ring)
     }
   }
-  const ring = []
-  if (open >= 0 && close > open) {
-    for (const m of src.slice(open, close + 1).matchAll(/\[\s*(-?[\d.]+)\s*,\s*(-?[\d.]+)\s*\]/g)) {
-      // landMask.ts 的頂點係 [經度, 緯度]，chinaPx 收 (lat, lon)
-      ring.push(chinaPx(Number(m[2]), Number(m[1]), CANVAS.w, CANVAS.h))
-    }
-  }
-  if (ring.length >= 4) LAND_POLYS.push(ring)
 }
 function inRing([x, y], ring) {
   let hit = false
@@ -261,33 +269,27 @@ const nearCoastPx = (p) =>
     [0, COAST_TOL_PX],
     [0, -COAST_TOL_PX],
   ].some(([dx, dy]) => isLandPx([p[0] + dx, p[1] + dy]))
-// 錨點沿用 scripts/audit_geo.py 的 ANCHORS，不自行發明。
-// 例外：『渤海中央』被拿掉——audit_geo.py 的錨點是拿 public/maps 的實景 relief 像素判海陸，
-// 而本規則用的是 landMask.ts 的示意多邊形，其渤海缺口只畫到 38.2°N，39°N 落在陸側。
-// 與其把錨點勉強湊合，不如把渤海整帶列為「不判定」（見 BOHAI_BOX），如實計入未覆蓋。
+// 錨點沿用 scripts/audit_geo.py 的 ANCHORS，並補滿洲與朝鮮半島（舊版用 landMask 時會誤判這些為海）。
+// 自校不過即整支腳本失敗，不接受「載入失敗當沒有問題」。
 const ANCHORS = [
   ['黃海中央', 124.0, 36.0, false],
   ['東海中央', 125.5, 30.0, false],
   ['南海中央', 116.0, 18.0, false],
+  ['渤海中央', 119.8, 39.0, false],
   ['台灣海峽', 119.0, 23.5, false],
   ['北部灣', 107.8, 20.0, false],
   ['朝鮮海峽', 128.0, 34.5, false],
   ['中原（鄭州）', 113.6, 34.7, true],
   ['成都', 104.1, 30.6, true],
   ['廣州', 113.3, 23.1, true],
+  ['瀋陽', 123.4, 41.8, true],
+  ['長春', 125.3, 43.9, true],
+  ['哈爾濱', 126.6, 45.8, true],
+  ['大連', 121.6, 38.95, true],
+  ['平壤', 125.7, 39.0, true],
+  ['漢城', 127.0, 37.5, true],
+  ['東京', 139.7, 35.7, true],
 ]
-/** 渤海：示意遮罩未切出，本規則對這一帶不表態（計入未覆蓋，不當作已檢查）。 */
-const BOHAI_BOX = (() => {
-  const a = chinaPx(41.0, 117.5, CANVAS.w, CANVAS.h)
-  const b = chinaPx(38.0, 122.0, CANVAS.w, CANVAS.h)
-  return {
-    x0: Math.min(a[0], b[0]),
-    x1: Math.max(a[0], b[0]),
-    y0: Math.min(a[1], b[1]),
-    y1: Math.max(a[1], b[1]),
-  }
-})()
-const inBohaiGap = ([x, y]) => x >= BOHAI_BOX.x0 && x <= BOHAI_BOX.x1 && y >= BOHAI_BOX.y0 && y <= BOHAI_BOX.y1
 if (LAND_POLYS.length === 0) {
   console.error('audit:map — 載入 LAND_MASK_RING 失敗，海陸規則無法執行（拒絕當成通過）')
   process.exit(1)
@@ -403,8 +405,7 @@ for (const f of files) {
     const rid = idHit ? idHit[1] : '(未識別)'
     const isSeaRoute = /kind:\s*['"]sea['"]/.test(body)
     const covered = pts.filter(
-      (p) =>
-        p[0] >= MASK_BOX.x0 && p[0] <= MASK_BOX.x1 && p[1] >= MASK_BOX.y0 && p[1] <= MASK_BOX.y1 && !inBohaiGap(p),
+      (p) => p[0] >= MASK_BOX.x0 && p[0] <= MASK_BOX.x1 && p[1] >= MASK_BOX.y0 && p[1] <= MASK_BOX.y1,
     )
     pointsNoMask += pts.length - covered.length
     if (covered.length < 2) continue
@@ -475,7 +476,7 @@ if (JSON_OUT) {
   L.push('- territory-id-unresolved：pack 於 control／territoryByYear 使用的 id，必須在 `src/data/provinces.ts`、`src/geo/eraRegions.ts`、`src/geo/asiaWarTerritory.ts`、`src/japanEras/jpDomains.ts` 或本檔 domains 搵到；找不到即該區塊永遠不會上色。')
   L.push(`- coord-out-of-frame：底圖畫布 ${CANVAS.w}×${CANVAS.h}（附圖容差 ${FRAME_TOL}px）；負值一律判紅。`)
   L.push(
-    `- sea-route-over-land（fail）／land-route-crosses-sea（暫 warn）：陸地遮罩取 src/geo/landMask.ts，用 scripts/audit_geo.py 的 china_px 投到路線所在畫布後比對；留 ${COAST_TOL_DEG}° 海岸容差，貼岸點一概不判。啟動前以 ${ANCHORS.length} 個海陸錨點自我校對，校不對即整支腳本失敗。渤海一帶因示意遮罩未切出而不判定（計入未覆蓋）；日本戰區因映射不同而不判定。`,
+    `- sea-route-over-land（fail）／land-route-crosses-sea（暫 warn）：陸地遮罩取 src/geo/asiaWarBase.ts 的 ASIA_LAND（Natural Earth 1:50m 派生，反算經緯度後用 scripts/audit_geo.py 的 china_px 投到路線畫布）；留 ${COAST_TOL_DEG}° 海岸容差，貼岸點一概不判。啟動前以 ${ANCHORS.length} 個海陸錨點自我校對（含渤海、滿洲、朝鮮半島），校不對即整支腳本失敗。日本戰區路線因映射不同而不判定。`,
   )
   L.push(
     `- route-scan-coverage：解析到的路線數必須等於 points: 出現次數，否則「0 命中」只是解析器漏抓，一律報紅。`,

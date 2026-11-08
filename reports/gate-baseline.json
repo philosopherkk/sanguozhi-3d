@@ -26,7 +26,7 @@
   "audit:map": {
     "exit": 0,
     "fail": 0,
-    "warn": 5
+    "warn": 0
   },
   "audit:chars": {
     "exit": 0,
