@@ -270,15 +270,38 @@ const LAYERS = {
   secondary: { label: '中學生', min: 120 },
   university: { label: '大學生', min: 300 },
 }
+/**
+ * 按戰區分開統計。日本側曾長期只有 edoPack／modernJapanPack 有 READINGS，
+ * 其餘 pack 靠 DeepDiveApp 用 desc／note 自動填三層——面板「有內容」但實質是佔位文字。
+ * 只看全倉庫總數會把這個落差掩蓋掉（日本的空缺被中國的樣本稀釋），所以各區自己計。
+ */
+const JP_PATHS = ['src/japanEras/', 'src/bakumatsu/', 'src/sengoku/', 'src/heian/', 'src/japanHistory/']
+const CN_PATHS = ['src/data/', 'src/zhou/', 'src/qinhan/', 'src/imperial/']
+const theatreOf = (relPath) =>
+  JP_PATHS.some((p) => relPath.startsWith(p)) ? '日本' : CN_PATHS.some((p) => relPath.startsWith(p)) ? '中國' : '其他'
+
 const layerStats = {}
+const layerByTheatre = { 日本: {}, 中國: {} }
 for (const [key, cfg] of Object.entries(LAYERS)) {
   const lens = []
+  const byTheatre = { 日本: [], 中國: [] }
   for (const file of walk(join(ROOT, ONLY), [])) {
     const text = readFileSync(file, 'utf8')
+    const th = theatreOf(relative(ROOT, file).replace(/\\/g, '/'))
     for (const m of text.matchAll(new RegExp(`(?:^|[{,\\s])${key}\\s*:\\s*`, 'g'))) {
       const lit = readLiteral(text, m.index + m[0].length)
       if (!lit) continue
-      lens.push(lit.value.replace(/\s+/g, '').length)
+      const n = lit.value.replace(/\s+/g, '').length
+      lens.push(n)
+      if (byTheatre[th]) byTheatre[th].push(n)
+    }
+  }
+  for (const [th, arr] of Object.entries(byTheatre)) {
+    arr.sort((a, b) => a - b)
+    layerByTheatre[th][key] = {
+      entries: arr.length,
+      median: arr.length ? arr[Math.floor(arr.length / 2)] : 0,
+      below: arr.filter((n) => n < cfg.min).length,
     }
   }
   lens.sort((a, b) => a - b)
@@ -294,6 +317,8 @@ const layerMissing = {
   小學生: layerStats.university.entries - layerStats.elementary.entries,
   中學生: layerStats.university.entries - layerStats.secondary.entries,
 }
+/** 日本三層未達標總數（入 CI 基線：只能降、不能升）。 */
+const JP_GAP = Object.values(layerByTheatre.日本).reduce((a, b) => a + b.below, 0)
 const gaps = rows.filter((r) => !r.ok)
 const empty = rows.filter((r) => r.chars === 0)
 
@@ -322,6 +347,8 @@ if (has('--json')) {
         byModule,
         readingLayers: layerStats,
         readingLayerMissing: layerMissing,
+        readingLayersByTheatre: layerByTheatre,
+        japanLayerGap: JP_GAP,
         padding: {
           thresholdDescEcho: DESC_ECHO,
           dupInEvent: dupInEvent.length,
@@ -382,6 +409,22 @@ if (has('--json')) {
     `以大學層筆數（${layerStats.university.entries}）為基準：**完全缺小學生層 ${layerMissing.小學生} 個**、缺中學生層 ${layerMissing.中學生} 個。`,
   )
   L.push('')
+  L.push('### 按戰區（日本的空缺從前被中國的樣本稀釋，故分開計）')
+  L.push('')
+  L.push('| 戰區 | 層 | 筆數 | 中位字數 | 未達標 |')
+  L.push('|---|---|---|---|---|')
+  for (const th of ['日本', '中國']) {
+    for (const [key, cfg] of Object.entries(LAYERS)) {
+      const t = layerByTheatre[th][key]
+      L.push(`| ${th} | ${cfg.label} | ${t.entries} | ${t.median} | ${t.below} |`)
+    }
+  }
+  L.push('')
+  L.push(
+    '注意：沒有 READINGS 的日本 pack 仍會顯示三層，因為 DeepDiveApp 會用 events 的 desc／note／source 自動填充。' +
+      '那屬於佔位文字，不是加厚成果；判斷好壞要看上面「筆數／中位」而非面板是否有字。',
+  )
+  L.push('')
   L.push('## 「大學生程度」的實質要求（不是湊字數）')
   L.push('')
   L.push('- 起因分兩層：結構性原因（制度、財政、正統性、地緣等慢變數）＋直接觸發（哪一件事令它在此年發生）。')
@@ -398,7 +441,7 @@ if (has('--json')) {
   L.push('')
   L.push(
     `desc 同形度分佈（樣本 ${descEchoStats.samples}，閾值 ${DESC_ECHO}）：p50 ${descEchoStats.p50}／p90 ${descEchoStats.p90}／最大 ${descEchoStats.max}。` +
-      '閾值要高於 p90 至唔會大批誤殺既有正常條目。',
+      '閾值要高於 p90 才不會大批誤殺既有正常條目。',
   )
   L.push('')
   L.push('| 形態 | 模組 | 事件 | 說明 |')
@@ -416,7 +459,7 @@ if (has('--json')) {
   mkdirSync(join(ROOT, 'reports'), { recursive: true })
   writeFileSync(join(ROOT, 'reports/event-depth.md'), L.join('\n'), 'utf8')
   console.log(
-    `audit:event-depth — 段落 ${rows.length}／缺口 ${gaps.length}（起因 ${byField.causes.below}／經過 ${byField.course.below}／結果 ${byField.outcome.below}）｜三層意譯：小學生 ${layerStats.elementary.entries}・中學生 ${layerStats.secondary.entries}・大學 ${layerStats.university.entries}（缺小學生層 ${layerMissing.小學生}）｜灌水嫌疑 ${paddingCount} 段（同句 ${dupInEvent.length}／樣板 ${boilerplate.length}／改寫 ${descEcho.length}）→ reports/event-depth.md`,
+    `audit:event-depth — 段落 ${rows.length}／缺口 ${gaps.length}（起因 ${byField.causes.below}／經過 ${byField.course.below}／結果 ${byField.outcome.below}）｜三層意譯：小學生 ${layerStats.elementary.entries}・中學生 ${layerStats.secondary.entries}・大學 ${layerStats.university.entries}（缺小學生層 ${layerMissing.小學生}）｜日本三層未達 ${JP_GAP}（小 ${layerByTheatre.日本.elementary.below}／中 ${layerByTheatre.日本.secondary.below}／大 ${layerByTheatre.日本.university.below}，筆數 ${layerByTheatre.日本.elementary.entries}/${layerByTheatre.日本.secondary.entries}/${layerByTheatre.日本.university.entries}）｜灌水嫌疑 ${paddingCount} 段（同句 ${dupInEvent.length}／樣板 ${boilerplate.length}／改寫 ${descEcho.length}）→ reports/event-depth.md`,
   )
 }
 

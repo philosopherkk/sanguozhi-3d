@@ -55,7 +55,7 @@ const GATES = [
   {
     name: 'audit:event-depth',
     cmd: 'npm run audit:event-depth',
-    metrics: { gap: /缺口 (\d+)/, padding: /灌水嫌疑 (\d+) 段/ },
+    metrics: { gap: /缺口 (\d+)/, padding: /灌水嫌疑 (\d+) 段/, jpGap: /日本三層未達 (\d+)/ },
   },
 ]
 
