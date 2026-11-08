@@ -32,9 +32,13 @@
     "exit": 0,
     "hard": 0
   },
+  "audit:detail-depth": {
+    "exit": 0,
+    "gap": 27
+  },
   "audit:event-depth": {
     "exit": 0,
-    "gap": 369,
+    "gap": 366,
     "padding": 1
   },
   "audit:geo": {

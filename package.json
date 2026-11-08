@@ -22,7 +22,8 @@
     "gates": "node scripts/gate-ci.mjs",
     "check:secrets": "node scripts/check_bundle_secrets.mjs",
     "exa": "node scripts/exa.mjs",
-    "audit:mobile": "node scripts/audit_mobile_css.mjs"
+    "audit:mobile": "node scripts/audit_mobile_css.mjs",
+    "audit:detail-depth": "node scripts/audit_detail_depth.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",

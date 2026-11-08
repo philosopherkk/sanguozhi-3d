@@ -44,6 +44,14 @@ const GATES = [
     metrics: { fail: /audit:map —[^\n]*fail (\d+)/, warn: /｜fail \d+｜warn (\d+)/ },
   },
   { name: 'audit:chars', cmd: 'npm run audit:chars', metrics: { hard: /硬傷 (\d+)/ } },
+  // 2026-11-08 補：使用者隨機抽查應仁之亂即見內容極薄，追查發現既有 event-depth
+  // 從未讀取事件詳情檔案（timelineDetails 字串比對 0 次）。41 條受測、27 條缺口。
+  // 分開一支閘門是為了不打斷其他 agent 已有的 event-depth 基線。
+  {
+    name: 'audit:detail-depth',
+    cmd: 'npm run audit:detail-depth',
+    metrics: { gap: /缺口 (\d+)/ },
+  },
   {
     name: 'audit:event-depth',
     cmd: 'npm run audit:event-depth',
