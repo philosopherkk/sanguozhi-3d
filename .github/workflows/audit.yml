@@ -16,6 +16,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      # 純靜態 SPA：任何 VITE_* 金鑰都會被打進公開 bundle，.gitignore 擋不住，
+      # 因此針對建置產物掃金鑰外形。
+      - run: npm run check:secrets
       - run: npm run audit:data
       # 2026-11-08 補：test 指令曾指向一個從未入庫的檔案，而 CI 又未執行 test，
       # 因此「測試全綠」長期為空話。加入 CI，讓同類失靈下次即被抓到。

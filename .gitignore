@@ -49,3 +49,9 @@ reports/range-audit.md
 reports/range-audit.json
 reports/event-depth.md
 reports/quotes-audit.json
+
+# API 金鑰與本地環境檔（一律不入庫；僅 .env.example 可入庫作格式示範）
+.env
+.env.*
+!.env.example
+

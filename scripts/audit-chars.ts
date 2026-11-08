@@ -98,7 +98,12 @@ function walk(dir: string, out: string[] = []): string[] {
     if (f === 'node_modules' || f === 'dist' || f === 'vendor') continue
     if (statSync(p).isDirectory()) walk(p, out)
     else if (
-      (p.endsWith('.ts') || p.endsWith('.tsx') || p.endsWith('.md')) &&
+      (p.endsWith('.ts') ||
+        p.endsWith('.tsx') ||
+        p.endsWith('.md') ||
+        // CSS 與 mjs 一併檢查：註釋與 content: "…" 均屬介面文案，此前未被掃描
+        p.endsWith('.css') ||
+        p.endsWith('.mjs')) &&
       !SKIP_FILE.test(p)
     )
       out.push(p)
@@ -139,6 +144,12 @@ for (let i = 0; i < args.length; i++) {
   positional.push(a)
 }
 // 預設掃整個 src（不再依賴白名單）；要縮小範圍用位置參數。
+// ⚠ 為什麼預設不含 scripts/：全 repo 有 5 份簡體字偵測表的複製
+//   （audit-chars.ts、audit-data.ts:51、audit_chengyu.mjs:26、audit_quotes.mjs、
+//   audit_entries.mjs:225 HAN_SRC）。偵測表本身必須含目標字，掃 scripts/ 就
+//   就得按名字豁免這 5 檔——那等於把洞偽裝成閘門。正確做法是先合併成單一表模組
+//   （見 docs/OVERNIGHT_TASKS.md「簡體字表合併」），合併後再擴大掃描範圍。
+//   已確認漂移：audit_chengyu 那份缺少 audit-data 後補的 战/观/舰 三字。
 const roots = positional.length ? positional : ['src']
 const files = roots.flatMap((r) => (statSync(r).isDirectory() ? walk(r) : [r]))
 let hard = 0

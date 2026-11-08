@@ -40,3 +40,28 @@
 檔案擁有權已分開（敘事文字／出處字串／幾何與路線／成語各自一檔區），每個 agent 都有「`git status` 唔乾淨就停止」防呆，node_modules 已改實體 hardlink，唔再共用 vite 快取。
 
 **舊有兩條指向离線 repo（`/Documents/my-project`，0 remote）嘅排程保持停用**：佢哋叫 agent 行 `npm run verify`、讀 `docs/PROGRESS.md`／`TONIGHT.md`——呢啲喺本 repo 全部唔存在，所以就算 enable 都只会喺第 2 步失敗。
+
+## 簡體字偵測表合併（機械性但範圍廣，適合排程 agent）
+
+全 repo 有 5 份簡體字／日本新字偵測表的複製，內容已漂移：
+
+| 檔案 | 位置 | 形態 |
+|---|---|---|
+| `scripts/audit-chars.ts` | `SIMPLIFIED_MAP` | 字→正字對應表（最完整） |
+| `scripts/audit-data.ts` | 第 51 行 | 字元集 regex |
+| `scripts/audit_chengyu.mjs` | 第 26 行 | 字元集 regex（**缺 `战/观/舰`**） |
+| `scripts/audit_quotes.mjs` | 同上 | 字元集 regex |
+| `scripts/audit_entries.mjs` | 第 225 行 `HAN_SRC` | 字元串 |
+
+已確認漂移：`audit_chengyu.mjs` 那份缺少後來補進 `audit-data` 的 `战/观/舰`，
+也就是成語閘門抓不到簡體「战」。這是同一邏輯多份實作的必然結果。
+
+**做法**：新增 `scripts/lib/simplified-chars.mjs`，以 `audit-chars.ts` 的字→正字
+對應表為唯一來源，另外匯出由鍵推導的正規式與字元串；其餘 4 檔改為匯入。
+**驗證要求**（缺一即算未完成）：
+1. 合併前後對同一組固定樣本（至少含 `战/观/舰/条/関/実/徳` 各一）逐檔比對
+   命中結果，必須只允許「原本漏抓、現在抓到」的方向，不得出現原本抓到而遺失。
+2. `npm run gates` 全部指標不得上升。
+3. 合併後把 `audit-chars.ts` 的預設掃描範圍擴大為 `['src','scripts']`，
+   並把豁免清單收斂到只剩該表模組一檔；`scripts/` 內的註釋錯字必須修掉
+   （本輪已知 `audit_entries.mjs:16 每个`、`:76 括号`、`gate-ci.mjs` 舊有「本轮」已修）。
