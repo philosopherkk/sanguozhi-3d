@@ -19,7 +19,10 @@
     "audit:chengyu": "node scripts/audit_chengyu.mjs",
     "audit:map": "node scripts/audit_map_accuracy.mjs",
     "audit:chars": "node --experimental-strip-types scripts/audit-chars.ts",
-    "gates": "node scripts/gate-ci.mjs"
+    "gates": "node scripts/gate-ci.mjs",
+    "check:secrets": "node scripts/check_bundle_secrets.mjs",
+    "exa": "node scripts/exa.mjs",
+    "audit:mobile": "node scripts/audit_mobile_css.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",

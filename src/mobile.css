@@ -1,0 +1,202 @@
+/* ============================================================
+   流動版樣式（在 App.css 之後匯入，覆寫同名規則）
+   實測基準：393×852（iPhone 14 Pro）。量度方法見 docs/MOBILE_PLAN.md
+   斷點選擇：佈局用寬度；觸控專屬行為用 (pointer: coarse)，
+   避免窄小的桌面視窗取得只適用觸控的樣式。
+   ============================================================ */
+
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --tap-min: 2.75rem; /* 44px，Apple HIG 最小按擊區 */
+}
+
+/* ── 修 1：橫向爆框 ──
+   grid item 的 min-width 預設為 auto（即 min-content），會被不可斷行的
+   內容撐到 421px，再由 .app-shell 的 overflow:hidden 剪掉右側 28px，
+   造成頁頭、朝代列、年份滑桿的最右一列永遠不可見。 */
+.app-shell > * {
+  min-width: 0;
+}
+
+/* ── 修 2：iOS 安全區（刘海與主頁指示條） ──
+   配合 index.html 的 viewport-fit=cover。 .app-shell 已採 border-box，
+   因此 padding 不會把 100dvh 推高。 */
+.app-shell {
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+}
+
+.app-header {
+  padding-top: calc(0.4rem + var(--safe-top));
+  padding-inline: clamp(0.6rem, 3vw, 1rem);
+}
+
+.app-footer {
+  padding-bottom: calc(0.25rem + var(--safe-bottom));
+}
+
+@media (max-width: 700px) {
+  /* ── 修 3：朝代列改單行橫向卷軸 ──
+     實測 18 顆按鈕換行後高 256px（佔螢幕 30%），把地圖壓到 230px。
+     單行橫滑後同樣 18 個時代全部仍可達，高度降至約 48px。 */
+  .era-bar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-block: 0.3rem;
+    /* 右緣淡出：提示仍有內容，同時收束成紙緣般的漸層 */
+    mask-image: linear-gradient(to right, #000 calc(100% - 1.75rem), transparent);
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 1.75rem), transparent);
+  }
+
+  .era-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .era-bar > button {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    min-height: var(--tap-min);
+    padding: 0.3rem 0.8rem;
+    border-inline-end: 1px solid var(--line);
+  }
+
+  .era-bar > button.is-active {
+    border-inline-end-color: transparent;
+  }
+
+  /* ── 修 4：頁頭圧縮 ──
+     標語與時代切換器內容重複（两者都寫明中／日與時代範圍），
+     窄屏只保留切換器，省下兩行。 */
+  .app-header {
+    gap: 0.2rem 0.5rem;
+    padding-block: 0.3rem;
+  }
+
+  .app-header__tag {
+    display: none;
+  }
+
+  .app-header__brand {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .app-header__title {
+    font-size: 1.15rem;
+  }
+
+  /* ── 修 5：年份滑桿圧縮 ── */
+  .year-scrubber {
+    gap: 0.15rem;
+    padding-block: 0.3rem;
+  }
+
+  /* 提示文字與滑桿本身語意重複，窄屏收起一行 */
+  .year-scrubber__hint {
+    display: none;
+  }
+
+  /* 實測此列 white-space:nowrap 且 overflow:visible，內容 397px 落在
+     305px 容器內而被遮斷；改為可橫向捲動，保留單行設計但內容可讀。 */
+  .year-scrubber__note--press {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  /* ── 修 6：地圖與側欄的高度重分配 ──
+     App.css 的單欄規則只寫在 .app-shell__main 上，而掛了側欄的時代實際
+     class 是 .app-shell__main--map-side，其 859px 的兩欄規則位置較後、
+     特異度相同，因此 640px 的單欄從不生效（實測側欄被壓成 147px 窄條）。
+     這裡兩個 class 都要寫。改用 dvh，避免行動瀏覽器地址欄收合時超出。 */
+  .app-shell__main,
+  .app-shell__main--map-side,
+  .app-shell__main--map-side:has(.side-rail--collapsed) {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1.4fr) minmax(0, 1fr);
+  }
+
+  /* ── 修 7：地圖浮層防撞 ──
+     實測圖例寬 223px（佔螢幕 57%）且與底部圖層列重疊。
+     圖例改置頂，底部留給圖層列與縮放。 */
+  .map-2d__route-legend,
+  .map-2d__frontier-legend {
+    top: 2.4rem;
+    bottom: auto;
+    max-width: 42vw;
+    max-height: 6.5rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* 圖例內滑動不應連鎖到地圖或整頁 */
+    overscroll-behavior: contain;
+  }
+
+  .map-2d__route-legend {
+    left: 0.4rem;
+  }
+
+  .map-2d__frontier-legend {
+    right: 0.4rem;
+  }
+
+  /* 主要控件補足 44px 按擊區（Apple HIG）。
+     刻意放在寬度斷點而非 (pointer: coarse)：無頭瀏覽器無法模擬 coarse
+     指標，放在寬度斷點才能被自動化驗證。刻度（tick）屬細粒度輔助，
+     18 格密排無法全部達 44px，改由滑桿與前後鍵承擔精準操作。 */
+  .app-header__step,
+  .map-2d__zoom-btn,
+  .side-rail__chip {
+    min-width: var(--tap-min);
+    min-height: var(--tap-min);
+  }
+
+  /* 圖層列保持置中而非滿版，避免與地標 Dock 連成一條實心橫帶；
+     bottom 需加上安全區，否則會被 iPhone 主頁指示條壓住 */
+  .map-layer-bar {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    max-width: calc(100% - 1rem);
+    bottom: calc(0.45rem + var(--safe-bottom));
+  }
+
+  /* 浮動情報面板不應占滿整幅地圖 */
+  .zhou-dock,
+  .map-stage-dock {
+    width: min(16rem, calc(100% - 1rem));
+    max-height: 45%;
+  }
+}
+
+/* ── 修 8：觸控行為（以 pointer 而非寬度判定） ──
+   touch-action: manipulation 消除 300ms 雙擊縮放延遲；
+   地圖縮放層維持 App.css 的 touch-action:none，由手勢自行處理。 */
+@media (pointer: coarse) {
+  .app-header button,
+  .era-bar button,
+  .year-scrubber button,
+  .app-footer button,
+  .side-rail button,
+  .map-layer-bar button,
+  .map-mode-toggle button {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* 拖曳地圖與滑桿時不應誤選介面文字；內容區（側欄、Dock）不受影響，
+     仍可長按複製。 */
+  .app-header,
+  .era-bar,
+  .year-scrubber {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}

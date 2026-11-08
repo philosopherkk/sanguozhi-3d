@@ -63,7 +63,7 @@ function hasNumpy() {
 if (hasNumpy()) {
   GATES.push({ name: 'audit:geo', cmd: 'npm run audit:geo', metrics: {} })
 } else {
-  console.log('提示：偵測不到 python3+numpy，本轮跳過 audit:geo（裝好後自動納入）')
+  console.log('提示：偵測不到 python3+numpy，本輪跳過 audit:geo（裝好後自動納入）')
 }
 
 function run(cmd) {

@@ -11,6 +11,7 @@ import {
   writeTimelineToUrl,
 } from './lib/timelineUrl'
 import './App.css'
+import './mobile.css'
 
 const ZhouApp = lazy(() =>
   import('./zhou/ZhouApp').then((m) => ({ default: m.ZhouApp })),
