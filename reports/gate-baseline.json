@@ -30,11 +30,11 @@
   },
   "audit:chars": {
     "exit": 0,
-    "hard": 236
+    "hard": 233
   },
   "audit:event-depth": {
     "exit": 0,
-    "gap": 426,
+    "gap": 369,
     "padding": 1
   },
   "audit:geo": {
