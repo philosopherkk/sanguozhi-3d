@@ -15,7 +15,7 @@ import { EraPeople } from './EraPeople'
 import { EraTimeline } from './EraTimeline'
 
 function DeepDiveHeader({ pack }: { pack: JapanDeepDivePack }) {
-  const { year, step, playing, togglePlay, yearMin, yearMax } =
+  const { year, month, step, playing, togglePlay, yearMin, yearMax } =
     useDeepDiveYear()
   return (
     <header className="app-header">
@@ -28,23 +28,23 @@ function DeepDiveHeader({ pack }: { pack: JapanDeepDivePack }) {
         <button
           type="button"
           className="app-header__step"
-          aria-label="上一年"
+          aria-label={month == null ? '上一年' : '上一月'}
           onClick={() => step(-1)}
-          disabled={year <= yearMin}
+          disabled={year <= yearMin && (month == null || month <= 1)}
         >
           −
         </button>
         <ReadingControls />
         <div className="app-header__year" aria-live="polite">
           <span className="app-header__num">{year}</span>
-          <span className="app-header__era">年</span>
+          <span className="app-header__era">{month == null ? '年' : `年${month}月`}</span>
         </div>
         <button
           type="button"
           className="app-header__step"
-          aria-label="下一年"
+          aria-label={month == null ? '下一年' : '下一月'}
           onClick={() => step(1)}
-          disabled={year >= yearMax}
+          disabled={year >= yearMax && (month == null || month >= 12)}
         >
           +
         </button>
@@ -66,7 +66,7 @@ function DeepDiveHeader({ pack }: { pack: JapanDeepDivePack }) {
  * 與其他時代的 chrome 不一致。
  */
 function DeepDiveYearScrubber({ pack }: { pack: JapanDeepDivePack }) {
-  const { year, setYear, yearMin, yearMax } = useDeepDiveYear()
+  const { year, month, setYear, setMonth, yearMin, yearMax } = useDeepDiveYear()
   // 與其他時代一致：刻度以絕對定位分佈於整條滑桿上（之前係一般 <li> 列表，
   // 全部疊於左邊，令安土桃山、江戶的年代軸看落好短）。
   const laid = layoutTicks(pack.ticks, yearMin, yearMax, year)
@@ -81,6 +81,23 @@ function DeepDiveYearScrubber({ pack }: { pack: JapanDeepDivePack }) {
         aria-valuetext={`${year} 年`}
         onChange={(e) => setYear(Number(e.target.value))}
       />
+      {/* pack 宣告 monthZoom 時先出現：月級政變（例如幕末）要可以在同一年內逐月走 */}
+      {month != null ? (
+        <div className="year-scrubber__months">
+          <span>逐月</span>
+          <input
+            type="range"
+            min={1}
+            max={12}
+            step={1}
+            value={month}
+            aria-label="選擇月份"
+            aria-valuetext={`${month} 月`}
+            onChange={(e) => setMonth(Number(e.target.value))}
+          />
+          <span>{month}月</span>
+        </div>
+      ) : null}
       <div className="year-scrubber__ticks">
         {laid.map((t) => (
           <button

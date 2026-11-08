@@ -42,6 +42,15 @@ export interface JapanDeepDivePack {
   mapBase?: DeepDiveVectorBasemap
   /** 快照年 → domainId → factionId */
   territoryByYear: Record<number, Record<string, string>>
+  /**
+   * 逐月放大區間（含首尾）。未提供即本 pack 一律按年，行為與從前完全相同；
+   * 幕末（1853–1868）這類月級政變與交戰才需要宣告本欄。
+   */
+  monthZoom?: { from: number; to: number }
+  /** 「年-月」（月補零）→ domainId → factionId；只在 monthZoom 年分內優先於 territoryByYear */
+  territoryByMonth?: Record<string, Record<string, string>>
+  /** 「年-月」→ 色塊口徑說明；優先於 shadeNotes */
+  shadeNotesByMonth?: Record<string, string>
   keyYears: number[]
   routes: MarchRoute[]
   places: { name: string; x: number; y: number }[]
