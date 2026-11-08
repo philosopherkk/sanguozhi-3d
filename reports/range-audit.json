@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-08T04:42:19.421Z",
-  "snapshotCount": 89,
+  "generatedAt": "2026-11-08T07:09:07.133Z",
+  "snapshotCount": 90,
   "issues": [
     {
       "level": "info",
@@ -9,22 +9,10 @@
       "message": "4 張快照蓋 37 年，另外 33 年要靠沿用"
     },
     {
-      "level": "warn",
-      "code": "anachronism",
-      "location": "nanbei[1] 317「東晉、後趙」 · 後趙",
-      "message": "317 年尚未有「後趙」這個政權號（最早 319 年）"
-    },
-    {
-      "level": "warn",
-      "code": "anachronism",
-      "location": "nanbei[5] 534「東西魏、梁」 · 西魏",
-      "message": "534 年尚未有「西魏」這個政權號（最早 535 年）"
-    },
-    {
       "level": "info",
       "code": "coverage",
       "location": "nanbei（304–589）",
-      "message": "7 張快照蓋 286 年，另外 279 年要靠沿用"
+      "message": "8 張快照蓋 286 年，另外 278 年要靠沿用"
     },
     {
       "level": "warn",
@@ -75,18 +63,6 @@
       "message": "5 張快照蓋 54 年，另外 49 年要靠沿用"
     },
     {
-      "level": "warn",
-      "code": "anachronism",
-      "location": "liaosong[0] 960「北宋初」 · 西夏",
-      "message": "960 年尚未有「西夏」這個政權號（最早 1038 年）"
-    },
-    {
-      "level": "warn",
-      "code": "anachronism",
-      "location": "liaosong[1] 1004「澶淵前後」 · 西夏",
-      "message": "1004 年尚未有「西夏」這個政權號（最早 1038 年）"
-    },
-    {
       "level": "info",
       "code": "monolith-realm-qualified",
       "location": "liaosong[1] 1004「澶淵前後」 · 宋",
@@ -112,12 +88,6 @@
     },
     {
       "level": "warn",
-      "code": "faction-undeclared",
-      "location": "yuanmingqing[0] 1271「元朝」 · 宋",
-      "message": "該勢力不在 pack.factions，圖例與顏色會缺漏"
-    },
-    {
-      "level": "warn",
       "code": "source-format",
       "location": "yuanmingqing[6] 1750「清盛」",
       "message": "source 未含《書名》：清史通說"
@@ -126,12 +96,6 @@
       "level": "info",
       "code": "monolith-realm-qualified",
       "location": "yuanmingqing[0] 1271「元朝」 · 元",
-      "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
-    },
-    {
-      "level": "info",
-      "code": "monolith-realm-qualified",
-      "location": "yuanmingqing[0] 1271「元朝」 · 宋",
       "message": "整塊大環已在 note 交代限度；建議同時標 disputed: true，讓介面能顯示「邊界有爭議」"
     },
     {
@@ -1572,7 +1536,7 @@
       "level": "info",
       "code": "source-naming",
       "location": "imperial（11 包）＋japanEras（6 包）",
-      "message": "327 條出處點名了書名／條約名／制書名／檔案名；未點名 177 條"
+      "message": "328 條出處點名了書名／條約名／制書名／檔案名；未點名 177 條"
     },
     {
       "level": "info",
@@ -1647,8 +1611,8 @@
       "title": "十六國南北朝",
       "yearMin": 304,
       "yearMax": 589,
-      "snapshots": 7,
-      "carryYears": 279,
+      "snapshots": 8,
+      "carryYears": 278,
       "years": [
         {
           "year": 304,
@@ -1657,8 +1621,13 @@
         },
         {
           "year": 317,
-          "label": "東晉、後趙",
-          "source": "《晉書·元帝紀》《石勒載記》"
+          "label": "東晉、漢趙",
+          "source": "《晉書·元帝紀》；《晉書·石勒載記》；《資治通鑑》卷九十"
+        },
+        {
+          "year": 329,
+          "label": "後趙統一北方",
+          "source": "《晉書·石勒載記》；《晉書·劉曜載記》"
         },
         {
           "year": 383,
@@ -1676,9 +1645,9 @@
           "source": "《魏書·世祖紀》"
         },
         {
-          "year": 534,
+          "year": 535,
           "label": "東西魏、梁",
-          "source": "《魏書》《周書·文帝紀》《梁書·武帝紀》"
+          "source": "《魏書》；《周書·文帝紀》；《北齊書·神武紀》；《梁書·武帝紀》"
         },
         {
           "year": 577,
@@ -1798,12 +1767,12 @@
         {
           "year": 960,
           "label": "北宋初",
-          "source": "《宋史·太祖紀》"
+          "source": "《宋史·太祖紀》；《宋史·夏國傳》"
         },
         {
           "year": 1004,
           "label": "澶淵前後",
-          "source": "《宋史·真宗紀》；《遼史·地理志》"
+          "source": "《宋史·真宗紀》；《遼史·地理志》；《宋史·夏國傳》"
         },
         {
           "year": 1127,

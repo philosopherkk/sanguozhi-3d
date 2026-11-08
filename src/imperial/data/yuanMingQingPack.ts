@@ -33,6 +33,7 @@ export const YUAN_MING_QING_PACK: ImperialPack = {
   ],
   factions: [
     { id: '元', name: '元', color: '#3c8f6e' },
+    { id: '南宋', name: '南宋', color: '#a85a3f' },
     { id: '明', name: '明', color: '#8b3a3a' },
     { id: '清', name: '清', color: '#2a4a6a' },
     { id: '農民軍', name: '農民軍', color: '#6a5a2a' },
@@ -45,7 +46,8 @@ export const YUAN_MING_QING_PACK: ImperialPack = {
       source: '《元史·世祖紀》',
       control: {},
       extensions: YUAN_1271,
-      note: '1271年南宋還在江南、荊湖與嶺南。北方、巴蜀、雲南、嶺北、東北、青藏、西域畫元。察合台西界有爭議。伊兒、欽察不在圖內。',
+      note:
+        '1271 年（至元八年十一月建國號大元，見《元史·世祖紀》）南宋尚在江南、荊湖與嶺南，1276 年臨安陷、1279 年崖山始亡，故本年長江以南另著南宋，不塗入元。北方、巴蜀、雲南、嶺北、東北、青藏、西域畫元。色塊是雙方控制範圍的上限示意，不是行政區界。察合台西界有爭議。伊兒、欽察不在圖內。',
     },
     {
       year: 1279,

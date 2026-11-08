@@ -2,10 +2,11 @@ import type { ImperialPack } from '../types'
 import {
   NANBEI_304,
   NANBEI_317,
+  NANBEI_329,
   NANBEI_383,
   NANBEI_420,
   NANBEI_439,
-  NANBEI_534,
+  NANBEI_535,
   NANBEI_577,
 } from './realmRanges'
 import { NANBEI_ROUTES } from './routesNanbei'
@@ -19,7 +20,7 @@ export const NANBEI_PACK: ImperialPack = {
   yearMin: 304,
   yearMax: 589,
   initialYear: 383,
-  emptyHint: '此年無登錄專條。試 317、383、439、589。',
+  emptyHint: '此年無登錄專條。試 317、329、383、439、535、589。',
   leadersByYear: {
     317: [{ faction: '東晉', name: '司馬睿', role: '元帝', source: '《晉書·元帝紀》' }],
     383: [
@@ -32,14 +33,17 @@ export const NANBEI_PACK: ImperialPack = {
   ticks: [
     { year: 311, label: '永嘉' },
     { year: 317, label: '東晉' },
+    { year: 329, label: '後趙' },
     { year: 383, label: '淝水' },
     { year: 439, label: '北魏' },
     { year: 494, label: '遷洛' },
+    { year: 535, label: '東西魏' },
     { year: 589, label: '滅陳' },
   ],
   factions: [
     { id: '東晉', name: '東晉', color: '#2f6b4f' },
     { id: '漢趙', name: '漢趙', color: '#8b1a1a' },
+    { id: '漢趙（石勒）', name: '漢趙（石勒部）', color: '#a5482e' },
     { id: '後趙', name: '後趙', color: '#c45c4a' },
     { id: '前秦', name: '前秦', color: '#6b3a6a' },
     { id: '後燕', name: '後燕', color: '#3a6a8a' },
@@ -67,11 +71,21 @@ export const NANBEI_PACK: ImperialPack = {
     },
     {
       year: 317,
-      label: '東晉、後趙',
-      source: '《晉書·元帝紀》《石勒載記》',
+      label: '東晉、漢趙',
+      source: '《晉書·元帝紀》；《晉書·石勒載記》；《資治通鑑》卷九十',
       control: {},
       extensions: NANBEI_317,
-      note: '劉曜在關中，仍標漢趙。石勒在河北、河南、山東、山西，標後趙。江南是東晉。四川是成漢。河西前涼不畫成晉。',
+      note:
+        '317 年劉曜據關中、隴右，石勒據河北、河南、山東、山西，兩塊同奉漢趙之號：石勒至 318 年仍承漢趙官爵（《資治通鑑》卷九十載漢主劉聰臨終以劉曜為丞相、石勒為大將軍，皆隸尚書事），太興二年（319）始稱趙王、改稱趙王元年（《晉書·石勒載記》），故本年不用後趙之號。分兩塊只是表示石勒部已自立，不是兩者之間有實測界線。江南是東晉，四川是成漢，河西前涼不畫成晉。色塊是勢力範圍上限示意，不是郡縣界。',
+    },
+    {
+      year: 329,
+      label: '後趙統一北方',
+      source: '《晉書·石勒載記》；《晉書·劉曜載記》',
+      control: {},
+      extensions: NANBEI_329,
+      note:
+        '319 年石勒稱趙王，329 年擒劉曜、滅前趙，關中、洛陽與黃河流域主要州郡同歸後趙（《晉書·劉曜載記》）。色塊是後趙勢力範圍的上限示意，不是郡縣界：隴右、河西另有前涼，本圖未單獨著色。江南是東晉，四川是成漢，成漢到 347 年才亡。',
     },
     {
       year: 383,
@@ -98,12 +112,14 @@ export const NANBEI_PACK: ImperialPack = {
       note: '太武帝這一年統一北方，取北涼。山東的青齊要到泰始年間才入魏，所以439年山東仍畫劉宋，有爭議。漢中、巴蜀與江南是劉宋。',
     },
     {
-      year: 534,
+      year: 535,
       label: '東西魏、梁',
-      source: '《魏書》《周書·文帝紀》《梁書·武帝紀》',
+      source:
+        '《魏書》；《周書·文帝紀》；《北齊書·神武紀》；《梁書·武帝紀》',
       control: {},
-      extensions: NANBEI_534,
-      note: '東魏在太行以東，西魏在關中、河西。洛陽是空城一帶，河南畫東魏是示意。梁有江南、荊州、巴蜀。侯景之亂尚未發生。',
+      extensions: NANBEI_535,
+      note:
+        '北魏分裂之始在 534 年：高歡立孝靜帝於鄴（《北齊書·神武紀》），孝武帝西入長安。西魏之號則始於大統元年（535）正月改元之後（《周書·文帝紀》），故本快照取 535 年而不是 534 年；東魏之號已在 534 年。東魏在太行以東，西魏在關中、隴右。洛陽是空城一帶，河南畫東魏是示意。梁有江南、荊州、巴蜀。侯景之亂尚未發生。',
     },
     {
       year: 577,
