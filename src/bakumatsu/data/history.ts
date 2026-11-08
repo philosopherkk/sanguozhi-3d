@@ -134,7 +134,7 @@ export const BAKUMATSU_EVENTS: EraEvent[] = [
       factions: ['幕府'],
       location: '江戸、京都、長崎',
       type: 'politics',
-      source: '《幕府再征関連記録》；《英国外務公文書（FO 17）》',
+      source: '《幕府再征相關記録》；《英國外交部檔案（FO 17）》',
       note: '批准條約是履行對外承諾的必要步驟，但在國內強化了「幕府順從外國」的形象，征討的名分因此變弱。',
     },
   {
@@ -160,7 +160,7 @@ export const BAKUMATSU_EVENTS: EraEvent[] = [
       factions: ['薩長'],
       location: '下関',
       type: 'war',
-      source: '《下関条約》（1864）；《英国外務公文書（FO 17）》',
+      source: '《下關條約》（1864 年）；《英國外交部檔案（FO 17）》',
       note: '敗北沒有成為倒幕的動機，而是近代化的動機，這一點常被忽略；幕府的征討（1864年12月）與之並行。',
       crossRefs: [
         { topic: 'china', era: 'yuanmingqing', year: 1864, label: '清・同治3年，太平天國平定' },
@@ -189,7 +189,7 @@ export const BAKUMATSU_EVENTS: EraEvent[] = [
       factions: ['薩長'],
       location: '鹿児島湾',
       type: 'war',
-      source: '《薩摩藩・英国交渉記録》；《英国外務公文書（FO 17）》',
+      source: '《薩摩藩・英國交涉記録》；《英國外交部檔案（FO 17）》',
       note: '砲擊之後薩摩立即走向購艦與技術導入，說明戰爭在此成為學習的手段；長州走的是同一條路。',
     },
   {
@@ -202,7 +202,7 @@ export const BAKUMATSU_EVENTS: EraEvent[] = [
       factions: ['薩長'],
       location: '下関',
       type: 'war',
-      source: '《長州藩関係文書》；《英国外務公文書（FO 17）》',
+      source: '《長州藩相關文書》；《英國外交部檔案（FO 17）》',
       note: '攘夷不是幕府的外交方針，而是以藩的实力執行的行動；這直接招來次年的報復（薩英戰爭、四國艦門砲擊）。',
     },
   {

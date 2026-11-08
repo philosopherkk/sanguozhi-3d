@@ -30,8 +30,8 @@ export const JAPAN_VORONOI_DOMAINS: TerritoryGeometryProvenance = {
 export const JAPAN_CODH_KOKUGUN_GEOMETRY: TerritoryGeometryProvenance = {
   approx: true,
   source:
-    'CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · NIHU 幕末明治地勢地図境界データ',
-  note: '幕末明治旧国界 mesh；大名／藩歸屬仍示意，非 CODH 村→藩（CB-02b）',
+    'CODH 舊國舊郡境界資料集（doi:10.20676/00000454，https://geoshape.ex.nii.ac.jp/kg/，NIHU 幕末明治地勢地圖境界資料）',
+  note: '日文原名『旧国・旧郡境界データセット』；幕末明治舊國界 mesh；大名／藩歸屬仍示意，非 CODH 村→藩（CB-02b）',
 }
 
 /** 北海道／琉球外周（K74・K75–K85 等 CODH 元件） */
@@ -46,7 +46,7 @@ export const JP_ERA_RINGS_GEOMETRY: TerritoryGeometryProvenance = {
 export const SENGOKU_CONTROL_GEOMETRY: TerritoryGeometryProvenance = {
   approx: true,
   source:
-    '中文維基各氏專條／戰國大名領地通說；幾何 mesh 為 CODH 旧国（JAPAN_CODH_KOKUGUN_GEOMETRY）',
+    '中文維基各氏專條／戰國大名領地通說；幾何 mesh 為 CODH 舊國（JAPAN_CODH_KOKUGUN_GEOMETRY）',
   note: '歸屬敘事非學術地圖 SoT',
 }
 
@@ -97,7 +97,7 @@ export const BAKUMATSU_TERRITORY_NOTE_ZH =
 export const BAKUMATSU_HAN_PLUS_KOKUGUN_GEOMETRY: TerritoryGeometryProvenance = {
   approx: true,
   source:
-    '藩級：CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · 本田謙一氏原典加工 · CC BY-SA 4.0；舊國級補完：CODH 旧国 mesh（BY-NC）',
+    '藩級：CODH／Geoshape『幕末期近世村領域データセット』· doi:10.5638/thagis.34.1.1 · 本田謙一氏原典加工 · CC BY-SA 4.0；舊國級補完：CODH 舊國 mesh（BY-NC）',
   note: '藩級 mesh 覆蓋 d0–d27 之中的 21 個舊國；其餘 7 個舊國以旧国 mesh 補畫，同幅圖因此混合兩套幾何來源。',
 }
 
