@@ -1,3 +1,5 @@
+import { ChengyuPanel } from '../chengyu/components/ChengyuPanel'
+import { localesForJapanTrack } from '../chengyu/lib/filterByYear'
 import { AppSideRail } from '../components/AppSideRail'
 import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraPeople } from '../japanEras/EraPeople'
@@ -27,8 +29,15 @@ function nameFor(id: string) {
   return BAKUMATSU_FACTIONS.find((f) => f.id === id)?.name ?? id
 }
 
+/**
+ * 成語窗下限：幕末只有 1853–1868 十六年，若成語也按同一窗，江戶後期才定型的語
+ * （如『一期一會』1845）一張也進不來，面板會常年空白。故成語取 1780 年以後，
+ * 讓「鄰近成語」真的有意義；地圖與年表所用的年窗不受影響。
+ */
+const CHENGYU_YEAR_MIN = 1780
+
 function BakumatsuBody() {
-  const { year, setYear, month } = useBakumatsuYear()
+  const { year, setYear, month, yearMax } = useBakumatsuYear()
   const { selectedFaction, selectFaction } = useBakumatsuSelection()
   const hanLayer = useBakumatsuHanLayer()
   return (
@@ -61,6 +70,15 @@ function BakumatsuBody() {
                 onClearFaction={() => selectFaction(null)}
                 factionName={nameFor}
                 colorFor={colorFor}
+              />
+            }
+            chengyu={
+              <ChengyuPanel
+                year={year}
+                yearMin={CHENGYU_YEAR_MIN}
+                yearMax={yearMax}
+                locales={localesForJapanTrack()}
+                onJumpYear={setYear}
               />
             }
           />
