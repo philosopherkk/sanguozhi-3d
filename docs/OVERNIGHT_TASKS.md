@@ -150,6 +150,26 @@
 3. 華東沿海有一處**破裂的多邊形**（截圖上是一個白色 V 形輪廓），
    屬 polygon-clipping 的输出退化或自我相交，不是設計。
 
+### 重要更正：現代中國嘅色塊唔喺 `asiaWarTerritory.ts`
+
+`scripts/gen_asia_war_territory.mjs` 嘅 `EXTENTS` 得 36 條，全部是日本本土／海外領土／
+1931–1945 陸海佔領區，**冇任何 `chn`、`prc`、`minguo` 條目**；`src/imperial/data/`
+下面亦搜唔到 territory/shapes/polygons 之類幾何欄位（`prcPack.ts` 只有敘事）。
+所以 1949 年那塊紅色並非來自本檔，**接手時第一步必須先把來源定位清楚**，
+不要照本節上面那段話直接去改 `gen_asia_war_territory.mjs`。
+
+定位方法（可行且已驗證足夠）：在瀏覽器打開 `?c=china&e=prc&y=1949`，
+用 devtools 找出那個 path 元素的 class 與所屬 SVG，再回到源碼按 class 名搜索；
+或直接對 `ASIA_EXTENTS`、`jpDomains`、`eraMapRings`、`historicalBasemaps`、
+各時代 pack 的 `factions`/`territoryControl` 逐一比對 id。定位之後把本節
+的「根因／做法／閘門」套用到真正的那個來源上。
+
+已核實的事實仍然成立：`asiaWarTerritory.ts` 這 36 個 extent **全部是矩形與陸地
+的交集**，其中 `manshu`（118.5–127.5°E／39.6–53.4°N）與 `mengjiang`
+（107.5–118.5°E／37.0–43.0°N）確實把外蒙古與西伯利亞南部包進去，蒙疆不含外蒙古
+是史實，屬於可立即修正的資料錯誤。華東沿海那處破裂多邊形也確實存在於截圖中，
+但其所屬資料檔同樣要先定位。
+
 ### 正確做法（有真數據可用，不准再手畫）
 
 `scripts/.cache/countries-50m.json` 是 Natural Earth **1:50m 國家級 TopoJSON**
