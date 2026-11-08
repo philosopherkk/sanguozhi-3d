@@ -1,3 +1,5 @@
+import { ChengyuPanel } from '../chengyu/components/ChengyuPanel'
+import { localesForChinaTrack } from '../chengyu/lib/filterByYear'
 import { AppSideRail } from '../components/AppSideRail'
 import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraBar } from '../components/EraBar'
@@ -10,7 +12,7 @@ import { QinHanSelectionProvider } from './state/QinHanSelectionContext'
 import { QinHanYearProvider, useQinHanYear } from './state/QinHanYearContext'
 
 function QinHanMain() {
-  const { year } = useQinHanYear()
+  const { year, setYear, yearMin, yearMax } = useQinHanYear()
   return (
     <div className="app-shell__main app-shell__main--map-side">
       <QinHanMapStage />
@@ -19,6 +21,15 @@ function QinHanMain() {
         year={year}
         events={<QinHanTimeline />}
         people={<QinHanPeople />}
+        chengyu={
+          <ChengyuPanel
+            year={year}
+            yearMin={yearMin}
+            yearMax={yearMax}
+            locales={localesForChinaTrack()}
+            onJumpYear={setYear}
+          />
+        }
       />
     </div>
   )

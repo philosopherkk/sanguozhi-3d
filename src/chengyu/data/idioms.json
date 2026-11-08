@@ -22,8 +22,12 @@
     "lemma": "口蜜腹劍",
     "reading": "kǒu mì fù jiàn",
     "meaningZhHant": "形容人表面友善，內心陰險狠毒。",
-    "eraLink": { "kind": "person", "id": "li-linfu", "year": 744 },
-    "source": { "class": "史籍", "cite": "《資治通鑑》卷二一四·唐紀" },
+    "eraLink": { "kind": "year", "year": 742 },
+    "source": {
+      "class": "史籍",
+      "cite": "《資治通鑑》卷二一五·唐紀三十一·玄宗天寶元年"
+    },
+    "note": "通鑑記天寶元年（742）李林甫為相：『尤忌文學之士，或陽與之善，啗以甘言，而陰陷之。世謂李林甫「口有蜜，腹有劍」。』語自當時人評語凝練。",
     "locale": "zh"
   },
   {
@@ -32,9 +36,12 @@
     "reading": "dōng chuāng shì fā",
     "meaningZhHant": "比喻陰謀敗露；常與秦檜害岳飛故事相聯。",
     "eraLink": { "kind": "year", "year": 1142 },
-    "source": { "class": "民俗", "cite": "宋元話本與後世戲文層（非編年正史）" },
+    "source": {
+      "class": "民俗",
+      "cite": "《西湖游覽志餘》·佞倖盤荒（明·田汝成）；語本元·孔文卿雜劇《東窗事犯》"
+    },
     "disputed": true,
-    "note": "情節見話本、戲曲流布；正史《宋史·秦檜傳》記害飛事，無「東窗」細節。",
+    "note": "語形最早見元代雜劇《東窗事犯》，明人《西湖游覽志餘》記『可煩傳語夫人，東窗事發矣』；本事在紹興十一年（1142）秦檜害岳飛，正史《宋史·秦檜傳》無東窗細節，故不編入正史敘事。",
     "locale": "zh"
   },
   {
@@ -218,24 +225,16 @@
     "locale": "zh"
   },
   {
-    "id": "cn-chengyu-shuocaocao",
-    "lemma": "說曹操，曹操到",
-    "reading": "shuō Cáo Cāo，Cáo Cāo dào",
-    "meaningZhHant": "剛提到某人，那人便出現；形容巧合。",
-    "eraLink": { "kind": "year", "year": 1900 },
-    "source": { "class": "近代定型", "cite": "近代口語與俗諺彙（非魏晉編年）" },
-    "disputed": true,
-    "note": "與三國人物相聯之俗諺，非正史紀事。",
-    "locale": "zh"
-  },
-  {
     "id": "jp-chengyu-mikkatenka",
     "lemma": "三日天下",
     "reading": "みっかてんか",
     "meaningZhHant": "比喻權勢或成功極短暫；多指明智光秀本能寺後至山崎敗亡。",
     "eraLink": { "kind": "year", "year": 1582 },
-    "source": { "class": "近代定型", "cite": "近世軍記與通史敘事（非正史固定術語）" },
-    "note": "為後世通稱，非同時代官方文書用語。",
+    "source": {
+      "class": "近代定型",
+      "cite": "俗諺；本事見《信長公記》·天正十年（1582）條"
+    },
+    "note": "語源不詳，通說整理：『三日』乃後世俗說，自建寺之變至山崎之戰凡十一日。《信長公記》為太田牛一自記，近於實錄；『三日天下』則為後世通稱，非同時代公文書用語。",
     "locale": "jp"
   },
   {
@@ -244,9 +243,9 @@
     "reading": "てきはほんのうじにある",
     "meaningZhHant": "意指敵人（或目標）在本能寺；常作信長討伐明智光秀之軍記語。",
     "eraLink": { "kind": "year", "year": 1582 },
-    "source": { "class": "軍記", "cite": "《明智軍記》等軍記物語" },
+    "source": { "class": "軍記", "cite": "《明智軍記》·天正十年條等軍記物語" },
     "disputed": true,
-    "note": "軍記、後世講談流布；與編年史料須分層。",
+    "note": "《明智軍記》為江戶中期軍記物語，文學作品，非史實記錄；編年史料無『敵在本能寺』一語，此語經後世講談、戲曲廣為流布。",
     "locale": "jp"
   },
   {
@@ -262,7 +261,7 @@
     "id": "jp-chengyu-kachofugetsu",
     "lemma": "花鳥風月",
     "reading": "かちょうふうげつ",
-    "meaningZhHant": "指自然美景與風雅之趣。",
+    "meaningZhHant": "指花、鳥、風、月四時美景；引申為山水之遊與風雅之趣。",
     "eraLink": { "kind": "year", "year": 1000 },
     "source": { "class": "和歌", "cite": "《後撰和歌集》等歌集用例" },
     "locale": "jp"
@@ -291,14 +290,18 @@
     "reading": "はなよりだんご",
     "meaningZhHant": "實用、口腹之樂重於表面風雅。",
     "eraLink": { "kind": "year", "year": 1800 },
-    "source": { "class": "民俗", "cite": "江戶後期俗諺與落語傳承" },
+    "source": {
+      "class": "民俗",
+      "cite": "《鏡心灯語》·與謝野晶子（大正期）用例"
+    },
+    "note": "語源不詳，通說整理：謂花見之際重団子而輕賞花，舊說以為江戶後期俗諺，而最早可見用例不詳；《鏡心灯語》為今可確認之近世用例，非最早出處。",
     "locale": "jp"
   },
   {
     "id": "jp-chengyu-chikubanotomo",
     "lemma": "竹馬の友",
     "reading": "ちくばのとも",
-    "meaningZhHant": "幼年時一起玩耍的摯友。",
+    "meaningZhHant": "本謂幼時共騎竹馬之伴；今指自幼相交之友。",
     "eraLink": { "kind": "year", "year": 700 },
     "source": { "class": "史籍", "cite": "《日本書紀》及漢籍「總角之交」語境" },
     "locale": "jp"
@@ -316,10 +319,15 @@
     "id": "jp-chengyu-choreiboko",
     "lemma": "朝令暮改",
     "reading": "ちょうれいぼこう",
-    "meaningZhHant": "政令或方針朝夕變更，缺乏一貫。",
-    "eraLink": { "kind": "year", "year": 1600 },
-    "source": { "class": "近代定型", "cite": "和製漢語；近世政治批評用例" },
-    "locale": "jp"
+    "meaningZhHant": "本謂政令朝出暮改；今譏方針屢變、上下無定見。",
+    "eraLink": { "kind": "year", "year": -167 },
+    "source": {
+      "class": "史籍",
+      "cite": "《漢書》卷二十四上·食貨志第四上·鼂錯《論貴粟疏》"
+    },
+    "disputed": true,
+    "note": "原文今本作『朝令而暮當具』，一說本作『朝令而暮改』；清·王念孫《讀書雜志·漢書四》引《漢紀》謂『改』本作『得』，故標存疑。四字語形之定型晚於西漢：日本通行『朝令暮改』，中國今多作『朝令夕改』（語見唐·元稹制詞及《資治通鑑》卷二四二·唐紀五十八）。中日共用，非和製漢語。",
+    "locale": "shared"
   },
   {
     "id": "jp-chengyu-ishindenshin",
@@ -332,29 +340,41 @@
   },
   {
     "id": "jp-chengyu-ichigoichie",
-    "lemma": "一期一会",
+    "lemma": "一期一會",
     "reading": "いちごいちえ",
-    "meaningZhHant": "每一次相遇都獨一無二，應珍惜當下。",
-    "eraLink": { "kind": "year", "year": 1600 },
-    "source": { "class": "民俗", "cite": "茶道千利休系傳承與近世茶書" },
+    "meaningZhHant": "本謂茶湯之會一生僅一度，主客皆須盡禮盡意；今喻相遇難得，當珍惜眼前。",
+    "eraLink": { "kind": "year", "year": 1845 },
+    "source": {
+      "class": "近代定型",
+      "cite": "《茶湯一會集》·江戶後期（1845 頃）"
+    },
+    "note": "詞形最早見《茶湯一會集》（井伊直弼，江戶後期）；語本《山上宗二記》·茶湯者覚悟十體（安土桃山時代）『一期に一度の會』。書名與詞形從正字作『會』。",
     "locale": "jp"
   },
   {
     "id": "jp-chengyu-jakunikukyoshoku",
     "lemma": "弱肉強食",
     "reading": "じゃくにくきょうしょく",
-    "meaningZhHant": "弱者被強者吞併；叢林法則。",
-    "eraLink": { "kind": "year", "year": 1880 },
-    "source": { "class": "近代定型", "cite": "明治期譯語與政論用例" },
+    "meaningZhHant": "本謂禽獸相食，弱者之肉即強者之食；今喻弱者受強者侵吞。",
+    "eraLink": { "kind": "year", "year": 803 },
+    "source": {
+      "class": "經典",
+      "cite": "《全唐文》卷五百五十五·韓愈〈送浮屠文暢師序〉"
+    },
+    "note": "原文：『夫獸深居而簡出，懼物之為己害也，猶且不脫焉。弱之肉，強之食。』序作於貞元十九年（803）。日本以四字語形廣用，非自造語，亦非明治譯語。",
     "locale": "jp"
   },
   {
     "id": "jp-chengyu-issekinichou",
     "lemma": "一石二鳥",
     "reading": "いっせきにちょう",
-    "meaningZhHant": "一舉兩得。",
-    "eraLink": { "kind": "year", "year": 1900 },
-    "source": { "class": "近代定型", "cite": "和製漢語（由英語 two birds with one stone 意譯）" },
+    "meaningZhHant": "一事而兼得兩利；漢籍無此語，乃近代據外語諺譯成四字形。",
+    "eraLink": { "kind": "year", "year": 1932 },
+    "source": {
+      "class": "近代定型",
+      "cite": "《黑船前後》·服部之総（昭和七年·1932）用例"
+    },
+    "note": "語本英語諺 kill two birds with one stone；最早用例不詳，通說整理，《黑船前後》為今可得之有年代見例。漢籍『一舉兩得』出《晉書》、『一箭雙雕』出《北史》，與此語不同源。",
     "locale": "jp"
   },
   {
@@ -362,26 +382,12 @@
     "lemma": "十人十色",
     "reading": "じゅうにんといろ",
     "meaningZhHant": "各人好惡、才能各不相同。",
-    "eraLink": { "kind": "year", "year": 1700 },
-    "source": { "class": "民俗", "cite": "近世諺語與教訓文" },
-    "locale": "jp"
-  },
-  {
-    "id": "jp-chengyu-jigajisan",
-    "lemma": "自画自賛",
-    "reading": "じがじさん",
-    "meaningZhHant": "自己誇耀自己的作品或功績。",
-    "eraLink": { "kind": "year", "year": 1800 },
-    "source": { "class": "近代定型", "cite": "和製漢語；近世文藝評論用例" },
-    "locale": "jp"
-  },
-  {
-    "id": "jp-chengyu-junpumanpan",
-    "lemma": "順風満帆",
-    "reading": "じゅんぷうまんぱん",
-    "meaningZhHant": "一切順利，沒有阻礙。",
-    "eraLink": { "kind": "year", "year": 1850 },
-    "source": { "class": "近代定型", "cite": "近世商業書簡與俗諺" },
+    "eraLink": { "kind": "year", "year": 1905 },
+    "source": {
+      "class": "民俗",
+      "cite": "《我輩は猫である》·夏目漱石（明治三十八年·1905）用例"
+    },
+    "note": "語源不詳，通說整理：近世人情本、教訓文多見此語，而最早用例不可考；此標有年代之可見用例。",
     "locale": "jp"
   },
   {
@@ -406,9 +412,91 @@
     "id": "jp-chengyu-nekonikoban",
     "lemma": "猫に小判",
     "reading": "ねこにこばん",
-    "meaningZhHant": "對不懂價值者給好東西也無用；白費。",
-    "eraLink": { "kind": "year", "year": 1700 },
-    "source": { "class": "民俗", "cite": "江戶時代諺語與浮世繪題材" },
+    "meaningZhHant": "以珍物授不識其值之人，猶白費；本為『猫に小判を見せたよう』之略語。",
+    "eraLink": { "kind": "year", "year": 1687 },
+    "source": {
+      "class": "民俗",
+      "cite": "《評判記野良立役舞台大鏡》·貞享四年（1687）用例"
+    },
+    "note": "貞享四年（1687）『評判記野良立役舞台大鏡』已見『猫に小判を見せたよう』之語；江戶中期猶作長語，其後省為四字，江戶後期入上方『いろはがるた』之『ね』札。",
+    "locale": "jp"
+  },
+  {
+    "id": "cn-chengyu-buxuewushu",
+    "lemma": "不學無術",
+    "reading": "bù xué wú shù",
+    "meaningZhHant": "本謂不習學問則無治事之術，班固以此評霍光；今譏人無學問、無本領。",
+    "eraLink": { "kind": "year", "year": -66 },
+    "source": {
+      "class": "史籍",
+      "cite": "《漢書》卷六十八·霍光傳贊"
+    },
+    "note": "贊原文：『然光不學亡術。』亡即無字。霍光卒於地節二年（前66），班固就其行事下斷語；四字語形即自此贊凝練。",
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-laodangyizhuang",
+    "lemma": "老當益壯",
+    "reading": "lǎo dāng yì zhuàng",
+    "meaningZhHant": "本謂年愈老而志氣愈壯；今喻人雖年邁而幹勁不衰。",
+    "eraLink": { "kind": "year", "year": 25 },
+    "source": {
+      "class": "史籍",
+      "cite": "《後漢書》卷二十四·馬援傳"
+    },
+    "note": "傳記馬援語：『丈夫為志，窮當益堅，老當益壯。』本事約在新莽末馬援亡命之時；四字語入文以唐·王勃《滕王閣序》『老當益壯，寧移白首之心』為早見。",
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-delongwangshu",
+    "lemma": "得隴望蜀",
+    "reading": "dé lǒng wàng shǔ",
+    "meaningZhHant": "本謂既平隴右又望西蜀，光武帝以此自悔用兵；後喻貪得無厭。",
+    "eraLink": { "kind": "year", "year": 32 },
+    "source": {
+      "class": "史籍",
+      "cite": "《後漢書·岑彭傳》"
+    },
+    "note": "建武八年（32）帝與岑彭書：『人苦不知足，既平隴，復望蜀，每一發兵，頭鬢為白。』四字之形以唐·李白〈古風〉『得隴又望蜀』為早見。",
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-nanxiongnandi",
+    "lemma": "難兄難弟",
+    "reading": "nán xiōng nán dì",
+    "meaningZhHant": "本謂兄弟才德相當、難分高下；今亦譏兩人一樣不堪。",
+    "eraLink": { "kind": "year", "year": 190 },
+    "source": {
+      "class": "經典",
+      "cite": "《世說新語·德行》"
+    },
+    "note": "本事在東漢末年，陳寔稱其子陳紀（元方）、陳諶（季方）曰『元方難為兄，季方難為弟』；《世說新語》編定在南朝宋（五世紀），成語凝練稍後。譏刺之今義見元·張可久《折桂令·湖上飲別》。",
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-dongchuangtanfu",
+    "lemma": "東床坦腹",
+    "reading": "dōng chuáng tǎn fù",
+    "meaningZhHant": "本謂東晉郗鑒使人於王家選婿，一子坦腹臥床不作態，遂得選；後為女婿之代稱。",
+    "eraLink": { "kind": "year", "year": 337 },
+    "source": {
+      "class": "經典",
+      "cite": "《世說新語·雅量》"
+    },
+    "note": "本事在東晉咸康年間（郗鑒鎮京口，遣門生詣王導求婿，約 335–339），坦腹者通說為王羲之；《世說新語》編定在南朝宋（五世紀），語形凝練稍後。",
+    "locale": "zh"
+  },
+  {
+    "id": "jp-chengyu-shogyomujo",
+    "lemma": "諸行無常",
+    "reading": "しょぎょうむじょう",
+    "meaningZhHant": "本謂有為之法生滅不住；《平家物語》序以之總攝興亡；今喻榮枯無定。",
+    "eraLink": { "kind": "year", "year": 1185 },
+    "source": {
+      "class": "軍記",
+      "cite": "《平家物語》卷第一·序"
+    },
+    "note": "《平家物語》為軍記物語，文學作品，非史實記錄；語本漢譯《大般涅槃經》『諸行無常，是生滅法』。物語記治承、壽永間事（1180–1185），成書在十三世紀，作者不詳。",
     "locale": "jp"
   }
 ]

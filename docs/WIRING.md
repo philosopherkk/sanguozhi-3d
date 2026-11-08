@@ -7,11 +7,7 @@
 ## fail
 
 - **app-no-chengyu** · `src/bakumatsu/BakumatsuApp.tsx` — AppSideRail 標籤內沒有 chengyu prop（該時代看不到成語卡）
-- **app-no-chengyu** · `src/heian/HeianApp.tsx` — AppSideRail 標籤內沒有 chengyu prop（該時代看不到成語卡）
 - **app-no-chengyu** · `src/imperial/ImperialApp.tsx` — AppSideRail 標籤內沒有 chengyu prop（該時代看不到成語卡）
-- **app-no-chengyu** · `src/japanEras/DeepDiveApp.tsx` — AppSideRail 標籤內沒有 chengyu prop（該時代看不到成語卡）
-- **app-no-chengyu** · `src/qinhan/QinHanApp.tsx` — AppSideRail 標籤內沒有 chengyu prop（該時代看不到成語卡）
-- **app-no-chengyu** · `src/sengoku/SengokuApp.tsx` — AppSideRail 標籤內沒有 chengyu prop（該時代看不到成語卡）
 - **app-no-chengyu** · `src/zhou/ZhouApp.tsx` — AppSideRail 標籤內沒有 chengyu prop（該時代看不到成語卡）
 
 ## warn

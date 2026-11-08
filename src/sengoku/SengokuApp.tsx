@@ -1,3 +1,5 @@
+import { ChengyuPanel } from '../chengyu/components/ChengyuPanel'
+import { localesForJapanTrack } from '../chengyu/lib/filterByYear'
 import { AppSideRail } from '../components/AppSideRail'
 import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraBar } from '../components/EraBar'
@@ -10,7 +12,7 @@ import { SengokuSelectionProvider } from './state/SengokuSelectionContext'
 import { SengokuYearProvider, useSengokuYear } from './state/SengokuYearContext'
 
 function SengokuMain() {
-  const { year } = useSengokuYear()
+  const { year, setYear, yearMin, yearMax } = useSengokuYear()
   return (
     <div className="app-shell__main app-shell__main--map-side">
       <SengokuMapStage />
@@ -19,6 +21,15 @@ function SengokuMain() {
         year={year}
         events={<SengokuTimeline />}
         people={<SengokuPeople />}
+        chengyu={
+          <ChengyuPanel
+            year={year}
+            yearMin={yearMin}
+            yearMax={yearMax}
+            locales={localesForJapanTrack()}
+            onJumpYear={setYear}
+          />
+        }
       />
     </div>
   )

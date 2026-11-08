@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react'
+import { ChengyuPanel } from '../chengyu/components/ChengyuPanel'
+import { localesForJapanTrack } from '../chengyu/lib/filterByYear'
 import { AppSideRail } from '../components/AppSideRail'
 import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraBar } from '../components/EraBar'
@@ -111,7 +113,7 @@ function DeepDiveYearScrubber({ pack }: { pack: JapanDeepDivePack }) {
 }
 
 function DeepDiveBody({ pack }: { pack: JapanDeepDivePack }) {
-  const { year, setYear } = useDeepDiveYear()
+  const { year, setYear, yearMin, yearMax } = useDeepDiveYear()
   const { selectedFaction, selectFaction } = useDeepDiveSelection()
   const colorFor = (id: string) =>
     pack.factions.find((f) => f.id === id)?.color ?? '#78716C'
@@ -179,6 +181,15 @@ function DeepDiveBody({ pack }: { pack: JapanDeepDivePack }) {
               onClearFaction={() => selectFaction(null)}
               factionName={nameFor}
               colorFor={colorFor}
+            />
+          }
+          chengyu={
+            <ChengyuPanel
+              year={year}
+              yearMin={yearMin}
+              yearMax={yearMax}
+              locales={localesForJapanTrack()}
+              onJumpYear={setYear}
             />
           }
         />
