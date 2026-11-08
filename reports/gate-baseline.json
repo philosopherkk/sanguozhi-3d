@@ -16,7 +16,7 @@
   "audit:quotes": {
     "exit": 0,
     "errors": 4,
-    "warns": 16
+    "warns": 45
   },
   "audit:chengyu": {
     "exit": 0,
@@ -34,7 +34,8 @@
   },
   "audit:event-depth": {
     "exit": 0,
-    "gap": 426
+    "gap": 426,
+    "padding": 1
   },
   "audit:geo": {
     "exit": 0

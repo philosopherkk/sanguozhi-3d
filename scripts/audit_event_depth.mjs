@@ -28,6 +28,12 @@ const optVal = (flag, dflt) => {
 }
 const ONLY = optVal('--only', 'src')
 const TOP = Number(optVal('--top', 15))
+/**
+ * desc-echo 閾值（字二元組 Jaccard）。訂閾值前先量現有語料分佈（報告會印 p50/p90/max），
+ * 避免用直覺設一個把既有正常條目大批誤殺、或者形同虛設的數字。
+ */
+const DESC_ECHO = Number(optVal('--desc-echo', 0.35))
+let descEchoStats = { samples: 0, p50: 0, p90: 0, max: 0 }
 
 function walk(dir, out) {
   let entries
@@ -97,12 +103,149 @@ for (const file of walk(join(ROOT, ONLY), [])) {
         id: nearestId(text, m.index),
         field: key,
         chars,
+        text: lit.value,
         ok: chars >= THRESHOLDS[key],
         line: text.slice(0, m.index).split('\n').length,
       })
     }
   }
 }
+
+/**
+ * 灌水偵測：舊版只量字數，結果「把 desc 換句話說」「同一句貼三次」都能過閘。
+ * 呢度量三種實際形態的灌水，數字入基線，惡化即 CI 紅。
+ *  1. dup-in-event：同一事件內出現完全相同的句子（跨段或同段重複）
+ *  2. boilerplate：同一模組內 ≥3 個不同事件共用同一句子（樣板灌水）
+ *  3. desc-echo：經過／起因與該事件 desc 高度同形（換句話說充數）
+ * 閾值由現有語料分佈訂出，見報告「灌水偵測」節。
+ */
+const SENT_MIN = 12
+/** 去空白與標點，只留可比較的實字，先至比得出「同一句」。 */
+function normSentence(s) {
+  return s
+    .replace(/[\s「」『』《》〈〉（）()[\]【】‘’“”'",、，。；：！？…—－·．-]/g, '')
+    .trim()
+}
+function sentences(text) {
+  return text
+    .split(/[。！？；\n]/)
+    .map(normSentence)
+    .filter((s) => s.length >= SENT_MIN)
+}
+/** 字二元組 Jaccard：中文無詞邊界，二元組對「改寫」最敏感。 */
+function bigrams(s) {
+  const g = new Set()
+  for (let i = 0; i + 1 < s.length; i += 1) g.add(s.slice(i, i + 2))
+  return g
+}
+function jaccard(a, b) {
+  if (!a.size || !b.size) return 0
+  let inter = 0
+  for (const x of a) if (b.has(x)) inter += 1
+  return inter / (a.size + b.size - inter)
+}
+
+// 各模組、各事件的 desc，供 desc-echo 對照。
+const descByKey = new Map()
+for (const file of walk(join(ROOT, ONLY), [])) {
+  const rel = relative(ROOT, file).replace(/\\/g, '/')
+  const text = readFileSync(file, 'utf8')
+  for (const m of text.matchAll(/(?:^|[{,\s])desc\s*:\s*/g)) {
+    const lit = readLiteral(text, m.index + m[0].length)
+    if (!lit) continue
+    const key = `${rel}|${nearestId(text, m.index)}`
+    if (!descByKey.has(key)) descByKey.set(key, normSentence(lit.value))
+  }
+}
+
+const moduleOf = (f) => f.split('/').slice(0, f.startsWith('src/data/') ? 2 : 3).join('/')
+const dupInEvent = []
+{
+  const byEvent = new Map()
+  for (const r of rows) {
+    const key = `${r.file}|${r.id}`
+    if (!byEvent.has(key)) byEvent.set(key, [])
+    byEvent.get(key).push(r)
+  }
+  for (const list of byEvent.values()) {
+    if (list.length < 2) continue
+    const seen = new Map()
+    for (const r of list) {
+      for (const s of sentences(r.text)) {
+        if (!seen.has(s)) seen.set(s, [])
+        seen.get(s).push(LABEL[r.field])
+      }
+    }
+    for (const [s, fields] of seen) {
+      if (fields.length < 2) continue
+      const [head] = list
+      dupInEvent.push({
+        module: moduleOf(head.file),
+        file: head.file,
+        id: head.id,
+        fields: [...new Set(fields)].join('＋'),
+        sentence: s.slice(0, 40),
+      })
+    }
+  }
+}
+
+const boilerplate = []
+{
+  const byModule = new Map()
+  for (const r of rows) {
+    const mod = moduleOf(r.file)
+    if (!byModule.has(mod)) byModule.set(mod, new Map())
+    const map = byModule.get(mod)
+    for (const s of sentences(r.text)) {
+      if (!map.has(s)) map.set(s, new Map())
+      map.get(s).set(`${r.file}|${r.id}`, r.file)
+    }
+  }
+  for (const [mod, map] of byModule) {
+    for (const [s, owners] of map) {
+      if (owners.size < 3) continue
+      boilerplate.push({
+        module: mod,
+        events: owners.size,
+        sentence: s.slice(0, 40),
+        file: [...owners.values()][0],
+      })
+    }
+  }
+}
+
+const descEcho = []
+{
+  const scored = []
+  for (const r of rows) {
+    if (r.field === 'outcome') continue
+    const d = descByKey.get(`${r.file}|${r.id}`)
+    if (!d || d.length < SENT_MIN) continue
+    const score = jaccard(bigrams(normSentence(r.text)), bigrams(d))
+    if (score >= DESC_ECHO) {
+      descEcho.push({
+        module: moduleOf(r.file),
+        file: r.file,
+        id: r.id,
+        field: LABEL[r.field],
+        score: Number(score.toFixed(2)),
+        chars: r.chars,
+      })
+    }
+    scored.push(score)
+  }
+  descEchoStats = { samples: scored.length, p50: 0, p90: 0, max: 0 }
+  if (scored.length) {
+    scored.sort((a, b) => a - b)
+    const at = (q) => Number(scored[Math.min(scored.length - 1, Math.floor(scored.length * q))].toFixed(2))
+    descEchoStats.p50 = at(0.5)
+    descEchoStats.p90 = at(0.9)
+    descEchoStats.max = at(1)
+  }
+}
+
+const paddingCount = dupInEvent.length + boilerplate.length + descEcho.length
 
 const byField = {}
 for (const key of KEYS) {
@@ -179,6 +322,17 @@ if (has('--json')) {
         byModule,
         readingLayers: layerStats,
         readingLayerMissing: layerMissing,
+        padding: {
+          thresholdDescEcho: DESC_ECHO,
+          dupInEvent: dupInEvent.length,
+          boilerplate: boilerplate.length,
+          descEcho: descEcho.length,
+          total: paddingCount,
+          descEchoStats,
+          dupSamples: dupInEvent.slice(0, 20),
+          boilerSamples: [...boilerplate].sort((a, b) => b.events - a.events).slice(0, 20),
+          descEchoSamples: [...descEcho].sort((a, b) => b.score - a.score).slice(0, 20),
+        },
       },
       null,
       2,
@@ -236,10 +390,33 @@ if (has('--json')) {
   L.push('- 不可編造出處：只可沿用該模組別處已引、且確實涵蓋同時代同地域的具名著作；不可憑空寫卷頁。')
   L.push('- 分歧數字一律 `disputed: true` 並在 `note` 說明分歧，不寫定數。')
   L.push('')
+  L.push('## 灌水偵測（長度合格但內容重複）')
+  L.push('')
+  L.push(
+    `共 **${paddingCount} 段**嫌疑｜同事件重複句 ${dupInEvent.length}｜跨事件樣板 ${boilerplate.length}｜與 desc 同形 ${descEcho.length}`,
+  )
+  L.push('')
+  L.push(
+    `desc 同形度分佈（樣本 ${descEchoStats.samples}，閾值 ${DESC_ECHO}）：p50 ${descEchoStats.p50}／p90 ${descEchoStats.p90}／最大 ${descEchoStats.max}。` +
+      '閾值要高於 p90 至唔會大批誤殺既有正常條目。',
+  )
+  L.push('')
+  L.push('| 形態 | 模組 | 事件 | 說明 |')
+  L.push('|---|---|---|---|')
+  for (const d of dupInEvent.slice(0, 15)) {
+    L.push(`| 同事件重複句 | \`${d.module}\` | ${d.id} | ${d.fields}：「${d.sentence}」 |`)
+  }
+  for (const b of [...boilerplate].sort((a, x) => x.events - a.events).slice(0, 15)) {
+    L.push(`| 跨事件樣板 | \`${b.module}\` | ${b.events} 個事件 | 「${b.sentence}」 |`)
+  }
+  for (const e of [...descEcho].sort((a, x) => x.score - a.score).slice(0, 15)) {
+    L.push(`| 與 desc 同形 | \`${e.module}\` | ${e.id} | ${e.field} 同形度 ${e.score}（${e.chars} 字） |`)
+  }
+  L.push('')
   mkdirSync(join(ROOT, 'reports'), { recursive: true })
   writeFileSync(join(ROOT, 'reports/event-depth.md'), L.join('\n'), 'utf8')
   console.log(
-    `audit:event-depth — 段落 ${rows.length}／缺口 ${gaps.length}（起因 ${byField.causes.below}／經過 ${byField.course.below}／結果 ${byField.outcome.below}）｜三層意譯：小學生 ${layerStats.elementary.entries}・中學生 ${layerStats.secondary.entries}・大學 ${layerStats.university.entries}（缺小學生層 ${layerMissing.小學生}）→ reports/event-depth.md`,
+    `audit:event-depth — 段落 ${rows.length}／缺口 ${gaps.length}（起因 ${byField.causes.below}／經過 ${byField.course.below}／結果 ${byField.outcome.below}）｜三層意譯：小學生 ${layerStats.elementary.entries}・中學生 ${layerStats.secondary.entries}・大學 ${layerStats.university.entries}（缺小學生層 ${layerMissing.小學生}）｜灌水嫌疑 ${paddingCount} 段（同句 ${dupInEvent.length}／樣板 ${boilerplate.length}／改寫 ${descEcho.length}）→ reports/event-depth.md`,
   )
 }
 

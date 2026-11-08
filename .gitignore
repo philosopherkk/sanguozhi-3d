@@ -36,7 +36,16 @@ __pycache__/
 # Natural Earth 原始資料（生成底圖用，唔入 repo）
 scripts/.cache/
 
-# 排程 agent 每輪重寫嘅審計報告（避免多輪互衝，不入库）
+# 排程 agent 每輪重寫嘅審計報告（避免多輪互衝，不入庫）
 reports/chengyu.md
 reports/map-accuracy.md
 reports/event-depth.md
+
+# 審計工具每輪重寫之產物：納入版本庫只會令排程 agent 誤判「工作區不乾淨」，
+# 並在並發輪次中互相衝突。需要歷史請查看 CI 輸出。
+docs/AUDIT.md
+docs/WIRING.md
+reports/range-audit.md
+reports/range-audit.json
+reports/event-depth.md
+reports/quotes-audit.json
