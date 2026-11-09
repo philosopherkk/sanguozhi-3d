@@ -1,3 +1,5 @@
+import { ChengyuPanel } from '../chengyu/components/ChengyuPanel'
+import { localesForChinaTrack } from '../chengyu/lib/filterByYear'
 import { AppSideRail } from '../components/AppSideRail'
 import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraBar } from '../components/EraBar'
@@ -10,15 +12,25 @@ import { ZhouSelectionProvider } from './state/ZhouSelectionContext'
 import { ZhouYearProvider, useZhouYear } from './state/ZhouYearContext'
 
 function ZhouMain() {
-  const { year } = useZhouYear()
+  const { year, setYear, yearMin, yearMax } = useZhouYear()
   return (
     <div className="app-shell__main app-shell__main--map-side">
       <ZhouMapStage />
+      {/* 夏、商、西周、春秋、戰國共用這套殼層，一律屬中國軌，成語取 zh＋shared。 */}
       <AppSideRail
         storageKey="zhou-side-rail"
         year={year}
         events={<ZhouTimeline />}
         people={<ZhouPeople />}
+        chengyu={
+          <ChengyuPanel
+            year={year}
+            yearMin={yearMin}
+            yearMax={yearMax}
+            locales={localesForChinaTrack()}
+            onJumpYear={setYear}
+          />
+        }
       />
     </div>
   )

@@ -1,3 +1,5 @@
+import { ChengyuPanel } from '../chengyu/components/ChengyuPanel'
+import { localesForChinaTrack } from '../chengyu/lib/filterByYear'
 import { AppSideRail } from '../components/AppSideRail'
 import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraBar } from '../components/EraBar'
@@ -144,15 +146,25 @@ function ImperialHeader() {
 }
 
 function ImperialMain() {
-  const { year } = useImperialYear()
+  const { year, setYear, yearMin, yearMax } = useImperialYear()
   return (
     <div className="app-shell__main app-shell__main--map-side">
       <ImperialMapStage />
+      {/* 本殼層承十個時代 pack（隋唐至新中國），全部屬中國軌，故成語取 zh＋shared。 */}
       <AppSideRail
         storageKey="imperial-side-rail"
         year={year}
         events={<ImperialTimeline />}
         people={<ImperialPeople />}
+        chengyu={
+          <ChengyuPanel
+            year={year}
+            yearMin={yearMin}
+            yearMax={yearMax}
+            locales={localesForChinaTrack()}
+            onJumpYear={setYear}
+          />
+        }
       />
     </div>
   )
