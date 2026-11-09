@@ -182,6 +182,10 @@ for (const f of files) {
       // 「…」 之內是引文（古典原文可能合法使用舊字形），預設亦拿掉；
       // 需要覆核引文內的簡體／日字用 `--inspect-quotes`（只報告、不計入失敗）。
       let scanned = line.replace(/『[^』]*』/g, '').replace(/「[^」]*」/g, '')
+      // 維基百科連結是機器識別符（條目標題以各維基的實際標題為準，可能正是
+      // 簡體字形標題），不是介面文案。PR #95 覆核實證：/zh-tw/<標題> 對
+      // 不存在標題也回 200，真正存在的條目標題改不了，故掃描前拿掉。
+      scanned = scanned.replace(/https?:\/\/(?:zh|ja)\.wikipedia\.org\/\S+/g, '')
       if (!narrative.has(i)) scanned = scanned.replace(/`[^`]*`/g, '')
 
       const isQuote = QUOTE_LINE.test(line)
