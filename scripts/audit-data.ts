@@ -91,9 +91,19 @@ function bookTitlesIn(source: string): string[] {
 
 function titleMatchesPrimary(title: string): boolean {
   if (title.includes('裴注')) return true
+  // 《魏書·夏侯淵傳》《蜀書·黃忠傳》《吳書·周瑜傳》格式即《三國志》卷次篇名
+  // （本 repo 慣例；北朝《魏書》單稱不會帶「·某傳」篇名後綴）。
+  if (/^(魏書|蜀書|吳書)·/.test(title)) return true
   return PRIMARY_BOOK_MARKERS.some(
     (m) => m !== '裴注' && title.includes(m),
   )
+}
+
+/** 「《三國志·蜀書·諸葛亮傳》注引《漢晉春秋》」式：次要書名跟在注引之後，屬裴注途徑。 */
+function isPeizhuCited(source: string, title: string): boolean {
+  if (!source.includes('三國志')) return false
+  const idx = source.indexOf('注引')
+  return idx >= 0 && source.indexOf(`《${title}》`, idx) > idx
 }
 
 function auditSourceField(
@@ -125,6 +135,7 @@ function auditSourceField(
   if (opts?.skipAllowlist) return
   for (const title of bookTitlesIn(source)) {
     if (title.includes('宋書')) continue
+    if (isPeizhuCited(source, title)) continue
     if (!titleMatchesPrimary(title)) {
       add(
         'warn',

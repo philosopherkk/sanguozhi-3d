@@ -1,5 +1,5 @@
 /** 北海道、松前、琉球。像素對齊日本地勢 1482×1477。
- * 琉球（K74）與北海道（K75–K85）來自 CODH 旧国 GeoJSON（CODH『旧国・旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0）。
+ * 琉球（K74）與北海道（K75–K85）來自 CODH 旧国 GeoJSON（CODH『旧国·旧郡境界データセット』doi:10.20676/00000454 · https://geoshape.ex.nii.ac.jp/kg/ · CC BY-NC 4.0）。
  * 松前為 K78 渡島國南部切分（1604 交易領示意，非全島）。
  * 內陸蝦夷／阿イヌ政治邊界不臆造。
  */

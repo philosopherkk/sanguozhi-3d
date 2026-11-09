@@ -272,7 +272,7 @@ export const AZUCHI_PACK: JapanDeepDivePack = {
       id: 'az-hideyoshi',
       name: '豐臣秀吉',
       faction: '豐臣',
-      role: '關白・太閤',
+      role: '關白·太閤',
       death: 1598,
       summary: '統一戰爭與朝鮮之役。',
       source: '日本戰國通說',

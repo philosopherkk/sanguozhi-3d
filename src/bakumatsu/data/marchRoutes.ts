@@ -67,7 +67,7 @@ export const BAKUMATSU_MARCH_ROUTES: MarchRoute[] = [
   },
   {
     id: 'toba-satcho',
-    name: '鳥羽・伏見',
+    name: '鳥羽·伏見',
     year: 1868,
     month: 1,
     faction: '薩長',
@@ -80,7 +80,7 @@ export const BAKUMATSU_MARCH_ROUTES: MarchRoute[] = [
   },
   {
     id: 'toba-bakufu',
-    name: '鳥羽・伏見',
+    name: '鳥羽·伏見',
     year: 1868,
     month: 1,
     faction: '幕府',
@@ -141,7 +141,7 @@ export const BAKUMATSU_MARCH_ROUTES: MarchRoute[] = [
   },
   {
     id: 'nagaoka-1868',
-    name: '北越・長岡',
+    name: '北越·長岡',
     year: 1868,
     month: 8,
     faction: '薩長',

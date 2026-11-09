@@ -224,7 +224,7 @@ export const TRACED_DOMAINS: TracedDomain[] = [
   },
   {
     id: 'd7',
-    name: '北條・佐竹',
+    name: '北條·佐竹',
     zone: '關東',
     clan: '北條',
     ring: [
@@ -564,7 +564,7 @@ export const TRACED_DOMAINS: TracedDomain[] = [
   },
   {
     id: 'd18',
-    name: '安東・大崎・葛西・相馬',
+    name: '安東·大崎·葛西·相馬',
     zone: '奧羽',
     clan: '其他',
     ring: [
@@ -594,7 +594,7 @@ export const TRACED_DOMAINS: TracedDomain[] = [
   },
   {
     id: 'd19',
-    name: '畠山・本願寺・三木',
+    name: '畠山·本願寺·三木',
     zone: '甲信',
     clan: '武田',
     ring: [
@@ -635,7 +635,7 @@ export const TRACED_DOMAINS: TracedDomain[] = [
   },
   {
     id: 'd20',
-    name: '宇都宮・那須・岩城',
+    name: '宇都宮·那須·岩城',
     zone: '關東',
     clan: '其他',
     ring: [
@@ -653,7 +653,7 @@ export const TRACED_DOMAINS: TracedDomain[] = [
   },
   {
     id: 'd21',
-    name: '山名・宇喜多・別所・波多野',
+    name: '山名·宇喜多·別所·波多野',
     zone: '中國',
     clan: '其他',
     ring: [
@@ -746,7 +746,7 @@ export const TRACED_DOMAINS: TracedDomain[] = [
   },
   {
     id: 'd23',
-    name: '河野・香川',
+    name: '河野·香川',
     zone: '四國',
     clan: '其他',
     ring: [
@@ -786,7 +786,7 @@ export const TRACED_DOMAINS: TracedDomain[] = [
   },
   {
     id: 'd24',
-    name: '伊東・阿蘇・相良',
+    name: '伊東·阿蘇·相良',
     zone: '九州',
     clan: '其他',
     ring: [

@@ -19,7 +19,7 @@ export const SENGOKU_MAP_H = 1477
 export const SENGOKU_REGIONS: SengokuRegion[] = [
   {
     id: '奧羽',
-    name: '奧羽（南部・最上・伊達・蘆名・安東・大崎・葛西・相馬）',
+    name: '奧羽（南部·最上·伊達·蘆名·安東·大崎·葛西·相馬）',
     rings: [
       [
         [980, 80],
@@ -34,7 +34,7 @@ export const SENGOKU_REGIONS: SengokuRegion[] = [
   },
   {
     id: '關東',
-    name: '關東（北條・佐竹・宇都宮・那須・岩城・里見）',
+    name: '關東（北條·佐竹·宇都宮·那須·岩城·里見）',
     rings: [
       [
         [1020, 340],
@@ -49,7 +49,7 @@ export const SENGOKU_REGIONS: SengokuRegion[] = [
   },
   {
     id: '甲信',
-    name: '甲信（武田・三木）',
+    name: '甲信（武田·三木）',
     rings: [
       [
         [860, 360],
@@ -64,7 +64,7 @@ export const SENGOKU_REGIONS: SengokuRegion[] = [
   },
   {
     id: '越後',
-    name: '越後（上杉・畠山・本願寺）',
+    name: '越後（上杉·畠山·本願寺）',
     rings: [
       [
         [880, 220],
@@ -78,7 +78,7 @@ export const SENGOKU_REGIONS: SengokuRegion[] = [
   },
   {
     id: '東海',
-    name: '東海（武田・德川）',
+    name: '東海（武田·德川）',
     rings: [
       [
         [780, 480],
@@ -92,7 +92,7 @@ export const SENGOKU_REGIONS: SengokuRegion[] = [
   },
   {
     id: '尾張三河',
-    name: '尾張・三河（織田・德川）',
+    name: '尾張·三河（織田·德川）',
     rings: [
       [
         [680, 520],
@@ -107,7 +107,7 @@ export const SENGOKU_REGIONS: SengokuRegion[] = [
   },
   {
     id: '近畿',
-    name: '近畿（織田・淺井・朝倉・三好・畠山・波多野）',
+    name: '近畿（織田·淺井·朝倉·三好·畠山·波多野）',
     rings: [
       [
         [520, 480],
@@ -122,7 +122,7 @@ export const SENGOKU_REGIONS: SengokuRegion[] = [
   },
   {
     id: '中國',
-    name: '中國（毛利・尼子・山名・宇喜多・別所）',
+    name: '中國（毛利·尼子·山名·宇喜多·別所）',
     rings: [
       [
         [280, 480],
@@ -137,7 +137,7 @@ export const SENGOKU_REGIONS: SengokuRegion[] = [
   },
   {
     id: '四國',
-    name: '四國（長宗我部・三好・河野・香川）',
+    name: '四國（長宗我部·三好·河野·香川）',
     rings: [
       [
         [360, 720],
@@ -151,7 +151,7 @@ export const SENGOKU_REGIONS: SengokuRegion[] = [
   },
   {
     id: '九州',
-    name: '九州（島津・大友・龍造寺・伊東・相良・阿蘇・大村・肝付）',
+    name: '九州（島津·大友·龍造寺·伊東·相良·阿蘇·大村·肝付）',
     rings: [
       [
         [80, 620],

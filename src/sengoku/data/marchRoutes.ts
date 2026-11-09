@@ -261,7 +261,7 @@ export const SENGOKU_MARCH_ROUTES: MarchRoute[] = [
   },
   {
     id: 'korea-sea',
-    name: '文祿渡海・海路（肥前→對馬→釜山）',
+    name: '文祿渡海·海路（肥前→對馬→釜山）',
     year: 1592,
     faction: '豐臣',
     kind: 'sea',
@@ -278,7 +278,7 @@ export const SENGOKU_MARCH_ROUTES: MarchRoute[] = [
   },
   {
     id: 'korea-1598',
-    name: '島寨撤退・海路（順天→巨濟→對馬→博多）',
+    name: '島寨撤退·海路（順天→巨濟→對馬→博多）',
     year: 1598,
     faction: '豐臣',
     kind: 'sea',
@@ -299,7 +299,7 @@ export const SENGOKU_MARCH_ROUTES: MarchRoute[] = [
   },
   {
     id: 'korea-1597',
-    name: '慶長渡海・海路（博多→對馬→釜山浦）',
+    name: '慶長渡海·海路（博多→對馬→釜山浦）',
     year: 1597,
     faction: '豐臣',
     kind: 'sea',
@@ -319,7 +319,7 @@ export const SENGOKU_MARCH_ROUTES: MarchRoute[] = [
   },
   {
     id: 'korea-1597-land',
-    name: '慶長之役・陸上（釜山浦→東萊→蔚山）',
+    name: '慶長之役·陸上（釜山浦→東萊→蔚山）',
     year: 1597,
     faction: '豐臣',
     source:
