@@ -2,11 +2,11 @@
   "audit:data": {
     "exit": 0,
     "fail": 0,
-    "warn": 59
+    "warn": 49
   },
   "audit:wiring": {
-    "exit": 1,
-    "fail": 3
+    "exit": 0,
+    "fail": 0
   },
   "audit:ranges": {
     "exit": 0,
@@ -34,14 +34,14 @@
   },
   "audit:wiki-links": {
     "exit": 0,
-    "dead": 32,
+    "dead": 10,
     "unvalidated": 0
   },
   "audit:chengyu-coverage": {
     "exit": 0,
-    "missingCentury": 6,
-    "shortage": 40,
-    "noEventLink": 41
+    "missingCentury": 0,
+    "shortage": 15,
+    "noEventLink": 50
   },
   "audit:war-shape": {
     "exit": 0,
@@ -58,9 +58,9 @@
   },
   "audit:event-depth": {
     "exit": 0,
-    "gap": 256,
+    "gap": 255,
     "padding": 1,
-    "jpGap": 60
+    "jpGap": 0
   },
   "audit:geo": {
     "exit": 0
