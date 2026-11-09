@@ -34,7 +34,7 @@
   },
   "audit:wiki-links": {
     "exit": 0,
-    "dead": 23,
+    "dead": 32,
     "unvalidated": 0
   },
   "audit:chengyu-coverage": {
@@ -46,11 +46,11 @@
   "audit:war-shape": {
     "exit": 0,
     "schematic": 291,
-    "selfInt": 24
+    "selfInt": 1
   },
   "audit:reading-layers": {
     "exit": 0,
-    "gap": 101
+    "gap": 81
   },
   "audit:detail-depth": {
     "exit": 0,
@@ -60,7 +60,7 @@
     "exit": 0,
     "gap": 274,
     "padding": 1,
-    "jpGap": 50
+    "jpGap": 0
   },
   "audit:geo": {
     "exit": 0
