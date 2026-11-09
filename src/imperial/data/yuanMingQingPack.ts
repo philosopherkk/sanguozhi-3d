@@ -92,7 +92,7 @@ export const YUAN_MING_QING_PACK: ImperialPack = {
     {
       year: 1750,
       label: '清盛',
-      source: '清史通說',
+      source: '《清史稿·地理志》；《清實錄·高宗實錄》乾隆朝；《康熙皇輿全覽圖》（1718年測繪成圖）；清史通說',
       control: {},
       extensions: QING_1750,
       note: '乾隆中葉的直轄示意：內地十八省、東北、蒙古、新疆、西藏、台灣。準部與回部是這前後才定的，色塊大於某一個月的戰線。外藩的界線有爭議。',

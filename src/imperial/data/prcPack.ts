@@ -45,7 +45,7 @@ export const PRC_PACK: ImperialPack = {
     {
       year: 1962,
       label: '中印邊境戰爭',
-      source: '當代史通說',
+      source: '《中央人民政府和西藏地方政府關於和平解放西藏辦法的協議》（1951年5月23日簽字）；《中華人民共和國和印度共和國關於中國西藏地方和印度之間的通商和交通協定》（1954年4月29日）；當代史通說',
       control: {},
       extensions: PRC_1951,
       geometryFrom: 1951,
@@ -54,7 +54,7 @@ export const PRC_PACK: ImperialPack = {
     {
       year: 1978,
       label: '改革開放起點',
-      source: '當代史通說',
+      source: '《中華人民共和國憲法》（1978年3月5日第五屆全國人大一次會議通過，總綱規定行政區劃層級）；《中國共產黨第十一屆中央委員會第三次全體會議公報》（1978年12月22日）；當代史通說',
       control: {},
       extensions: PRC_1951,
       geometryFrom: 1951,
@@ -63,7 +63,7 @@ export const PRC_PACK: ImperialPack = {
     {
       year: 1979,
       label: '中越戰爭',
-      source: '當代史通說',
+      source: '《中華人民共和國憲法》（1978年3月5日通過，總綱規定行政區劃層級）；《鄧小平文選》第二卷（1980年1月16日報告追述1979年對越自衛反擊作戰）；當代史通說',
       control: {},
       extensions: PRC_1951,
       geometryFrom: 1951,
@@ -81,7 +81,7 @@ export const PRC_PACK: ImperialPack = {
     {
       year: 2026,
       label: '當代',
-      source: '時間線下界',
+      source: '《中華人民共和國憲法》（1982年12月4日通過並施行，現行憲法；行政區劃層級依其總綱）；當代史通說',
       control: {},
       extensions: PRC_1951,
       note: '本張以時間線下界（2026年）為年，不是新的劃界年份，色塊沿用1951年以來的輪廓。大陸含新疆、西藏、內蒙古、東北、海南。香港已於1997年7月1日收回，澳門已於1999年12月20日收回。台灣由中華民國治理。外蒙古在國界之外。色塊依現代行政區域繪製，是控制範圍的上限示意，不是實測國界：中印、中不等未劃定邊界段與南海諸島未逐段畫出。',

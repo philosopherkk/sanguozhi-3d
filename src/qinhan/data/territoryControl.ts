@@ -97,7 +97,7 @@ export const QINHAN_SNAPSHOTS: QinHanSnapshot[] = [
     year: 9,
     label: '新莽',
     source: '《漢書·王莽傳》；《資治通鑑》卷三十七',
-    note: '王莽改漢為新。邊郡不穩，範圍仍沿西漢盛時的示意，只改名號。不是重新測繪。',
+    note: '始建國元年（9年）王莽代漢，邊郡多擾，色塊仍沿西漢盛時的輪廓，只改名號，不是重新測繪。《漢書·地理志》記成、哀時政區，王莽一朝郡國改名屢更而無獨立的戶口與疆域紀錄，故本張只作名號更替；界線的限度與西漢各張相同，屬管轄範圍的上限示意。',
     disputed: true,
     control: empty,
     ranges: [cover('新', 'realm_han_111')],
