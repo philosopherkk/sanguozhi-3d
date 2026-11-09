@@ -10,17 +10,20 @@
 主要集中：src/bakumatsu/data/history.ts、src/qinhan/data/timeline.ts、
 src/zhou/data/earlyDynasty.ts、src/data/timelineDetails.ts。
 
-## ⚠ 三層分層重寫佇列（新閘門 audit:reading-layers，基線 gap=134）
+## ⚠ 三層分層重寫佇列（閘門 audit:reading-layers，現行 gap=81）
 判準：三層唔准同文、長度遞增、大學 ≥3×、中學 ≥1.5×（逐條，非平均）。
-已完成：edoPack 12（#94）、sengoku/readingLayers 13（#99）、modernJapanPack 20（#100）。
-剩返 101 集中：qinhan/timeline 20、zhou/timeline 19、zhou/timelineMore 18、
+已完成：edoPack 12（#94）、sengoku/readingLayers 13（#99）、modernJapanPack 20（#100）
+＋其 jpGap 50→0（#106 兩閘門對齊）、qinhan/timeline 20（#105，runner 死喺 commit 前、lead 接手落盤）。
+剩返 81 集中：zhou/timeline 19、zhou/timelineMore 18、zhou/earlyDynasty 17、
 zhou/earlyDynasty 17、zhou/earlyDynastyMore 14、studentEvents 10、data/readingLayers 3。
-派工照收窄形態：單檔＋明確組別＋一輪做得切＋禁 scratch 腳本（run_00011 教訓：
-准佢自寫工具就會 45 迭代零產出；禁咗之後 51 迭代 20 組全部過閘）。
+派工紀律（已驗證）：單檔＋明確組別＋禁 scratch＋**每 2 組 commit**（runner 兩次死喺落盤前：
+run_00011 自寫工具、run_00014 做完未 commit）。teammate 與排程 agent 唔同機，
+prompt 唔好寫死對方機器路徑——叫佢自己開 worktree。
 
-## ⚠ 成語覆蓋佇列（新閘門 audit:chengyu-coverage，基線 空白世紀 10／薄弱 12／無 event 連結 47）
-空白世紀：前700s 前500s 400s 500s 600s 1200s 1300s 1400s 1700s 2000s。
-47 條成語全部只連 year／person、冇一條連 event——年表顯示唔到成語卡。
+## ⚠ 成語覆蓋佇列（閘門 audit:chengyu-coverage，現行 空白 6／缺口總數 40／無 event 41）
+空白世紀剩：前700s 前500s 400s 1400s 1700s 2000s（第一輪 #102 已補 500s/600s/1200s/1300s）。
+14 條已接 event；剩 41 條仍只連 year／person。比較指標已改「缺口總數 shortage」（嚴单调，
+唔會似薄弱世紀咁因正常流入而誤報）。
 紀律：新成語一樣要有史料出處；查唔到出處嘅習語來源唔准掛假書名。
 
 ## ⚠ 疆域几何佇列（新閘門 audit:war-shape，基線 示意框 291／自我相交 24）
