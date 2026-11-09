@@ -34,14 +34,14 @@
   },
   "audit:wiki-links": {
     "exit": 0,
-    "dead": 10,
+    "dead": 2,
     "unvalidated": 0
   },
   "audit:chengyu-coverage": {
     "exit": 0,
     "missingCentury": 0,
     "shortage": 15,
-    "noEventLink": 50
+    "noEventLink": 45
   },
   "audit:war-shape": {
     "exit": 0,

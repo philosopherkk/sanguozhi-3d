@@ -186,6 +186,9 @@ for (const f of files) {
       // 簡體字形標題），不是介面文案。PR #95 覆核實證：/zh-tw/<標題> 對
       // 不存在標題也回 200，真正存在的條目標題改不了，故掃描前拿掉。
       scanned = scanned.replace(/https?:\/\/(?:zh|ja)\.wikipedia\.org\/\S+/g, '')
+      // 同上：WIKI('條目標題')／WIKI_JA('條目標題') helper 的參數亦是機器識別符
+      // （查證輪以 API 實證條目存在性後照實際標題填入，可能正是簡體字形）。
+      scanned = scanned.replace(/WIKI(?:_JA)?\(\s*'[^']*'\s*\)/g, '')
       if (!narrative.has(i)) scanned = scanned.replace(/`[^`]*`/g, '')
 
       const isQuote = QUOTE_LINE.test(line)
