@@ -367,7 +367,6 @@ export const EARLY_DYNASTY_MORE_EVENTS: ZhouTimelineEvent[] = [
       { name: '帝辛', role: '本紀說他以正后之子繼位' },
     ],
     outcome: '商的末世在文獻上從這裡再往下接到帝辛。本年不亡國，色塊也不擴大。',
-    outcomeSource: '《史記·殷本紀》《宋微子世家》；《漢書·律歷志》所載劉歆《三統曆》（克商年諸說之一）；夏商周年代學斷代工程報告（階段性結論，諸說並立不取定數）',
     classicQuote: '帝乙崩，子辛立，是為帝辛，天下謂之紂。',
     classicSource: '《史記·殷本紀》。微子作「開」見《宋微子世家》，是避諱。',
     paraphrase: false,
