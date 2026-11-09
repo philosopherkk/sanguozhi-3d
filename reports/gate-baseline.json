@@ -11,7 +11,7 @@
   "audit:ranges": {
     "exit": 0,
     "fail": 0,
-    "warn": 206
+    "warn": 179
   },
   "audit:quotes": {
     "exit": 0,
@@ -39,9 +39,9 @@
   },
   "audit:chengyu-coverage": {
     "exit": 0,
-    "missingCentury": 10,
-    "thinCentury": 12,
-    "noEventLink": 47
+    "missingCentury": 6,
+    "shortage": 40,
+    "noEventLink": 41
   },
   "audit:war-shape": {
     "exit": 0,
@@ -50,7 +50,7 @@
   },
   "audit:reading-layers": {
     "exit": 0,
-    "gap": 134
+    "gap": 101
   },
   "audit:detail-depth": {
     "exit": 0,
@@ -60,7 +60,7 @@
     "exit": 0,
     "gap": 274,
     "padding": 1,
-    "jpGap": 111
+    "jpGap": 50
   },
   "audit:geo": {
     "exit": 0
