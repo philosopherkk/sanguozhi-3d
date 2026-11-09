@@ -32,6 +32,11 @@
     "exit": 0,
     "hard": 0
   },
+  "audit:wiki-links": {
+    "exit": 0,
+    "dead": 23,
+    "unvalidated": 0
+  },
   "audit:chengyu-coverage": {
     "exit": 0,
     "missingCentury": 10,
@@ -45,7 +50,7 @@
   },
   "audit:reading-layers": {
     "exit": 0,
-    "gap": 146
+    "gap": 134
   },
   "audit:detail-depth": {
     "exit": 0,
@@ -55,7 +60,7 @@
     "exit": 0,
     "gap": 274,
     "padding": 1,
-    "jpGap": 145
+    "jpGap": 111
   },
   "audit:geo": {
     "exit": 0

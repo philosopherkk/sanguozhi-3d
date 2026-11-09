@@ -51,6 +51,13 @@ const GATES = [
   // 所以 198 組全過；實測中位數比只有 1:1.3:3.6，146 組其實冇分層。
   // 2026-11-09 補：成語覆蓋率與疆域几何品質。兩者都係「既有閘門報綠但使用者
   // 一眼就見到問題」的類型——格式合格不等於覆蓋夠、海陸一致不等於形状真。
+  // 2026-11-09 補：維基連結存在性。實證 HTTP 狀態碼會呃人——/zh-tw/<不存在標題>
+  // 照回 200（PR #95 漏網兩條死鏈）。只用 MediaWiki API 的 missing 判定。
+  {
+    name: 'audit:wiki-links',
+    cmd: 'npm run audit:wiki-links',
+    metrics: { dead: /死鏈 (\d+)/, unvalidated: /未驗 (\d+)/ },
+  },
   {
     name: 'audit:chengyu-coverage',
     cmd: 'npm run audit:chengyu-coverage',

@@ -1,3 +1,31 @@
+# 主線最終快照（更新 2026-11-09）
+
+## ⚠ 維基死鏈佇列（23 條，交查證輪逐輪修）
+`npm run audit:wiki-links` 已入 gates（基線 dead=23 unvalidated=0）。
+**方法警告**：唔准再用 HTTP 狀態碼驗維基連結——`/zh-tw/<不存在標題>` 照回 200。
+只有 MediaWiki API `action=query&redirects=1&titles=` 嘅 `missing` 先可信；
+且 API 會簡繁轉換回應標題、會將底線正規化成空格（閘門內已處理，手動查證都要留意）。
+已知變體標題：zh《大内政弘》（不作「內」）、zh《种子岛时尧》（簡體標題，ja 作《種子島時尭》）。
+修法優先序：搵變體／異名條目 → 改連結＋note；真冇條目 → 移連結＋note「中日文維基皆無條目」。
+主要集中：src/bakumatsu/data/history.ts、src/qinhan/data/timeline.ts、
+src/zhou/data/earlyDynasty.ts、src/data/timelineDetails.ts。
+
+## ⚠ 三層分層重寫佇列（新閘門 audit:reading-layers，基線 gap=134）
+判準：三層唔准同文、長度遞增、大學 ≥3×、中學 ≥1.5×（逐條，非平均）。
+剩返集中：modernJapanPack 20、qinhan/timeline 20、zhou/timeline 19、
+zhou/timelineMore 18、zhou/earlyDynasty 17、zhou/earlyDynastyMore 14、
+sengoku/readingLayers 13、studentEvents 10。派工照收窄形態：單檔＋明確組別＋一輪做得切。
+
+## ⚠ 成語覆蓋佇列（新閘門 audit:chengyu-coverage，基線 空白世紀 10／薄弱 12／無 event 連結 47）
+空白世紀：前700s 前500s 400s 500s 600s 1200s 1300s 1400s 1700s 2000s。
+47 條成語全部只連 year／person、冇一條連 event——年表顯示唔到成語卡。
+紀律：新成語一樣要有史料出處；查唔到出處嘅習語來源唔准掛假書名。
+
+## ⚠ 疆域几何佇列（新閘門 audit:war-shape，基線 示意框 291／自我相交 24）
+自我相交 24 個係破圖直接來源，優先修。示意框 291 個長遠要換真邊界（admin-0），
+但古代郡界無公開精确幾何，換唔切嘅要在渲染或說明文字承認「示意」。
+realm_prc_1949／1951 已用真實邊界（PR #87），做範本。
+
 # 夜間工作單（實測核對版）
 
 本檔取代 `OVERNIGHT_AGENT_TASKS.md`（2026-11-08 01:55 HKT 那份係睇 production bundle 寫嘅）。
