@@ -442,7 +442,7 @@ export const BAKUMATSU_DETAILS: Record<string, EraDetail> = {
     ],
     outcome: '幕府的軍事威信受損。薩長同盟使下一次內戰的陣營成形。',
     brief: '長州征討失敗，是戊辰戰爭之前幕府已經打不贏的證據。',
-    zhwikiUrl: 'https://zh.wikipedia.org/wiki/長州征討',
+    zhwikiUrl: 'https://zh.wikipedia.org/wiki/长州征讨',
   },
   '1867-taisei': {
     causes:

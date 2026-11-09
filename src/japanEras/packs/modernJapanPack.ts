@@ -520,7 +520,7 @@ Object.assign(DETAILS, {
       { name: '朱可夫', role: '蘇聯軍方面指揮官（對照側）' },
     ],
     brief: '情報評価的失敗改變了戰略方向。',
-    zhwikiUrl: WIKI('诺門罕戰役'),
+    zhwikiUrl: WIKI('諾門罕戰役'),
   },
   'mj-1942-southern-peak': {
     causes: '1940年7月的南進方針與資源確保（石油、橡胶、錫）；北部法屬印度支那進駐→資產凍結→石油禁運的不斷升級。',
@@ -557,7 +557,7 @@ Object.assign(DETAILS, {
       { name: '栗林淑康', role: '第9師團長（佩里琉，對照的島嶼持久）' },
     ],
     brief: '絕對國防圈破綻；作戰計畫與補給能力的落差暴露。',
-    zhwikiUrl: WIKI('英帕尔戰役'),
+    zhwikiUrl: WIKI('英帕尔战役'),
   },
   'mj-1945-okinawa': {
     causes: '以沖繩作為本土決戰前的拖延時間，第32軍採取獨立持久；美軍意在登陸前取得航空基地。',
@@ -569,7 +569,7 @@ Object.assign(DETAILS, {
       { name: '大田實', role: '海軍沖繩根拠地司令官' },
     ],
     brief: '把住民捲入的島嶼防衛的典型；成為終戰判斷的背景。',
-    zhwikiUrl: WIKI('沖绳島戰役'),
+    zhwikiUrl: WIKI('沖繩島戰役'),
   },
   'mj-1945-end': {
     causes:
@@ -703,7 +703,7 @@ Object.assign(DETAILS, {
       { name: '桂太郎', role: '首相（戰時內閣的指導者）' },
     ],
     brief: '勝利卻拿不到賠款；條約把駐軍滿洲制度化。',
-    zhwikiUrl: WIKI('朴茨茅斯條約'),
+    zhwikiUrl: WIKI('朴茨茅斯和约'),
   },
   'mj-1910-korea': {
     causes:
@@ -735,7 +735,7 @@ Object.assign(DETAILS, {
       { name: '齋藤實', role: '文官總督（1919年起，統治方式轉換）' },
     ],
     brief: '保護權走向直接統治，殖民地政策的起點。',
-    zhwikiUrl: WIKI('日韓合並'),
+    zhwikiUrl: WIKI('日韓合併'),
   },
   'mj-1933-rehe': {
     causes: '滿洲國成立後，關東軍要把西部邊界推到長城一線，以減輕遼寧側的壓力。',
