@@ -4,6 +4,7 @@ import { EARLY_DYNASTY_EVENTS } from './earlyDynasty'
 import { EARLY_DYNASTY_MORE_EVENTS } from './earlyDynastyMore'
 import { ZHOU_STUDENT_EVENTS } from './studentEvents'
 import { ZHOU_TIMELINE_MORE } from './timelineMore'
+import { ZHOU_CHENGYU_BRIDGE } from './chengyuBridge'
 
 export interface ZhouTimelineEvent {
   id: string
@@ -952,4 +953,5 @@ export const ZHOU_TIMELINE: ZhouTimelineEvent[] = [
   },
   ...ZHOU_TIMELINE_MORE,
   ...ZHOU_STUDENT_EVENTS,
+  ...ZHOU_CHENGYU_BRIDGE,
 ]
