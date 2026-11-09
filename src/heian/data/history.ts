@@ -413,7 +413,7 @@ export const HEIAN_DETAILS: Record<string, HeianDetail> = {
     keyFigures: [
       { name: '平清盛', role: '取得朝廷宣旨，自熊野疾回反擊', zhwikiUrl: 'https://zh.wikipedia.org/zh-tw/平清盛' },
       { name: '源義朝', role: '起事失敗，東走被殺', zhwikiUrl: 'https://zh.wikipedia.org/zh-tw/源義朝', note: '中文維基條目標題作「源义朝」，此連結以重定向指向該條目；首段記為河內源氏棟梁、源為義長男。' },
-      { name: '藤原信頼', role: '院近習，挾院與嗣子，兵敗被殺', jawikiUrl: 'https://ja.wikipedia.org/wiki/藤原信頼', note: '中文維基無條目，採日文條目『藤原信頼』；首段記為後白河天皇寵臣、官至正三位權中納言，與同名的藤原實頼等藤原北家當主非同一人。' },
+      { name: '藤原信頼', role: '院近習，挾院與嗣子，兵敗被殺', jawikiUrl: 'https://ja.wikipedia.org/wiki/藤原信頼', note: '中文維基無條目，採日文條目『藤原信頼』；首段記為後白河天皇寵臣、官至正三位權中納言。以「藤原信頼」查中文維基僅得「藤原実頼」「藤原頼通」等藤原北家當主，皆非本人。' },
       { name: '藤原通憲（信西）', role: '二條天皇側，先被襲殺', zhwikiUrl: 'https://zh.wikipedia.org/zh-tw/信西', note: '中文維基以其僧名立條，條目標題為「信西」，首段記其俗名藤原通憲。' },
       { name: '源賴朝', role: '義朝之子，其後被流放到伊豆', zhwikiUrl: 'https://zh.wikipedia.org/zh-tw/源賴朝', note: '中文維基條目標題作「源赖朝」，此連結以重定向指向該條目。' },
     ],
