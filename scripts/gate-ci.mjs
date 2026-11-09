@@ -49,6 +49,22 @@ const GATES = [
   // 分開一支閘門是為了不打斷其他 agent 已有的 event-depth 基線。
   // 2026-11-09 補：三層意譯「有冇分層」閘門。既有 event-depth 只查有冇三層，
   // 所以 198 組全過；實測中位數比只有 1:1.3:3.6，146 組其實冇分層。
+  // 2026-11-09 補：成語覆蓋率與疆域几何品質。兩者都係「既有閘門報綠但使用者
+  // 一眼就見到問題」的類型——格式合格不等於覆蓋夠、海陸一致不等於形状真。
+  {
+    name: 'audit:chengyu-coverage',
+    cmd: 'npm run audit:chengyu-coverage',
+    metrics: {
+      missingCentury: /空白世紀 (\d+)/,
+      thinCentury: /薄弱世紀 (\d+)/,
+      noEventLink: /無 event 連結 (\d+)/,
+    },
+  },
+  {
+    name: 'audit:war-shape',
+    cmd: 'npm run audit:war-shape',
+    metrics: { schematic: /示意框 (\d+)/, selfInt: /自我相交 (\d+)/ },
+  },
   {
     name: 'audit:reading-layers',
     cmd: 'npm run audit:reading-layers',

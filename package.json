@@ -24,7 +24,9 @@
     "exa": "node scripts/exa.mjs",
     "audit:mobile": "node scripts/audit_mobile_css.mjs",
     "audit:detail-depth": "node scripts/audit_detail_depth.mjs",
-    "audit:reading-layers": "node scripts/audit_reading_layers.mjs"
+    "audit:reading-layers": "node scripts/audit_reading_layers.mjs",
+    "audit:chengyu-coverage": "node scripts/audit_chengyu_coverage.mjs",
+    "audit:war-shape": "node scripts/audit_war_shape.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
