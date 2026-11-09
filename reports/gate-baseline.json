@@ -50,7 +50,7 @@
   },
   "audit:reading-layers": {
     "exit": 0,
-    "gap": 81
+    "gap": 0
   },
   "audit:detail-depth": {
     "exit": 0,
