@@ -31,7 +31,7 @@ export function bakumatsuTerritoryNote(useHan: boolean): string {
 
 const PLACE: Record<string, string> = {
   d0: '會津',
-  d1: '甲斐・駿河',
+  d1: '甲斐·駿河',
   d2: '攝津',
   d3: '薩摩',
   d4: '陸奧北',
@@ -53,7 +53,7 @@ const PLACE: Record<string, string> = {
   d20: '常陸',
   d21: '山陽東',
   d22: '肥前西',
-  d23: '讚岐・伊予',
+  d23: '讚岐·伊予',
   d24: '肥後',
   d25: '紀伊',
   d26: '安房',

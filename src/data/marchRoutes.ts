@@ -78,10 +78,11 @@ export const CHINA_MARCH_ROUTES: MarchRoute[] = [
   },
   {
     id: 'xudu',
-    name: '曹操迎帝都許',
+    name: '曹操迎駕·接應線（車駕非此線）',
     year: 196,
-    faction: '曹魏',
-    source: '《三國志·魏書·武帝紀》：建安元年都許。自兗州沿汴水南，許在豫州',
+    faction: '曹操',
+    source: '《三國志·魏書·武帝紀》：建安元年，太祖自許迎衛洛陽；車駕出轘轅而東，遂都許。'
+      + '本線取曹操自許北出接應之方向示意——帝之行程是洛陽出轘轅東行，不是自兗州沿汴水南下',
     points: [
       [1341.3, 836.0],
       [1322.6, 874.4],
@@ -105,7 +106,7 @@ export const CHINA_MARCH_ROUTES: MarchRoute[] = [
   },
   {
     id: 'guandu',
-    name: '官渡（袁紹南下）',
+    name: '官渡（袁紹南下；官渡在中牟東北）',
     year: 200,
     faction: '袁紹',
     source: '《三國志·魏書·武帝紀》。自鄴沿太行東麓、黃河走廊至官渡，不橫穿山西',

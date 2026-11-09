@@ -105,7 +105,7 @@ export const BAKUMATSU_EVENTS: EraEvent[] = [
       source: '《日米修好通商條約》（1858）；《德川實紀》安政5年',
       note: '缺勅許的簽約從內部破壞了幕府的正統性，與同年11月的安政大獄、其後的暗殺與恐怖行動直接相連。',
       crossRefs: [
-        { topic: 'china', era: 'yuanmingqing', year: 1858, label: '清・咸豐9年，亞羅號戰爭結束' },
+        { topic: 'china', era: 'yuanmingqing', year: 1858, label: '清·咸豐9年，亞羅號戰爭結束' },
       ],
     },
   {
@@ -165,7 +165,7 @@ export const BAKUMATSU_EVENTS: EraEvent[] = [
       source: '《下關條約》（1864 年）；《英國外交部檔案（FO 17）》',
       note: '敗北沒有成為倒幕的動機，而是近代化的動機，這一點常被忽略；幕府的征討（1864年12月）與之並行。',
       crossRefs: [
-        { topic: 'china', era: 'yuanmingqing', year: 1864, label: '清・同治3年，太平天國平定' },
+        { topic: 'china', era: 'yuanmingqing', year: 1864, label: '清·同治3年，太平天國平定' },
       ],
     },
   {
@@ -237,7 +237,7 @@ export const BAKUMATSU_EVENTS: EraEvent[] = [
     title: '長州征討失敗',
     desc: '幕府第二次征討長州，沿山陽道進兵，沒有打下長州。薩長同盟已經成立。',
     factions: ['幕府', '薩長'],
-    location: '山陽道・長州',
+    location: '山陽道·長州',
     type: 'war',
     source: SRC,
   },
@@ -264,7 +264,7 @@ export const BAKUMATSU_EVENTS: EraEvent[] = [
       title: '四侯會議',
       desc: '將軍慶喜試圖與薩摩、長州、宇和島、高知諸侯合議，以會議重建權威，但短期內崩解。',
       factions: ['幕府', '薩長'],
-      location: '京都・大阪',
+      location: '京都·大阪',
       type: 'politics',
       source:
         '通說整理，非逐字引文。《德川實紀》慶應三年條；四侯會議細節另見『幕府幕政史』（近代史料刊行會編），各藩藩政記錄互有出入，未取得可逐字比對之本文',
@@ -290,7 +290,7 @@ export const BAKUMATSU_EVENTS: EraEvent[] = [
     month: 1,
     datePrecision: 'month',
     calendarNote: 'gregorian',
-    title: '鳥羽・伏見',
+    title: '鳥羽·伏見',
     desc: '幕府軍與薩摩、長州、土佐在京都南邊交戰。幕府軍敗退。',
     factions: ['薩長', '幕府'],
     location: '京都之南，鳥羽、伏見',
@@ -303,7 +303,7 @@ export const BAKUMATSU_EVENTS: EraEvent[] = [
     title: '東海道東征',
     desc: '新政府軍沿東海道東進，在箱根折向相模，目標是江戶，不是穿山直取。',
     factions: ['薩長', '幕府'],
-    location: '東海道・箱根',
+    location: '東海道·箱根',
     type: 'war',
     source: SRC,
   },
@@ -336,7 +336,7 @@ export const BAKUMATSU_EVENTS: EraEvent[] = [
   {
     id: '1868-nagaoka',
     year: 1868,
-    title: '北越・長岡',
+    title: '北越·長岡',
     desc: '新政府軍沿日本海一側進攻越後長岡。河井繼之助率藩兵抵抗。',
     factions: ['薩長', '奧羽'],
     location: '越後長岡',
@@ -359,7 +359,7 @@ export const BAKUMATSU_EVENTS: EraEvent[] = [
     month: 5,
     datePrecision: 'month',
     calendarNote: 'gregorian',
-    title: '箱館・五稜郭',
+    title: '箱館·五稜郭',
     desc: '舊幕府軍渡海到蝦夷地，據五稜郭。1869年投降。戊辰戰爭到此結束。',
     factions: ['幕府', '薩長'],
     location: '蝦夷地箱館',

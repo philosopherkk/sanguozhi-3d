@@ -1,7 +1,7 @@
 import type { ReadingLayers } from '../../components/ClassicDetailModal'
 
 export interface SengokuReadingPack {
-  /** 軍記・文書的中文意譯，非假托漢文原典 */
+  /** 軍記·文書的中文意譯，非假托漢文原典 */
   quote: string
   source: string
   layers: ReadingLayers

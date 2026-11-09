@@ -26,15 +26,15 @@ export const JAPAN_VORONOI_DOMAINS: TerritoryGeometryProvenance = {
   note: '僅作 d0–d27 勢力域對照；著色 mesh 見 JAPAN_CODH_KOKUGUN_GEOMETRY',
 }
 
-/** CODH 旧国・旧郡境界（CC BY-NC 4.0）— 見 ATTRIBUTION-CODH-BY-NC.md */
+/** CODH 舊國·舊郡境界（CC BY-NC 4.0）— 見 ATTRIBUTION-CODH-BY-NC.md */
 export const JAPAN_CODH_KOKUGUN_GEOMETRY: TerritoryGeometryProvenance = {
   approx: true,
   source:
     'CODH 舊國舊郡境界資料集（doi:10.20676/00000454，https://geoshape.ex.nii.ac.jp/kg/，NIHU 幕末明治地勢地圖境界資料）',
-  note: '日文原名『旧国・旧郡境界データセット』；幕末明治舊國界 mesh；大名／藩歸屬仍示意，非 CODH 村→藩（CB-02b）',
+  note: '日文原名『舊國·舊郡境界データセット』；幕末明治舊國界 mesh；大名／藩歸屬仍示意，非 CODH 村→藩（CB-02b）',
 }
 
-/** 北海道／琉球外周（K74・K75–K85 等 CODH 元件） */
+/** 北海道／琉球外周（K74·K75–K85 等 CODH 元件） */
 export const JP_ERA_RINGS_GEOMETRY: TerritoryGeometryProvenance = {
   approx: true,
   source:
