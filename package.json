@@ -26,7 +26,8 @@
     "audit:detail-depth": "node scripts/audit_detail_depth.mjs",
     "audit:reading-layers": "node scripts/audit_reading_layers.mjs",
     "audit:chengyu-coverage": "node scripts/audit_chengyu_coverage.mjs",
-    "audit:war-shape": "node scripts/audit_war_shape.mjs"
+    "audit:war-shape": "node scripts/audit_war_shape.mjs",
+    "audit:wiki-links": "node scripts/audit_wiki_links.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
