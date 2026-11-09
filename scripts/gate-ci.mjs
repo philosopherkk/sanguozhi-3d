@@ -63,7 +63,7 @@ const GATES = [
     cmd: 'npm run audit:chengyu-coverage',
     metrics: {
       missingCentury: /空白世紀 (\d+)/,
-      thinCentury: /薄弱世紀 (\d+)/,
+      shortage: /缺口總數 (\d+)/,
       noEventLink: /無 event 連結 (\d+)/,
     },
   },
