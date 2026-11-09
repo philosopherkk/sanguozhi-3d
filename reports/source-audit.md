@@ -1,0 +1,181 @@
+# 史料查證報告（source-audit）
+
+> 本檔由查證 agent 每輪**附加**，不覆蓋。查證不等於創作：凡查唔到者一律寫查唔到，並列入需人工判斷清單。
+
+---
+
+## 2026-11-09 08:32 HKT 輪（查證人：verify/source-audit）
+
+基準 commit：`origin/main` = `ff75c8a`（#74）。工作區：`/Users/ka-kinpoon/Projects/3kingdoms-wt-verify`，開工前 `git status` 乾淨。
+
+### 本輪範圍
+
+最近 3 小時有 2 個內容 commit，逐個抽查其引文、出處、年份、人物、數字：
+
+| commit | 時間 | 內容檔案 |
+|---|---|---|
+| `ff75c8a` #74 | 07:33 | `src/japanEras/packs/kamakuraPack.ts`、`azuchiPack.ts`（READINGS 9 條）、`territoryControl.ts` |
+| `bbc5d3f` #89 | 06:39 | `src/heian/data/history.ts`（1156-hogen／1159-heiji／1180-ishibashi／1180-fuji） |
+
+抽查條目 **13 條**（heian 4、km 5、az 4）＋9 條 zhwikiUrl＋4 條中文維基具名引用。
+
+### 一、逐字引文查證（命令：`python3 scripts/qsrc.py --host ja.wikisource.org "吾妻鏡/第一" "<片段>"`）
+
+| 條目 id | 原本寫法 | 查證命令（節錄） | 結果 | 本輪動作 |
+|---|---|---|---|---|
+| 1159-heiji | 「歎而送二十年春秋」，並註治承四年四月廿七日條、永曆元年三月十一日配流 | `qsrc.py --host ja.wikisource.org "吾妻鏡/第一" "歎而送二十年春秋"` | **可查證**：治承四年四月小廿七日壬申條「去永暦元年三月十一日。配当国之後。歎而送二十年春秋」，日子與卷次皆合 | 不動 |
+| 1159-heiji | 「幽閉皇院，流罪公臣」「奪官授職，無功許賞」（以仁王令旨） | `… "幽閉"`／`… "奪官授職"` | **可查證**：同條令旨原文作「幽閉皇院。流罪公臣。…奪官授職。無功許賞。」原註已聲明「。」改中文逗號 | 不動 |
+| 1180-ishibashi | 「入夜甚雨如沃」 | `… "甚雨如沃"` | **可查證**：治承四年八月小廿三日癸卯條「今日寅剋。武衛相率…三百騎。陣于相模国石橋山」，正文之三百騎同見 | 不動 |
+| 1180-ishibashi | 「期明日者，三浦眾馳加，定難喪敗歟」 | `… "馳加"` | **可查證**（異文只係轉錄處理）：原文「期明日者。三浦衆馳加。定難喪敗歟之由」，眾／眾、句讀改動已在原註聲明 | 不動 |
+| 1180-ishibashi | 「武衛始入御鎌倉御亭」（十月十五日入鎌倉） | `… "始入御"` | **可查證**：治承四年十月小十五日甲午條「武衛始入御鎌倉御亭。此間為景義奉行所令修理也」 | 不動 |
+| 1180-fuji | 「不待天曙」（上總介忠清主張還洛後） | `… "不待天曙"` | **可查證**：「爰次将上総介忠清等相談云…速令帰洛…羽林已下任其詞。不待天曙。俄以帰洛畢」，順序與正文所述一致 | 不動 |
+| 1180-fuji | 「引率二十萬騎精兵」（並注明係威勢之數） | `… "万騎"` | **可查證**：治承四年十月小十八日丁酉條「前武衛引率二十万騎精兵。越足柄給」 | 不動 |
+| km-1185 | 「文治元年十一月廿八日丁未、補任諸國平均守護地頭…可宛課兵**糧**米…」，source 寫「zh.wikisource 吾妻鏡/卷005，已逐字核對」 | `python3 scripts/qsrc.py --host zh.wikisource.org 吾妻鏡/卷005 "守護地頭"`；`… "廿八日"` | **有異文（查得到的原文，但唔係逐字原樣）**：該卷作「文治元年(1185)十一月**大**廿八日丁未。補任諸國平均守護地頭。…可宛課兵**粮**米段別五升之由。」——本條省西曆括注、省月大小字「大」、粮→糧、「。」→「、」。文字本身確實存在，非虛構 | **降調＋加註**：source 改寫為「對轉錄本核對，非原卷字樣」並逐項列明改動 |
+
+逐字引文小結：9 條宣稱 → **8 條完全對得上**、1 條（km-1185）文字屬實但有四處未聲明的轉錄整理。無一條係查唔到或編造。
+
+### 二、日期、人物、數字斷言
+
+| 條目 id | 原本寫法 | 查證命令 | 結果 | 動作 |
+|---|---|---|---|---|
+| 1180-fuji | 十月十六日條記維盛「率數萬騎已於十三日抵駿河國手越駅」 | `… "手越"` | **可查證**：「平氏大将軍小松少将惟盛朝臣率数万騎。去十三日到着于駿河国手越駅」 | 不動 |
+| 1180-fuji | 九月廿二日條按「嘉承二年平正盛奉宣旨追討源義親」舊例賜御馬 | `… "嘉承"` | **可查證**：九月大廿二日辛未條全文相符（嘉承二年十二月十九日、因幡守正盛、追討対島守源義親、依件古例） | 不動 |
+| 1180-fuji | 治承四年五月十六日條見池中納言賴盛為入道相國之使率精兵入八條御所 | `… "池中納言"` | **可查證**：五月大十六日丁卯條相符 | 不動 |
+| km-1221 | 大學生層「順德上皇配土佐、後鳥羽上皇配隱岐、土御門上皇配土佐」 | `curl …api.php?action=query&prop=extracts&titles=順德天皇`；`…titles=土御門天皇` | **查證不通過**：中文維基「順德天皇」條作配**佐渡**；配土佐（後改阿波）者係土御門上皇；後鳥羽配隱岐則合 | **加註**（note 標明待人工改正文）；正文改寫屬創作範圍，本輪唔改 |
+| az-1573 | 大學生層斷代三說「一五七三／一五八八／**一五九六**年義昭之死」 | `curl …prop=extracts&titles=足利義昭`；`curl ja.wiki?action=raw&title=足利義昭 \| grep 1597` | **查證不通過**：中文維基作 1597年10月9日、日本維基作慶長2年8月28日（同頁並記 1596 年尚出席伏見城惣礼）→ 1596 係錯年 | **修錯年**：一五九六 → 一五九七（該段有重複抄本，兩處一齊改，見第五節） |
+| az-1573 | 「元龜四年七月」之紀年口徑 | `curl …titles=元龜`；`…titles=天正`；`ja.wiki?action=raw&title=元亀` | **部分可查證**：元龜「指1570年到1573年」、天正「1573年起、元亀之後」→ 同年改元可證；改元之**日**未查到可引用來源 | 加註只寫「是年改元天正，元龜四年即天正元年」，唔寫具體日子 |
+### 三、負面聲稱（「查唔到」本身都要查）
+
+| 條目 id | 原本寫法（聲稱查唔到） | 查證命令 | 結果 | 動作 |
+|---|---|---|---|---|
+| 1156-hogen | 《台記》《山槐記》《愚管抄》在 ja.wikisource 無可擷取之正文 | `qsrc.py --host ja.wikisource.org "台記" …`／`"山槐記"`／`"愚管抄"` | **屬實**：三頁皆「搵唔到頁」 | 不動（此即本輪要求嘅「寫明查唔到原因」之模範寫法） |
+| 1156-hogen | 《吾妻鏡》不載保元本年 | `… "吾妻鏡/第一" "保元"` | **屬實**：第一卷只有兩處追溯性提及（「永保元年」與「去保元三年春之比」），無保元元年編年條文 | 不動 |
+| km-1221 | 《吾妻鏡》承久三年條未取得可逐字比對之正文 | `curl "ja.wikisource.org/w/index.php?action=raw&title=吾妻鏡/第卅六(卅七、卅九、第四十二)"` | **屬實**：ja 站目錄雖列第卅六以后卷次，實際逐頁取 wikitext 全部 404（只有索引，無正文） | 不動 |
+| km-1185 | 「現行『吾妻鏡』該日（文治元年十二月廿八日）條文缺載」 | `qsrc.py --host zh.wikisource.org 吾妻鏡/卷005 "廿八日"`；`… "一郡"` | **查證不通過**：該卷有「十二月大廿八日丁丑」條，但所記為甘繩邊土民事；補任諸國守護・地頭見「十一月大廿八日丁未」條；全卷無「一郡」二字 | **降調＋改正**：改為「該日所記為他事、『一國一郡』之語不出是卷」 |
+
+### 四、連結與具名引用（命令：`curl -s -o /dev/null -w "%{http_code}"` ＋ Wikipedia API 覆核）
+
+`src/heian/data/history.ts` 共 9 條 zhwikiUrl：保元之亂、平治之亂、石橋山之戰、富士川之戰、俱利伽羅峠之戰、宇治川之戰、一之谷之戰、屋島之戰、壇之浦之戰。
+結果：**9/9 活**。其中「屋島之戰」「壇之浦之戰」首輪 curl 回 429（限流，非死鏈），改用 `action=query&prop=info` 覆核得 pageid 305224／305227 → 條目存在。
+
+`azuchiPack.ts` 四條 event 的具名引用「中文維基『足利義昭』『本能寺之變』『小田原征伐』『關原之戰』」：API 查得 pageid 100101／107567／935744／100107，**四條都存在**，無死引用。
+
+### 五、本輪修改清單（共 8 個條目、10 次編輯；全部屬允許嘅三類）
+
+| # | 條目 | 類型 | 內容 |
+|---|---|---|---|
+| 1 | km-1185 | (b) 降調 | source 由「已逐字核對」改寫為「對轉錄本核對，非原卷字樣」，並列明省括注、省「大」、粮→糧、「。」→「、」四項整理 |
+| 2 | km-1185 | (c)/(b) 改正 | 大學生層「該日條文缺載」→ 依卷005 實況改正（含十一月廿八日條出處與「全卷無一郡二字」） |
+| 3 | km-1221 | (b) 加 disputed＋note | 十萬騎／三千餘町／地頭三千人不取定數；另記順德配地待覆核與承久改元口徑 |
+| 4 | km-1274 | (b) 加 disputed＋note | 兵力、船數、返程損失三源相差數倍；《八幡愚童訓》屬軍記不作戰況記錄 |
+| 5 | km-1281 | (b) 加 disputed＋note | 兩路兵力、溺死數、風災時日不取定數 |
+| 6 | km-1333 | (b) 加 disputed＋note | 元弘／正慶／建武三口徑；《得宗專制》屬後世史學建構；死狀據軍記 |
+| 7 | az-1573 | (c) 修錯年 | 一五九六 → 一五九七（該段有重複抄本，兩處同步改，避免自相矛盾） |
+| 8 | az-1573 | (b) 加 disputed＋note | 斷代三說＋元龜／天正同年改元口徑 |
+| 9 | az-1582 | (b) 加 disputed＋note | 動機四說並列、死狀與遺體無確證、六月二日／6月21日曆算口徑 |
+| 10 | az-1600 | (b) 加 disputed＋note | 兵力、死傷、倒戈時刻不取定數；《關原軍記大成》《德川實紀》性質 |
+
+加 disputed 嘅直接理由：呢 6 條嘅大學生層自己寫「本條不取定數，一律標 disputed」「故本條一律標 disputed」「本條因此標 disputed」，但 `EraEvent` 層面無 `disputed: true`（`EraReading` 型別根本無呢個欄位），即正文宣稱與資料欄位不一致。`EraEvent` 有 `disputed?: boolean` 與 `note?: string`，故補喺 event 層。
+修連結數：**0**（無死鏈）。擴寫敘事：0。新增條目／成語：0。改地圖：0。改閘門門檻：0。`--update-baseline`：無跑。
+
+## 六、查唔到／需人工判斷清單（本輪冇自己改，全部列出）
+
+1. **`src/japanEras/packs/azuchiPack.ts:136`（az-1573 大學生層）整段重複**：同一段（「《室町幕府終焉》的年份本身就是史學爭點…理由就是其餘地區仍在原有的守護支配之下。」）喺同一欄出現**兩次**（字元 3387 與 3635，行 136），第二次只多插一句「另需放在更長的脈絡裡看…」。呢個由 `ff75c8a` 帶入。屬抄貼瑕疵，刪重複段屬創作範圍，故只記錄，俾人工刪除。可重現：`python3 - <<'PY' … print(s.count('一五九七年義昭之死')) PY` 或 `grep -o "《室町幕府終焉》的年份本身就是史學爭點" src/japanEras/packs/azuchiPack.ts | wc -l` → 2。注意 `audit:event-depth` 嘅灌水偵測只報咗 `src/imperial/data` 一條，**冇抓到呢段**。
+2. **`kamakuraPack.ts:112`「順德上皇配土佐」應作配佐渡**（見第二節）。已喺 km-1221 加 note，正文未改。
+3. **簡體／新字形逃過 `audit:chars`**——本體：`JP_LINE = /[\u3041-\u309f\u30a1-\u30ff]/`（`scripts/audit-chars.ts:93`）把「・」(U+30FB KATAKANA MIDDLE DOT) 當假名，只要一行有「・」就**整行跳過**。因此以下行入面嘅簡體字全部無被報（行號依 `ff75c8a` 落地後）：
+   - `kamakuraPack.ts:100`：置諸**国**一郡、日本中世**开**始（本輪已改呢一句）、文書**传**世、幕藩制**体**、司法**这**条線、**从**此由鎌倉裁決
+   - `kamakuraPack.ts:136`：**镰**倉末期、分進合**击**、**补**给期限
+   - `azuchiPack.ts:148`：《與幕府**残**黨連動說》、**谁**能先控制近江、**继**承人
+   - 既有（非本輪範圍）：`heian/data/history.ts:65`「摂**関****体**制前史」、`:150`「《陸**奥**話記》」
+   另外 `开/传/继/残/万/争/镰/补` 亦唔喺 `audit-chars.ts` 嘅 `HARD` 表（`audit_quotes.mjs` 嘅 `SIMPLIFIED` 表亦只收咗 众、击 等少數）。可重現：`python3 /tmp/scan_skipped.py <檔案>`（腳本喺報告附錄）。改門檻／補字表屬閘門改動，本輪依照邊界**冇改**。
+4. **azuchi 四條 event 只掛「中文維基『⋯』」作 source**：四條維基條目都存在（唔係死鏈），但把通史事件嘅唯一出處係維基，屬來源層級問題。呢個係全 repo 慣例（`中文維基「⋯」` 出現 55 次，例如 `sengoku/data/factionSituation.ts`），唔係本 commit 嘅個別缺失，本輪**冇逐條改**，交人工定方針。
+5. **術語用《》而唔係書名**：pack 三層文大量用《守護》《地頭》《兩重權力》《神風》《天下静謐》等，《》喺本 repo 其他地方係書名號，容易俾讀者誤會係書名（例如「《文治元年十二月廿八日，置諸国一郡守護・地頭》」睇落似書名）。屬風格統一問題，未改。
+6. `audit:quotes` 嘅「未查證 77」條目本輪未處理（範圍係最近 3 小時 commit，未輪到隨機抽樣）。
+
+---
+
+## 七、閘門前後對照（本輪全部唔准惡化 → 全部達標）
+
+| 閘門 | 本輪前 | 本輪後 | 判定 |
+|---|---|---|---|
+| `audit:quotes` | 條目 1834｜有引文 273｜**錯誤 2**｜提醒 45｜已查證 115／未查證 77／意譯 78／引文已改 1 | 完全相同（錯誤 2，冇升） | ✓ |
+| `audit:chars` | 硬傷 0（待判 258） | 硬傷 0（待判 258） | ✓ |
+| `audit:detail-depth` | 詳情 41 條／缺口 0 | 41 條／缺口 0 | ✓ 冇回升 |
+| `audit:event-depth` | 段落 782／缺口 274（起因 88／經過 127／結果 59）／日本三層未達 145／灌水嫌疑 1 段 | 相同 | ✓ 冇回升 |
+| `npm run test` | — | test — 全部通過 | ✓ |
+| `npm run build` | — | ✓ built（僅 chunk 大小警告） | ✓ |
+| `npm run gates` | 基線 | 「gates — 無惡化（與基線一致或更好）」；`audit:chars hard=0(=)`、`quotes errors=2(=) warns=45(=)`、`event-depth gap=274(↓92) padding=1(=) jpGap=145(新)` | ✓ |
+
+本輪抽查小計：抽查條目 **13**｜逐字引文完全可查證 **8**｜引文屬實但需降調 **1**｜斷言查證不通過 **2**（義昭卒年、順德配地）｜負面聲稱屬實 **3**｜降調／加註條目 **8**｜修連結 **0**（無死鏈）。
+
+---
+
+## 八、附錄：本輪用過嘅可重現命令
+
+```sh
+# 0) 工作區
+git -C /Users/ka-kinpoon/Projects/3kingdoms/sanguozhi-3d worktree add -B verify/source-audit \
+    /Users/ka-kinpoon/Projects/3kingdoms-wt-verify origin/main
+cp -al /Users/ka-kinpoon/Projects/3kingdoms/sanguozhi-3d/node_modules /Users/ka-kinpoon/Projects/3kingdoms-wt-verify/
+
+# 1) 範圍
+git -C ... log --since="3 hours ago" --name-only --pretty=format:'%h|%ad|%s' --date=iso origin/main
+
+# 2) 逐字引文（日本用 ja.wikisource）
+python3 scripts/qsrc.py --host ja.wikisource.org "吾妻鏡/第一" "歎而送二十年春秋" -C 900
+python3 scripts/qsrc.py --host ja.wikisource.org "吾妻鏡/第一" "幽閉" / "奪官授職" / "甚雨如沃" /
+    "馳加" / "始入御" / "不待天曙" / "万騎" / "手越" / "嘉承" / "池中納言" / "保元"
+python3 scripts/qsrc.py --host zh.wikisource.org 吾妻鏡/卷005 "守護地頭" -C 160
+python3 scripts/qsrc.py --host zh.wikisource.org 吾妻鏡/卷005 "廿八日" -C 40
+python3 scripts/qsrc.py --host zh.wikisource.org 吾妻鏡/卷005 "一郡"
+
+# 3) 負面聲稱（無正文／只有索引）
+python3 scripts/qsrc.py --host ja.wikisource.org "台記" "藤原"      # 搵唔到頁
+python3 scripts/qsrc.py --host ja.wikisource.org "山槐記" "雨"      # 搵唔到頁
+python3 scripts/qsrc.py --host ja.wikisource.org "愚管抄" "神皇"    # 搵唔到頁
+for t in 吾妻鏡/第卅六 吾妻鏡/第卅七 吾妻鏡/第卅九 吾妻鏡/第四十二; do
+  curl -s -o /dev/null -w "%{http_code}\n" \
+    "https://ja.wikisource.org/w/index.php?action=raw&title=$(python3 -c "import urllib.parse,sys;print(urllib.parse.quote(sys.argv[1]))" "$t")"
+done                                              # 全部 404
+
+# 4) 連結
+grep -o "zhwikiUrl: '[^']*'" src/heian/data/history.ts | sed "s/.*'\(.*\)'/\1/" | while read u; do
+  curl -sL -o /dev/null -w "%{http_code} $u\n" "$u"; done            # 2 條 429，改用 API 覆核
+curl -s "https://zh.wikipedia.org/w/api.php?action=query&prop=info&format=json&titles=屋島之戰"
+
+# 5) 年份交叉核對
+curl -s "https://zh.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&format=json&titles=足利義昭"
+curl -s "https://ja.wikipedia.org/w/index.php?action=raw&title=足利義昭" | grep -o "159[0-9]年[^ ]*"
+curl -s "https://zh.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&format=json&titles=順德天皇"
+curl -s "https://zh.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&format=json&titles=土御門天皇"
+curl -s "https://zh.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&format=json&titles=元龜"
+
+# 6) 閘門靜默失靈掃描（報告第六節；只讀唔改）
+python3 /tmp/scan_skipped.py src/japanEras/packs/kamakuraPack.ts src/japanEras/packs/azuchiPack.ts
+```
+
+`/tmp/scan_skipped.py`（13 行，下次直接貼返落 /tmp 即可用；佢用閘門自己嘅 `HARD` 表做基準，再執 `JP_LINE` 跳過嘅行）：
+
+```python
+import re
+ROOT = '/Users/ka-kinpoon/Projects/3kingdoms-wt-verify'
+h = open(ROOT + '/scripts/audit-chars.ts', encoding='utf-8').read()
+blk = h.split('const HARD: Record<string, string> = {', 1)[1].split('\n}', 1)[0]
+HARD = set(re.findall(r"([^\s,\'\":]+)\s*:", blk))
+JP = re.compile(r'[\u3041-\u309f\u30a1-\u30ff]')      # 同 audit-chars.ts:93
+EXTRA = set('开传继残万争镰补击')                      # 肉眼判定、唔喺 HARD 表
+import sys
+for path in sys.argv[1:]:
+    for i, line in enumerate(open(ROOT + '/' + path, encoding='utf-8'), 1):
+        if not JP.search(line):
+            continue
+        hits = sorted({c for c in line if c in HARD | EXTRA})
+        if hits:
+            print('%s:%d  JP_LINE 跳過，逃過 audit:chars：%s' % (path, i, ' '.join(hits)))
+```
+
+下次開工請先 `git -C /Users/ka-kinpoon/Projects/3kingdoms-wt-verify fetch origin && git checkout -B verify/source-audit origin/main`。
+
+---
+
+
