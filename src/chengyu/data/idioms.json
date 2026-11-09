@@ -4,7 +4,7 @@
     "lemma": "破釜沉舟",
     "reading": "pò fǔ chén zhōu",
     "meaningZhHant": "比喻下決心背水一戰，不留退路。",
-    "eraLink": { "kind": "year", "year": -207 },
+    "eraLink": { "kind": "event", "id": "juliu", "year": -207 },
     "source": { "class": "史籍", "cite": "《史記·項羽本紀》" },
     "locale": "zh"
   },
@@ -49,7 +49,7 @@
     "lemma": "紙上談兵",
     "reading": "zhǐ shàng tán bīng",
     "meaningZhHant": "比喻只會空論，不能解決實際問題。",
-    "eraLink": { "kind": "year", "year": -260 },
+    "eraLink": { "kind": "event", "id": "changping", "year": -260 },
     "source": { "class": "史籍", "cite": "《史記·趙世家》及《廉頗藺相如列傳》" },
     "note": "成語為後世凝練，非司馬遷原句。",
     "locale": "zh"
@@ -68,7 +68,7 @@
     "lemma": "退避三舍",
     "reading": "tuì bì sān shè",
     "meaningZhHant": "主動退讓，避免衝突；亦喻有意讓步。",
-    "eraLink": { "kind": "year", "year": -632 },
+    "eraLink": { "kind": "event", "id": "chengpu", "year": -632 },
     "source": { "class": "史籍", "cite": "《左傳·僖公二十三年》" },
     "locale": "zh"
   },
@@ -149,7 +149,7 @@
     "lemma": "指鹿為馬",
     "reading": "zhǐ lù wéi mǎ",
     "meaningZhHant": "故意顛倒是非，以權勢壓人。",
-    "eraLink": { "kind": "year", "year": -210 },
+    "eraLink": { "kind": "event", "id": "shaqiu", "year": -210 },
     "source": { "class": "史籍", "cite": "《史記·秦始皇本紀》" },
     "locale": "zh"
   },
@@ -229,7 +229,7 @@
     "lemma": "三日天下",
     "reading": "みっかてんか",
     "meaningZhHant": "比喻權勢或成功極短暫；多指明智光秀本能寺後至山崎敗亡。",
-    "eraLink": { "kind": "year", "year": 1582 },
+    "eraLink": { "kind": "event", "id": "az-1582", "year": 1582 },
     "source": {
       "class": "近代定型",
       "cite": "俗諺；本事見《信長公記》·天正十年（1582）條"
@@ -242,7 +242,7 @@
     "lemma": "敵は本能寺にあり",
     "reading": "てきはほんのうじにある",
     "meaningZhHant": "意指敵人（或目標）在本能寺；常作信長討伐明智光秀之軍記語。",
-    "eraLink": { "kind": "year", "year": 1582 },
+    "eraLink": { "kind": "event", "id": "az-1582", "year": 1582 },
     "source": { "class": "軍記", "cite": "《明智軍記》·天正十年條等軍記物語" },
     "disputed": true,
     "note": "《明智軍記》為江戶中期軍記物語，文學作品，非史實記錄；編年史料無『敵在本能寺』一語，此語經後世講談、戲曲廣為流布。",
