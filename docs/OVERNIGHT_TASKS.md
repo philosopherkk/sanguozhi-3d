@@ -12,9 +12,11 @@ src/zhou/data/earlyDynasty.ts、src/data/timelineDetails.ts。
 
 ## ⚠ 三層分層重寫佇列（新閘門 audit:reading-layers，基線 gap=134）
 判準：三層唔准同文、長度遞增、大學 ≥3×、中學 ≥1.5×（逐條，非平均）。
-剩返集中：modernJapanPack 20、qinhan/timeline 20、zhou/timeline 19、
-zhou/timelineMore 18、zhou/earlyDynasty 17、zhou/earlyDynastyMore 14、
-sengoku/readingLayers 13、studentEvents 10。派工照收窄形態：單檔＋明確組別＋一輪做得切。
+已完成：edoPack 12（#94）、sengoku/readingLayers 13（#99）、modernJapanPack 20（#100）。
+剩返 101 集中：qinhan/timeline 20、zhou/timeline 19、zhou/timelineMore 18、
+zhou/earlyDynasty 17、zhou/earlyDynastyMore 14、studentEvents 10、data/readingLayers 3。
+派工照收窄形態：單檔＋明確組別＋一輪做得切＋禁 scratch 腳本（run_00011 教訓：
+准佢自寫工具就會 45 迭代零產出；禁咗之後 51 迭代 20 組全部過閘）。
 
 ## ⚠ 成語覆蓋佇列（新閘門 audit:chengyu-coverage，基線 空白世紀 10／薄弱 12／無 event 連結 47）
 空白世紀：前700s 前500s 400s 500s 600s 1200s 1300s 1400s 1700s 2000s。
