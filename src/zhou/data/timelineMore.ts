@@ -564,7 +564,7 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
       university:
         '丹陽在此不是江南的丹陽，而是丹水之陽，近武關。斬首八萬是史記的數字，宜作約數。張儀的欺楚與屈原的被疏，〈屈原賈生列傳〉寫得較完整，軍事結果以〈楚世家〉〈秦本紀〉為準。圖上前312年漢中格改秦，益州在前316年已經改秦。張儀欺楚與屈原被疏，〈屈原賈生列傳〉寫得較完整，軍事結果以〈楚世家〉〈秦本紀〉為準，不要用辭賦補戰場。藍田之戰與丹陽是相連的軍事過程，仍不宜合成一個精確座標。州格大於武關道的實際寬度。',
     },
-    zhwikiUrl: 'https://zh.wikipedia.org/wiki/丹陽之戰',
+    zhwikiUrl: 'https://zh.wikipedia.org/wiki/楚懷王',
   },
   {
     id: 'yique',
