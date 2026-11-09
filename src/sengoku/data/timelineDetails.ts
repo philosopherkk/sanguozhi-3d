@@ -41,7 +41,7 @@ export const SENGOKU_TIMELINE_DETAILS: Record<string, SengokuTimelineDetail> = {
       { name: '足利義政', role: '室町將軍，統治無力', zhwikiUrl: 'https://zh.wikipedia.org/zh-tw/足利義政' },
       { name: '細川勝元', role: '東軍領袖，文明五年（1473）死', zhwikiUrl: 'https://zh.wikipedia.org/zh-tw/細川勝元' },
       { name: '山名宗全', role: '西軍領袖（持豐），同年死', zhwikiUrl: 'https://zh.wikipedia.org/zh-tw/山名宗全' },
-      { name: '大內政弘', role: '海路上洛使西軍逆轉，文明九年撤兵即亂終', zhwikiUrl: 'https://zh.wikipedia.org/zh-tw/大內政弘' },
+      { name: '大內政弘', role: '海路上洛使西軍逆轉，文明九年撤兵即亂終', zhwikiUrl: 'https://zh.wikipedia.org/zh-tw/大内政弘', note: '中文維基條目以「大内政弘」為標題（「內」作「内」），連結已指向該條目；「大內政弘」四字原樣查詢無條目' },
       { name: '足利義視', role: '義政之弟，將軍候選，先東後西', zhwikiUrl: 'https://zh.wikipedia.org/zh-tw/足利義視' },
     ],
     outcome:
@@ -53,7 +53,7 @@ export const SENGOKU_TIMELINE_DETAILS: Record<string, SengokuTimelineDetail> = {
       { label: '足利義政（中文維基）', url: 'https://zh.wikipedia.org/zh-tw/足利義政' },
       { label: '細川勝元（中文維基）', url: 'https://zh.wikipedia.org/zh-tw/細川勝元' },
       { label: '山名宗全（中文維基）', url: 'https://zh.wikipedia.org/zh-tw/山名宗全' },
-      { label: '大內政弘（中文維基）', url: 'https://zh.wikipedia.org/zh-tw/大內政弘' },
+      { label: '大內政弘（中文維基）', url: 'https://zh.wikipedia.org/zh-tw/大内政弘' },
       { label: '足利義視（中文維基）', url: 'https://zh.wikipedia.org/zh-tw/足利義視' },
     ],
   },
@@ -63,7 +63,7 @@ export const SENGOKU_TIMELINE_DETAILS: Record<string, SengokuTimelineDetail> = {
     course:
       '過程要分「島內的複製」與「畿內的量產化」兩段來看。第一段在種子島島內：時堯買入火繩槍之後，先求其裝藥與射擊之法，再令鍛冶仿造。通行的說法提到刀匠八板氏承擔複製，真正的困難不在銃身，而在藥室的閉鎖與口徑的校準；完成年數、主持者姓名與早期成品件數各說不一，本條不取定數。島內的嘗試證明了一件事：日本鍛冶有能力造出可實戰的火繩槍，後續的大規模採用因此在技術上成為可能。第二段是技術向畿內擴散，這是決定性的轉折。堺、若狹小濱的鍛冶自種子島取得製法（後世追述把堺的矢澤氏、若狹的三國氏列為關鍵人物），河內國友與紀伊根來則以大量生產取勝；至弘治、永祿年間，畿內已有穩定的火繩槍產量，並出現接受僱傭的鍛冶集團與武裝僧團（根來眾、雜賀眾）把兵器賣给出價最高者的市場，兵器的取得自此由「領有」轉為「購買」。第三個轉折是用法而非器物：火繩槍在野戰中並未立刻壓倒弓矢與槍，其戰術位置、彈藥（火藥與鉛）的補給和訓練成本，都要靠長期實戰經驗累積；十六世紀後葉各家在野戰、攻城中使用火繩槍的規模，軍記所記與研究推計差距極大，不可據軍記立說。最後是兵器對土木的反向影響：火繩槍促使城郭加厚土壘、增設狹間並採取平廣的輪廓，但平城化、石垣化的主因是國人對領地的直接支配與戰線的長期化，火繩槍只是其中一項因素，不宜作技術決定論的解讀。',
     keyFigures: [
-      { name: '種子島時堯', role: '島主，買入火繩槍並主持仿造；其事跡主要出於後世追述', zhwikiUrl: 'https://zh.wikipedia.org/zh-tw/種子島時堯' },
+      { name: '種子島時堯', role: '島主，買入火繩槍並主持仿造；其事跡主要出於後世追述', zhwikiUrl: 'https://zh.wikipedia.org/zh-tw/种子岛时尧', note: '中文維基條目以簡體「种子岛时尧」為標題，連結已指向該條目；日文條目作《種子島時尭》（「尭」字）。另無「大內政弘／種子島時堯」原樣標題之條目，故須以變體標題連結' },
       { name: '八板權兵衛', role: '通行說法中的仿造者，其存在與年代均有爭議', jawikiUrl: 'https://ja.wikipedia.org/wiki/八板金兵衛', note: '中文維基無條目，採日文條目『八板金兵衛』（『權兵衛』『金兵衛』為異寫）；其存在與年代本有爭議，日文條目亦依《鐵砲記》一系追述。' },
     ],
     outcome:
@@ -72,7 +72,7 @@ export const SENGOKU_TIMELINE_DETAILS: Record<string, SengokuTimelineDetail> = {
       '火繩槍由種子島仿造後，經堺、國友等地工匠擴散。大名既用於野戰齊射，亦用於攻城；築城由山城漸向平城、水堀與石垣發展。傳入年份通作天文十二年（1543），細節仍有異說。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/鐵砲傳來',
     furtherReading: [
-      { label: '種子島時堯（中文維基）', url: 'https://zh.wikipedia.org/zh-tw/種子島時堯' },
+      { label: '種子島時堯（中文維基）', url: 'https://zh.wikipedia.org/zh-tw/种子岛时尧' },
       { label: '八板權兵衛（日文維基）', url: 'https://ja.wikipedia.org/wiki/八板金兵衛' },
     ],
   },
