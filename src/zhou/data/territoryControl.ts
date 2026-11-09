@@ -122,7 +122,7 @@ export const ZHOU_SNAPSHOTS: ZhouSnapshot[] = [
     year: -473,
     label: '越滅吳',
     source: '《左傳》哀公二十二年；《史記·越王勾踐世家》',
-    note: '越有故吳地與會稽。吳的色塊收回。越的南界到哪裡，圖上只畫到浙東，不畫福建。',
+    note: '越有故吳地與會稽，吳的色塊收回。越的南界到哪裡，圖上只畫到浙東，不畫福建——《左傳》《史記·越王勾踐世家》只記其北會諸侯於徐州，沒有可據以畫線的南向政區記錄，故南界屬推定。色塊是勢力範圍的上限示意，不是行政區界。',
     disputed: true,
     control: empty,
     ranges: hold([
@@ -162,7 +162,7 @@ export const ZHOU_SNAPSHOTS: ZhouSnapshot[] = [
     year: -386,
     label: '田齊',
     source: '《史記·田敬仲完世家》；《資治通鑑》卷一',
-    note: '周安王承認田和為諸侯。山東北部改標田齊，範圍仍不是整片青州格。',
+    note: '周安王十六年（前386）周室列田和為諸侯，山東北部改標田齊。色塊是田氏實際掌握的都邑與鄙邑範圍上限示意，不是國界實測：《史記·田敬仲完世家》只記世代與都臨淄，沒有可逐段描繪的邊界記錄，故仍不是整片青州格。',
     disputed: true,
     control: empty,
     ranges: hold([
@@ -208,7 +208,7 @@ export const ZHOU_SNAPSHOTS: ZhouSnapshot[] = [
     year: -316,
     label: '秦滅巴蜀',
     source: '《史記·秦本紀》《張儀列傳》',
-    note: '秦取巴蜀，畫的是四川盆地，不是整個西南。漢中仍在楚。',
+    note: '秦司馬錯取巴蜀（前316）。色塊只畫四川盆地的巴、蜀兩郡範圍上限，不是整個西南；西南夷不在其內，漢中仍屬楚。《史記·秦本紀》《張儀列傳》記其歸附，《華陽國志·蜀志》為東晉以後追述；兩處都不記四界，故蜀地西部屬推定。',
     control: empty,
     ranges: hold([
       ['zhou_luoyi', '周'],
@@ -232,7 +232,7 @@ export const ZHOU_SNAPSHOTS: ZhouSnapshot[] = [
     year: -312,
     label: '秦取漢中',
     source: '《史記·楚世家》《屈原賈生列傳》',
-    note: '丹陽、藍田之後秦取漢中。漢中是秦嶺以南的一塊，不是整片關中再塗一次。',
+    note: '前312年丹陽、藍田之役後，秦襲取楚漢中郡。漢中是秦嶺以南、大巴山以北的一塊，不是整片關中再塗一次。史文只記郡名與役次，不記四界，故色塊是漢中郡歸屬範圍的上限示意；楚秦之際的界線另有異說，屬推定界線，逐段不作實測讀。',
     control: empty,
     ranges: hold([
       ['zhou_luoyi', '周'],
@@ -257,7 +257,7 @@ export const ZHOU_SNAPSHOTS: ZhouSnapshot[] = [
     year: -278,
     label: '拔郢',
     source: '《史記·白起王翦列傳》《楚世家》',
-    note: '白起拔郢，江漢入秦，楚東遷到淮上與故吳。逐段地圖見戰國尾。',
+    note: '前278年白起拔郢、焚夷陵，楚王東走，江漢之地入秦。色塊依《史記·白起王翦列傳》《楚世家》所記役次與郡名推定，屬秦設郡範圍的上限示意，不是實測界；楚東北徙後的疆界逐段見戰國末年各張，本張只畫到江漢易手為止。',
     disputed: true,
     control: empty,
     ranges: hold([
@@ -310,7 +310,7 @@ export const ZHOU_SNAPSHOTS: ZhouSnapshot[] = [
     year: -249,
     label: '秦滅東周',
     source: '《史記·周本紀》；《資治通鑑》卷一',
-    note: '西周已於前256年亡，東周亡於此年。洛邑一小塊改秦，不是整片中原。',
+    note: '前256年西周亡、前249年東周亡，洛邑一帶小塊改著秦色，不是整片中原。色塊依《史記·周本紀》所記二周之地推定，只到成周、洛邑附近，屬政區歸屬的上限示意；秦置三川郡之後的郡界屬其次年之事，本張不預支。',
     disputed: true,
     control: empty,
     ranges: hold([
@@ -336,7 +336,7 @@ export const ZHOU_SNAPSHOTS: ZhouSnapshot[] = [
     year: -221,
     label: '秦統一',
     source: '《史記·秦始皇本紀》；《資治通鑑》卷七',
-    note: '六國名號取消。河西走廊與嶺南不在這一年的滅國之內，不著色。細段見戰國尾。',
+    note: '前221年六國名號取消，色塊改為秦的郡縣範圍。河西走廊與嶺南不在這一年——前者其時屬羌胡，後者要到前214年纔下嶺南，故一律不著色。色塊依《史記·秦始皇本紀》三十六郡之目推定，屬郡級管轄範圍的上限示意，不是實測界線；細段見戰國末年各張。',
     disputed: true,
     control: empty,
     ranges: hold([
