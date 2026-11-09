@@ -130,7 +130,8 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
       university:
         '河西八城是否在這一年一次交割，《左傳》與《史記》詳略不同，不宜畫成關中整格易手。路線止於韓原，不把秦師畫過黃河直取絳都。晉惠公在位到前637年。河西之地是否在這一年一次交割，《左傳》與《史記》詳略不同，不宜畫成關中整格易手。秦饑晉不報、晉許地而悔，是《左傳》的因果敘事，不是一份割地的地圖附件。晉仍是大國，色塊不能因一位國君被俘就改屬秦。沒有河西八城的精確名冊可畫。晉侯後來以太子為質才得歸，都城仍在，不能因被俘就把晉塗成秦。',
     },
-    zhwikiUrl: 'https://zh.wikipedia.org/wiki/韓原之戰',
+    note: 'zh 維基以簡體「韩原之战」為條目名，繁體「韓原之戰」查無條目（MediaWiki API action=query 實測 missing），故連結改用簡體標題。',
+    zhwikiUrl: 'https://zh.wikipedia.org/wiki/韩原之战',
   },
   {
     id: 'jiantu',
@@ -389,7 +390,8 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
       university:
         '《左傳》記展如、國子等分軍對陣，細節可讀經傳，地圖只取北上的走廊。黃池之會在前482年，是盟會不是又一次滅國戰爭，所以另立政治條目，不再畫一條更長的線。越的反攻要到前478年笠澤。沒有吳、齊兵籍。夫差北上與國內空虛是後果，不是這一天的戶口帳。展如、國子是將領，不是人口單位。齊都未陷，這次勝利不能畫成滅齊。北上走廊的勝利沒有留下齊的戶口。黃池與笠澤都是後來的事，必須分開。吳、齊都沒有兵籍總冊，走廊只是示意，大於實際接觸的城邑。',
     },
-    zhwikiUrl: 'https://zh.wikipedia.org/wiki/艾陵之戰',
+    note: 'zh 維基以簡體「艾陵之战」為條目名，繁體「艾陵之戰」查無條目（MediaWiki API action=query 實測 missing），故連結改用簡體標題。',
+    zhwikiUrl: 'https://zh.wikipedia.org/wiki/艾陵之战',
   },
   {
     id: 'huangchi',
@@ -443,7 +445,7 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
     location: '笠澤',
     type: 'war',
     source: '《左傳》哀公十七年',
-    note: '臥薪嘗膽不見於《左傳》。這裡只記笠澤，滅吳是前473年的下一件事。',
+    note: '臥薪嘗膽不見於《左傳》。這裡只記笠澤，滅吳是前473年的下一件事。 zh 維基以簡體「笠泽之战」為條目名，繁體「笠澤之戰」查無條目（MediaWiki API action=query 實測 missing），故連結改用簡體標題。',
     causes: `一、結構性原因。黃池之會與越襲吳都同歲（前482）：吳的戰略態勢自此翻轉，由「北爭中原、南制越人」退為自守姑蘇；越則生聚教訓二十年（說見 fujiao、yue-wu 條），至前478年吳民疊經兵饑、越兵新而銳——攻守之資已易位。
 
 二、直接觸發。前478年三月，越王勾踐伐吳，吳人御之笠澤（今蘇浙間水網，吳淞、嘉興諸說），越吳夾水而陣，相持久之——師老於水，必須以奇破之。`,
@@ -474,7 +476,7 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
       university:
         '笠澤多說即今吳淞江一帶，在吳、越之間的水網，不是從會稽直線切到中原。〈越王勾踐世家〉的嘗膽、入臣，是司馬遷的敘事；「臥薪」更晚，不見於《左傳》。本條引傳文，不把後起故事畫進路線。左右句卒是夜裡分隊擾亂，地圖無法畫成兩條精確的渡河線，只取越軍北進的短線。滅吳在前473年，本條還不是滅吳。揚州一格不能提前改越。夜裡的分隊擾亂無法畫成精確渡河線。越軍尚未進入吳都，滅吳仍是前473年的另一條。吳淞江一帶的水網小於揚州整格，不能把短線放大成越已佔有吳都。',
     },
-    zhwikiUrl: 'https://zh.wikipedia.org/wiki/笠澤之戰',
+    zhwikiUrl: 'https://zh.wikipedia.org/wiki/笠泽之战',
   },
   {
     id: 'guiling',

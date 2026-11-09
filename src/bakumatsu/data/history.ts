@@ -468,7 +468,8 @@ export const BAKUMATSU_DETAILS: Record<string, EraDetail> = {
     ],
     outcome: '朝廷宣布慶喜為朝敵。東征因此有了名義。',
     brief: '鳥羽伏見在京都正南，不是大阪城攻防。',
-    zhwikiUrl: 'https://zh.wikipedia.org/wiki/鳥羽伏見之戰',
+    // 查證 2026-11-09：zh 條目名以簡體字形為標題，繁體標題查無條目（MediaWiki API action=query&redirects=1 實測 missing），故連結改用簡體標題。
+    zhwikiUrl: 'https://zh.wikipedia.org/wiki/鸟羽伏见之战',
   },
   '1868-tokaido': {
     causes: '鳥羽伏見之後，新政府要迫使江戶的德川家屈服。',
