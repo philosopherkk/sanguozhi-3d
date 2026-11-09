@@ -203,7 +203,8 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     source: '《資治通鑑》卷六十五',
     modernParaphrase:
       '五月出盧龍塞，登白狼山與烏桓骤遇，縱兵大破之，斬蹋頓等首領。',
-    zhwikiUrl: 'https://zh.wikipedia.org/wiki/白狼山之戰',
+    note: '連結改掛維基實際條目標題「白狼山之战」：原寫「白狼山之戰」經 audit:wiki-links（action=query&format=json&redirects=1&titles=…，僅以回應有冇 missing 判定）回報 missing，屬繁簡字形變體，非史實有誤。',
+    zhwikiUrl: 'https://zh.wikipedia.org/wiki/白狼山之战',
   },
   '208-chibi': {
     causes:
@@ -251,7 +252,8 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     source: '《資治通鑑》卷六十六',
     modernParaphrase:
       '曹操從蒲阪悄悄渡河，用船運兵入渭，夜裡在渭南分兵紮營，扭轉態勢。',
-    zhwikiUrl: 'https://zh.wikipedia.org/wiki/渭南之戰',
+    note: '連結改掛維基實際條目標題「渭南之战」：原寫「渭南之戰」經 audit:wiki-links（action=query&redirects=1，僅以 missing 判定）回報 missing，屬繁簡字形變體。',
+    zhwikiUrl: 'https://zh.wikipedia.org/wiki/渭南之战',
   },
   '214-yizhou': {
     causes:
@@ -296,7 +298,8 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     source: '《資治通鑑》卷六十七',
     modernParaphrase:
       '張遼率先陷陣，直衝孫權旗下；追擊時差一點捉住孫權。',
-    zhwikiUrl: 'https://zh.wikipedia.org/wiki/逍遙津之戰',
+    note: '連結改掛維基實際條目標題「逍遥津之战」：原寫「逍遙津之戰」經 audit:wiki-links（action=query&redirects=1，僅以 missing 判定）回報 missing，屬繁簡字形變體。',
+    zhwikiUrl: 'https://zh.wikipedia.org/wiki/逍遥津之战',
   },
   '219-hanzhong': {
     causes:
@@ -687,10 +690,10 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
       '《後漢書·南蠻傳》；《晉書·武帝紀》',
     source: '《後漢書·南蠻傳》；《晉書·武帝紀》',
     note:
-      '引文主據後漢書武陵蠻。後代史回溯：《宋書·夷蠻傳》「一戶輸穀數斛、戶口不可知」等；《魏書·僚傳》深山不編戶句。',
+      '引文主據後漢書武陵蠻。後代史回溯：《宋書·夷蠻傳》「一戶輸穀數斛、戶口不可知」等；《魏書·僚傳》深山不編戶句。連結改掛維基實際條目標題「五溪蛮」（簡體標題）：原寫「五溪蠻」經 audit:wiki-links（action=query&redirects=1，僅以 missing 判定）回報 missing。',
     modernParaphrase:
       '渠帥稱精夫，長沙、武陵蠻即其後。漢設武陵郡後，每年令大人輸布一匹、小口二丈，叫做賨布，是羈縻舊約而非編戶常調；雖偶為寇盜，傳亦言不足為郡國大患。',
-    zhwikiUrl: 'https://zh.wikipedia.org/wiki/五溪蠻',
+    zhwikiUrl: 'https://zh.wikipedia.org/wiki/五溪蛮',
     furtherReading: [
       {
         label: '維基文庫：《後漢書·南蠻傳》',
