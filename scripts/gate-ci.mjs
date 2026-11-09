@@ -47,6 +47,13 @@ const GATES = [
   // 2026-11-08 補：使用者隨機抽查應仁之亂即見內容極薄，追查發現既有 event-depth
   // 從未讀取事件詳情檔案（timelineDetails 字串比對 0 次）。41 條受測、27 條缺口。
   // 分開一支閘門是為了不打斷其他 agent 已有的 event-depth 基線。
+  // 2026-11-09 補：三層意譯「有冇分層」閘門。既有 event-depth 只查有冇三層，
+  // 所以 198 組全過；實測中位數比只有 1:1.3:3.6，146 組其實冇分層。
+  {
+    name: 'audit:reading-layers',
+    cmd: 'npm run audit:reading-layers',
+    metrics: { gap: /分層不合格 (\d+)/ },
+  },
   {
     name: 'audit:detail-depth',
     cmd: 'npm run audit:detail-depth',
