@@ -1,6 +1,7 @@
 import type { ReadingLayers } from '../../components/ClassicDetailModal'
 import type { TimelineDateFields } from '../../types/timelineDate'
 import type { QinHanEventType, QinHanFactionId } from '../types'
+import { QINHAN_CHENGYU_BRIDGE } from './chengyuBridge'
 
 export interface QinHanTimelineEvent {
   id: string
@@ -874,4 +875,5 @@ export const QINHAN_TIMELINE: QinHanTimelineEvent[] = [
     },
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/黃巾之亂',
   },
+  ...QINHAN_CHENGYU_BRIDGE,
 ]

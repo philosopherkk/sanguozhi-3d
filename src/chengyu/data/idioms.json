@@ -1388,7 +1388,8 @@
     "reading": "tán guān xiāng qìng",
     "meaningZhHant": "本謂王吉在位而貢禹彈冠，知同德者必進薦於朝；喻道義之交，一人在朝則在野者亦有望。本事為美談，今義反轉，譏一人得勢而同黨預相慶賀、爭相攀附。",
     "eraLink": {
-      "kind": "year",
+      "kind": "event",
+      "id": "zheng-gongyu",
       "year": -48
     },
     "source": {

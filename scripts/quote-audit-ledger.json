@@ -993,5 +993,10 @@
     "stamp": "4c3eddeb",
     "page": "春秋左氏傳/襄公",
     "at": "2026-11-09"
+  },
+  "src/qinhan/data/chengyuBridge.ts#zheng-gongyu": {
+    "stamp": "8529808d",
+    "page": "漢書/卷072",
+    "at": "2026-11-09"
   }
 }
