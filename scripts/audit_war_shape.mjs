@@ -114,7 +114,8 @@ for (const g of schematic) bySrc[g.src] = (bySrc[g.src] || 0) + 1
 
 if (process.argv.includes('--json')) {
   console.log(JSON.stringify({ total, schematic: schematic.length, selfInt: selfInt.length,
-    bySource: bySrc, worst: schematic.slice(0, 30).map((g) => ({ key: g.key, pts: g.ring.length, src: g.src })) }, null, 2))
+    bySource: bySrc, worst: schematic.slice(0, 30).map((g) => ({ key: g.key, pts: g.ring.length, src: g.src })),
+    selfIntList: selfInt.slice(0, 60).map((g) => ({ key: g.key, pts: g.ring.length, src: g.src })) }, null, 2))
 } else {
   console.log('=== 疆域几何品質（真實邊界不應是矩形／長直段）===')
   console.log(`  受測環 ${total}｜示意框形狀 ${schematic.length}｜自我相交 ${selfInt.length}`)
