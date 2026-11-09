@@ -58,9 +58,9 @@
   },
   "audit:event-depth": {
     "exit": 0,
-    "gap": 274,
+    "gap": 256,
     "padding": 1,
-    "jpGap": 0
+    "jpGap": 60
   },
   "audit:geo": {
     "exit": 0
