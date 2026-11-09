@@ -37,7 +37,7 @@ function walk(dir, out = []) {
   return out
 }
 
-/** 抽出所有維基 URL → { host, title, file }；動態拼接的模板跳過 */
+/** 抽出所有維基連結 → { host, title, file }；動態拼接的模板跳過 */
 export function collectLinks(files) {
   const links = []
   for (const p of files) {
@@ -51,6 +51,14 @@ export function collectLinks(files) {
       // 以模板動態拼接的 URL（fetchArticle 等）無法靜態驗證，跳過
       if (title.includes('${') || title.includes('encodeURIComponent')) continue
       links.push({ host: m[1], title, file: p.slice(ROOT.length + 1) })
+    }
+    // 盲點修正（2026-11-09）：packs 多用 helper 構造 URL（WIKI('x')→zh、
+    // WIKI_JA('x')→ja），只掃 raw URL 會漏死鏈（edoPack「鎖國令」漏網實證）。
+    for (const m of s.matchAll(/\bWIKI_JA\(\s*'([^']+)'/g)) {
+      links.push({ host: 'ja.wikipedia.org', title: m[1], file: p.slice(ROOT.length + 1) })
+    }
+    for (const m of s.matchAll(/\bWIKI\(\s*'([^']+)'/g)) {
+      links.push({ host: 'zh.wikipedia.org', title: m[1], file: p.slice(ROOT.length + 1) })
     }
   }
   const seen = new Map()
