@@ -32,14 +32,19 @@
     "exit": 0,
     "hard": 0
   },
+  "audit:reading-layers": {
+    "exit": 0,
+    "gap": 146
+  },
   "audit:detail-depth": {
     "exit": 0,
-    "gap": 27
+    "gap": 0
   },
   "audit:event-depth": {
     "exit": 0,
-    "gap": 366,
-    "padding": 1
+    "gap": 274,
+    "padding": 1,
+    "jpGap": 145
   },
   "audit:geo": {
     "exit": 0
