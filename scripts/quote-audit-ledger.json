@@ -953,5 +953,25 @@
     "stamp": "11e19925",
     "page": "明史/卷10",
     "at": "2026-11-08"
+  },
+  "src/japanEras/packs/edoPack.ts#edo-1609-ryukyu": {
+    "stamp": "387eaf86",
+    "page": "琉球國中山世鑑/卷三",
+    "at": "2026-11-09"
+  },
+  "src/japanEras/packs/edoPack.ts#edo-1853-kurofune": {
+    "stamp": "e036a7a1",
+    "page": "日本國米利堅合衆國和親條約",
+    "at": "2026-11-09"
+  },
+  "src/japanEras/packs/edoPack.ts#edo-1858-treaty": {
+    "stamp": "a571fc8d",
+    "page": "日本國米利堅合衆國修好通商條約",
+    "at": "2026-11-09"
+  },
+  "src/japanEras/packs/edoPack.ts#edo-1867-hōkan": {
+    "stamp": "1853127e",
+    "page": "德川內府大政返上ノ奏議",
+    "at": "2026-11-09"
   }
 }
