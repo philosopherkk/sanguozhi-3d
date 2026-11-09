@@ -472,7 +472,7 @@ audit:ranges — fail 0, warn 0, info 23
 
 ### 本輪建好的三件護欄
 
-1. **`src/data/territory/ringProvenance.ts`**（由 `scripts/gen_ring_provenance.py` 產生）：108 條環逐條登記 basis／source／institution／kind。kind 分五級：`modern-province-proxy`（現代省界代替）、`text-derived`（依文獻地望手繪）、`schematic-box`（朝代大勢框）、`plate-traced`、`gis-import`。後兩級目前是 0，這就是要追的進度指標。
+1. **`src/data/territory/ringProvenance.ts`**（手維登記表，無生成腳本）：108 條環逐條登記 basis／source／institution／kind。kind 分五級：`modern-province-proxy`（現代省界代替）、`text-derived`（依文獻地望手繪）、`schematic-box`（朝代大勢框）、`plate-traced`、`gis-import`。後兩級目前是 0，這就是要追的進度指標。
 2. **`audit:ranges` 規則 17–19**：環沒有登記 → `ring-unregistered`；登記未點名 → `ring-source-generic`；環假定的政區制度早於該制度最早可考年份 → `institution-anachronism`（縣 前688《史記·秦本紀》、郡 前400、州 前106《漢書·武帝紀》、道 627《舊唐書·地理志》、路 983《宋史·職官志》、省 1260《元史·百官志》、羈縻 630）。已用「把郡的門檻暫時改成 1900」做過反證測試：會報 12 條，所以現在 warn 0 是真綠，不是規則空轉。
 3. **`npm run audit:geo`（`scripts/audit_geo.py`）**：
    - 20 個海岸／內陸錨點（黃海、東海、南海、渤海、台灣海峽、北部灣、朝鮮海峽／鄭州、四川盆地、泰山、汾河谷地、漢水中游、珠江三角洲、遼東半島、山東半島北岸、朝鮮半島、台灣中央山脈、海南島、河套、河西走廊）經 `china_px` 投到底圖，用 b−r 色差分類海陸：**20/20 正確**，投影可信。

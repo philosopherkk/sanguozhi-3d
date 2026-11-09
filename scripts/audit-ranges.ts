@@ -1077,7 +1077,7 @@ for (const pack of packs) {
             'warn',
             'ring-unregistered',
             where,
-            `環編號 ${id} 沒有出處登記（src/data/territory/ringProvenance.ts 由 scripts/gen_ring_provenance.py 產生）`,
+            `環編號 ${id} 沒有出處登記（src/data/territory/ringProvenance.ts 為手維登記表）`,
           )
           continue
         }
@@ -1186,7 +1186,7 @@ ${byCode(warns)}
 14. 敘事深度（\`src/imperial/data/depthNarrative.ts\`）：每條 \`DEPTH_EVENTS\` 事件要有獨立的 \`course\`／\`outcome\`／意譯，三者不得與 \`desc\` 相同（否則詳情窗重複同一句）；大學層少於 150 字要報 \`university-thin\`。
 15. 日本年表（\`src/japanHistory/data/timeline.json\`）：每條要有 \`source\`（書名、條約名、制書名或通說）與 \`desc\`；1603 年以後的條目另要有 \`note\`，寫明年份與史源的限度。
 16. 出處要點名：各包的快照、事件、派系簡介（讀 \`politics.source\` 等子欄）、逐年人物、行軍路線，\`source\` 要含《》或『』裡的書名、條約名、制書名或檔案名。只有「××通說」報 \`source-generic\`；只有百科全書（維基／Wikipedia）報 \`source-wiki-only\`。通說可以並列，不能是唯一出處。覆蓋：帝國 11 包＋japanEras 6 包。
-17. 幾何出處登記：色塊引用的每一條環編號都要在 \`src/data/territory/ringProvenance.ts\`（由 \`scripts/gen_ring_provenance.py\` 產生）有登記：實際代表什麼（basis）、點名依據（source）、所假定的政區制度（institution）、等級（kind：modern-province-proxy／text-derived／schematic-box／plate-traced／gis-import）。找不到登記報 \`ring-unregistered\`。
+17. 幾何出處登記：色塊引用的每一條環編號都要在 \`src/data/territory/ringProvenance.ts\`（手維登記表，無生成腳本）有登記：實際代表什麼（basis）、點名依據（source）、所假定的政區制度（institution）、等級（kind：modern-province-proxy／text-derived／schematic-box／plate-traced／gis-import）。找不到登記報 \`ring-unregistered\`。
 18. 環依據要點名：登記裡的 source 若是「未登記」，報 \`ring-source-generic\`。
 19. 制度時代檢查：環若假定某一政區制度（縣、郡、州、道、路、省、羈縻），該快照年份不得早於該制度最早可考的年份（縣 前688《史記·秦本紀》；郡 前400；州 前106《漢書·武帝紀》；道 627《舊唐書·地理志》；路 983《宋史·職官志》；省 1260《元史·百官志》；羈縻 630）。違反報 \`institution-anachronism\`。
 20. 座標校正與環體檢另由 \`python3 scripts/audit_geo.py\`（\`npm run audit:geo\`）跑：20 個海岸／內陸錨點要落在正確的海陸上；印出底圖可畫範圍；ERA_RINGS 每條環的形心必須在陸地上（落在海裡代表多邊形吃進海裡）。

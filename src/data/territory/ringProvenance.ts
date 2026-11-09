@@ -1,5 +1,6 @@
 /**
- * 由 scripts/gen_ring_provenance.py 產生。登記每一條 ERA_RINGS 環編號的實際依據。
+ * 手維登記表（本 repo 無生成腳本，本檔就是唯一資料來源）。登記每一條 ERA_RINGS 環編號的實際依據。
+ * 新增環編號時在本檔加一條登記即可（kind 五級見下），audit:ranges 規則 17 以本檔為準。
  * 目的：把「示意」拆成可稽核的等級，讓疆域幾何的改進可以被逐環驗收。
  * approx 一律 true，直到 plate-traced／gis-import 的 GeoJSON 取代座標。
  */
