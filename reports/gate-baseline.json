@@ -32,6 +32,17 @@
     "exit": 0,
     "hard": 0
   },
+  "audit:chengyu-coverage": {
+    "exit": 0,
+    "missingCentury": 10,
+    "thinCentury": 12,
+    "noEventLink": 47
+  },
+  "audit:war-shape": {
+    "exit": 0,
+    "schematic": 291,
+    "selfInt": 24
+  },
   "audit:reading-layers": {
     "exit": 0,
     "gap": 146
