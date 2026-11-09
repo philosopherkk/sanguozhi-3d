@@ -283,3 +283,9 @@ china_edcp_relief），用 `scripts/tighten_land_borders.china_px(lat, lon, w, h
 完成標準：現代中國色塊與 admin-0 邊界重合（截圖對照）、蒙疆不含外蒙古、
 華東破裂多邊形消失、`audit:war-shape` 的幾何無效數歸零。
 
+## 成語→事件接駁佇列（2026-11-10 主線交辦，task_0020）
+`src/chengyu/data/idioms.json` 現有 91 條，其中 20 條 eraLink 仍係 year（事件包無對應條目）。
+**待人工批准後**先可新增事件條目（廣度須人工決定）；批准後逐條做：
+1. 用 `node scripts/audit_chengyu_coverage.mjs --json` 同 grep `kind.*year` 攞 20 條清單
+2. 每條：喺對應 era pack 補一個事件條目（year 相符、source 依資料分級紀律、三欄深度閘門 200/200/400），再將成語 eraLink 升級 kind=event
+3. 一次做 3–5 條，每批 PR；`audit:event-depth` 缺口唔准回升（新增事件要直達標）
