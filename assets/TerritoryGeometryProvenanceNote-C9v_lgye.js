@@ -1,1 +1,0 @@
-import{o as e}from"./index-D0tAF8nm.js";import{y as t}from"./ClassicDetailModal-cMJNXK5J.js";var n=e();function r(e){let n=[t,e.source];return e.note&&n.push(e.note),n.join(` `)}function i({provenance:e,className:t=`territory-provenance-note`}){return(0,n.jsx)(`p`,{className:t,children:r(e)})}export{r as n,i as t};
