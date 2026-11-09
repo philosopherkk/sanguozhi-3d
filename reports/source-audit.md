@@ -243,3 +243,9 @@ for path in sys.argv[1:]:
 3. 《新羅東志》一詞在本檔 8 處已全數清除，但**其他 pack 是否同樣掛此書名未查**（本輪範圍限 edoPack）。
 4. `edo-1804-kunashir` 之「幕府介入處分」細節（何人處分、處分內容）無同時期文書可核，現為通說；如需引一手文書，要再查《德川實紀》文化期條。
 5. `edo-1739-eshi` 目前連結只能指「蝦夷地」總條目——若日後建立本役條目（中/日文），應改指該條目。
+## 5) 本輪收尾與 rebase 記錄（與最終 push 狀態一致）
+
+- 本輪 push 後 `origin/main` 又進了一條 `34571d7`（#95 戰國關鍵人物維基連結，改 `scripts/audit-chars.ts` 與 `src/sengoku/data/timelineDetails.ts`，**未觸及 edoPack**）。因 #95 改咗字符閘門本身，為免門檻口徑唔一致，已 `git rebase origin/main` 後用 `git push --force-with-lease`（無用裸 `--force`）。
+- rebase 後 HEAD `e8d0ced`，`git ls-remote --heads origin verify/source-audit` 與 `git rev-parse HEAD` 相同。
+- rebase 後重跑（基線已含 #95）：`audit:quotes` 錯誤 **2**（＝基線）、`audit:chars` 硬傷 **0**（待判 254，254 而非 253 係 #95 新增行所致，非本輪造成）、`detail-depth` 缺口 **0**、`event-depth` 缺口 **274／jpGap 111**、`reading-layers` **134**、`test` 全部通過、`build` 通過、`gates — 無惡化`。
+- PR：https://github.com/philosopherkk/sanguozhi-3d/pull/96 （`state=OPEN`, `mergeable=MERGEABLE`；檔案只有 `src/japanEras/packs/edoPack.ts` 與 `reports/source-audit.md`）。
