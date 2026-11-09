@@ -973,5 +973,30 @@
     "stamp": "1853127e",
     "page": "德川內府大政返上ノ奏議",
     "at": "2026-11-09"
+  },
+  "src/zhou/data/chengyuBridge.ts#keduan": {
+    "stamp": "9c3278b2",
+    "page": "春秋左氏傳/隱公",
+    "at": "2026-11-09"
+  },
+  "src/zhou/data/chengyuBridge.ts#jin-wenyang": {
+    "stamp": "ef25a38e",
+    "page": "春秋左氏傳/成公",
+    "at": "2026-11-09"
+  },
+  "src/zhou/data/chengyuBridge.ts#chu-chencai": {
+    "stamp": "5f7f9e40",
+    "page": "春秋左氏傳/昭公",
+    "at": "2026-11-09"
+  },
+  "src/zhou/data/chengyuBridge.ts#jin-xiaoyu": {
+    "stamp": "4c3eddeb",
+    "page": "春秋左氏傳/襄公",
+    "at": "2026-11-09"
+  },
+  "src/qinhan/data/chengyuBridge.ts#zheng-gongyu": {
+    "stamp": "8529808d",
+    "page": "漢書/卷072",
+    "at": "2026-11-09"
   }
 }
