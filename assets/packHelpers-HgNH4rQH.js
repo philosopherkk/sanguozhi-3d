@@ -1,0 +1,1 @@
+function e(e,t,n){return n?{text:e,source:t,disputed:!0}:{text:e,source:t}}function t(e){return e}function n(e){}export{n,t as r,e as t};
