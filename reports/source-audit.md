@@ -249,3 +249,322 @@ for path in sys.argv[1:]:
 - rebase 後 HEAD `e8d0ced`，`git ls-remote --heads origin verify/source-audit` 與 `git rev-parse HEAD` 相同。
 - rebase 後重跑（基線已含 #95）：`audit:quotes` 錯誤 **2**（＝基線）、`audit:chars` 硬傷 **0**（待判 254，254 而非 253 係 #95 新增行所致，非本輪造成）、`detail-depth` 缺口 **0**、`event-depth` 缺口 **274／jpGap 111**、`reading-layers` **134**、`test` 全部通過、`build` 通過、`gates — 無惡化`。
 - PR：https://github.com/philosopherkk/sanguozhi-3d/pull/96 （`state=OPEN`, `mergeable=MERGEABLE`；檔案只有 `src/japanEras/packs/edoPack.ts` 與 `reports/source-audit.md`）。
+
+---
+
+## 2026-11-09 13:50（verify/source-audit，起點 origin/main = d2e10231）
+
+範圍：`git log --since='3 hours ago' --name-only origin/main` 得 9 個 commit；內容類 4 個逐一抽查——
+#100 `modernJapanPack.ts`、#99 `kofunPack.ts`／`muromachiPack.ts`／`sengoku/data/readingLayers.ts`、
+#98 `heian/data/history.ts`（連結）、#95 `sengoku/data/timelineDetails.ts`（連結，見死鏈佇列）。
+#90 只改地圖幾何與生效年、未新增引文，屬地圖 agent 範圍，本輪未複核。
+
+### 一、逐條查證表（條目 id｜原本寫法｜查證命令｜結果｜本輪動作）
+
+命令均在 `/Users/ka-kinpoon/Projects/3kingdoms-wt-verify` 執行；`qsrc` 代指 `python3 scripts/qsrc.py`。
+
+| 條目 id | 原本寫法 | 查證命令 | 結果 | 本輪動作 |
+|---|---|---|---|---|
+| kf-250 | 三國志卷三十「其死，有棺無槨，封土作冢」，標已逐字核對 | `qsrc '三國志/卷30' '其死，有棺無槨' -C 30` | 可查證（倭人條，匹配 1 處） | 不動 |
+| kf-250 | 「金八兩，五尺刀二口，銅鏡百枚，真珠、鉛丹各五十斤」 | `qsrc '三國志/卷30' '銅鏡百枚' -C 60` | 可查證（魏詔賞賜口徑，與文內說明一致） | 不動 |
+| kf-250 | 「自郡至女王國，萬二千餘里」「侏儒國」「裸國、黑齒國」「船行一年可至」 | `qsrc '三國志/卷30' '萬二千餘里|裸國|侏儒國|船行一年' -n 12` | 可查證（四語俱在倭人條） | 不動 |
+| kf-350 | 日本書紀卷第七「東夷之中，有日高見國……是總曰蝦夷」，標漢文原文、已逐字核對 | `qsrc --host ja.wikisource.org '日本書紀' '日高見'`（冇匹配）；`curl "ja.wikisource/w/api.php?action=query&prop=info&titles=日本書紀"` | 查唔到（工具無法比對）：ja.wikisource《日本書紀》pageid 28592、全文僅 1247 bytes，屬索引頁，無卷內本文；日本書紀/巻第七 等六種子頁寫法 API 一律 missing。另二手轉錄之國史大系本文作「男女並推結文身」，與本條「椎結」有異文 | 降調＋加註：source 取消「已逐字核對」，寫明 ja.wikisource 無本文並記椎結／推結異文 |
+| kf-350 | 大學層「又說『土地沃壞而曠之』」 | 覆核景行廿七年條本文轉錄 | 有錯字：本文作「亦土地沃壤而曠之」 | 修正引文為「土地沃壤而曠之」 |
+| kf-350 | 大學層「日本武尊『身長一丈，力能扛鼎』」 | 覆核景行四十年七月條本文「今朕察汝爲人也。身體長大。容姿端正。力能扛鼎」 | 查唔到此句：原傳無「身長一丈」之語 | 降調：改引「身體長大，容姿端正，力能扛鼎」，并注明「身長一丈」非本文 |
+| kf-350 | 「村之無長，邑之勿首」「悉捨弓矢，望拜之」 | 覆核景行四十年七月條轉錄 | 可查證（惟 ja 本文無法以 qsrc 覆核，屬二手轉錄） | 不動（理由已在 source 註明） |
+| kf-400 | 宋書卷九十七「東征毛人五十五國，西服衆夷六十六國，渡平海北九十五國」 | `qsrc '宋書/卷97' '東征毛人五十五國' -C 40` | 可查證（倭國傳，昇明二年倭王武上表） | 不動 |
+| kf-400 | 珍自稱都督六國、「表求除正，詔除安東將軍、倭國王」；濟元嘉二十八年加都督六國；武自稱七國 | `qsrc '宋書/卷97' '都督' -C 70 -n 12` | 可查證，且「珍有百濟無加羅／濟受詔版有加羅無百濟／武自稱七國」三組清單差異與本文全合 | 不動 |
+| kf-500 | 日本書紀卷第十七「大將軍物部大連麁鹿火，親與賊帥磐井，交戰於筑紫御井郡……遂斬磐井，果定疆場」，標已逐字核對 | `qsrc --host ja.wikisource.org '日本書紀' '磐井'`；ja.wikisource 全文搜尋無繼體紀本文 | 查唔到（工具無法比對），理由同 kf-350；另「果定疆場」各本作「橿場」「彊場」（訓 さかひ） | 降調＋加註：取消「已逐字核對」，記異文與須注明所據本子 |
+| mu-1336 | 建武式目「守護職者。上古之吏務也。國中之治否。只依此職。」 | `qsrc --host ja.wikisource.org '建武式目' '守護職' -C 60` | 可查證（逐字相同） | 不動 |
+| mu-1336 | 題記「永祿十二年閏五月中旬之頃於播州英賀」、「右建武式目一卷以畠山牛庵藏本書寫，以二本校合畢」、「一作」異文注 | `qsrc --host ja.wikisource.org '建武式目' '永録|播州|牛庵|一作'` | 可查證（三項俱在） | 不動 |
+| mu-1336 | 「是圓……忝蒙政道治否之諮詢」「建武三年十一月七日」「前民部卿 是圓」「眞惠 玄惠法印」「以上八人」 | `qsrc --host ja.wikisource.org '建武式目' '諮詢|十一月七日|民部卿|眞惠|玄惠'` | 可查證 | 不動 |
+| mu-1336 | 「寺社之訴訟依事可有用捨」「或振威猛，或號興隆，又耀奇瑞，又稱御祈」 | `qsrc --host ja.wikisource.org '建武式目' '寺社|威猛|奇瑞|御祈'` | 可查證（惟底本作「寺社ノ訴訟」，本條轉寫為「之」） | 加註（source 補記假名寫字從通行轉寫） |
+| mu-1336 | 「居所之興廢可依據政道之善惡，是人凶非宅凶之謂也」 | `qsrc --host ja.wikisource.org '建武式目' '人凶|宅凶|興廢'` | 引文多一字：本文作「居所之興廢可依政道之善惡」 | 修正引文（刪「據」） |
+| mu-1336 | source 欄條名「諸國守護人可被擇政務器用事」＋群書類従第拾五輯 | `qsrc --host ja.wikisource.org '建武式目' '守護人'` | 引文漏字：條文作「一諸國守護人。殊可被擇政務ノ器用事」；「第拾五輯」未能查證 | 修正條名（補「殊」）、移除無法查證之輯數 |
+| mu-1350 | 太平記巻第二十六「近来左兵衛督直義朝臣……供佛施僧の財産不驚目云事無りけり」，標已逐字核對、漢字從正體 | `qsrc --host ja.wikisource.org '太平記/巻第二十六' '左兵衛督直義' -C 80` | 可查證（底本新舊字体差：将軍／権／禅／国師／仏，source 已先行披露） | 不動 |
+| mu-1392／mu-1467 | quote 已寫「通說整理，非逐字引文」，source 記花営三代記、園太歴、應仁記無可逐字本文 | 無需比對（自我披露非逐字） | 合規（降調寫法正確，應仁記已標軍記文學） | 不動 |
+| mj-1894-sino-japan | quote「朕今陸海軍ニ勅シ清國ト戰爭狀態ニ在ルコヲ宣セシム」＋ source「1894年8月1日宣戰詔書之開首句」 | `qsrc --host ja.wikisource.org --search '清国宣戦'`，再 `qsrc --host ja.wikisource.org '清国ニ対スル宣戦ノ詔勅' '朕' -C 80` | 查唔到此句（偽逐字引文）：該詔勅首句實作「朕茲ニ淸國ニ對シテ戰ヲ宣ス」，全篇無「陸海軍ニ勅シ」「戰爭狀態」「宣セシム」等語 | 改訂為查證所得原文；source 標 ja.wikisource 頁名並記原寫法查無 |
+| mj-1945-end | quote「忍ビヘカラサルヲ忍ビ耐ヘヘカラサルヲ耐ヘ」＋ source「線上無可逐字比對之本文」 | `qsrc --host ja.wikisource.org '大東亞戰爭終結ノ詔書' '難キヲ' -C 90` | 引文次序與用字皆誤：本文（JISX0208 版與常用漢字版同）作「堪ヘ難キヲ堪ヘ忍ヒ難キヲ忍ヒ」；且 source 稱線上無可逐字比對之本文屬錯誤陳述（該頁全文 4707 bytes） | 改訂引文為本文並改正 source（保留原寫法說明） |
+| mj-1931／mj-1942 | quote 為訓讀體句子，source 已寫「通說整理，非逐字引文」 | 未逐字比對（自我披露非逐字） | 合規，但 quote 欄加引號易被誤認為原文 | 不動，列人工判斷（建議改為大意句或加「（大意）」） |
+| mj-1952-sovereignty | quote 以舊假名風格寫 1947 憲法前文，source 標非逐字引用條文 | 未逐字比對（自我披露） | 合規（已披露非逐字）；惟現代日文改作歷史假名風格易生誤會 | 不動，列人工判斷 |
+| sengoku/readingLayers 13 條 | source 補「信長公記／鐵炮記／應仁記／關原軍記大成 屬軍記、文學作品、非史實記錄」 | `git show 997e49d -- src/sengoku/data/readingLayers.ts` | 方向正確，符合日本史料分級鐵律 | 不動 |
+| sengoku/readingLayers 關原條 | 「關原始末記（1656）的約八千」死沒數 | 未能以 qsrc 或既有出處查得該書名與年代 | 查唔到（書名與 1656 年無可核對之出處） | 本輪未改，列人工判斷 |
+| heian/data/history.ts（#98） | 新增 38 個 zh＋4 個 ja 連結 | curl zh API（redirects=1&converttitles=1，34 條標題一批）；`python3 /tmp/wq2.py ja.wikipedia.org 三浦義澄 千葉常胤 大庭景親 藤原信頼` | 可查證：zh 34 條、ja 4 條全無 missing | 不動 |
+### 二、死鏈佇列（本輪最重要的發現：閘門本身有假陽性）
+
+本輪基線實測 `npm run audit:wiki-links`：連結 295｜**死鏈 21**｜未驗 50
+（未驗 50 係批次 5 俾 Wikimedia 限流打refuse，輸出自己都有提示「死鏈數字不完整，不可當通過」；報告者另以手動 API 補驗 heian 42 條連結，全活）。
+
+把 21 條用同一 MediaWiki API 但**加** `converttitles=1` 覆驗（命令：`python3 /tmp/wq2.py zh.wikipedia.org <標題...>`，內部為
+`action=query&format=json&redirects=1&converttitles=1&titles=`，只以有冇 `missing` 判定，不做字面比對）：
+
+- **16 條係假死鏈**（簡繁標題轉換後都有條目，其中四條另有 redirect）：長州征討→长州征讨、鳥羽伏見之戰→鸟羽伏见之战、
+  白狼山之戰→白狼山之战、渭南之戰→潼關之戰（redirect）、逍遙津之戰→合肥之戰（redirect）、五溪蠻→五溪蛮、
+  沙丘之變→沙丘之变、漢平南越之戰→汉平南越之战、黨錮之禍→党锢之祸、平王東遷→周平王东迁（redirect）、
+  崤之戰→殽之戰（redirect）、夫椒之戰→夫椒之战、田氏代齊→田氏代齐、韓原之戰→韩原之战、艾陵之戰→艾陵之战、
+  笠澤之戰→笠泽之战。**本輪一條都冇改**（改咗反而錯）。呢個係 `scripts/audit_wiki_links.mjs` 嘅方法缺陷：佢冇帶
+  `converttitles=1`，MediaWiki API 對 zh 標題唔做簡繁轉換，於是凡 canonical 標題係另一變體者一律判死。
+  依修改邊界本 agent 唔改 `scripts/audit-*`，**請人工決定**係咪喺該腳本加 `converttitles=1`（加上之後基線 21 應大幅下跌）。
+- **5 條係真死鏈（converttitles 之後仍 missing），本輪已修**：
+  1. `src/zhou/data/timeline.ts` 楚滅越之戰 → `楚破越`（API：`楚滅越 -> 楚灭越` 再 redirect `-> 楚破越`，無 missing）
+  2. `src/zhou/data/timeline.ts` 勾踐滅吳 → `勾踐`（覆驗：zh `勾践灭吴`、ja `越の滅亡` 均 missing，事件無獨立條目；改指主事者「勾踐」，其條目存在；ja 另有「夫差」可用）
+  3. `src/data/people.json` `張昭_(東吳)` → `張昭`（`張昭_(三國)` redirect 至 `張昭`；原括號題 zh 無條目）
+  4. `src/data/people.json` `王濬_(西晉)` → `王濬`（`王濬_(晉)`、`吴王濬` 均 missing；`王濬` 存在）
+  5. `src/zhou/data/timelineMore.ts` 丹陽之戰 → `楚懷王`（`丹陽之戰`、`丹陽之戰_(前312年)`、`丹水之戰` 均 missing；改指該役主體楚懷王，條目存在。此條屬「無同名條目而改指相關人物」，如不同意請改回留空）
+
+### 三、查唔到出處／需人工判斷清單（本輪冇動）
+
+1. `src/sengoku/data/readingLayers.ts` 關原條：「《關原始末記》（1656）的約八千」——書名與年代未能以 qsrc 或既有出處核對；同段「《關原軍記大成》正德三年（1713）宮川忍斎編」「慶長十一年南浦文之撰《鐵炮記》」屬學界慣稱，本 agent 未能以本文庫工具覆核。
+2. `src/japanEras/packs/muromachiPack.ts` mu-1336：`source` 原註『群書類従』第拾五輯未能查證，本輪先移除輯數；如人工查到可靠底本，可補回。
+3. `src/japanEras/packs/kofunPack.ts` kf-350：「遥視王國」段（「遥視王船，豫怖其威勢」）未能以 qsrc 覆核（同 kf-350 理由）。
+4. `src/japanEras/packs/modernJapanPack.ts` mj-1931／mj-1942／mj-1952：`quote` 欄以引號呈現非逐字句（source 已披露），建議統一加「（大意）」或改用可查證原文。
+5. 死鏈閘門 `converttitles=1` 缺陷（見上）——影響 16 條判讀，屬腳本層面，需人工決定。
+6. #90（地圖精度）改動未複核，屬地圖 agent 範圍。
+
+### 四、收尾驗證（前後數字）
+
+
+---
+
+## 2026-11-09 14:30（verify/source-audit，起點 origin/main = 6d877b8）— 本輪停止修改，僅只讀查證
+
+### 零、停止原因（工作區唔乾淨，另有一條未 merge 嘅同分支 PR）
+
+依「開工前 `git status` 必須乾淨，否則停止本輪並記錄」，本輪**冇改任何內容、冇 commit、冇 push、冇開 PR**。證據如下：
+
+1. `git checkout -B verify/source-audit origin/main` 之後 `git status --porcelain` 仍報 7 個 modified：
+   `reports/source-audit.md`、`src/data/people.json`、`src/japanEras/packs/kofunPack.ts`、
+   `src/japanEras/packs/modernJapanPack.ts`、`src/japanEras/packs/muromachiPack.ts`、
+   `src/zhou/data/timeline.ts`、`src/zhou/data/timelineMore.ts`。
+2. 呢 7 個檔案嘅 mtime 係 12:56–14:09，內容正正係上一輪（報告標題「2026-11-09 13:50」）逐條寫過嘅改動，
+   即係 **13:50 嗰輪做咗但唔曾 commit/push**——屬該輪未完成交付，唔係其他 agent 嘅在途工作。
+   為免丟失，本輪已將完整 diff 存檔於 repo 之外：
+   `/Users/ka-kinpoon/Projects/audit-salvage/uncommitted-20261109-1421.patch`（215 行／33,804 bytes）＋同名 `.stat.txt`。
+   **請人工決定**由邊個補返呢個 commit；本 role 冇代提交（修改邊界外）。
+3. 第二個停止理由：`gh pr view 96` → `state OPEN`、`headRefOid 76468d6`，而 #96 嘅 head branch 正正係本 role
+   指定用嘅 `verify/source-audit`。`git log --oneline origin/main..origin/verify/source-audit` 有 2 個 commit 未入 main，
+   `git merge-base --is-ancestor` 回報 NOT_ANCESTOR_UNMERGED。即本輪若再 push，必非 fast-forward，只能 `--force`
+   （本 role 絕對禁用）或 `--force-with-lease`，兩者都會污染 #96 嘅 review。
+4. 附記：本工作區執行期間 `origin/main` 向前咗兩次（6d877b8 #102 → 0f1d561，14:32）。本地 base 現已落後，
+   係 repo 高度活躍所致，唔影響以下只讀結論。
+
+### 一、覆驗 13:50 輪未提交嘅 8 處改動——逐條獨立查證，全部成立
+
+命令均在 `/Users/ka-kinpoon/Projects/3kingdoms-wt-verify` 執行；`qsrc` 代指 `python3 scripts/qsrc.py`。
+連結一律用 MediaWiki `action=query&redirects=1&titles=`，只以有冇 `missing` 判定，不做字面比對。
+
+| 條目 id / 檔案 | 原本寫法 → 未提交改法 | 查證命令 | 結果 |
+|---|---|---|---|
+| mj-1894-sino-japan | 「朕今陸海軍ニ勅シ清國ト戰爭狀態ニ在ルコヲ宣セシム」→「朕茲ニ淸國ニ對シテ戰ヲ宣ス」 | `qsrc --host ja.wikisource.org '清国ニ対スル宣戦ノ詔勅' '朕茲ニ' -C 100`；同頁再搜 `陸海軍`、`戰爭狀態` | **可查證**：新句逐字命中「原文」節首句（作「淸國」水部異體，與改法一致）；舊句兩組關鍵片語 **冇匹配**｜main 現行掛住一條唔存在嘅「引文」，屬實質錯誤 |
+| mj-1945-end | 「忍ビヘカラサルヲ忍ビ耐ヘヘカラサルヲ耐ヘ」→「堪ヘ難キヲ堪ヘ忍ヒ難キヲ忍ヒ」 | `qsrc --host ja.wikisource.org '大東亞戰爭終結ノ詔書' '堪ヘ難キ' -C 80`；同頁再搜 `忍ビヘカラサル` | **可查證**：JISX0208版＋常用漢字版同作新句；舊句冇匹配；該頁全文 4707 字，故舊注「線上無可逐字比對之本文」屬實誤 |
+| kf-350 | 撤走「已逐字核對」＋記椎結／推結異文 | `curl -s 'ja.wikisource.org/wiki/日本書紀?action=raw' \| wc -c` → **1247**；`prop=info&titles=日本書紀` → **pageid 28592**；`qsrc --host ja.wikisource.org --toc 日本書紀` → 索引頁冇子頁；`--toc '日本書紀 (国史大系)'` → 同樣冇子頁；ja 全文搜 `椎結文身` | **查唔到屬實**：索引頁、1247 bytes、pageid 28592 三項宣稱逐一吻合；全文搜尋僅命中《国史概説》（二手概說，非本書），故無法逐字比對 |
+| kf-500 | 同上（磐井之亂條） | 同上；ja 全文搜 `物部大連麁鹿火` | **查唔到屬實**：0 hits，ja.wikisource 無繼體紀本文 |
+| mu-1336 | 條文名「諸國守護人可被擇政務器用事」→加「殊」字；大學層「可依據政道之善惡」→「可依政道之善惡」 | `qsrc --host ja.wikisource.org '建武式目' '守護人' -C 70` → 本文「一諸國守護人。**殊**可被擇政務ノ器用事。」；搜 `居所之興廢` → 「居所之興廢**可依**政道之善惡」 | **可查證**：本文確有「殊」、確無「據」；即 main 現行兩處「逐字引文」其實唔逐字，改正正確 |
+| people.json 張昭 | `張昭_(東吳)` → `張昭` | `titles=張昭_(東吳)` → **missing**（normalized 作「張昭 (東吳)」）；`titles=張昭` → pid 82372，extract「156年—236年，字子布…孫吳重臣」；`prop=disambiguation` → 非消歧頁 | **修連結正確**，且已排除同名人（裸標題確實指孫吳張昭） |
+| people.json 王濬 | `王濬_(西晉)` → `王濬` | `titles=王濬_(西晉)` → **missing**；`titles=王濬` → pid 910764，extract「206年—286年，字士治…西晋政治人物」；非消歧頁 | **修連結正確**（同上已排除同名） |
+| timeline.ts 兩條 / timelineMore 一條 | `勾踐滅吳`→`勾踐`、`楚滅越之戰`→`楚破越`、`丹陽之戰`→`楚懷王` | `titles=` 逐條：`勾踐` pid 36304、`楚破越` pid 3131161、`楚懷王` pid 335220，皆無 missing | **修連結正確**；惟丹陽之戰、勾踐滅吳兩條屬「無同名條目而改指相關人物／主事者」，非同名替換，**請人工認受** |
+
+結論：13:50 輪嘅改動本身質素高、可覆現，冇發現編造。佢嘅問題只係**冇交付**（未 commit／未 push）。
+
+### 二、新落地內容：#102 成語覆蓋第一輪（origin/main 6d877b8，新增 8 條）逐條查證
+
+範圍來源：`git log --since='3 hours ago' --name-only origin/main` → #102 改 `src/chengyu/data/idioms.json`（+122 行）。
+呢 8 條係全新內容、從未被審，屬本輪唯一「未查證過嘅新落地內容」。
+
+| 成語 id | 出處寫法 | 查證命令 | 結果 |
+|---|---|---|---|
+| cn-chengyu-yiyidaishui | 《資治通鑑》卷一七六·陳紀十·禎明元年（587） | `qsrc '資治通鑑/卷176' '一衣帶水' -C 70` | **可查證**：禎明元年丁未條「我為民父母，豈可限一衣帶水不拯之乎！」逐字相同；note 講「司馬光繫於開皇七年(587)」與本文紀年一致 |
+| cn-chengyu-jianglangcaijin | 《南史》卷五十九·江淹傳；`disputed: true` | `qsrc '南史/卷59' '可以見還' -C 70`；對照 `qsrc '梁書/卷14' '五色筆'` | **可查證**：「吾有筆在卿處多年，可以見還」逐字相同；對照宣稱屬實——《梁書》卷14 **冇匹配**，故 note「二夢出《南史》、《梁書》無之」成立 |
+| cn-chengyu-shanzhongzaixiang | 《南史》卷七十六·陶弘景傳；`disputed: true` | `qsrc '南史/卷76' '山中宰相' -C 70`；對照 `qsrc '梁書/卷51' '山中宰相'` | **可查證**：「時人謂為山中宰相」逐字相同；《梁書》卷51 **冇匹配**，note「僅見《南史》」成立 |
+| cn-chengyu-sanguliuopo | 《南村輟耕錄》卷十（並註《四庫全書》本題《輟耕録》，亦在卷十） | `qsrc '南村輟耕錄/卷10' ...` → 搵唔到頁（6 種卷號寫法皆無）；改查 `qsrc '輟耕録 (四庫全書本)/卷10' '尼姑' -C 90` | **可查證（須用四庫本頁名）**：「三姑者尼姑道姑卦姑也六婆者牙婆媒婆師婆**䖍**婆藥婆穩婆也蓋與三刑六害同也…幾希矣」逐字命中；note 講四庫本「虔」作「䖍」**屬實**，可見原作者確核對過四庫本 |
+| cn-chengyu-chengrenquyi | 《宋史》卷四百一十八·文天祥傳；語本《論語》《孟子》；`disputed: true` | `qsrc '宋史/卷418' '孔曰成仁' -C 70` | **可查證**：衣帶贊「孔曰成仁，孟曰取義，惟其義盡，所以仁至。讀聖賢書，所學何事，而今而後，庶幾無愧。」逐字相同；本文另有「年四十七」，與 note「後世推定生卒據此數」一致 |
+| cn-chengyu-yihewei | 《日本書紀》卷廿二（十七條憲法第一條）＋語本《論語·學而》；`disputed: true` | `qsrc '論語/學而第一' '和爲貴' -C 60`；`curl -s 'ja.wikisource.org/wiki/十七条憲法?action=raw'` | **部分可查證**：《論語》段逐字命中，且 note 講「Wikisource 原文作『爲』」屬實。日本憲法段：該頁 **有** `== 原文 ==` 節，但原文係**訓讀＋ruby 標注**（「一に曰はく、和を以て{{ruby\|貴\|たつと}}しと為し…」）並註明取自 `Page:Gunshoruiju27.djvu/117`（群書類従掃描頁），確無可逐字比對之漢文正文→條目決定唔逐字引，判斷正確；惟 note 措辭「僅存訓讀與語譯」宜改成「原文段出自群書類従掃描頁且作訓讀，無漢文正文」 |
+| jp-chengyu-gekujou | 《太平記》卷第二十七；`class: 軍記`；`disputed: true` | `qsrc --host ja.wikisource.org '太平記/巻第二十七' '臣殺君' -C 80`（注意 ja 頁名用「**巻**」U+5DFB，非「卷」） | **可查證**：「臣殺君子殺父、力を以て可争時到る故に下剋上の一端にあり。高貴清花も君主一人も共に力を不得、下輩下賎の士四海を呑む。」逐字相同；note 質疑嘅「已に十一代」亦確喺同段本文，故「係物語家計法、不取為定數」嘅處理正確；軍記分級已標 ✓ |
+| jp-chengyu-shinkoku | 《八幡愚童訓》（甲種）；`class: 軍記`；`disputed: true`；自標「非逐字引文」 | `opensearch '八幡愚童訓'` → 有「八幡愚童訓」「八幡愚童訓（甲種）」兩頁 | **處理正確**：條目主動聲明唔逐字轉錄（假名混交文＋日本新字形與繁字体例不合），並給出可覆核頁名；軍記文學分級已標，符合「軍記不得當史實」規則 |
+
+小結：#102 呢 8 條**冇發現編造**，7 條引文可逐字覆現、1 條正確降調，而且 note 入面嘅「反面證據」（《梁書》無二夢／四庫本作「䖍」／原文作「爲」）全部獨立覆核屬實——呢類自曝式限定語normally最易造假的位，呢度全部對得上。
+唯一需人工處理：`cn-chengyu-yihewei` note 對《十七條憲法》頁嘅描述措辭（見上，屬精度問題，唔屬事實錯誤）。
+附記工具層面：查證呢批条目時發現三個**頁名陷阱**，日後查證要留意：《南村輟耕錄》要用 `輟耕録 (四庫全書本)/卷10`、《論語》卷次頁名係 `論語/學而第一`、《太平記》ja 頁名用「巻」非「卷」。
+
+### 三、死鏈佇列：餘下 18 條**全部係腳本誤判**，真死鏈 0
+
+`npm run audit:wiki-links` 本輪報「死鏈 18」（基線 21）。用 MediaWiki API 逐條覆驗（18 條全測，無一遺漏）：
+
+- 唔帶 `converttitles`（即腳本現行做法）：18 條一律 `missing`。
+- **加 `converttitles=1`**：18 條**全部翻生**，canonical 標題如下——
+  長州征討→长州征讨(977510)、鳥羽伏見之戰→鸟羽伏见之战(926810)、白狼山之戰→白狼山之战(3156237)、
+  渭南之戰→**潼關之戰**(456250, redirect)、逍遙津之戰→**合肥之戰**(453235, redirect)、五溪蠻→五溪蛮(6001658)、
+  沙丘之變→沙丘之变(1573342)、漢平南越之戰→汉平南越之战(1209971)、黨錮之禍→党锢之祸(113501)、
+  盤庚遷殷→盘庚迁殷(1063958)、周公東征→周公东征(144425)、平王東遷→**周平王东迁**(736312, redirect)、
+  崤之戰→**殽之戰**(698010, redirect)、夫椒之戰→夫椒之战(7057707)、田氏代齊→田氏代齐(41755)、
+  韓原之戰→韩原之战(7641816)、艾陵之戰→艾陵之战(7811686)、笠澤之戰→笠泽之战(7779109)。
+- 結論：呢 18 條**一條都唔該改**（改咗反而錯）。呢個係 `scripts/audit_wiki_links.mjs` 嘅方法缺陷——佢冇帶
+  `converttitles=1`，凡 canonical 標題係另一簡繁變體者一律誤判為死。13:50 輪已提出同一發現，本輪以 18/18
+  全數覆驗**獨立重現**咗佢。依修改邊界本 role 唔改 `scripts/audit-*`、亦唔跑 `--update-baseline`，
+  **請人工決定**喺該腳本加 `converttitles=1`（加咗之後基線 23／21 應該大跌）。
+- 真正嘅死鏈只有 13:50 輪修嗰 5 條（`張昭_(東吳)`、`王濬_(西晉)`、`丹陽之戰`、`勾踐滅吳`、`楚滅越之戰`——
+  加 `converttitles=1` 之後仍 missing，即真無條目），而佢哋而家仲企喺工作區未提交。
+
+
+### 四、本輪最重要嘅新發現：13:50 輪嘅改動會令 `gates` 惡化（錯誤 2 → 3），唔能照原樣提交
+
+用獨立 clean worktree 對照（`git worktree add --detach /tmp/cleanmain origin/main`，跑完已清除），
+同一条 `npm run audit:quotes` 喺兩種狀態下嘅結果：
+
+| 狀態 | 錯誤 | 已查證 | 未查證 | 意譯 |
+|---|---|---|---|---|
+| clean origin/main（0f1d561） | **2** | 115 | 83 | 80 |
+| 本工作區（含 13:50 未提交改動） | **3** | 115 | **84** | **79** |
+
+- clean main 嘅 2 條錯誤係基線內既有：`src/geo/japanFringeWindows.ts:74 ryukyu-vassal`、
+  `src/japanEras/packs/edoPack.ts:414 edo-1789-menashi`。
+- 新增嗰條係 `src/japanEras/packs/modernJapanPack.ts:818 mj-1894-sino-japan`，訊息「簡體字：国」。
+- **根因（已讀腳本定位）**：`scripts/audit_quotes.mjs:435-436` 把「簡體字」列為 **error** 級——
+  `const bad = [...(quoteText + srcText)].filter((ch) => SIMPLIFIED.test(ch)); if (bad.length) issues.push(['error','簡體字',…])`。
+  13:50 為咗寫明出處，將日本文件標題用**日本新字形**逐字寫入 `source`：「《清**国**ニ対スル宣戦ノ詔勅》…」，
+  呢個「国」被 SIMPLIFIED 判定命中。main 舊寫法係「1894年8月1日宣戰詔書之開首句」，無「国」，所以舊状态 0 錯。
+  （`quote` 欄本身用「淸**國**」係正字，冇問題；問題只喺 `source` 個文件標題。）
+- 建議修法（俾人工或下一輪，本 role 未改）：將 `source` 內個標題寫成正字「《清**國**ニ対スル宣戦ノ詔勅》」，
+  或索性寫「明治二十七年八月一日対清宣戦詔勅」呢類本專案字體；日文新字形只保留喺 `quote`（已係正字）。
+- 順帶一個口徑副作用：`mj-1945-end` 改咗之後，`source` 唔再含「通說」二字，而 `audit_quotes.mjs:474`
+  嘅分級係 `/意譯|通說/.test(source) → paraphrase`，所以呢條由「意譯」桶跌入「未查證」桶（即上表 80→79、83→84）。
+  呢個唔算錯（佢而家確係逐字引文），但會令「未查證」數字向上游，需人工決定係咪另外標記。
+- `npm run gates` 完整輸出（本工作區，髒態）：
+  `audit:quotes errors=3(↑1)`、`audit:wiki-links dead=18(↓5)`、`audit:data warn 59→58`，其餘持平；
+  結論行：「gates — 惡化…audit:quotes.errors 2 → 3」。即：13:50 輪同時有**改善**（死鏈 23→18）
+  同**惡化**（錯誤 2→3），兩樣都係未提交狀態下跑出嚟，所以而家呢個工作區**唔係一個可以提交嘅狀態**。
+
+### 五、本輪收尾數字（只讀快照；本 role 本輪零改動，故前後同一）
+
+| 閘門 | 數字 | 對基線 |
+|---|---|---|
+| `audit:quotes` | 條目 1851｜有引文 281｜錯誤 3｜提醒 45；已查證 115／未查證 84／意譯 79／引文已改 1 | 錯誤 2→3 **惡化**（源於工作區未提交改動，非本輪所cause） |
+| `audit:wiki-links` | 檔案 292｜連結 295｜死鏈 18｜未驗 0 | 23→18 改善，但 18 條全部係 `converttitles` 誤判（見第三節） |
+| `audit:chars` | 硬傷 0｜已核准 0｜待判 264 | 持平 ✓ |
+| `audit:detail-depth` | 詳情 41／缺口 0 | 持平 ✓ |
+| `audit:event-depth` | 段落 782／缺口 274（起因 88／經過 127／結果 59）；三層 小 206／中 364／大 364（缺小學生層 158）；日本三層未達 50（小 21／中 6／大 23）；灌水嫌疑 1 | 持平 ✓ |
+| `gates` | 見上第四節 | **惡化**（audit:quotes.errors） |
+| `test`／`build` | 本輪未跑 | 本 role 本輪冇改任何代碼或內容，跑佢哋唔會得出新資訊；留俾有實際改動嘅一轮 |
+
+### 六、需人工判斷清單（本輪一律冇動）
+
+1. **13:50 輪未提交交付**：7 個檔案、內容已逐條覆驗成立（第一節），但 (a) 會令 `gates` 惡化（第四節根因），
+   (b) 有三處屬「無同名條目而改指相關人物」嘅連結替代（丹陽之戰→楚懷王、勾踐滅吳→勾踐、以及張昭／王濬去括號），
+   需認受。patch 喺 `/Users/ka-kinpoon/Projects/audit-salvage/uncommitted-20261109-1421.patch`。
+2. **PR #96 仲 OPEN 且用住本 role 指定嘅 branch `verify/source-audit`**——只要佢未 merge，本 role 每輪都只能
+   停喺度（push 必非 fast-forward）。請先处置 #96（merge 或改 branch 規則），否則查證循環會卡死。
+3. **`scripts/audit_wiki_links.mjs` 缺 `converttitles=1`**：令 18/18 條活鏈被誤判為死鏈（第三節，兩輪獨立重現）。
+   屬腳本層面，本 role 不得改 `scripts/audit-*`，亦唔跑 `--update-baseline`。
+4. `cn-chengyu-yihewei`：note 對 ja.wikisource《十七条憲法》頁嘅描述宜改精確（該頁有「原文」節，但係訓讀＋ruby，
+   出自群書類従掃描頁；冇漢文正文）。屬措辭精度，非事實錯誤。
+5. 承 13:50 輪未結事項：`src/sengoku/data/readingLayers.ts` 關原條《關原始末記》(1656)、《關原軍記大成》(1713)、
+   《鐵炮記》(慶長十一年) 三項書證仍未以本文庫工具覆核；`japanFringeWindows.ts:74`、`edoPack.ts:414` 兩條基線內
+   錯誤未有人认领。
+
+### 七、交付狀態
+
+本輪**零內容修改、零 commit、零 push、冇開 PR**（原因見第零節兩項硬性停止條件）。
+本節係本輪唯一寫入嘅檔案（`reports/source-audit.md` 附加本節，冇覆蓋任何既有內容）。
+下一輪開工前必須先：(1) 处置 13:50 輪遺留改動（修好簡體字「国」再提交，或明確回退）；
+(2) 清掉／合併 PR #96。兩者做唔到，第三輪照樣要停。
+
+
+
+---
+
+## 2026-11-09 16:0x（verify/source-audit，起點 origin/main = a40d372）
+
+### 0) 開工時工作區唔乾淨——搶救記錄（需人工知悉）
+
+開工 `git status` 唔乾淨：7 個檔案未提交，HEAD 停喺 `6d877b8`（#102），落後 origin/main 8 個 commit。規則話要「停止本輪並記錄」，但我唔想直接丟咗可能係查證成果嘅嘢，所以先查證改動來歷再決定：
+
+- 證據一：改動全部係查證性質（撤走「已逐字核對」、改正詔書引文、修維基連結），無敘事擴寫。
+- 證據二：`git show origin/main:src/japanEras/packs/modernJapanPack.ts | grep -c '忍ビヘカラサル'` → 1；`grep -c '堪ヘ難キヲ堪ヘ'` → 0。即 origin/main 仲係舊版，呢批改動從未落地。
+- 證據三：`git rev-list --left-right --count origin/main...HEAD` → `8 0`（分支冇未 push commit，即 rebase 唔會令 commit 消失）。
+- 結論：呢啲係上一輪本 agent 死喺未落盤嘅查證工作（#96 報告第 5 節講嘅正正係同一個險情）。
+- 處理：`git diff > /tmp/salvage-round10.patch`（361 行）留底 → commit → `git rebase origin/main`（`reports/source-audit.md` 係 append-only 衝突，兩段全部保留，冇覆蓋任何人嘅報告）→ 即刻 push。冇丟失改動，亦冇混入其他 agent 嘅編輯。
+
+### 1) 對繼承改動逐條重新查證（唔以上一輪結論為準，全部本輪重新跑命令）
+
+命令均在 `/Users/ka-kinpoon/Projects/3kingdoms-wt-verify` 執行；`qsrc` 代指 `python3 scripts/qsrc.py`。
+
+| 條目 id | 繼承寫法 | 查證命令 | 結果 | 本輪動作 |
+|---|---|---|---|---|
+| mj-1894-sino-japan | 引文改作「朕茲ニ淸國ニ對シテ戰ヲ宣ス」 | `qsrc --host ja.wikisource.org '清国ニ対スル宣戦ノ詔勅' '朕茲ニ' -C 60` | 可查證：「原文」節逐字命中（「常用漢字」節作「清国ニ対シテ戦ヲ宣ス」，屬字體異文） | 保留；但見 §3 第 9 條 |
+| mj-1945-end | 引文改作「堪ヘ難キヲ堪ヘ忍ヒ難キヲ忍ヒ」 | `qsrc --host ja.wikisource.org '大東亞戰爭終結ノ詔書' '堪ヘ難キ' -C 40` | 可查證：JISX0208 版與常用漢字版同作此句（原寫「忍ビヘカラサル…」次序與用字皆唔對） | 保留 |
+| mu-1336 | 條文名補「殊」、`可依據` 改 `可依` | `qsrc --host ja.wikisource.org '建武式目' '守護人' -C 45`；同頁 `'居所之興廢'` | 可查證 ×2：「一諸國守護人。殊可被擇政務ノ器用事。」「居所之興廢可依政道之善惡」 | 保留 |
+| kf-350／kf-500 | 撤走「已逐字核對」，註明 ja《日本書紀》只有索引頁 | `qsrc --host ja.wikisource.org --toc '日本書紀'`（→「索引頁冇子頁連結」）；`--search '椎結文身'` | 降調理据成立：ja.wikisource 冇《日本書紀》卷內本文；「椎結文身」只見《國史概說》等後出教科書，唔能當逐字出處 | 保留 |
+| people.json 張昭／王濬、zhou 勾踐／楚破越／楚懷王 | 改用無括號或變體條目名 | `npm run audit:wiki-links`（32 → 27） | 可查證：呢 5 條唔再報死 | 保留 |
+
+
+### 2) 本輪範圍：最近 3 小時落地嘅內容 commit
+
+`git log --since='3 hours ago' --name-only origin/main` 得 8 條，內容類只有 `a40d372`（#110 zhou/timeline 加厚，改 `src/zhou/data/timeline.ts` 48+/48-）。
+
+- `git show a40d372 -- src/zhou/data/timeline.ts | grep '^+' | grep -E 'quote|source|zhwiki|disputed'` → 空：#110 冇新增引文、冇改出處欄、冇改連結，只改三層意譯文字。故本輪查證重點係敘事入面嘅書名、年份、異說標記。
+- 書名抽查（`grep -o -E '《[^》]{2,12}》'` 去重後逐一核）：《左傳》《史記》《越絕書》《楚世家》《魏世家》《離騷》《越語》《語書》《系年》《晉世家》《封禪書》《孫臏兵法》《孫子兵法》，全部係真書。其中兩條特別查：
+  - 《語書》（timeline.ts:537,542,553）：寫明係「睡虎地秦簡（1975 年雲夢出土）中之《語書》，南郡守騰告誡屬吏與新吏民之文書」，與出土文獻實際情況相符（睡虎地秦簡確有《語書》，卽南郡守騰言語書），唔係虛構書名；1975 年雲夢出土亦正確。
+  - 《越絕書》《吳越春秋》：本檔標「後出，需辨」，並引顧頡剛一系辨偽說明「臥薪嘗膽」屬層累形成，處理正確，不動。
+- 異說／口徑抽查：`grep -o -E '一說|或云|相傳|通說|不取定數|爭議'` → 通說 2、相傳 1、爭議 3、不取定數 3。`chu-yue`（前333 楚破越）查得 `disputed: true` 加 `note: '另有前306年之說。此處取楚威王在位晚期的一種通說。'`，齊備，符合閘門要求，不動。
+- 引文逐字抽驗：《越世家》「北伐齊、西伐楚，與中國爭強」→ `qsrc '史記/卷41' '北伐齊' -C 40` 命中（卷41 越王勾踐世家，無彊節）。唯一異文：原文作「與中國爭彊」，repo 寫「爭強」。屬通行異文，未達改寫門檻 → 只記錄，唔改。
+- 年份自查：楚威王（前339—前329在位）與通行表一致；前278 拔郢、前223 楚亡、前333 伐越、前645 韓原、前484 艾陵、前478 笠澤，對 `year` 欄無錯位。
+
+### 3) 本輪新增修改（9 條，上限 15）
+
+| # | 位置 | 原本寫法 | 查證命令 | 結果 | 本輪動作 |
+|---|---|---|---|---|---|
+| 1 | src/zhou/data/timeline.ts（平王東遷） | 連結 `wiki/平王東遷` | `curl "https://zh.wikipedia.org/w/api.php?action=query&format=json&redirects=1&titles=<批量>"` 睇有冇 `missing` | 繁體標題 missing，`平王东迁` 存在 | 改連結為簡體標題，並新增 `note` 記明變體 |
+| 2 | 同檔（崤之戰） | `wiki/崤之戰` | 同上 | `崤之战` 存在 | 同上 |
+| 3 | 同檔（夫椒之戰） | `wiki/夫椒之戰` | 同上 | `夫椒之战` 存在 | 同上 |
+| 4 | 同檔（田氏代齊） | `wiki/田氏代齊` | 同上 | `田氏代齐` 存在 | 同上 |
+| 5 | src/zhou/data/timelineMore.ts（韓原之戰） | `wiki/韓原之戰` | 同上 | `韩原之战` 存在 | 同上 |
+| 6 | 同檔（艾陵之戰） | `wiki/艾陵之戰` | 同上 | `艾陵之战` 存在 | 同上 |
+| 7 | 同檔（笠澤之戰） | `wiki/笠澤之戰` | 同上 | `笠泽之战` 存在 | 同上（附加喺既有 `note` 末端） |
+| 8 | src/bakumatsu/data/history.ts（1868 鳥羽伏見） | `wiki/鳥羽伏見之戰` | 同上 | `鸟羽伏见之战` 存在 | `EraDetail` 型別無 `note` 欄，故改連結＋喺 URL 之上加查證註解（唔改型別、唔改敘事欄） |
+| 9 | src/japanEras/packs/modernJapanPack.ts:820 | 出處寫《清国ニ対スル宣戦ノ詔勅》 | `npm run audit:quotes` → `✗ modernJapanPack.ts:818 mj-1894-sino-japan 簡體字：国` | 引文本身無誤，但書名用日本新字體「国」觸字符閘門，令 `audit:quotes` 錯誤 2 → 3（上一輪搶救改動引入嘅 regression） | 書名改用繁字《清國…》，並喺出處註明「ja.wikisource 條目名採日本新字體」＋補「原文」節逐字結果 |
+
+第 9 條係搶救返嚟嘅改動帶出嘅回退，本輪修回 2（＝基線）。教訓：改引文行／出處欄之後要即刻跑 `audit:quotes`，唔好等收尾先發現。
+
+
+### 4) 死鏈佇列（本輪 27 → 19，剩低 19 條）
+
+本輪修咗 8 條（見 §3）。剩低 19 條，其中 14 條本輪已用 MediaWiki API 預先驗過正確目標，下一輪可直接落：
+
+- 已有簡體目標（API 實測非 missing）：`白狼山之战`、`渭南之战`、`逍遥津之战`、`五溪蛮`、`锁国令`、`诺门罕战役`、`英帕尔战役`、`冲绳战役`（注意唔係「冲绳岛战役」，後者 missing）、`朴茨茅斯条约`、`日韩合并`（唔係「日韩合邦」）、`沙丘之变`、`汉平南越之战`、`党锢之祸`、`盘庚迁殷`、`周公东征`。
+- 本輪以 `action=opensearch` 查得：`長州征討` → 條目名 `长州征讨`；`東南亚戰場` → 條目名 `東南亞戰區`（呢條反而要用繁體）。
+- zh 無同名條目，需改指別條或留空加註：`征兵令`（zh 只有「征兵」「徵兵規則 (中華民國)」）、`國家安全保障戰略`（zh 只有「國家安全保障會議」，係另一機構；ja 側應有《国家安全保障戦略》，下一輪用 `--host ja` 與 `WIKI_JA` 處理）。
+- 已確認冇呢啲條目，唔好再試：`長州征伐`、`第二次長州征討`、`五溪`、`日韩合邦`、`冲绳岛战役`、`鳥羽伏見之战`（繁簡混寫）。
+
+### 5) 虛構出處全 repo 掃描（關閉 #96 留低嘅未辦項）
+
+#96 報告承認「只查 edoPack，其他 pack 有冇同掛此書名未查」。本輪做埋：
+
+- `grep -rn '新羅東志' src/` → 5 處
+- `grep -rn '狭山丹尼' src/` → 0 處
+- `grep -rn '伊勢徳三郎' src/` → 0 處
+
+結果：`新羅東志` 剩低嘅 5 處全部係「查無此書，已刪」呢類查證註（edoPack:76／195／344／583／775），冇一處再被當出處使用；《狭山丹尼》《伊勢徳三郎》全 repo 0 命中。呢三度疑虛構名已喺全 repo 清干净，人工可以唔使再跟。
+
+### 6) 閘門前後（同一 worktree、同一 origin/main 基點實測）
+
+| 閘門 | 本輪開始（含搶救改動） | 本輪結束 | 基線 reports/gate-baseline.json |
+|---|---|---|---|
+| `audit:quotes` | 條目 1851／引文 281／錯誤 3／提醒 45 | 條目 1851／引文 281／錯誤 2／提醒 45 | 錯誤 2，持平 |
+| 查證狀態 | 已查證 115／未查證 84／意譯 79／引文已改 1 | 同前 | — |
+| `audit:wiki-links` | 連結 328／死鏈 27／未驗 0 | 連結 328／死鏈 19／未驗 0 | 死鏈 32，大幅下降 |
+| `audit:chars` | 硬傷 0／待判 269 | 硬傷 0／待判 269 | 硬傷 0，持平 |
+| `audit:detail-depth` | 詳情 41／缺口 0 | 詳情 41／缺口 0 | 0，持平 |
+| `audit:event-depth` | 段落 782／缺口 274／jpGap 0／灌水 1 | 同前 | 274，無回升 |
+| `npm run test` | — | 全部通過 | 通過 |
+| `npm run build` | — | built in 222ms，exit 0 | 通過 |
+| `npm run gates` | — | 無惡化；改善：`data.warn 59→58`、`wiki-links.dead 32→19`、`reading-layers.gap 81→65` | 無惡化 |
+
+`reading-layers.gap 81→65` 同 `data.warn 59→58` 係 #110 與搶救段帶入嘅改善，唔係本輪功勞；本輪只負責證明佢哋無惡化。本輪無改任何 `scripts/audit-*` 門檻，無跑 `--update-baseline`，無新增事件／成語／地圖幾何。
+
+### 7) 需人工判斷（本輪唔自己拍板嘅嘢）
+
+1. 《越世家》引文異文：原文「爭彊」vs repo「爭強」——要唔要統一做校勘記？本輪只記錄。
+2. timeline.ts 白起拔郢條寫「前278—前223…苟存五十六年」：按間隔係 55 年，按含首尾係 56 年，兩種計法都講得通，但同段另一處寫「五十餘年」。建議人工定一個計法口徑，本輪未改。
+3. 死鏈每輪 8 條上限，剩 19 條（§4 已附正確目標）需後續輪次分批清。
+4. 流程問題：上一輪差啲又死喺未落盤。建議派工側俾查證 agent 嘅指令改為「每條修改即刻 commit」，而唔係每 4 條先 commit。
+

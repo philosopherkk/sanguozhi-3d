@@ -282,7 +282,37 @@ const theatreOf = (relPath) =>
 
 const layerStats = {}
 const layerByTheatre = { 日本: {}, 中國: {} }
+/**
+ * 抽一處 `layers: layers('小','中','大')` 呼叫嘅三個位置參數字面值。
+ * 盲點修正（2026-11-09，加厚輪 enrich-human-decisions A 案）：
+ * bakumatsu／heian 用本地 helper 傳參，只掃 `elementary:` key 會完全睇唔到
+ * 該 20 條（ jpGap 一度假綠）。呢度只加偵測，唔改門檻。
+ */
+function layersHelperCall(literalReader) {
+  return (text) => {
+    const out = []
+    for (const m of text.matchAll(/\blayers\s*:\s*layers\s*\(/g)) {
+      let pos = m.index + m[0].length
+      for (let arg = 0; arg < 3; arg++) {
+        // 跳過空白同逗號
+        while (pos < text.length && /[\s,]/.test(text[pos])) pos++
+        const lit = literalReader(text, pos)
+        if (!lit) break
+        out.push(lit.value.replace(/\s+/g, '').length)
+        pos = lit.end + 1
+      }
+    }
+    return out
+  }
+}
+const helperLens = new Map() // file → [n,n,n,...]（每檔）
+for (const file of walk(join(ROOT, ONLY), [])) {
+  const text = readFileSync(file, 'utf8')
+  if (!/\blayers\s*:\s*layers\s*\(/.test(text)) continue
+  helperLens.set(file, layersHelperCall(readLiteral)(text))
+}
 for (const [key, cfg] of Object.entries(LAYERS)) {
+  const idx = { elementary: 0, secondary: 1, university: 2 }[key]
   const lens = []
   const byTheatre = { 日本: [], 中國: [] }
   for (const file of walk(join(ROOT, ONLY), [])) {
@@ -294,6 +324,14 @@ for (const [key, cfg] of Object.entries(LAYERS)) {
       const n = lit.value.replace(/\s+/g, '').length
       lens.push(n)
       if (byTheatre[th]) byTheatre[th].push(n)
+    }
+    // helper 形式：每 3 個長度一組，按位置歸屬 elementary/secondary/university
+    const hl = helperLens.get(file)
+    if (hl) {
+      for (let g = idx; g < hl.length; g += 3) {
+        lens.push(hl[g])
+        if (byTheatre[th]) byTheatre[th].push(hl[g])
+      }
     }
   }
   for (const [th, arr] of Object.entries(byTheatre)) {
