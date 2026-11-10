@@ -18,7 +18,8 @@
  */
 
 import { readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { homedir } from 'node:os'
+import { join, resolve } from 'node:path'
 
 const API = 'https://api.exa.ai'
 
@@ -39,6 +40,16 @@ function loadKey() {
     }
   } catch {
     /* .env 不存在 */
+  }
+  // 2026-11-11 第三層：使用者層金鑰檔。實測教訓：排程 agent 全部喺自己嘅
+  // git worktree 工作，而 .env 係 gitignore 嘅本檔——worktree 永遠冇，
+  // 所以「many occasions that the exa search cannot be done」。
+  // ~/.exa_api_key（單一行、chmod 600）係絕對路徑，任何 worktree 都讀到。
+  try {
+    const home = readFileSync(join(homedir(), '.exa_api_key'), 'utf8').trim()
+    if (home) return { key: home, from: '~/.exa_api_key' }
+  } catch {
+    /* 未配置 */
   }
   return null
 }
@@ -85,9 +96,9 @@ async function main() {
   if (!found) {
     console.error(
       '找不到 EXA_API_KEY。\n' +
-        '做法：在 repo 根建立 .env（已被 .gitignore 排除），內容一行：\n' +
-        '  EXA_API_KEY=你的金鑰\n' +
-        '或暫用：EXA_API_KEY=… npm run exa -- search "…"\n' +
+        '做法（三選一）：(1) 寫入 ~/.exa_api_key（單一行金鑰，chmod 600，任何 worktree 都讀到，排程 agent 請用呢個）；' +
+        '(2) repo 根 .env（已被 .gitignore 排除）：EXA_API_KEY=你的金鑰；' +
+        '(3) 暫用：EXA_API_KEY=… node scripts/exa.mjs search "…"\n' +
         '切勿使用 VITE_ 前綴——那會把金鑰打进公開 bundle。',
     )
     process.exit(2)

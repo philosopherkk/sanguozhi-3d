@@ -120,6 +120,14 @@ asiaWarTerritory 嘅 `newguinea_n`——佢係 gen_asia_war_*.mjs 生成器產�
 現已在 repo 根建立 `.env`（已被 `.gitignore` 第 54 行排除，**絕不可提交**），
 腳本會自動讀取，實測可正常搜尋。
 
+**2026-11-11 補（使用者實測「many occasions that the exa search cannot be done」）**：
+`.env` 只存在於主 checkout；排程 agent 全部喺自己嘅 git worktree
+（`~/Projects/3kingdoms-wt-*`）工作，而 `.env` 係 gitignore 嘅本檔——worktree
+永遠冇，所以喺嗰啲工作區 search 一直失敗。現 `exa.mjs` 改三層查找：
+`process.env` → repo 根 `.env` → **`~/.exa_api_key`**（單一行金鑰、chmod 600）。
+第三層係絕對路徑，任何 worktree 都讀到，已喺無 `.env` 嘅目錄實測可搜尋。
+新 agent 工作區**唔使再做任何配置**。金鑰若更換，改 `~/.exa_api_key` 即可。
+
 用法（在本機跑，腳本在任何情況下都不印出金鑰）：
 
     node scripts/exa.mjs search "文治の勅許 吾妻鏡 守護地頭" --num 5
