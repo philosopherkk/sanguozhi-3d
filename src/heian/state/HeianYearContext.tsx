@@ -17,7 +17,7 @@ import {
 } from '../data/territory'
 import type { HeianFactionId } from '../types'
 
-const YEAR_MIN = 1150
+const YEAR_MIN = 794
 const YEAR_MAX = 1185
 
 interface HeianYearContextValue {

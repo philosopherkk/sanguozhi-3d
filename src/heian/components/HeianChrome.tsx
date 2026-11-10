@@ -47,8 +47,8 @@ export function HeianHeader() {
   return (
     <header className="app-header">
       <div className="app-header__brand">
-        <h1 className="app-header__title">平安末期</h1>
-        <p className="app-header__tag">1150–1185 · 平安時代為794–1185</p>
+        <h1 className="app-header__title">平安</h1>
+        <p className="app-header__tag">794–1185 · 前中期據六國史大事，末期以源平為重</p>
       </div>
       <TopicSwitcher />
       <div className="app-header__year-block">

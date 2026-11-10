@@ -32,7 +32,7 @@ function kindLabel(kind: ChangeKind): string {
   }
 }
 
-function StatTile({ stat }: { stat: InspectStat }) {
+function StatTile({ stat, scopeNote }: { stat: InspectStat; scopeNote?: string }) {
   return (
     <section className="faction-inspect__stat">
       <header>
@@ -44,7 +44,10 @@ function StatTile({ stat }: { stat: InspectStat }) {
       </header>
       <p className="faction-inspect__headline">{stat.headline}</p>
       {stat.detail ? <p className="faction-inspect__detail">{stat.detail}</p> : null}
-      <cite>{stat.source}</cite>
+      <cite>
+        {stat.source || '出處待補'}
+        {scopeNote ? ` · ${scopeNote}` : ''}
+      </cite>
     </section>
   )
 }
@@ -134,8 +137,8 @@ export function FactionInspectCard() {
           <p className="faction-inspect__land">所據 {land}</p>
         </header>
         <div className="faction-inspect__stats">
-          <StatTile stat={view.population} />
-          <StatTile stat={view.military} />
+          <StatTile stat={view.population} scopeNote="非本年清點" />
+          <StatTile stat={view.military} scopeNote="非本年清點" />
         </div>
         <section className="faction-inspect__changes" aria-label="本年變化">
           <h4>本年變化</h4>

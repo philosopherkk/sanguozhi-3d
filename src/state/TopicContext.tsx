@@ -86,7 +86,7 @@ export const JAPAN_ERA_SLOTS: EraSlotMeta<JapanEraSlot>[] = [
   { id: 'kofun', label: '古墳前期', range: '250–537' },
   { id: 'asuka', label: '飛鳥', range: '538–710' },
   { id: 'nara', label: '奈良', range: '710–794' },
-  { id: 'heian', label: '平安末期', range: '1150–1185' },
+  { id: 'heian', label: '平安', range: '794–1185' },
   { id: 'kamakura', label: '鎌倉', range: '1185–1333' },
   { id: 'muromachi', label: '室町前期', range: '1336–1467' },
   { id: 'sengoku', label: '戰國', range: '1467–1573' },

@@ -116,6 +116,20 @@ export function PeoplePanel({ compact = false }: { compact?: boolean }) {
         </select>
       </div>
 
+      {faction !== '全部' || role !== '全部' ? (
+        <button
+          type="button"
+          className="power-board__clear"
+          onClick={() => {
+            setRole('全部')
+            setFaction('全部')
+            clearFaction()
+          }}
+        >
+          清除篩選{faction !== '全部' ? `：${factionName(faction)}` : ''}
+        </button>
+      ) : null}
+
       {filtered.length === 0 ? (
         <div className="empty-hint">
           {q.trim() ? (
@@ -210,7 +224,7 @@ export function PeoplePanel({ compact = false }: { compact?: boolean }) {
                 </a>
                 {p.grokipedia_url ? (
                   <a href={p.grokipedia_url} target="_blank" rel="noreferrer">
-                    Grokipedia（未審）
+                    英文備註（未審）
                   </a>
                 ) : null}
               </div>
