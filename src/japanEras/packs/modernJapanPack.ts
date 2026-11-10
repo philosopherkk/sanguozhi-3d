@@ -630,7 +630,7 @@ Object.assign(DETAILS, {
       { name: '山縣有朋', role: '兵省大輔、後任陸軍卿（徵兵制度的運用者）' },
     ],
     brief: '把武力從身分制度改為國家義務。',
-    zhwikiUrl: WIKI('征兵令'),
+    zhwikiUrl: WIKI('徵兵制'),
   },
   'mj-1874-taiwan': {
     causes: '1871年台灣漂流民事件後，日本以「生番之地無屬清國」為論據主張出兵；清國抗議使交涉長期化。',
@@ -813,7 +813,7 @@ Object.assign(DETAILS, {
       { name: '岸信夫', role: '防衛大臣（前期）' },
     ],
     brief: '防衛構想的結構性調整，影響南西諸島的配置。',
-    zhwikiUrl: WIKI('國家安全保障戰略'),
+    zhwikiUrl: WIKI('防衛白皮書'),
   },
 })
 
