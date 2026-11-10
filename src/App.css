@@ -3321,16 +3321,19 @@ html:not([data-theme='light']) .topic-switch button.is-active {
 .event-detail {
   position: fixed;
   inset: 0;
-  z-index: 40;
+  z-index: 50;
   display: grid;
   place-items: center;
   padding: 1rem;
 }
 
-/* KK pack：卡片開啟時，下方「大事／人物／成語」dock 分頁須保持可點。
-   backdrop 會吞掉全 viewport 點擊，故把分頁列抬到 backdrop 之上；
-   關閉卡片仍可點 backdrop 空白處或「關閉」。
-   桌面分頁位於 .content-dock__tabs；收起／窄螢幕才使用 .side-rail__chips。 */
+/* 2026-11-11 修正（使用者實測）：詳情窗開著時，「大事・人物・成語」分頁條
+   （下面 z-index: 41）會直接壓在事件文字窗之上——桌面橫切視窗中段、手機壓掉
+   敘事文字，即使用者所報「大事 box covers the word box」。
+   舊安排（把分頁條抬到 backdrop 之上以保持可點）與可讀性直接衝突：
+   fixed 元素必然自成 stacking context，視窗內文無法再逃過 41 的壓蓋。
+   現改為詳情窗整層（50）高於分頁條：開窗期間以「關閉」或點背景空白關閉後，
+   分頁條照常可點。z 階現況：內容 ≤9｜backdrop 內 absolute｜分頁條 41｜詳情窗 50。 */
 .app-shell__main .content-dock__tabs,
 .app-shell__main .side-rail__chips {
   position: relative;
