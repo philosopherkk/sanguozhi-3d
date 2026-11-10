@@ -3327,6 +3327,16 @@ html:not([data-theme='light']) .topic-switch button.is-active {
   padding: 1rem;
 }
 
+/* KK pack：卡片開啟時，下方「大事／人物／成語」dock 分頁須保持可點。
+   backdrop 會吞掉全 viewport 點擊，故把分頁列抬到 backdrop 之上；
+   關閉卡片仍可點 backdrop 空白處或「關閉」。
+   桌面分頁位於 .content-dock__tabs；收起／窄螢幕才使用 .side-rail__chips。 */
+.app-shell__main .content-dock__tabs,
+.app-shell__main .side-rail__chips {
+  position: relative;
+  z-index: 41;
+}
+
 .event-detail__backdrop {
   position: absolute;
   inset: 0;
