@@ -15,13 +15,13 @@
   },
   "audit:quotes": {
     "exit": 0,
-    "errors": 2,
+    "errors": 0,
     "warns": 45
   },
   "audit:chengyu": {
     "exit": 0,
     "fail": 0,
-    "warn": 4
+    "warn": 1
   },
   "audit:map": {
     "exit": 0,
@@ -34,14 +34,14 @@
   },
   "audit:wiki-links": {
     "exit": 0,
-    "dead": 2,
+    "dead": 0,
     "unvalidated": 0
   },
   "audit:chengyu-coverage": {
     "exit": 0,
     "missingCentury": 0,
     "shortage": 15,
-    "noEventLink": 45
+    "noEventLink": 52
   },
   "audit:war-shape": {
     "exit": 0,
@@ -58,7 +58,7 @@
   },
   "audit:event-depth": {
     "exit": 0,
-    "gap": 255,
+    "gap": 213,
     "padding": 1,
     "jpGap": 0
   },
