@@ -13,7 +13,7 @@ import {
 import { basemapForYear } from '../data/historicalBasemaps'
 import { MapLayerBar } from './map/MapLayerBar'
 import { MapRouteLegend } from './map/MapRouteLegend'
-import { RouteOverlay } from './map/RouteOverlay'
+import { MARCH_ROUTE_SAME_YEAR, RouteOverlay } from './map/RouteOverlay'
 import {
   BASEMAP_HEIGHT,
   BASEMAP_WIDTH,
@@ -115,8 +115,8 @@ export function Map2D() {
 
   const wrapRef = useRef<HTMLDivElement>(null)
   const { view, viewRef, setView } = useRafView()
-  const [showTerritory, setShowTerritory] = useState(true)
-  const [showRoutes, setShowRoutes] = useState(true)
+  const [showTerritory, setShowTerritory] = useState(false)
+  const [showRoutes, setShowRoutes] = useState(false)
   const [showFrontier, setShowFrontier] = useState(false)
   const dragRef = useRef<{
     active: boolean
@@ -403,6 +403,7 @@ export function Map2D() {
               <RouteOverlay
                 routes={CHINA_MARCH_ROUTES}
                 year={year}
+                visibleYears={MARCH_ROUTE_SAME_YEAR}
                 colorFor={(id) => factionColor(id as FactionId)}
                 markerScale={2}
               />
@@ -462,9 +463,18 @@ export function Map2D() {
             </div>
           }
         />
+        {year < 220 ? (
+          <p className="map-2d__dynasty-hint">
+            國號未立之年用個人號：220 年前「曹魏」即曹操、222 年前「孫吳」即孫權、214 年前「蜀漢」即劉備
+          </p>
+        ) : null}
         {showRoutes ? (
           <div className="map-2d__route-legend">
-            <MapRouteLegend routes={CHINA_MARCH_ROUTES} year={year} />
+            <MapRouteLegend
+              routes={CHINA_MARCH_ROUTES}
+              year={year}
+              visibleYears={MARCH_ROUTE_SAME_YEAR}
+            />
           </div>
         ) : null}
         <div className="map-2d__zoom-ui">

@@ -210,6 +210,17 @@
     min-height: var(--tap-min);
   }
 
+  /* 年份滑桿觸控目標：桌面 1.7rem≈27px 不足 44px，窄屏放大至 --tap-min */
+  .year-scrubber__range,
+  .year-scrubber input[type='range'] {
+    height: var(--tap-min);
+  }
+
+  /* 地圖圖層列按鈕（圖層／勢力／行軍／塞外）：原高約 27px，窄屏補至 44px */
+  .map-layer-bar button {
+    min-height: var(--tap-min);
+  }
+
   /* 圖層列保持置中而非滿版，避免與地標 Dock 連成一條實心橫帶；
      bottom 需加上安全區，否則會被 iPhone 主頁指示條壓住 */
   .map-layer-bar {

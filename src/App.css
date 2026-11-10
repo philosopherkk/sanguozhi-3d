@@ -1628,7 +1628,7 @@ html[data-theme='light'] .app-footer {
 .faction-situation {
   margin: 0.45rem 0 0.55rem;
   padding: 0.45rem 0.5rem 0.55rem;
-  max-height: 16rem;
+  max-height: 20rem;
   overflow: auto;
   background: rgba(8, 12, 10, 0.92);
   border: 1px solid var(--line);
@@ -1696,6 +1696,27 @@ html[data-theme='light'] .app-footer {
   font-style: normal;
   font-size: 0.58rem;
   color: var(--accent-dim);
+}
+
+/* 國號未立年（<220）的地圖提示：PowerBoard 註記只在收合的 Dock 內，
+   冷開場看不到的問題由這一行補位。置於圖層列正上方，不吃地圖手勢。 */
+.map-2d__dynasty-hint {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(3.2rem + env(safe-area-inset-bottom, 0px));
+  z-index: 6;
+  margin: 0;
+  max-width: min(94%, 40rem);
+  padding: 0.2rem 0.6rem;
+  font-size: 0.6rem;
+  line-height: 1.45;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: var(--accent);
+  background: rgba(8, 14, 16, 0.88);
+  border: 1px solid var(--line);
+  pointer-events: none;
 }
 
 .faction-inspect {
