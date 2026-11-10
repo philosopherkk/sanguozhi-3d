@@ -289,3 +289,32 @@ china_edcp_relief），用 `scripts/tighten_land_borders.china_px(lat, lon, w, h
 1. 用 `node scripts/audit_chengyu_coverage.mjs --json` 同 grep `kind.*year` 攞 20 條清單
 2. 每條：喺對應 era pack 補一個事件條目（year 相符、source 依資料分級紀律、三欄深度閘門 200/200/400），再將成語 eraLink 升級 kind=event
 3. 一次做 3–5 條，每批 PR；`audit:event-depth` 缺口唔准回升（新增事件要直達標）
+
+## 平安前期覆核佇列（2026-11-10 覆核報告附錄，coordinator）
+
+覆核結論：`src/heian/data/history.ts` 40 條事件中，源平 9 條（1156–1185）有齊
+HEIAN_DETAILS＋HEIAN_READING；**794–1149 新 25 條全部只有 desc/note，詳情與三層
+為 0**。渲染路徑（EraTimeline detailFor/readingFor）已存在，內容補上即顯示。
+**鍵名必須等於事件 id 原字串**（heianDetailFor 直接索引，無前綴剝除）。
+
+- **批 1（已派 run_00027）**：四條「（深潛）」空承諾＋939 純友
+  （heian-939-masakado-deep／heian-939-sumitomo／heian-1051-zenkunen-deep／
+   heian-1083-gosannen-deep／heian-1086-insei-deep）
+- **批 2**（政治鬥爭核心）：heian-810-kusuko（藥子之變）／842-jowa（承和之變）／
+  866-otemon（應天門之變）／969-anna（安和之變）。書證主軸《日本後紀》《類聚三代格》
+  《日本紀略》；承和之變「恒良良貞親王廃位」係後世追記爭議，要 disputed。
+- **批 3**（制度・外交）：794 遷都／801 征夷大將軍／838 最後遣唐船／894 停遣唐使／
+  927 延喜式。《日本後紀》《六國史》系＋令義解／延喜式本文；894 菅原是善道實錄
+  「唐国 nowadays 衰」口徑標追記爭議。
+- **批 4**（文化・社會）：1008 源氏物語／1016 道長卒／1019 刀伊入寇／1103 紫式部／
+  1129 鳥羽院政。《小右記》《政事要略》『刀伊入寇』條；紫式部卒年諸說紛紜（最後
+  明確行蹤 1011，另有通說約 1014／1025 前後，本倉條目係 1103——選年理據必須喺
+  note 寫明出處，否則改標「相傳年份，無定說」＋disputed）；1113 條（最澄諡號
+  「最覺」延長元年）與 1103 條標題相近，補寫時逐條理清年份依據。
+- **批 5**（收尾）：805 最澄歸國／806 空海歸國／823 平城譲位／1028 忠常之亂／
+  1069 延久莊園整理令。
+- 每條規格同批 1：HEIAN_DETAILS＋HEIAN_READING 雙記錄、三欄 200/200/400、
+  三層 1:1.5:3、keyFigures wiki 連結 curl 200 先寫、軍記／追想必須標註、
+  数字無來源唔寫定數。每批一條一 commit。
+- 已知書證品質（覆核抽査通過，可放心沿用）：927 條已標「925/927/929 三說不取定」；
+  939 條《將門記》已標軍記層；無《日本書紀》紀年越界（書紀只到 697）。
