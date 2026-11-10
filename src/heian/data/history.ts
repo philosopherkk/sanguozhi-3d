@@ -156,7 +156,7 @@ export const HEIAN_EVENTS: EraEvent[] = [
     desc: '延長年間律令施行細則類纂編成，涵蓋神祇、官務、諸國郡司格式；十世紀國家運行的實務基準，律令制轉入文書行政的標誌。',
     factions: ['朝廷'],
     location: '平安京',
-    type: 'culture',
+    type: 'politics',
     source: '《延喜式》本文現存；通說整理，非逐字引文',
     note: '完成年有925年說、929年進奏說併存，927年係從通說，不取定；施行在康保四年（967）以後。',
     disputed: true,
