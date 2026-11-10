@@ -511,7 +511,7 @@ export const YUAN_MING_QING_PACK: ImperialPack = {
 
 第四層是記憶的分歧：三國干涉在日本被記成「臥薪嘗胆」的起點，在清被記成變法的觸媒，在朝鮮與台灣則是被支配的開始；同一場戰爭在三個社會產生三種時間敘事。`,
       outcomeSource: '《馬關條約》文本；《清德宗實錄》；《明治二十七八年日清戰史》；郭廷以《中華民國史事日誌》',
-      location: '漢城、黄海、旅順、威海衛、馬關（下關）',
+      location: '漢城、黃海、旅順、威海衛、馬關（下關）',
       type: 'war',
       crossRefs: [
         { topic: 'japan', era: 'modern', year: 1894, label: '日清戰爭開戰（日方視角）' },

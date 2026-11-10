@@ -27,13 +27,13 @@ export function MapLayerBar({
   extraTabsOn?: boolean
 }) {
   const [open, setOpen] = useState(false)
-  const onCount = [
-    showTerritory,
-    showRoutes,
-    onTogglePlaces ? showPlaces : false,
-    onToggleFrontier ? showFrontier : false,
-    extraTabs ? extraTabsOn : false,
-  ].filter(Boolean).length
+  const onNames = [
+    showTerritory ? '勢力' : null,
+    showRoutes ? '行軍' : null,
+    onTogglePlaces && showPlaces ? '地標' : null,
+    onToggleFrontier && showFrontier ? '塞外' : null,
+    extraTabs && extraTabsOn ? '附加' : null,
+  ].filter(Boolean) as string[]
 
   return (
     <div className="map-layer-bar" role="group" aria-label="地圖圖層">
@@ -44,7 +44,7 @@ export function MapLayerBar({
         onClick={() => setOpen((v) => !v)}
       >
         圖層
-        <span>{open ? '收起' : `${onCount} 開`}</span>
+        <span>{open ? '收起' : onNames.length === 0 ? '圖層已關' : `已開：${onNames.join('、')}`}</span>
       </button>
       {open ? (
         <div className="map-layer-bar__tabs">
