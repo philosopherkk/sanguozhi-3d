@@ -334,7 +334,7 @@ export const EARLY_DYNASTY_MORE_EVENTS: ZhouTimelineEvent[] = [
     keyFigures: [{ name: '武乙', role: '本紀裡射天、震死的商王' }],
     outcome: '晚商的都仍放在殷。這一年不改變王畿，也不把關中畫進商。',
     classicQuote: '為革囊，盛血，仰而射之，命曰射天。',
-    classicSource: '《史記·殷本紀》。震死同見本紀，可靠性與射天相同，都沒有甲骨。本次逐字比對之本作「卬而射之」「河渭之閒」，與引文一字之差，未擅改，留待校勘。',
+    classicSource: '《史記·殷本紀》（維基文庫「史記/卷003」逐字核對：原文作「為革囊，盛血，卬而射之，命曰『射天』」，本條引文之「仰」係通行異文，非原字）。震死同見本紀（「武乙獵於河渭之閒，暴雷，武乙震死」），可靠性與射天相同，都沒有甲骨。',
     paraphrase: false,
     layers: {
       elementary:
