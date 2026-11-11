@@ -396,7 +396,8 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
     // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
     // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E5%93%80%E5%85%AC
     classicQuote: '甲戌，齊國書帥師及吳戰于艾陵，齊師敗績。',
-    classicSource: '《左傳》哀公十一年經文（《春秋》同年）',
+    classicSource:
+      '《春秋》哀公十一年經文（今見《春秋左氏傳·哀公》卷首經文，維基文庫逐字核對作「五月．公會吳伐齊．甲戌．齊國書帥師及吳戰于艾陵．齊師敗績獲齊國書．」，本條引文取其「甲戌」以下）；《左傳》本文另記展如敗高子、國子敗胥門巢及「革車八百乘．甲首三千」等細節，非本引文出處',
     paraphrase: false,
     layers: {
       elementary:
