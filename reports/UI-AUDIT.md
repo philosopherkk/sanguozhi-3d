@@ -67,3 +67,19 @@
 
 即：該數字係 Wikipedia API **限流／網路瞬斷**（回傳「You are making too many requests…」而唔係 JSON），喺**乾淨 main 同樣重現**；本輪 diff 只係 `.css`，唔可能影響維基連結驗證；`dead=0` 喺兩種狀態一致。
 
+**最終複跑（等網絡冷卻後，同一棵樹、同環境）**：
+
+```
+audit:chars          hard=0(=)
+audit:wiki-links     dead=0(=) unvalidated=0(=)
+gates — 無惡化（與基線一致或更好）
+```
+
+即全部指標與基線一致（含 `audit:wiki-links unvalidated=0`）。本分支**冇令閘門惡化**；之前三次跳動（75／50／25）確認係限流所致。
+
+### 交付
+
+- commit `370400c`；`git rev-parse HEAD` 與 `git ls-remote origin refs/heads/feat/ui-audit` **SHA 一致**（`370400ce7ec741085969d5b035ae84ba5936c7d0`）。
+- Draft PR：https://github.com/philosopherkk/sanguozhi-3d/pull/150
+
+
