@@ -11,6 +11,11 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
   --tap-min: 2.75rem; /* 44px，Apple HIG 最小按擊區 */
+
+  /* iOS 橫屏時會自行放大字體，令本檔以 rem 精算的列高與安全區全部失準，
+     故統一由本檔掌握字級。 */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 /* ── 修 1：橫向爆框 ──
@@ -261,5 +266,313 @@
   .year-scrubber {
     -webkit-user-select: none;
     user-select: none;
+  }
+}
+
+/* ============================================================
+   修 9：流動版字級
+   App.css 的字級是以桌面版為基準排的：正文 0.85rem（13.6px）、
+   卡片內文 0.65rem（10.4px）、出處引文 0.55–0.58rem（8.8–9.3px）。
+   在 393×852 的實測螢幕上，後兩者已低於可長時間閱讀的下限，
+   繁體宋體（Noto Serif TC）筆畫多，細字在行動裝置上首先糊掉。
+
+   字級控制（小／大）改的是 html 的 font-size 百分比（見
+   ReadingControls.tsx 的 FONT_STEPS），本節全部用 rem，
+   所以放大之後仍可用 小／大 繼續縮放，兩者是相乘而非互斥。
+
+   只調整字級與行距，不改字型、不改配色（docs/MOBILE_PLAN.md：
+   「不引入新字型」）。
+   ============================================================ */
+
+:root {
+  --fs-prose: 1.125rem; /* 18px 主要內文：詳情窗、文章、人物摘要 */
+  --fs-prose-2: 1rem; /* 16px 次要內文：卡片說明、列點 */
+  --fs-ui: 0.9375rem; /* 15px 分頁、按鈕、可點選文字 */
+  --fs-meta: 0.8125rem; /* 13px 出處、標籤、註記（原 8.8–11.5px） */
+  --lh-prose: 1.85; /* 繁體宋體筆畫密，行距需比拉丁字體更寬 */
+  --lh-prose-2: 1.7;
+  --lh-meta: 1.35; /* 標籤・出處多為單行，行距不影響辨識，收緊以還原地圖高度 */
+}
+
+@media (max-width: 700px) {
+  /* ── 9.1 主要內文 ──
+     這是使用者真正要讀的段落，提到 18px，比 iOS 系統正文（17px）再略大，
+     因為本專案內文以繁體宋體排印，筆畫較密。
+     .event-detail__paraphrase 在 App.css 帶 !important，
+     本檔在其後匯入，故需同樣帶 !important 才能蓋掉。 */
+  .article-panel__body,
+  .event-detail__body p,
+  .person-summary,
+  .person-wiki,
+  .person-detail p,
+  .timeline-item p,
+  .battle-card p,
+  .event-detail__figures li {
+    font-size: var(--fs-prose);
+    line-height: var(--lh-prose);
+  }
+
+  .event-detail__paraphrase {
+    font-size: var(--fs-prose) !important;
+    line-height: var(--lh-prose);
+  }
+
+  /* 逐字原文與長篇意譯要明顯大於一般內文，否則與 18px 基線無法分辨。
+     App.css 對 paraphrase 兩條都帶 !important，故此處不可省略。 */
+  .event-detail__paraphrase--long {
+    font-size: 1.25rem !important;
+    line-height: 1.9;
+  }
+
+  .event-detail__quote blockquote p {
+    font-size: 1.3rem;
+    line-height: 1.9;
+  }
+
+  /* 原本 0.68–0.8rem（10.9–12.8px）的內文級別 */
+  .article-panel__note,
+  .people-card__summary,
+  .panel-sub,
+  .event-detail__body h4 {
+    font-size: var(--fs-prose-2);
+    line-height: var(--lh-prose-2);
+  }
+
+  /* ── 9.2 次要內文 ──
+     勢力、態勢、成語卡的內文原本是全站最小的「成段落」文字，
+     0.65–0.68rem（10.4–10.9px）；段落級內容不該低於 16px。 */
+  .faction-inspect__detail,
+  .faction-inspect__change p,
+  .faction-inspect__change-title,
+  .faction-situation__block p,
+  .zhou-faction-card__events p,
+  .chengyu-card__meaning,
+  .chengyu-card__reading,
+  .chengyu-card__note,
+  .person-note,
+  .person-factions,
+  .person-links a,
+  .article-panel__links a,
+  .empty-hint,
+  .subhead,
+  .unreg-panel__name {
+    font-size: var(--fs-prose-2);
+    line-height: var(--lh-prose-2);
+  }
+
+  .article-panel__title,
+  .person-name,
+  .chengyu-card__lemma,
+  .unreg-panel__head h2 {
+    font-size: 1.25rem;
+    line-height: 1.45;
+  }
+
+  .panel-header h2,
+  .event-detail__header h3 {
+    font-size: 1.3rem;
+    line-height: 1.45;
+  }
+
+  /* ── 9.3 可點選文字 ──
+     分頁、按鈕、朝代名：原本 0.62–0.9rem（9.9–14.4px）。
+     觸控目標由 修 6／修 7 的 --tap-min 保證，這裡只處理字形大小。 */
+  .content-dock__tab,
+  .content-dock__tab-year,
+  .timeline-year,
+  .timeline-year--btn,
+  .timeline-month-chip,
+  .timeline-month-chip.is-active,
+  .side-rail__chip,
+  .level-tabs__btn,
+  .map-layer-bar__tabs button,
+  .map-mode-toggle button,
+  .map-2d__toggles button,
+  .map-2d__route-toggle,
+  .late-stage-bar__row button,
+  .late-stage-bar__jump button,
+  .reading-controls button,
+  .app-header__play,
+  .app-header__era,
+  .app-footer__toggle,
+  .collapsible-shell__toggle,
+  .collapsible-shell__title,
+  .side-rail__toggle,
+  .filters select,
+  .people-search,
+  .power-board__toggle,
+  .power-board__title,
+  .power-board__clear,
+  .map-view-controls__btn,
+  .map-2d__zoom-btn,
+  .faction-chip,
+  .faction-inspect__head button,
+  .faction-situation__head button,
+  .person-card__cta,
+  .topic-switch__label,
+  .era-bar button span {
+    font-size: var(--fs-ui);
+  }
+
+  /* 調字級按鈕本身原本只有 10.9px，連「放大」兩顆都難以辨識。
+     高度補到 --tap-min；寬度刻意不補：本列已有 − ＋ 兩顆 44px 控件，
+     三顆再各要 44px 寬會讓 .app-header（flex-wrap: wrap）多擠出一列，
+     頁頭由 155px 增至 185px，地圖再少 30px。 */
+  .reading-controls button {
+    min-height: var(--tap-min);
+  }
+
+  /* 頁頭本列要塞的東西最多，字級放大後先收外距，避免多出一列。 */
+  .app-header {
+    gap: 0.2rem 0.35rem;
+  }
+
+  .app-header__brand {
+    gap: 0.4rem;
+  }
+
+  .app-header__year-block {
+    gap: 0.25rem;
+  }
+
+  .app-header__year {
+    min-width: 0;
+    max-width: none;
+  }
+
+  .app-header__play {
+    padding: 0.3rem 0.5rem;
+    margin-left: 0;
+  }
+
+  /* ── 9.4 標籤・出處・註記 ──
+     全站最小的一層，原本 0.55–0.72rem（8.8–11.5px）。
+     年份滑桿的刻度（.year-scrubber__tick-*）刻意不列入：18 格密排，
+     放大後年份會互相重疊，精準操作已由滑桿與前後鍵承擔（同 修 7 理由）。 */
+  .side-rail__label,
+  .side-rail__label *,
+  .year-scrubber__meta,
+  .year-scrubber__months,
+  .year-scrubber__note,
+  .year-scrubber__note-toggle,
+  .era-bar button small,
+  .app-footer,
+  .app-header__nengo,
+  .article-panel__source,
+  .article-panel__status,
+  .article-panel__close,
+  .article-panel__collapse,
+  .event-detail__close,
+  .event-detail__quote cite,
+  .faction-inspect cite,
+  .faction-inspect__badge,
+  .faction-inspect__kicker,
+  .faction-inspect__kind,
+  .faction-inspect__land,
+  .faction-inspect__head h3 small,
+  .faction-inspect__stat h4,
+  .faction-inspect__changes h4,
+  .faction-situation__block cite,
+  .faction-situation__block h4,
+  .faction-situation__head small,
+  .zhou-faction-card__events h4,
+  .zhou-faction-card__events strong,
+  .zhou-faction-card__events cite,
+  .zhou-dock__bar button,
+  .zhou-dock__bar strong,
+  .chengyu-card__badge,
+  .chengyu-card__source,
+  .chengyu-card__source-class,
+  .chengyu-card__era,
+  .power-board__note,
+  .power-board__label,
+  .power-board__sub,
+  .power-board__nums,
+  .power-board__provinces,
+  .route-legend h3,
+  .route-legend strong,
+  .route-legend span,
+  .route-legend__foot,
+  .faction-legend__title,
+  .faction-legend__sub,
+  .faction-legend__note,
+  .faction-legend__list li,
+  .map-stage-dock__hint,
+  .map-view-controls__hint,
+  .map-view-controls__title,
+  .map-stage__hint,
+  .map-2d__basemap-title,
+  .map-2d__credit,
+  .territory-provenance-note,
+  .timeline-type,
+  .timeline-loc,
+  .timeline-month-bar__label,
+  .timeline-title-link__hint,
+  .people-role,
+  .people-aka,
+  .person-rank,
+  .person-meta,
+  .person-zi,
+  .era-map__kicker,
+  .era-map__band-label,
+  .era-map__band-range,
+  .era-map__credit,
+  .era-map__note,
+  .map-2d__dynasty-hint,
+  .map-layer-bar__fold span,
+  .map-2d__caret,
+  .map-view-controls__btn--reset,
+  .map-2d__zoom-btn--text,
+  .map-2d__zoom-btn--reset,
+  .topic-switch__range,
+  .unreg-panel__place,
+  .collapsible-shell__hint,
+  .collapsible-shell__chevron,
+  .late-stage-bar__meta {
+    font-size: var(--fs-meta);
+    line-height: var(--lh-meta);
+  }
+
+  /* ── 9.5 地圖標記 ──
+     這些原本用 px（9–11px），因此完全不受 小／大 字級控制影響；
+     改用 rem 之後才能跟隨字級一併縮放。省界、勢力名這類密排的標籤
+     只提到 12px，再往上會開始互相重疊。 */
+  .map-label {
+    font-size: 0.875rem;
+  }
+
+  .map-label--river,
+  .map-label--basin {
+    font-size: 0.8125rem;
+  }
+
+  .map-2d__faction-label {
+    font-size: 0.8125rem;
+  }
+
+  .terr-label__prov,
+  .terr-label__fac {
+    font-size: 0.75rem;
+  }
+
+  .zhou-place-label {
+    font-size: 0.875rem;
+  }
+
+  /* 浮層提示（向下拖…）同屬閱讀指引，不該比內文小 */
+  .app-shell__main > :first-child::after {
+    font-size: var(--fs-meta);
+  }
+
+  /* 字級放大後，這行原本以 ellipsis 截斷的預告文字截得更早
+     （實測可容納寬度由 397px 縮至 292px）。改交還給使用者橫向拖完，
+     與 修 5 處理 .year-scrubber__note--press 的做法一致。 */
+  .year-scrubber__note--preview {
+    overflow-x: auto;
+    overflow-y: hidden;
+    text-overflow: clip;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
 }
