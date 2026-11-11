@@ -21,7 +21,13 @@ import { QINHAN_FRONTIER_ZONES } from '../data/frontier'
 import { QINHAN_MARCH_ROUTES } from '../data/marchRoutes'
 import { QINHAN_PLACES } from '../data/places'
 import { QINHAN_TERRITORY_NOTE } from '../data/territoryControl'
-import { clampMapPan, mapZoomStyle, useRafView, type ViewTransform } from '../../lib/mapViewport'
+import {
+  clampMapPan,
+  mapZoomStyle,
+  useMapPinch,
+  useRafView,
+  type ViewTransform,
+} from '../../lib/mapViewport'
 import { qinHanFactionColor, qinHanFactionName } from '../lib/factionColors'
 import { formatQinHanYear } from '../lib/formatYear'
 import { useQinHanSelection } from '../state/QinHanSelectionContext'
@@ -90,6 +96,30 @@ export function QinHanMap() {
   } | null>(null)
   const suppressClickRef = useRef(false)
 
+  // 雙指捏合縮放：縮放層 touch-action:none 已停用瀏覽器原生捏合，由手勢接管
+  const pinch = useMapPinch({
+    viewRef,
+    setView,
+    getBox: () => wrapRef.current?.getBoundingClientRect() ?? null,
+    mapWidth: BASEMAP_WIDTH,
+    mapHeight: BASEMAP_HEIGHT,
+    fit: 'contain',
+    cancelDrag: () => {
+      dragRef.current = null
+      suppressClickRef.current = true
+    },
+    resumeDrag: (x, y) => {
+      dragRef.current = {
+        active: true,
+        x0: x,
+        y0: y,
+        tx0: viewRef.current.tx,
+        ty0: viewRef.current.ty,
+        moved: true,
+      }
+    },
+  })
+
   useEffect(() => {
     const el = wrapRef.current
     if (!el) return
@@ -122,6 +152,7 @@ export function QinHanMap() {
     if (e.button !== 0) return
     const el = wrapRef.current
     if (!el) return
+    if (pinch.onPointerDown(e)) return
     el.setPointerCapture(e.pointerId)
     suppressClickRef.current = false
     dragRef.current = {
@@ -135,6 +166,7 @@ export function QinHanMap() {
   }
 
   const onPointerMove = (e: ReactPointerEvent) => {
+    if (pinch.onPointerMove(e)) return
     const d = dragRef.current
     if (!d?.active) return
     const dx = e.clientX - d.x0
@@ -154,6 +186,8 @@ export function QinHanMap() {
   }
 
   const onPointerUp = (e: ReactPointerEvent) => {
+    // 捏合期間的 pointerup 由 pinch 統一處理（其內部已負責 releasePointerCapture）
+    if (pinch.onPointerUp(e)) return
     const d = dragRef.current
     if (d?.moved) suppressClickRef.current = true
     dragRef.current = null

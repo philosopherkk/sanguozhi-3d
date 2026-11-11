@@ -138,6 +138,141 @@ export function mapZoomStyle(scale: number, tx: number, ty: number): CSSProperti
   }
 }
 
+/* ── 雙指捏合縮放（觸控） ──
+   縮放層為 touch-action:none，瀏覽器原生捏合已被停用，須由本模組接管。
+   演算：捏合開始時快照 dist0/mid0/scale0/t0；移動時
+   scale = clamp(scale0 × dist/dist0)，中點跟手平移，
+   t = mid − k × (mid0 − t0)（k 為實際生效倍率）。
+   只處理位移與倍率，不跟旋轉——地圖始終正向。 */
+
+interface PinchState {
+  a: number
+  b: number
+  dist0: number
+  scale0: number
+  tx0: number
+  ty0: number
+  mx0: number
+  my0: number
+}
+
+interface PinchOptions {
+  viewRef: { current: ViewTransform }
+  setView: (next: ViewTransform | ((prev: ViewTransform) => ViewTransform)) => void
+  getBox: () => DOMRect | null
+  mapWidth: number
+  mapHeight: number
+  fit: MapFit
+  /** 第二指落地進入捏合時清空單指拖曳，避免兩者互搶 transform */
+  cancelDrag: () => void
+  /** 捏合後殘留一指時交還拖曳，座標接續避免跳動 */
+  resumeDrag: (x: number, y: number) => void
+}
+
+export function useMapPinch(o: PinchOptions) {
+  const opts = useRef(o)
+  opts.current = o
+  const pointers = useRef(new Map<number, { x: number; y: number }>())
+  const pinch = useRef<PinchState | null>(null)
+
+  const onPointerDown = (e: ReactPointerEvent): boolean => {
+    // 只接管觸控；滑鼠雙指手勢走 trackpad 的 wheel+ctrl 路徑（見 zoomFactor）
+    if (e.pointerType !== 'touch') return false
+    const map = pointers.current
+    map.set(e.pointerId, { x: e.clientX, y: e.clientY })
+    if (map.size < 2) return false
+    if (pinch.current) return true
+    const box = opts.current.getBox()
+    if (!box) return false
+    const [a, b] = [...map.entries()]
+    const ax = a[1].x - box.left
+    const ay = a[1].y - box.top
+    const bx = b[1].x - box.left
+    const by = b[1].y - box.top
+    const v = opts.current.viewRef.current
+    pinch.current = {
+      a: a[0],
+      b: b[0],
+      dist0: Math.max(1, Math.hypot(bx - ax, by - ay)),
+      scale0: v.scale,
+      tx0: v.tx,
+      ty0: v.ty,
+      mx0: (ax + bx) / 2,
+      my0: (ay + by) / 2,
+    }
+    opts.current.cancelDrag()
+    try {
+      ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
+    } catch {
+      /* ignore */
+    }
+    return true
+  }
+
+  const onPointerMove = (e: ReactPointerEvent): boolean => {
+    const map = pointers.current
+    if (!map.has(e.pointerId)) return false
+    map.set(e.pointerId, { x: e.clientX, y: e.clientY })
+    const p = pinch.current
+    if (!p) return false
+    if (e.pointerId !== p.a && e.pointerId !== p.b) return true
+    const box = opts.current.getBox()
+    const pa = map.get(p.a)
+    const pb = map.get(p.b)
+    if (!box || !pa || !pb) return true
+    const dist = Math.max(
+      1,
+      Math.hypot(pb.x - pa.x, pb.y - pa.y),
+    )
+    const mx = (pa.x + pb.x) / 2 - box.left
+    const my = (pa.y + pb.y) / 2 - box.top
+    const opt = opts.current
+    const scale = Math.min(
+      MAP_MAX_ZOOM,
+      Math.max(MAP_MIN_ZOOM, p.scale0 * (dist / p.dist0)),
+    )
+    const k = scale / p.scale0
+    opt.setView(
+      clampMapPan(
+        {
+          scale,
+          tx: mx - k * (p.mx0 - p.tx0),
+          ty: my - k * (p.my0 - p.ty0),
+        },
+        box.width,
+        box.height,
+        opt.mapWidth,
+        opt.mapHeight,
+        opt.fit,
+      ),
+    )
+    return true
+  }
+
+  const onPointerUp = (e: ReactPointerEvent): boolean => {
+    const map = pointers.current
+    if (!map.has(e.pointerId)) return false
+    map.delete(e.pointerId)
+    try {
+      ;(e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId)
+    } catch {
+      /* ignore */
+    }
+    const p = pinch.current
+    if (!p) return false
+    if (e.pointerId !== p.a && e.pointerId !== p.b) return true
+    pinch.current = null
+    const rest = [...map.entries()]
+    if (rest.length === 1) {
+      const [x, y] = [rest[0][1].x, rest[0][1].y]
+      opts.current.resumeDrag(x, y)
+    }
+    return true
+  }
+
+  return { onPointerDown, onPointerMove, onPointerUp }
+}
+
 export function useMapViewport(
   mapWidth: number,
   mapHeight: number,
@@ -150,6 +285,29 @@ export function useMapViewport(
   const suppressClickRef = useRef(false)
   const fitRef = useRef(fit)
   fitRef.current = fit
+
+  const pinch = useMapPinch({
+    viewRef,
+    setView,
+    getBox: () => wrapRef.current?.getBoundingClientRect() ?? null,
+    mapWidth,
+    mapHeight,
+    fit,
+    cancelDrag: () => {
+      dragRef.current = null
+      suppressClickRef.current = true
+    },
+    resumeDrag: (x, y) => {
+      dragRef.current = {
+        active: true,
+        x0: x,
+        y0: y,
+        tx0: viewRef.current.tx,
+        ty0: viewRef.current.ty,
+        moved: true,
+      }
+    },
+  })
 
   useEffect(() => {
     const el = wheelTargetRef?.current ?? wrapRef.current
@@ -193,6 +351,7 @@ export function useMapViewport(
     if (target?.closest('button, a, input, .map-2d__toggles, .map-layer-bar, .era-map__bands')) return
     const el = wrapRef.current
     if (!el) return
+    if (pinch.onPointerDown(e)) return
     el.setPointerCapture(e.pointerId)
     suppressClickRef.current = false
     dragRef.current = {
@@ -206,6 +365,7 @@ export function useMapViewport(
   }
 
   const onPointerMove = (e: ReactPointerEvent) => {
+    if (pinch.onPointerMove(e)) return
     const d = dragRef.current
     if (!d?.active) return
     const dx = e.clientX - d.x0
@@ -228,6 +388,9 @@ export function useMapViewport(
   }
 
   const onPointerUp = (e: ReactPointerEvent) => {
+    // 捏合期間的 pointerup（含雙指與交還拖曳前的殘留指）由 pinch 統一處理，
+    // 其內部已負責 releasePointerCapture
+    if (pinch.onPointerUp(e)) return
     const d = dragRef.current
     if (d?.moved) suppressClickRef.current = true
     dragRef.current = null
