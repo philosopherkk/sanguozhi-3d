@@ -482,10 +482,9 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
 
 討論：《國語·越語》的成書在戰國，其政令是否勾踐原文不可證，但作為戰國對「弱國復仇」的制度想像，價值極高。「十年生聚，十年教訓」一語即出於此系統。本圖標吳的門戶失守，不畫越的領土擴張——在滅吳之前，越的控制仍在會稽核心。`,
     outcomeSource: '《左傳》哀公十七年；《國語·越語上》；《史記·越王勾踐世家》；楊伯峻《春秋左傳注》；童書業《春秋史》',
-    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
-    // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E5%93%80%E5%85%AC
-    classicQuote: '越子伐吳，吳子禦之笠澤，夾水而陳。',
-    classicSource: '《左傳》哀公十七年（陳，同陣）',
+    classicQuote: '越子伐吳，吳子御之笠澤，夾水而陳。',
+    classicSource:
+      '《左傳》哀公十七年（已逐字核對 zh.wikisource《春秋左氏傳/哀公》傳文：「三月．越子伐吳．吳子禦之笠澤．夾水而陳．」）。按：本文作「禦」，本條引文作「御」，係通行字形替換，非原文；「陳」同「陣」。',
     paraphrase: false,
     layers: {
       elementary:
