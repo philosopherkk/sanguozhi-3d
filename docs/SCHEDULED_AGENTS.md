@@ -38,9 +38,15 @@
 每輪開工 self-check（缺檔即停止本輪並在報告說明，**絕不可自行刪除或改寫此檔以繞過限制**）：
 
 ```bash
-test -f .opencode/opencode.json && grep -q '"resource": "strata"' .opencode/opencode.json \
+test -f .opencode/opencode.json \
+  && grep -q '"action": "provider.use", "resource": "\*", "effect": "deny"' .opencode/opencode.json \
+  && grep -q '"resource": "strata", "effect": "allow"' .opencode/opencode.json \
   && echo MODEL_LOCK_OK || echo MODEL_LOCK_MISSING
 ```
+
+兩條都要核（只查 strata 存在，挡不住「留 allow、抽走 deny-all」的改動）。
+該檔權限為 `444`（唯讀）。若遭破壞，由使用者或協調者跑
+`sh ~/Documents/my-project/.agent-runtime/ensure-model-lock.sh` 復原；**agent 不准自行復原或改寫**。
 
 若任何工具回報 `Model unavailable` 或 `Blocked by configuration policy`：**即視為本輪失敗**，
 於報告貼出訊息原文；不准改用其他模型續跑，不准嘗試解除鎖定。
