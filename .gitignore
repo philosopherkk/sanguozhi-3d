@@ -55,3 +55,8 @@ reports/quotes-audit.json
 .env.*
 !.env.example
 
+# 排程 agent worktree 的模型鎖定檔（各 worktree 一份，屬本機部署，不入庫）。
+# 內容把 provider 策略鎖成「僅本機 strata 模型」；主 checkout 不放此檔，
+# 俾使用者在主力工作區仍可自行選用其他模型。
+.opencode/
+

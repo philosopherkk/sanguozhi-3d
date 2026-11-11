@@ -20,6 +20,31 @@
 5. 近現代（中國 1912 起／日本 1868 起）用現代中文簡述＋三層意譯＋四段結構，出處用條約／法令／白書／公文書；
    分歧數字（南京事件、沖繩戰、英帕爾等）一律 `disputed`。
 
+## 0.5 模型鐵律（與真確性同級）
+
+**本專案所有排程 agent 只准由本機模型 `strata/unsloth-ud-iq4_xs-v31`（Unsloth UD IQ4 XS v31）執行。**
+不得改用、回退或借用任何雲端模型（poe／xai／openai／anthropic 等一律禁止）。理由：內容查證屬本机
+資料，且本機模型可 24 小時輪值。
+
+機制（已生效，實測過）：
+- 每個排程 worktree 根目錄有 `.opencode/opencode.json`（已列入 `.gitignore`，各 worktree 一份），內容為
+  1. `model` 與 `agents.build/plan/general/explore/title/summary/compaction` 全部 pin 在
+     `strata/unsloth-ud-iq4_xs-v31`；**尤其 `explore`／`general` 等 subagent 與 `title`／`summary`／
+     `compaction` 等輔助 agent 不會自動繼承工作階段的模型**，未 pin 就會偷偷用雲端模型（實測過會漏）。
+  2. `policies`：先 `provider.use * deny`，再 `provider.use strata allow`——其他 provider 從目錄中消失，
+     選了會直接報 `Model unavailable`，不是提示而是硬擋。
+- 排程工作階段（session）本身亦已存 `model=strata/unsloth-ud-iq4_xs-v31`。
+
+每輪開工 self-check（缺檔即停止本輪並在報告說明，**絕不可自行刪除或改寫此檔以繞過限制**）：
+
+```bash
+test -f .opencode/opencode.json && grep -q '"resource": "strata"' .opencode/opencode.json \
+  && echo MODEL_LOCK_OK || echo MODEL_LOCK_MISSING
+```
+
+若任何工具回報 `Model unavailable` 或 `Blocked by configuration policy`：**即視為本輪失敗**，
+於報告貼出訊息原文；不准改用其他模型續跑，不准嘗試解除鎖定。
+
 ## 1. 工作區與交付紀律（每支 agent 相同）
 
 - 各 agent 有專屬 git worktree 與 branch（見下表），**絕不 `cd` 去別人的 worktree 或主 checkout**。
@@ -34,7 +59,7 @@
      `gh pr view <n> --json state,mergeable` 實際輸出。
 - **每輪須是有界批次**（bounded batch），控制在約 30–60 分鐘內完成並落盤，不可無限展開。
 - 禁改：`reports/gate-baseline.json`、`scripts/audit-*`、`scripts/gate-ci.mjs` 的門檻、
-  `AGENTS.md`、`.cursorrules`（除非使用者明令）。禁跑任何 `--update-baseline`。
+  `AGENTS.md`、`.cursorrules`、`.opencode/opencode.json`（模型鎖定，見 §0.5）（除非使用者明令）。禁跑任何 `--update-baseline`。
 
 ## 2. 閘門（每輪收尾必跑，記前後數字，只准降不准升）
 
