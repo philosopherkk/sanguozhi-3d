@@ -998,5 +998,110 @@
     "stamp": "8529808d",
     "page": "漢書/卷072",
     "at": "2026-11-09"
+  },
+  "src/data/timeline.json#219-dingjunshan": {
+    "stamp": "97a7a529",
+    "page": "三國志/卷32",
+    "at": "2026-11-11"
+  },
+  "src/imperial/data/depthNarrative.ts#jin-307": {
+    "stamp": "d6886848",
+    "page": "資治通鑑/卷086",
+    "at": "2026-11-11"
+  },
+  "src/imperial/data/depthNarrative.ts#jin-308": {
+    "stamp": "b63174e4",
+    "page": "資治通鑑/卷086",
+    "at": "2026-11-11"
+  },
+  "src/imperial/data/jinPack.ts#jin-311": {
+    "stamp": "f81634b2",
+    "page": "晉書/卷005",
+    "at": "2026-11-11"
+  },
+  "src/japanEras/packs/asukaPack.ts#as-538": {
+    "stamp": "e1d681d3",
+    "page": "日本書紀/卷第十九",
+    "at": "2026-11-11"
+  },
+  "src/japanEras/packs/asukaPack.ts#as-587": {
+    "stamp": "da0f9395",
+    "page": "日本書紀/卷第廿一",
+    "at": "2026-11-11"
+  },
+  "src/japanEras/packs/asukaPack.ts#as-645": {
+    "stamp": "b38a7b31",
+    "page": "日本書紀/卷第廿五",
+    "at": "2026-11-11"
+  },
+  "src/japanEras/packs/asukaPack.ts#as-663": {
+    "stamp": "f708884f",
+    "page": "資治通鑑/卷201",
+    "at": "2026-11-11"
+  },
+  "src/japanEras/packs/asukaPack.ts#as-672": {
+    "stamp": "1e7e13f2",
+    "page": "日本書紀/卷第廿八",
+    "at": "2026-11-11"
+  },
+  "src/japanEras/packs/kofunPack.ts#kf-250": {
+    "stamp": "e0a2b45d",
+    "page": "三國志/卷30",
+    "at": "2026-11-11"
+  },
+  "src/japanEras/packs/kofunPack.ts#kf-350": {
+    "stamp": "85d0c137",
+    "page": "日本書紀/卷第七",
+    "at": "2026-11-11"
+  },
+  "src/japanEras/packs/kofunPack.ts#kf-400": {
+    "stamp": "e8b3544e",
+    "page": "宋書/卷97",
+    "at": "2026-11-11"
+  },
+  "src/japanEras/packs/kofunPack.ts#kf-500": {
+    "stamp": "a61bdffa",
+    "page": "日本書紀/卷第十七",
+    "at": "2026-11-11"
+  },
+  "src/qinhan/data/timeline.ts#fenfeng": {
+    "stamp": "34881c22",
+    "page": "史記/卷007",
+    "at": "2026-11-11"
+  },
+  "src/qinhan/data/timeline.ts#hexi": {
+    "stamp": "3e80075f",
+    "page": "史記/卷111",
+    "at": "2026-11-11"
+  },
+  "src/qinhan/data/timeline.ts#xin-mang": {
+    "stamp": "773318b1",
+    "page": "資治通鑑/卷036",
+    "at": "2026-11-11"
+  },
+  "src/imperial/data/jinPack.ts#jin-280": {
+    "stamp": "dccce586",
+    "page": "資治通鑑/卷081",
+    "at": "2026-11-11"
+  },
+  "src/data/timelineDetails.ts#219-dingjunshan": {
+    "stamp": "aa95120c",
+    "page": "三國志/卷32",
+    "at": "2026-11-11"
+  },
+  "src/data/timelineDetails.ts#219-hanzhong-retreat": {
+    "stamp": "59a2e873",
+    "page": "資治通鑑/卷068",
+    "at": "2026-11-11"
+  },
+  "src/data/timelineDetails.ts#219-king-hanzhong": {
+    "stamp": "ba349c8b",
+    "page": "資治通鑑/卷068",
+    "at": "2026-11-11"
+  },
+  "src/zhou/data/timelineMore.ts#hanzhong": {
+    "stamp": "edbf7aa6",
+    "page": "資治通鑑/卷003",
+    "at": "2026-11-11"
   }
 }
