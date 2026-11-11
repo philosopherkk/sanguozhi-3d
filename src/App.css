@@ -2663,6 +2663,16 @@ html[data-theme='light'] .app-footer {
   line-height: 1.4;
 }
 
+/* UI 審計（393×852／1440×900 實測）：出處說明用 --accent-dim(#8a7355)，
+   對 footer 底色 rgb(12,16,12) 實測對比僅 4.26:1 < WCAG AA 4.5:1，
+   而呢段字 0.65rem≈10.4px 屬細字，必須守 4.5。
+   改用 #9e8564 → 5.47:1，同時代列（本檔 .era-bar button 註解）沿用同一個
+   「AA 安全暗金色」，唔多開一套色調；選中的 --accent(#c4a574) 仍較亮，層級不變。
+   浅色版不受影響（App.css 內 html[data-theme='light'] .app-footer 用 --ink）。 */
+html:not([data-theme='light']) .app-footer {
+  color: #9e8564;
+}
+
 .app-footer--collapsed {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
@@ -3171,6 +3181,19 @@ html:not([data-theme='light']) .era-bar {
     rgba(10, 9, 6, 0.92)
   );
   border-bottom: 1px solid var(--line);
+}
+
+/* UI 審計（393×852 實測）：未選中的時代按鈕沿用 --accent-dim(#8a7355)，
+   對 era-bar 底色 rgb(20,16,9) 實測對比 4.21:1 < WCAG AA 4.5:1。
+   改用置於 --accent-dim 與 --accent 之間的 #9e8564 → 5.59:1，
+   同時仍淺於選中態的 --accent(#c4a574)，維持「未選中 < 選中」的層級。 */
+html:not([data-theme='light']) .era-bar button {
+  color: #9e8564;
+}
+
+/* 年份區間 small 另帶 opacity:0.8，疊色後僅 3.95:1；深色版取消壓暗。 */
+html:not([data-theme='light']) .era-bar button small {
+  opacity: 1;
 }
 
 .era-bar button {

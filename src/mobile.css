@@ -235,6 +235,63 @@
     min-height: var(--tap-min);
   }
 
+  /* UI 審計本輪補漏：上一版只覆蓋 app-header__step／zoom-btn／side-rail__chip／
+     layer-bar／range，393×852 實測仍有 8 組可點控件不足 44px（getBoundingClientRect）：
+       side-rail__map-first 58×22、timeline-month-chip 40×22、year-scrubber__note-toggle 56×19、
+       app-footer__toggle 79×21、panel-more 356×42、topic-switch button 58×42、
+       reading-controls button 26×21、timeline-title-link 93×23。
+     高度一律補到 --tap-min；寬度不足者另補 min-width（圖例刻度屬既有豁免，
+     18 格密排無法全達 44px，見本檔上方註釋，維持由滑桿與方向鍵承擔精準操作）。 */
+  .side-rail__map-first,
+  .timeline-month-chip,
+  .year-scrubber__note-toggle,
+  .app-footer__toggle,
+  .panel-more,
+  .topic-switch button,
+  .reading-controls button,
+  .timeline-title-link,
+  .zhou-dock__bar button,
+  .app-header__play,
+  /* 本輪新增（393×852 實測，上一版完全未覆蓋，min-height 皆為 auto/0）：
+       .power-board__row--btn 241×38（平安/江戶/中華人民共和國 三頁的勢力榜行，
+         點一下展開該勢力詳情；.zhou-dock__body 本身 overflow-y:auto，加高可滾，安全）
+       .faction-legend__btn 43~109×25（江戶 5 顆、平安 1 顆；點一下選取該勢力，
+         屬地圖圖例，無等價控制 → 不適用 WCAG 2.5.8 豁免） */
+  .power-board__row--btn,
+  .faction-legend__btn {
+    min-height: var(--tap-min);
+  }
+
+  /* 圖例掣補高度後仍差 1px 寬（393×852 實測 43×44），補 min-width 才真正達 44×44；
+     圖例寬 288px，最寬那顆本就 109px，加 1px 唔會影響排列。 */
+  .faction-legend__btn {
+    min-width: var(--tap-min);
+  }
+
+  /* 圖例原本是緊湊浮層：江戶 5 顆掣由 25→44px 會多出 ~95px，
+     .faction-legend 原本 bottom=739（視口 852），不設上限會被推到視口外而點不到。
+     因此給圖例清單一個上限並讓它在內部滾動——控件本身達 44px，
+     同時整體不會撐出螢幕（實測見 reports/UI-AUDIT.md）。 */
+  .faction-legend__list {
+    max-height: 40vh;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* 注意：刻意唔對 .reading-controls button 補 min-width——
+     實測補到 44px 會令 .app-header__year-block 由 369px 變 392px，頁頭在 393px
+     已無slack（scrollWidth 393→404），「播放」會被 .app-shell 的 overflow:hidden
+     裁走 11px。寧可保留 26×44（高度達標、寬度未達），換行屬結構改動，見
+     reports/ui-human-decisions.md HU-06。 */
+  .side-rail__map-first,
+  .timeline-month-chip,
+  .year-scrubber__note-toggle,
+  .app-footer__toggle,
+  .zhou-dock__bar button {
+    min-width: var(--tap-min);
+  }
+
   /* 圖層列保持置中而非滿版，避免與地標 Dock 連成一條實心橫帶；
      bottom 需加上安全區，否則會被 iPhone 主頁指示條壓住 */
   .map-layer-bar {
@@ -245,11 +302,107 @@
     bottom: calc(0.45rem + var(--safe-bottom));
   }
 
+  /* 出處署名：393px 實測 .map-2d__credit 被 ellipsis 裁走 39px（連同底圖授權條款
+     一起看不見；title 屬性在觸控裝置不會顯示）。窄屏允許換行與收縮。 */
+  .map-2d__credit {
+    flex-shrink: 1;
+    min-width: 0;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+
   /* 浮動情報面板不應占滿整幅地圖 */
   .zhou-dock,
   .map-stage-dock {
     width: min(16rem, calc(100% - 1rem));
     max-height: 45%;
+  }
+}
+
+/* ── 平板寬度帶（701–1024px）：44px 按擊區 ──
+   上一版所有觸控尺寸規則都掛在 max-width:700px，因此 iPad 直向 768×1024
+   拿到的是桌面的細控件：768 實測 圖層掣 93×27、年滑桿高 27、顯示地圖 58×22、
+   字級掣 26×21、時代切換 58×42（getBoundingClientRect，見 reports/UI-AUDIT.md）。
+   平板是觸控裝置，44px 下限應跟隨它，而不是跟隨「手機」這個名字。
+   刻意另開一條而不改 700 斷點：700 那一塊同時承擔窄屏排版（單欄翻頁、頁頭
+   圧縮），不該波及桌面的兩欄視覺；本塊只調控件尺寸。
+   也不用 (pointer: coarse)——無頭瀏覽器模擬唔到 coarse 指標（本檔上方已記錄），
+   寫了自動化就驗證唔到。 */
+@media (min-width: 701px) and (max-width: 1024px) {
+  .app-header__step,
+  .map-2d__zoom-btn,
+  .side-rail__chip,
+  .side-rail__map-first,
+  .timeline-month-chip,
+  .year-scrubber__note-toggle,
+  .app-footer__toggle,
+  .panel-more,
+  .topic-switch button,
+  .reading-controls button,
+  .timeline-title-link,
+  .zhou-dock__bar button,
+  .app-header__play,
+  .map-layer-bar button,
+  /* 同上：勢力榜行與圖例掣在平板（768×1024 實測 241×38、43~109×25）同樣不足 44px */
+  .power-board__row--btn,
+  .faction-legend__btn {
+    min-height: var(--tap-min);
+  }
+
+  .faction-legend__btn {
+    min-width: var(--tap-min);
+  }
+
+  /* 圖例加高後在平板亦不得撐出視口（與窄屏同一理由） */
+  .faction-legend__list {
+    max-height: 45vh;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+
+  .side-rail__map-first,
+  .timeline-month-chip,
+  .year-scrubber__note-toggle,
+  .app-footer__toggle,
+  .zhou-dock__bar button,
+  .app-header__step,
+  .map-2d__zoom-btn {
+    min-width: var(--tap-min);
+  }
+
+  .year-scrubber__range,
+  .year-scrubber input[type='range'] {
+    height: var(--tap-min);
+  }
+}
+
+
+/* ── 桌面寬度帶（>1024px）：WCAG 2.2 AA「Target Size (Minimum)」24×24 底線 ──
+   44px（Apple HIG）只推到 1024px 為止——再寬就是滑鼠操作，把全部控件放大
+   會破壞這份紙本密排視覺。但 WCAG 2.2 的 AA 底線 2.5.8 是 24×24，
+   且對滑鼠同樣適用；1440×900 實測有 25 個可點元素低於它：
+     timeline-title-link 93×23 ×7、timeline-month-chip 40×22 ×4、
+     year-scrubber__note-toggle 56×19、side-rail__map-first 58×22、
+     app-footer__toggle 79×21、reading-controls button 26×21 ×2、
+     map-layer-bar__fold 93×27（寬度已達標，高度 27 合格）、
+     year-scrubber__tick 6×5 ×13（有等價控制：同列滑桿與方向鍵，屬 2.5.8 豁免）。
+   上述除刻度外都沒有「等價控制」，因此補一條 24px 下限（多數只差 2–3px）。 */
+@media (min-width: 1025px) {
+  .side-rail__map-first,
+  .side-rail__chip,
+  .timeline-month-chip,
+  .year-scrubber__note-toggle,
+  .app-footer__toggle,
+  .reading-controls button,
+  .zhou-dock__bar button,
+  .timeline-title-link,
+  .map-layer-bar button,
+  .map-2d__zoom-btn,
+  .app-header__step,
+  .app-header__play {
+    min-height: 1.5rem; /* 24px = WCAG 2.5.8 下限 */
+    min-width: 1.5rem;
   }
 }
 
