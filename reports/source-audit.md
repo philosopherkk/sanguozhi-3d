@@ -1179,4 +1179,82 @@ curl -s --get 'https://ja.wikipedia.org/w/api.php' --data-urlencode 'action=quer
   4. 為避免覆寫未合併之 PR #142，本輪改用 `verify/source-audit-r17` 分支（與 #147／#149 同一慣例）；每次 push 後核實 `git ls-remote --heads origin verify/source-audit-r17` == `git rev-parse HEAD`（兩次皆 YES，冇用 `--force`）。
 
 
+---
+
+## 第 15 輪（2026-11-11）— 隨機抽查 12 條＋虛構出處警報（本輪起點無 3 小時內內容 commit）
+
+### 0) 範圍、隨機檔與前提
+
+- 起點 `origin/main` = `72e083d`；worktree `/Users/ka-kinpoon/Projects/3kingdoms-wt-verify`，開工 `git status` ＝ clean。
+- `git log --since="3 hours ago" --name-only origin/main` → 只有 `72e083d`（`scripts/exa.mjs`、`docs/OVERNIGHT_TASKS.md`）與 `9828cdf`（`src/App.css`），**無內容檔改動** → 依指引轉入隨機抽樣。
+- 隨機檔（可重現）：母體 A ＝ `reports/quotes-audit.json` 之 `kind=="unchecked"`（88 條），`random.seed(20261111)` 抽 8；母體 B ＝ `kind=="paraphrase"`（108 條），`random.seed(777)` 抽 4。命令：
+  ```
+  python3 -c "import json,random;random.seed(20261111);d=json.load(open('reports/quotes-audit.json'));u=[x for x in d['rows'] if x['kind']=='unchecked'];print([r['id'] for r in random.sample(u,8)])"
+  python3 -c "import json,random;random.seed(777);d=json.load(open('reports/quotes-audit.json'));p=[x for x in d['rows'] if x['kind']=='paraphrase'];print([r['id'] for r in random.sample(p,4)])"
+  ```
+- 逐字查證主機：漢文史料 `--host zh.wikisource.org`；《續日本紀》仍喺 **zh** 站（ja 站無本，第 14 輪已記）；《建武式目》喺 **ja** 站。
+
+### 1) 逐條查證紀錄（抽樣 12 條）
+
+| 條目 id | 原本寫法（節錄） | 查證命令 | 結果 | 本輪動作 |
+|---|---|---|---|---|
+| `zhou/earlyDynastyMore.ts#shang-wuyi` | classicQuote「為革囊，盛血，**仰**而射之，命曰射天。」source 只寫《史記·殷本紀》 | `python3 scripts/qsrc.py 史記/卷003 '革囊' -C 90` | **可查證（有異文）**：原文「為革囊，盛血，**卬**而射之，命曰「射天」」；「仰」係通行異文非原字 | 加註：classicSource 標明原卷作「卬」＋補「武乙獵於河渭之閒，暴雷，武乙震死」原文 |
+| `japanEras/kofunPack.ts#kf-250` | 「其死，有棺無槨，封土作冢。」標「已逐字核對」 | `python3 scripts/qsrc.py 三國志/卷30 '有棺無'` | **可查證**：《三國志·魏書·烏丸鮮卑東夷傳》倭人條逐字相符 | 不動 |
+| `japanEras/naraPack.ts#nr-764` | 「乙巳，太師藤原惠美朝臣押勝逆謀頗泄。」 | `python3 scripts/qsrc.py 續日本紀/卷第廿五 '逆謀頗泄'` | **可查證**：原文「乙巳。太師藤原惠美朝臣押勝逆謀頗泄。」僅句讀差 | 不動 |
+| `imperial/yuanMingQingPack.ts#ymq-1271` | classicSource「《元史·世祖**紀五**》至元八年十一月；《**中統至元國號詔**》（《元文類》**卷一**）」 | `python3 scripts/qsrc.py 元史/卷007 '大元'`；`for v in 004 005 006 007 008; do curl -s "...action=raw&title=元史/卷$v" \| head -c 300; done`；`curl -s '…元文類 (四庫全書本)/卷01&action=raw'`；`curl -s '…/卷09&action=raw' \| grep -n '建國號'` | 引文**可查證**（元史卷七逐字相符）；**卷次錯**：卷七 header2 notes＝「世祖四」（卷四＝世祖一、卷八起至元十年），非「世祖紀五」；**出處查無**：《元文類》卷一係賦（瑟賦等，全文無「大元」二字），該詔實在**卷九**，篇名《**建國號詔**》，題「至元八年十一月」徒單公履草 | 修正出處：改掛《元史》卷七世祖四＋《元文類》卷九《建國號詔》，並記兩本異文（四震/四振、申請/伸請、茲大冶/兹大治） |
+| `zhou/earlyDynastyMore.ts#zhou-liaomin` | classicQuote「宣王既**喪**南國之師，乃料民於太原。」掛《史記·周本紀》；三層意譯兩處寫「引文仍用《史記》」 | `python3 scripts/qsrc.py 史記/卷004 '料民'`；`python3 scripts/qsrc.py 國語/卷一 '料民'` | **出處錯掛**：《史記·周本紀》作「宣王既**亡**南國之師」；「既**喪**南國之師……乃料民於太原」逐字出自《國語·周語上》〈仲山父諫宣王料民〉 | 修正出處：classicSource 改掛《國語》並列《史記》異文；中學生/大學生兩層「引文仍用《史記》」改為標明取《國語》本文 |
+| `japanEras/muromachiPack.ts#mu-1336` | 「守護職者。上古之吏務也。國中之治否。只依此職。」source 建武三年（1336） | `python3 scripts/qsrc.py --host ja.wikisource.org 建武式目 '守護職'`；`curl -s 'https://ja.wikisource.org/w/index.php?title=建武式目&action=raw' \| head -c 900`；Exa「建武式目 建武二年 閏十月」 | **可查證**：引文逐字相符；系年**正確**——ja.wikisource header `year=1336 / 年=建武3`，日文維基與三大辭書同作「建武3年11月7日＝1336-12-10」 | 不動 |
+| `zhou/timelineMore.ts#ailing` | classicSource「《春秋》哀公十一年，見《左傳》」 | `python3 scripts/qsrc.py 春秋左氏傳/哀公 '艾陵'` | **可查證**：「甲戌」以下逐字見《春秋左氏傳·哀公》卷首**經文**（「五月．公會吳伐齊．甲戌．齊國書帥師及吳戰于艾陵．齊師敗績獲齊國書．」）；舊出處未說明引文屬經而非傳 | 加註：出處精確化為「哀公十一年經文（今見《左傳·哀公》）」並說明傳文另有細節 |
+| `zhou/timeline.ts#liaodong` | 「二十五年，大興兵，使王賁將，攻燕遼東，得燕王喜。還攻代，虜代王嘉。王翦遂定荊江南地；降越君，置會稽郡。」 | `python3 scripts/qsrc.py 史記/卷006 '虜代王嘉' -C 120` | **可查證**：《史記·秦始皇本紀》卷六二十五年逐字相符 | 不動 |
+| `heian/history.ts#heian-1113-saicho`（詳情＋三層） | 「**長治二年（1113）**朝廷追贈最澄『傳教大師』」「直接觸發是**鳥羽朝**」「空海『弘法大師』之號**同年稍後**追贈（二號同制）」「歿後一百三十一年」；keyFigure「鳥羽天皇：追贈時的在位者」 | Exa：`最澄 伝教大師 諡号 長治二年 追贈 空海 弘法大師 治承四年`；`最澄 伝教大師 勅諡 貞観八年 円仁 慈覚大師` | **查無根據／錯年（三層）**：最澄「傳教大師」＝**貞觀八年（866）七月**（日文維基「大師 (僧)」條列宣下日 貞観8年7月14日；日本國語大辭典／大辭林／新纂浄土宗大辭典／JapanSearch／東京新聞 2022-04-08 同）。長治二年＝1105 且與追贈無關；鳥羽天皇 1087 年即位，不可能在 866 年「追認」。空海「弘法大師」＝**延喜二十一年（921）十月**（觀賢奏上、醍醐天皇宣下），距最澄受號**五十五年**，「同年稍後／二號同制」查無根據 | 降調＋更正：年號改為貞觀八年（866）並補同月円仁「慈覺大師」；空海改 921＋55 年；鳥羽天皇→**清和天皇**（zh 條目已 API 驗證存在）；「鳥羽朝」「二號同制」標明查無並刪；三層與 brief 同步 |
+| `heian/history.ts#heian-806-kukai-return` | 「『弘法大師』之諡**延喜十九年**紀年追贈（921）」 | 同上（Exa 大師號交叉核對） | **錯年**：921 ＝ 延喜**二十一**年（延喜元年＝901）；「延喜十九年」＝919，與括號自相矛盾 | 修錯年：改「延喜二十一年（921）十月」並附宣下根據 |
+| `japanEras/edoPack.ts#edo-1669-shakushain` | 引題「和談ニ集メテ、コノ上殺シ」標通說整理 | 讀檔核對欄位 | **合規**：已標「通說整理，非逐字引文」、人物轉寫與死者數不取定數 | 不動 |
+| `japanEras/azuchiPack.ts#az-1600` | 「通說整理：慶長五年九月十五日…」＋軍記分級 | 讀檔核對欄位 | **合規**：兵力不取定數、《關原軍記大成》《德川實紀》已標後世/官修立場。（唯 university 層「關**键**」用咗簡體字，屬字符而非出處，本輪未改，交人工／字符 agent） | 不動（記錄在案） |
+| `japanEras/modernJapanPack.ts#mj-1874-taiwan` | 「1871年琉球**漁民**在台遭難被殺，**1873年英國商船**在台遭難又起糾紛」 | Exa：`羅發號事件 Rover 台湾 原住民 北京 1873 賠償`；`1873年 英国船 台湾 遭難 生番 佐藤利八` | **有誤**：1873（明治6）在台遭難者係**日本**備中國淺口郡柏島村船頭佐藤利八等四名（外務省申牒 明治六年八月十二日件，國家公文書館 A03030098100；日文維基「台湾出兵」同）；西洋船遭難係 **1867** 年**美國**商船羅發號 Rover。1871 受害者亦非「漁民」係那霸歸途船民 | 修正：改為「1871 琉球宮古島船民…1873 日本備中國船民佐藤利八等…」並附文書檔號＋括號說明舊稿之誤與 1867 Rover 對照 |
+
+### 2) 虛構出處／錯年警報（本輪重點，比加註重要）
+
+1. **《元文類》卷一《中統至元國號詔》——查無此篇名與卷次**。查證命令：
+   - `curl -s 'https://zh.wikisource.org/w/api.php?action=query&format=json&list=search&srlimit=15&srsearch="建國號曰大元"'` → 命中 `元文類 (四庫全書本)/卷09`，未命中卷一。
+   - `curl -s '…/元文類 (四庫全書本)/卷01&action=raw'` → `{{SKQS header|title=元文類|section=巻一|…}}` 開頭為「瑟賦 熊朋來」，`grep -o '大元' | wc -l` ＝ **0**。
+   - `curl -s '…/卷09&action=raw' \| grep -n '建國號'` → 第 18–19 行：`{{SK anchor|建國號詔}}…{{SK notes|至元八年十一月}}…圖克坦公履`，正文即此詔。
+   動作：出處改掛卷九《建國號詔》，並記《元史》/《元文類》三處異文。**舊稿該引用不可用**。
+2. **《元史》卷次錯**：「世祖紀五」→ 卷七＝**世祖四**（逐卷 raw 比對 header2 notes：卷四=世祖一、卷五=世祖二、卷六=世祖三、卷七=世祖四、卷八=世祖五且起「至元十年」）。
+3. **最澄「傳教大師」1113／鳥羽朝／空海同年——三項皆錯**（見上表）。這是本輪最嚴重的發現：一條平安中期的宗教制度事件被整條放錯世紀（866 → 1113 差 247 年），並衍生「鳥羽朝動機」「二號同制」兩組無根據敘事。全部降調／更正。
+4. **「政一之爭」（`heian-1113-saicho` 事件列條目）——人名與地名查無根據**。查證：Exa `延暦寺 園城寺 僧兵 政一 中井関 近江 焼` → 日文維基「山門寺門の争い」條逐一列 993/1039/1081/1120–21/1140/1142/1163 諸役，**無 1113 年延曆寺—園城寺之役，亦無「政一」「中井關」字樣**；1113（永久元年）該條所引古記只見興福寺—延曆寺合戰。動作：加 `disputed: true` ＋ note 記明查證結論與兩條處置選項（改掛 1121 保安之役或人工刪除），**未自行改名／未刪條目**。
+5. **1873 年「英國商船」為國別與事件性質雙錯**（見上表；實為日本備中國船民）。
+6. **結構性問題（非出處但必須報）**：id `heian-1113-saicho` 同時掛住兩件不同的事——事件列（`7b179b2` 地圖 pack commit 新增，標題「政一之爭」，year 1113）與詳情/三層（`267487c` 內容深潛批，寫最澄追號）。两者互相矛盾：詳情更正為 866 之後，事件列仍是 1113「政一之爭」。查證 agent 不宜代為改名或搬欄位，**列交人工**（下方第 5 節）。
+
+### 3) 死鏈佇列
+
+- `npm run audit:wiki-links 2>&1 | grep '✗'` → **無輸出**；`npm run audit:wiki-links` ＝ 連結 389｜**死鏈 0**｜未驗 0。佇列本輪為空，故本輪**未修任何連結**（上限 8 未用）。
+- 本輪**新增** 1 條連結：`https://zh.wikipedia.org/zh-tw/清和天皇`。依 2026-11-09 更正後之方法用 API 判定，不用 HTTP 狀態碼：
+  `curl -s 'https://zh.wikipedia.org/w/api.php?action=query&format=json&redirects=1&titles=清和天皇|噩公|兆兆天皇|円仁'` → `清和天皇` 有 `pageid 195678`（**無 missing**）＝條目存在；同批測試亦證明「只可以有冇 missing 判斷」（另三個標題 missing）。跑完整閘門後連結數 389 → **390、死鏈仍 0**。
+
+### 4) 閘門前後
+
+| 閘門 | 開工（`72e083d`） | 收尾（本輪 HEAD） | 判定 |
+|---|---|---|---|
+| `audit:quotes` | 條目 1943｜有引文 323｜錯誤 **0**｜提醒 45；已查證 124／未查證 88／意譯 108／引文已改 1 | 同左（**錯誤 0、提醒 45 完全不變**） | 不升 ✓ |
+| `audit:wiki-links` | 連結 389｜死鏈 **0**｜未驗 0 | 連結 390｜死鏈 **0**｜未驗 0 | 不升 ✓ |
+| `audit:chars` | 硬傷 **0**（待判 308，gate：與基準相同） | 硬傷 **0**（待判 309，gate：與基準相同） | 不升 ✓（+1 條待判係新增 classicSource 內逐字引文「戰**于**艾陵」之「于」，正字，與既有 308 條同類） |
+| `audit:detail-depth` | 詳情 44／缺口 **0** | 詳情 44／缺口 **0** | 不回升 ✓ |
+| `audit:event-depth` | 段落 881／缺口 **216**（68/107/41）｜灌水嫌疑 1 | 段落 881／缺口 **216**（68/107/41）｜灌水嫌疑 1 | 不回升 ✓ |
+| `npm run test` | — | test — 全部通過 | 綠 ✓ |
+| `npm run build` | — | ✓ built | 綠 ✓ |
+| `npm run gates` | — | 全綠：`audit:data fail=0(=) warn=49(=)`／`wiring fail=0(=)`／`ranges fail=0(=) warn=179(=)`／`quotes errors=0(=) warns=45(=)`／`chengyu fail=0(=) warn=1(=)`／`map fail=0(=)`／`chars hard=0(=)`／`wiki-links dead=0(=) unvalidated=0(=)`／`chengyu-coverage shortage=15(=) noEventLink=52(=)`／`war-shape schematic=291(=) selfInt=1(=)`／`reading-layers gap=0(=)`／`detail-depth gap=0(=)`／`event-depth gap=216(=) padding=1(=) jpGap=0(=)` → **「gates — 無惡化（與基線一致或更好）」**，13 條全部 `(=)` | 不惡化 ✓ |
+
+### 5) 需人工判斷項（查證 agent 不代為創作）
+
+1. **`heian-1113-saicho` 的 id／標題／年份三者不一致**：詳情已按史實寫成貞觀八年（866），但事件列仍是 `year: 1113`、標題「政一之爭」。**要嘛**把事件列改成「最澄受傳教大師之諡／866」（涉及改標題與年份、影響地圖與大事年表，屬內容判斷），**要嘛**將詳情另立新 id 掛回 866 年、事件列改掛 1121 保安之役或刪除。我不動地圖／年份欄位，等 KK 裁可。
+2. **「政一之爭」條目去留**：查無「政一」其人與「中井關」记载，已標 disputed；若人工能舉出《本朝世紀》殘簡的具體條文，請貼原始記載我再撤 disputed；查唔到就刪。
+3. **`az-1600` 的「關键」**：簡體字，屬 `audit:chars` 範疇（目前只計 硬傷 0，未抓），我不改非出處文字，交字符 agent。
+4. **《元文類》卷次版本差異**：我以四庫全書本（卷九）為準；元刊本／叢書集成本的卷次可能不同。若專案要固定引用版本，請人工定調（我已在 classicSource 寫明「四庫全書本」）。
+
+### 6) 邊界紀律與自我申報
+
+- 只做三種修改：(a) 加／修正出處與 note；(b) 降調（刪「二號同制」等無據之說、加 `disputed`、異文標明、年份錯位更正）；(c) 新增連結經 API 驗證。無擴寫敘事、無新增事件條目／成語／地圖幾何、無改 `scripts/audit-*` 門檻、無跑 `--update-baseline`。
+- 本輪實際改動 **9 個條目**（上限 15）：`heian-1113-saicho`（詳情＋三層＋事件 note）、`heian-806-kukai-return`、`ymq-1271`、`zhou-liaomin`、`shang-wuyi`、`ailing`、`mj-1874-taiwan`；加報告一份。
+- **分支說明（重要）**：指引要求 `--head verify/source-audit`，但該遠端分支目前掛著**未合併的 PR #142**（state OPEN，head `1701f55`，第 11–14 輪成果）。我唔可以用 `--force` 覆蓋、亦唔可以 rebase 上去混入未merge嘅工作，故本輪推新分支 **`verify/source-audit-r15`** 開 PR，base 仍係 `main`。下次排程請留意：`verify/source-audit` 已被 #142 佔用，除非 #142 先合併，否則每輪都要自帶新分支名。
+- 落盤紀律：本輪分兩次 commit＋push（第 1 批 5 條 `67c451b`、第 2 批 4 條 `70add14`），並已核實 `git ls-remote --heads origin verify/source-audit-r15` ＝ `git rev-parse HEAD`。
 
