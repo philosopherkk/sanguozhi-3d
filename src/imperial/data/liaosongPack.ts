@@ -1,5 +1,5 @@
 import type { ImperialPack } from '../types'
-import { line } from './line'
+import { line, seaLine } from './line'
 import {
   LIAOSONG_1004,
   LIAOSONG_1127,
@@ -81,7 +81,10 @@ export const LIAOSONG_PACK: ImperialPack = {
     },
   ],
   routes: [
-    line('ls-chenqiao', '陳橋', 960, '宋', '《宋史·太祖紀》。', [a.kaifeng, a.hulao]),
+    line('ls-chenqiao', '陳橋', 960, '宋', '《宋史·卷一·太祖本紀》「次陳橋驛」。趙匡胤自陳橋還京。', [
+      a.chenqiao,
+      a.kaifeng,
+    ]),
     line('ls-chanyuan', '澶淵之役', 1004, '遼', '《宋史·真宗紀》。遼師南下至澶州。', [
       a.youzhou,
       a.yecheng,
@@ -96,9 +99,10 @@ export const LIAOSONG_PACK: ImperialPack = {
       a.xiangyang,
       a.kaifeng,
     ]),
-    line('ls-yashan', '崖山', 1279, '蒙古', '《宋史》。宋元決戰於粵海，陸上畫至嶺南示意。', [
-      a.jiankang,
-      a.jiangling,
+    seaLine('ls-yashan', '崖山', 1279, '蒙古', '《宋史·卷四十七》「昺徙居崖山」「張弘範兵至崖山。庚午，李恒兵亦來會。世傑以舟師碇海中」。宋元決戰於崖山海中，故畫為海路。', [
+      [1547.3, 1257.6], // 泉州外洋（張世杰自井澳轉南澳一線示意）
+      [1420.8, 1352.1], // 惠州汕尾外洋（井澳）
+      [1342.7, 1386.8], // 新會崖山、零丁洋外海
     ]),
   ],
   events: [
