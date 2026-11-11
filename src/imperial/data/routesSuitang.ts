@@ -56,7 +56,12 @@ export const SUITANG_ROUTES = [
   line('li-su', '李愬入蔡', 817, '唐', '《舊唐書·李愬傳》；《資治通鑑》卷二百四十。雪夜入蔡州。', [a.xiangyang, a.xuchang]),
   line('ping-li', '裴度督師淮西', 817, '唐', '《舊唐書·裴度傳》。自郾城督諸軍。', [a.luoyang, a.xuchang]),
   line('li-shidao', '平淄青', 819, '唐', '《舊唐書·憲宗紀》。李師道伏誅，淄青平。', [a.kaifeng, a.linzi]),
-  line('liushijun', '劉闢西川', 806, '唐', '《舊唐書·憲宗紀》。高崇文自斜谷入成都。', [a.changan, a.hangu, a.chengdu]),
+  line('liushijun', '劉闢西川', 806, '唐', '《資治通鑑·卷二百三十七》「崇文出斜谷，李元奕出駱谷，同趣梓州。崇文軍至興元」。', [
+    a.changan,
+    [1085.4, 960.3], // 興元府（斜谷道南口）
+    [1007.2, 1026.4], // 綿州一帶（廣東之戰在綿州附近）
+    a.chengdu,
+  ]),
   line('wuyuanji-zhexi', '李錡鎮海', 807, '唐', '《舊唐書·李錡傳》。鎮海反，兵敗。', [a.jiankang, a.guangling]),
   line('tibet-weizhou', '吐蕃陷維州', 831, '吐蕃', '《舊唐書·吐蕃傳》。維州反复，牛李爭議。', [a.chengdu, a.jiangling]),
   line('nanzhao', '南詔寇成都', 829, '南詔', '《舊唐書·南詔傳》；《資治通鑑》卷二百四十四。陷成都西郛。', [a.chengdu, a.jiangling]),
