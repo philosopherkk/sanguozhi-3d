@@ -1218,5 +1218,30 @@
     "stamp": "ffbb9e42",
     "page": "資治通鑑/卷004",
     "at": "2026-11-11"
+  },
+  "src/zhou/data/timelineMore.ts#tiandan": {
+    "stamp": "fafbc93e",
+    "page": "資治通鑑/卷004",
+    "at": "2026-11-11"
+  },
+  "src/japanEras/packs/naraPack.ts#nr-710": {
+    "stamp": "88f1c723",
+    "page": "續日本紀/卷第五",
+    "at": "2026-11-11"
+  },
+  "src/japanEras/packs/naraPack.ts#nr-752": {
+    "stamp": "3a29e8a8",
+    "page": "續日本紀/卷第十八",
+    "at": "2026-11-11"
+  },
+  "src/japanEras/packs/naraPack.ts#nr-764": {
+    "stamp": "50216739",
+    "page": "續日本紀/卷第廿五",
+    "at": "2026-11-11"
+  },
+  "src/japanEras/packs/naraPack.ts#nr-784": {
+    "stamp": "346fc5ee",
+    "page": "續日本紀/卷第卅八",
+    "at": "2026-11-11"
   }
 }
