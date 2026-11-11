@@ -100,9 +100,8 @@ export const WUDAI_PACK: ImperialPack = {
       a.taiyuan,
       a.youzhou,
     ]),
-    line('wd-chenqiao', '陳橋兵變', 960, '後周', '《宋史·太祖紀》。趙匡胤自陳橋還京。', [
-      a.kaifeng,
-      a.hulao,
+    line('wd-chenqiao', '陳橋兵變', 960, '後周', '《宋史·卷一·太祖本紀》「次陳橋驛」。趙匡胤自陳橋還京。', [
+      a.chenqiao,
       a.kaifeng,
     ]),
   ],
