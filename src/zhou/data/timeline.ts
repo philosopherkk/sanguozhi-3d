@@ -847,7 +847,7 @@ export const ZHOU_TIMELINE: ZhouTimelineEvent[] = [
     outcomeSource: '《史記·秦始皇本紀》《楚世家》《白起王翦列傳》；《戰國策·楚策》；《資治通鑑》卷七；譚其驤主編《中國歷史地圖集》第二冊',
     classicQuote:
       '二十三年，秦王復召王翦，彊起之，使將擊荊。取陳以南至平輿，虜荊王。……二十四年，王翦、蒙武攻荊，破荊軍，昌平君死，項燕遂自殺。',
-    classicSource: '《史記·秦始皇本紀》卷六二十三年、二十四年',
+    classicSource: '《史記·秦始皇本紀》卷六（始皇二十三年、二十四年）',
     paraphrase: false,
     layers: {
       elementary:
@@ -893,7 +893,7 @@ export const ZHOU_TIMELINE: ZhouTimelineEvent[] = [
     outcomeSource: '《史記·秦始皇本紀》《燕召公世家》《趙世家》《六國年表》《朝鮮列傳》；《漢書·地理志》；《資治通鑑》卷七；譚其驤主編《中國歷史地圖集》第二冊',
     classicQuote:
       '二十五年，大興兵，使王賁將，攻燕遼東，得燕王喜。還攻代，虜代王嘉。王翦遂定荊江南地；降越君，置會稽郡。',
-    classicSource: '《史記·秦始皇本紀》卷六二十五年',
+    classicSource: '《史記·秦始皇本紀》卷六（始皇二十五年）',
     paraphrase: false,
     layers: {
       elementary:
