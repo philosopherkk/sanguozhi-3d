@@ -9,7 +9,10 @@
   --ink: #e8e0d0;
   --ink-muted: #a89f8c;
   --accent: #c4a574;
-  --accent-dim: #8a7355;
+  /* #8a7355 對深色底僅 3.96:1，低于 WCAG AA 的 4.5:1（見 docs/MOBILE_PLAN.md F 項）。
+     提亮至 #947d5f：同一色相、最小增幅，四種面板底色上均達 4.54:1 以上；
+     淺色主題不受影響（其 --accent-dim 另在 App.css 定義，4.93:1 已達標）。 */
+  --accent-dim: #947d5f;
   --line: rgba(196, 165, 116, 0.22);
 
   font-family: var(--font-body);
