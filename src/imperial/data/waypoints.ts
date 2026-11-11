@@ -18,6 +18,7 @@ export const P = {
   hefei: [1455, 970] as Pt,
   guangling: [1508, 948] as Pt,
   kaifeng: [1322.6, 874.4] as Pt,
+  chenqiao: [1329.6, 868.8] as Pt,
   nanyang: [1292, 962] as Pt,
   xuchang: [1309.4, 906.5] as Pt,
   feishui: [1432, 1008] as Pt,
