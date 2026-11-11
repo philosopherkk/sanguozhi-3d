@@ -33,8 +33,10 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
 
 討論：《左傳》的辭令與《史記·齊世家》的敘事在細節上不同（後者簡化並摻入管仲的謀劃語氣）；召陵的地望有郾城、召陵（今郾城東）等說，顧祖禹《讀史方輿紀要》已並列，楊伯峻《春秋左傳注》於名物多所考訂。本圖因此只標諸侯聯軍的到達線與盟約，不畫精確戰場，也不把楚的北界往南推。`,
     outcomeSource: '《左傳》僖公四年；《史記·齊太公世家》《楚世家》；《管子》（後出，需辨）；楊伯峻《春秋左傳注》；童書業《春秋史》；顧祖禹《讀史方輿紀要》',
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E5%83%96%E5%85%AC
     classicQuote: '楚屈完來盟于師，盟于召陵。',
-    classicSource: '《春秋》僖公四年，見《左傳》',
+    classicSource: '《左傳》僖公四年經文（《春秋》同年）',
     paraphrase: false,
     layers: {
       elementary:
@@ -77,7 +79,7 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
 討論：《孟子》所記盟辭是否葵丘原文，學界有保留——《孟子》以齊桓、晉文為「五霸」論證其性善與王霸之辨，材料經過論證性剪裁；《左傳》僖公九年記葵丘之會而辭條不同。本圖採《左傳》的會盟事實，把《孟子》的條文作為戰國人對霸政的理解來引用。`,
     outcomeSource: '《左傳》僖公九年；《孟子·告子下》；《史記·齊太公世家》；《論語·憲問》；楊伯峻《春秋左傳注》；童書業《春秋史》',
     classicQuote: '九月戊辰，諸侯盟于葵丘。',
-    classicSource: '《春秋》僖公九年，見《左傳》',
+    classicSource: '《左傳》僖公九年經文（《春秋》同年）',
     paraphrase: false,
     layers: {
       elementary:
@@ -119,8 +121,10 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
 
 討論：《左傳》的卜筮辭（卜徒父、郭偃）與《史記·晉世家》的記載在細節與因果安排上不同；近代研究者多把《左傳》此段視為史實骨架加占辭文學。本圖標秦的東進與晉的兵制改革，不採占辭；「作爰田」的具體內容（換田、寬恕、抑或稅制調整）在學界仍有爭論，故只標其兵源擴張的效果。`,
     outcomeSource: '《左傳》僖公十五年；《史記·晉世家》《秦本紀》；楊伯峻《春秋左傳注》；童書業《春秋史》；錢穆《國史大綱》（論春秋兵制之變）',
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E5%83%96%E5%85%AC
     classicQuote: '十有一月壬戌，晉侯及秦伯戰于韓，獲晉侯。',
-    classicSource: '《春秋》僖公十五年，見《左傳》。韓即韓原。',
+    classicSource: '《左傳》僖公十五年經文（《春秋》同年）。韓即韓原。',
     paraphrase: false,
     layers: {
       elementary:
@@ -162,8 +166,10 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
 
 討論：《左傳》與《國語·晉語》在此役的記載詳略不同，《史記·晉世家》引「天子所以享國長久者，信哉」一類感嘆，帶有漢初的總結語氣。地望上踐土（今原陽西南）、河陽（溫縣）諸說大致可定，但會盟的具體地點在注家之間仍有出入（服虔、杜預異說）。本圖標盟會與冊命，不畫領土變化——霸政改變的是關係，不是邊界。`,
     outcomeSource: '《左傳》僖公二十八年；《國語·晉語四》；《史記·晉世家》；楊伯峻《春秋左傳注》；童書業《春秋史》；顧祖禹《讀史方輿紀要》',
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E5%83%96%E5%85%AC
     classicQuote: '五月癸丑，公會晉侯、齊侯、宋公、蔡侯、鄭伯、衛子、莒子，盟于踐土。',
-    classicSource: '《春秋》僖公二十八年，見《左傳》',
+    classicSource: '《左傳》僖公二十八年經文（《春秋》同年）',
     paraphrase: false,
     layers: {
       elementary:
@@ -206,8 +212,10 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
 
 討論：《左傳》此段把楚莊王寫成知禮而知止的霸主，把晉的失敗歸於將帥不和（先縠之責）；《史記·楚世家》則極簡。「止戈為武」的字源解釋在文字學上不成立（武從戈從止的構形另有解釋），但作為思想史料價值極高——必須把「當時人如何解釋字」與「字實際如何構成」分開使用。本圖標楚的霸業與鄭的轉向，不畫楚的邊界推進。`,
     outcomeSource: '《左傳》宣公十二年；《史記·楚世家》《晉世家》；楊伯峻《春秋左傳注》；童書業《春秋史》；《說文》（論「武」字構形，與左傳解字對照）',
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E5%AE%A3%E5%85%AC
     classicQuote: '晉荀林父帥師及楚子戰于邲，晉師敗績。',
-    classicSource: '《春秋》宣公十二年，見《左傳》',
+    classicSource: '《左傳》宣公十二年經文（《春秋》同年）',
     paraphrase: false,
     layers: {
       elementary:
@@ -250,8 +258,10 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
 
 討論：《左傳》成公二年記郤克使齊、齊婦人觀而笑其矇（跛足），郤克怒而請伐——把一場大戰的起因寫成個人羞辱。近代研究者以此說明《左傳》的敘事結構偏好以禮儀衝突解釋戰爭，不能直接當作因果分析；《史記·齊世家》另記逢丑父代齊侯免於被虜的情節，屬戰國以降的俠義敘事。本圖採其戰役與和約骨架，不採羞辱起因。`,
     outcomeSource: '《左傳》成公二年；《史記·齊太公世家》《晉世家》；楊伯峻《春秋左傳注》；童書業《春秋史》；譚其驤主編《中國歷史地圖集》第一冊',
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E6%88%90%E5%85%AC
     classicQuote: '及齊侯戰于鞍，齊師敗績。',
-    classicSource: '《春秋》成公二年，見《左傳》（節錄）',
+    classicSource: '《左傳》成公二年經文（《春秋》同年）（節錄）',
     paraphrase: false,
     layers: {
       elementary:
@@ -293,8 +303,10 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
 
 本圖標楚的北進受挫與晉霸回穩，同時在 note 保留「晉的內部崩解由此開始」——這是本專案處理春秋戰役的紀律：戰役的勝負與政權的走向常常相反。`,
     outcomeSource: '《左傳》成公十六年、成公七年、成公十七年、襄公七年；《史記·楚世家》《晉世家》；楊伯峻《春秋左傳注》；童書業《春秋史》；顧祖禹《讀史方輿紀要》',
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E6%88%90%E5%85%AC
     classicQuote: '晉侯及楚子、鄭伯戰于鄢陵，楚子、鄭師敗績。',
-    classicSource: '《春秋》成公十六年，見《左傳》',
+    classicSource: '《左傳》成公十六年經文（《春秋》同年）',
     paraphrase: false,
     layers: {
       elementary:
@@ -336,8 +348,10 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
 
 討論：《左傳》昭公二十三年記此役的將領與陣形細節（令尹子瑕的病情、楚的「三軍」編組），《史記·楚世家》則只記結果；兩者的時間安排也有出入。本圖標淮域附庸的脫離，不畫楚的邊界縮小——附庸脫離不等於領土喪失，這是本專案處理所有「名分網絡」的統一紀律。`,
     outcomeSource: '《左傳》昭公二十三年、昭公二十年；《史記·楚世家》《吳太伯世家》；楊伯峻《春秋左傳注》；童書業《春秋史》',
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E6%98%AD%E5%85%AC
     classicQuote: '吳敗頓、胡、沈、蔡、陳、許之師于雞父。',
-    classicSource: '《春秋》昭公二十三年，見《左傳》',
+    classicSource: '《左傳》昭公二十三年經文（《春秋》同年）',
     paraphrase: false,
     layers: {
       elementary:
@@ -379,8 +393,10 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
 
 討論：《左傳》記吳以輕車取齊國子之旗、夫差示晉使以齊俘一類情節，帶有儀式性炫耀的意味；《史記·吳太伯世家》與《吳越春秋》的細節差異更大。艾陵的地望有萊蕪、泰山一帶等多說（顧祖禹《讀史方輿紀要》已列異），故本圖只標吳的北進線與齊的失利，不畫領土變化。`,
     outcomeSource: '《左傳》哀公十一年；《史記·吳太伯世家》《齊太公世家》《伍子胥列傳》；《吳越春秋》（後出，需辨）；楊伯峻《春秋左傳注》；顧祖禹《讀史方輿紀要》',
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E5%93%80%E5%85%AC
     classicQuote: '甲戌，齊國書帥師及吳戰于艾陵，齊師敗績。',
-    classicSource: '《春秋》哀公十一年，見《左傳》',
+    classicSource: '《左傳》哀公十一年經文（《春秋》同年）',
     paraphrase: false,
     layers: {
       elementary:
@@ -424,7 +440,7 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
 討論：《左傳》哀公十三年記此會的細節（吳夜襲越營、晉的猶豫、趙孟的判斷），《史記·吳太伯世家》與《吳越春秋》的情節差異極大，《吳越春秋》更以夫差為悲劇主角重寫全程。本圖不把黃池畫成吳勝晉，只標會盟與吳的轉折——這是本專案處理「儀式性事件」的原則：改變名分而不改變控制的事件，標而不畫。`,
     outcomeSource: '《左傳》哀公十三年；《史記·吳太伯世家》《晉世家》；《吳越春秋》（後出，需辨）；楊伯峻《春秋左傳注》；童書業《春秋史》',
     classicQuote: '公會晉侯及吳子于黃池。',
-    classicSource: '《春秋》哀公十三年，見《左傳》',
+    classicSource: '《左傳》哀公十三年經文（《春秋》同年）',
     paraphrase: false,
     layers: {
       elementary:
@@ -465,7 +481,9 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
 
 討論：《國語·越語》的成書在戰國，其政令是否勾踐原文不可證，但作為戰國對「弱國復仇」的制度想像，價值極高。「十年生聚，十年教訓」一語即出於此系統。本圖標吳的門戶失守，不畫越的領土擴張——在滅吳之前，越的控制仍在會稽核心。`,
     outcomeSource: '《左傳》哀公十七年；《國語·越語上》；《史記·越王勾踐世家》；楊伯峻《春秋左傳注》；童書業《春秋史》',
-    classicQuote: '越子伐吳，吳子御之笠澤，夾水而陳。',
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E5%93%80%E5%85%AC
+    classicQuote: '越子伐吳，吳子禦之笠澤，夾水而陳。',
     classicSource: '《左傳》哀公十七年（陳，同陣）',
     paraphrase: false,
     layers: {
@@ -682,8 +700,10 @@ export const ZHOU_TIMELINE_MORE: ZhouTimelineEvent[] = [
 
 本圖標齊的收復與燕的退出，色塊回到齊的舊域；同時保留註記：齊的復國是城邑的收復，不是國家動員能力的恢復。這是本專案處理「復國」類事件的原則——領土恢復與實力恢復是兩件事。`,
     outcomeSource: '《史記·田單列傳》《樂毅列傳》《齊太公世家》《六國年表》；《資治通鑑》卷四；賈誼《過秦論》；楊寬《戰國史》',
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7004
     classicQuote:
-      '田單乃收城中，得牛千餘，為絳繒衣，畫以五采龍文，束兵刃於其角，而灌脂束葦於其尾，燒其端，鑿城數十穴，夜縱牛。牛尾熱，怒而奔燕軍。燕軍大驚，視牛皆龍文，所觸盡死傷。……燕軍大駭，敗走。齊人殺騎劫，追亡逐北，所過城邑皆叛燕，復為齊。……而齊七十餘城皆復焉。乃迎襄王於莒，入臨淄，封田單為安平君。',
+      '田單乃收城中，得牛千餘，為絳繒衣，畫以五采龍文，束兵刃於其角，而灌脂束葦於其尾，燒其端，鑿城數十穴，夜縱牛。……牛尾熱，怒而奔燕軍。燕軍大驚，視牛皆龍文，所觸盡死傷。……燕軍大駭，敗走。齊人殺騎劫，追亡逐北，所過城邑皆叛燕，復為齊。……而齊七十餘城皆復焉。乃迎襄王於莒，入臨淄，封田單為安平君。',
     classicSource: '《資治通鑑》卷四周赧王三十六年；《史記·田單列傳》',
     paraphrase: false,
     layers: {
