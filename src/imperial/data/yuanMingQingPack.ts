@@ -1,5 +1,5 @@
 import type { ImperialPack } from '../types'
-import { line } from './line'
+import { line, seaLine } from './line'
 import {
   MING_1368,
   MING_1420,
@@ -132,9 +132,12 @@ export const YUAN_MING_QING_PACK: ImperialPack = {
       a.lulong,
       a.youzhou,
     ]),
-    line('ymq-opium', '鴉片戰爭示意', 1840, '列強', '近代史通說。自珠江口北上沿海示意。', [
-      a.jiankang,
-      a.guangling,
+    seaLine('ymq-opium', '鴉片戰爭示意', 1840, '列強', '近代史通說，非逐字引文。英艦自珠江口北上，擾廈門、陷定海、直迫大沽口，道光帝於是議撫。', [
+      [1374.2, 1377.5], // 珠江口外洋
+      [1524.1, 1277.4], // 廈門外洋
+      [1625.8, 1029.9], // 定海（舟山）外洋
+      [1624.0, 975.1], // 長江口外洋
+      [1459.0, 698.6], // 大沽口外（天津外洋）
     ]),
     line('ymq-xinhai', '武昌起義影響', 1911, '清', '近代史通說。湖廣震動，清室退位在次年。', [
       a.jiangling,
