@@ -1377,3 +1377,16 @@ gh pr list --search 'head:verify/source-audit' --state all
 5. **傳名簡稱體例**（《夏侯淵》《張郃》《紹傳》）：唔係虛構，但形態唔似可引用書名；要改就係全庫體例工程，交人工定調，我冇自己改。
 6. **《劉二牧傳》**：書名屬實（蜀書卷31），但 zh.wikisource 子頁名與 qsrc 自動變體清單唔匹配，本輪無法逐字比對，故冇加「已逐字核對」。MDEOF
 git add -A && git commit -q -m "docs(source-audit): 第16輪查證報告——隨機12條（8條逐字可查證）、屋島/壇之浦年號錯位3組、虛構書名3個刪除、自我申報引入又修回嘅字形回退" && git --no-pager log --oneline -1 && git push -q origin HEAD:verify/source-audit-r16 && git ls-remote --heads origin verify/source-audit-r16 && echo -n 'local: ' && git rev-parse HEAD && git status --porcelain | wc -l
+
+### 9) 環境雜訊：`audit:wiki-links` 嘅「未驗」唔係死鏈（俾下一輪少走冤枉路）
+
+本輪中途出現兩次假紅：
+
+```
+audit:wiki-links — 連結 389｜死鏈 0｜未驗 100      # 第一次直接跑
+audit:wiki-links     dead=0(=) unvalidated=50(↑50)  # gates 報「惡化」
+```
+
+成因同腳本自註一致（`scripts/audit_wiki_links.mjs` L72/L86：「網路失敗保守計為未驗，唔當死鏈……重試不夠就會 unvalidated 飆升、gates 變紅」）——同一輪我為查證另跑咗多次 `curl`/API（ja.wikisource 吾妻鏡逐卷、ja.wikipedia 元暦／源義経、zh.wikipedia 標題查缺失），觸發限流。**唔係連結壞咗**：冷卻之後單獨重跑即回 `連結 389｜死鏈 0｜未驗 0`。
+
+紀律上本輪**冇**跑 `--update-baseline`、冇改 retry/門檻。俾下一輪嘅做法：查證用嘅臨時 API 請求同 `audit:wiki-links` 要錯開時間；若 gates 因 unvalidated 變紅，先單獨重跑 `audit:wiki-links` 確認，唔好當死鏈去改連結。
