@@ -57,6 +57,8 @@ const routes: MarchRoute[] = [
  */
 const READINGS: Record<string, EraReading> = {
   'nr-710': {
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E7%BA%8C%E6%97%A5%E6%9C%AC%E7%B4%80/%E5%8D%B7%E7%AC%AC%E4%BA%94
     quote: '辛酉，始遷都于平城。以左大臣正二位石上朝臣麻呂爲留守。',
     source: '《續日本紀》卷第五 元明天皇和銅三年條（漢文原文，已逐字核對）',
     layers: {
@@ -69,6 +71,8 @@ const READINGS: Record<string, EraReading> = {
     },
   },
   'nr-752': {
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E7%BA%8C%E6%97%A5%E6%9C%AC%E7%B4%80/%E5%8D%B7%E7%AC%AC%E5%8D%81%E5%85%AB
     quote: '夏四月乙酉，盧舍那大佛像成，始開眼。',
     source: '《續日本紀》卷第十八 孝謙天皇天平勝寶四年條（漢文原文，已逐字核對）',
     layers: {
@@ -81,6 +85,8 @@ const READINGS: Record<string, EraReading> = {
     },
   },
   'nr-764': {
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E7%BA%8C%E6%97%A5%E6%9C%AC%E7%B4%80/%E5%8D%B7%E7%AC%AC%E5%BB%BF%E4%BA%94
     quote: '乙巳，太師藤原惠美朝臣押勝逆謀頗泄。',
     source: '《續日本紀》卷第廿五 淳仁天皇天平寶字八年條（漢文原文，已逐字核對）',
     layers: {
@@ -93,7 +99,9 @@ const READINGS: Record<string, EraReading> = {
     },
   },
   'nr-784': {
-    quote: '相乙訓郡長岡村之地，為遷都也。',
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E7%BA%8C%E6%97%A5%E6%9C%AC%E7%B4%80/%E5%8D%B7%E7%AC%AC%E5%8D%85%E5%85%AB
+    quote: '相乙訓郡長岡村之地，爲遷都也。',
     source: '《續日本紀》卷第卅八 桓武天皇延暦三年條（漢文原文，已逐字核對）',
     layers: {
       elementary:
