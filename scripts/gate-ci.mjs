@@ -44,6 +44,14 @@ const GATES = [
     metrics: { fail: /audit:map —[^\n]*fail (\d+)/, warn: /｜fail \d+｜warn (\d+)/ },
   },
   { name: 'audit:chars', cmd: 'npm run audit:chars', metrics: { hard: /硬傷 (\d+)/ } },
+  // 2026-11-13 補：audit:chars 報「硬傷 0」連續多輪，實則 对 传 开 学 经 张 赵 户 阳 铁
+  // 這些最常見的簡體字根本不在字表裡——數字綠是因為沒有人在查。這條閘門不量內容，
+  // 量的是「字表有沒有牙」：把壞字注入暫存檔再掃，抓不到就惡化。有數字才不會無聲消失。
+  {
+    name: 'audit:chars:teeth',
+    cmd: 'npm run audit:chars -- --teeth',
+    metrics: { fail: /audit:chars --teeth — 失敗 (\d+) 項/ },
+  },
   // 2026-11-08 補：使用者隨機抽查應仁之亂即見內容極薄，追查發現既有 event-depth
   // 從未讀取事件詳情檔案（timelineDetails 字串比對 0 次）。41 條受測、27 條缺口。
   // 分開一支閘門是為了不打斷其他 agent 已有的 event-depth 基線。
