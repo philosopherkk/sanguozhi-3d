@@ -73,7 +73,7 @@ function findContainer(src, marker) {
   return { idx: o }
 }
 
-/** 由容器起始括号開始，深度 1 的每個 `{...}` 係一個條目；map 形會 backwards 搵 key。 */
+/** 由容器起始括號開始，深度 1 的每個 `{...}` 係一個條目；map 形會 backwards 搵 key。 */
 function blocksFrom(src, idx) {
   const out = []
   let depth = 0, elemStart = -1

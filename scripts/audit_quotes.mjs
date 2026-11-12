@@ -399,7 +399,7 @@ function check(e, all) {
   const quoteText = text(e.quote)
 
   if (e.quote && !e.source) {
-    // 閱讀層（readingLayers）本身不写出處，沿用同目錄同 id 條目（出處最長嗰個）
+    // 閱讀層（readingLayers）本身不寫出處，沿用同目錄同 id 條目（出處最長嗰個）
     const dir = (p) => p.slice(0, p.lastIndexOf('/'))
     const twins = all.filter(
       (x) => x !== e && x.key === e.key && x.source && dir(x.file) === dir(e.file),
@@ -439,7 +439,7 @@ function check(e, all) {
   return issues
 }
 
-// 找一段够長、没標點的文字做查證關鍵字
+// 找一段夠長、沒標點的文字做查證關鍵字
 function needleOf(quote) {
   const parts = String(quote)
     .split(/[^\p{Script=Han}]+/u)

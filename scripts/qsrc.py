@@ -3,8 +3,8 @@
 """qsrc.py — 對 Wikisource 原文查證引文（三國志 3D 專案的臨時查證工具）。
 
 用法:
-  python3 /tmp/qsrc.py 書名/卷N '正则'            # 直接指定子頁
-  python3 /tmp/qsrc.py --cite '《三國志·魏書·武帝紀》' '正则'   # 由引文出處解析子頁
+  python3 /tmp/qsrc.py 書名/卷N '正則'            # 直接指定子頁
+  python3 /tmp/qsrc.py --cite '《三國志·魏書·武帝紀》' '正則'   # 由引文出處解析子頁
   python3 /tmp/qsrc.py --toc 三國志               # 列出索引頁的子頁
   python3 /tmp/qsrc.py --loose 後漢書/卷71 '大賢良師'  # 容忍標點／換字空隙
 
