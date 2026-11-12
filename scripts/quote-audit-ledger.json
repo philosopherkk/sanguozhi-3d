@@ -1288,5 +1288,20 @@
     "stamp": "340db5f6",
     "page": "史記/卷006",
     "at": "2026-11-12"
+  },
+  "src/data/readingLayers.ts#184-huangjin": {
+    "stamp": "c039ce48",
+    "page": "後漢書/卷71",
+    "at": "2026-11-12"
+  },
+  "src/data/readingLayers.ts#208-chibi": {
+    "stamp": "4179859c",
+    "page": "三國志/卷01",
+    "at": "2026-11-12"
+  },
+  "src/data/readingLayers.ts#280-feihan": {
+    "stamp": "1ce2ea00",
+    "page": "宋書/卷97",
+    "at": "2026-11-12"
   }
 }
