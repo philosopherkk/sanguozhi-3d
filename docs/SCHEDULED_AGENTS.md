@@ -23,7 +23,7 @@
 ## 0.5 模型鐵律（與真確性同級）
 
 **本專案所有排程 agent 只准由本機模型 `strata/unsloth-ud-iq4_xs-v31`（Unsloth UD IQ4 XS v31）執行。**
-不得改用、回退或借用任何雲端模型（poe／xai／openai／anthropic 等一律禁止）。理由：內容查證屬本机
+不得改用、回退或借用任何雲端模型（poe／xai／openai／anthropic 等一律禁止）。理由：內容查證屬本機
 資料，且本機模型可 24 小時輪值。
 
 機制（已生效，實測過）：
@@ -34,6 +34,13 @@
   2. `policies`：先 `provider.use * deny`，再 `provider.use strata allow`——其他 provider 從目錄中消失，
      選了會直接報 `Model unavailable`，不是提示而是硬擋。
 - 排程工作階段（session）本身亦已存 `model=strata/unsloth-ud-iq4_xs-v31`。
+- 該鎖定檔由 **root 擁有、444、並設 `schg`（系統不可變旗標）**：連檔案擁有者都無法修改或刪除
+  （`chmod`／`rm`／`git clean` 對它會報 `Operation not permitted`）。有一支 root LaunchDaemon
+  （`com.historyfirst.model-watchdog`，每 15 分鐘）負責驗證內容、把被改動的排程與會話模型改回來，
+  並在無法自動修復時發 macOS 通知。所以：
+  - 看到 `Operation not permitted` 之類錯誤，**不要設法解除旗標**（你也解不了），照 §0.5 self-check
+    的規定停止並報告即可。
+  - **不要嘗試以 `git clean -fdx`、`git reset --hard` 之類動作動它**：兩者都不會動到它。
 
 每輪開工 self-check（缺檔即停止本輪並在報告說明，**絕不可自行刪除或改寫此檔以繞過限制**）：
 
@@ -44,7 +51,7 @@ test -f .opencode/opencode.json \
   && echo MODEL_LOCK_OK || echo MODEL_LOCK_MISSING
 ```
 
-兩條都要核（只查 strata 存在，挡不住「留 allow、抽走 deny-all」的改動）。
+兩條都要核（只查 strata 存在，擋不住「留 allow、抽走 deny-all」的改動）。
 該檔權限為 `444`（唯讀）。若遭破壞，由使用者或協調者跑
 `sh ~/Documents/my-project/.agent-runtime/ensure-model-lock.sh` 復原；**agent 不准自行復原或改寫**。
 
