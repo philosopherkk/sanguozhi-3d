@@ -2667,8 +2667,8 @@ html[data-theme='light'] .app-footer {
    對 footer 底色 rgb(12,16,12) 實測對比僅 4.26:1 < WCAG AA 4.5:1，
    而呢段字 0.65rem≈10.4px 屬細字，必須守 4.5。
    改用 #9e8564 → 5.47:1，同時代列（本檔 .era-bar button 註解）沿用同一個
-   「AA 安全暗金色」，唔多開一套色調；選中的 --accent(#c4a574) 仍較亮，層級不變。
-   浅色版不受影響（App.css 內 html[data-theme='light'] .app-footer 用 --ink）。 */
+   「AA 安全暗金色」，不另外開一套色調；選中的 --accent(#c4a574) 仍較亮，層級不變。
+   淺色版不受影響（App.css 內 html[data-theme='light'] .app-footer 用 --ink）。 */
 html:not([data-theme='light']) .app-footer {
   color: #9e8564;
 }
