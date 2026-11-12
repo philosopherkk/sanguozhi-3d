@@ -26,7 +26,7 @@
   min-width: 0;
 }
 
-/* ── 修 2：iOS 安全區（刘海與主頁指示條） ──
+/* ── 修 2：iOS 安全區（瀏海與主頁指示條） ──
    配合 index.html 的 viewport-fit=cover。 .app-shell 已採 border-box，
    因此 padding 不會把 100dvh 推高。 */
 .app-shell {
@@ -43,10 +43,13 @@
   padding-bottom: calc(0.25rem + var(--safe-bottom));
 }
 
-@media (max-width: 700px) {
-  /* ── 修 3：朝代列改單行橫向卷軸 ──
-     實測 18 顆按鈕換行後高 256px（佔螢幕 30%），把地圖壓到 230px。
-     單行橫滑後同樣 18 個時代全部仍可達，高度降至約 48px。 */
+/* ── 修 3：朝代列改單行橫向卷軸 ──
+   實測 18 顆按鈕換行後高 256px（佔螢幕 30%），把地圖壓到 230px。
+   單行橫滑後同樣 18 個時代全部仍可達，高度降至約 48px。
+   範圍與 修 9／修 10 相同：平板（701–859px）在 768px 寬之下同一組
+   時代按鈕照樣換行（實測 155px，字級放大後更增至 182px，佔直式
+   iPad 近兩成），橫滑的互動與觸控或指標無關，故一併套用。 */
+@media (max-width: 700px), (min-width: 701px) and (max-width: 859px) {
   .era-bar {
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -75,9 +78,11 @@
   .era-bar > button.is-active {
     border-inline-end-color: transparent;
   }
+}
 
+@media (max-width: 700px) {
   /* ── 修 4：頁頭圧縮 ──
-     標語與時代切換器內容重複（两者都寫明中／日與時代範圍），
+     標語與時代切換器內容重複（兩者都寫明中／日與時代範圍），
      窄屏只保留切換器，省下兩行。 */
   .app-header {
     gap: 0.2rem 0.5rem;
@@ -289,12 +294,21 @@
   --fs-prose-2: 1rem; /* 16px 次要內文：卡片說明、列點 */
   --fs-ui: 0.9375rem; /* 15px 分頁、按鈕、可點選文字 */
   --fs-meta: 0.8125rem; /* 13px 出處、標籤、註記（原 8.8–11.5px） */
+  /* 標題與引用層級原本直接寫死 rem，平板一檔無從整體縮放，
+     故收為變數；預設值與原寫死值完全相同，流動版實測不變。 */
+  --fs-long: 1.25rem; /* 20px 逐字原文／長篇意譯 */
+  --fs-quote: 1.3rem; /* 20.8px 出處引文 */
+  --fs-title: 1.25rem; /* 20px 卡片的標題（人名、成語、文章） */
+  --fs-title-2: 1.3rem; /* 20.8px 面板標題 */
   --lh-prose: 1.85; /* 繁體宋體筆畫密，行距需比拉丁字體更寬 */
   --lh-prose-2: 1.7;
   --lh-meta: 1.35; /* 標籤・出處多為單行，行距不影響辨識，收緊以還原地圖高度 */
 }
 
-@media (max-width: 700px) {
+/* 701–859px 是平板直式（768、820、834）與窄窗口。上限取 859px，
+   因為那是 App.css 自己「單欄／堆疊」版面的斷點（App.css:41、295），
+   大於 859px 即回到桌面兩欄版面，字級另計（見 修 10）。 */
+@media (max-width: 700px), (min-width: 701px) and (max-width: 859px) {
   /* ── 9.1 主要內文 ──
      這是使用者真正要讀的段落，提到 18px，比 iOS 系統正文（17px）再略大，
      因為本專案內文以繁體宋體排印，筆畫較密。
@@ -320,12 +334,12 @@
   /* 逐字原文與長篇意譯要明顯大於一般內文，否則與 18px 基線無法分辨。
      App.css 對 paraphrase 兩條都帶 !important，故此處不可省略。 */
   .event-detail__paraphrase--long {
-    font-size: 1.25rem !important;
+    font-size: var(--fs-long) !important;
     line-height: 1.9;
   }
 
   .event-detail__quote blockquote p {
-    font-size: 1.3rem;
+    font-size: var(--fs-quote);
     line-height: 1.9;
   }
 
@@ -364,13 +378,13 @@
   .person-name,
   .chengyu-card__lemma,
   .unreg-panel__head h2 {
-    font-size: 1.25rem;
+    font-size: var(--fs-title);
     line-height: 1.45;
   }
 
   .panel-header h2,
   .event-detail__header h3 {
-    font-size: 1.3rem;
+    font-size: var(--fs-title-2);
     line-height: 1.45;
   }
 
@@ -398,6 +412,7 @@
   .collapsible-shell__toggle,
   .collapsible-shell__title,
   .side-rail__toggle,
+  .side-rail__map-first,
   .filters select,
   .people-search,
   .power-board__toggle,
@@ -420,29 +435,6 @@
      頁頭由 155px 增至 185px，地圖再少 30px。 */
   .reading-controls button {
     min-height: var(--tap-min);
-  }
-
-  /* 頁頭本列要塞的東西最多，字級放大後先收外距，避免多出一列。 */
-  .app-header {
-    gap: 0.2rem 0.35rem;
-  }
-
-  .app-header__brand {
-    gap: 0.4rem;
-  }
-
-  .app-header__year-block {
-    gap: 0.25rem;
-  }
-
-  .app-header__year {
-    min-width: 0;
-    max-width: none;
-  }
-
-  .app-header__play {
-    padding: 0.3rem 0.5rem;
-    margin-left: 0;
   }
 
   /* ── 9.4 標籤・出處・註記 ──
@@ -574,5 +566,71 @@
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+  }
+}
+
+/* ── 9.3a 頁頭外距收緊（只限流動版，不隨 修 10 擴到平板）──
+   這五條不是字級而是外距：手機頁頭本列要塞的東西最多，字級放大後
+   先收外距避免多出一列。平板（768px 以上）頁頭本來就有空間，
+   收緊反而擠壓品牌標題，故保留在 700px 以內。 */
+@media (max-width: 700px) {
+  .app-header {
+    gap: 0.2rem 0.35rem;
+  }
+
+  .app-header__brand {
+    gap: 0.4rem;
+  }
+
+  .app-header__year-block {
+    gap: 0.25rem;
+  }
+
+  .app-header__year {
+    min-width: 0;
+    max-width: none;
+  }
+
+  .app-header__play {
+    padding: 0.3rem 0.5rem;
+    margin-left: 0;
+  }
+}
+
+/* ============================================================
+   修 10：平板字級（701–859px）
+
+   修 9 原本只寫在 @media (max-width: 700px) 之內，平板因此完全沿用
+   App.css 的桌面字級。實測 768×1024（iPad 直式，本專案最常用的平板
+   尺寸）：
+     卡片內文 .faction-inspect__change     10.4px
+     地圖省名 .terr-label__prov             9.0px
+     標籤・出處 .side-rail__label 等       11.5px
+     年份備註 .year-scrubber__note--preview 9.9px
+   平板物理尺寸比手機大、閱讀距離更遠，卻拿到全站最小的字，方向正好
+   相反。更嚴重的是三層意譯在此寬度失去層級：逐字原文（--long）與
+   短篇意譯同為 13.12px，使用者無法分辨原文／意譯／白話（流動版為
+   20.8 > 20 > 18）。
+
+   做法：把 修 9 的媒體條件擴到 701–859px（沿用同一組選擇器，不重寫
+   一次以免兩份清單走樣），再於此檔用 :root 覆寫各層 token。:root 的
+   特異度與前相同而位置較後，故在此寬度生效；小於 700px 時本區完全不
+   匹配，流動版數值不動。
+
+   數值取平板比手機再放大一號（正文 18 → 20px），並保持 修 9 各層之間
+   的比值不變；地圖標記（9.5）維持原值，因為標籤重疊與螢幕寬度無關。
+   859px 以上回到 App.css 的桌面兩欄版面，字級不改（那屬桌面版排版的
+   另一題，需另行實測）。
+   ============================================================ */
+@media (min-width: 701px) and (max-width: 859px) {
+  :root {
+    --fs-prose: 1.25rem; /* 20px */
+    --fs-prose-2: 1.0625rem; /* 17px */
+    --fs-ui: 1rem; /* 16px */
+    --fs-meta: 0.875rem; /* 14px */
+    --fs-long: 1.375rem; /* 22px */
+    --fs-quote: 1.5rem; /* 24px */
+    --fs-title: 1.375rem; /* 22px */
+    --fs-title-2: 1.45rem; /* 23.2px */
   }
 }
