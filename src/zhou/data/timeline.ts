@@ -105,8 +105,10 @@ export const ZHOU_TIMELINE: ZhouTimelineEvent[] = [
 
 另須注意：楚的失敗是北進受挫，不是國家被削弱。楚的北方據點（申、息）仍在，其後楚穆王、莊王相繼復起，前594 邲之役楚勝晉——把城濮寫成「楚晉勝負已分」，是《左傳》敘事節奏造成的錯覺。`,
     outcomeSource: '《左傳》僖公二十八年；《史記·晉世家》《楚世家》；楊伯峻《春秋左傳注》（北京：中華書局，1981）；童書業《春秋史》；顧祖禹《讀史方輿紀要》',
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E5%83%96%E5%85%AC
     classicQuote: '己巳，晉師陳于莘北……楚師敗績。',
-    classicSource: '《左傳》僖公二十八年（中間有節略）',
+    classicSource: '《左傳》僖公二十八年傳文（中間有節略）',
     paraphrase: false,
     layers: {
       elementary:
@@ -149,8 +151,10 @@ export const ZHOU_TIMELINE: ZhouTimelineEvent[] = [
 
 對地圖而言，本年不畫秦的東界推進，反而標秦向西的經營——這是本專案少見的「因失敗而改向」的邊界變化，其依據是《秦本紀》的兼併諸戎記載，而不是一場戰役的勝負。`,
     outcomeSource: '《左傳》僖公三十二年、三十三年；《史記·秦本紀》《晉世家》；楊伯峻《春秋左傳注》；童書業《春秋史》；譚其驤主編《中國歷史地圖集》第一冊',
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E5%83%96%E5%85%AC
     classicQuote: '夏四月辛巳，晉人及姜戎敗秦師于殽。',
-    classicSource: '《春秋》僖公三十三年，見《左傳》。殽即崤。',
+    classicSource: '《左傳》僖公三十三年經文（《春秋》同年）。殽即崤。',
     paraphrase: false,
     layers: {
       elementary:
@@ -194,9 +198,11 @@ export const ZHOU_TIMELINE: ZhouTimelineEvent[] = [
 
 本圖把本年標為「郢一度失守」，不畫吳佔荊州：吳的佔領是數月的軍事存在，不是行政接管。`,
     outcomeSource: '《左傳》定公四年；《史記·楚世家》《吳太伯世家》《伍子胥列傳》；《吳越春秋》（後起）；李學勤論曾國與隨國（《李學勤集》）；楊伯峻《春秋左傳注》',
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E5%AE%9A%E5%85%AC
     classicQuote:
       '冬十有一月庚午，蔡侯以吳子及楚人戰于柏舉，楚師敗績。楚囊瓦出奔鄭。庚辰，吳入郢。',
-    classicSource: '《春秋》定公四年，見《左傳》',
+    classicSource: '《左傳》定公四年經文（《春秋》同年）',
     paraphrase: false,
     layers: {
       elementary:
@@ -241,8 +247,10 @@ export const ZHOU_TIMELINE: ZhouTimelineEvent[] = [
 
 吳在夫椒之後的北進則靠工程支撐：築邗城、貫邗溝（《史記·吳太伯世家》與《水經注》所記），把江淮水道連起來，才能運兵與運糧到淮上。霸權的後勤在春秋晚期已經是土木工程的問題，這與後來吳黃池之會、夫差掘溝的記載一脈相承。`,
     outcomeSource: '《左傳》哀公元年；《史記·越王勾踐世家》《吳太伯世家》；《越絕書》《吳越春秋》（後出，需辨）；楊伯峻《春秋左傳注》',
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E5%93%80%E5%85%AC
     classicQuote: '吳王夫差敗越于夫椒，報檇李也。遂入越。',
-    classicSource: '《左傳》哀公元年',
+    classicSource: '《左傳》哀公元年傳文',
     paraphrase: false,
     layers: {
       elementary:
@@ -285,8 +293,10 @@ export const ZHOU_TIMELINE: ZhouTimelineEvent[] = [
 
 本圖把本年標為「江東歸越」，同時保留紀律：揚州一格改色不等於越在江東設郡縣；吳的舊貴族（季札之後的讓國傳說所反映的君位傳承問題）也未因亡國而消失。`,
     outcomeSource: '《左傳》哀公元年至十二年；《國語·吳語》《越語下》；《史記·吳太伯世家》《越王勾踐世家》；《越絕書》《吳越春秋》（後出，需辨）；童書業《春秋史》',
-    classicQuote: '越滅吳。',
-    classicSource: '《左傳》哀公二十二年經文',
+    // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E5%93%80%E5%85%AC
+    classicQuote: '冬，十一月丁卯，越滅吳。',
+    classicSource: '《左傳》哀公二十二年傳文（《春秋》於哀公十四年絕筆，吳亡不出於經，此為傳文起句）',
     paraphrase: false,
     layers: {
       elementary:
@@ -636,8 +646,8 @@ export const ZHOU_TIMELINE: ZhouTimelineEvent[] = [
 本圖把本年標為「王畿入秦」，並在 note 說明：洛邑的城邑範圍小，色塊是行政歸屬的標記，不是城市規模的寫照。`,
     outcomeSource: '《史記·周本紀》《秦本紀》《封禪書》；《漢書·郊祀志》；《史記·六國年表》；《竹書紀年》（王國維《今本竹書紀年疏證》）；譚其驤主編《中國歷史地圖集》第一冊',
     classicQuote:
-      '（莊襄王元年）東周與諸侯謀秦，秦使相國不韋誅之，盡入其國。秦不絕其祀，以陽人地賜周君，奉其祭祀。',
-    classicSource: '《史記·秦始皇本紀》卷六莊襄王元年；《史記·周本紀》',
+      '東周與諸侯謀秦，秦使相國不韋誅之，盡入其國。秦不絕其祀，以陽人地賜周君，奉其祭祀。',
+    classicSource: '《史記·秦始皇本紀》卷六（莊襄王元年）；《史記·周本紀》',
     paraphrase: false,
     layers: {
       elementary:
@@ -682,7 +692,7 @@ export const ZHOU_TIMELINE: ZhouTimelineEvent[] = [
 本圖因此在韓亡之後仍保留其人物與文本的時間軸（韓非死于前233，在韓亡之前），不把思想史事件掛在滅國年上。`,
     outcomeSource: '《史記·秦始皇本紀》《韓世家》《六國年表》；《戰國策·韓策》；睡虎地秦簡、里耶秦簡（郡縣名之旁證）；譚其驤主編《中國歷史地圖集》第二冊',
     classicQuote: '十七年，內史騰攻韓，得韓王安，盡納其地，以其地為郡，命曰潁川。',
-    classicSource: '《史記·秦始皇本紀》卷六十七年',
+    classicSource: '《史記·秦始皇本紀》卷六（始皇十七年）',
     paraphrase: false,
     layers: {
       elementary:
@@ -725,7 +735,7 @@ export const ZHOU_TIMELINE: ZhouTimelineEvent[] = [
     outcomeSource: '《史記·秦始皇本紀》《趙世家》《廉頗藺相如列傳》《六國年表》；《戰國策·趙策四》；《資治通鑑》卷七；譚其驤主編《中國歷史地圖集》第二冊',
     classicQuote:
       '十八年，大興兵攻趙，王翦將上地，下井陘……十九年，王翦、羌瘣盡定取趙地東陽，得趙王。……趙公子嘉率其宗數百人之代，自立為代王，東與燕合兵，軍上谷。',
-    classicSource: '《史記·秦始皇本紀》卷六十八年、十九年',
+    classicSource: '《史記·秦始皇本紀》卷六（始皇十八年、十九年）',
     paraphrase: false,
     layers: {
       elementary:
@@ -803,7 +813,7 @@ export const ZHOU_TIMELINE: ZhouTimelineEvent[] = [
 本圖把本年標為「魏亡、三晉結束」，同時保留紀律：大梁的陷落不等於魏地全境編戶化；其後陳勝吳廣起於蘄、張楚立於陳，正在這一帶，說明秦的統治在此並未內化。`,
     outcomeSource: '《史記·秦始皇本紀》《魏世家》《河渠書》；《戰國策·魏策》；里耶秦簡、睡虎地秦簡（郡縣運作之旁證）；譚其驤主編《中國歷史地圖集》第二冊',
     classicQuote: '二十二年，王賁攻魏，引河溝灌大梁，大梁城壞，其王請降，盡取其地。',
-    classicSource: '《史記·秦始皇本紀》卷六二十二年',
+    classicSource: '《史記·秦始皇本紀》卷六（始皇二十二年）',
     paraphrase: false,
     layers: {
       elementary:
