@@ -7,7 +7,7 @@ export const P = {
   yecheng: [1322, 820] as Pt,
   xiangyang: [1288, 980] as Pt,
   jiangling: [1266.8, 1060] as Pt,
-  pengcheng: [1396, 856] as Pt,
+  pengcheng: [1417.6, 884.8] as Pt, // 彭城（今江蘇徐州）
   taiyuan: [1248, 760] as Pt,
   pingcheng: [1308, 700] as Pt,
   linzi: [1440.7, 777.3] as Pt,
@@ -35,7 +35,7 @@ export const P = {
   dunhuang: [920, 820] as Pt,
   guazhou: [980, 800] as Pt,
   lulong: [1388, 720] as Pt,
-  huai: [1416, 968] as Pt,
+  huai: [1481.9, 901] as Pt, // 淮陰（今江蘇淮安西南，祖逖鎮此）
   zhongli: [1436.7, 938.4] as Pt, // 鍾離（今安徽鳳陽東，在合肥以北）
   shouyang: [1268, 800] as Pt,
   pingyang: [1236, 830] as Pt,
