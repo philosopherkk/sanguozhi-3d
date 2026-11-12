@@ -22,7 +22,7 @@ const OUT = path.resolve(import.meta.dirname, '../src/geo/asiaWarTerritory.ts')
 const TOL = Number(process.env.TOL || DEFAULT_TOL)
 /** 噪點篩除閾值（畫布像素）：兩維皆小於此值嘅環喺 1710x1000 畫布上不足兩粒像素，
  *  填色不可見只堆環數；環礁（トラック約 1px）與真島嶼不受影響。
- *  2026-11-12 由 0.45 上调至 1.0，另加面積極小補充條件（見環迴路註釋）：
+ *  2026-11-12 由 0.45 上調至 1.0，另加面積極小補充條件（見環迴路註釋）：
  *  0.45 閘唔住 1–2px 單像素退化碎環（audit:war-shape 全部計做示意框）。 */
 const NOISE_PX = Number(process.env.NOISE_PX || 1.0)
 
