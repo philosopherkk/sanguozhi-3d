@@ -20,6 +20,59 @@ import {
 const SRC = process.argv[2] || 'scripts/.cache/countries-50m.json'
 const OUT = path.resolve(import.meta.dirname, '../src/geo/asiaWarTerritory.ts')
 const TOL = Number(process.env.TOL || DEFAULT_TOL)
+/** 噪點篩除閾值（畫布像素）：兩維皆小於此值嘅環喺 1710x1000 畫布上不足兩粒像素，
+ *  填色不可見只堆環數；環礁（トラック約 1px）與真島嶼不受影響。
+ *  2026-11-12 由 0.45 上调至 1.0，另加面積極小補充條件（見環迴路註釋）：
+ *  0.45 閘唔住 1–2px 單像素退化碎環（audit:war-shape 全部計做示意框）。 */
+const NOISE_PX = Number(process.env.NOISE_PX || 1.0)
+
+// ---- 自我相交偵測與修復（生成側，2026-11-12）----
+// 教訓：DP 簡化唔保證簡單性。newguinea_n 主環實測原環 452 點無交叉、
+// 簡化至 112 點後出現 1 處交叉，既有 3% 面積守門只量面積、攔唔住破圖。
+// 偵測口徑同 audit:war-shape 一致（隱式閉環；此處連封閉邊一併檢查，較審計更嚴）。
+function segInt(a, b, c, d) {
+  const d1 = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0])
+  const d2 = (b[0] - a[0]) * (d[1] - a[1]) - (b[1] - a[1]) * (d[0] - a[0])
+  const d3 = (c[0] - d[0]) * (a[1] - c[1]) - (c[1] - d[1]) * (a[0] - c[0])
+  const d4 = (c[0] - d[0]) * (b[1] - c[1]) - (c[1] - d[1]) * (b[0] - c[0])
+  return (d1 > 0) !== (d2 > 0) && (d3 > 0) !== (d4 > 0)
+}
+function selfInters(ring) {
+  const n = ring.length
+  if (n < 5) return false
+  for (let i = 0; i < n; i++) {
+    const a = ring[i], b = ring[(i + 1) % n]
+    for (let j = i + 2; j < i + n - 1; j++) {
+      if (segInt(a, b, ring[j % n], ring[(j + 1) % n])) return true
+    }
+  }
+  return false
+}
+function firstCrossing(ring) {
+  const n = ring.length
+  for (let i = 0; i < n; i++) {
+    const a = ring[i], b = ring[(i + 1) % n]
+    for (let j = i + 2; j < i + n - 1; j++) {
+      if (segInt(a, b, ring[j % n], ring[(j + 1) % n])) return [i, j % n]
+    }
+  }
+  return null
+}
+/** figure-8 拆環（同 fix_selfint_rings.mjs 思路）：旋转到交叉邊，剪走較小圈留較大圈，重複到乾淨 */
+function uncrossRing(ring) {
+  let cur = ring.map((p) => [p[0], p[1]])
+  for (let guard = 0; guard < 50; guard++) {
+    const n = cur.length
+    if (n < 5) return cur
+    const cross = firstCrossing(cur)
+    if (!cross) return cur
+    const [i, j] = cross
+    cur = cur.slice(i).concat(cur.slice(0, i))
+    const jj = j >= i ? j - i : j - i + n
+    cur = jj + 1 >= n - jj - 1 ? cur.slice(0, jj + 1) : cur.slice(jj + 1)
+  }
+  return cur
+}
 
 /**
  * 範圍定義：rects = [西, 東, 南, 北]（經緯度）。
@@ -29,7 +82,7 @@ const TOL = Number(process.env.TOL || DEFAULT_TOL)
 const EXTENTS = [
   // ---- 日本本土與版圖變化 ----
   ['jp_home', '日本本土（北海道・本州・四國・九州）', [[139.5, 145.9, 41.2, 45.6], [130.9, 141.1, 33.0, 41.6], [131.8, 134.9, 32.6, 34.7], [129.3, 132.1, 30.9, 34.0]], '1868年明治維新時之本土；千島、樺太南部、海外領土另列，1945年後失去全部海外領土'],
-  ['okinawa', '沖繩（琉球處分後）', [[126.5, 128.6, 24.0, 27.6]], '1879年4月琉球處分：廢琉球藩、設沖繩縣；1945年3月26日起米軍逐步登陸，1972年5月15日施政權歸還'],
+  ['okinawa', '沖繩（琉球處分後）', [[122.9, 128.6, 24.0, 27.6]], '1879年4月琉球處分：廢琉球藩、設沖繩縣；示意框西至東經122.9度，包括宮古・八重山各島（今屬沖繩縣）；1945年3月26日起米軍逐步登陸，1972年5月15日施政權歸還'],
   ['chishima', '千島列島', [[148.0, 156.8, 43.5, 51.2]], '1875年5月7日《千島・樺太交換條約》：日本取得得撫以北各島，相對放棄樺太全島'],
   ['karafuto', '樺太（サハリン）', [[140.5, 144.0, 46.0, 54.4]], '1875年條約後日本放棄樺太；1905年《樸茨茅斯條約》第九條取得北緯50度以南（見「樺太南部」）；1945年8月蘇軍佔領全島'],
   ['karafuto_s', '樺太南部（北緯50度以南）', [[141.9, 144.0, 46.0, 50.0]], '1905年9月5日《樸茨茅斯條約》第九條割讓北緯50度以南，設樺太廳；1945年8月蘇軍佔領'],
@@ -58,15 +111,15 @@ const EXTENTS = [
   ['celebes', '蘇拉威西', [[118.9, 125.4, -6.0, 1.8]], '1942年1月11日美納多、1月24日安汶、2月15日馬加薩；海軍特別陸戰隊佔領'],
   ['philippines', '菲律賓', [[117.0, 126.6, 5.0, 18.6]], '1941年12月22日林牙耶恩上陸、1942年5月6日巴丹・科雷吉多爾守軍降伏（完全佔領）；1943年10月14日第二菲律賓共和國；1944年10月美軍萊特島登陸反攻'],
   ['rabaul', '新不列顛・拉包爾', [[146.0, 155.0, -8.0, -1.5]], '1942年1月23日佔領，聯合艦隊東南方面根據地；1943年後被跳島孤立，守軍至1945年9月降伏'],
-  ['newguinea_n', '新幾內亞北部', [[131.0, 148.0, -10.5, -2.0]], '1942年1月23日萊・薩拉毛阿上陸，3月8日再佔萊；7月起布納・戈納作戰，東部新幾內亞轉為守勢'],
-  ['solomons_n', '所羅門北部', [[154.5, 162.0, -8.5, -0.5]], '1942年1月23日拉包爾外環、5月3日圖拉吉；8月7日美軍登陸瓜達爾卡納爾，1943年2月日軍撤離'],
+  ['newguinea_n', '新幾內亞北部', [[131.0, 149.0, -10.5, -2.0]], '1942年1月23日萊・薩拉毛阿上陸，3月8日再佔萊；7月下旬起布納・戈納・薩納努法奧一帶上陸（示意框東至東經149度），東部新幾內亞轉為守勢'],
+  ['solomons_n', '所羅門北部', [[154.5, 160.6, -10.0, -0.5]], '1942年1月23日拉包爾外環、5月3日圖拉吉，其後新喬治亞・瓜達爾卡納爾相繼駐軍（示意框南至南緯10度以涵蓋瓜島）；8月7日美軍登陸瓜達爾卡納爾，1943年2月日軍撤離'],
   ['guam', '關島', [[144.6, 145.0, 13.2, 13.7]], '1941年12月10日佔領（美守軍當日降伏）；1944年7月21日美軍奪回'],
   ['wake', '威克島', [[166.3, 167.1, 18.7, 19.4]], '1941年12月23日佔領（首次攻擊失敗後增援再攻）；孤立堅守至1945年9月4日降伏'],
   ['attu_kiska', '阿圖・基斯卡', [[170.0, 179.9, 51.5, 53.2]], '1942年6月3–7日佔領阿圖・基斯卡；1943年5月30日阿圖守軍全滅、8月基斯卡守軍撤離成功'],
   ['imphal', '英帕爾・科希馬方向', [[92.0, 95.5, 24.0, 27.0]], '1944年3月8日–7月英帕爾・科希馬攻勢失敗（第15師團等撤退），轉為緬北守勢；8月3日密支那陷落'],
   // ---- 1945 以後 ----
   ['su_karafuto', '樺太・千島（蘇聯／俄羅斯）', [[140.5, 157.0, 43.5, 54.4]], '1945年8月18日–9月5日蘇軍佔領樺太南部與千島列島（受諾波茨坦宣言後仍作戰）；日蘇未締和約，北方領土問題未解決'],
-  ['us_okinawa', '沖繩（米軍統治）', [[126.5, 128.6, 24.0, 27.6]], '1945年4月1日米軍登陸、6月22日組織抵抗終止（沖繩戰）；1952年4月28日《舊金山和約》生效後置於美國統治下，1972年5月15日施政權歸還'],
+  ['us_okinawa', '沖繩（米軍統治）', [[122.9, 128.6, 24.0, 27.6]], '1945年4月1日米軍登陸、6月22日組織抵抗終止（沖繩戰）；1952年4月28日《舊金山和約》生效後置於美國統治下，宮古・八重山各島同屬美國統治之琉球地域，1972年5月15日施政權歸還'],
 ]
 
 // 南洋群島要剔除的陸地（菲律賓群島、グアム）
@@ -104,11 +157,23 @@ for (const [id, name, rects, note] of EXTENTS) {
       const projected = ring.map(([lo, la]) => pxRaw(lo, la))
       const simple = simplifyRing(projected, TOL)
       const a0 = area(projected), a1 = area(simple)
-      const use = simple.length >= 3 && (a0 === 0 || Math.abs(a1 - a0) / Math.max(a0, 1) < 0.03)
-        ? simple
-        : projected
+      const areaOk = (pts) => a0 === 0 || Math.abs(area(pts) - a0) / Math.max(a0, 1) < 0.03
+      let use = simple.length >= 3 && areaOk(simple) ? simple : projected
+      // 面積守門攔唔住簡化引入嘅自我相交：交叉環先遞減容差重簡，
+      // 再退回原環，最後手段 figure-8 拆細圈兜底。
+      if (selfInters(use)) {
+        const clean = [TOL / 2, TOL / 4, TOL / 8]
+          .map((t) => simplifyRing(projected, t))
+          .find((s) => s.length >= 3 && areaOk(s) && !selfInters(s))
+        use = clean || (!selfInters(projected) ? projected : uncrossRing(projected))
+        if (selfInters(use)) console.log('  自我相交未修復', id, `環點=${use.length}`)
+      }
       const [x0, x1, y0, y1] = bboxOf(use)
-      if (x1 - x0 < 0.45 && y1 - y0 < 0.45) continue // 環礁（トラック等）都要保留，只篩真噪點
+      if (x1 - x0 < NOISE_PX && y1 - y0 < NOISE_PX) continue // 亞像素碎環篩走，環礁（トラック等）保留
+      // 面積補充條件：bbox 兩維皆不足 1.6px 且原環面積少於 0.4px² 者填色不可見。
+      // 用原環面積 a0 而非簡化後面積：DP 簡化會縮面積，誤殺真實小島。
+      // トラック環礁實測 w1.00×h0.80、原環面積 0.45px²，故閾值取 0.4 保環礁先例。
+      if (x1 - x0 < 1.9 && y1 - y0 < 1.9 && a0 < 0.4) continue
       paths.push(toPath(use))
       rings.push(use)
     }
@@ -182,6 +247,18 @@ const CHECKS = [
   ['attu_kiska', 'アツ島', 172.9, 52.83, true],
   ['su_karafuto', '豐原（南樺太）', 142.9, 47.0, true],
   ['okinawa', '那霸', 127.68, 26.21, true], ['karafuto', '稚內（北海道）', 141.6, 45.4, false],
+  ['newguinea_n', '萊城（Lae）', 147.0, -6.72, true],
+  ['newguinea_n', '布納（Buna）', 148.4, -8.8, true],
+  ['newguinea_n', '休恩半島東端（芬斯哈芬作戰方向）', 148.6, -5.7, true],
+  ['solomons_n', '瓜達爾卡納爾（內陸點）', 159.95, -9.43, true],
+  ['solomons_n', '新喬治亞島', 158.0, -8.55, true],
+  // 與那國・波照間等小島於 Natural Earth 1:50m 無獨立多邊形，無法以填色命中，
+  // 地圖以地名標記（places）表示；hit-test 改用 1:50m 有陸地之島嶼。
+  ['okinawa', '宮古島', 125.36, 24.79, true], ['okinawa', '石垣島', 124.2, 24.4, true],
+  ['okinawa', '西表島', 123.85, 24.3, true],
+  ['okinawa', '奄美大島（鹿兒島縣，不屬沖繩）', 129.5, 28.35, false],
+  ['okinawa', '台北（不屬沖繩）', 121.5, 25.04, false],
+  ['us_okinawa', '石垣島', 124.2, 24.4, true],
 ]
 let bad = 0
 for (const [id, label, lo, la, want] of CHECKS) {
