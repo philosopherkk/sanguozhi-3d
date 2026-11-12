@@ -359,9 +359,9 @@ export const MUROMACHI_PACK: JapanDeepDivePack = {
     [F.north]: profile({
       population: fact('京都北朝與公家人口不詳。', '日本中世史通說'),
       military: fact('軍事多依幕府。', '日本中世史通說'),
-      grain: fact('公家庄园。', '日本中世史通說'),
+      grain: fact('公家莊園。', '日本中世史通說'),
       politics: fact('持明院統在京，與幕府合作。', '日本中世史通說'),
-      economy: fact('京中商業與庄园。', '日本中世史通說'),
+      economy: fact('京中商業與莊園。', '日本中世史通說'),
     }),
     [F.shugo]: profile({
       population: fact('各守護領無合併口數。', '日本中世史通說'),

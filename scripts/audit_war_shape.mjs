@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * audit_war_shape.mjs — 疆域色塊的「几何品質」閘門。
+ * audit_war_shape.mjs — 疆域色塊的「幾何品質」閘門。
  *
  * 為什麼要新增（使用者回饋 2026-11-09）：「maps are fact. Territories are definitely
  * not polygonal in shape. so the occupied region have to be precise and accurate.」
@@ -104,8 +104,8 @@ if (process.argv.includes('--selftest')) {
   chk('自我相交 bowtie 應被抓到', selfIntersecting(bowtie))
   const wavy = []
   for (let i = 0; i < 200; i++) wavy.push([i, Math.sin(i / 3) * 20])
-  chk('真實曲折邊界不应誤報', collinearRatio(wavy) <= STRAIGHT_LIMIT)
-  console.log(bad ? `✗ selftest ${bad} 項失敗` : '✓ 几何偵測有牙')
+  chk('真實曲折邊界不應誤報', collinearRatio(wavy) <= STRAIGHT_LIMIT)
+  console.log(bad ? `✗ selftest ${bad} 項失敗` : '✓ 幾何偵測有牙')
   process.exit(bad ? 1 : 0)
 }
 
@@ -117,7 +117,7 @@ if (process.argv.includes('--json')) {
     bySource: bySrc, worst: schematic.slice(0, 30).map((g) => ({ key: g.key, pts: g.ring.length, src: g.src })),
     selfIntList: selfInt.slice(0, 60).map((g) => ({ key: g.key, pts: g.ring.length, src: g.src })) }, null, 2))
 } else {
-  console.log('=== 疆域几何品質（真實邊界不應是矩形／長直段）===')
+  console.log('=== 疆域幾何品質（真實邊界不應是矩形／長直段）===')
   console.log(`  受測環 ${total}｜示意框形狀 ${schematic.length}｜自我相交 ${selfInt.length}`)
   for (const [s, n] of Object.entries(bySrc)) console.log(`    ${s}: ${n}`)
   console.log('\n  最像矩形的前 12 個：')

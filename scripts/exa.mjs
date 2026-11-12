@@ -77,7 +77,7 @@ async function call(path, key, body) {
   })
   const text = await res.text()
   if (!res.ok) {
-    // 只回傳服务端訊息與狀態碼；不重複送 request 內容以免金鑰外流
+    // 只回傳服務端訊息與狀態碼；不重複送 request 內容以免金鑰外流
     throw new Error(`${path} → HTTP ${res.status}：${text.slice(0, 400)}`)
   }
   return JSON.parse(text)
@@ -99,7 +99,7 @@ async function main() {
         '做法（三選一）：(1) 寫入 ~/.exa_api_key（單一行金鑰，chmod 600，任何 worktree 都讀到，排程 agent 請用呢個）；' +
         '(2) repo 根 .env（已被 .gitignore 排除）：EXA_API_KEY=你的金鑰；' +
         '(3) 暫用：EXA_API_KEY=… node scripts/exa.mjs search "…"\n' +
-        '切勿使用 VITE_ 前綴——那會把金鑰打进公開 bundle。',
+        '切勿使用 VITE_ 前綴——那會把金鑰打進公開 bundle。',
     )
     process.exit(2)
   }

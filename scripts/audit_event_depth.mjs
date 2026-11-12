@@ -82,7 +82,7 @@ function readLiteral(text, start) {
   return null
 }
 
-/** 回溯找最近一個 id 欄位，俾報告能指出是哪个事件。 */
+/** 回溯找最近一個 id 欄位，俾報告能指出是哪個事件。 */
 function nearestId(text, index) {
   const back = text.slice(Math.max(0, index - 2000), index)
   const matches = [...back.matchAll(/\bid\s*:\s*(['"`])([^'"`\n]{1,80})\1/g)]

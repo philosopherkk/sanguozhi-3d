@@ -114,7 +114,7 @@ function listFiles(dir: string, out: string[] = []): string[] {
 const files = listFiles(SRC)
 const rel = (p: string) => relative(ROOT, p)
 
-// ── 1. router 裡實際会出现的 app ────────────────────────────────
+// ── 1. router 裡實際會出現的 app ────────────────────────────────
 // App.tsx 用 lazy(() => import('./x/XApp').then((m) => ({ default: m.XApp })))
 // 和 <app.ImperialApp pack=... /> 兩種寫法，所以直接把檔案裡所有
 // 看起來像 app 殼層的名字都算有路由。

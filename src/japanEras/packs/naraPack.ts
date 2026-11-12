@@ -294,9 +294,9 @@ export const NARA_PACK: JapanDeepDivePack = {
     [F.fujiwara]: profile({
       population: fact('藤原氏不是獨立戶籍單位。', '日本古代史通說'),
       military: fact('仲麻呂能動員部分兵力，敗於764年。', '《續日本紀》', true),
-      grain: fact('靠官職與庄园。無獨立倉斛。', '日本古代史通說'),
+      grain: fact('靠官職與莊園。無獨立倉斛。', '日本古代史通說'),
       politics: fact('北家等支系長期掌政。', '日本古代史通說'),
-      economy: fact('庄园與貴族經濟。', '日本古代史通說'),
+      economy: fact('莊園與貴族經濟。', '日本古代史通說'),
     }),
     [F.emishi]: profile({
       population: fact('東北未完全編戶，口數不詳。', '《續日本紀》系', true),

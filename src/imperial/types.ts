@@ -73,7 +73,7 @@ export interface ImperialEvent extends TimelineDateFields {
   keyFigures?: { name: string; role: string }[]
   classicQuote?: string
   classicSource?: string
-  /** 原文段之標題：預設「典籍原文」；近现代公文改傳「原文」「詔書」「電文」等。 */
+  /** 原文段之標題：預設「典籍原文」；近現代公文改傳「原文」「詔書」「電文」等。 */
   quoteHeading?: string
   note?: string
   disputed?: boolean

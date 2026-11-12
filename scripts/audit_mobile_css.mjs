@@ -6,7 +6,7 @@
  * 每條規則都對應一個本專案真實發生過、而且肉眼看不出來的缺陷。
  *
  *  1 blowout        .app-shell > * 必須有 min-width: 0
- *                   實測：393px 螢幕上 grid item 的 min-content 把整欄撑到 421px，
+ *                   實測：393px 螢幕上 grid item 的 min-content 把整欄撐到 421px，
  *                   overflow:hidden 再把右側 28px 永久剪掉。
  *  2 mapside-stack  窄屏把主區改單欄時，必須同時覆蓋 .app-shell__main--map-side
  *                   實測：640px 的單欄規則只寫在 .app-shell__main 上，而掛側欄的
@@ -185,7 +185,7 @@ const css = FILES.map((f) => readFileSync(join(ROOT, f), 'utf8')).join('\n')
 const base = check(css)
 
 if (process.argv.includes('--teeth')) {
-  // 逐条注入原始缺陷，確認對應規則會報紅（只改記憶體，不動檔案）
+  // 逐條注入原始缺陷，確認對應規則會報紅（只改記憶體，不動檔案）
   const injections = [
     ['blowout', (s) => s.replace(/\.app-shell > \*\s*\{[^}]*\}/, '.app-shell > * { }')],
     [

@@ -25,7 +25,7 @@ export const SENGOKU_SITUATION: Record<SengokuFactionId, FactionProfile> = {
     economy: fact('石高與刀狩改變大名和村落的關係。朝鮮之役把年貢轉成軍糧。', '中文維基「太閤檢地」「刀狩」'),
   },
   德川: {
-    population: fact('三河、遠江到關東的移封，人口跟着領地走。江戶開幕以前沒有幕府全國帳。', '中文維基「德川家康」'),
+    population: fact('三河、遠江到關東的移封，人口跟著領地走。江戶開幕以前沒有幕府全國帳。', '中文維基「德川家康」'),
     military: fact('關原的東軍是聯軍，不是三河一國的常備數。', '中文維基「關原之戰」'),
     grain: fact('領地年貢以石高計。沒有單一倉斛。', '中文維基「德川家康」'),
     politics: fact('桶狹間後自立。關原勝出，後來任征夷大將軍。', '中文維基「關原之戰」'),

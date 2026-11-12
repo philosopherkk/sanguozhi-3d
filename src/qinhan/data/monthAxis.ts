@@ -516,7 +516,7 @@ export function qinHanMonthNote(year: number, month: number): string {
 
 /**
  * 從本月起該用哪一年的快照幾何。只引用 territoryControl.ts 已有出處的快照，
- * 沒有月份級邊界可據時傳回 null，由调用方沿用該年（或更早一年）的快照。
+ * 沒有月份級邊界可據時傳回 null，由調用方沿用該年（或更早一年）的快照。
  */
 export function qinHanTerritoryFromMonth(
   year: number,
@@ -538,7 +538,7 @@ export function qinHanMonthBounds(year: number): {
   return { first: order[0], last: order[order.length - 1] }
 }
 
-/** 上一月／下一月；出界時交回 null 讓调用方換年。 */
+/** 上一月／下一月；出界時交回 null 讓調用方換年。 */
 export function stepQinHanMonth(args: {
   year: number
   month: number

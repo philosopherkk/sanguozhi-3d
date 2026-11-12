@@ -109,7 +109,7 @@ export const ZHOU_SITUATION: Record<ZhouFactionId, FactionProfile> = {
     military: fact('城濮、邲都是大國之師。人數不載。', '《左傳》僖公二十八年、宣公十二年'),
     grain: fact('江漢產米。白起拔郢後，倉儲與都城一起東遷。斛數不載。', '《史記·白起王翦列傳》'),
     politics: fact('春秋爭霸，戰國遷陳、遷壽春。', '《史記·楚世家》'),
-    economy: fact('郢都是南方的貨物中心。拔郢以後財政跟着東遷。', '《史記·楚世家》'),
+    economy: fact('郢都是南方的貨物中心。拔郢以後財政跟著東遷。', '《史記·楚世家》'),
   },
   吳: {
     population: fact('吳都在江東，沒有口數。', '《史記·吳太伯世家》'),

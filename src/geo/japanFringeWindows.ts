@@ -83,7 +83,7 @@ const JP_FRINGE_WINDOWS_AUTHORED: RawFringeWindow[] = [
     mode: 'admin',
     label: '東蝦夷地（幕府直轄）',
     source: '《蝦夷地一件》；《遠國奉行》箱館奉行・松前奉行・蝦夷奉行條（寬政11年暫上知、享和2年永久上知，設蝦夷奉行，5月改稱箱館奉行）',
-    note: '1799年只暫上知東蝦夷地（太平洋岸與千島、得撫方面），1802年設箱館奉行。西蝦夷地（日本海一侧與鄂霍次克一侧）和和人地在這年仍在松前手中。膽振國以國界切開，指白老以東。',
+    note: '1799年只暫上知東蝦夷地（太平洋岸與千島、得撫方面），1802年設箱館奉行。西蝦夷地（日本海一側與鄂霍次克一側）和和人地在這年仍在松前手中。膽振國以國界切開，指白老以東。',
     disputed: true,
   },
   {
@@ -135,9 +135,9 @@ const JP_FRINGE_WINDOWS_AUTHORED: RawFringeWindow[] = [
     toExclusive: 1886,
     ring: 'ken_hakodate',
     mode: 'prefecture',
-    label: '函館県',
+    label: '函館縣',
     source: '明治15年2月8日太政官布告第8號「廢開拓使、置函館札幌根室三縣」；《法令全書》第17冊（明治15年）轄區劃分',
-    note: '由開拓使函館支廳的區域成立：渡島國全域＋後志國的久遠、奧尻、太櫓、瀨棚、島牧、壽都、歌棄、磯谷8郡＋胆振國山越郡。範圍是幕末和人地扣除後志國岩内郡以北。地圖只涂渡島國（CODH是舊國層級，切不到郡）。',
+    note: '由開拓使函館支廳的區域成立：渡島國全域＋後志國的久遠、奧尻、太櫓、瀨棚、島牧、壽都、歌棄、磯谷8郡＋膽振國山越郡。範圍是幕末和人地扣除後志國岩内郡以北。地圖只塗渡島國（CODH是舊國層級，切不到郡）。',
     disputed: true,
   },
   {
@@ -146,9 +146,9 @@ const JP_FRINGE_WINDOWS_AUTHORED: RawFringeWindow[] = [
     toExclusive: 1886,
     ring: 'ken_sapporo',
     mode: 'prefecture',
-    label: '札幌県',
+    label: '札幌縣',
     source: '明治15年2月8日太政官布告第8號；『法令全書』第17冊（明治15年）管轄區畫',
-    note: '開拓使本廳的區域：石狩、天塩、十勝、日高全域＋後志國的岩内、古宇、積丹、美國、古平、余市、忍路、高島、小樽9郡＋胆振國的虻田、有珠、室蘭、幌別、白老、勇払、千歲7郡＋北見國的宗谷、枝幸、利尻、禮文4郡。四至是宗谷岬、神威岬、襟裳岬。',
+    note: '開拓使本廳的區域：石狩、天鹽、十勝、日高全域＋後志國的岩内、古宇、積丹、美國、古平、余市、忍路、高島、小樽9郡＋膽振國的虻田、有珠、室蘭、幌別、白老、勇拂、千歲7郡＋北見國的宗谷、枝幸、利尻、禮文4郡。四至是宗谷岬、神威岬、襟裳岬。',
     disputed: true,
   },
   {
@@ -157,7 +157,7 @@ const JP_FRINGE_WINDOWS_AUTHORED: RawFringeWindow[] = [
     toExclusive: 1886,
     ring: 'ken_nemuro',
     mode: 'prefecture',
-    label: '根室県',
+    label: '根室縣',
     source: '明治15年2月8日太政官布告第8號；『法令全書』第17冊（明治15年）管轄區畫',
     note: '開拓使根室支廳的區域：根室、釧路、千島全域＋北見國的紋別、常呂、網走、斜里4郡。1886年全道26.5萬人中函館縣占15.1萬、根室縣只有1.7萬，這種不均就是三縣制破綻的原因（金子堅太郎視察，伊藤博文於1885年決定）。',
     disputed: true,
@@ -168,7 +168,7 @@ const JP_FRINGE_WINDOWS_AUTHORED: RawFringeWindow[] = [
     toExclusive: 2027,
     ring: 'hokkaido_all',
     mode: 'prefecture',
-    label: '北海道庁',
+    label: '北海道廳',
     source: '明治19年1月26日布告第壹號《廢函館札幌根室三縣及北海道事業管理局另設北海道廳布告》（國立公文書館數位檔案庫）',
     note: '廢三縣一局，設北海道廳（廳在札幌，支廳在函館、根室）。此後1897年的一縣制與支廳重編等內部界線會變，但這張地圖固定為全道一個區塊，不畫逐年支廳界。',
   },
@@ -205,12 +205,12 @@ const JP_FRINGE_WINDOWS_AUTHORED: RawFringeWindow[] = [
   },
 ]
 
-/** 換算成閉區間对外匯出；作者端一律寫 toExclusive。 */
+/** 換算成閉區間對外匯出；作者端一律寫 toExclusive。 */
 export const JP_FRINGE_WINDOWS: FringeWindow[] = JP_FRINGE_WINDOWS_AUTHORED.map(
   ({ toExclusive, ...rest }) => ({ ...rest, to: toExclusive - 1 }),
 )
 
-/** 該年适用的外周窗。 */
+/** 該年適用的外周窗。 */
 export function fringeWindowsAt(year: number): FringeWindow[] {
   return JP_FRINGE_WINDOWS.filter((w) => year >= w.from && year <= w.to)
 }

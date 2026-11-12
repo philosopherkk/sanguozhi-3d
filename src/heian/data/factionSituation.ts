@@ -35,8 +35,8 @@ export const HEIAN_SITUATION: Record<HeianFactionId, FactionProfile> = {
   朝廷: {
     population: fact('京都人口不詳。', '日本中世史通說'),
     military: fact('院與天皇本身兵力有限，常依平氏或源氏。', '日本中世史通說'),
-    grain: fact('公家庄园。斛數不載。', '日本中世史通說'),
+    grain: fact('公家莊園。斛數不載。', '日本中世史通說'),
     politics: fact('名義中心在京都；軍權多在武家。', '日本中世史通說'),
-    economy: fact('京中商業與庄园。', '日本中世史通說'),
+    economy: fact('京中商業與莊園。', '日本中世史通說'),
   },
 }

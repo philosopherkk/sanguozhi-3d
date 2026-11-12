@@ -129,7 +129,7 @@ const LIMIT_WORDS = [
  * 取「實際據有其地」而非「建號」之年，並在需要時於註解交代：
  * 閩（897 王審知嗣威武軍，909 封閩王）、南漢（905 劉隱嗣清海軍，917 稱帝）、
  * 南平（907 高季興為荊南留後，924 封南平王）。
- * 西夏另計：1038 建號；960、1004 的党項地帶標「定難軍」，不用「西夏」。
+ * 西夏另計：1038 建號；960、1004 的黨項地帶標「定難軍」，不用「西夏」。
  */
 const ANACHRONISM: Record<string, number> = {
   漢趙: 304,
@@ -605,7 +605,7 @@ add(
 const fringeMod = await server.ssrLoadModule('/src/geo/japanFringeWindows.ts')
 const jpRingsMod = await server.ssrLoadModule('/src/geo/japanEraRings.ts')
 const jpRings = (jpRingsMod.JP_ERA_RINGS ?? {}) as Record<string, unknown[]>
-// 北海道の行政窗改用 CODH 旧國合成的幾何（hokkaidoAdminRings.ts），雨個來源都要認
+// 北海道の行政窗改用 CODH 舊國合成的幾何（hokkaidoAdminRings.ts），兩個來源都要認
 const jpAdminMod = await server.ssrLoadModule('/src/geo/hokkaidoAdminRings.ts')
 const jpAdminRings = (jpAdminMod.HOKKAIDO_ADMIN_RINGS ?? {}) as Record<string, unknown[][]>
 
@@ -637,7 +637,7 @@ for (const w of windows) {
   } else if (adminRing) {
     const pts = adminRing.flat().length
     if (pts < 3) add('fail', 'fringe-ring-empty', where, `環「${w.ring}」幾何為空（${pts} 點）`)
-    else add('info', 'fringe-ring-codh', where, `環「${w.ring}」取自 CODH 旧國合成（${pts} 頂點）`)
+    else add('info', 'fringe-ring-codh', where, `環「${w.ring}」取自 CODH 舊國合成（${pts} 頂點）`)
   }
   if (w.from > w.to) {
     add('fail', 'fringe-window-empty', where, 'from 大於 to')

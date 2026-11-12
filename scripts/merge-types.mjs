@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // merge-types.mjs — 把 other 工作線較完整的 interface 宣告 union 入 base。
-// 只於「C 的欄位集合 ⊇ base」時先替換，否则列出需要人手合併的欄位。
+// 只於「C 的欄位集合 ⊇ base」時先替換，否則列出需要人手合併的欄位。
 // 用法：node scripts/merge-types.mjs --other <C根目錄> [--max 6]
 import { execSync } from 'node:child_process'
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs'

@@ -24,7 +24,7 @@
   「州界為示意……幾何非譚第三冊圖幅追蹤」, `TK_TERRITORY_NOTE_ZH`). They are NOT a
   digitization of 譚其驤《中國歷史地圖集》第三冊 — never import or trace 譚圖 geometry;
   use ownership KEYS + sourced notes only.
-  日本時代用歴史的藩域／郡界示意（`src/geo/japanEraRings`、`jpDomains`）；
+  日本時代用歷史的藩域／郡界示意（`src/geo/japanEraRings`、`jpDomains`）；
   戰爭時代（明治至當代、二次大戰）先用寬域亞洲底圖（Natural Earth 1:50m 海岸線，
   `scripts/gen_asia_war_*.mjs` 產生），非戰爭時代返回日本地圖。
 - Structure for every deep-dive entry: 原文（或現代簡述）→ 三層意譯（小學生／中學生／大學生）→

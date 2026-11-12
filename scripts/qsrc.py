@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""qsrc.py — 對 Wikisource 原文查證引文（三國志 3D 專案的临时查證工具）。
+"""qsrc.py — 對 Wikisource 原文查證引文（三國志 3D 專案的臨時查證工具）。
 
 用法:
   python3 /tmp/qsrc.py 書名/卷N '正则'            # 直接指定子頁

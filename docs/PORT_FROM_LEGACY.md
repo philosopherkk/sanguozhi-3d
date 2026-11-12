@@ -1,4 +1,4 @@
-# 由旧（离線）repo 揀返嚟嘅嘢
+# 由舊（離線）repo 揀返嚟嘅嘢
 
 來源：`cline/0667b`（commit 283c743，191 個 commit）。嗰個 repo **冇任何 remote**，所以佢嘅成果本來永遠上唔到網站。本次唔係整條 branch merge 入嚟——兩邊嘅腳本架構已經分岔（舊用 `audit-quotes.ts`＋`vendor/`，我哋用 `audit_quotes.mjs`＋`qsrc.py`），硬 merge 只會撞。改做**逐件評估、能跑先留**。
 
@@ -22,4 +22,4 @@
 3. 兩支 TS 工具改 import 路徑（本 repo 冇 `src/japanEras/packs` barrel，平安時代資料路徑亦唔同）
 
 ## 冇揀嘅嘢
-舊線嘅敘事加厚（起因／經過／結果）**冇 wholesale 搬入**：本 repo 嘅加厚 agent 正在同一批檔案上逐模組工作，硬搬會覆寫佢嘅改動，而且舊線一啲條文引用嘅卷頁我未逐條查證。呢啲留在旧 repo，等本線 agent 收斂後再逐模組對照取長。
+舊線嘅敘事加厚（起因／經過／結果）**冇 wholesale 搬入**：本 repo 嘅加厚 agent 正在同一批檔案上逐模組工作，硬搬會覆寫佢嘅改動，而且舊線一啲條文引用嘅卷頁我未逐條查證。呢啲留在舊 repo，等本線 agent 收斂後再逐模組對照取長。

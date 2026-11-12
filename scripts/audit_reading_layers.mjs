@@ -40,7 +40,7 @@ function walk(dir, out = []) {
   return out
 }
 
-/** 抓某個欄名的所有字串值（單引號／雙引號／反引號，允许跨行） */
+/** 抓某個欄名的所有字串值（單引號／雙引號／反引號，允許跨行） */
 function grab(src, key) {
   const re = new RegExp(
     key + ':\\s*(?:\\x27((?:\\\\.|[^\\x27\\\\])*)\\x27|"((?:\\\\.|[^"\\\\])*)"|\\x60((?:\\\\.|[^\\x60\\\\])*)\\x60)',
@@ -114,7 +114,7 @@ if (process.argv.includes('--selftest')) {
     process.exit(1)
   }
   const base = { file: 't', index: 0, elementary: good.elementary, secondary: good.secondary, university: good.university }
-  probe('合格樣本不应誤報', base, false)
+  probe('合格樣本不應誤報', base, false)
   probe('三層同文', { ...base, secondary: base.elementary, university: base.elementary }, true)
   probe('長度倒掛', { ...base, elementary: base.university }, true)
   probe('大學層太短', { ...base, university: base.elementary + '。' }, true)

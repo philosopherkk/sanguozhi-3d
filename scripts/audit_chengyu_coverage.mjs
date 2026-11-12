@@ -52,7 +52,7 @@ for (let c = -700; c <= 2000; c += 100) SCOPE.push(c)
 
 const missing = SCOPE.filter((c) => !centuryCount[c])
 const thin = SCOPE.filter((c) => centuryCount[c] && centuryCount[c] < TARGET_PER_CENTURY)
-// 缺口總數：每個世紀距離目標還欠幾多条。單一數字、嚴格单调——
+// 缺口總數：每個世紀距離目標還欠幾多條。單一數字、嚴格單調——
 // 唔會似 missing/thin 咁因為「空白→薄弱」嘅正常流入而誤報惡化
 // （2026-11-09 實證：補咗 8 條之後空白 10→6、薄弱 12→15，coverage 明明改善）。
 const shortage = SCOPE.reduce((sum, c) => sum + Math.max(0, TARGET_PER_CENTURY - (centuryCount[c] || 0)), 0)

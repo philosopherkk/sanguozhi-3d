@@ -92,7 +92,7 @@ export const BAKUMATSU_TERRITORY_NOTE_ZH =
 
 /**
  * 幕末地圖實際係混合幾何：藩級 mesh 只覆蓋 28 個舊國中的 21 個，
- * 未覆蓋的舊國改用舊國 mesh 補畫。出处要如實反映兩套來源。
+ * 未覆蓋的舊國改用舊國 mesh 補畫。出處要如實反映兩套來源。
  */
 export const BAKUMATSU_HAN_PLUS_KOKUGUN_GEOMETRY: TerritoryGeometryProvenance = {
   approx: true,

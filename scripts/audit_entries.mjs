@@ -13,7 +13,7 @@ import path from 'node:path'
 const ROOT = path.resolve(import.meta.dirname, '..')
 const read = (p) => { try { return fs.readFileSync(path.join(ROOT, p), 'utf8') } catch { return '' } }
 
-/** 由 marker 開始，搵它的陣列，深度 1 的每个 {...} 係一個元素。 */
+/** 由 marker 開始，搵它的陣列，深度 1 的每個 {...} 係一個元素。 */
 function arrayBlocks(src, marker) {
   const at = src.indexOf(marker)
   if (at < 0) return []
@@ -151,7 +151,7 @@ ERAS[4].rea = [['src/sengoku/data/readingLayers.ts', 'SENGOKU_READING']]
 
 const escRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
-/** 由指定位置搵紧随的陣列／map 開括號（findContainer 的 index 版）。 */
+/** 由指定位置搵緊隨的陣列／map 開括號（findContainer 的 index 版）。 */
 function containerNear(src, pos) {
   const eq = src.indexOf('=', pos)
   const from = eq >= 0 && eq - pos < 160 ? eq : pos

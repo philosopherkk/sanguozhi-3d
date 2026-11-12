@@ -3,7 +3,7 @@
  * check_bundle_secrets.mjs — 確認打包產物不含金鑰。
  *
  * 存在理由：本專案是純靜態 SPA。只要有人寫 import.meta.env.VITE_ANY_KEY，
- * Vite 就會把值常駐进 dist 的 JS，等於公開洩漏；.gitignore 擋不住這種
+ * Vite 就會把值常駐進 dist 的 JS，等於公開洩漏；.gitignore 擋不住這種
  * 「已建置進產物」的洩漏，因此需要針對 dist 的檢查。
  *
  * 跑法：npm run build && node scripts/check_bundle_secrets.mjs
@@ -14,7 +14,7 @@ import { join, extname } from 'node:path'
 
 const DIST = join(import.meta.dirname, '..', 'dist')
 
-/** 各家服務常見的密鑰外形。宁可多報（誤報可由人確認後收緊），不可漏報。 */
+/** 各家服務常見的密鑰外形。寧可多報（誤報可由人確認後收緊），不可漏報。 */
 const PATTERNS = [
   { name: 'Exa 金鑰', re: /\bexa-[A-Za-z0-9_-]{16,}/g },
   { name: 'OpenAI 金鑰', re: /\bsk-[A-Za-z0-9_-]{20,}/g },

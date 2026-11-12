@@ -40,7 +40,7 @@ def load_rings():
 
 
 def inside(rings, pt):
-    """ring 可能係多重環（多島）：任何一环包住即算在內。"""
+    """ring 可能係多重環（多島）：任何一環包住即算在內。"""
     x, y = pt
     for ring in rings:
         c = False

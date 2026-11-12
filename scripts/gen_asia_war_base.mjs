@@ -8,8 +8,8 @@
  * 輸出：src/geo/asiaWarBase.ts —— 陸地輪廓 SVG path + 經緯網 + asiaPx(lon,lat)
  *
  * 坐標系：等圓柱投影；經度正規化入 [60, 420)，畫面顯示 60–190。
- * 選定 60°E 做接缝（SEAM）：張圖要跨過 180°（中途島 177°W），环於接缝切開後，
- * 縫正好於畫面左边之外，不會出現橫跨太平洋的假陸帶。
+ * 選定 60°E 做接縫（SEAM）：張圖要跨過 180°（中途島 177°W），環於接縫切開後，
+ * 縫正好於畫面左邊之外，不會出現橫跨太平洋的假陸帶。
  *
  * 覆蓋：經 60–190°、緯 -14–62°：英帕爾、科倫坡、新加坡、荷屬東印度、
  * 澳洲北岸、中途島、阿留申、樺太同北海道德全部入面。
@@ -60,7 +60,7 @@ function ringOf(topo, arcIdxs) {
 }
 
 /**
- * 把环展開：先將經度正規化入 [60,420)。如果環的經度跨度超過 180°，
+ * 把環展開：先將經度正規化入 [60,420)。如果環的經度跨度超過 180°，
  * 代表有段海岸於「遠端帶」（例如歐洲 30°E 被映射成 390°），把嗰啲點減 360°
  * 之後成個環就連續，不會出現橫跨畫面的假陸帶，亦不使切開環。
  */
@@ -160,7 +160,7 @@ for (const g of rawLand) {
     for (const arcIdxs of rings) {
       ringsIn++
       const piece = unwrapRing(ringOf(topo, arcIdxs))
-      // 只做 bbox 相交篩選，不剪裁凹多邊形（剪裁會整烂南亞、中南半島、澳洲北岸）
+      // 只做 bbox 相交篩選，不剪裁凹多邊形（剪裁會整爛南亞、中南半島、澳洲北岸）
       let minLo = Infinity, maxLo = -Infinity, minLa = Infinity, maxLa = -Infinity
       for (const [lo, la] of piece) {
         if (lo < minLo) minLo = lo
@@ -171,7 +171,7 @@ for (const g of rawLand) {
       if (maxLo < LON0 || minLo > LON1 || maxLa < LAT0 || minLa > LAT1) continue
       const projected = piece.map(([lo, la]) => pxRaw(lo, la))
       const simple = simplifyRing(projected, TOL)
-      // 簡化後面積偏差過大就保留原環（不要把海灣、海峡抹走）
+      // 簡化後面積偏差過大就保留原環（不要把海灣、海峽抹走）
       const a0 = area(projected), a1 = area(simple)
       const use = simple.length >= 3 && (a0 === 0 || Math.abs(a1 - a0) / Math.max(a0, 1) < 0.02)
         ? simple
@@ -211,7 +211,7 @@ const body = `/**
  * 資料：Natural Earth 1:50m 陸地（world-atlas@2 countries-50m.json，公有領域）
  * 生成：node scripts/gen_asia_war_base.mjs scripts/.cache/countries-50m.json
  * 投影：等圓柱；畫面經 ${LON0}–${LON1}°、緯 ${LAT0}–${LAT1}°；畫布 ${W}×${H}
- * 渲染：陸地 path 用 fill-rule="evenodd"；勢力範圍用 clipPath 夹於陸地之上
+ * 渲染：陸地 path 用 fill-rule="evenodd"；勢力範圍用 clipPath 夾於陸地之上
  */
 
 export const ASIA_WAR_W = ${W}
@@ -248,7 +248,7 @@ const MARKS = [
   ['新加坡', 103.82, 1.35, true], ['雅加達', 106.85, -6.2, true],
   ['曼德勒', 96.08, 21.98, true], ['英帕爾', 93.94, 24.81, true],
   ['中途島', -177.37, 28.21, false], ['東京', 139.69, 35.69, true],
-  ['那覇', 127.68, 26.21, true], ['臺北', 121.51, 25.04, true],
+  ['那霸', 127.68, 26.21, true], ['臺北', 121.51, 25.04, true],
   ['塞班', 145.73, 15.18, true], ['珍珠港', -157.95, 21.35, false],
   ['達爾文內陸', 131.0, -12.8, true], ['科倫坡', 79.86, 6.93, true],
   ['威克島', 166.63, 19.28, false], ['阿圖島', 172.9, 52.83, true],

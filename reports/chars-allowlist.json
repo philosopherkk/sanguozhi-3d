@@ -1,0 +1,92 @@
+[
+  {
+    "file": "src/data/territory/ATTRIBUTION-CODH-BY-NC.md",
+    "char": "国",
+    "reason": "CODH 資料集原名『旧国・旧郡境界データセット』與「日本旧国境界」為日文專名，授權致謝檔照來源名稱，非我方敘述"
+  },
+  {
+    "file": "src/data/territory/ATTRIBUTION-CODH-BY-NC.md",
+    "char": "旧",
+    "reason": "同上：『旧国・旧郡境界データセット』為資料集原名，照原形"
+  },
+  {
+    "file": "src/data/territory/ATTRIBUTION-CODH-HAN-BY-SA.md",
+    "char": "旧",
+    "reason": "「旧高旧領取調帳データベース」為日本史料原名，照原形"
+  },
+  {
+    "file": "src/data/territory/ATTRIBUTION-CODH-HAN-BY-SA.md",
+    "char": "国",
+    "reason": "「旧国 mesh」「国立歴史民俗博物館」為資料集與機構原名，照原形"
+  },
+  {
+    "file": "src/data/territory/ATTRIBUTION-CODH-HAN-BY-SA.md",
+    "char": "歴",
+    "reason": "「国立歴史民俗博物館」為機構原名（旧高旧領取調帳データベース 之出處），照原形"
+  },
+  {
+    "file": "src/data/territory/japan_ezo_matsumae/README.md",
+    "char": "対",
+    "reason": "圖幅題目『北方の探検と蝦夷地対策』為日文原題（《標準日本史地圖》【39】），照原形"
+  },
+  {
+    "file": "src/data/timelineDetails.ts",
+    "char": "呉",
+    "reason": "逐字引文「呉主皓面縛輿櫬，詣軍門降」屬《資治通鑑》原文行，依 AGENTS.md 保留原典字形"
+  },
+  {
+    "file": "src/geo/japanEraRings.ts",
+    "char": "国",
+    "reason": "註解引用 CODH『旧国·旧郡境界データセット』原名，照原形"
+  },
+  {
+    "file": "src/geo/japanEraRings.ts",
+    "char": "旧",
+    "reason": "同上：CODH 資料集原名"
+  },
+  {
+    "file": "src/japanHistory/components/JapanEraMap.tsx",
+    "char": "国",
+    "reason": "註解引用 CODH 旧国 GeoJSON 原名，照原形"
+  },
+  {
+    "file": "src/japanHistory/components/JapanEraMap.tsx",
+    "char": "旧",
+    "reason": "同上：CODH 資料集原名"
+  },
+  {
+    "file": "src/japanEras/packs/edoPack.ts",
+    "char": "従",
+    "reason": "quote 欄為日文公文書題名『従松前西在郷并蝦夷地之覚』，引文照原典字形"
+  },
+  {
+    "file": "src/japanEras/packs/edoPack.ts",
+    "char": "郷",
+    "reason": "同上：『従松前西在郷并蝦夷地之覚』為公文書原題"
+  },
+  {
+    "file": "src/japanEras/packs/edoPack.ts",
+    "char": "払",
+    "reason": "「異國船打払令」為該命令之通稱（原為日文），本條並說明當時文書實作驅逐異國船之命；專名照原形"
+  },
+  {
+    "file": "src/sengoku/data/readingLayers.ts",
+    "char": "斎",
+    "reason": "《關原軍記大成》編者「宮川忍斎」為日本人姓名，source 欄照原名"
+  },
+  {
+    "file": "docs/MOBILE_PLAN.md",
+    "char": "対",
+    "reason": "本段在舉例說明豁免清單，引用圖幅原題『北方の探検と蝦夷地対策』本身，照原形"
+  },
+  {
+    "file": "docs/MOBILE_PLAN.md",
+    "char": "郷",
+    "reason": "同上：公文書原題『従松前西在郷并蝦夷地之覚』"
+  },
+  {
+    "file": "docs/MOBILE_PLAN.md",
+    "char": "従",
+    "reason": "同上：公文書原題『従松前西在郷并蝦夷地之覚』"
+  }
+]

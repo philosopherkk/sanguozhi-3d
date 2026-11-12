@@ -53,7 +53,7 @@ export function analyzeCitationLine(line: string): LineAnalysis {
   const book = [...books][0]
   for (const t of titles) {
     if (!isBare(t)) {
-      if (!t.includes('·') && BARE_SUFFIX.test(t)) out.skipped.push({ bare: `《${t}》`, why: '本身是著作（在年代表或独立名單中），不是篇名' })
+      if (!t.includes('·') && BARE_SUFFIX.test(t)) out.skipped.push({ bare: `《${t}》`, why: '本身是著作（在年代表或獨立名單中），不是篇名' })
       continue
     }
     const idx = line.indexOf(`《${t}》`)

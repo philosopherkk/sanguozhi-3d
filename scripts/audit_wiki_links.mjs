@@ -9,7 +9,7 @@
  *
  * 正確方法：MediaWiki API `action=query&format=json&redirects=1&titles=A|B|C`，
  * 只有回應中明確帶 `missing` 的才算無條目。注意兩個陷阱：
- *  1) zh API 會把回應標題做簡繁轉換（劉備→刘备），因此只能用「有冇 missing」
+ *  1) zh API 會把回應標題做簡繁轉換（`劉備`→`刘备`），因此只能用「有冇 missing」
  *     判斷，不可把請求字面與回應標題做字面比對；
  *  2) API 會把標題中的底線正規化成空格，比對前兩側都要統一成底線形式。
  * 傳輸層用 curl（實測 node 原生 fetch 的 UA 會被 Wikimedia 擋）。
