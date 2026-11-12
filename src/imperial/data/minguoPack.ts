@@ -102,11 +102,12 @@ export const MINGUO_PACK: ImperialPack = {
       a.kaifeng,
       a.youzhou,
     ]),
-    line('mg-beifa', '北伐', 1926, '國民黨', '近代史通說。自珠江流域北進。', [
+    line('mg-beifa', '北伐', 1928, '國民黨', '近代史通說，非逐字引文。國民革命軍1926年自廣州誓師，經長沙、武昌北進，沿長江東下南京，循津浦線北上至京畿，1928年事畢。', [
+      a.guangzhou,
+      a.changsha,
+      a.wuchang,
       a.jiankang,
-      a.jiangling,
-      a.xiangyang,
-      a.kaifeng,
+      a.jinan,
       a.youzhou,
     ]),
     line('mg-kangzhan', '全面抗戰爆發', 1937, '日軍', '近代史通說。華北開戰後沿交通線推進示意。', [
