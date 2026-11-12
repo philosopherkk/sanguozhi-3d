@@ -35,6 +35,8 @@ export const P = {
   dunhuang: [920, 820] as Pt,
   guazhou: [980, 800] as Pt,
   lulong: [1388, 720] as Pt,
+  liaodong: [1557.9, 576.1] as Pt, // 遼東城（今遼陽一帶，隋唐宋皆攻之）
+  puyang: [1652.2, 649.2] as Pt, // 平壤（高句麗都城，668 年唐軍拔之）
   huai: [1481.9, 901] as Pt, // 淮陰（今江蘇淮安西南，祖逖鎮此）
   zhongli: [1436.7, 938.4] as Pt, // 鍾離（今安徽鳳陽東，在合肥以北）
   shouyang: [1268, 800] as Pt,
