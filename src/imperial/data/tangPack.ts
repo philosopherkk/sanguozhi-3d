@@ -190,6 +190,9 @@ export const TANG_PACK: ImperialPack = {
       classicQuote:
         '十一月，甲子，祿山發所部兵及同羅、奚、契丹、室韋凡十五萬眾，號二十萬，反於范陽。……至是，諸道節度使盡用胡人，精兵鹹戍北邊，天下之勢偏重，卒使祿山傾覆天下，皆出於林甫專寵固位之謀也。',
       classicSource: '《資治通鑑》卷二百十七唐玄宗天寶十四載（起兵）；卷二百十六（天寶元載至十四載之制論）；《舊唐書·安祿山傳》',
+      // 查證（2026-11-13）：引文已對 zh.wikisource《資治通鑑》卷二百十七、二百十六逐字核對
+      // https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7217
+      // https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7216
       secondary: '亂後藩鎮格局成形。',
       month: 12,
       datePrecision: 'month',
