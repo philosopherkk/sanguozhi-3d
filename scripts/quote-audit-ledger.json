@@ -1343,5 +1343,45 @@
     "stamp": "298a34e5",
     "page": "",
     "at": "2026-11-12"
+  },
+  "src/imperial/data/yuanMingQingPack.ts#ymq-1271": {
+    "stamp": "57ae5c00",
+    "page": "元史/卷007",
+    "at": "2026-11-12"
+  },
+  "src/imperial/data/yuanMingQingPack.ts#ymq-1274": {
+    "stamp": "e284f938",
+    "page": "元史/卷208",
+    "at": "2026-11-12"
+  },
+  "src/imperial/data/depthNarrative.ts#ymq-1402": {
+    "stamp": "769342d9",
+    "page": "明史/卷5",
+    "at": "2026-11-12"
+  },
+  "src/imperial/data/yuanMingQingPack.ts#ymq-1368": {
+    "stamp": "4dd419fe",
+    "page": "明史/卷2",
+    "at": "2026-11-12"
+  },
+  "src/imperial/data/yuanMingQingPack.ts#ymq-1598": {
+    "stamp": "41d99a24",
+    "page": "明史/卷320",
+    "at": "2026-11-12"
+  },
+  "src/imperial/data/yuanMingQingPack.ts#ymq-1592": {
+    "stamp": "8ee49837",
+    "page": "明史/卷320",
+    "at": "2026-11-12"
+  },
+  "src/imperial/data/yuanMingQingPack.ts#ymq-1369": {
+    "stamp": "e45c1100",
+    "page": "明史/卷322",
+    "at": "2026-11-12"
+  },
+  "src/imperial/data/yuanMingQingPack.ts#ymq-1644": {
+    "stamp": "e7b29864",
+    "page": "明史/卷24",
+    "at": "2026-11-12"
   }
 }
