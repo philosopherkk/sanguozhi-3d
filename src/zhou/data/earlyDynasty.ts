@@ -387,7 +387,7 @@ export const EARLY_DYNASTY_EVENTS: ZhouTimelineEvent[] = [
     type: 'politics',
     source: '《史記·殷本紀》；《竹書紀年》',
     disputed: true,
-    note: '前1300不是紀年。殷墟發掘的主體晚於這個架子，對得上武丁以後。連結改掛維基實際條目標題「盘庚迁殷」：原寫「盤庚遷殷」經 audit:wiki-links（action=query&format=json&redirects=1&titles=…，僅以回應有冇 missing 判定）回報 missing，屬繁簡字形變體。',
+    note: '前1300不是紀年。殷墟發掘的主體晚於這個架子，對得上武丁以後。連結改掛維基實際條目標題「盘庚迁殷」：原寫「盤庚遷殷」經 audit:wiki-links（action=query&format=json&redirects=1&titles=…，僅以回應有沒有 missing 判定）回報 missing，屬繁簡字形變體。',
     causes:
       `慢變數有三。其一，商前期都邑屢遷，遷都已成體制性的困難；文獻裡的遷徙次數出於後世譜系，不是當時記錄，但「常遷」這件事本身在《史記》與《尚書》中一致。其二，舊貴族在都邑有世守之業。今文《尚書·盤庚》三篇是研究此事最直接的傳世文本，篇中反覆出現的不滿，正來自舊族的宗廟、田宅與卜筮話語：他們以舊都為安、以稽固為辭，用神意的語言反對遷徙。其三，水患與河道遷徙被傳統解釋視作遷都主因，這是後人以周漢地理觀念的追認；卜辭所見的商代水文與今日河道不同，不能直接等同，本圖只把水患列為傳統解釋之一。
 

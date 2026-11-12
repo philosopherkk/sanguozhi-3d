@@ -3,7 +3,7 @@ import type { MarchRoute } from '../../data/marchRoutes'
 
 /**
  * 預設由該年起再留十五年。
- * 春秋戰國、秦漢、十六國南北朝、隋唐傳 0：只顯示標示嗰一年，不向後延伸。
+ * 春秋戰國、秦漢、十六國南北朝、隋唐傳 0：只顯示標示那一年，不向後延伸。
  */
 export const MARCH_ROUTE_VISIBLE_YEARS = 15
 export const MARCH_ROUTE_SAME_YEAR = 0

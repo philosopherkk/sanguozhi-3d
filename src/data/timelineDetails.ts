@@ -203,7 +203,7 @@ export const TIMELINE_DETAILS: Record<string, TimelineDetail> = {
     source: '《資治通鑑》卷六十五',
     modernParaphrase:
       '五月出盧龍塞，登白狼山與烏桓驟遇，縱兵大破之，斬蹋頓等首領。',
-    note: '連結改掛維基實際條目標題「白狼山之战」：原寫「白狼山之戰」經 audit:wiki-links（action=query&format=json&redirects=1&titles=…，僅以回應有冇 missing 判定）回報 missing，屬繁簡字形變體，非史實有誤。',
+    note: '連結改掛維基實際條目標題「白狼山之战」：原寫「白狼山之戰」經 audit:wiki-links（action=query&format=json&redirects=1&titles=…，僅以回應有沒有 missing 判定）回報 missing，屬繁簡字形變體，非史實有誤。',
     zhwikiUrl: 'https://zh.wikipedia.org/wiki/白狼山之战',
   },
   '208-chibi': {

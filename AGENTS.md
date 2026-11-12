@@ -39,4 +39,11 @@
 
 - Commit after each phase. Use Conventional Commits.
 - Agent chat replies to the user may use Cantonese (粵語口語).
-- Code comments, data fields (names, notes, sources), and all in-app UI copy must use formal Traditional Chinese (書面語). Do not use Cantonese colloquial particles or wording (例如：嘅、唔、咗、咩、佢等).
+- **粵語／正體嘅邊界（2026-11-13 使用者裁定：「agents.md 可以講粵語，但網站輸出要正式正體」）**：
+  - **可以用粵語口語**：本檔、`docs/`、`scripts/`（註解與報告都係 agent 嘅工作產物），同埋同使用者嘅對話。
+  - **必須正體中文書面語**：網站上睇到嘅一切——UI 文案、資料欄位（`name`／`note`／`source`／`desc`／`brief`）、
+    以及 `src/` 入面嘅程式註解。口語虛詞（例：嘅、唔、咗、咩、佢、喺、冇、嗰、啲）唔准出現喺 `src/`。
+  - **粵語豁免唔包括簡體字**：簡體字同日文新字喺 `docs/`、`scripts/` 照樣係錯字（`audit:chars` 預設掃
+    `src`、`scripts`、`docs`）。換句話講：語氣可以粵語，字形一律正體。
+  - 機器把關：`scripts/audit-chars.ts` 嘅 `CANTONESE` 表——非 agent 產物嘅路徑出現口語虛詞即算硬傷；
+    豁免邊界同呢條規則本身都由 `npm run audit:chars -- --teeth` 驗證（兩邊都釘死，防止誤關或退化）。

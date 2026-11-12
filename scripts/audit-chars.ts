@@ -10,8 +10,8 @@
  *      node --experimental-strip-types scripts/audit-chars.ts --teeth
  *      （--teeth 把壞字注入暫存檔再掃一遍，確認每類都會咬；見下方 teeth 區塊說明）
  */
-import { readdirSync, readFileSync, statSync, mkdtempSync, writeFileSync, rmSync } from 'node:fs'
-import { join } from 'node:path'
+import { readdirSync, readFileSync, statSync, mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs'
+import { dirname, isAbsolute, join, relative, sep } from 'node:path'
 import { tmpdir } from 'node:os'
 import { spawnSync } from 'node:child_process'
 import { enforceGate } from './lib/gate-baseline.ts'
@@ -106,9 +106,9 @@ const HARD: Record<string, string> = {
   // ── 系統性補入（2026-11-13）──────────────────────────────────────────────
   // 由 opencc STCharacters 逐字推導：取本庫用到的每個正體字，反查其簡體形，凡該簡體形
   // 本身不是正體（同形字一律排除，例：后 干 于 面 里 台 松 岳）就入表。此前 HARD 只有
-  // 277 字，是對照實例手工加出來的，結果 对 传 开 学 经 张 赵 万 户 阳 結 標 等最常見的
-  // 簡體字竟全不在表內——閘門對它们失明。此段就是補上那段「沒有人在看的洞」。
-  // 注意：opencc 有少数目標是日本新字體，已人工改掉（绿→綠，非緑）。
+  // 277 字，是對照實例手工加出來的，結果 `对 传 开 学 经 张 赵 万 户 阳 結 標` 等最常見的
+  // 簡體字竟全不在表內——閘門對它們失明。此段就是補上那段「沒有人在看的洞」。
+  // 注意：opencc 有少數目標是日本新字體，已人工改掉（`绿`→綠，非 `緑`）。
   㭴: '樫', 䓨: '罃', 䶮: '龑', 专: '專', 业: '業', 丛: '叢', 丝: '絲', 丢: '丟',
   严: '嚴', 丧: '喪', 临: '臨', 丽: '麗', 么: '麼', 乌: '烏', 乐: '樂', 乔: '喬',
   乡: '鄉', 买: '買', 亏: '虧', 亩: '畝', 亲: '親', 亿: '億', 仅: '僅', 仓: '倉',
@@ -257,6 +257,27 @@ const MIXED_USAGE: Record<string, string> = {
 const SOFT = ['来', '并', '于', '干', '内', '会', '没', '余', '与', '彦', '着',
   '党', '种', '却', '尔', '郁']
 
+// 粵語口語虛詞：網站上看得到的東西（UI 文案、資料欄位 name/note/source/desc）
+// 必須是正體中文書面語。2026-11-13 使用者裁定邊界：「AGENTS.md 可以講粵語，
+// 但網站輸出必須正式正體」——所以豁免對象只有 agent 的工作產物（見 isAgentWorkspace）。
+// ⚠ 豁免只針對口語虛詞；簡體字與日文新字在 docs/ 與 scripts/ 照樣要咬。
+const CANTONESE: Record<string, string> = {
+  嘅: '的', 唔: '不', 咗: '了', 咩: '什麼', 佢: '他', 喺: '在', 冇: '沒有', 嚟: '來',
+  噉: '如此', 咁: '這樣', 乜: '什麼', 嘢: '東西', 嗰: '那', 畀: '給', 揾: '找',
+  啲: '一些', 嗮: '盡', 㩒: '按', 瞓: '睡', 嚿: '塊', 氹: '哄', 揞: '蓋', 嗌: '喊',
+}
+// agent 工作產物（允許粵語口語）：docs/、scripts/，以及 repo 根的 *.md（AGENTS.md 之類）。
+// 其餘一律當「網站」——預設要擋，這樣日後新開的原始碼目錄不會無聲落在閘門之外。
+function isAgentWorkspace(p: string): boolean {
+  // 絕對與相對路徑都要判（位置參數可能是其中之一），所以先統一成帶首尾斜線的字串
+  const repoRoot = join(import.meta.dirname, '..')
+  const rel = isAbsolute(p) ? relative(repoRoot, p) : p
+  const norm = '/' + rel.split(sep).join('/') + '/'
+  if (norm.includes('/docs/') || norm.includes('/scripts/')) return true
+  const inner = norm.slice(1, -1)
+  return !inner.includes('/') && inner.endsWith('.md')
+}
+
 // 裝成書名的佔位符：有書名號、但沒有具名著作。
 // 2026-11-05 掃出 12 處（《京都守護職関連記録》《幕府長州征討相關記錄》等），
 // 全在幕末事件檔的 source／outcomeSource 欄位。這類比簡體字更危險：
@@ -378,6 +399,10 @@ if (flags.includes('--teeth')) {
     ['含假名行的中文敘述（maskNearKana 迴歸）', ['谁', '继'],
       ["export const p = '本能寺の変 以後の幕府残黨、谁能先控制继承人的問題。';"], ['残']],
     ['佔位符出處（有書名號但無具名著作）', ['佔位符'], ["export const s = 'source: 《相關記錄》';"]],
+    // 粵語口語只准出現在 agent 產物（docs/、scripts/、根 *.md）；網站原始碼一律擋。
+    // 這組是「牙」；另一組（豁免）在下面單獨驗，防止豁免被誤關。
+    ['粵語口語（網站文字須書面語）', ['嗰', '啲', '嘢', '唔', '喺', '佢', '冇'],
+      ["export const p = '嗰啲嘢唔喺度，佢話冇';"]],
   ]
   // 控制樣本：這些**不該**報——引文、原典題名、label、URL、短代碼都是機器識別符或原文。
   const control = [
@@ -390,14 +415,15 @@ if (flags.includes('--teeth')) {
     "export const g = '万 松 台 岳 里 面 于 并 来 屬同形兩用字，刻意不入 HARD。';",
   ]
   let bad = 0
-  const run = (lines: string[]) => {
-    const file = join(dir, 'probe.ts')
+  const run = (lines: string[], sub = '') => {
+    const file = join(dir, sub, 'probe.ts')
+    mkdirSync(dirname(file), { recursive: true })
     writeFileSync(file, lines.join('\n') + '\n', 'utf8')
     const r = spawnSync(process.execPath, ['--experimental-strip-types', join(import.meta.dirname, 'audit-chars.ts'), file, '--gate=teeth'], { encoding: 'utf8' })
     const hit = new Set<string>()
     for (const l of (r.stdout + r.stderr).split('\n')) {
-      const m = l.match(/^HARD \S+ \S?(.+?)→/)
-      if (m) hit.add(m[1])
+      // 一行可能有多個「字→正字」（粵語行會一次列多個虛詞），全部收進來才判得準
+      if (l.startsWith('HARD ')) for (const m of l.matchAll(/([^\s→]+)→/g)) hit.add(m[1])
       if (/^HARD \S+ 佔位符/.test(l)) hit.add('佔位符')
     }
     return hit
@@ -419,6 +445,25 @@ if (flags.includes('--teeth')) {
   const falseHit = run(control)
   if (falseHit.size) { bad += 1; console.log(`  ✗ 控制樣本誤報：${[...falseHit].join(' ')}（豁免被關掉了？）`) }
   else console.log('  ✓ 控制樣本（引文／原典題名／label／URL／短代碼／同形字）零誤報')
+  // 豁免方向也要驗：粵語口語是**准寫在 agent 產物**裡的（docs/、scripts/、repo 根 *.md）。
+  // 這條一旦誤關，docs 與 scripts 現存的 150 處會一夜變紅，所以兩邊都釘死。
+  const colloqProbe = "export const p = '嗰啲嘢唔喺度，佢話冇';"
+  const exempt: Array<[string, () => Set<string>]> = [
+    ['docs/ 下的探针', () => run([colloqProbe], 'docs')],
+    ['scripts/ 下的探针', () => run([colloqProbe], 'scripts')],
+    // 真實檔案：AGENTS.md 本身就是粵語寫的，同時驗「repo 根 *.md」這一枝是否真的豁免
+    ['本庫 AGENTS.md', () => {
+      const r = spawnSync(process.execPath, ['--experimental-strip-types', join(import.meta.dirname, 'audit-chars.ts'), 'AGENTS.md', '--gate=teeth-agents'], { encoding: 'utf8' })
+      const hit = new Set<string>()
+      for (const l of (r.stdout + r.stderr).split('\n')) if (l.includes('粵語口語')) hit.add(l.slice(0, 60))
+      return hit
+    }],
+  ]
+  for (const [name, probe] of exempt) {
+    const hit = probe()
+    if (hit.size) { bad += 1; console.log(`  ✗ 粵語豁免失靈（${name} 被當網站文字報了 ${hit.size} 行）`) }
+    else console.log(`  ✓ 粵語豁免：${name} 照預期不報`)
+  }
   // 掃描範圍本身也是會退化的東西：docs 與 scripts 一旦掉出預設 roots，整輪正體化就在閘門外。
   const rootsSrc = readFileSync(join(import.meta.dirname, 'audit-chars.ts'), 'utf8').match(/const roots = positional\.length \? positional : \[([^\]]*)\]/)
   const missing = ['src', 'scripts', 'docs'].filter((r) => !rootsSrc?.[1].includes(`'${r}'`))
@@ -525,6 +570,17 @@ for (const f of files) {
         if (scanned.includes(word)) {
           hard += 1
           console.log(`HARD ${f}:${i + 1} 簡繁混寫 ${word}→${fix}  ${line.trim().slice(0, 50)}`)
+        }
+      }
+      // 粵語口語：網站原始碼裡不得出現（引文與 code 區段已被 scanned 遮蔽，故不會誤咬原文）
+      if (!isAgentWorkspace(f)) {
+        const colloq = [...new Set(scanned.split('').filter((ch) => ch in CANTONESE))]
+          .map((ch) => `${ch}→${CANTONESE[ch]}`)
+        if (colloq.length) {
+          hard += 1
+          console.log(
+            `HARD ${f}:${i + 1} 粵語口語（網站文字須書面語） ${colloq.join(' ')}  ${line.trim().slice(0, 50)}`,
+          )
         }
       }
       if (!isQuote && !kanaLine) {
