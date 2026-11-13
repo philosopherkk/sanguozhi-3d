@@ -35,13 +35,14 @@ const CHINA: [string, number, number][] = [
 const JAPAN: [string, number, number][] = [
   ['asuka', 538, 710], // asukaPack.ts:140
   ['nara', 710, 794], // naraPack.ts:115
-  ['heian', 1150, 1185], // HeianYearContext.tsx:20
+  ['heian', 794, 1185], // src/heian/state/HeianYearContext.tsx:20（YEAR_MIN 794／YEAR_MAX 1185；旧標 1150 係誤記）
   ['kamakura', 1185, 1333], // kamakuraPack.ts:169
   ['muromachi', 1336, 1467], // muromachiPack.ts:149
   ['sengoku', 1467, 1572], // SengokuYearContext.tsx:19
   ['azuchi', 1573, 1603], // azuchiPack.ts:183
   ['edo', 1603, 1868], // edoPack.ts:486
   ['bakumatsu', 1780, 1868], // BakumatsuApp.tsx:37（CHENGYU_YEAR_MIN）
+  ['modern', 1868, 2026], // modernJapanPack.ts:1169（ModernJapanApp 即 DeepDiveApp＋MODERN_JAPAN_PACK，成語槽見 DeepDiveApp.tsx:203）
 ]
 
 const NEW_IDS = process.argv.slice(2)
