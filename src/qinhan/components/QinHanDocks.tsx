@@ -10,6 +10,7 @@ import { QINHAN_MARCH_ROUTES } from '../data/marchRoutes'
 import { formatQinHanYear } from '../lib/formatYear'
 import { useQinHanYear } from '../state/QinHanYearContext'
 import { QinHanPowerBoard } from './QinHanPowerBoard'
+import { usePersistedOpenResponsive } from '../../lib/usePersistedOpen'
 
 function useDockDrag() {
   const [offset, setOffset] = useState({ x: 0, y: 0 })
@@ -43,13 +44,24 @@ function useDockDrag() {
 function Dock({
   side,
   title,
+  storageKey,
+  defaultOpenDesktop,
+  defaultOpenMobile,
   children,
 }: {
   side: 'left' | 'right'
   title: string
+  /** 收合與否記入 localStorage；各時代分開記，互不覆蓋。 */
+  storageKey: string
+  /** 桌面與窄螢幕的初始值；使用者開關過一次之後即以他的選擇為準。 */
+  defaultOpenDesktop: boolean
+  defaultOpenMobile: boolean
   children: ReactNode
 }) {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = usePersistedOpenResponsive(storageKey, {
+    desktop: defaultOpenDesktop,
+    mobile: defaultOpenMobile,
+  })
   const { offset, onPointerDown, onPointerMove, onPointerUp } = useDockDrag()
   return (
     <aside
@@ -80,7 +92,13 @@ function Dock({
 export function QinHanRouteDock() {
   const { year } = useQinHanYear()
   return (
-    <Dock side="left" title="行軍路線">
+    <Dock
+      side="left"
+      title="行軍路線"
+      storageKey="qinhan-dock-routes"
+      defaultOpenDesktop={false}
+      defaultOpenMobile={false}
+    >
       <MapRouteLegend
         routes={QINHAN_MARCH_ROUTES}
         year={year}
@@ -96,7 +114,13 @@ export function QinHanRouteDock() {
 
 export function QinHanTerritoryDock() {
   return (
-    <Dock side="right" title="勢力範圍">
+    <Dock
+      side="right"
+      title="勢力範圍"
+      storageKey="qinhan-dock-territory"
+      defaultOpenDesktop={true}
+      defaultOpenMobile={false}
+    >
       <QinHanPowerBoard />
     </Dock>
   )

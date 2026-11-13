@@ -2,7 +2,6 @@ import {
   useEffect,
   useMemo,
   useRef,
-  useState,
   type PointerEvent as ReactPointerEvent,
 } from 'react'
 import {
@@ -37,6 +36,7 @@ import {
   useRafView,
   type ViewTransform,
 } from '../lib/mapViewport'
+import { usePersistedOpen } from '../lib/usePersistedOpen'
 import { useSelection } from '../state/SelectionContext'
 import { useYear } from '../state/YearContext'
 import type { FactionId } from '../types/data'
@@ -121,9 +121,21 @@ export function Map2D() {
 
   const wrapRef = useRef<HTMLDivElement>(null)
   const { view, viewRef, setView } = useRafView()
-  const [showTerritory, setShowTerritory] = useState(false)
-  const [showRoutes, setShowRoutes] = useState(false)
-  const [showFrontier, setShowFrontier] = useState(false)
+  // 勢力疆域是本地圖的主體，預設開啟（各時代地圖一致）；行軍與塞外為加分層，預設收。
+  // 7b179b2 曾把三項一起關掉，使三國地圖再也看不到州郡界線，此處恢復勢力一項。
+  // 三個開關都記住上次選擇，使用者關掉的層不會每次重新載入又被打開。
+  const [showTerritory, setShowTerritory] = usePersistedOpen(
+    'map2d-layer-territory',
+    true,
+  )
+  const [showRoutes, setShowRoutes] = usePersistedOpen(
+    'map2d-layer-routes',
+    false,
+  )
+  const [showFrontier, setShowFrontier] = usePersistedOpen(
+    'map2d-layer-frontier',
+    false,
+  )
   const dragRef = useRef<{
     active: boolean
     x0: number

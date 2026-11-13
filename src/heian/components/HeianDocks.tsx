@@ -14,9 +14,11 @@ import { HEIAN_SITUATION } from '../data/factionSituation'
 import { HEIAN_EVENTS } from '../data/history'
 import { HEIAN_MARCH_ROUTES } from '../data/marchRoutes'
 import { heianFactionCounts } from '../data/territory'
+import { withLandlessFactions } from '../../lib/factionRows'
 import { useHeianSelection } from '../state/HeianSelectionContext'
 import { useHeianYear } from '../state/HeianYearContext'
 import { HEIAN_FACTIONS, type HeianFactionId } from '../types'
+import { usePersistedOpenResponsive } from '../../lib/usePersistedOpen'
 
 function useDockDrag() {
   const [offset, setOffset] = useState({ x: 0, y: 0 })
@@ -54,13 +56,24 @@ function useDockDrag() {
 function Dock({
   side,
   title,
+  storageKey,
+  defaultOpenDesktop,
+  defaultOpenMobile,
   children,
 }: {
   side: 'left' | 'right'
   title: string
+  /** 收合與否記入 localStorage；各時代分開記，互不覆蓋。 */
+  storageKey: string
+  /** 桌面與窄螢幕的初始值；使用者開關過一次之後即以他的選擇為準。 */
+  defaultOpenDesktop: boolean
+  defaultOpenMobile: boolean
   children: ReactNode
 }) {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = usePersistedOpenResponsive(storageKey, {
+    desktop: defaultOpenDesktop,
+    mobile: defaultOpenMobile,
+  })
   const { offset, onPointerDown, onPointerMove, onPointerUp } = useDockDrag()
 
   return (
@@ -124,7 +137,13 @@ export function HeianRouteDock() {
     [year, month],
   )
   return (
-    <Dock side="left" title="行軍路線">
+    <Dock
+      side="left"
+      title="行軍路線"
+      storageKey="heian-dock-routes"
+      defaultOpenDesktop={false}
+      defaultOpenMobile={false}
+    >
       <MapRouteLegend
         routes={routes}
         year={year}
@@ -140,7 +159,11 @@ export function HeianRouteDock() {
 export function HeianTerritoryDock() {
   const { year, territoryYear, control } = useHeianYear()
   const { selectedFaction, selectFaction } = useHeianSelection()
-  const rows = useMemo(() => heianFactionCounts(control), [control])
+  const rows = useMemo(
+    () =>
+      withLandlessFactions(heianFactionCounts(control), HEIAN_FACTIONS, year),
+    [control, year],
+  )
 
   const leaders = useMemo(() => {
     const keys = Object.keys(LEADERS)
@@ -163,7 +186,13 @@ export function HeianTerritoryDock() {
   }, [selectedFaction, year])
 
   return (
-    <Dock side="right" title="勢力範圍">
+    <Dock
+      side="right"
+      title="勢力範圍"
+      storageKey="heian-dock-territory"
+      defaultOpenDesktop={true}
+      defaultOpenMobile={false}
+    >
       <div className="power-board">
         <p className="power-board__title">
           勢力佔區（{territoryYear} 快照）· 點選看人口、戰力、經濟
@@ -205,7 +234,7 @@ export function HeianTerritoryDock() {
                       </small>
                     ) : null}
                   </span>
-                  <em>{n} 區</em>
+                  <em>{n === 0 ? '無區' : `${n} 區`}</em>
                 </button>
               </li>
             )
