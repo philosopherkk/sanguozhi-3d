@@ -1518,5 +1518,35 @@
     "stamp": "fe5eb6d9",
     "page": "太平記/巻第二十六",
     "at": "2026-11-13"
+  },
+  "src/heian/data/history.ts#1180-ishibashi": {
+    "stamp": "4a884925",
+    "page": "吾妻鏡/卷001",
+    "at": "2026-11-14"
+  },
+  "src/heian/data/history.ts#1180-fuji": {
+    "stamp": "3aa5295f",
+    "page": "吾妻鏡/卷001",
+    "at": "2026-11-14"
+  },
+  "src/heian/data/history.ts#1184-uji": {
+    "stamp": "cb08a23a",
+    "page": "吾妻鏡/卷003",
+    "at": "2026-11-14"
+  },
+  "src/heian/data/history.ts#1184-ichinotani": {
+    "stamp": "a95a59af",
+    "page": "吾妻鏡/卷003",
+    "at": "2026-11-14"
+  },
+  "src/heian/data/history.ts#1185-yashima": {
+    "stamp": "83ab251",
+    "page": "吾妻鏡/卷004",
+    "at": "2026-11-14"
+  },
+  "src/heian/data/history.ts#1185-dannoura": {
+    "stamp": "a7d65cc0",
+    "page": "吾妻鏡/卷004",
+    "at": "2026-11-14"
   }
 }
