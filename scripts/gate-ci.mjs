@@ -43,6 +43,17 @@ const GATES = [
     cmd: 'npm run audit:map',
     metrics: { fail: /audit:map —[^\n]*fail (\d+)/, warn: /｜fail \d+｜warn (\d+)/ },
   },
+  // 2026-11-13 補：audit:map 連續報「fail 0」而朝鮮之役窗口整批喺閘門以外——
+  // `territoryByYear: CONTROL`（識別碼引用）、產生器產物嘅雙引號 id、`im_x: F.jp`
+  // （常數值）三種寫法全部俾正則漏走，寫錯嘅版圖鍵冇人咬，該區塊永遠不上色。
+  // 同 audit:chars:teeth 一樣，呢條唔量內容，量「規則有冇牙」：把壞 id 注入暫存根
+  // 用同一支掃描邏輯掃一次，並跑控制樣本（有效 id、metadata 鍵、中文值、非戰區 pack）
+  // 證明唔會誤殺，豁免方向同註冊表逐來源代表 id 都有斷言。
+  {
+    name: 'audit:map:teeth',
+    cmd: 'npm run audit:map -- --teeth',
+    metrics: { fail: /audit:map --teeth — 失敗 (\d+) 項/ },
+  },
   { name: 'audit:chars', cmd: 'npm run audit:chars', metrics: { hard: /硬傷 (\d+)/ } },
   // 2026-11-13 補：audit:chars 連續多輪報「硬傷 0」，實則 `对` `传` `开` `学` `经` `张`
   // `赵` `户` `阳` `铁` 這些最常見的簡體字一個都不在字表裡——277 字是「看到哪個錯字就補

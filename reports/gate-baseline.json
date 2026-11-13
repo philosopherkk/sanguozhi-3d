@@ -16,7 +16,7 @@
   "audit:quotes": {
     "exit": 0,
     "errors": 0,
-    "warns": 45
+    "warns": 44
   },
   "audit:chengyu": {
     "exit": 0,
@@ -28,9 +28,17 @@
     "fail": 0,
     "warn": 0
   },
+  "audit:map:teeth": {
+    "exit": 0,
+    "fail": 0
+  },
   "audit:chars": {
     "exit": 0,
     "hard": 0
+  },
+  "audit:chars:teeth": {
+    "exit": 0,
+    "fail": 0
   },
   "audit:wiki-links": {
     "exit": 0,
@@ -45,8 +53,8 @@
   },
   "audit:war-shape": {
     "exit": 0,
-    "schematic": 291,
-    "selfInt": 1
+    "schematic": 284,
+    "selfInt": 0
   },
   "audit:reading-layers": {
     "exit": 0,
@@ -58,7 +66,7 @@
   },
   "audit:event-depth": {
     "exit": 0,
-    "gap": 216,
+    "gap": 118,
     "padding": 1,
     "jpGap": 0
   },

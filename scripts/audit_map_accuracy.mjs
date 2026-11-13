@@ -8,14 +8,22 @@
  *   2 coord-out-of-frame —— 座標為負或超出畫布（例：中途島 -177.37，位於畫布以外）
  *   3 route-year-no-event —— 路線該年無對應事件，違反「選定該年應同時顯示事件與路線」的設計
  *
- * 用法：node scripts/audit_map_accuracy.mjs [--json] [--fail-on-gap]
+ * 用法：node scripts/audit_map_accuracy.mjs [--json] [--fail-on-gap] [--teeth]
+ *      --teeth 把壞 id 注入暫存根再掃一遍，確認每條規則都會咬（見檔尾 teeth 區塊）
  */
-import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs'
-import { join, relative } from 'node:path'
+import { readFileSync, readdirSync, writeFileSync, mkdirSync, mkdtempSync, rmSync } from 'node:fs'
+import { join, relative, resolve } from 'node:path'
+import { tmpdir } from 'node:os'
+import { spawnSync } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
 
 const ROOT = process.cwd()
 const argv = process.argv.slice(2)
 const JSON_OUT = argv.includes('--json')
+/** --teeth 用嘅暫存掃描根（見檔尾 teeth 區塊）：fixture 寫喺 `<根>/src/…`，
+ *  令 rel 路徑同真樹一樣，畫布分派與版圖規則先會行到 fixture。 */
+const FILES_ROOT_ARG = argv.find((x) => x.startsWith('--files-root='))
+const SCAN_ROOT = FILES_ROOT_ARG ? resolve(FILES_ROOT_ARG.slice('--files-root='.length)) : ROOT
 
 /** 畫布：中國底圖與日本 relief 同用 1968×1567；容差留俾附圖。 */
 const CANVAS = { w: 1968, h: 1567 }
@@ -37,9 +45,9 @@ function walk(dir, out = []) {
   return out
 }
 
-const files = walk(join(ROOT, 'src'))
+const files = walk(join(SCAN_ROOT, 'src'))
 const read = (f) => readFileSync(f, 'utf8')
-const rel = (f) => relative(ROOT, f).replace(/\\/g, '/')
+const rel = (f) => relative(SCAN_ROOT, f).replace(/\\/g, '/')
 
 /** 由 `{` 起以深度計數返區塊內容（不靠正則配對，避免嵌套漏抓）。 */
 function blockBody(text, braceIdx) {
@@ -55,13 +63,45 @@ function blockBody(text, braceIdx) {
   return ''
 }
 
+/** 控制區塊入面嘅 metadata 鍵，唔係版圖 id（年 → 月 → `{ note, control }` 呢類
+ *  巢狀結構會把呢啲鍵一齊交俾 controlKeys，唔隔離就會誤報 territory-id-unresolved。
+ *  呢啲名冇一個係本庫嘅區塊 id；teeth 有控制樣本盯住，防止將來有人加錯嘢。 */
+const NON_DOMAIN_KEYS = new Set([
+  'note',
+  'control',
+  'territoryByYear',
+  'source',
+  'shadeNote',
+  'labelNote',
+  'geometryNote',
+  'territoryNote',
+  'label',
+  'name',
+  'id',
+  'year',
+  'month',
+  'type',
+  'kind',
+  'desc',
+  'brief',
+  'factions',
+  'location',
+  'title',
+  'caption',
+  'color',
+  'fill',
+  'capital',
+  'seat',
+])
+
 /** 由區塊內容抽出「鍵: '值'」形式之鍵（跳過純數字年鍵）。
  *  值可以係引號字串，亦可以係 `IMJIN_F.jp` 呢類常數引用——只認前者會令
  *  整批用常數寫的快照鍵逃過檢查，閘門對嗰啲包永遠全綠。 */
 function controlKeys(body) {
   const out = new Set()
-  const RE = /['"]?([A-Za-z_][\w-]{1,40})['"]?\s*:\s*(?:['"]([\w-]+)['"]|[A-Za-z_$][\w$.]*)/g
+  const RE = /['"]?([A-Za-z_][\w-]{1,40})['"]?\s*:\s*(?:'[^']*'|"[^"]*"|[A-Za-z_$][\w$.]*)/g
   for (const m of body.matchAll(RE)) {
+    if (NON_DOMAIN_KEYS.has(m[1])) continue
     out.add(m[1])
   }
   return out
@@ -88,12 +128,12 @@ function namedObjectBody(text, name) {
 }
 
 // 亞洲戰區畫布（1710×1000）：明治至當代＋朝鮮之役窗口同用 asiaPx 直寫經緯度。
-// 要喺度喺呢度：下面嘅版圖規則靠呢個名單判「呢個 id 有冇本畫布嘅幾何」。
+// 要喺呢度：下面嘅版圖規則靠呢個名單判「呢個 id 有冇本畫布嘅幾何」。
 const WAR_THEATRE = /^src\/japanEras\/packs\/(modernJapanPack|imjinWar)\.ts$/
 
 /** 幾何註冊表：三國州郡、歷史上環、亞洲戰區範圍。
  *  產生器產物用雙引號、手寫檔用單引號，兩種都要認——只認一種會令整批 id 喺
- *  註冊表消失，配咗名嘅版圖鍵就永遠查唔到（imjinTerritory.ts 就係咁逃咗一輪。 */
+ *  註冊表消失，配咗名嘅版圖鍵就永遠查唔到（imjinTerritory.ts 就係咁逃咗一輪）。 */
 const geometryIds = new Set()
 /** 只有呢兩檔嘅 id 先有 1710×1000 戰區畫布嘅幾何。 */
 const warGeoIds = new Set()
@@ -114,8 +154,12 @@ addFrom('src/data/provinces.ts', ID_Q)
 addFrom('src/geo/eraRegions.ts', /"([a-z_0-9]+)":\[\[/g)
 addFrom('src/geo/asiaWarTerritory.ts', ID_Q, warGeoIds)
 addFrom('src/geo/imjinTerritory.ts', ID_Q, warGeoIds)
-addFrom('src/geo/japanEraRings.ts', /\b([a-z_0-9]+):\s*\[/g)
-addFrom('src/japanEras/jpDomains.ts', ID_Q)
+// 環檔嘅鍵係雙引號（`"matsumae": [[[`），正則唔認引號就一個都食唔到——
+// 呢條線斷咗嗰陣 matsumae／hokkaido／ryukyu 三個 id 對閘門完全消失。
+addFrom('src/geo/japanEraRings.ts', /"([a-z_0-9]+)"\s*:\s*\[/g)
+// jpDomains.ts 自己用 `id: d.id`（識別碼，ID_Q 食唔到），真正嘅日本區塊 id 係
+// tracedDomains.ts 嘅 d0–d27；只讀 jpDomains 等於呢批 id 從來唔喺註冊表入面。
+addFrom('src/sengoku/data/tracedDomains.ts', ID_Q)
 
 const issues = []
 const add = (level, code, where, msg) => issues.push({ level, code, where, msg })
@@ -153,9 +197,13 @@ for (const f of files) {
     })()
     for (const fm of body.matchAll(/\bid:\s*['"]([\w-]+)['"]/g)) factionIds.add(fm[1])
   }
-  // 1b) 跨畫布同名 id：呢個 id 可能喺日本／中國畫布有幾何，但亞洲戰區畫布冇，
-  //     結果一樣係永遠唔會上色（實測：`kyushu` 解到 jpDomains 嘅九州，喺 1710×1000
-  //     畫布上卻冇呢塊幾何）。只查戰區檔案；其他畫布嘅 pack 用全域註冊表已夠。
+  // 1b) 全域註冊表睇唔到畫布：id 喺別的畫布有幾何（或者畀別檔一個無關嘅 `id:`
+  //     字面量湊巧配中），喺亞洲戰區 1710×1000 畫布上冇幾何，結果一樣係永遠唔上色。
+  //     只查戰區檔案；其他畫布嘅 pack 用全域註冊表已夠。
+  //     勘誤：本檔上一輪commit 寫「實測 `kyushu` 解到 jpDomains 嘅九州」係錯——
+  //     `kyushu` 從來唔係區塊 id（jpDomains 用 `id: d.id`，佢只係 marchRoutes 嘅路線 id）。
+  //     寫錯嘅 `kyushu` 能瞞過閘門，真正原因是上面三個解析盲點（識別碼引用／雙引號 id／
+  //     常數值），唔係跨畫布同名。見 --teeth 案例 A。
   if (WAR_THEATRE.test(r)) {
     const offCanvas = [...keys].filter((id) => !warGeoIds.has(id) && !localIds.has(id))
     if (offCanvas.length) {
@@ -712,8 +760,140 @@ add(
 const fails = issues.filter((i) => i.level === 'fail')
 const warns = issues.filter((i) => i.level === 'warn')
 
+// ── --teeth：證明呢支閘門真係會咬 ──────────────────────────────────────────
+// 2026-11-13 教訓：audit:map 連報幾輪「fail 0」，其實成個朝鮮之役窗口喺閘門入面係
+// 透明嘅——`territoryByYear: CONTROL`（識別碼引用）、產生器產物嘅雙引號 id、
+// `im_x: IMJIN_F.jp`（常數值）三種寫法全部俾正則漏走，寫錯嘅 `kyushu`（正解
+// `im_kyushu`）冇人咬，結果九州集結地永遠唔上色而閘門全綠。教訓唔係「再改寬啲
+// 正則」，而是閘門要自己證明自己有牙：做法同 audit:chars --teeth 一樣，把壞 id
+// 注入暫存根，用同一支掃描邏輯（子行程）掃一次，每條規則都要咬；另外跑控制樣本，
+// 防止規則越界或誤殺（豁免方向都要驗）。
+if (argv.includes('--teeth')) {
+  const dir = mkdtempSync(join(tmpdir(), 'map-teeth-'))
+  const write = (relPath, text) => {
+    const p = join(dir, relPath)
+    mkdirSync(join(p, '..'), { recursive: true })
+    writeFileSync(p, text, 'utf8')
+    return relPath
+  }
+  // A：亞洲戰區窗口——一個有效 id、一個跨畫布同名 id、一個邊度都冇嘅 id。
+  const fA = write(
+    'src/japanEras/packs/imjinWar.ts',
+    [
+      "export const F = { jp: '日軍', joseon: '朝鮮' }",
+      'const LITERAL = { im_kyushu: F.jp }',
+      'const CONTROL: Record<number, Record<string, string>> = {',
+      '  1592: { im_pyongan: F.jp, kyushu: F.jp, im_bogus: F.joseon },',
+      '}',
+      'export const PACK = { territoryByYear: CONTROL, control: LITERAL }',
+      '',
+    ].join('\n'),
+  )
+  // B：戰區畫布控制樣本——全部係有效 id，另外夾住 `note`／`control` 巢狀 metadata 鍵、
+  //    paint() 式 helper（唔係物件字面量），同埋**中文值**（`im_x: '朝鮮'`）——
+  //    呢啲都唔該被當版圖鍵誤報，同時證明值唔使係 ASCII 都會被查。
+  const fB = write(
+    'src/japanEras/packs/modernJapanPack.ts',
+    [
+      "const helperCtl = paint([['d2']], '幕府')",
+      "const MONTHS = { '1592-4': { note: '四月上陸，色塊未改。', control: helperCtl } }",
+      "const OK = { im_pyongan: '朝鮮', im_kyushu: '日軍' }",
+      'export const PACK = { control: OK, territoryByYear: MONTHS }',
+      '',
+    ].join('\n'),
+  )
+  // C：兩個方向都要驗——(a) 豁免：非戰區 pack 用「有其他畫布幾何」嘅鍵（hlj／shanxi
+  //     喺中國畫布）係啱嘅，戰區規則唔該唔好伸過去（用真 pack 名做路徑，WAR_THEATRE
+  //     一旦被改寬就會咬）；(b) 值嘅形態：呢檔全部用中文值，內含一個假鍵 teeth_fake，
+  //     要被 territory-id-unresolved 咬到，先證明規則唔係因為「值唔係 ASCII」而失明。
+  const fC = write(
+    'src/japanEras/packs/azuchiPack.ts',
+    ["export const PACK = { control: { hlj: '北洋', shanxi: '晉系', teeth_fake: '假塊' } }", ''].join('\n'),
+  )
+
+  const r = spawnSync(process.execPath, [fileURLToPath(import.meta.url), `--files-root=${dir}`, '--json'], {
+    encoding: 'utf8',
+    maxBuffer: 32 * 1024 * 1024,
+  })
+  let child
+  try {
+    child = JSON.parse(r.stdout)
+  } catch {
+    child = null
+  }
+  let bad = 0
+  const check = (name, ok, detail) => {
+    if (ok) return
+    bad += 1
+    console.log(`  ✗ ${name}${detail ? `：${detail}` : ''}`)
+  }
+  check('子行程跑唔起（--files-root 掃描失敗）', child !== null, (r.stderr || r.stdout || '').slice(0, 120))
+  const iss = child?.issues ?? []
+  const terr = iss.filter((i) => i.code.startsWith('territory-id-'))
+  const on = (relPath, code) => terr.filter((i) => i.where === relPath && (!code || i.code === code))
+  const msgOf = (list) => list.map((i) => i.msg).join(' ')
+
+  // 先證明 fixture 真係掃到——冇呢一步，下面所有「冇報」嘅控制樣本都係假綠。
+  const scanned = new Set(child?.scanned ?? [])
+  for (const f of [fA, fB, fC]) check(`fixture 冇被掃描：${f}`, scanned.has(f))
+  if (child) check('注入壞 id 之後子行程竟然 fail 0', child.fails > 0, '規則可能整套失效')
+
+  // 1) 識別碼引用＋常數值寫法入面嘅假 id 要咬到（呢個係逃咗一輪嘅案例）
+  check('territory-id-unresolved 冇抓到注入嘅 im_bogus', on(fA, 'territory-id-unresolved').some((i) => i.msg.includes('im_bogus')))
+  // 2) 戰區畫布冇幾何嘅鍵要咬到（`kyushu` 係當初寫錯嗰個，`im_bogus` 係邊度都冇）
+  check('territory-id-off-canvas 冇抓到 kyushu', on(fA, 'territory-id-off-canvas').some((i) => i.msg.includes('kyushu')))
+  check('territory-id-off-canvas 冇抓到 im_bogus', on(fA, 'territory-id-off-canvas').some((i) => i.msg.includes('im_bogus')))
+  // 3) 本畫布有效 id 唔該唔好報（含 `control: LITERAL` 呢類識別碼引用）
+  check('有效 id 俾誤報', !/im_pyongan|im_kyushu/.test(msgOf(terr)), msgOf(terr).slice(0, 120))
+  // 4) 控制樣本：metadata 鍵／helper 產生嘅 control 唔該唔好報
+  check('控制樣本俾誤殺（note／control 鍵或 helper 產生嘅 control）', on(fB).length === 0, msgOf(on(fB)).slice(0, 120))
+  // 5a) 豁免方向：戰區規則唔該唔好伸到其他畫布
+  check(
+    '戰區規則越界食到其他畫布',
+    !on(fC, 'territory-id-off-canvas').length,
+    msgOf(on(fC, 'territory-id-off-canvas')).slice(0, 120),
+  )
+  // 5b) 值係中文都照查：如果只認 ASCII 值，成檔 control 會被略過 → 呢條會紅
+  check(
+    '中文值入面嘅假鍵冇被抓到（規則淨認 ASCII 值就會中招）',
+    on(fC, 'territory-id-unresolved').some((i) => i.msg.includes('teeth_fake')),
+    msgOf(on(fC, 'territory-id-unresolved')).slice(0, 120),
+  )
+  check(
+    '中文值入面嘅有效鍵俾誤報',
+    !/hlj|shanxi/.test(msgOf(on(fC, 'territory-id-unresolved'))),
+    msgOf(on(fC, 'territory-id-unresolved')).slice(0, 120),
+  )
+  // 6) 註冊表每條來源都要有嘢入表：產生器改檔名／引號寫法變／id 變成識別碼，都會令
+  //     成批 id 無聲消失，淨睇總數捉唔實（本檔實測過三條斷線：雙引號環檔、
+  //     `id: d.id` 嘅 jpDomains、CJK id 嘅 provinces）。逐來源放一個代表 id 落去。
+  const REGISTRY_PROBES = {
+    hlj: 'eraRegions.ts（中國歷史上環）',
+    d3: 'tracedDomains.ts（日本區塊 d0–d27）',
+    matsumae: 'japanEraRings.ts（松前／北海道／琉球）',
+    jp_home: 'asiaWarTerritory.ts（亞洲戰區陸域）',
+    im_kyushu: 'imjinTerritory.ts（朝鮮之役戰區）',
+  }
+  for (const [id, src] of Object.entries(REGISTRY_PROBES)) {
+    check(`幾何註冊表冇咗 ${id}（來源：${src}）`, geometryIds.has(id))
+  }
+  for (const id of ['im_kyushu', 'im_pyongan']) check(`warGeoIds 冇咗 ${id}`, warGeoIds.has(id))
+  check(`幾何註冊表淨 ${geometryIds.size} 個 id（似有整檔漏讀）`, geometryIds.size >= 175)
+  // 7) 掃描範圍：真樹縮水即係 roots 被人改細，規則會對新 pack 失明
+  check(`真樹只掃到 ${files.length} 檔（似有 root 俾人收細）`, files.length >= 100)
+  check('真樹冇掃到 imjinWar.ts（窗口資料喺閘門外）', files.some((f) => rel(f).endsWith('packs/imjinWar.ts')))
+
+  rmSync(dir, { recursive: true, force: true })
+  console.log(`\naudit:map --teeth — 失敗 ${bad} 項`)
+  console.log(bad ? '✗ 閘門已退化：注入嘅壞 id 有人抓唔到' : '✓ 注入嘅壞 id 全部會咬，控制樣本零誤報')
+  process.exit(bad ? 1 : 0)
+}
+
 if (JSON_OUT) {
-  console.log(JSON.stringify({ geometryIds: geometryIds.size, fails: fails.length, warns: warns.length, issues }, null, 2))
+  // --files-root（teeth 子行程）要俾父行程知「呢啲 fixture 真係掃到」，
+  // 否則案例會因為根本冇掃描而變成假綠。
+  const extra = FILES_ROOT_ARG ? { scanned: files.map(rel) } : {}
+  console.log(JSON.stringify({ geometryIds: geometryIds.size, fails: fails.length, warns: warns.length, issues, ...extra }, null, 2))
 } else {
   const L = []
   L.push('# 地圖精度審計')
@@ -730,8 +910,8 @@ if (JSON_OUT) {
   L.push('')
   L.push('## 口徑')
   L.push('')
-  L.push('- territory-id-unresolved：pack 於 control／territoryByYear 使用的 id，必須在 `src/data/provinces.ts`、`src/geo/eraRegions.ts`、`src/geo/asiaWarTerritory.ts`、`src/geo/imjinTerritory.ts`、`src/geo/japanEraRings.ts`、`src/japanEras/jpDomains.ts` 或本檔 domains 找到；找不到即該區塊永遠不會上色。`territoryByYear: CONTROL` 呢類識別碼引用會先解析同檔的 `const CONTROL = {…}` 再逐鍵查；註冊表單引號與雙引號都認（產生器產物用雙引號）。')
-  L.push('- territory-id-off-canvas：亞洲戰區畫布（`modernJapanPack`／`imjinWar`）的版圖鍵，必須在 `asiaWarTerritory.ts` 或 `imjinTerritory.ts` 有幾何。全域註冊表會令跨畫布同名 id 假通過——實測 `kyushu` 解到 `jpDomains` 的九州，在 1710×1000 畫布上沒有幾何，該區塊永遠不上色。')
+  L.push('- territory-id-unresolved：pack 於 control／territoryByYear 使用的 id，必須在 `src/geo/eraRegions.ts`、`src/geo/asiaWarTerritory.ts`、`src/geo/imjinTerritory.ts`、`src/geo/japanEraRings.ts`、`src/sengoku/data/tracedDomains.ts` 或本檔 domains 找到（key 與 id 嘅引號寫法都認）；找不到即該區塊永遠不會上色。`territoryByYear: CONTROL` 呢類識別碼引用會先解析同檔的 `const CONTROL = {…}` 再逐鍵查；註冊表單引號與雙引號都認（產生器產物用雙引號）。')
+  L.push('- territory-id-off-canvas：亞洲戰區畫布（`modernJapanPack`／`imjinWar`）的版圖鍵，必須在 `asiaWarTerritory.ts` 或 `imjinTerritory.ts` 有幾何。全域註冊表看不見畫布：同名 id 或在日本／中國畫布有幾何，或乾脆被別檔一個無關的 `id:` 字面量湊巧配中，只要 1710×1000 戰區畫布沒有該塊幾何，該區塊照樣永遠不上色。勘誤：先前此處寫「實測 `kyushu` 解到 `jpDomains` 的九州」有誤——`kyushu` 並非區塊 id（jpDomains 用 `id: d.id`），它兩邊都沒有幾何；它逃過閘門的真正原因是上述三處解析盲點（識別碼引用、雙引號 id、常數值），現由 `--teeth` 案例 A 釘住。')
   L.push(`- coord-out-of-frame：底圖畫布 ${CANVAS.w}×${CANVAS.h}（附圖容差 ${FRAME_TOL}px）；負值一律判紅。`)
   L.push(
     `- sea-route-over-land（fail）／land-route-crosses-sea（暫 warn）：陸地遮罩只有一個來源——src/geo/asiaWarBase.ts 的 ASIA_LAND（Natural Earth 1:50m 派生），反算經緯度後分別投到三個畫布：中國戰區 china_px 1968×1567、日本戰區 japan_px 1482×1477（japan_relief 等距圓柱，邊界取 scripts/tighten_land_borders.py）、亞洲戰區 1710×1000（近代日本 pack 的 asiaPx 畫布）。留 ${COAST_TOL_DEG}° 海岸容差（各畫布按自身 1° 經度 px 數換算），貼岸點一概不判。啟動前以 ${ANCHORS.china.length + ANCHORS.japan.length + ANCHORS.war.length} 個海陸錨點自我校對（中國 ${ANCHORS.china.length}／日本 ${ANCHORS.japan.length}／亞洲戰區 ${ANCHORS.war.length}，含渤海、滿洲、朝鮮半島、東京灣、瀨戶內海、津輕海峽、宗谷海峽、爪哇海），任何一個不符即整支腳本失敗。`,
