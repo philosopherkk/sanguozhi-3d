@@ -572,6 +572,23 @@
     min-height: var(--tap-min);
   }
 
+  /* 彈窗與折疊控件補按擊區：詳情窗「關閉」、文章窗「收起」、側欄
+     折疊與勢力榜開合等，字級雖隨 修 9 放大，高度仍只有約 28px，
+     低於 44px 底線。這些是開窗之後幾乎必點的出口控件，誤按代價
+     最高，優先補足。（桌面 24px 下限已由 1025px 一節另行把關。） */
+  .event-detail__close,
+  .article-panel__close,
+  .article-panel__collapse,
+  .faction-inspect__head button,
+  .faction-situation__head button,
+  .side-rail__toggle,
+  .side-rail__map-first,
+  .collapsible-shell__toggle,
+  .power-board__toggle,
+  .year-scrubber__note-toggle {
+    min-height: var(--tap-min);
+  }
+
   /* ── 9.4 標籤・出處・註記 ──
      全站最小的一層，原本 0.55–0.72rem（8.8–11.5px）。
      年份滑桿的刻度（.year-scrubber__tick-*）刻意不列入：18 格密排，
