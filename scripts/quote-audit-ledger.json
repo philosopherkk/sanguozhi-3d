@@ -1,8 +1,8 @@
 {
   "src/zhou/data/studentEvents.ts#xiangxiao": {
-    "stamp": "26b8a25a",
+    "stamp": "566fb939",
     "page": "春秋左氏傳/襄公",
-    "at": "2026-11-06"
+    "at": "2026-11-13"
   },
   "src/qinhan/data/timeline.ts#unify": {
     "stamp": "5505f8e6",
@@ -1020,19 +1020,19 @@
     "at": "2026-11-11"
   },
   "src/japanEras/packs/asukaPack.ts#as-538": {
-    "stamp": "e1d681d3",
+    "stamp": "6bb8c516",
     "page": "日本書紀/卷第十九",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/japanEras/packs/asukaPack.ts#as-587": {
-    "stamp": "da0f9395",
+    "stamp": "91befab1",
     "page": "日本書紀/卷第廿一",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/japanEras/packs/asukaPack.ts#as-645": {
-    "stamp": "b38a7b31",
+    "stamp": "ce35dcbe",
     "page": "日本書紀/卷第廿五",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/japanEras/packs/asukaPack.ts#as-663": {
     "stamp": "f708884f",
@@ -1040,9 +1040,9 @@
     "at": "2026-11-11"
   },
   "src/japanEras/packs/asukaPack.ts#as-672": {
-    "stamp": "1e7e13f2",
+    "stamp": "daab9d6f",
     "page": "日本書紀/卷第廿八",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/japanEras/packs/kofunPack.ts#kf-250": {
     "stamp": "e0a2b45d",
@@ -1075,9 +1075,9 @@
     "at": "2026-11-11"
   },
   "src/qinhan/data/timeline.ts#xin-mang": {
-    "stamp": "773318b1",
-    "page": "資治通鑑/卷036",
-    "at": "2026-11-11"
+    "stamp": "316f52a5",
+    "page": "",
+    "at": "2026-11-13"
   },
   "src/imperial/data/jinPack.ts#jin-280": {
     "stamp": "dccce586",
@@ -1210,9 +1210,9 @@
     "at": "2026-11-13"
   },
   "src/zhou/data/timelineMore.ts#lize": {
-    "stamp": "40cc2955",
+    "stamp": "62cb7c88",
     "page": "春秋左氏傳/哀公",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/zhou/data/lateStages.ts#tiandan": {
     "stamp": "ffbb9e42",
@@ -1225,19 +1225,19 @@
     "at": "2026-11-11"
   },
   "src/japanEras/packs/naraPack.ts#nr-710": {
-    "stamp": "88f1c723",
+    "stamp": "e742eca7",
     "page": "續日本紀/卷第五",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/japanEras/packs/naraPack.ts#nr-752": {
-    "stamp": "3a29e8a8",
+    "stamp": "8290c0f6",
     "page": "續日本紀/卷第十八",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/japanEras/packs/naraPack.ts#nr-764": {
-    "stamp": "50216739",
+    "stamp": "451c3b95",
     "page": "續日本紀/卷第廿五",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/japanEras/packs/naraPack.ts#nr-784": {
     "stamp": "346fc5ee",
@@ -1265,9 +1265,9 @@
     "at": "2026-11-12"
   },
   "src/zhou/data/timeline.ts#yue-wu": {
-    "stamp": "d69b0ea5",
+    "stamp": "74d02927",
     "page": "春秋左氏傳/哀公",
-    "at": "2026-11-12"
+    "at": "2026-11-13"
   },
   "src/zhou/data/timeline.ts#dongzhou": {
     "stamp": "9f82335",
@@ -1417,6 +1417,51 @@
   "src/zhou/data/earlyDynastyMore.ts#zhou-liaomin": {
     "stamp": "e7636831",
     "page": "國語/卷01",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/imjinWarEvents.ts#az-1592-landing": {
+    "stamp": "902d1f2c",
+    "page": "明史/卷320",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/imjinWarEvents.ts#az-1593-pyongyang": {
+    "stamp": "902d1f2c",
+    "page": "明史/卷320",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/imjinWarEvents.ts#az-1596-shippou": {
+    "stamp": "902d1f2c",
+    "page": "明史/卷320",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/imjinWarEvents.ts#az-1597-renewal": {
+    "stamp": "902d1f2c",
+    "page": "明史/卷320",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/imjinWarEvents.ts#az-1598-noryang": {
+    "stamp": "902d1f2c",
+    "page": "明史/卷320",
+    "at": "2026-11-13"
+  },
+  "src/zhou/data/studentEvents.ts#zilu": {
+    "stamp": "3f1a3c7f",
+    "page": "史記/卷067",
+    "at": "2026-11-13"
+  },
+  "src/zhou/data/studentEvents.ts#kongzi-zu": {
+    "stamp": "81e5d022",
+    "page": "史記/卷047",
+    "at": "2026-11-13"
+  },
+  "src/zhou/data/studentEvents.ts#jixia": {
+    "stamp": "692c983",
+    "page": "史記/卷046",
+    "at": "2026-11-13"
+  },
+  "src/zhou/data/studentEvents.ts#jiagu": {
+    "stamp": "57078d72",
+    "page": "春秋左氏傳/定公",
     "at": "2026-11-13"
   }
 }
