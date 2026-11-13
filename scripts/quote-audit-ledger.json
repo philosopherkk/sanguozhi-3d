@@ -1548,5 +1548,25 @@
     "stamp": "a7d65cc0",
     "page": "吾妻鏡/卷004",
     "at": "2026-11-14"
+  },
+  "src/japanEras/packs/edoPack.ts#edo-1615-osaka": {
+    "stamp": "f7e22843",
+    "page": "大日本編年史/卷090",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/edoPack.ts#edo-1635-sankin": {
+    "stamp": "5aa73bd8",
+    "page": "大日本編年史/卷095",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/edoPack.ts#edo-1637-shimabara": {
+    "stamp": "61c784a0",
+    "page": "大日本編年史/卷095",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/edoPack.ts#edo-1639-sakoku": {
+    "stamp": "567e6c7",
+    "page": "大日本編年史/卷096",
+    "at": "2026-11-13"
   }
 }
