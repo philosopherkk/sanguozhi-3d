@@ -331,6 +331,7 @@ function RouteOverlayInner({
                 fill="#f7edd6"
                 stroke="#1a1810"
                 strokeWidth={3}
+                style={{ strokeWidth: 'var(--map-label-stroke, 3)' }}
                 paintOrder="stroke"
               >
                 {label}

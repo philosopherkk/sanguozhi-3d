@@ -260,6 +260,14 @@ export const IMJIN_WINDOW: DeepDiveMapWindow = {
     w: 1710,
     h: 1000,
     credit: '底圖：Natural Earth 1:50m（world-atlas v2），圓柱投影 60°E–190°E／14°S–62°N',
+    /**
+     * 視窗內容（朝鮮半島、遼東、九州—對馬海路）只佔畫布 x 846–946、
+     * y 251–408 一小塊，全幅顯示時朝鮮半島僅約 65px 寬，等于看不見。
+     * 裁到經 118°–144°、緯 26°–46°（本州全境、朝鮮、華北沿海俱在），
+     * 標題亦改「東亞戰區」；pan 可回看全幅。
+     */
+    view: { x: 763, y: 210, w: 342, h: 263 },
+    title: '東亞戰區（今測海岸線）',
   },
   domains: IMJIN_DOMAINS,
   territoryByYear: CONTROL,
