@@ -8,7 +8,7 @@ export const NANBEI_ROUTES = [
   line('liuyuan', '劉淵離石起兵', 304, '漢趙', '《晉書·劉元海載記》。自離石起事，南向并州。', [a.jinyang, a.taiyuan]),
   line('yongjia', '永嘉陷洛陽', 311, '漢趙', '《晉書·孝懷帝紀》；《資治通鑑》卷八十七。劉曜、王彌陷洛陽。', [a.taiyuan, a.pingyang, a.luoyang]),
   line('chang-an-316', '劉曜陷長安', 316, '漢趙', '《晉書·孝愍帝紀》。自洛陽西入關中。', [a.luoyang, a.hangu, a.changan]),
-  line('jiankang', '晉室東遷', 317, '東晉', '《晉書·元帝紀》。琅邪王鎮建康，宗室東渡。', [a.pengcheng, a.guangling, a.jiankang]),
+  line('jiankang', '晉室東遷', 317, '東晉', '《晉書·元帝紀》。琅邪王鎮建康，宗室東渡。元帝鎮下邳，史料無出廣陵之文，故不設中轉。', [a.pengcheng, a.jiankang]),
   line('zuti', '祖逖北伐', 313, '東晉', '《晉書·祖逖傳》。自淮陰北上，進屯雍丘。', [a.huai, a.pengcheng, a.kaifeng]),
   line('shile-ye', '石勒據襄國', 312, '漢趙', '《晉書·石勒載記》。自并州東出河北。本年石勒仍承漢趙官號，趙王之號始於 319 年。', [a.taiyuan, a.yecheng]),
   line('liuyao-luo', '劉曜攻洛', 328, '漢趙', '《晉書·劉曜載記》。前趙自長安東出，與石勒決於洛陽。', [a.changan, a.hangu, a.luoyang]),
