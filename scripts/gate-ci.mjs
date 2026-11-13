@@ -66,6 +66,16 @@ const GATES = [
     cmd: 'npm run audit:chars -- --teeth',
     metrics: { fail: /audit:chars --teeth — 失敗 (\d+) 項/ },
   },
+  // 2026-11-14 補：上面兩條 teeth 都係「注入壞樣本 → 必須報紅」，但判斷用嘅係同一支閘門。
+  // 所以有人把規則改弱（正則收細、豁免放大、字表抽走一個字、註冊表來源檔名打錯），teeth
+  // 會跟住變橡皮章而照樣全綠——本專案五次同一根因，全部係「數字綠因為冇人在查」。呢條唔量
+  // 內容，量「teeth 本身有冇牙」：主動破壞規則本身 25 項，每項都要睇到 teeth 報紅。
+  // 突變全部喺 mkdtemp 副本上做，並用 git status 前後對照硬性禁止改 tracked 檔。
+  {
+    name: 'audit:teeth-mutations',
+    cmd: 'npm run audit:teeth-mutations',
+    metrics: { fail: /audit:teeth-mutations — 失敗 (\d+) 項/ },
+  },
   // 2026-11-08 補：使用者隨機抽查應仁之亂即見內容極薄，追查發現既有 event-depth
   // 從未讀取事件詳情檔案（timelineDetails 字串比對 0 次）。41 條受測、27 條缺口。
   // 分開一支閘門是為了不打斷其他 agent 已有的 event-depth 基線。

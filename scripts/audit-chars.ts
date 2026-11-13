@@ -411,6 +411,9 @@ if (flags.includes('--teeth')) {
     "export const c = '按「余姑翦滅此而朝食」之說，正體敘述不受引文影響。';",
     'export const d = "見 https://zh.wikipedia.org/wiki/三国时期 與 WIKI(\'後漢書/卷71\')。";',
     "  { label: '东乡平八郎' }, // label 是維基條目標題，照原條目保留",
+    // 貼住假名嘅日文用字（戸／戦）照原形不報：呢行係「遮蔽整個唔做」呢類退化嘅探針，
+    // 抽走佢，audit:teeth-mutations 嘅「maskNearKana 恒等」突變就冇嘢咬。
+    "export const h = '江戸で戦い、艦隊を率いた。';",
     'export const f = `东`; // 短代碼區段不掃',
     "export const g = '万 松 台 岳 里 面 于 并 来 屬同形兩用字，刻意不入 HARD。';",
   ]

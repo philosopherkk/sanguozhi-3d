@@ -19,6 +19,7 @@
     "audit:chengyu": "node scripts/audit_chengyu.mjs",
     "audit:map": "node scripts/audit_map_accuracy.mjs",
     "audit:chars": "node --experimental-strip-types scripts/audit-chars.ts",
+    "audit:teeth-mutations": "node scripts/audit_teeth_mutations.mjs",
     "gates": "node scripts/gate-ci.mjs",
     "check:secrets": "node scripts/check_bundle_secrets.mjs",
     "exa": "node scripts/exa.mjs",
