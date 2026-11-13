@@ -1,6 +1,8 @@
 /**
- * 北海道的行政界（按年窗）。由 scripts/build_hokkaido_admin_rings.py 自 CODH 舊國
- * （K75–K85，doi:10.20676/00000454，CC BY-NC 4.0）投影產出。勿手改。
+ * 北海道的行政界（按年窗）。幾何係歷史日本國界 GIS（CODH）舊國層 K75–K85
+ * （doi:10.20676/00000454，CC BY-NC 4.0）之投影產出。產生腳本不在本 repo
+ * （2026-11-14 查 git 全史無 scripts/build_hokkaido_admin_rings.py，舊注失實，已刪）。
+ * 勿手改；改動須先過 scripts/check_ring_landmarks.py 之地標斷言。
  *
  * 注意：CODH 是舊國層級。1882 年三縣以郡為單位把後志、膽振、北見分割，所以這裡把這些郡歸給面積占多數的那一縣
  * （正確的郡規則見 japanFringeWindows.ts 的 note）。
