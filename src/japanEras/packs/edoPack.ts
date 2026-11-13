@@ -29,8 +29,8 @@ const EXTRA_DOMAINS = [
   },
   /**
    * 東蝦夷地（1799 寬政11年幕府直轄；1807 文化4年擴展至全蝦夷地；
-   * 1821 文政4年松前藩還領）。幾何由 scripts/build_hokkaido_admin_rings.py
-   * 自 CODH 舊國 K75–K85（CC BY-NC 4.0）產出，不是手繪。
+   * 1821 文政4年松前藩還領）。幾何自 CODH 舊國 K75–K85（CC BY-NC 4.0）投影
+   * 產出，不是手繪；產生腳本不在本 repo，見 hokkaidoAdminRings.ts 頭注。
    * 擺於 ezochi 之後，令東部窗口覆蓋於全島環上面。
    */
   {
