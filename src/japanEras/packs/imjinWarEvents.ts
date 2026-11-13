@@ -235,6 +235,8 @@ export const IMJIN_READINGS: Record<string, EraReading> = {
     },
   },
   'az-1596-shippou': {
+    // 查證（2026-11-13）：引文已對 zh.wikisource 逐字核對（中段本就以「……」斷開）
+    // https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7320
     quote:
       '行長紿曰：「天朝幸按兵不動，我不久當還。以大同江為界，平壤以西盡屬朝鮮耳。」惟敬以聞。廷議倭詐未可信，乃趣應昌等進兵。……已而沈惟敬歸自釜山，同倭使來請款，而倭隨犯咸安、晉州，逼全羅，聲復漢江以南，以王京、漢江為界。',
     source: '《明史》卷三百二十〈朝鮮傳〉（zh.wikisource 可逐字比對，中段略以「……」）',
@@ -248,6 +250,8 @@ export const IMJIN_READINGS: Record<string, EraReading> = {
     },
   },
   'az-1597-renewal': {
+    // 查證（2026-11-13）：引文已對 zh.wikisource 逐字核對（中段本就以「……」斷開）
+    // https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7320
     quote:
       '七月，倭奪梁山、三浪，遂入慶州，侵閑山。統制元均兵潰，遂失閑山。……八月，清正圍南原，乘夜猝攻，守將楊元遁。',
     source: '《明史》卷三百二十〈朝鮮傳〉（zh.wikisource 可逐字比對，中段略以「……」）',
@@ -261,6 +265,8 @@ export const IMJIN_READINGS: Record<string, EraReading> = {
     },
   },
   'az-1598-noryang': {
+    // 查證（2026-11-13）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7320
     quote:
       '是月，福建都御史金學曾報七月九日平秀吉死，各倭俱有歸志。十一月，清正發舟先走，麻貴遂入島山、酉浦，劉綎攻奪曳橋。石曼子引舟師救行長，陳璘邀擊敗之。諸倭揚帆盡歸。',
     source: '《明史》卷三百二十〈朝鮮傳〉（zh.wikisource 可逐字比對）',
