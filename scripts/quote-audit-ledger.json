@@ -1050,9 +1050,9 @@
     "at": "2026-11-11"
   },
   "src/japanEras/packs/kofunPack.ts#kf-350": {
-    "stamp": "85d0c137",
+    "stamp": "8d1ef1da",
     "page": "日本書紀/卷第七",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/japanEras/packs/kofunPack.ts#kf-400": {
     "stamp": "e8b3544e",
@@ -1467,6 +1467,56 @@
   "src/japanEras/packs/imjinWarEvents.ts#az-1592-pyongyang": {
     "stamp": "92e58fdc",
     "page": "明史/卷320",
+    "at": "2026-11-13"
+  },
+  "src/heian/data/history.ts#heian-810-kusuko": {
+    "stamp": "f9425318",
+    "page": "日本後紀/卷第二十",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/kamakuraPack.ts#km-1185": {
+    "stamp": "b015f4c4",
+    "page": "吾妻鏡/卷005",
+    "at": "2026-11-13"
+  },
+  "src/bakumatsu/data/history.ts#1854-kanagawa": {
+    "stamp": "9fd898eb",
+    "page": "日本國米利堅合衆國和親條約",
+    "at": "2026-11-13"
+  },
+  "src/bakumatsu/data/history.ts#1858-06": {
+    "stamp": "5f2b7490",
+    "page": "日本國米利堅合衆國修好通商條約",
+    "at": "2026-11-13"
+  },
+  "src/bakumatsu/data/history.ts#1859-06": {
+    "stamp": "229540a4",
+    "page": "日本國米利堅合衆國修好通商條約",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/edoPack.ts#edo-1604-matsumae": {
+    "stamp": "72f9cf08",
+    "page": "松前島郷帳",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1945-end": {
+    "stamp": "75e06ecf",
+    "page": "大東亞戰爭終結ノ詔書",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1952-sovereignty": {
+    "stamp": "e0e86ed3",
+    "page": "日本國憲法",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/muromachiPack.ts#mu-1336": {
+    "stamp": "c6fe33cc",
+    "page": "建武式目",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/muromachiPack.ts#mu-1350": {
+    "stamp": "fe5eb6d9",
+    "page": "太平記/巻第二十六",
     "at": "2026-11-13"
   }
 }
