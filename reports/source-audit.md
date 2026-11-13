@@ -1894,3 +1894,52 @@ commit `9be17e2`（6 條）＋ `1cced1f`（1 條自我修復）。全部在 `src
 
 ## 5) 閘門
 `npm run gates` 與 `build`／`lint` 於改後實測，見本 PR 之 commit 附註；`audit:detail-depth`、`audit:reading-layers`、`audit:event-depth`、`audit:chars` 均無惡化。
+
+## 第 7 輪（2026-11-13，agent/accuracy）：學生事件五條＋笠澤＋新莽（原卷字形四條改字、跨卷引文手動標記）
+
+### 1) 起點與交付
+
+- 起點：`origin/main = 54d6447`（PR #161 已 MERGED，merge commit `b772ea7`；本輪 rebase 後 0/0 同步）。
+- 模型鎖 self-check：`MODEL_LOCK_OK`。
+- 本輪 commit：`c7f33be`（子路／孔子授徒／稷下改字）、`fd7700b`（鄉校／夾谷補連結）、`45d0c8f`（笠澤改字＋新莽補兩卷連結）、`3134cc3`（ledger 標記）；加本報告。
+- 交付分支 `agent/accuracy`；PR URL 與 `gh pr view` 輸出以本輪對話為準。
+
+### 2) 本輪批次與逐條結果
+
+| 條目 | 引文 | 處理 |
+| --- | --- | --- |
+| `studentEvents.ts#zilu` | 「子路欲燒臺，蒯聵懼……」 | **引文用後起通行字**：原卷（史記/卷067）作「**燔**臺」「**蕢聵**懼」，照原卷改字；加查證註 |
+| `studentEvents.ts#kongzi-zu` | 「孔子以詩書禮樂教……」 | 原卷（史記/卷047）作「**敎**」，照原卷改字；加查證註 |
+| `studentEvents.ts#jixia` | 「皆賜列第，為上大夫……」 | 原卷（史記/卷046）作「**爲**」，照原卷改字；加查證註 |
+| `studentEvents.ts#jiagu` | 「孔丘相。犁彌言於齊侯曰……」 | 春秋左氏傳/定公 逐字相合（上輪「出處解析唔到」因來源已有「定公十年」，本輪補頁 URL 即過）；引文不動 |
+| `studentEvents.ts#xiangxiao` | 「夫人朝夕退而游焉……」 | 春秋左氏傳/襄公 逐字相合；引文不動，補查證註 |
+| `timelineMore.ts#lize` | 「越子伐吳，吳子御之笠澤……」 | 原卷（春秋左氏傳/哀公）作「**禦**」，照原卷改字；classicSource 按語由「係通行字形替換，非原文」改寫為「引文照原卷作『禦』」 |
+| `timeline.ts#xin-mang` | 三段跨卷引文 | 逐段驗證：seg1–2 見漢書/卷099上（「金匱神嬗」逐字有，非「神禪」）、seg3（「我老已死」）見漢書/卷098；補兩頁 URL。live 必 mismatch——`verify_batch` 會揀「最佳匹配卷」，而《資治通鑑》卷三十六（source 已列）作「神**禪**」匹配分反高；各段用 qsrc 手動核對後 `--mark xin-mang` |
+
+跟單核對：本輪無虛構書名／人物／年號；四處引文与原卷字形不符（燔、蕢聵、敎、爲、禦）全部改照原卷，屬「把引文改返逐字可查」範圍。死鏈本輪未觸及（改動冇動 wiki 連結）。
+
+### 3) 前後對照
+
+| 指標 | 前 | 後 |
+| --- | --- | --- |
+| 已查證 | 186 | **201**（＋15：本輪 7 條＋live 複核通過嘅 #142 滯後項 as-538/587/645/672、nr-710/752/764、yue-wu 等） |
+| 未查證 | 21 | **12** |
+| 意譯 | 122 | 122 |
+| 引文已改需重查 | 12 | **6**（剩 az-* 五條＋kf-350） |
+| 錯誤／提醒 | 0／44 | 0／44 |
+| `audit:chars` 硬傷 | 0 | **0** |
+| `npm run gates` | — | 無惡化（quotes.warns 45→44、war-shape 291→284、event-depth 216→118 皆改善） |
+| `npm run build` | — | EXIT=0 |
+| `npm run lint` | — | EXIT=0（0 error） |
+
+### 4) 工具心得（俾下一輪）
+
+- `qsrc.py --verify-batch` 嘅候選順序係 `wikisource[0]` 之後再逐個試 source 入面全部《》出處，最後取**匹配分最高**者報結果——所以凡 classicSource 列咗「文字稍異」嘅別書（如通鑑），跨卷或異文引文 live 都會揀錯卷報 mismatch；呢類只能逐段 qsrc 手動核對再 `--mark`（本輪 xin-mang 做法）。
+- `--mark` 係 `npm run audit:quotes -- --mark <bare-key>`，唔係 qsrc.py 嘅旗標。
+- 漢書卷頁名帶補零與方位尾字：「漢書/卷099上」「漢書/卷098」；「金匱神嬗」四字只喺 099上 逐字成立，通鑑/036 作「神禪」。
+
+### 5) 剩餘佇列（18 條，交下輪）
+
+1. az-*（朝鮮之役六條，`7775a87` 新內容）：五條「引文已改」＋1592-pyongyang 未查證（「而是時倭已入」分岔，要照原卷改字或標通說）。
+2. 日本 pack 未查證 11 條：幕末三条、heian 兩条、edo-1604（松前島郷帳要 `--toc`）、km-1185（吾妻鏡索引用編年格式）、mj 兩條、mu 兩條——需要 `--host ja.wikisource.org` 同日文原典規則逐條處理。
+3. kf-350（「為人勇悍」異文）屬 #142 工作流滯後項。
