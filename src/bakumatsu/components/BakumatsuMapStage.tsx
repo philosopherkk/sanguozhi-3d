@@ -1,9 +1,5 @@
 import { useEffect, useMemo } from 'react'
-import {
-  EraLegend,
-  EraMapView,
-  EraPowerBoard,
-} from '../../japanEras/EraMapView'
+import { EraMapView, EraPowerBoard } from '../../japanEras/EraMapView'
 import { BAKUMATSU_MARCH_ROUTES, BAKUMATSU_PLACES } from '../data/marchRoutes'
 import {
   BAKUMATSU_DOMAINS,
@@ -18,6 +14,7 @@ import {
   useBakumatsuHanLayer,
 } from '../state/bakumatsuHanLayer'
 import { shadesFromHanDomainControl } from '../data/bakumatsuHanPaint'
+import { withLandlessFactions } from '../../lib/factionRows'
 import { useBakumatsuSelection } from '../state/BakumatsuSelectionContext'
 import { routesForMonth } from '../../lib/monthZoom'
 import { useBakumatsuYear } from '../state/BakumatsuYearContext'
@@ -52,9 +49,10 @@ export function BakumatsuMapStage() {
     )
     return [...base, ...bakumatsuFringeShades(year, control)]
   }, [control, year, hanLayer.enabled])
-  const rows = useMemo(() => bakumatsuFactionCounts(control), [control])
-  const legend = BAKUMATSU_FACTIONS.filter(
-    (f) => year >= f.activeFrom && year <= f.activeTo,
+  const rows = useMemo(
+    () =>
+      withLandlessFactions(bakumatsuFactionCounts(control), BAKUMATSU_FACTIONS, year),
+    [control, year],
   )
 
   return (
@@ -112,18 +110,9 @@ export function BakumatsuMapStage() {
         />
       </div>
       <div className="map-stage__overlay map-stage__overlay--bl">
-        <EraLegend
-          year={year}
-          territoryYear={territoryYear}
-          factions={legend}
-          colorFor={colorFor}
-          selectedFaction={selectedFaction}
-          onSelectFaction={(id) =>
-            selectFaction(id as BakumatsuFactionId | null)
-          }
-        />
         <p className="map-stage__hint">
-          底圖下方「圖層」可開勢力、行軍、地名、藩界 · 行軍只顯示該月 · 藩界需另載精細幾何
+          {year} 年勢力（疆域快照 {territoryYear}）· 底圖下方「圖層」可開勢力、行軍、地名、藩界
+          · 行軍只顯示該月 · 藩界需另載精細幾何
         </p>
       </div>
     </section>

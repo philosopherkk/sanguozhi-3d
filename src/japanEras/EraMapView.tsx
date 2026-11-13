@@ -349,50 +349,6 @@ export function EraMapView({
   )
 }
 
-export function EraLegend({
-  year,
-  territoryYear,
-  factions,
-  colorFor,
-  selectedFaction,
-  onSelectFaction,
-}: {
-  year: number
-  territoryYear: number
-  factions: { id: string; name: string }[]
-  colorFor: (id: string) => string
-  selectedFaction: string | null
-  onSelectFaction: (id: string | null) => void
-}) {
-  return (
-    <div className="faction-legend">
-      <p className="faction-legend__title">
-        {year} 年勢力（疆域快照 {territoryYear}）
-      </p>
-      <ul className="faction-legend__list">
-        {factions.map((f) => (
-          <li key={f.id}>
-            <button
-              type="button"
-              className={
-                selectedFaction === f.id
-                  ? 'faction-legend__btn is-active'
-                  : 'faction-legend__btn'
-              }
-              onClick={() =>
-                onSelectFaction(selectedFaction === f.id ? null : f.id)
-              }
-            >
-              <i style={{ background: colorFor(f.id) }} />
-              {f.name}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-
 export function EraPowerBoard({
   territoryYear,
   rows,
@@ -437,7 +393,7 @@ export function EraPowerBoard({
               >
                 <i style={{ background: colorFor(faction) }} />
                 <span>{nameFor(faction)}</span>
-                <em>{n} 區</em>
+                <em>{n === 0 ? '無區' : `${n} 區`}</em>
               </button>
             </li>
           )

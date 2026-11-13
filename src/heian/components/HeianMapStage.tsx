@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { MARCH_ROUTE_SAME_YEAR } from '../../components/map/RouteOverlay'
-import { EraLegend, EraMapView } from '../../japanEras/EraMapView'
+import { EraMapView } from '../../japanEras/EraMapView'
 import { routesForMonth } from '../../lib/monthZoom'
 import { shadesFromDomainControl } from '../../sengoku/data/japanKokugunPaint'
 import { HEIAN_MARCH_ROUTES, HEIAN_PLACES } from '../data/marchRoutes'
@@ -32,9 +32,6 @@ export function HeianMapStage() {
     const names = Object.fromEntries(HEIAN_DOMAINS.map((d) => [d.id, d.name]))
     return shadesFromDomainControl(control, names, '朝廷')
   }, [control])
-  const legend = HEIAN_FACTIONS.filter(
-    (f) => year >= f.activeFrom && year <= f.activeTo,
-  )
 
   return (
     <section className="map-stage" aria-label="平安地圖">
@@ -58,16 +55,9 @@ export function HeianMapStage() {
       <HeianRouteDock />
       <HeianTerritoryDock />
       <div className="map-stage__overlay map-stage__overlay--bl">
-        <EraLegend
-          year={year}
-          territoryYear={territoryYear}
-          factions={legend}
-          colorFor={colorFor}
-          selectedFaction={selectedFaction}
-          onSelectFaction={(id) => selectFaction(id as HeianFactionId | null)}
-        />
         <p className="map-stage__hint">
-          左行軍・右勢力範圍（可摺、可拖）· 底圖下方「圖層」開關色塊、路線、地名
+          {year} 年勢力（疆域快照 {territoryYear}）· 左行軍・右勢力範圍（可摺、可拖）
+          · 底圖下方「圖層」開關色塊、路線、地名
         </p>
       </div>
     </section>

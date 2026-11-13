@@ -8,10 +8,12 @@ import {
 import { FactionSituationPanel } from '../components/FactionSituationPanel'
 import { MapRouteLegend } from '../components/map/MapRouteLegend'
 import { MARCH_ROUTE_SAME_YEAR } from '../components/map/RouteOverlay'
+import { withLandlessFactions } from '../lib/factionRows'
 import { composeFactionYear, type YearNote } from '../lib/factionYearView'
 import type { JapanDeepDivePack } from './deepDiveTypes'
 import { useDeepDiveSelection } from './DeepDiveSelectionContext'
 import { useDeepDiveYear } from './DeepDiveYearContext'
+import { usePersistedOpenResponsive } from '../lib/usePersistedOpen'
 
 function useDockDrag() {
   const [offset, setOffset] = useState({ x: 0, y: 0 })
@@ -49,13 +51,24 @@ function useDockDrag() {
 function Dock({
   side,
   title,
+  storageKey,
+  defaultOpenDesktop,
+  defaultOpenMobile,
   children,
 }: {
   side: 'left' | 'right'
   title: string
+  /** 收合與否記入 localStorage；各時代分開記，互不覆蓋。 */
+  storageKey: string
+  /** 桌面與窄螢幕的初始值；使用者開關過一次之後即以他的選擇為準。 */
+  defaultOpenDesktop: boolean
+  defaultOpenMobile: boolean
   children: ReactNode
 }) {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = usePersistedOpenResponsive(storageKey, {
+    desktop: defaultOpenDesktop,
+    mobile: defaultOpenMobile,
+  })
   const { offset, onPointerDown, onPointerMove, onPointerUp } = useDockDrag()
 
   return (
@@ -87,7 +100,13 @@ function Dock({
 export function EraRouteDock({ pack }: { pack: JapanDeepDivePack }) {
   const { year, mapWindow } = useDeepDiveYear()
   return (
-    <Dock side="left" title="行軍路線">
+    <Dock
+      side="left"
+      title="行軍路線"
+      storageKey="era-dock-routes"
+      defaultOpenDesktop={false}
+      defaultOpenMobile={false}
+    >
       <MapRouteLegend
         routes={mapWindow ? mapWindow.routes : pack.routes}
         year={year}
@@ -109,10 +128,14 @@ export function EraTerritoryDock({ pack }: { pack: JapanDeepDivePack }) {
     for (const f of Object.values(control)) {
       counts.set(f, (counts.get(f) ?? 0) + 1)
     }
-    return [...counts.entries()]
-      .map(([faction, n]) => ({ faction, n }))
-      .sort((a, b) => b.n - a.n)
-  }, [control])
+    return withLandlessFactions(
+      [...counts.entries()]
+        .map(([faction, n]) => ({ faction, n }))
+        .sort((a, b) => b.n - a.n),
+      pack.factions,
+      year,
+    )
+  }, [control, pack.factions, year])
 
   const leaders = useMemo(() => {
     const keys = Object.keys(pack.leadersByYear)
@@ -142,7 +165,13 @@ export function EraTerritoryDock({ pack }: { pack: JapanDeepDivePack }) {
   }, [selectedFaction, year, pack])
 
   return (
-    <Dock side="right" title="勢力範圍">
+    <Dock
+      side="right"
+      title="勢力範圍"
+      storageKey="era-dock-territory"
+      defaultOpenDesktop={true}
+      defaultOpenMobile={false}
+    >
       <div className="power-board">
         <p className="power-board__title">
           勢力佔區（{territoryYear} 快照）· 點選看人口、戰力、經濟
@@ -182,7 +211,7 @@ export function EraTerritoryDock({ pack }: { pack: JapanDeepDivePack }) {
                       </small>
                     ) : null}
                   </span>
-                  <em>{n} 區</em>
+                  <em>{n === 0 ? '無區' : `${n} 區`}</em>
                 </button>
               </li>
             )
