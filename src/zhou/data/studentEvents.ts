@@ -70,7 +70,9 @@ export const ZHOU_STUDENT_EVENTS: ZhouTimelineEvent[] = [
 
 本圖標子路之死與衛的內亂，不畫領土變化；同時保留紀律：不把孔門寫成一個政治黨派，它是師徒與從政的網絡，沒有黨紀、沒有世襲職位。`,
     outcomeSource: '《左傳》哀公十五年、哀公十六年；《史記·仲尼弟子列傳》《衛康叔世家》；楊伯峻《春秋左傳注》；童書業《春秋史》',
-    classicQuote: '子路欲燒臺，蒯聵懼，乃下石乞、壺黶攻子路，擊斷子路之纓。子路曰：「君子死而冠不免。」遂結纓而死。',
+    // 查證（2026-11-13）：引文已對 zh.wikisource 逐字核對；原卷作「燔臺」「蕢聵」，引文照原卷字形
+    // https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7067
+    classicQuote: '子路欲燔臺，蕢聵懼，乃下石乞、壺黶攻子路，擊斷子路之纓。子路曰：「君子死而冠不免。」遂結纓而死。',
     classicSource: '《史記·仲尼弟子列傳》',
     paraphrase: false,
     layers: {
@@ -111,7 +113,9 @@ export const ZHOU_STUDENT_EVENTS: ZhouTimelineEvent[] = [
 
 本圖把本年標為人物事件，不畫任何機構或領土；並在 note 保留「沒有生徒名冊」的說明。這是本專案處理思想史條目的紀律：把可考的活動與後起的制度想像分開。`,
     outcomeSource: '《左傳》哀公十六年；《史記·孔子世家》《仲尼弟子列傳》；《論語》；《孔子家語》（王肅整理本，需辨）；楊伯峻《春秋左傳注》；錢穆《先秦諸子繫年》',
-    classicQuote: '孔子以詩書禮樂教，弟子蓋三千焉，身通六藝者七十有二人。',
+    // 查證（2026-11-13）：引文已對 zh.wikisource 逐字核對；原卷作「敎」，引文照原卷字形
+    // https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7047
+    classicQuote: '孔子以詩書禮樂敎，弟子蓋三千焉，身通六藝者七十有二人。',
     classicSource: '《史記·孔子世家》',
     paraphrase: false,
     layers: {
@@ -233,8 +237,10 @@ export const ZHOU_STUDENT_EVENTS: ZhouTimelineEvent[] = [
 
 討論：稷下的存續年代（起於威王、衰於王建之前）、其位置（臨淄稷門）、以及它是否是一個有編制的「學宮」，學界仍有討論；郭沫若《十批判書》對稷下的系統論述影響最大，但其把各家歸屬稷下的做法已被後來研究者修正。本專案把本年標為制度與思想事件，不畫領土，也不把稷下畫成一個有邊界的機構。`,
     outcomeSource: '《史記·田敬仲完世家》《孟子荀卿列傳》；《管子》（篇章歸屬有爭）；《漢書·藝文志》（後世分類）；郭沫若《十批判書》（北京：三聯書店）；錢穆《先秦諸子繫年》',
+    // 查證（2026-11-13）：引文已對 zh.wikisource 逐字核對；原卷作「爲」，引文照原卷字形
+    // https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7046
     classicQuote:
-      '皆賜列第，為上大夫，不治而議論。是以齊稷下學士復盛，且數百千人。',
+      '皆賜列第，爲上大夫，不治而議論。是以齊稷下學士復盛，且數百千人。',
     classicSource: '《史記·田敬仲完世家》',
     paraphrase: false,
     layers: {
