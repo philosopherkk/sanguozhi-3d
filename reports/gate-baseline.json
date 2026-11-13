@@ -40,6 +40,10 @@
     "exit": 0,
     "fail": 0
   },
+  "audit:teeth-mutations": {
+    "exit": 0,
+    "fail": 0
+  },
   "audit:wiki-links": {
     "exit": 0,
     "dead": 0,
@@ -53,7 +57,7 @@
   },
   "audit:war-shape": {
     "exit": 0,
-    "schematic": 284,
+    "schematic": 268,
     "selfInt": 0
   },
   "audit:reading-layers": {
