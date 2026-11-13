@@ -83,6 +83,8 @@ export const RING_PROVENANCE: Record<string, RingProvenance> = {
   hexie: { basis: '河西走廊：依文獻地望的手繪區，非圖幅矢量化', source: '《史記·大宛列傳》；漢四郡設後', institution: '郡', kind: 'text-derived', approx: true },
   jingnan: { basis: '荊南：依文獻地望的手繪區，非圖幅矢量化', source: '《漢書·地理志》南郡、長沙郡一帶', institution: '郡', kind: 'text-derived', approx: true },
   annam: { basis: '日南以南：依文獻地望的手繪區，非圖幅矢量化', source: '《漢書·地理志》；《後漢書·馬援傳》', institution: '郡', kind: 'text-derived', approx: true },
+  goryeo: { basis: '高麗（918–1392）半島本領：北以鴨綠江與遼金為界，義州（保州）一帶北岸屬遼；依文獻地望的手繪區，非圖幅矢量化', source: '《高麗史·地理志》；《遼史·聖宗紀》保州之爭；《金史·地理志》', institution: '無', kind: 'text-derived', approx: true },
+  daiyue: { basis: '安南（大越）：968 丁氏立國、1054 李氏改號大越、1225 陳氏代之；北包廣源、順州（高平）兩屬之地，南以橫山為 1069 年前占城界，西界山僚示意上限；依文獻地望的手繪區，非圖幅矢量化', source: '《宋史·交阯傳》；《大越史記全書·外紀》；《宋史·占城傳》', institution: '無', kind: 'text-derived', approx: true },
   tang_anbei: { basis: '安北都護府：依文獻地望的手繪區，非圖幅矢量化', source: '《舊唐書·地理志》《唐會要》安北', institution: '羈縻', kind: 'text-derived', approx: true },
   tang_beiting: { basis: '北庭都護府：依文獻地望的手繪區，非圖幅矢量化', source: '《舊唐書·地理志》《新唐書·地理志》', institution: '羈縻', kind: 'text-derived', approx: true },
   tang_anxi: { basis: '安西都護府：依文獻地望的手繪區，非圖幅矢量化', source: '《舊唐書·地理志》《新唐書·西域傳》', institution: '羈縻', kind: 'text-derived', approx: true },

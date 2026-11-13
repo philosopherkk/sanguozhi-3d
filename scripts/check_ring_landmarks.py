@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parent.parent
 RINGS_TS = ROOT / "src" / "geo" / "eraRegions.ts"
 W, H = 1968, 1567
 
-# 名稱 -> (經度, 緯度, 應在其中, 不應在其中)
+# 名稱 -> (經度, 緯度, 應在其中（None 代表全圖未著色处）, 不應在其中)
 LANDMARKS = [
     ("哈巴河", 86.4, 48.1, "xinjiang", "steppe"),
     ("布爾津", 87.5, 47.7, "xinjiang", "steppe"),
@@ -30,6 +30,20 @@ LANDMARKS = [
     ("哈密", 93.5, 42.8, "xinjiang", "steppe"),
     ("烏列蓋", 89.9, 48.98, "steppe", "xinjiang"),
     ("科布多", 91.6, 48.0, "steppe", "xinjiang"),
+    # 高麗環：北界鴨綠江，義州（保州）以北屬遼不屬高麗
+    ("開京", 126.55, 37.93, "goryeo", "realm_liao"),
+    ("漢陽", 126.98, 37.566, "goryeo", "realm_liao"),
+    ("平壤", 125.75, 39.02, "goryeo", "realm_liao"),
+    ("遼陽", 122.35, 41.27, "realm_liao", "goryeo"),
+    ("遼東半島旅順", 121.2, 38.8, None, "goryeo"),
+    # 大越環：北包順州（高平）兩屬之地，南以橫山為 1069 年前界
+    ("高平順州", 106.26, 22.67, "daiyue", "yunnan"),
+    ("河內東京", 105.85, 21.03, "daiyue", "realm_song_1141"),
+    ("順化（1069 年前不著色）", 107.58, 16.47, None, "daiyue"),
+    # 湟水與河西兩框不相混
+    ("西寧", 101.77, 36.62, "qinghai", "gansu"),
+    ("敦煌", 94.66, 40.14, "gansu", "xinjiang"),
+    ("開封", 114.35, 34.79, "realm_song_1004", "realm_liao"),
 ]
 
 
@@ -61,13 +75,18 @@ def main() -> int:
     bad = 0
     for name, lon, lat, should, should_not in LANDMARKS:
         px = china_px(lat, lon, W, H)
-        in_yes = inside(rings[should], px)
         in_no = inside(rings[should_not], px)
-        ok = in_yes and not in_no
+        if should is None:
+            in_yes = None
+            ok = not in_no
+        else:
+            in_yes = inside(rings[should], px)
+            ok = in_yes and not in_no
         if not ok:
             bad += 1
+        yes_txt = "─" if in_yes is None else str(in_yes)
         print(
-            f"{'OK ' if ok else 'FAIL'} {name}: 應在 {should}={in_yes} 應不在 {should_not}={in_no} "
+            f"{'OK ' if ok else 'FAIL'} {name}: 應在 {should}={yes_txt} 應不在 {should_not}={in_no} "
             f"(像素 {px[0]:.0f},{px[1]:.0f})"
         )
     # 相鄰環不應重疊：以上述地標同時落入兩塊即視為重疊
