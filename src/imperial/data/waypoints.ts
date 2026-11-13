@@ -3,9 +3,10 @@ export type Pt = [number, number]
 export const P = {
   changan: [1139.2, 907.5] as Pt,
   luoyang: [1261.2, 887.6] as Pt,
+  ruzhou: [1275.6, 904.5] as Pt, // 汝州（今河南汝州，黃巢入東都之途）
   jiankang: [1483.1, 964.5] as Pt,
   yecheng: [1322, 820] as Pt,
-  xiangyang: [1288, 980] as Pt,
+  xiangyang: [1259.7, 991.7] as Pt, // 襄陽（今湖北襄陽，臨漢水）
   jiangling: [1266.8, 1060] as Pt,
   pengcheng: [1417.6, 884.8] as Pt, // 彭城（今江蘇徐州）
   taiyuan: [1248, 760] as Pt,
@@ -16,7 +17,7 @@ export const P = {
   youzhou: [1363.4, 663.6] as Pt,
   hangu: [1188, 902] as Pt,
   hefei: [1433.6, 979.8] as Pt, // 合肥（今合肥市，巢湖西北）
-  guangling: [1508, 948] as Pt,
+  guangling: [1502.5, 948.1] as Pt, // 廣陵（今江蘇揚州，臨大江）
   kaifeng: [1322.6, 874.4] as Pt,
   chenqiao: [1329.6, 868.8] as Pt,
   guangzhou: [1331.4, 1344.3] as Pt, // 廣州
