@@ -798,8 +798,9 @@ html[data-theme='light'] .app-footer {
   stroke-width: 0.5;
 }
 
+/* 字級由 EraMapView 依視窗寬度換算（--map-*-font），未設定時維持原值 */
 .map-2d__region-label {
-  font-size: 15px;
+  font-size: var(--map-region-font, 15px);
   font-weight: 600;
 }
 
@@ -1099,12 +1100,12 @@ html[data-theme='light'] .app-footer {
 .map-route-label,
 .map-place-label {
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: var(--map-route-font, 18px);
   font-weight: 700;
 }
 
 .map-place-label {
-  font-size: 16px;
+  font-size: var(--map-place-font, 16px);
   letter-spacing: 0.06em;
 }
 

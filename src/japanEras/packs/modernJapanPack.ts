@@ -1325,7 +1325,20 @@ export const MODERN_JAPAN_PACK: JapanDeepDivePack = {
     { id: F.ali, name: F.ali, color: '#5a6a7a', activeFrom: 1945, activeTo: 1972, source: '米軍統治（沖繩等）' },
   ],
   domains,
-  mapBase: { land: ASIA_LAND, graticule: ASIA_GRATICULE, w: 1710, h: 1000, credit: 'Natural Earth 1:50m 陸地（公有領域）' },
+  mapBase: {
+    land: ASIA_LAND,
+    graticule: ASIA_GRATICULE,
+    w: 1710,
+    h: 1000,
+    credit: 'Natural Earth 1:50m 陸地（公有領域）',
+    /**
+     * 視野裁切（空海去除）：領土、路線、地名全數落在
+     * x 421–1613（英帕爾→中途島）、y 100–946（薩哈林→爪哇），
+     * 外留約 40px 標籤緩衝。原圖全幅 1710×1000 大半為空海，
+     * 裁後同等螢幕下地圖放大近四成；pan/zoom 仍可看全幅以外海岸。
+     */
+    view: { x: 380, y: 65, w: 1270, h: 910 },
+  },
   keyYears: KEY_YEARS,
   territoryByYear: CONTROL,
   routes, places, events,

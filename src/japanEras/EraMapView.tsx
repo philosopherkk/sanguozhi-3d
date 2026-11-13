@@ -1,4 +1,10 @@
-import { useMemo, useRef, useState, type ReactNode } from 'react'
+import {
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from 'react'
 import { MapLayerBar } from '../components/map/MapLayerBar'
 import { MapRouteLegend } from '../components/map/MapRouteLegend'
 import {
@@ -146,7 +152,25 @@ export function EraMapView({
   const basemap = SENGOKU_BASEMAP
   const mapW = mapBase?.w ?? SENGOKU_MAP_W
   const mapH = mapBase?.h ?? SENGOKU_MAP_H
-  const view = useMapViewport(mapW, mapH)
+  /**
+   * 戰區底圖可帶 view 裁掉空海（等同縮放）；色塊、路線、地名同用此 viewBox。
+   * 字級依視野寬度換算（見 deepDiveTypes.DeepDiveVectorBasemap.view 註解），
+   * 使標籤在任何裁切下都維持相同螢幕字級；未開 view 的日本圖維持原字級。
+   */
+  const vbW = mapBase?.view?.w ?? mapW
+  const vbH = mapBase?.view?.h ?? mapH
+  const vbX = mapBase?.view?.x ?? 0
+  const vbY = mapBase?.view?.y ?? 0
+  const labelU = mapBase?.view ? vbW / 52 : 0
+  const labelVars = mapBase?.view
+    ? ({
+        '--map-region-font': `calc(${labelU.toFixed(1)}px * var(--map-label-scale, 1))`,
+        '--map-route-font': `calc(${(labelU * 1.05).toFixed(1)}px * var(--map-label-scale, 1))`,
+        '--map-place-font': `calc(${(labelU * 0.9).toFixed(1)}px * var(--map-label-scale, 1))`,
+        '--map-label-stroke': `calc(${((labelU * 1.05 * 3) / 18).toFixed(2)} * var(--map-label-scale, 1))`,
+      } as CSSProperties)
+    : undefined
+  const view = useMapViewport(vbW, vbH)
 
   const labeled = useMemo(
     () => domains.map((d) => ({ ...d, at: d.ring ? centroid(d.ring) : undefined })),
@@ -179,7 +203,7 @@ export function EraMapView({
         {mapBase ? (
           <svg
             className="map-2d__basemap map-2d__basemap--vector"
-            viewBox={`0 0 ${mapW} ${mapH}`}
+            viewBox={`${vbX} ${vbY} ${vbW} ${vbH}`}
             preserveAspectRatio="xMidYMid meet"
             aria-hidden="true"
           >
@@ -211,10 +235,11 @@ export function EraMapView({
         )}
         <svg
           className="map-2d__overlay"
-          viewBox={`0 0 ${mapW} ${mapH}`}
+          viewBox={`${vbX} ${vbY} ${vbW} ${vbH}`}
           role="img"
           aria-label={`${ariaLabel}；滾輪縮放，拖曳平移`}
           preserveAspectRatio="xMidYMid meet"
+          style={labelVars}
         >
           {showTerritory
             ? labeled.map((d) => {
@@ -250,7 +275,7 @@ export function EraMapView({
                         className="map-2d__region-label"
                         fill="#fffaf0"
                         stroke="#1a1610"
-                        strokeWidth={3.2}
+                        strokeWidth={labelU ? +(labelU * 0.21).toFixed(1) : 3.2}
                         paintOrder="stroke"
                         textAnchor="middle"
                         pointerEvents="none"
@@ -277,7 +302,7 @@ export function EraMapView({
                   className="map-place-label"
                   fill="#fffaf0"
                   stroke="#1a1610"
-                  strokeWidth={3}
+                  strokeWidth={labelU ? +(labelU * 0.19).toFixed(1) : 3}
                   paintOrder="stroke"
                   textAnchor="middle"
                   dominantBaseline="middle"
@@ -322,7 +347,9 @@ export function EraMapView({
           </div>
         ) : null}
         <p className="map-2d__basemap-title">
-          {mapBase ? '亞洲—太平洋戰區（今測海岸線）' : '現代列島地勢'} · 勢力示意採 {territoryYear}
+          {mapBase
+            ? mapBase.title ?? '亞洲—太平洋戰區（今測海岸線）'
+            : '現代列島地勢'} · 勢力示意採 {territoryYear}
           年快照 · 滾輪縮放，拖曳平移
         </p>
       </div>

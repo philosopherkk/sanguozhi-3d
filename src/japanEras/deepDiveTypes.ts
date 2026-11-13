@@ -19,6 +19,14 @@ export interface DeepDiveVectorBasemap {
   w: number
   h: number
   credit: string
+  /**
+   * 可裁切的可視範圍（畫布坐標）。不填即整個 w×h 都是視野；
+   * 填了則底圖與色塊、路線、地名同用此 viewBox（等同縮放，pan/zoom 仍可達）。
+   * 戰區底圖內容只佔畫布東半，裁掉空海可把地圖放大近四成。
+   */
+  view?: { x: number; y: number; w: number; h: number }
+  /** 地圖左上角標題（不填即「亞洲—太平洋戰區（今測海岸線）」） */
+  title?: string
 }
 
 /**
