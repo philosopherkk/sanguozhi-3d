@@ -94,12 +94,44 @@ const NON_DOMAIN_KEYS = new Set([
   'seat',
 ])
 
+/** 找出「有內嵌幾何嘅物件」嘅 id：由 `ring:` 等鍵回溯到包住佢嘅 `{`，再喺嗰段搵
+ *  最接近嘅 `id:`。事件、路線、人物都係 `id:` 字面量，但佢哋冇 ring，故唔會被當版圖 id。 */
+const GEOM_KEY = /\b(?:extraRings|rings|ring|polys|poly|geometry|circles)\s*:/g
+function localDomainIds(text) {
+  const out = new Set()
+  for (const m of text.matchAll(GEOM_KEY)) {
+    let depth = 0
+    let open = -1
+    for (let i = m.index; i >= 0; i--) {
+      const c = text[i]
+      if (c === '}') depth += 1
+      else if (c === '{') {
+        depth -= 1
+        if (depth < 0) {
+          open = i
+          break
+        }
+      }
+    }
+    if (open < 0) continue
+    const ids = [...text.slice(open, m.index).matchAll(new RegExp(String.raw`\bid:\s*['"]([\p{Script=Han}\w-]+)['"]`, 'gu'))]
+    const last = ids[ids.length - 1]
+    if (last) out.add(last[1])
+  }
+  return out
+}
+
 /** 由區塊內容抽出「鍵: '值'」形式之鍵（跳過純數字年鍵）。
  *  值可以係引號字串，亦可以係 `IMJIN_F.jp` 呢類常數引用——只認前者會令
  *  整批用常數寫的快照鍵逃過檢查，閘門對嗰啲包永遠全綠。 */
 function controlKeys(body) {
   const out = new Set()
-  const RE = /['"]?([A-Za-z_][\w-]{1,40})['"]?\s*:\s*(?:'[^']*'|"[^"]*"|[A-Za-z_$][\w$.]*)/g
+  const RE = new RegExp(
+    String.raw`['"]?([A-Za-z_\p{Script=Han}][\w\p{Script=Han}-]{1,40})['"]?\s*:\s*(?:'[^']*'|"[^"]*"|[A-Za-z_$][\w$.]*)`,
+    // 'u' 一定要喺度：冇佢 `\p{Script=Han}` 就係普通字元集，CJK 鍵照樣靜悄悄失明
+    //（本檔第一次寫呢條正則就係咁，靠 --teeth 案例 D 先捉到）。
+    'gu',
+  )
   for (const m of body.matchAll(RE)) {
     if (NON_DOMAIN_KEYS.has(m[1])) continue
     out.add(m[1])
@@ -149,7 +181,9 @@ const addFrom = (file, re, extra) => {
     if (extra) extra.add(m[1])
   }
 }
-const ID_Q = /\bid:\s*['"]([\w-]+)['"]/g
+/** id 與版圖鍵嘅字元集要認中文：`src/data/provinces.ts` 用 `id: '遼東'`，只認 ASCII
+ *  就等於成批註冊表 id 對閘門消失，而日後一旦出現 CJK 版圖鍵，整套規則會安靜失明。 */
+const ID_Q = new RegExp(String.raw`\bid:\s*['"]([\p{Script=Han}\w-]+)['"]`, 'gu')
 addFrom('src/data/provinces.ts', ID_Q)
 addFrom('src/geo/eraRegions.ts', /"([a-z_0-9]+)":\[\[/g)
 addFrom('src/geo/asiaWarTerritory.ts', ID_Q, warGeoIds)
@@ -169,9 +203,10 @@ for (const f of files) {
   const t = read(f)
   const r = rel(f)
 
-  // 本檔自行定義的區塊 id（pack 的 domains）
-  const localIds = new Set()
-  for (const m of t.matchAll(/\bid:\s*['"]([\w-]{2,40})['"]/g)) localIds.add(m[1])
+  // 本檔自行宣告、**而且同一個物件字面量內真的有幾何**（ring/rings/polys…）嘅區塊 id。
+  // 淨認 `id:` 係假綠路徑：pack 檔內有幾十個事件 id／路線 id（例：`mj-1874-taiwan`），
+  // 寫錯嘅版圖鍵只要撞名就「有幾何」，實際上嗰塊永遠唔會上色。見 --teeth 案例 D。
+  const localIds = localDomainIds(t)
 
   // 1) 版圖鍵必須解到幾何（此條規則對應真實 bug：控制鍵解不到幾何 → 全圖空白）
   //    `territoryByYear: CONTROL`（識別碼引用）同 `territoryByYear: {…}` 一樣要查：
@@ -181,22 +216,8 @@ for (const f of files) {
     const body = m[2] === '{' ? blockBody(t, m.index + m[0].length - 1) : namedObjectBody(t, m[2])
     for (const k of m[1] === 'control' ? controlKeys(body) : territoryKeys(body)) keys.add(k)
   }
-  const factionIds = new Set()
-  for (const m of t.matchAll(/\bfactions\s*:\s*\[/g)) {
-    const body = (() => {
-      let depth = 0
-      const start = m.index + m[0].length - 1
-      for (let i = start; i < t.length; i++) {
-        if (t[i] === '[') depth += 1
-        else if (t[i] === ']') {
-          depth -= 1
-          if (depth === 0) return t.slice(start + 1, i)
-        }
-      }
-      return ''
-    })()
-    for (const fm of body.matchAll(/\bid:\s*['"]([\w-]+)['"]/g)) factionIds.add(fm[1])
-  }
+  // （曾經這裡有第三條逃生門：`factions` 陣度入面嘅 id 也算版圖 id。實測淨靠佢解析
+  //   嘅版圖鍵 0 個，而佢同「路線 id 撞名」一樣係假綠路徑，故抽走。見 --teeth 案例 D。）
   // 1b) 全域註冊表睇唔到畫布：id 喺別的畫布有幾何（或者畀別檔一個無關嘅 `id:`
   //     字面量湊巧配中），喺亞洲戰區 1710×1000 畫布上冇幾何，結果一樣係永遠唔上色。
   //     只查戰區檔案；其他畫布嘅 pack 用全域註冊表已夠。
@@ -217,7 +238,7 @@ for (const f of files) {
   }
   const unresolved = new Map()
   for (const id of keys) {
-    if (geometryIds.has(id) || localIds.has(id) || factionIds.has(id)) continue
+    if (geometryIds.has(id) || localIds.has(id)) continue
     unresolved.set(id, (unresolved.get(id) ?? 0) + 1)
   }
   for (const [id, n] of unresolved) {
@@ -811,6 +832,40 @@ if (argv.includes('--teeth')) {
     ["export const PACK = { control: { hlj: '北洋', shanxi: '晉系', teeth_fake: '假塊' } }", ''].join('\n'),
   )
 
+  // D：撞名逃生門——路線 id／勢力 id／事件 id 都係同檔嘅 `id:` 字面量，但佢哋冇幾何。
+  //    舊規則把佢哋當版圖 id，於是寫錯嘅版圖鍵只要撞名就「有幾何」。另外兩個 CJK 鍵
+  //    驗中文命名空間：`幽州` 喺 provinces.ts 有幾何（唔該唔好報），`假州` 冇（要報）。
+  const fD = write(
+    'src/sengoku/data/teeth_collisions.ts',
+    [
+      "export const ROUTES = [{ id: 'teeth-route-1', year: 1592, points: [[100, 100], [220, 260]] }]",
+      "export const EVENTS = [{ id: 'teeth-event-1', year: 1592, title: '示意事跡' }]",
+      "export const PACK = { factions: [{ id: 'teeth_faction', name: '示意勢力' }]",
+      "  , control: {",
+      "    'teeth-route-1': '甲',",
+      "    'teeth-event-1': '乙',",
+      "    'teeth_faction': '丙',",
+      "    '幽州': '丁',",
+      "    '假州': '戊',",
+      "  } }",
+      '',
+    ].join('\n'),
+  )
+
+  // E：本檔自訂 domains 嘅**正向**樣本——有 ring 嘅區塊一定要解析到（否則係假紅：
+  //    閘門一叫，所有人學識忽略佢）。同一檔再放一個冇幾何嘅區塊，證明判準真係幾何。
+  const fE = write(
+    'src/heian/data/teeth_territory.ts',
+    [
+      "export const DOMAINS = [",
+      "  { id: 'teeth_ring_block', name: '示意區塊', ring: [[0, 0], [40, 0], [40, 40]] },",
+      "  { id: 'teeth_nogeo_block', name: '冇幾何嘅區塊', label: '呢個要報' },",
+      ']',
+      "export const PACK = { control: { teeth_ring_block: '甲', teeth_nogeo_block: '乙' } }",
+      '',
+    ].join('\n'),
+  )
+
   const r = spawnSync(process.execPath, [fileURLToPath(import.meta.url), `--files-root=${dir}`, '--json'], {
     encoding: 'utf8',
     maxBuffer: 32 * 1024 * 1024,
@@ -835,7 +890,7 @@ if (argv.includes('--teeth')) {
 
   // 先證明 fixture 真係掃到——冇呢一步，下面所有「冇報」嘅控制樣本都係假綠。
   const scanned = new Set(child?.scanned ?? [])
-  for (const f of [fA, fB, fC]) check(`fixture 冇被掃描：${f}`, scanned.has(f))
+  for (const f of [fA, fB, fC, fD, fE]) check(`fixture 冇被掃描：${f}`, scanned.has(f))
   if (child) check('注入壞 id 之後子行程竟然 fail 0', child.fails > 0, '規則可能整套失效')
 
   // 1) 識別碼引用＋常數值寫法入面嘅假 id 要咬到（呢個係逃咗一輪嘅案例）
@@ -864,6 +919,30 @@ if (argv.includes('--teeth')) {
     !/hlj|shanxi/.test(msgOf(on(fC, 'territory-id-unresolved'))),
     msgOf(on(fC, 'territory-id-unresolved')).slice(0, 120),
   )
+  // 5c) 撞名逃生門：路線／事件／勢力 id 唔係版圖 id，用佢哋做版圖鍵一律要報
+  for (const id of ['teeth-route-1', 'teeth-event-1', 'teeth_faction']) {
+    check(
+      `撞名逃生門未關：版圖鍵 ${id} 靠同檔非版圖嘅 id 假通過`,
+      on(fD, 'territory-id-unresolved').some((i) => i.msg.includes(id)),
+    )
+  }
+  // 5d) 中文命名空間：provinces.ts 嘅 id 係 CJK，鍵都要認得；假州要報、幽州唔該唔好報
+  check(
+    'CJK 版圖鍵冇被查（假州 應該被 territory-id-unresolved 咬）',
+    on(fD, 'territory-id-unresolved').some((i) => i.msg.includes('假州')),
+    msgOf(on(fD, 'territory-id-unresolved')).slice(0, 120),
+  )
+  check('有效嘅 CJK 版圖鍵 幽州 俾誤報', !/幽州/.test(msgOf(terr)), msgOf(terr).slice(0, 120))
+  // 5e) 本檔 domains 有 ring 就要解析到（假紅方向）；冇 ring 嘅區塊唔可以蒙混
+  check(
+    '本檔自訂 domains（有 ring）解析唔到 → 假紅，規則會誤殺真 pack',
+    !/teeth_ring_block/.test(msgOf(on(fE, 'territory-id-unresolved'))),
+    msgOf(on(fE, 'territory-id-unresolved')).slice(0, 120),
+  )
+  check(
+    '冇幾何嘅區塊（冇 ring）都俾 localDomainIds 收做版圖 id',
+    on(fE, 'territory-id-unresolved').some((i) => i.msg.includes('teeth_nogeo_block')),
+  )
   // 6) 註冊表每條來源都要有嘢入表：產生器改檔名／引號寫法變／id 變成識別碼，都會令
   //     成批 id 無聲消失，淨睇總數捉唔實（本檔實測過三條斷線：雙引號環檔、
   //     `id: d.id` 嘅 jpDomains、CJK id 嘅 provinces）。逐來源放一個代表 id 落去。
@@ -873,12 +952,16 @@ if (argv.includes('--teeth')) {
     matsumae: 'japanEraRings.ts（松前／北海道／琉球）',
     jp_home: 'asiaWarTerritory.ts（亞洲戰區陸域）',
     im_kyushu: 'imjinTerritory.ts（朝鮮之役戰區）',
+    幽州: 'provinces.ts（中國州郡，id 係 CJK）',
   }
-  for (const [id, src] of Object.entries(REGISTRY_PROBES)) {
+  const probeList = Object.entries(REGISTRY_PROBES)
+  for (const [id, src] of probeList) {
     check(`幾何註冊表冇咗 ${id}（來源：${src}）`, geometryIds.has(id))
   }
+  // 探針本身都會被人抽走：抽到得返一二條，註冊表就又變回「見到邊個補邊個」。
+  check(`註冊表探淨得 ${probeList.length} 條（每條來源要有一條）`, probeList.length >= 6)
   for (const id of ['im_kyushu', 'im_pyongan']) check(`warGeoIds 冇咗 ${id}`, warGeoIds.has(id))
-  check(`幾何註冊表淨 ${geometryIds.size} 個 id（似有整檔漏讀）`, geometryIds.size >= 175)
+  check(`幾何註冊表淨 ${geometryIds.size} 個 id（似有整檔漏讀）`, geometryIds.size >= 195)
   // 7) 掃描範圍：真樹縮水即係 roots 被人改細，規則會對新 pack 失明
   check(`真樹只掃到 ${files.length} 檔（似有 root 俾人收細）`, files.length >= 100)
   check('真樹冇掃到 imjinWar.ts（窗口資料喺閘門外）', files.some((f) => rel(f).endsWith('packs/imjinWar.ts')))
@@ -910,7 +993,7 @@ if (JSON_OUT) {
   L.push('')
   L.push('## 口徑')
   L.push('')
-  L.push('- territory-id-unresolved：pack 於 control／territoryByYear 使用的 id，必須在 `src/geo/eraRegions.ts`、`src/geo/asiaWarTerritory.ts`、`src/geo/imjinTerritory.ts`、`src/geo/japanEraRings.ts`、`src/sengoku/data/tracedDomains.ts` 或本檔 domains 找到（key 與 id 嘅引號寫法都認）；找不到即該區塊永遠不會上色。`territoryByYear: CONTROL` 呢類識別碼引用會先解析同檔的 `const CONTROL = {…}` 再逐鍵查；註冊表單引號與雙引號都認（產生器產物用雙引號）。')
+  L.push('- territory-id-unresolved：pack 於 control／territoryByYear 使用的 id，必須在 `src/geo/eraRegions.ts`、`src/geo/asiaWarTerritory.ts`、`src/geo/imjinTerritory.ts`、`src/geo/japanEraRings.ts`、`src/sengoku/data/tracedDomains.ts` 或本檔自帶幾何嘅 domains 找到（key 與 id 嘅引號寫法都認，id 亦可係中文）。本檔 domains 只算「同一個物件字面量內真的有 ring/rings/polys」嘅 id——事件 id、路線 id、勢力 id 都係同檔 `id:` 字面量，把佢哋當版圖 id 會令寫錯嘅版圖鍵撞名即過；找不到即該區塊永遠不會上色。`territoryByYear: CONTROL` 呢類識別碼引用會先解析同檔的 `const CONTROL = {…}` 再逐鍵查；註冊表單引號與雙引號都認（產生器產物用雙引號）。')
   L.push('- territory-id-off-canvas：亞洲戰區畫布（`modernJapanPack`／`imjinWar`）的版圖鍵，必須在 `asiaWarTerritory.ts` 或 `imjinTerritory.ts` 有幾何。全域註冊表看不見畫布：同名 id 或在日本／中國畫布有幾何，或乾脆被別檔一個無關的 `id:` 字面量湊巧配中，只要 1710×1000 戰區畫布沒有該塊幾何，該區塊照樣永遠不上色。勘誤：先前此處寫「實測 `kyushu` 解到 `jpDomains` 的九州」有誤——`kyushu` 並非區塊 id（jpDomains 用 `id: d.id`），它兩邊都沒有幾何；它逃過閘門的真正原因是上述三處解析盲點（識別碼引用、雙引號 id、常數值），現由 `--teeth` 案例 A 釘住。')
   L.push(`- coord-out-of-frame：底圖畫布 ${CANVAS.w}×${CANVAS.h}（附圖容差 ${FRAME_TOL}px）；負值一律判紅。`)
   L.push(
