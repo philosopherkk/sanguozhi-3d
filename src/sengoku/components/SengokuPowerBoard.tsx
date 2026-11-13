@@ -1,7 +1,9 @@
 import { useMemo } from 'react'
 import { FactionSituationPanel } from '../../components/FactionSituationPanel'
 import { composeFactionYear, type YearNote } from '../../lib/factionYearView'
+import { withLandlessFactions } from '../../lib/factionRows'
 import { SENGOKU_SITUATION } from '../data/factionSituation'
+import factionsData from '../data/factions.json'
 import { SENGOKU_REGIONS } from '../data/regions'
 import timelineData from '../data/timeline.json'
 import {
@@ -10,7 +12,11 @@ import {
 } from '../lib/factionColors'
 import { useSengokuSelection } from '../state/SengokuSelectionContext'
 import { useSengokuYear } from '../state/SengokuYearContext'
-import type { SengokuFactionId, SengokuTimelineEvent } from '../types'
+import type {
+  SengokuFaction,
+  SengokuFactionId,
+  SengokuTimelineEvent,
+} from '../types'
 
 const events = timelineData as SengokuTimelineEvent[]
 
@@ -25,10 +31,17 @@ export function SengokuPowerBoard() {
       if (!f) continue
       counts.set(f, (counts.get(f) ?? 0) + 1)
     }
-    return [...counts.entries()]
+    const held = [...counts.entries()]
       .map(([faction, n]) => ({ faction, n }))
       .sort((a, b) => b.n - a.n)
-  }, [control])
+    // 補回是年在任、惟該快照無一區者（如 1560 年的德川氏）：
+    // 面板是勢力清單，不能在地圖上抹掉尚在世的勢力。
+    return withLandlessFactions(
+      held,
+      factionsData as SengokuFaction[],
+      year,
+    )
+  }, [control, year])
   const situation = useMemo(() => {
     if (!selectedFaction) return null
     const notes: YearNote[] = events
@@ -75,7 +88,7 @@ export function SengokuPowerBoard() {
               >
                 <i style={{ background: sengokuFactionColor(faction) }} />
                 <span>{sengokuFactionName(faction)}</span>
-                <em>{n} 區</em>
+                <em>{n === 0 ? '無區' : `${n} 區`}</em>
               </button>
             </li>
           )
