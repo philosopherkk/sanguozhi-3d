@@ -18,12 +18,10 @@ import {
   type LateStage,
 } from '../data/lateStages'
 import {
-  zhouFactionsPresent,
   zhouSnapshotForYear,
   type ZhouControl,
   type ZhouSnapshot,
 } from '../data/territoryControl'
-import type { ZhouFactionId } from '../types'
 
 interface ZhouYearContextValue {
   year: number
@@ -41,7 +39,6 @@ interface ZhouYearContextValue {
   snapshot: ZhouSnapshot
   lateStage: LateStage | null
   control: ZhouControl
-  activeFactions: ZhouFactionId[]
 }
 
 const ZhouYearContext = createContext<ZhouYearContextValue | null>(null)
@@ -163,10 +160,6 @@ export function ZhouYearProvider({
       }
     : annual
   const control = snapshot.control
-  const activeFactions = useMemo(
-    () => zhouFactionsPresent(snapshot.ranges),
-    [snapshot],
-  )
 
   const value = useMemo(
     () => ({
@@ -185,7 +178,6 @@ export function ZhouYearProvider({
       snapshot,
       lateStage,
       control,
-      activeFactions,
     }),
     [
       year,
@@ -202,7 +194,6 @@ export function ZhouYearProvider({
       snapshot,
       lateStage,
       control,
-      activeFactions,
     ],
   )
 

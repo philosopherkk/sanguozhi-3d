@@ -4,7 +4,6 @@ import {
   ERA_REGIONS_GEOMETRY,
   type TerritoryGeometryProvenance,
 } from '../../data/territory/provenance'
-import { ZHOU_FACTION_ORDER } from '../lib/factionColors'
 import type { ZhouFactionId } from '../types'
 
 /**
@@ -381,13 +380,6 @@ export function zhouControlForYear(year: number): ZhouControl {
   return zhouSnapshotForYear(year).control
 }
 
-export function zhouFactionsPresent(ranges: FactionRange[]): ZhouFactionId[] {
-  const present = new Set<ZhouFactionId>()
-  for (const range of ranges) {
-    if (range.rings.length > 0) present.add(range.faction as ZhouFactionId)
-  }
-  return ZHOU_FACTION_ORDER.filter((id) => present.has(id))
-}
 
 export interface ZhouTerritoryStat {
   faction: ZhouFactionId

@@ -1,5 +1,4 @@
 import { ZhouRouteDock, ZhouTerritoryDock } from './ZhouDocks'
-import { ZhouLegend } from './ZhouLegend'
 import { ZhouMap } from './ZhouMap'
 
 export function ZhouMapStage() {
@@ -13,9 +12,8 @@ export function ZhouMapStage() {
       <ZhouTerritoryDock />
 
       <div className="map-stage__overlay map-stage__overlay--bl">
-        <ZhouLegend />
         <p className="map-stage__hint">
-          行軍路線在左，勢力範圍在右。兩邊可收起，亦可拖標題移動。
+          行軍路線在左，勢力清單在右。兩邊可收起，亦可拖標題移動。
         </p>
       </div>
     </section>

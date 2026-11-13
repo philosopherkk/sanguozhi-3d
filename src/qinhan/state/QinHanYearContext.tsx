@@ -9,12 +9,10 @@ import {
   type ReactNode,
 } from 'react'
 import {
-  qinHanFactionsPresent,
   qinHanSnapshotForYear,
   type QinHanControl,
   type QinHanSnapshot,
 } from '../data/territoryControl'
-import type { QinHanFactionId } from '../types'
 
 interface QinHanYearContextValue {
   year: number
@@ -28,7 +26,6 @@ interface QinHanYearContextValue {
   territoryYear: number
   snapshot: QinHanSnapshot
   control: QinHanControl
-  activeFactions: QinHanFactionId[]
 }
 
 const QinHanYearContext = createContext<QinHanYearContextValue | null>(null)
@@ -81,10 +78,6 @@ export function QinHanYearProvider({
 
   const snapshot = qinHanSnapshotForYear(year)
   const control = snapshot.control
-  const activeFactions = useMemo(
-    () => qinHanFactionsPresent(snapshot.ranges),
-    [snapshot],
-  )
 
   const value = useMemo(
     () => ({
@@ -99,7 +92,6 @@ export function QinHanYearProvider({
       territoryYear: snapshot.year,
       snapshot,
       control,
-      activeFactions,
     }),
     [
       year,
@@ -112,7 +104,6 @@ export function QinHanYearProvider({
       title,
       snapshot,
       control,
-      activeFactions,
     ],
   )
 

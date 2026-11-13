@@ -11,10 +11,8 @@ import {
 import {
   resolveSengokuTerritoryYear,
   sengokuControlForYear,
-  sengokuFactionsPresent,
   type SengokuRegionControl,
 } from '../data/territoryControl'
-import type { SengokuFactionId } from '../types'
 
 const YEAR_MIN = 1467
 /** 1573 起見「安土桃山」專題。 */
@@ -32,7 +30,6 @@ interface SengokuYearContextValue {
   yearMax: number
   territoryYear: number
   control: SengokuRegionControl
-  activeFactions: SengokuFactionId[]
 }
 
 const SengokuYearContext = createContext<SengokuYearContextValue | null>(null)
@@ -71,10 +68,6 @@ export function SengokuYearProvider({ children }: { children: ReactNode }) {
 
   const territoryYear = resolveSengokuTerritoryYear(year)
   const control = useMemo(() => sengokuControlForYear(year), [year])
-  const activeFactions = useMemo(
-    () => sengokuFactionsPresent(control),
-    [control],
-  )
 
   const value = useMemo(
     () => ({
@@ -89,7 +82,6 @@ export function SengokuYearProvider({ children }: { children: ReactNode }) {
       yearMax: YEAR_MAX,
       territoryYear,
       control,
-      activeFactions,
     }),
     [
       year,
@@ -101,7 +93,6 @@ export function SengokuYearProvider({ children }: { children: ReactNode }) {
       pause,
       territoryYear,
       control,
-      activeFactions,
     ],
   )
 
