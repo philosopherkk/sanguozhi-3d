@@ -365,6 +365,7 @@
 @media (min-width: 1025px) {
   .side-rail__map-first,
   .side-rail__chip,
+  .side-rail__toggle,
   .timeline-month-chip,
   .year-scrubber__note-toggle,
   .app-footer__toggle,
@@ -373,8 +374,16 @@
   .timeline-title-link,
   .map-layer-bar button,
   .map-2d__zoom-btn,
+  .map-2d__toggles button,
   .app-header__step,
-  .app-header__play {
+  .app-header__play,
+  .event-detail__close,
+  .article-panel__close,
+  .article-panel__collapse,
+  .faction-inspect__head button,
+  .faction-situation__head button,
+  .collapsible-shell__toggle,
+  .power-board__toggle {
     min-height: 1.5rem; /* 24px = WCAG 2.5.8 下限 */
     min-width: 1.5rem;
   }
@@ -586,6 +595,32 @@
   .collapsible-shell__toggle,
   .power-board__toggle,
   .year-scrubber__note-toggle {
+    min-height: var(--tap-min);
+  }
+
+  /* 補齊 9.3／9.4 字級清單中尚未有按擊區的可點控件：分頁標籤、
+     年表年份鍵與月份 chip、年表條目連結、深淺分頁、地圖圖層鍵、
+     後期階段列跳轉、地圖檢視鍵、人物卡行動鈕、勢力榜清除、篩選
+     下拉與人物搜尋框。桌面 ≥1025px 的 24px 下限已由另一節把關，
+     窄屏此前卻一概放過——手機上這些控件高 22–28px，低於 WCAG 2.2
+     （2.5.8）的 24px 底線。刻意不收：純標籤（topic-switch__label
+     等）、地圖圖例 chip（faction-chip，容納於 6.5rem 上限的橫滑
+     圖例內，另行評估），以及 map-mode-toggle／map-2d__route-toggle
+     兩個僅存於舊 CSS、TSX 已無對應元素的殭屍選擇器。 */
+  .content-dock__tab,
+  .content-dock__tab-year,
+  .timeline-year--btn,
+  .timeline-month-chip,
+  .timeline-title-link,
+  .level-tabs__btn,
+  .map-2d__toggles button,
+  .late-stage-bar__row button,
+  .late-stage-bar__jump button,
+  .map-view-controls__btn,
+  .person-card__cta,
+  .power-board__clear,
+  .filters select,
+  .people-search {
     min-height: var(--tap-min);
   }
 
