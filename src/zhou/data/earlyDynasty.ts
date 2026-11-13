@@ -156,7 +156,9 @@ export const EARLY_DYNASTY_EVENTS: ZhouTimelineEvent[] = [
 
 第五層是地圖與紀年的處置。前1978不是紀年，只是把此事排在禹之後、太康之前的架子年；《史記·十二諸侯年表》始於前841，夏代更無連續紀年可援。色塊仍只在司隸的示意範圍之內，不因一場甘之戰而擴大；甘與有扈無定點，故無行軍線。`,
     outcomeSource: '《史記·夏本紀》；《孟子·萬章》；《尚書·甘誓》；古本《竹書紀年》；本模組已引二里頭發掘報告；王國維《觀堂集林》；顧頡剛《古史辨》',
-    classicQuote: '益讓帝禹之子啟，而辟居箕山之陽。',
+    // 查證（2026-11-13）：引文已對 zh.wikisource 逐字核對；原卷作「啓」，引文照原卷字形
+    // https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7002
+    classicQuote: '益讓帝禹之子啓，而辟居箕山之陽。',
     classicSource: '《史記·夏本紀》',
     paraphrase: false,
     layers: {
@@ -260,6 +262,8 @@ export const EARLY_DYNASTY_EVENTS: ZhouTimelineEvent[] = [
 
 第五層是地圖的處置。色塊仍只在司隸示意之內。少康的根據地有仍、有虞、綸邑都在東方，若照文獻把它們畫成夏的領土，就會把收容難民的邦畫成夏的本國——這是常見的史料誤讀，本圖明著避免。`,
     outcomeSource: '《左傳》哀公元年、襄公四年；《史記·夏本紀》；《詩·小雅》；顧頡剛《古史辨》',
+    // 查證（2026-11-13）：引文已對 zh.wikisource 逐字核對（傳文「遂滅過戈，復禹之績，祀夏配天，不失舊物」）
+    // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E5%93%80%E5%85%AC
     classicQuote: '復禹之績，祀夏配天，不失舊物。',
     classicSource: '《左傳》哀公元年，伍員語。',
     paraphrase: false,
@@ -725,7 +729,9 @@ export const EARLY_DYNASTY_EVENTS: ZhouTimelineEvent[] = [
 
 至於「共和」一詞與近代 republic 的比附，是十九世紀末以後的概念借用，不能倒過來解釋西周。本圖在 note 中保留兩說（周召行政／共伯和），不做取捨，因為材料不足以判定的事，地圖不該替我們決定。`,
     outcomeSource: '《史記·周本紀》《十二諸侯年表》；《國語·周語上》；《竹書紀年》古本；錢穆《國史大綱》（論共和）',
-    classicQuote: '厲王出奔於彘。召公、周公二相行政，號曰共和。',
+    // 查證（2026-11-13）：兩段各對 zh.wikisource 逐字核對；原卷兩段間隔「厲王太子靜匿召公之家」一節，故引文以省略號斷開
+    // https://zh.wikisource.org/wiki/%E5%8F%B2%E8%A8%98/%E5%8D%B7004
+    classicQuote: '厲王出奔於彘……召公、周公二相行政，號曰「共和」。',
     classicSource: '《史記·周本紀》',
     paraphrase: false,
     layers: {
