@@ -1,4 +1,5 @@
 import type { MarchRoute } from '../data/marchRoutes'
+import type { TerritoryGeometryProvenance } from '../data/territory/provenance'
 import type { FactionProfile } from '../lib/factionYearView'
 import type { EraDetail, EraEvent, EraFaction, EraPerson, EraReading } from './types'
 
@@ -39,8 +40,8 @@ export interface DeepDiveMapWindow {
   shadeNotes: Record<number, string>
   routes: MarchRoute[]
   places: { name: string; x: number; y: number }[]
-  /** 區塊幾何出處（取代戰區底圖的預設文字） */
-  geometryNote?: string
+  /** 區塊幾何出處（取代戰區底圖的預設出處） */
+  geometryNote?: TerritoryGeometryProvenance
   /** 領土口徑說明（取代 territoryNote 預設文字） */
   territoryNote?: string
 }

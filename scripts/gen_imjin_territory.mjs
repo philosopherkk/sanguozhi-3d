@@ -108,6 +108,8 @@ export interface ImjinExtent {
   name: string
   d: string
   note: string
+  /** 剪裁後剩下幾個獨立圖塊（多島／飛地偵測用，0 與 1 之外要留意矩形是否跨海） */
+  pieces: number
 }
 
 export const IMJIN_EXTENTS: ImjinExtent[] = ${JSON.stringify(out, null, 2).replace(/"([^"]+)":/g, "$1:")}

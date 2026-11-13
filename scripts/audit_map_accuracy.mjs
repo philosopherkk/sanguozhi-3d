@@ -87,6 +87,7 @@ const addFrom = (file, re) => {
 addFrom('src/data/provinces.ts', /\bid:\s*'([\w-]+)'/g)
 addFrom('src/geo/eraRegions.ts', /"([a-z_0-9]+)":\[\[/g)
 addFrom('src/geo/asiaWarTerritory.ts', /\bid:\s*'([\w-]+)'/g)
+addFrom('src/geo/imjinTerritory.ts', /\bid:\s*'([\w-]+)'/g)
 addFrom('src/geo/japanEraRings.ts', /\b([a-z_0-9]+):\s*\[/g)
 addFrom('src/japanEras/jpDomains.ts', /\bid:\s*'([\w-]+)'/g)
 
@@ -461,7 +462,8 @@ if (selfCheck.length) {
  */
 const CHINA_THEATRE = /^src\/(data|zhou|qinhan|imperial)\//
 const JAPAN_THEATRE = /^src\/(sengoku|bakumatsu|heian|japanEras)\//
-const WAR_THEATRE = /^src\/japanEras\/packs\/modernJapanPack\.ts$/
+// 亞洲戰區畫布（1710×1000）：明治至當代＋朝鮮之役窗口同用 asiaPx 直寫經緯度
+const WAR_THEATRE = /^src\/japanEras\/packs\/(modernJapanPack|imjinWar)\.ts$/
 /** points 係 prop 名而非資料的檔案（渲染元件），唔在海陸判定範圍。 */
 const NON_DATA = /^src\/(components|lib)\//
 const canvasOf = (relPath) => {
