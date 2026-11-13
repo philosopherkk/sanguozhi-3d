@@ -261,27 +261,72 @@ export const LIAOSONG_960: FactionRange[] = [
   cover('遼', 'realm_liao'),
   cover('北漢', 'shanxi'),
   cover('定難軍', 'xia_yin'),
+  cover('大理', 'yunnan'),
+  cover('高麗', 'goryeo'),
+  cover('吐蕃諸部', 'qinghai'),
 ]
 
 export const LIAOSONG_1004: FactionRange[] = [
   cover('宋', 'realm_song_1004'),
   cover('遼', 'realm_liao'),
   cover('定難軍', 'xia_yin', 'ningxia', 'hexie'),
+  cover('大理', 'yunnan'),
+  cover('安南', 'daiyue'),
+  cover('高麗', 'goryeo'),
+  cover('吐蕃諸部', 'qinghai'),
+]
+
+/**
+ * 1038 年十月元昊建號（《宋史·夏國傳》）。靈夏、河西改用西夏色塊；
+ * 銀、夏、綏、宥、靜舊格沿用 1127 年以來的夏州—河套框，不與甘肅的
+ * hexie 吐蕃框相疊。青海框（吐蕃諸部）排在最後，青唐一帶不塗唐古特色。
+ */
+export const LIAOSONG_1038: FactionRange[] = [
+  cover('宋', 'realm_song_1004'),
+  cover('遼', 'realm_liao'),
+  cover('西夏', 'gansu', 'ningxia', 'xia_yin'),
+  cover('大理', 'yunnan'),
+  cover('安南', 'daiyue'),
+  cover('高麗', 'goryeo'),
+  cover('吐蕃諸部', 'qinghai'),
 ]
 
 export const LIAOSONG_1127: FactionRange[] = [
   cover('金', 'realm_jin_1141'),
   cover('宋', 'realm_song_1141'),
   cover('西夏', 'gansu', 'ningxia', 'xia_yin'),
+  cover('大理', 'yunnan'),
+  cover('安南', 'daiyue'),
+  cover('高麗', 'goryeo'),
 ]
 
 export const LIAOSONG_1141: FactionRange[] = [
   cover('金', 'realm_jin_1141'),
   cover('宋', 'realm_song_1141'),
   cover('西夏', 'gansu', 'ningxia', 'xia_yin'),
+  cover('大理', 'yunnan'),
+  cover('安南', 'daiyue'),
+  cover('高麗', 'goryeo'),
+  cover('西遼', 'xinjiang'),
 ]
 
-export const LIAOSONG_1279: FactionRange[] = [cover('蒙古', 'realm_yuan_1279')]
+/** 1206 年鐵木真即大汗位（《元史·太祖紀》）。漠北另著蒙古色；西域是西遼。 */
+export const LIAOSONG_1206: FactionRange[] = [
+  cover('金', 'realm_jin_1141'),
+  cover('宋', 'realm_song_1141'),
+  cover('西夏', 'gansu', 'ningxia', 'xia_yin'),
+  cover('大理', 'yunnan'),
+  cover('安南', 'daiyue'),
+  cover('高麗', 'goryeo'),
+  cover('西遼', 'xinjiang'),
+  cover('蒙古', 'steppe'),
+]
+
+export const LIAOSONG_1279: FactionRange[] = [
+  cover('蒙古', 'realm_yuan_1279'),
+  cover('高麗', 'goryeo'),
+  cover('安南', 'daiyue'),
+]
 
 /** 1271 年（至元八年十一月建國號大元）南宋尚在，江南、荊湖、嶺南不入元。 */
 export const YUAN_1271: FactionRange[] = [

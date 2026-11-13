@@ -9,9 +9,13 @@ import { FactionSituationPanel } from '../../components/FactionSituationPanel'
 import { MapRouteLegend } from '../../components/map/MapRouteLegend'
 import { MARCH_ROUTE_SAME_YEAR } from '../../components/map/RouteOverlay'
 import { controlToExtensions, extensionAreaStats } from '../../lib/eraShapes'
+import { withLandlessFactions } from '../../lib/factionRows'
 import type { FactionYearView } from '../../lib/factionYearView'
 import { imperialFactionColor, imperialFactionName } from '../lib/factionColor'
-import { resolveImperialLeaders } from '../lib/resolveSnapshot'
+import {
+  activeExtensions,
+  resolveImperialLeaders,
+} from '../lib/resolveSnapshot'
 import { useImperialSelection } from '../state/ImperialSelectionContext'
 import { useImperialYear } from '../state/ImperialYearContext'
 import { usePersistedOpenResponsive } from '../../lib/usePersistedOpen'
@@ -120,18 +124,41 @@ export function ImperialTerritoryDock() {
   const { selectedFaction, selectFaction } = useImperialSelection()
   const leaders = resolveImperialLeaders(pack, year)
 
-  const rows = useMemo(
-    () =>
-      extensionAreaStats([
-        ...(snapshot.extensions ?? []),
-        ...controlToExtensions(snapshot.control),
-      ]).map((row) => ({
-        faction: row.faction,
-        n: row.pieceCount,
-        percent: row.percent,
-      })),
-    [snapshot],
-  )
+  // 勢力範圍面板是超集：登記了存續年份（activeFrom／activeTo）的勢力，
+  // 若是年在任而該快照無一區，補「無區」行，不使地圖上無色塊即等於抹掉。
+  // 未登記存續年份的勢力不補（無從判斷存續），其餘九包面板照舊。
+  const rows = useMemo(() => {
+    const held = extensionAreaStats([
+      ...activeExtensions(pack, snapshot, year),
+      ...controlToExtensions(snapshot.control),
+    ]).map((row) => ({
+      faction: row.faction,
+      n: row.pieceCount,
+      percent: row.percent,
+    }))
+    const bounded = pack.factions
+      .filter((f) => f.activeFrom != null || f.activeTo != null)
+      .map((f) => ({
+        id: f.id,
+        activeFrom: f.activeFrom ?? Number.NEGATIVE_INFINITY,
+        activeTo: f.activeTo ?? Number.POSITIVE_INFINITY,
+      }))
+    const landless = withLandlessFactions(
+      held.map(({ faction, n }) => ({ faction, n })),
+      bounded,
+      year,
+    ).filter(({ faction }) => !held.some((r) => r.faction === faction))
+    return landless.length
+      ? [
+          ...held,
+          ...landless.map(({ faction }) => ({
+            faction,
+            n: 0,
+            percent: 0,
+          })),
+        ]
+      : held
+  }, [snapshot, pack, year])
 
   const view: FactionYearView | null = useMemo(() => {
     if (!selectedFaction) return null
@@ -171,8 +198,9 @@ export function ImperialTerritoryDock() {
     return {
       eraIntro: {
         text:
-          profile.eraIntro ??
-          `${pack.title}（${pack.tag}）。這是該時代的勢力，著色用的是這個時代的示意範圍，不是東漢三國的州界。`,
+          (profile.eraIntro ??
+            `${pack.title}（${pack.tag}）。這是該時代的勢力，著色用的是這個時代的示意範圍，不是東漢三國的州界。`) +
+          (profile.note ? `有疑之處：${profile.note}` : ''),
         source: profile.source,
         disputed: true,
       },
@@ -247,7 +275,11 @@ export function ImperialTerritoryDock() {
                     ) : null}
                   </span>
                   <em>
-                    {percent > 0 ? `${percent.toFixed(0)}% · ${n} 塊` : `${n} 塊`}
+                    {percent > 0
+                      ? `${percent.toFixed(0)}% · ${n} 塊`
+                      : n === 0
+                        ? '無區'
+                        : `${n} 塊`}
                   </em>
                 </button>
               </li>
