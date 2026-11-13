@@ -7,7 +7,7 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import type { JapanDeepDivePack } from './deepDiveTypes'
+import type { JapanDeepDivePack, DeepDiveMapWindow } from './deepDiveTypes'
 import { resolveKeyYear } from './jpDomains'
 import { enterYear, inMonthZoom, stepTimeline } from '../lib/monthZoom'
 import {
@@ -28,9 +28,12 @@ interface DeepDiveYearContextValue {
   yearMin: number
   yearMax: number
   monthZoom: { from: number; to: number } | null
+  /** 領土快照年；時段地圖窗口生效時為窗口的快照年，非 pack.keyYears 之值 */
   territoryYear: number
   control: Record<string, string>
   shadeNote: string
+  /** 該年生效的時段地圖窗口；無則為 null（地圖用 pack 預設） */
+  mapWindow: DeepDiveMapWindow | null
   pack: JapanDeepDivePack
 }
 
@@ -138,14 +141,30 @@ export function DeepDiveYearProvider({
 
   const territoryYear = resolveKeyYear(year, pack.keyYears)
   const monthKey = month === null ? null : `${year}-${String(month).padStart(2, '0')}`
-  const control =
-    (monthKey ? pack.territoryByMonth?.[monthKey] : undefined) ??
-    pack.territoryByYear[territoryYear] ??
-    {}
-  const shadeNote =
-    (monthKey ? pack.shadeNotesByMonth?.[monthKey] : undefined) ??
-    pack.shadeNotes[territoryYear] ??
-    '色塊為示意，大於實控。'
+  /**
+   * 時段地圖窗口（如秀吉朝鮮之役 1592–1598）：年份在區間內即整套取代 pack 地圖。
+   * 窗口有自己的快照年與座標系，故 territoryYear/control/shadeNote 一併改用窗口口徑。
+   */
+  const mapWindow =
+    pack.mapWindows?.find((w) => year >= w.from && year <= w.to) ?? null
+  const windowKeyYears = mapWindow
+    ? Object.keys(mapWindow.territoryByYear)
+        .map(Number)
+        .sort((a, b) => a - b)
+    : null
+  const activeTerritoryYear = windowKeyYears
+    ? resolveKeyYear(year, windowKeyYears)
+    : territoryYear
+  const control = mapWindow
+    ? mapWindow.territoryByYear[activeTerritoryYear] ?? {}
+    : (monthKey ? pack.territoryByMonth?.[monthKey] : undefined) ??
+      pack.territoryByYear[territoryYear] ??
+      {}
+  const shadeNote = mapWindow
+    ? mapWindow.shadeNotes[activeTerritoryYear] ?? '色塊為示意，大於實控。'
+    : (monthKey ? pack.shadeNotesByMonth?.[monthKey] : undefined) ??
+      pack.shadeNotes[territoryYear] ??
+      '色塊為示意，大於實控。'
 
   const value = useMemo(
     () => ({
@@ -159,9 +178,10 @@ export function DeepDiveYearProvider({
       yearMin: pack.yearMin,
       yearMax: pack.yearMax,
       monthZoom: zoom,
-      territoryYear,
+      territoryYear: activeTerritoryYear,
       control,
       shadeNote,
+      mapWindow,
       pack,
     }),
     [
@@ -174,9 +194,10 @@ export function DeepDiveYearProvider({
       togglePlay,
       pack,
       zoom,
-      territoryYear,
+      activeTerritoryYear,
       control,
       shadeNote,
+      mapWindow,
     ],
   )
 

@@ -20,6 +20,31 @@ export interface DeepDiveVectorBasemap {
   credit: string
 }
 
+/**
+ * 時段地圖窗口：年份落在 [from, to] 時，地圖整體改用另一套底圖、領土與路線
+ * （例：秀吉朝鮮之役 1592–1598 由日本列島圖切到東亞戰區圖，拖出區間切回）。
+ * 視窗生效時是「取代」pack 預設而非合併——兩套圖的座標系不同，混繪必錯。
+ */
+export interface DeepDiveMapWindow {
+  id: string
+  from: number
+  to: number
+  /** 換底圖（戰區矢量圖）；不提供即沿用 pack 的 mapBase／列島 relief */
+  mapBase?: DeepDiveVectorBasemap
+  /** 窗口領土區塊（座標系屬本窗口底圖） */
+  domains: DeepDiveDomain[]
+  /** 快照年 → domainId → factionId；快照年屬窗口本身，不進 pack.keyYears */
+  territoryByYear: Record<number, Record<string, string>>
+  /** 快照年 → 色塊口徑說明 */
+  shadeNotes: Record<number, string>
+  routes: MarchRoute[]
+  places: { name: string; x: number; y: number }[]
+  /** 區塊幾何出處（取代戰區底圖的預設文字） */
+  geometryNote?: string
+  /** 領土口徑說明（取代 territoryNote 預設文字） */
+  territoryNote?: string
+}
+
 export interface DeepDiveLeader {
   faction: string
   name: string
@@ -40,6 +65,8 @@ export interface JapanDeepDivePack {
   domains: DeepDiveDomain[]
   /** 用矢量底圖（亞洲—太平洋戰區）取代日本列島 relief */
   mapBase?: DeepDiveVectorBasemap
+  /** 時段地圖窗口（見 DeepDiveMapWindow）：年份在區間內即取代本 pack 的地圖 */
+  mapWindows?: DeepDiveMapWindow[]
   /** 快照年 → domainId → factionId */
   territoryByYear: Record<number, Record<string, string>>
   /**

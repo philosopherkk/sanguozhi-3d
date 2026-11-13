@@ -85,11 +85,11 @@ function Dock({
 }
 
 export function EraRouteDock({ pack }: { pack: JapanDeepDivePack }) {
-  const { year } = useDeepDiveYear()
+  const { year, mapWindow } = useDeepDiveYear()
   return (
     <Dock side="left" title="行軍路線">
       <MapRouteLegend
-        routes={pack.routes}
+        routes={mapWindow ? mapWindow.routes : pack.routes}
         year={year}
         visibleYears={MARCH_ROUTE_SAME_YEAR}
       />

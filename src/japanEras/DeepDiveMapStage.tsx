@@ -17,8 +17,18 @@ import {
 const KOKUGUN_DOMAIN_IDS = new Set(CODH_KOKUGUN_MESHES.map((m) => m.domainId))
 
 export function DeepDiveMapStage({ pack }: { pack: JapanDeepDivePack }) {
-  const { year, territoryYear, control, shadeNote } = useDeepDiveYear()
+  const { year, territoryYear, control, shadeNote, mapWindow } =
+    useDeepDiveYear()
   const { selectedFaction, selectFaction } = useDeepDiveSelection()
+
+  /**
+   * 時段地圖窗口生效時，底圖／領土／路線／地名整套改用窗口資料（座標系不同，
+   * 不能與 pack 預設混繪）；無窗口時全部沿用 pack，行為與從前相同。
+   */
+  const base = mapWindow?.mapBase ?? pack.mapBase
+  const domainSource = mapWindow ? mapWindow.domains : pack.domains
+  const activeRoutes = mapWindow ? mapWindow.routes : pack.routes
+  const activePlaces = mapWindow ? mapWindow.places : pack.places
 
   const colorFor = (id: string) =>
     pack.factions.find((f) => f.id === id)?.color ?? '#78716C'
@@ -30,8 +40,8 @@ export function DeepDiveMapStage({ pack }: { pack: JapanDeepDivePack }) {
      * 戰爭時代（明治至當代）用矢量戰區底圖：區塊以現成 SVG path 表達
      * （經緯度區間剪裁到真實海岸線），不適用日本舊國 mesh。
      */
-    if (pack.mapBase) {
-      return pack.domains
+    if (base) {
+      return domainSource
         .filter((d): d is typeof d & { d: string } => Boolean(d.d))
         .map((d) => ({
           id: d.id,
@@ -42,13 +52,13 @@ export function DeepDiveMapStage({ pack }: { pack: JapanDeepDivePack }) {
         }))
         .filter((s) => s.faction !== '')
     }
-    const names = Object.fromEntries(pack.domains.map((d) => [d.id, d.name]))
+    const names = Object.fromEntries(domainSource.map((d) => [d.id, d.name]))
     const kokugun = shadesFromDomainControl(control, names)
     /**
      * pack.domains 中不屬於舊國 mesh 的區塊（蝦夷地、東蝦夷地、松前、琉球…）
      * 之前完全無進入渲染，只用於名字，所以北海道的逐年變化於地圖上看不見。
      */
-    const extras = pack.domains.flatMap((d) => {
+    const extras = domainSource.flatMap((d) => {
       if (KOKUGUN_DOMAIN_IDS.has(d.id) || !d.ring) return []
       return [
         {
@@ -61,7 +71,7 @@ export function DeepDiveMapStage({ pack }: { pack: JapanDeepDivePack }) {
       ]
     }).filter((s) => s.faction !== '')
     return [...kokugun, ...extras]
-  }, [pack.domains, pack.mapBase, control])
+  }, [domainSource, base, control])
 
   const legend = pack.factions.filter(
     (f) => year >= f.activeFrom && year <= f.activeTo,
@@ -76,19 +86,23 @@ export function DeepDiveMapStage({ pack }: { pack: JapanDeepDivePack }) {
           territoryYear={territoryYear}
           shadeNote={shadeNote}
           domains={domains}
-          routes={pack.routes}
-          places={pack.places}
+          routes={activeRoutes}
+          places={activePlaces}
           colorFor={colorFor}
           nameFor={nameFor}
           selectedFaction={selectedFaction}
           onSelectFaction={selectFaction}
           visibleYears={MARCH_ROUTE_SAME_YEAR}
           hideInlineRouteLegend
-          mapBase={pack.mapBase}
+          mapBase={base}
           domainGeometryProvenance={
-            pack.mapBase ? ASIA_WAR_EXTENTS_GEOMETRY : undefined
+            base ? mapWindow?.geometryNote ?? ASIA_WAR_EXTENTS_GEOMETRY : undefined
           }
-          territoryNote={pack.mapBase ? ASIA_WAR_TERRITORY_NOTE_ZH : undefined}
+          territoryNote={
+            base
+              ? mapWindow?.territoryNote ?? ASIA_WAR_TERRITORY_NOTE_ZH
+              : undefined
+          }
         />
       </div>
       <EraRouteDock pack={pack} />
