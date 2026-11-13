@@ -162,33 +162,62 @@ export const IMJIN_DOMAINS: DeepDiveDomain[] = IMJIN_EXTENTS.map((e) => ({
 }))
 
 // ---------- 版圖快照（朝鮮八道＋九州集結地；口徑見 territoryNote） ----------
-const ALL8 = ['im_pyongan', 'im_hwanghae', 'im_gyeonggi', 'im_gangwon', 'im_chungcheong', 'im_jeolla', 'im_gyeongsang', 'im_hamgyong']
-const jpOccupy1592 = Object.fromEntries(
-  ALL8.filter((d) => d !== 'im_jeolla' && d !== 'im_hamgyong').map((d) => [d, IMJIN_F.jp]),
-)
+// 逐年快照一律寫死字面 id：audit:map 要逐鍵查幾何，用展開或計算鍵會令整批 id 逃出閘門。
 const CONTROL: Record<number, Record<string, string>> = {
-  1592: { kyushu: IMJIN_F.jp, ...jpOccupy1592, im_jeolla: IMJIN_F.joseon, im_hamgyong: IMJIN_F.joseon },
+  1592: {
+    im_kyushu: IMJIN_F.jp,
+    im_pyongan: IMJIN_F.jp,
+    im_hwanghae: IMJIN_F.jp,
+    im_gyeonggi: IMJIN_F.jp,
+    im_gangwon: IMJIN_F.jp,
+    im_chungcheong: IMJIN_F.jp,
+    im_jeolla: IMJIN_F.joseon,
+    im_gyeongsang: IMJIN_F.jp,
+    im_hamgyong: IMJIN_F.joseon,
+  },
   1593: {
-    kyushu: IMJIN_F.jp,
-    im_pyongan: IMJIN_F.ming, im_hwanghae: IMJIN_F.ming, im_gyeonggi: IMJIN_F.ming, im_gangwon: IMJIN_F.ming,
-    im_chungcheong: IMJIN_F.jp, im_gyeongsang: IMJIN_F.jp,
-    im_jeolla: IMJIN_F.joseon, im_hamgyong: IMJIN_F.joseon,
+    im_kyushu: IMJIN_F.jp,
+    im_pyongan: IMJIN_F.ming,
+    im_hwanghae: IMJIN_F.ming,
+    im_gyeonggi: IMJIN_F.ming,
+    im_gangwon: IMJIN_F.ming,
+    im_chungcheong: IMJIN_F.jp,
+    im_jeolla: IMJIN_F.joseon,
+    im_gyeongsang: IMJIN_F.jp,
+    im_hamgyong: IMJIN_F.joseon,
   },
   1595: {
-    kyushu: IMJIN_F.jp,
-    im_pyongan: IMJIN_F.ming, im_hwanghae: IMJIN_F.ming, im_gyeonggi: IMJIN_F.ming,
-    im_gangwon: IMJIN_F.joseon, im_chungcheong: IMJIN_F.joseon, im_jeolla: IMJIN_F.joseon, im_hamgyong: IMJIN_F.joseon,
+    im_kyushu: IMJIN_F.jp,
+    im_pyongan: IMJIN_F.ming,
+    im_hwanghae: IMJIN_F.ming,
+    im_gyeonggi: IMJIN_F.ming,
+    im_gangwon: IMJIN_F.joseon,
+    im_chungcheong: IMJIN_F.joseon,
+    im_jeolla: IMJIN_F.joseon,
     im_gyeongsang: IMJIN_F.jp,
+    im_hamgyong: IMJIN_F.joseon,
   },
   1597: {
-    kyushu: IMJIN_F.jp,
-    im_pyongan: IMJIN_F.ming, im_hwanghae: IMJIN_F.ming, im_gyeonggi: IMJIN_F.ming, im_gangwon: IMJIN_F.ming,
-    im_chungcheong: IMJIN_F.jp, im_gyeongsang: IMJIN_F.jp,
-    im_jeolla: IMJIN_F.joseon, im_hamgyong: IMJIN_F.joseon,
+    im_kyushu: IMJIN_F.jp,
+    im_pyongan: IMJIN_F.ming,
+    im_hwanghae: IMJIN_F.ming,
+    im_gyeonggi: IMJIN_F.ming,
+    im_gangwon: IMJIN_F.ming,
+    im_chungcheong: IMJIN_F.jp,
+    im_jeolla: IMJIN_F.joseon,
+    im_gyeongsang: IMJIN_F.jp,
+    im_hamgyong: IMJIN_F.joseon,
   },
   1598: {
-    kyushu: IMJIN_F.jp,
-    ...Object.fromEntries(ALL8.map((d) => [d, IMJIN_F.joseon])),
+    im_kyushu: IMJIN_F.jp,
+    im_pyongan: IMJIN_F.joseon,
+    im_hwanghae: IMJIN_F.joseon,
+    im_gyeonggi: IMJIN_F.joseon,
+    im_gangwon: IMJIN_F.joseon,
+    im_chungcheong: IMJIN_F.joseon,
+    im_jeolla: IMJIN_F.joseon,
+    im_gyeongsang: IMJIN_F.joseon,
+    im_hamgyong: IMJIN_F.joseon,
   },
 }
 

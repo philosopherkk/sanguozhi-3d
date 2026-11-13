@@ -55,10 +55,13 @@ function blockBody(text, braceIdx) {
   return ''
 }
 
-/** 由區塊內容抽出「鍵: '值'」形式之鍵（跳過純數字年鍵）。 */
+/** 由區塊內容抽出「鍵: '值'」形式之鍵（跳過純數字年鍵）。
+ *  值可以係引號字串，亦可以係 `IMJIN_F.jp` 呢類常數引用——只認前者會令
+ *  整批用常數寫的快照鍵逃過檢查，閘門對嗰啲包永遠全綠。 */
 function controlKeys(body) {
   const out = new Set()
-  for (const m of body.matchAll(/['"]?([A-Za-z_][\w-]{1,40})['"]?\s*:\s*['"]([\w-]+)['"]/g)) {
+  const RE = /['"]?([A-Za-z_][\w-]{1,40})['"]?\s*:\s*(?:['"]([\w-]+)['"]|[A-Za-z_$][\w$.]*)/g
+  for (const m of body.matchAll(RE)) {
     out.add(m[1])
   }
   return out
@@ -73,23 +76,46 @@ function territoryKeys(body) {
   return out
 }
 
-/** 幾何註冊表：三國州郡、歷史上環、亞洲戰區範圍。 */
+/** `territoryByYear: CONTROL` 呢類識別碼引用：搵同檔嘅 `const CONTROL … = {` 取區塊。
+ *  只認「初始化式直接以 `{` 開始」：用 helper 產生嘅（例：`const x = paint(…)`）要傳回
+ *  空字串，否則搵唔到花括號就會食到隔籬區塊嘅鍵，把 `note` 之類誤判成版圖鍵。 */
+function namedObjectBody(text, name) {
+  const m = new RegExp(`\\b(?:const|let|var)\\s+${name}\\b[^=;]*=`).exec(text)
+  if (!m) return ''
+  let i = m.index + m[0].length
+  while (i < text.length && /[\s(]/.test(text[i])) i += 1
+  return text[i] === '{' ? blockBody(text, i) : ''
+}
+
+// 亞洲戰區畫布（1710×1000）：明治至當代＋朝鮮之役窗口同用 asiaPx 直寫經緯度。
+// 要喺度喺呢度：下面嘅版圖規則靠呢個名單判「呢個 id 有冇本畫布嘅幾何」。
+const WAR_THEATRE = /^src\/japanEras\/packs\/(modernJapanPack|imjinWar)\.ts$/
+
+/** 幾何註冊表：三國州郡、歷史上環、亞洲戰區範圍。
+ *  產生器產物用雙引號、手寫檔用單引號，兩種都要認——只認一種會令整批 id 喺
+ *  註冊表消失，配咗名嘅版圖鍵就永遠查唔到（imjinTerritory.ts 就係咁逃咗一輪。 */
 const geometryIds = new Set()
-const addFrom = (file, re) => {
+/** 只有呢兩檔嘅 id 先有 1710×1000 戰區畫布嘅幾何。 */
+const warGeoIds = new Set()
+const addFrom = (file, re, extra) => {
   let t
   try {
     t = read(join(ROOT, file))
   } catch {
     return
   }
-  for (const m of t.matchAll(re)) geometryIds.add(m[1])
+  for (const m of t.matchAll(re)) {
+    geometryIds.add(m[1])
+    if (extra) extra.add(m[1])
+  }
 }
-addFrom('src/data/provinces.ts', /\bid:\s*'([\w-]+)'/g)
+const ID_Q = /\bid:\s*['"]([\w-]+)['"]/g
+addFrom('src/data/provinces.ts', ID_Q)
 addFrom('src/geo/eraRegions.ts', /"([a-z_0-9]+)":\[\[/g)
-addFrom('src/geo/asiaWarTerritory.ts', /\bid:\s*'([\w-]+)'/g)
-addFrom('src/geo/imjinTerritory.ts', /\bid:\s*'([\w-]+)'/g)
+addFrom('src/geo/asiaWarTerritory.ts', ID_Q, warGeoIds)
+addFrom('src/geo/imjinTerritory.ts', ID_Q, warGeoIds)
 addFrom('src/geo/japanEraRings.ts', /\b([a-z_0-9]+):\s*\[/g)
-addFrom('src/japanEras/jpDomains.ts', /\bid:\s*'([\w-]+)'/g)
+addFrom('src/japanEras/jpDomains.ts', ID_Q)
 
 const issues = []
 const add = (level, code, where, msg) => issues.push({ level, code, where, msg })
@@ -104,12 +130,12 @@ for (const f of files) {
   for (const m of t.matchAll(/\bid:\s*['"]([\w-]{2,40})['"]/g)) localIds.add(m[1])
 
   // 1) 版圖鍵必須解到幾何（此條規則對應真實 bug：控制鍵解不到幾何 → 全圖空白）
+  //    `territoryByYear: CONTROL`（識別碼引用）同 `territoryByYear: {…}` 一樣要查：
+  //    只認花括號會令成份快照靜靜逃出閘門，朝鮮之役窗口就係咁瞞過寫錯嘅 `kyushu`。
   const keys = new Set()
-  for (const m of t.matchAll(/\bcontrol\s*:\s*\{/g)) {
-    for (const k of controlKeys(blockBody(t, m.index + m[0].length - 1))) keys.add(k)
-  }
-  for (const m of t.matchAll(/\bterritoryByYear\s*:\s*\{/g)) {
-    for (const k of territoryKeys(blockBody(t, m.index + m[0].length - 1))) keys.add(k)
+  for (const m of t.matchAll(/\b(control|territoryByYear)\s*:\s*(\{|[A-Za-z_$][\w$]*)/g)) {
+    const body = m[2] === '{' ? blockBody(t, m.index + m[0].length - 1) : namedObjectBody(t, m[2])
+    for (const k of m[1] === 'control' ? controlKeys(body) : territoryKeys(body)) keys.add(k)
   }
   const factionIds = new Set()
   for (const m of t.matchAll(/\bfactions\s*:\s*\[/g)) {
@@ -126,6 +152,20 @@ for (const f of files) {
       return ''
     })()
     for (const fm of body.matchAll(/\bid:\s*['"]([\w-]+)['"]/g)) factionIds.add(fm[1])
+  }
+  // 1b) 跨畫布同名 id：呢個 id 可能喺日本／中國畫布有幾何，但亞洲戰區畫布冇，
+  //     結果一樣係永遠唔會上色（實測：`kyushu` 解到 jpDomains 嘅九州，喺 1710×1000
+  //     畫布上卻冇呢塊幾何）。只查戰區檔案；其他畫布嘅 pack 用全域註冊表已夠。
+  if (WAR_THEATRE.test(r)) {
+    const offCanvas = [...keys].filter((id) => !warGeoIds.has(id) && !localIds.has(id))
+    if (offCanvas.length) {
+      add(
+        'fail',
+        'territory-id-off-canvas',
+        r,
+        `亞洲戰區畫布（1710×1000）冇呢啲版圖鍵嘅幾何：${offCanvas.join('、')}（同名 id 或存在於其他畫布，但本畫布畫唔到）`,
+      )
+    }
   }
   const unresolved = new Map()
   for (const id of keys) {
@@ -462,8 +502,7 @@ if (selfCheck.length) {
  */
 const CHINA_THEATRE = /^src\/(data|zhou|qinhan|imperial)\//
 const JAPAN_THEATRE = /^src\/(sengoku|bakumatsu|heian|japanEras)\//
-// 亞洲戰區畫布（1710×1000）：明治至當代＋朝鮮之役窗口同用 asiaPx 直寫經緯度
-const WAR_THEATRE = /^src\/japanEras\/packs\/(modernJapanPack|imjinWar)\.ts$/
+// WAR_THEATRE 喺檔頭定義（版圖規則都要用），呢度只係畫布分派
 /** points 係 prop 名而非資料的檔案（渲染元件），唔在海陸判定範圍。 */
 const NON_DATA = /^src\/(components|lib)\//
 const canvasOf = (relPath) => {
@@ -691,7 +730,8 @@ if (JSON_OUT) {
   L.push('')
   L.push('## 口徑')
   L.push('')
-  L.push('- territory-id-unresolved：pack 於 control／territoryByYear 使用的 id，必須在 `src/data/provinces.ts`、`src/geo/eraRegions.ts`、`src/geo/asiaWarTerritory.ts`、`src/japanEras/jpDomains.ts` 或本檔 domains 找到；找不到即該區塊永遠不會上色。')
+  L.push('- territory-id-unresolved：pack 於 control／territoryByYear 使用的 id，必須在 `src/data/provinces.ts`、`src/geo/eraRegions.ts`、`src/geo/asiaWarTerritory.ts`、`src/geo/imjinTerritory.ts`、`src/geo/japanEraRings.ts`、`src/japanEras/jpDomains.ts` 或本檔 domains 找到；找不到即該區塊永遠不會上色。`territoryByYear: CONTROL` 呢類識別碼引用會先解析同檔的 `const CONTROL = {…}` 再逐鍵查；註冊表單引號與雙引號都認（產生器產物用雙引號）。')
+  L.push('- territory-id-off-canvas：亞洲戰區畫布（`modernJapanPack`／`imjinWar`）的版圖鍵，必須在 `asiaWarTerritory.ts` 或 `imjinTerritory.ts` 有幾何。全域註冊表會令跨畫布同名 id 假通過——實測 `kyushu` 解到 `jpDomains` 的九州，在 1710×1000 畫布上沒有幾何，該區塊永遠不上色。')
   L.push(`- coord-out-of-frame：底圖畫布 ${CANVAS.w}×${CANVAS.h}（附圖容差 ${FRAME_TOL}px）；負值一律判紅。`)
   L.push(
     `- sea-route-over-land（fail）／land-route-crosses-sea（暫 warn）：陸地遮罩只有一個來源——src/geo/asiaWarBase.ts 的 ASIA_LAND（Natural Earth 1:50m 派生），反算經緯度後分別投到三個畫布：中國戰區 china_px 1968×1567、日本戰區 japan_px 1482×1477（japan_relief 等距圓柱，邊界取 scripts/tighten_land_borders.py）、亞洲戰區 1710×1000（近代日本 pack 的 asiaPx 畫布）。留 ${COAST_TOL_DEG}° 海岸容差（各畫布按自身 1° 經度 px 數換算），貼岸點一概不判。啟動前以 ${ANCHORS.china.length + ANCHORS.japan.length + ANCHORS.war.length} 個海陸錨點自我校對（中國 ${ANCHORS.china.length}／日本 ${ANCHORS.japan.length}／亞洲戰區 ${ANCHORS.war.length}，含渤海、滿洲、朝鮮半島、東京灣、瀨戶內海、津輕海峽、宗谷海峽、爪哇海），任何一個不符即整支腳本失敗。`,
