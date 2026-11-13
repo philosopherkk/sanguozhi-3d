@@ -3,11 +3,13 @@
  * gen_asia_war_territory.mjs — 明治至當代／戰爭時代的勢力範圍多邊形
  *
  * 做法：每塊範圍用經緯度矩形（通說控制範圍，不是行政邊界），
- * 再同 Natural Earth 1:50m 陸地求交集（polygon-clipping），
+ * 再同 Natural Earth 陸地求交集（polygon-clipping），
  * 所以色塊只會出現於陸地上，海岸線跟真實地形，不是手繪。
  *
  * 輸出：src/geo/asiaWarTerritory.ts → ASIA_EXTENTS: {id,name,d,note}[]
- * 用法：node scripts/gen_asia_war_territory.mjs scripts/.cache/countries-50m.json
+ * 用法：node scripts/gen_asia_war_territory.mjs scripts/.cache/countries-10m.json
+ *       （2026-11-14 起改用 1:10m，world-atlas@2 countries-10m.json；
+ *        50m 海岸線過粗，色塊多被 audit:war-shape 判為示意框）
  */
 import fs from 'node:fs'
 import path from 'node:path'
@@ -17,7 +19,7 @@ import {
   loadLandMultiPolygon, rectRing, pxRaw, px, simplifyRing, area, toPath, bboxOf, inside,
 } from './geo_lib.mjs'
 
-const SRC = process.argv[2] || 'scripts/.cache/countries-50m.json'
+const SRC = process.argv[2] || 'scripts/.cache/countries-10m.json'
 const OUT = path.resolve(import.meta.dirname, '../src/geo/asiaWarTerritory.ts')
 const TOL = Number(process.env.TOL || DEFAULT_TOL)
 /** 噪點篩除閾值（畫布像素）：兩維皆小於此值嘅環喺 1710x1000 畫布上不足兩粒像素，
@@ -160,6 +162,7 @@ for (const [id, name, rects, note] of EXTENTS) {
       // 結果 schematic 241→266 惡化——Natural Earth 1:50m 小島原環本得 5–15 點，
       // DP 減容差只能保留粗頂點，無法增點，反而暴露粗多邊形直邊（共線段比例升）。
       // 小島示意失真嘅根源係底圖解析度，不是簡化容差；維持固定 TOL。
+      // （2026-11-14 佐證：改用 1:10m 源圖後 audit:war-shape schematic 實際下降。）
       const simple = simplifyRing(projected, TOL)
       const a0 = area(projected), a1 = area(simple)
       const areaOk = (pts) => a0 === 0 || Math.abs(area(pts) - a0) / Math.max(a0, 1) < 0.03
@@ -194,8 +197,8 @@ for (const [id, name, rects, note] of EXTENTS) {
 const body = `/**
  * 明治至當代／戰爭時代的勢力範圍（自動生成，不要手改）
  *
- * 生成：node scripts/gen_asia_war_territory.mjs scripts/.cache/countries-50m.json
- * 方法：通說控制範圍以經緯度矩形定義，再同 Natural Earth 1:50m 陸地求交集，
+ * 生成：node scripts/gen_asia_war_territory.mjs scripts/.cache/countries-10m.json
+ * 方法：通說控制範圍以經緯度矩形定義，再同 Natural Earth 1:10m 陸地求交集，
  *       所以色塊只會出現於陸地上，海岸線跟真實地形。
  * 注意：這些係控制範圍示意，不是行政區界，亦不表示實效支配無爭議；
  *       實際控制線同爭議於對應事件的起因／經過／結果說明。
@@ -270,9 +273,11 @@ const CHECKS = [
   ['newguinea_n', '休恩半島東端（芬斯哈芬作戰方向）', 148.6, -5.7, true],
   ['solomons_n', '瓜達爾卡納爾（內陸點）', 159.95, -9.43, true],
   ['solomons_n', '新喬治亞島', 158.0, -8.55, true],
-  // 與那國・波照間等小島於 Natural Earth 1:50m 無獨立多邊形，無法以填色命中，
-  // 地圖以地名標記（places）表示；hit-test 改用 1:50m 有陸地之島嶼。
-  ['okinawa', '宮古島', 125.36, 24.79, true], ['okinawa', '石垣島', 124.2, 24.4, true],
+  // 與那國・波照間等小島於 Natural Earth 無獨立多邊形，無法以填色命中，
+  // 地圖以地名標記（places）表示；hit-test 改用有陸地之島嶼。
+  // 宮古島點取 10m 島環面積重心（2026-11-14 換 10m 後原點 125.36/24.79
+  // 落在細化海岸線以外；舊點於 50m 能中乃海岸膨脹所致）。
+  ['okinawa', '宮古島', 125.331, 24.776, true], ['okinawa', '石垣島', 124.2, 24.4, true],
   ['okinawa', '西表島', 123.85, 24.3, true],
   ['okinawa', '奄美大島（鹿兒島縣，不屬沖繩）', 129.5, 28.35, false],
   ['okinawa', '台北（不屬沖繩）', 121.5, 25.04, false],
@@ -290,7 +295,9 @@ const CHECKS = [
   // 宿務・達沃用內陸點：宿務島於 1:50m 僅四像素闊、簡化後為狹條，
   // 兩城市座標恰在填色帶邊緣，內陸點先例同瓜達爾卡納爾。
   ['hongkong', '深圳鎮（寶安，不含）', 114.12, 22.55, false],
-  ['hongkong', '大埔', 114.17, 22.45, true],
+  // 大埔墟（114.17/22.45）一帶係填海區，Natural Earth 海岸線於灣內，10m 下為海面；
+  // 舊點於 50m 能中乃海岸膨脹所致。改取大埔頭內陸點（大埔舊墟背後山麓，兩套解析度俱陸）。
+  ['hongkong', '大埔（大埔頭內陸點）', 114.163, 22.466, true],
   ['newguinea_n', '莫爾茲比港（巴布亞南岸，未曾攻佔）', 147.3, -9.4, false],
   ['newguinea_n', '馬當（達姆皮爾半島內陸點）', 145.75, -5.1, true],
   ['newguinea_n', '桑道（內陸點）', 141.6, -3.05, true],
@@ -339,7 +346,9 @@ const CHECKS = [
   ['manshu', '山海關（不含）', 119.75, 40.0, false],
   ['manshu', '綏中（遼寧）', 120.29, 40.31, true], ['manshu', '興城（遼寧）', 120.73, 40.57, true],
   ['rabaul', '拉包爾（卡科保半島內陸點）', 152.1, -4.25, true],
-  ['rabaul', '新愛爾蘭內陸點（卡維恩方向）', 150.85, -2.7, true],
+  // 新愛爾蘭主島在此緯度僅十餘公里闊，10m 海岸線下舊點（150.85/-2.7）已在
+  // 東南岸之外（舊點於 50m 能中乃海岸膨脹所致）；改取卡維恩東南之內陸點。
+  ['rabaul', '新愛爾蘭內陸點（卡維恩方向）', 150.885, -2.635, true],
   ['rabaul', '馬努斯（柔柏方向內陸點）', 147.26, -2.05, true],
   ['rabaul', '科科達（未曾攻佔，不含）', 147.75, -8.88, false],
   ['rabaul', '戈羅卡（東高地，未曾攻佔，不含）', 145.38, -5.54, false],
