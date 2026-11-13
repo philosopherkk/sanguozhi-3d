@@ -179,6 +179,8 @@ export const IMJIN_SITUATION = {
 // ---------- 三層意譯（小學生／中學生／大學生）----------
 export const IMJIN_READINGS: Record<string, EraReading> = {
   'az-1592-landing': {
+    // 查證（2026-11-13）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7320
     quote:
       '二十年夏五月，秀吉遂分渠帥行長、清正等率舟師逼釜山鎮，潛渡臨津。時朝鮮承平久，兵不習戰，昖又湎酒，弛備，猝島夷作難，望風皆潰。',
     source: '《明史》卷三百二十〈朝鮮傳〉（zh.wikisource 可逐字比對）',
@@ -218,6 +220,8 @@ export const IMJIN_READINGS: Record<string, EraReading> = {
     },
   },
   'az-1593-pyongyang': {
+    // 查證（2026-11-13）：引文已對 zh.wikisource 逐字核對
+    // https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B7320
     quote:
       '明年正月，如松督諸將進戰，大捷於平壤。行長渡大同江，遁還龍山。所失黃海、平安、京畿、江原四道並復，清正亦遁還王京。如松既勝，輕騎趨碧蹄館，敗，退駐開城。',
     source: '《明史》卷三百二十〈朝鮮傳〉（zh.wikisource 可逐字比對）',
