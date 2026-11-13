@@ -595,3 +595,35 @@ kind 依檔內 `SEA_ROUTE_IDS`。覆蓋自校也加嚴：資料檔若不在任�
 
 
 
+
+## 2026-11-13 地圖遮蓋問題：三國疆域預設、圖例與面板合併（取捨記錄）
+
+### 1) 已定之取捨（後續 agent 勿自行翻案）
+1. **三國勢力疆域預設為開**：`Map2D.tsx` 的 `showTerritory` 於 `7b179b2` 由 `true` 改
+   為 `false`，該提交自註「draft，等 KK yes」而未經審核，致州郡界線自此不預設繪製。
+   今恢復預設開。行軍路線（`showRoutes`）與塞外部族（`showFrontier`）預設仍關，因其
+   墨色濃而使用者怨其遮蔽；三開關皆記入 `localStorage`（`map2d-layer-*`）。若日後有人
+   欲再度預設關閉勢力層，須先取得人工批准——勢力色塊與界線是本地圖的主體。
+2. **不許「逕刪圖例」**：時代地圖左下的 `EraLegend` 已刪，但刪的前提是先使右側「勢力範
+   圍」面板成為其嚴格超集（新增 `src/lib/factionRows.ts` 的 `withLandlessFactions`，把
+   「該年在任而疆域快照無一區」的勢力以 `n = 0` 補列，面板顯示「無區」）。以真實資料逐
+   年計算，八個時代包另有 **572 個「時代 × 年份」** 屬此類：鎌倉 1221 西國、室町 1336
+   北朝、安土桃山 1573 德川、江戶 1807 蝦夷（阿伊努）、日本現代 1945 滿洲國／蒙疆／日
+   軍佔領區、1972 米軍統治下，幕末 1868 幕府、平安 1185 平氏。若有人視「無區」為冗列而
+   刪之，即等於在地圖上抹去這些勢力，屬不可。
+3. **年份顯示不可再失落**：「X 年勢力（疆域快照 Y）」一句已移至 `map-stage__hint`。年
+   份滑桿僅有 `aria-valuetext`（只對螢幕閱讀器有效），若把提示行也精簡掉，地圖上再無可
+   見的年份。
+
+### 2) 本輪未處理之後續
+1. 周、秦漢、戰國三時代的 `ZhouLegend`／`QinHanLegend`／`SengokuLegend` 與其 `ZhouPowerBoard`／
+   `SengokuPowerBoard` 同屬重覆之列，且後兩者置於**不可收合**的 `map-stage__overlay`，宜循
+   本節方式合併（先證面板為超集，再刪圖例）。
+2. `scripts/audit_map_accuracy.mjs` 讀不到 `TERRITORY_BY_YEAR` 這一類以 CJK 為值之快照，也
+   完全看不見 React 層次的預設布林值——本節第 1 項的退化正落在其盲點之內。
+3. `scripts/gate-ci.mjs` 不含 `tsc`：本次新增 `usePersistedOpen` 時一度漏掉 import，全部
+   閘門仍報綠，只有 `npm run build` 才抓到。另 `tsc --noEmit -p tsconfig.json` 因本檔只有
+   `references` 而為空操作，須 `-p tsconfig.app.json` 或 `tsc -b`。
+4. 史實錯誤（本輪不自動改寫，留待查證輪）：`myanmar` 注記「1942 年……5 月 1 日佔仰光」，仰光
+   實陷於 1942 年 3 月 8 日；華北政務委員會記「1937 年 11 月 12 日」，通說為 1937 年 12 月
+   14 日成立。
