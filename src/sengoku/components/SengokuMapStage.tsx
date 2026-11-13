@@ -1,4 +1,3 @@
-import { SengokuLegend } from './SengokuLegend'
 import { SengokuMap } from './SengokuMap'
 import { SengokuPowerBoard } from './SengokuPowerBoard'
 
@@ -12,9 +11,8 @@ export function SengokuMapStage() {
         <SengokuPowerBoard />
       </div>
       <div className="map-stage__overlay map-stage__overlay--bl">
-        <SengokuLegend />
         <p className="map-stage__hint">
-          底圖中央下方「圖層」可開勢力、行軍、地名
+          勢力清單在左上。底圖中央下方「圖層」可開勢力、行軍、地名
         </p>
       </div>
     </section>

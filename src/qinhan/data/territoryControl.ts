@@ -4,7 +4,6 @@ import {
   ERA_REGIONS_GEOMETRY,
   type TerritoryGeometryProvenance,
 } from '../../data/territory/provenance'
-import { QINHAN_FACTION_ORDER } from '../lib/factionColors'
 import type { QinHanFactionId } from '../types'
 
 /**
@@ -140,15 +139,6 @@ export function qinHanControlForYear(year: number): QinHanControl {
   return qinHanSnapshotForYear(year).control
 }
 
-export function qinHanFactionsPresent(
-  ranges: FactionRange[],
-): QinHanFactionId[] {
-  const present = new Set<QinHanFactionId>()
-  for (const range of ranges) {
-    if (range.rings.length > 0) present.add(range.faction as QinHanFactionId)
-  }
-  return QINHAN_FACTION_ORDER.filter((id) => present.has(id))
-}
 
 export interface QinHanTerritoryStat {
   faction: QinHanFactionId

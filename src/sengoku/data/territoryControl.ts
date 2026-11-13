@@ -1,4 +1,4 @@
-import type { SengokuFactionId, SengokuRegionControl } from '../types'
+import type { SengokuRegionControl } from '../types'
 import {
   SENGOKU_CONTROL_GEOMETRY,
   type TerritoryGeometryProvenance,
@@ -145,12 +145,3 @@ export function sengokuControlForYear(year: number): SengokuRegionControl {
   return SENGOKU_TERRITORY_BY_YEAR[resolveSengokuTerritoryYear(year)]
 }
 
-export function sengokuFactionsPresent(
-  control: SengokuRegionControl,
-): SengokuFactionId[] {
-  const set = new Set<SengokuFactionId>()
-  for (const f of Object.values(control)) {
-    if (f) set.add(f)
-  }
-  return [...set]
-}
