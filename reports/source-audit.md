@@ -1943,3 +1943,48 @@ commit `9be17e2`（6 條）＋ `1cced1f`（1 條自我修復）。全部在 `src
 1. az-*（朝鮮之役六條，`7775a87` 新內容）：五條「引文已改」＋1592-pyongyang 未查證（「而是時倭已入」分岔，要照原卷改字或標通說）。
 2. 日本 pack 未查證 11 條：幕末三条、heian 兩条、edo-1604（松前島郷帳要 `--toc`）、km-1185（吾妻鏡索引用編年格式）、mj 兩條、mu 兩條——需要 `--host ja.wikisource.org` 同日文原典規則逐條處理。
 3. kf-350（「為人勇悍」異文）屬 #142 工作流滯後項。
+
+## 第 8 輪（2026-11-13，agent/accuracy）：朝鮮之役 az-* 六條（明史朝鮮傳逐字）＋查證工具 bug 一宗
+
+### 1) 起點與交付
+
+- 起點：`origin/main = 54d6447`（PR #166 仍 OPEN 未併，本輪五個 commit 續入同一 PR；工作樹與上輪終點一致，rebase 0/0）。
+- 模型鎖 self-check：`MODEL_LOCK_OK`。
+- 本輪 commit：`5f5a39d`（登陸／平壤收復補連結）、`943911a`（封貢／丁酉／露梁補連結）、`8e3d0be`（pyongyang 斷句＋實錄錯字＋字小平亂去引號）、ledger 兩枚（live 記錄＋stamp 修正）；加本報告。
+
+### 2) 本輪批次與逐條結果（全引《明史》卷三百二十〈朝鮮傳〉，頁名 明史/卷320）
+
+| 條目 | 結果 |
+| --- | --- |
+| `imjinWarEvents.ts#az-1592-landing` | 「二十年夏五月……望風皆潰」逐字合；補查證註＋URL |
+| `imjinWarEvents.ts#az-1592-pyongyang` | **原卷「願內屬。」下隔「七月，兵部議令駐劄險要，以待天兵；號召通國勤王，以圖恢復。」一句方至「而是時倭已入王京」**——引文無斷開係錯，補「……」分段；補註＋URL |
+| `imjinWarEvents.ts#az-1593-pyongyang` | 「明年正月……退駐開城」逐字合；補註＋URL |
+| `imjinWarEvents.ts#az-1596-shippou` | 逐字合（中段原有「……」）；補註＋URL |
+| `imjinWarEvents.ts#az-1597-renewal` | 逐字合（中段原有「……」）；補註＋URL |
+| `imjinWarEvents.ts#az-1598-noryang` | 逐字合——上輪記憶話「麻貴遂入島山」下有校勘記要斷開，實測 `strip_notes` 已剝走校勘記，無需再斷；補註＋URL |
+
+敘事層抽查（教育 layer 內嘅引號句）：「朝鮮與日本對馬島相望，時有倭夷往來互市」「倭亦乏食有歸志」逐字有；**「字小平亂」Wikisource insource 零命中，係我方自造語卻加了引號**——去引號改「字小平亂之義」，唔再扮史文原語。另挖出書名錯字兩處：`宣祖實祿`→`宣祖實錄`（同檔另外 14 處均作「實錄」）。死鏈：本檔 5 個 WIKI() 標題經 MediaWiki API `titles=` 批量判定全部存在（含簡體標題「万历朝鲜之役」等屬條目本名，照原形保留）；`audit:wiki-links` 全庫 395 連結死鏈 0。
+
+### 3) 前後對照
+
+| 指標 | 前 | 後 |
+| --- | --- | --- |
+| 已查證 | 201 | **207**（＋6，本輪全批） |
+| 未查證 | 12 | **11**（az-1592-pyongyang 除錯） |
+| 引文已改需重查 | 6 | **1**（淨 kf-350，屬 #142 滯後項） |
+| 意譯 | 122 | 122 |
+| 錯誤／提醒 | 0／44 | 0／44 |
+| `audit:chars` 硬傷 | 0 | **0** |
+| `audit:wiki-links` | 死鏈 0 | 死鏈 0（395 連結全過） |
+| `npm run gates` | — | 無惡化（見 PR 附註） |
+| `npm run build` | — | EXIT=0 |
+| `npm run lint` | — | EXIT=0（0 error） |
+
+### 4) 查證工具 bug 一宗（俾人工，本輪無權改腳本）
+
+`audit_quotes.mjs` 嘅 `--live --mark-verified` 寫 ledger 時用 `rows.find(id 匹配)` 攞**第一條同 key 條目**嚟計 stamp（L629–636）。`imjinWarEvents.ts` 每個 az-* key 有兩條同 key 條目（EVENTS 嘅 `source: SRC` 動態欄一條＋READINGS 嘅 quote 一條），而六條 EVENTS 共用同一個 `SRC` 常數——結果六條 ledger 全部寫入同一個 `hash(''+SRC)` = `902d1f2c`，對住 READINGS 引文永遠 stale。本輪做法：照 `scanTs` 輸出重算各條真實 stamp 手動寫入 ledger（只改六個 stamp 欄，文件格式不動），並在 ledger commit 講明原因。**修法建議**：`--mark` 時應該用 `targets` 入面嗰條 row（即 `res.get(it.id)` 對應嘅 row），唔好再 `rows.find`。
+
+### 5) 剩餘佇列（12 條，交下輪）
+
+1. 日本 pack 未查證 11 條：幕末三条（1854/1858/1859）、heian-1103-murasaki、heian-810-kusuko、edo-1604-matsumae（松前島郷帳要 `--toc`）、km-1185（吾妻鏡索引頁冇正文）、mj-1945/1952、mu-1336/1350——要 `--host ja.wikisource.org` 同日文原典規則逐條處理。
+2. kf-350（「為人勇悍」異文）屬 #142 工作流滯後項。
