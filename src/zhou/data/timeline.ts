@@ -296,7 +296,7 @@ export const ZHOU_TIMELINE: ZhouTimelineEvent[] = [
     // 查證（2026-11-12）：引文已對 zh.wikisource 逐字核對
     // https://zh.wikisource.org/wiki/%E6%98%A5%E7%A7%8B%E5%B7%A6%E6%B0%8F%E5%82%B3/%E5%93%80%E5%85%AC
     classicQuote: '冬，十一月丁卯，越滅吳。',
-    classicSource: '《左傳》哀公二十二年傳文（《春秋》於哀公十四年絕筆，吳亡不出於經，此為傳文起句）',
+    classicSource: '《左傳》哀公二十二年傳文（《春秋》於哀公十四年絕筆，吳亡不出於經，此為傳文起句。查證：python3 scripts/qsrc.py 春秋左氏傳/哀公 越滅吳 → 命中於「傳」段「冬．十一月．丁卯．越滅吳．請使吳王居甬東」；同頁「經」段末條為哀公十四年「西狩獲麟」，二十二年無經，舊標「經文」誤）',
     paraphrase: false,
     layers: {
       elementary:
