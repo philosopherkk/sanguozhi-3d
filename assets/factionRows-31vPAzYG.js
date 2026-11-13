@@ -1,0 +1,1 @@
+function e(e,t,n){let r=new Set(e.map(e=>e.faction)),i=t.filter(e=>!r.has(e.id)&&n>=e.activeFrom&&n<=e.activeTo).map(e=>({faction:e.id,n:0}));return i.length?[...e,...i]:e}export{e as t};

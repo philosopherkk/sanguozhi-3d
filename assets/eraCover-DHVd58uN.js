@@ -1,1 +1,0 @@
-import{t as e}from"./eraRegions-DKC7Q6WI.js";function t(t,...n){let r=[];for(let t of n){let n=e[t];if(n)for(let e of n)e.length>=3&&r.push(e)}return{faction:t,rings:r,ids:[...n]}}export{t};
