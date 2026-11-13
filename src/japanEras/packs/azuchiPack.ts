@@ -10,6 +10,15 @@ import type { SengokuFactionId, SengokuRegionId } from '../../sengoku/types'
 import type { JapanDeepDivePack } from '../deepDiveTypes'
 import { JP_DOMAINS } from '../jpDomains'
 import { noDetail } from '../packHelpers'
+import { IMJIN_FACTIONS, IMJIN_WINDOW } from './imjinWar'
+import {
+  IMJIN_EVENTS,
+  IMJIN_LEADERS_BY_YEAR,
+  IMJIN_PEOPLE,
+  IMJIN_READINGS,
+  IMJIN_SITUATION,
+  imjinDetailFor,
+} from './imjinWarEvents'
 
 const REGION_DOMAINS: Record<SengokuRegionId, string[]> = {
   奧羽: ['d0', 'd4', 'd5', 'd15', 'd18'],
@@ -120,6 +129,8 @@ const FACTIONS = [
     activeTo: 1615,
     source: '地圖圖例',
   },
+  // 朝鮮之役窗口（1592–1598）的三勢力；只在地圖窗口激活時出現在圖例
+  ...IMJIN_FACTIONS,
 ]
 
 // 三層意譯（小學生／中學生／大學生）。軍記與追想記一律標明性質；無可逐字比對之本文者寫「通說整理」。
@@ -172,6 +183,8 @@ const READINGS: Record<string, EraReading> = {
         '關原之戰的細節幾乎全部來自後世軍記：《關原軍記大成》成書於十七世紀末，把戰鬥寫成忠義典範的劇本，對話與時刻均不可作實錄；《德川實紀》是十九世紀的幕府官修史，立場是為德川正統性定調。同時代的一手材料反而零碎——京都公家的日記、傳教士書簡、各藩的家系記錄，彼此在兵力、死傷、倒戈時刻上差異極大，因此本條不寫《八萬對八萬》或《半日決戰》的通行數字，一律標 disputed。研究上比較穩的結論是：關原的意義不在戰術而在政治安排，家康此後以《武家諸法度》與禁中並公家諸法度（一六一五）把大名的行為寫成法令，等於把關原的臨時約定制度化。地圖在此年僅畫兩軍的集結與觀望位置，不把西軍的《勢力範圍》塗色，因為那些地區多數從未發生戰鬥。',
     },
   },
+  // 朝鮮之役（1592–1598）三層意譯，引文出處與查證口徑見 imjinWarEvents.ts 檔頭
+  ...IMJIN_READINGS,
 }
 
 export const AZUCHI_PACK: JapanDeepDivePack = {
@@ -187,6 +200,8 @@ export const AZUCHI_PACK: JapanDeepDivePack = {
     { year: 1573, label: '放逐義昭' },
     { year: 1582, label: '本能寺' },
     { year: 1590, label: '小田原' },
+    { year: 1592, label: '釜山上陸' },
+    { year: 1597, label: '丁酉再亂' },
     { year: 1600, label: '關原' },
     { year: 1603, label: '開幕府' },
   ],
@@ -257,6 +272,8 @@ export const AZUCHI_PACK: JapanDeepDivePack = {
       disputed: true,
       note: '兵力、死傷與倒戈時刻各源差異極大，本條不寫「八萬對八萬」「半日決戰」之類通行數字。戰鬥細節幾乎全出自《關原軍記大成》（十七世紀末軍記）與《德川實紀》（十九世紀幕府官修），二者皆後出且立場明確；同時代的一手材料（公家日記、傳教士書簡、各藩家系記錄）反而彼此不合。地圖此年只畫兩軍集結與觀望位置，不把西軍地區塗色。',
     },
+    // 朝鮮之役專條（1592–1598）：出處、disputed 理由與查證口徑見 imjinWarEvents.ts
+    ...IMJIN_EVENTS,
   ],
   people: [
     {
@@ -286,8 +303,10 @@ export const AZUCHI_PACK: JapanDeepDivePack = {
       summary: '關原勝出，開江戶幕府；大坂之陣滅豐臣。',
       source: '日本戰國通說',
     },
+    // 朝鮮之役人物（日·明·朝鮮三方）
+    ...IMJIN_PEOPLE,
   ],
-  situation: SENGOKU_SITUATION,
+  situation: { ...SENGOKU_SITUATION, ...IMJIN_SITUATION },
   leadersByYear: {
     1573: [
       { faction: '織田', name: '織田信長', role: '霸主', source: '日本戰國通說' },
@@ -306,8 +325,11 @@ export const AZUCHI_PACK: JapanDeepDivePack = {
     1615: [
       { faction: '德川', name: '德川家康', role: '大御所', source: '日本戰國通說' },
     ],
+    ...IMJIN_LEADERS_BY_YEAR,
   },
-  emptyHint: '此年無登錄專條。試 1573、1582、1600。大坂之陣在「德川江戶」。',
-  detailFor: noDetail,
-  readingFor: (id) => READINGS[id],
+  // 1592–1598 年份落在窗口時，地圖整套切到東亞戰區底圖（座標系不同，取代而非合併）
+  mapWindows: [IMJIN_WINDOW],
+  emptyHint: '此年無登錄專條。試 1573、1582、1592、1600。大坂之陣在「德川江戶」。',
+  detailFor: (id) => noDetail(id) ?? imjinDetailFor(id),
+  readingFor: (id) => READINGS[id] ?? IMJIN_READINGS[id],
 }
