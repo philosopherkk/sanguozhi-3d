@@ -27,6 +27,29 @@ function snapshotOrd(snap: ImperialSnapshot, year: number, atMonth: number): num
   return (snap.month ?? 12) - atMonth
 }
 
+/**
+ * 以滑桿當下年份過濾快照色塊：色塊所屬勢力若登記了 activeFrom／activeTo
+ * （政權號存續年份），超出年份即不再著色——沿用舊快照的年份裡，亡國之號
+ * （如 1126 年的遼、1235 年的金、980 年的北漢）不該還留在圖上。
+ * 沒有登記存續年份的勢力、色塊勢力未見於登錄者，一律照畫，其餘九包行為不變。
+ */
+export function activeExtensions(
+  pack: ImperialPack,
+  snapshot: ImperialSnapshot,
+  year: number,
+): NonNullable<ImperialSnapshot['extensions']> {
+  const all = snapshot.extensions ?? []
+  if (all.length === 0) return all
+  const bounds = new Map(pack.factions.map((f) => [f.id, f]))
+  return all.filter((ext) => {
+    const f = bounds.get(ext.faction)
+    if (!f) return true
+    if (f.activeFrom != null && year < f.activeFrom) return false
+    if (f.activeTo != null && year > f.activeTo) return false
+    return true
+  })
+}
+
 
 export function resolveImperialLeaders(
   pack: ImperialPack,

@@ -6,6 +6,10 @@ export interface ImperialFaction {
   id: string
   name: string
   color: string
+  /** 政權號最早有效的年份（未登記之勢力不查）。缺省視為常年有效。 */
+  activeFrom?: number
+  /** 政權號最後有效的年份（亡國、改號之年）。缺省視為常年有效。 */
+  activeTo?: number
 }
 
 export interface ImperialSnapshot {
@@ -123,6 +127,8 @@ export interface ImperialPack {
       politics: string
       source: string
       disputed?: boolean
+      /** disputed 的理據一句（AGENTS.md：理由寫落 note 欄） */
+      note?: string
       /** 點開勢力時顯示：這支勢力屬於哪個時代 */
       eraIntro?: string
     }

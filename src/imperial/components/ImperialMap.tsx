@@ -24,6 +24,7 @@ import {
   type ViewTransform,
 } from '../../lib/mapViewport'
 import { imperialFactionColor, imperialFactionName } from '../lib/factionColor'
+import { activeExtensions } from '../lib/resolveSnapshot'
 import { useImperialSelection } from '../state/ImperialSelectionContext'
 import { useImperialYear } from '../state/ImperialYearContext'
 
@@ -65,11 +66,11 @@ export function ImperialMap() {
   const shapes = useMemo(
     () =>
       shapesFromExtensions([
-        ...(snapshot.extensions ?? []),
+        ...activeExtensions(pack, snapshot, year),
         // 民國以後的 pack 以省級 id 記 control，此處經 ERA_RINGS 還原成色塊
         ...controlToExtensions(snapshot.control),
       ]),
-    [snapshot],
+    [snapshot, pack, year],
   )
 
   const wrapRef = useRef<HTMLDivElement>(null)
