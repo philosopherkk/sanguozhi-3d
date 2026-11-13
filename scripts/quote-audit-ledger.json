@@ -685,9 +685,9 @@
     "at": "2026-11-08"
   },
   "src/zhou/data/timeline.ts#fenjin": {
-    "stamp": "c951c20b",
+    "stamp": "25351fb8",
     "page": "資治通鑑/卷001",
-    "at": "2026-11-08"
+    "at": "2026-11-13"
   },
   "src/zhou/data/timeline.ts#tianqi": {
     "stamp": "ac37eb87",
@@ -735,9 +735,9 @@
     "at": "2026-11-08"
   },
   "src/data/timelineDetails.ts#190-guandong": {
-    "stamp": "867f6195",
+    "stamp": "922c6847",
     "page": "資治通鑑/卷059",
-    "at": "2026-11-08"
+    "at": "2026-11-13"
   },
   "src/data/timelineDetails.ts#192-dongzhuo-killed": {
     "stamp": "6ba5d51a",
@@ -1205,9 +1205,9 @@
     "at": "2026-11-11"
   },
   "src/zhou/data/timelineMore.ts#ailing": {
-    "stamp": "f4d9fb50",
+    "stamp": "6dc30e65",
     "page": "春秋左氏傳/哀公",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/zhou/data/timelineMore.ts#lize": {
     "stamp": "40cc2955",
@@ -1280,9 +1280,9 @@
     "at": "2026-11-12"
   },
   "src/zhou/data/timeline.ts#mie-zhao": {
-    "stamp": "f240a3b1",
+    "stamp": "a312ea36",
     "page": "史記/卷006",
-    "at": "2026-11-12"
+    "at": "2026-11-13"
   },
   "src/zhou/data/timeline.ts#mie-wei": {
     "stamp": "340db5f6",
@@ -1345,9 +1345,9 @@
     "at": "2026-11-12"
   },
   "src/imperial/data/yuanMingQingPack.ts#ymq-1271": {
-    "stamp": "57ae5c00",
+    "stamp": "71921162",
     "page": "元史/卷007",
-    "at": "2026-11-12"
+    "at": "2026-11-13"
   },
   "src/imperial/data/yuanMingQingPack.ts#ymq-1274": {
     "stamp": "e284f938",
@@ -1388,5 +1388,35 @@
     "stamp": "f2084acf",
     "page": "史記/卷033",
     "at": "2026-11-12"
+  },
+  "src/zhou/data/earlyDynasty.ts#xia-qi": {
+    "stamp": "35647202",
+    "page": "史記/卷002",
+    "at": "2026-11-13"
+  },
+  "src/zhou/data/earlyDynasty.ts#xia-shaokang": {
+    "stamp": "5e43094a",
+    "page": "春秋左氏傳/哀公",
+    "at": "2026-11-13"
+  },
+  "src/zhou/data/earlyDynasty.ts#zhou-gonghe": {
+    "stamp": "17499b48",
+    "page": "史記/卷004",
+    "at": "2026-11-13"
+  },
+  "src/zhou/data/earlyDynastyMore.ts#xia-hanzhuo": {
+    "stamp": "111f8f55",
+    "page": "春秋左氏傳/襄公",
+    "at": "2026-11-13"
+  },
+  "src/zhou/data/earlyDynastyMore.ts#shang-wuyi": {
+    "stamp": "e881ee06",
+    "page": "史記/卷003",
+    "at": "2026-11-13"
+  },
+  "src/zhou/data/earlyDynastyMore.ts#zhou-liaomin": {
+    "stamp": "e7636831",
+    "page": "國語/卷01",
+    "at": "2026-11-13"
   }
 }
