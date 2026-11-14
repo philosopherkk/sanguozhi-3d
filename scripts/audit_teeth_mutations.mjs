@@ -122,7 +122,7 @@ const SUITES = [
   {
     name: 'chars',
     gate: 'audit:chars --teeth',
-    min: 7,
+    min: 11,
     metric: /失敗 (\d+) 項/,
     /** 副本要喺 `<tmp>/chars/` 重鋪成縮小版 repo：佢會 own import.meta.dirname 去搵
      *  `./lib/gate-baseline.ts` 與 `../reports/chars-allowlist.json`；缺一個就係假紅。 */
@@ -156,6 +156,19 @@ const SUITES = [
       { name: '預設掃描根目錄失去 docs（整輪正體化喺閘門外）',
         find: "const roots = positional.length ? positional : ['src', 'scripts', 'docs']",
         to: "const roots = positional.length ? positional : ['src', 'scripts']" },
+      // ── chars-block 標記豁免（2026-11-14 納入 .py 時一併加嘅牙）──
+      // 口徑要講準：`audit:chars --teeth` 只跑自己嘅探針、**唔掃 repo**，所以呢四條
+      // 全部係由 teeth 內部的 chars-block 探針接住（豁免失效 → 探測表啲字外洩 → 探針紅）。
+      // 副檔名嗰條唔同類：抽走 .py 係**靜默退化**，永遠唔會自己報紅，
+      // 所以由 audit-chars 嘅源碼守門（掃描副檔名清單斷言）接住。
+      { name: 'BLOCK_START 正則改錯（探測表豁免制空 → 成批錯字落地）', re: [/^const BLOCK_START = .*$/, 'm'],
+        to: 'const BLOCK_START = /^\\s*(?:\\/\\/|#|\\*)\\s*chars-block-START\\b(.*)$/' },
+      { name: 'BLOCK_END 正則改錯（豁免唔合攏，fail-closed 要叫）', re: [/^const BLOCK_END = .*$/, 'm'],
+        to: 'const BLOCK_END = /^\\s*(?:\\/\\/|#|\\*)\\s*chars-block-END\\b/' },
+      { name: '標記豁免直接唔生效（偵測表被人「正體化」都冇人叫）',
+        find: 'if (blocks.covered.has(i)) return', to: 'void 0' },
+      { name: '副檔名清單失去 .py（`处`／`径` 嗰類盲區迴歸）',
+        find: "p.endsWith('.py')) &&", to: "p.endsWith('.pyy')) &&" },
     ],
   },
 ]

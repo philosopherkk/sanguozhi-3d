@@ -58,6 +58,8 @@ for line in open(os.path.join(DD, 'STCharacters.txt'), encoding='utf-8'):
         ST[p[0]] = p[1]
 assert len(ST) > 3000, f'STCharacters 只解析出 {len(ST)} 條，一定是分隔符號錯了'
 
+# chars-block-start 三張探測表（JP／KEEP／KEEP_PHRASE）本身就係簡體與日文新字對照，
+#   正體化會令覆核永遠失靈；只豁免以下 53 行，本檔其餘敘述照掃
 # ── 探測表開始 ────────────────────────────────────────────────────────────
 # 以下各表入面出現目標字形屬**預期**（原典字形／兩用字／可追蹤識別碼），所以掃描時
 # 只跳過呢段對照註釋以內嘅行。刻意唔用「按檔名豁免」：檔名豁免會連本檔敘述一起失明，
@@ -111,6 +113,7 @@ BAD = {k: v for k, v in BAD.items() if k not in KEEP}
 assert len(BAD) > 3000, f'候選字集只有 {len(BAD)}，一定解析錯了'
 
 # ── 探測表結束 ────────────────────────────────────────────────────────────
+# chars-block-end
 
 # 跳過（每條都要寫憑什麼）：
 #   Meshes/Avatars/.gen./vendor  產生物；audit-*/fetchArticle  偵測表本身含目標字

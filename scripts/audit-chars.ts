@@ -313,6 +313,55 @@ const SKIP_FILE =
 // 改了會斷連結）。但 `{ name: '東郷平八郎' }` 是給讀者看的人名，照本庫慣例要正體化（西鄉、木戶），
 // 所以花括號形式只豁免 id／label／code，不豁免 name。
 const SKIP_LINE = /"name":|^\s*(id|name|label|code):\s*['"]|^\s*\{\s*(id|label|code):\s*['"]/
+
+// ── 探測表標記豁免（chars-block）─────────────────────────────────────────
+// 有些檔的職責就是「列出一堆錯字」（qsrc.py 的異體字對照表、覆核工具 verify_chars_opencc.py
+// 的探測表）。把那些字形正體化會令偵測永遠失靈，所以一定要豁免；但**整檔跳過**會連同檔
+// 敘述一起失明——本專案記過五次同一根因，全都是豁免範圍太大。因此改用成對標記，
+// 只包住表格那幾行：
+//   起行：  # chars-block-start <憑什麼>     ← 冇寫憑什麼即拒絕（無聲擴大豁免＝失明）
+//   迄行：  # chars-block-end
+// fail-closed：開始冇結束、段太長、冇理由，一律**照常掃**並報 HARD。
+// 標記用「註釋符開頭 + 行首」判，唔准用 `in`：2026-11-14 在 verify_chars_opencc.py 用 `in`
+// 判標記，常量定義行自己就含標記，令**未突變副本都被斷言咬住**（2/2），所有「咬到」變假。
+const BLOCK_START = /^\s*(?:\/\/|#|\*)\s*chars-block-start\b(.*)$/
+const BLOCK_END = /^\s*(?:\/\/|#|\*)\s*chars-block-end\b/
+const BLOCK_MAX_LINES = 80 // qsrc.py 變體字表 8 行、覆核工具三張表 53 行；上限只防默默擴大
+
+/** 回傳「該檔因標記而豁免的行號」與「標記本身的問題」。問題行一律由呼叫端計入 hard。 */
+function blockExemption(lines: string[], f: string): { covered: Set<number>; problems: string[] } {
+  const covered = new Set<number>()
+  const problems: string[] = []
+  let open = -1
+  let openOk = false
+  lines.forEach((line, i) => {
+    const start = line.match(BLOCK_START)
+    if (start) {
+      if (open >= 0)
+        problems.push(`${f}:${open + 1} 探測表標記 第 ${i + 1} 行又開始，前一段未合攏——豁免範圍唔受控`)
+      open = i
+      const reason = (start[1] ?? '').replace(/^[\s:：\-–—]+/, '').trim()
+      openOk = reason.length >= 4
+      if (!openOk) problems.push(`${f}:${i + 1} 探測表標記 開始行冇寫憑什麼（豁免必須寫明原因）`)
+      return
+    }
+    if (!BLOCK_END.test(line)) return
+    if (open < 0) {
+      problems.push(`${f}:${i + 1} 探測表標記 結束行冇對應嘅開始（標記打錯或漏了起行）`)
+      return
+    }
+    const n = i - open + 1
+    if (n > BLOCK_MAX_LINES) {
+      problems.push(`${f}:${open + 1} 探測表標記 豁免段 ${n} 行，超過上限 ${BLOCK_MAX_LINES}——要放寬就喺本檔寫憑什麼`)
+    } else if (openOk) {
+      for (let k = open; k <= i; k += 1) covered.add(k)
+    }
+    open = -1
+  })
+  if (open >= 0)
+    problems.push(`${f}:${open + 1} 探測表標記 開始之後冇結束（豁免會吞到檔尾＝失明），本次唔豁免任何行`)
+  return { covered, problems }
+}
 // 日文敘述行（含假名或日文助詞）：那裡的日本新字（徳、記録、国内）是正確的，不要「繁化」
 // 日文新字（実・徳・旧・対・帰・録…）在繁體中文裡不出現，出現即代表這行是日文文字
 // （書名、人名、術語），不是寫錯的繁體。把它們當成日文訊號，整行跳過。
@@ -341,7 +390,11 @@ function walk(dir: string, out: string[] = []): string[] {
         p.endsWith('.md') ||
         // CSS 與 mjs 一併檢查：註釋與 content: "…" 均屬介面文案，此前未被掃描
         p.endsWith('.css') ||
-        p.endsWith('.mjs')) &&
+        p.endsWith('.mjs') ||
+        // 2026-11-14 使用者裁定納入 .py：腳本註釋與訊息同樣會洩到介面／報告上，
+        // 而 `处`→處、`径`→徑 兩條真錯字正是因為 .py 在閘門外才溜進去的。
+        // 腳本裡的「錯字偵測表」走 chars-block 標記豁免（見上），不再整檔跳過。
+        p.endsWith('.py')) &&
       !SKIP_FILE.test(p)
     )
       out.push(p)
@@ -418,19 +471,24 @@ if (flags.includes('--teeth')) {
     "export const g = '万 松 台 岳 里 面 于 并 来 屬同形兩用字，刻意不入 HARD。';",
   ]
   let bad = 0
-  const run = (lines: string[], sub = '') => {
-    const file = join(dir, sub, 'probe.ts')
+  const scan = (lines: string[], sub: string, ext = 'ts'): string => {
+    const file = join(dir, sub, `probe.${ext}`)
     mkdirSync(dirname(file), { recursive: true })
     writeFileSync(file, lines.join('\n') + '\n', 'utf8')
     const r = spawnSync(process.execPath, ['--experimental-strip-types', join(import.meta.dirname, 'audit-chars.ts'), file, '--gate=teeth'], { encoding: 'utf8' })
+    return r.stdout + r.stderr
+  }
+  const hitsOf = (out: string): Set<string> => {
     const hit = new Set<string>()
-    for (const l of (r.stdout + r.stderr).split('\n')) {
+    for (const l of out.split('\n')) {
       // 一行可能有多個「字→正字」（粵語行會一次列多個虛詞），全部收進來才判得準
       if (l.startsWith('HARD ')) for (const m of l.matchAll(/([^\s→]+)→/g)) hit.add(m[1])
       if (/^HARD \S+ 佔位符/.test(l)) hit.add('佔位符')
+      if (/^HARD \S+ 探測表標記/.test(l)) hit.add('標記')
     }
     return hit
   }
+  const run = (lines: string[], sub = '', ext = 'ts') => hitsOf(scan(lines, sub, ext))
   for (const [name, expect, lines, expectNot] of cases) {
     const hit = run(lines)
     const miss = expect.filter((c) => !hit.has(c))
@@ -467,6 +525,89 @@ if (flags.includes('--teeth')) {
     if (hit.size) { bad += 1; console.log(`  ✗ 粵語豁免失靈（${name} 被當網站文字報了 ${hit.size} 行）`) }
     else console.log(`  ✓ 粵語豁免：${name} 照預期不報`)
   }
+  // ── .py 副檔名 與 chars-block 標記豁免（2026-11-14 使用者裁定把 .py 納入閘門）──
+  // 三個方向都要釘死：.py 有牙、標記確實豁免到、標記壞咗會叫（fail-closed：寧可報錯字，
+  // 都唔可以靜靜把成檔豁免）。目標錯字一律用 \uXXXX 轉義——呢啲係探針，唔屬於豁免對象。
+  const DUI = '\u5bf9' // 「對」的簡體形
+  const QU = '\u533a' // 「區」的簡體形
+  const CHUAN = '\u4f20' // 「傳」的簡體形
+  const JING = '\u7ecf' // 「經」的簡體形；只擺喺豁免段以外，證明標記冇吞到成檔
+  const TABLE = [
+    '# chars-block-start 錯字偵測表：以下字形係佢要抓嘅目標，正體化會令偵測永遠失靈',
+    `SIMPS = ['${DUI}', '${QU}', '${CHUAN}']`,
+    '# chars-block-end',
+  ]
+  const LONG = [TABLE[0], ...Array.from({ length: 90 }, () => `S = '${QU}'`), TABLE[2]]
+  // [案例名, 注入內容, 必須報, 必須唔報, 標記問題要见到邊種字眼]
+  const blockCases: Array<[string, string[], string[], string[], string[]]> = [
+    ['.py 冇標記時照掃（副檔名盲區迴歸）', [`n = '${DUI}${QU}'`], [DUI, QU], [], []],
+    ['chars-block 豁免生效（偵測表唔再報，段以外照掃）', [...TABLE, `n = '${JING}'`], [JING], [DUI, QU, CHUAN], []],
+    ['chars-block 冇結束（fail-closed：成段照掃＋叫）', [TABLE[0], TABLE[1]], [DUI, QU, '標記'], [], ['冇結束']],
+    ['chars-block 冇寫憑什麼（拒絕無聲擴大）', ['# chars-block-start', `SIMPS = ['${DUI}']`, '# chars-block-end', `n = '${JING}'`], ['標記'], [], ['憑什麼']],
+    ['chars-block 超過行數上限（叫，且照掃）', [...LONG, `n = '${JING}'`], ['標記', QU], [], ['超過上限']],
+  ]
+  blockCases.forEach(([name, lines, expect, expectNot, markerWant], idx) => {
+    const out = scan(lines, `block${idx}`, 'py')
+    const hit = hitsOf(out)
+    const miss = expect.filter((c) => !hit.has(c))
+    const over = expectNot.filter((c) => hit.has(c))
+    // 標記問題要見到**具體嗰種**（淨係「有報」唔夠：報錯方向都算咬到）
+    const missingMarker = markerWant.filter((w) => !out.includes(w))
+    if (miss.length || over.length || missingMarker.length) {
+      bad += 1
+      console.log(
+        `  ✗ ${name}：${miss.length ? `未咬到 ${miss.join(' ')}` : ''}` +
+          `${over.length ? `／誤報 ${over.join(' ')}` : ''}` +
+          `${missingMarker.length ? `／冇報「${missingMarker.join(' ')}」呢種標記問題` : ''}`,
+      )
+    } else {
+      console.log(`  ✓ ${name}`)
+    }
+  })
+  // 副檔名清單本身都會退化：抽走一支，嗰類檔一夜變喺閘門外（.py 就係咁漏了 `处`／`径`）。
+  const selfSrc = readFileSync(join(import.meta.dirname, 'audit-chars.ts'), 'utf8')
+  const walkSrc = selfSrc.match(/function walk[\s\S]*?\n\}/)?.[0] ?? ''
+  const missingExt = ['.ts', '.tsx', '.md', '.css', '.mjs', '.py'].filter((e) => !walkSrc.includes(`p.endsWith('${e}')`))
+  if (missingExt.length) { bad += 1; console.log(`  ✗ 掃描副檔名缺少 ${missingExt.join(' ')}`) }
+  else console.log('  ✓ 掃描副檔名含 .ts .tsx .md .css .mjs .py')
+  // 標記機制本身都有牙：把正則改弱，用探針重掃一次。
+  // 口徑要講清楚：呢度測嘅唔係「變弱之後會報紅」（靜靜擴大豁免本來就唔會報），
+  // 而是**呢條豁免係 load-bearing**——抽走佢，探測表啲字就成批落地，即真 repo 嘅
+  // 基準閘門會即刻爆。靜靜擴大嗰類（上限、範圍）一律改用**源碼守門**，因為佢哋
+  // 永遠唔會自己報紅（本專案五次同一根因都係呢類）。
+  const selfMutations: Array<[string, RegExp, string, string[]]> = [
+    ['BLOCK_START 正則改錯（豁免機制定空 → 探測表成批變錯字）',
+      /const BLOCK_START = .*/, 'const BLOCK_START = /^\\s*(?:\\/\\/|#|\\*)\\s*chars-block-START\\b(.*)$/', [DUI, QU]],
+    ['BLOCK_END 正則改錯（豁免永遠唔合攏 → fail-closed 要叫，且成段照掃）',
+      /const BLOCK_END = .*/, 'const BLOCK_END = /^\\s*(?:\\/\\/|#|\\*)\\s*chars-block-END\\b/', ['標記', DUI, QU]],
+  ]
+  // 突變副本要照 chars suite 同樣嘅縮小版 repo 佈局：佢 own import.meta.dirname 去搵
+  // `./lib/gate-baseline.ts` 與 `../reports/chars-allowlist.json`，缺一個就係假紅。
+  const baselineLib = readFileSync(join(import.meta.dirname, 'lib', 'gate-baseline.ts'), 'utf8')
+  const allowlistJson = readFileSync(join(import.meta.dirname, '..', 'reports', 'chars-allowlist.json'), 'utf8')
+  for (const [idx, [name, re, to, want]] of selfMutations.entries()) {
+    const mutated = selfSrc.replace(re, () => to)
+    if (mutated === selfSrc) { bad += 1; console.log(`  ✗ ${name}：錨點搵唔到，本項突變自己失效（假綠）`); continue }
+    const tmpDir = join(dir, 'selfmut', String(idx))
+    mkdirSync(join(tmpDir, 'scripts', 'lib'), { recursive: true })
+    mkdirSync(join(tmpDir, 'reports'), { recursive: true })
+    writeFileSync(join(tmpDir, 'scripts', 'lib', 'gate-baseline.ts'), baselineLib, 'utf8')
+    writeFileSync(join(tmpDir, 'reports', 'chars-allowlist.json'), allowlistJson, 'utf8')
+    const tmp = join(tmpDir, 'scripts', 'audit-chars.ts')
+    writeFileSync(tmp, mutated, 'utf8')
+    const probe = join(tmpDir, 'probe.py')
+    writeFileSync(probe, [...TABLE, `n = '${JING}'`].join('\n') + '\n', 'utf8')
+    const out = spawnSync(process.execPath, ['--experimental-strip-types', tmp, probe, '--gate=teeth'], { encoding: 'utf8' }).stdout || ''
+    if (!out.includes('硬傷')) { bad += 1; console.log(`  ✗ ${name}：突變副本跑唔起（冇匯總行）——「冇報」唔係「通過」`); continue }
+    const hit = hitsOf(out)
+    const miss = want.filter((w) => (w === '標記' ? !/探測表標記/.test(out) : !hit.has(w)))
+    if (miss.length) { bad += 1; console.log(`  ✗ 假綠：${name} → 抽走呢條規則之後冇任何變化（${miss.join(' ')}），即豁免從來唔係 load-bearing`) }
+    else console.log(`  ✓ ${name} → 抽走之後閘門即刻報 ${want.length} 類（豁免確實在做嘢）`)
+  }
+  // 靜靜擴大嗰類只能用源碼守門：上限被放寬時唔會有任何行為變化，所以直接睇數值。
+  const capSrc = Number(selfSrc.match(/const BLOCK_MAX_LINES = (\d+)/)?.[1] ?? 0)
+  if (!(capSrc > 0 && capSrc <= 80)) { bad += 1; console.log(`  ✗ BLOCK_MAX_LINES = ${capSrc}（上限被放寬或抽走：豁免範圍擴大咗唔會報紅，只能喺呢度釘死）`) }
+  else console.log(`  ✓ BLOCK_MAX_LINES = ${capSrc}（未放寬；qsrc.py 8 行、覆核工具 53 行）`)
   // 掃描範圍本身也是會退化的東西：docs 與 scripts 一旦掉出預設 roots，整輪正體化就在閘門外。
   const rootsSrc = readFileSync(join(import.meta.dirname, 'audit-chars.ts'), 'utf8').match(/const roots = positional\.length \? positional : \[([^\]]*)\]/)
   const missing = ['src', 'scripts', 'docs'].filter((r) => !rootsSrc?.[1].includes(`'${r}'`))
@@ -514,7 +655,14 @@ for (const f of files) {
       }
     }
     const lines = full.split('\n')
+    // 標記豁免先算：有問題（冇結束／冇理由／過長）一律報 HARD 且**不豁免任何行**
+    const blocks = blockExemption(lines, f)
+    for (const p of blocks.problems) {
+      hard += 1
+      console.log(`HARD ${p}`)
+    }
     lines.forEach((line, i) => {
+      if (blocks.covered.has(i)) return
       if (SKIP_LINE.test(line)) return
       // 含假名的行不再整行放過（見 maskNearKana 的說明），改為逐字遮蔽日文鄰字；
       // 視境字（SOFT）仍跳過假名行，否則日文資料會淹沒報告。

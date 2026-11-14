@@ -213,9 +213,24 @@ opencc-python-reimplemented（本 repo 冇 pyproject，同 numpy 一樣靠本機
 **本輪改咗嘅真錯字**（覆核工具掃到自己先見到）：check_ring_landmarks.py 嘅 `处`→處、
 check_route_landmarks.py 嘅 `径`→徑，同埋 src/ 內五處我方敘述用錯字形。
 
-**新發現嘅閘門盲區（未處理，待使用者裁定）**：audit-chars.ts 嘅掃描副檔名只有
-.ts .tsx .md .css .mjs，即 scripts/ 入面 20 支 .py 同 19 個 .json 完全喺閘門外——
-上面嗰兩條 `处`／`径` 就係因此溜入。要唔納入，涉及探測表擺邊度，未擅自改。
+**副檔名盲區已關閉一半（2026-11-14 使用者裁定：先納入 .py）**：audit-chars 之前只掃
+.ts .tsx .md .css .mjs，即 scripts/ 入面 20 支 .py 完全喺閘門外——上面嗰兩條 `处`／`径`
+就係咁溜入。而家 .py 入咗閘門，配套如下：
+
+- 偵測表豁免改用**成對標記** chars-block-start／chars-block-end（唔再整檔 SKIP_FILE）。
+  整檔跳過會連同檔敘述一齊失明，正正係本專案鬧過五次嘅根因。標記有三條規則，
+  冇一條係「寬鬆」：開始行必須寫憑什麼、段有 80 行上限、開始冇結束就 fail-closed
+  （寧可報錯字，都唔可以靜靜把成檔豁免）。標記用行首判（唔准用 in），原因見上面教訓 2。
+- 判咗嘅 18 條：改返兩支真錯字（qsrc.py 嘅 `双`→雙、check_route_landmarks.py 嘅 `区`→區，
+  後者同檔「兵庫區」本來就係正體，屬自我不一致）；CODH 資料集名「旧国」4 支檔位入
+  reports/chars-allowlist.json（同 .md 致謝檔同一判讀）；『明治二十七八年日清戰史』
+  引文入面嘅 `団` 照原形；qsrc.py 嘅版本異體對照表用 chars-block 包住。
+- 牙：audit:chars --teeth 加咗 5 條 chars-block 探針（豁免生效、唔越界、冇結束會叫、
+  冇憑什麼會拒、過長會拒）＋一支副檔名源碼守門；audit:teeth-mutations 加 4 條突變。
+  點解副檔名要用源碼守門：抽走一支副檔名係**靜默退化**，永遠唔會自己報紅。
+- **仍未處理**：19 個 .json 喺閘門外（例 idioms.json 嘅 lemma 欄寫「忠臣蔵」）。
+  佢哋嘅豁免要落到 source／cite／lemma **欄位級**，改嘅係語意規則，要連同欄位級豁免
+  嘅牙一齊做，所以未順手改。
 
 **三個教訓（都係靠「未突變副本必須全綠」呢條規矩先捉到）**：
 

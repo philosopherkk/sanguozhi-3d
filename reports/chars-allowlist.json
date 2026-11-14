@@ -88,5 +88,30 @@
     "file": "docs/MOBILE_PLAN.md",
     "char": "従",
     "reason": "同上：公文書原題『従松前西在郷并蝦夷地之覚』"
+  },
+  {
+    "file": "scripts/build_japan_kokugun_rings.py",
+    "char": "旧",
+    "reason": "引用 CODH 資料集原名『旧国・旧郡境界データセット』與「CODH 旧国 GeoJSON」，同 src/geo/japanEraRings.ts 同一判讀；生成物照來源名稱，改了等於篡改出處"
+  },
+  {
+    "file": "scripts/build_japan_kokugun_rings.py",
+    "char": "国",
+    "reason": "同上：「旧国」為日本令制國之資料集用字，照原形"
+  },
+  {
+    "file": "scripts/build_bakumatsu_han_rings.py",
+    "char": "旧",
+    "reason": "「旧国≠藩界」引用同一 CODH 資料集概念，照原形（與 build_japan_kokugun_rings.py 同一判讀）"
+  },
+  {
+    "file": "scripts/build_bakumatsu_han_rings.py",
+    "char": "国",
+    "reason": "同上：「旧国」為日本令制國之資料集用字，照原形"
+  },
+  {
+    "file": "scripts/check_route_landmarks.py",
+    "char": "団",
+    "reason": "陸軍參謀本部『明治二十七八年日清戰史』引文原文之師團用字（第5師団），引文照原典字形；覆核工具 KEEP_PHRASE 同一判讀"
   }
 ]
