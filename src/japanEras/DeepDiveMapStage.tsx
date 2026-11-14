@@ -13,7 +13,7 @@ import {
   ASIA_WAR_TERRITORY_NOTE_ZH,
 } from '../data/territory/provenance'
 
-/** 舊國 mesh 已覆蓋的 domainId；其余（蝦夷地、東蝦夷地、松前、琉球等）要另行渲染。 */
+/** 舊國 mesh 已覆蓋的 domainId；其餘（蝦夷地、東蝦夷地、松前、琉球等）要另行渲染。 */
 const KOKUGUN_DOMAIN_IDS = new Set(CODH_KOKUGUN_MESHES.map((m) => m.domainId))
 
 export function DeepDiveMapStage({ pack }: { pack: JapanDeepDivePack }) {
