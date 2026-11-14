@@ -28,7 +28,7 @@ export const P = {
   xuchang: [1309.4, 906.5] as Pt,
   feishui: [1420.2, 961.8] as Pt, // 淝水（今壽縣東，肥水故道入淮口）
   guabu: [1484.2, 955.8] as Pt, // 瓜步（今南京六合東南瓜埠，江北岸渡口）
-  hulao: [1274, 898] as Pt,
+  hulao: [1276, 876] as Pt,
   puban: [1208, 872] as Pt,
   jinyang: [1248, 760] as Pt,
   dingxiang: [1288, 740] as Pt,
