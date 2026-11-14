@@ -264,7 +264,6 @@
 }
 
 .map-stage-dock .power-board--embedded,
-.map-stage-dock .faction-legend,
 .map-stage-dock .faction-inspect--embedded {
   border: none;
   background: transparent;
@@ -273,11 +272,6 @@
 
 .map-stage-dock .power-board--embedded {
   padding: 0 0.15rem 0.35rem;
-}
-
-.map-stage-dock .map-stage__hint--in-dock {
-  margin: 0 0.15rem 0.35rem;
-  font-size: 0.62rem;
 }
 
 .visually-hidden {
@@ -1626,6 +1620,14 @@ html[data-theme='light'] .app-footer {
   color: var(--accent-dim);
 }
 
+/* 五溪蠻專註的引文行（隨已刪之勢力圖例連同邏輯一併搬來） */
+.power-board__note cite {
+  display: block;
+  margin-top: 0.15rem;
+  font-style: normal;
+  color: var(--accent-dim);
+}
+
 .faction-situation {
   margin: 0.45rem 0 0.55rem;
   padding: 0.45rem 0.5rem 0.55rem;
@@ -1983,70 +1985,6 @@ html[data-theme='light'] .app-footer {
 
 .panel--rail .subhead {
   margin-top: 0.75rem;
-}
-
-.faction-legend {
-  padding: 0.55rem 0.7rem;
-  max-width: min(100%, 18rem);
-  background: rgba(10, 14, 12, 0.78);
-  border: 1px solid var(--line);
-  backdrop-filter: blur(6px);
-}
-
-.faction-legend__title {
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  margin: 0 0 0.4rem;
-  font-weight: 600;
-}
-
-.faction-legend__sub {
-  display: block;
-  font-size: 0.65rem;
-  color: var(--ink-muted);
-  letter-spacing: 0.04em;
-  margin-top: 0.15rem;
-  font-weight: 400;
-}
-
-.faction-legend__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem 0.65rem;
-}
-
-.faction-legend__list li {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 0.72rem;
-  color: var(--ink-muted);
-}
-
-.faction-legend__swatch {
-  width: 0.65rem;
-  height: 0.65rem;
-  border-radius: 1px;
-  flex-shrink: 0;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
-}
-
-.faction-legend__note {
-  margin: 0.45rem 0 0;
-  font-size: 0.65rem;
-  line-height: 1.45;
-  color: var(--ink-muted);
-}
-
-.faction-legend__note cite {
-  display: block;
-  margin-top: 0.15rem;
-  font-style: normal;
-  color: var(--accent-dim);
 }
 
 .territory-provenance-note {
