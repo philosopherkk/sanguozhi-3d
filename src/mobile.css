@@ -121,14 +121,9 @@
     display: none;
   }
 
-  /* 實測此列 white-space:nowrap 且 overflow:visible，內容 397px 落在
-     305px 容器內而被遮斷；改為可橫向捲動，保留單行設計但內容可讀。 */
-  .year-scrubber__note--press {
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
+  /* .year-scrubber__note--press（修 5 時代的按鍵縮放態）：TSX 已無此
+     類名，提示行現為 .year-scrubber__note，基本樣式即自動換行，
+     殭屍規則連同其橫滑補救一併移除（2026-11-14 殭屍清理）。 */
 
   /* ── 修 6：主區改成垂直整屏翻頁 ──
      原本主區是 grid 上下兩格，側欄 overflow:hidden，因此地圖下方的
@@ -196,9 +191,10 @@
 
   /* ── 修 7：地圖浮層防撞 ──
      實測圖例寬 223px（佔螢幕 57%）且與底部圖層列重疊。
-     圖例改置頂，底部留給圖層列與縮放。 */
-  .map-2d__route-legend,
-  .map-2d__frontier-legend {
+     圖例改置頂，底部留給圖層列與縮放。
+     （原並列 .map-2d__frontier-legend：邊界圖例元件已刪，TSX 無
+     此類名，殭屍規則已移除。） */
+  .map-2d__route-legend {
     top: 2.4rem;
     bottom: auto;
     max-width: 42vw;
@@ -211,10 +207,6 @@
 
   .map-2d__route-legend {
     left: 0.4rem;
-  }
-
-  .map-2d__frontier-legend {
-    right: 0.4rem;
   }
 
   /* 主要控件補足 44px 按擊區（Apple HIG）。
@@ -365,7 +357,6 @@
 @media (min-width: 1025px) {
   .side-rail__map-first,
   .side-rail__chip,
-  .side-rail__toggle,
   .timeline-month-chip,
   .year-scrubber__note-toggle,
   .app-footer__toggle,
@@ -398,8 +389,7 @@
   .year-scrubber button,
   .app-footer button,
   .side-rail button,
-  .map-layer-bar button,
-  .map-mode-toggle button {
+  .map-layer-bar button {
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
@@ -544,9 +534,7 @@
   .side-rail__chip,
   .level-tabs__btn,
   .map-layer-bar__tabs button,
-  .map-mode-toggle button,
   .map-2d__toggles button,
-  .map-2d__route-toggle,
   .late-stage-bar__row button,
   .late-stage-bar__jump button,
   .reading-controls button,
@@ -555,7 +543,6 @@
   .app-footer__toggle,
   .collapsible-shell__toggle,
   .collapsible-shell__title,
-  .side-rail__toggle,
   .side-rail__map-first,
   .filters select,
   .people-search,
@@ -590,7 +577,6 @@
   .article-panel__collapse,
   .faction-inspect__head button,
   .faction-situation__head button,
-  .side-rail__toggle,
   .side-rail__map-first,
   .collapsible-shell__toggle,
   .power-board__toggle,
@@ -606,7 +592,10 @@
      （2.5.8）的 24px 底線。刻意不收：純標籤（topic-switch__label
      等）、地圖圖例 chip（faction-chip，容納於 6.5rem 上限的橫滑
      圖例內，另行評估），以及 map-mode-toggle／map-2d__route-toggle
-     兩個僅存於舊 CSS、TSX 已無對應元素的殭屍選擇器。 */
+     兩個 TSX 已無對應元素的殭屍選擇器（連同 side-rail__toggle、
+     map-2d__caret、map-2d__frontier-legend、terr-label__prov、
+     year-scrubber__note--press 共七組，已於同日殭屍清理自兩份
+     CSS 移除；faction-legend__btn 一組則由上游先刪）。 */
   .content-dock__tab,
   .content-dock__tab-year,
   .timeline-year--btn,
@@ -695,7 +684,6 @@
   .era-map__note,
   .map-2d__dynasty-hint,
   .map-layer-bar__fold span,
-  .map-2d__caret,
   .map-view-controls__btn--reset,
   .map-2d__zoom-btn--text,
   .map-2d__zoom-btn--reset,
@@ -732,7 +720,6 @@
     font-size: 0.8125rem;
   }
 
-  .terr-label__prov,
   .terr-label__fac {
     font-size: 0.75rem;
   }
@@ -796,7 +783,7 @@
    App.css 的桌面字級。實測 768×1024（iPad 直式，本專案最常用的平板
    尺寸）：
      卡片內文 .faction-inspect__change     10.4px
-     地圖省名 .terr-label__prov             9.0px
+     地圖省名 .terr-label__prov（已刪）      9.0px
      標籤・出處 .side-rail__label 等       11.5px
      年份備註 .year-scrubber__note--preview 9.9px
    平板物理尺寸比手機大、閱讀距離更遠，卻拿到全站最小的字，方向正好
