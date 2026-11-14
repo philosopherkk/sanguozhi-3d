@@ -255,28 +255,10 @@
   /* 本輪新增（393×852 實測，上一版完全未覆蓋，min-height 皆為 auto/0）：
        .power-board__row--btn 241×38（平安/江戶/中華人民共和國 三頁的勢力榜行，
          點一下展開該勢力詳情；.zhou-dock__body 本身 overflow-y:auto，加高可滾，安全）
-       .faction-legend__btn 43~109×25（江戶 5 顆、平安 1 顆；點一下選取該勢力，
-         屬地圖圖例，無等價控制 → 不適用 WCAG 2.5.8 豁免） */
-  .power-board__row--btn,
-  .faction-legend__btn {
+       （原並列 .faction-legend__btn 43~109×25——江戶／平安圖例掣隨 #170 前
+         輪時代圖例刪除後已無使用者，三國圖例 Dock 亦已刪，規則連同移除） */
+  .power-board__row--btn {
     min-height: var(--tap-min);
-  }
-
-  /* 圖例掣補高度後仍差 1px 寬（393×852 實測 43×44），補 min-width 才真正達 44×44；
-     圖例寬 288px，最寬那顆本就 109px，加 1px 不會影響排列。 */
-  .faction-legend__btn {
-    min-width: var(--tap-min);
-  }
-
-  /* 圖例原本是緊湊浮層：江戶 5 顆掣由 25→44px 會多出 ~95px，
-     .faction-legend 原本 bottom=739（視口 852），不設上限會被推到視口外而點不到。
-     因此給圖例清單一個上限並讓它在內部滾動——控件本身達 44px，
-     同時整體不會撐出螢幕（實測見 reports/UI-AUDIT.md）。 */
-  .faction-legend__list {
-    max-height: 40vh;
-    overflow-y: auto;
-    overscroll-behavior-y: contain;
-    -webkit-overflow-scrolling: touch;
   }
 
   /* 注意：刻意不為 .reading-controls button 補 min-width——
@@ -344,21 +326,9 @@
   .zhou-dock__bar button,
   .app-header__play,
   .map-layer-bar button,
-  /* 同上：勢力榜行與圖例掣在平板（768×1024 實測 241×38、43~109×25）同樣不足 44px */
-  .power-board__row--btn,
-  .faction-legend__btn {
+  /* 同上：勢力榜行在平板（768×1024 實測 241×38）同樣不足 44px */
+  .power-board__row--btn {
     min-height: var(--tap-min);
-  }
-
-  .faction-legend__btn {
-    min-width: var(--tap-min);
-  }
-
-  /* 圖例加高後在平板亦不得撐出視口（與窄屏同一理由） */
-  .faction-legend__list {
-    max-height: 45vh;
-    overflow-y: auto;
-    overscroll-behavior-y: contain;
   }
 
   .side-rail__map-first,
@@ -646,10 +616,6 @@
   .route-legend strong,
   .route-legend span,
   .route-legend__foot,
-  .faction-legend__title,
-  .faction-legend__sub,
-  .faction-legend__note,
-  .faction-legend__list li,
   .map-stage-dock__hint,
   .map-view-controls__hint,
   .map-view-controls__title,

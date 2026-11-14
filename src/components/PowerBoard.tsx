@@ -1,15 +1,23 @@
 import { useMemo, useState } from 'react'
 import { factionColor, factionName } from '../lib/factionColors'
 import { territoryStatsForControl } from '../lib/territoryStats'
+import { wuxiLegendNote } from '../data/unregisteredHouseholds'
+import { TERRITORY_GEOMETRY_PROVENANCE } from '../data/territoryControl'
+import { TerritoryGeometryProvenanceNote } from './TerritoryGeometryProvenanceNote'
 import { useSelection } from '../state/SelectionContext'
 import { useYear } from '../state/YearContext'
 
 export function PowerBoard({ embedded = false }: { embedded?: boolean }) {
-  const { year, control, territoryYear } = useYear()
+  const { year, control, territoryYear, activeFactions } = useYear()
   const { selectedFaction, selectFaction, clearFaction } = useSelection()
   const [expanded, setExpanded] = useState(true)
 
   const rows = useMemo(() => territoryStatsForControl(control), [control])
+  // 附註原掛在已刪的「勢力圖例」Dock（其清單與本面板同由 control 生成，
+  // 屬重複功能，見 reports/map-human-decisions.md §2026-11-14）；一併搬入。
+  const wuxiNote = activeFactions.includes('五溪蠻')
+    ? wuxiLegendNote(year)
+    : null
   const maxPercent = rows[0]?.percent ?? 1
   // 內嵌（dock）場合一律顯示完整列表；獨立場合才可摺疊
   const showFull = embedded || expanded
@@ -101,6 +109,22 @@ export function PowerBoard({ embedded = false }: { embedded?: boolean }) {
           </ol>
           <p className="power-board__note">
             點色塊或勢力列可看該年人口、戰力、糧食與境內政治、經濟。百分比為色塊的示意面積占比，不是戶籍、稅賦或兵力；州數只表示色塊。黃巾為起事區示意；國號不自稱之年改用個人號：220 年十月受禪前為曹操，214 年前為劉備，222 年受封吳王前為孫權；其後才用曹魏／蜀漢／孫吳。
+          </p>
+          {wuxiNote ? (
+            <p className="power-board__note">
+              {wuxiNote.text}
+              <cite>{wuxiNote.source}</cite>
+              {wuxiNote.note ? (
+                <span className="person-note"> {wuxiNote.note}</span>
+              ) : null}
+            </p>
+          ) : null}
+          <TerritoryGeometryProvenanceNote
+            provenance={TERRITORY_GEOMETRY_PROVENANCE}
+            className="power-board__note territory-provenance-note"
+          />
+          <p className="power-board__note">
+            底圖下方「圖層」可開勢力、行軍、塞外部族。
           </p>
         </>
       ) : (
