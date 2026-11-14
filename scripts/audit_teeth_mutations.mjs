@@ -122,7 +122,7 @@ const SUITES = [
   {
     name: 'chars',
     gate: 'audit:chars --teeth',
-    min: 20,
+    min: 23,
     metric: /失敗 (\d+) 項/,
     /** 副本要喺 `<tmp>/chars/` 重鋪成縮小版 repo：佢會 own import.meta.dirname 去搵
      *  `./lib/gate-baseline.ts` 與 `../reports/chars-allowlist.json`；缺一個就係假紅。 */
@@ -196,13 +196,24 @@ const SUITES = [
         to: 'if (false && anchorOf(a).length < ALLOW_CONTEXT_MIN) {' },
       { name: '錨長度下限放寬為 0（空字串變做萬能豁免）',
         find: 'const ALLOW_CONTEXT_MIN = 4', to: 'const ALLOW_CONTEXT_MIN = 0' },
-      // ── 詞級規則（2026-11-14 第四輪：`\u51c6` 呢支兩用字）──
-      // 字級 HARD 表收唔到 `\u51c6`（批准／核准／請准 88 處全部係正確字），所以「`\u51c6`
-      // ＋備／確／則／時／星／直」呢類簡體式寫法只能靠詞級名單。抽走迴圈 → 呢類成批溜走，
-      // 探針「詞級：准備必須咬到」同源碼守門都要報紅。
-      { name: '詞級規則抽走（簡體式「准＋備／確」成批溜走）',
+      // ── 詞級規則（兩用字只能逐詞判）──
+      // 字級 HARD 表收唔到呢批字（批准、皇后、里程、干係、党項 全部係正確字），所以簡體式寫法
+      // 只能靠詞級名單。抽走迭代嘅對象 → 呢類成批溜走，探針同源碼守門都要報紅。
+      { name: '詞級規則抽走（兩用字嘅簡體式寫法成批溜走）',
         find: 'for (const [word, fix] of Object.entries(HARD_WORDS)) {',
         to: 'for (const [word, fix] of [] as [string, string][]) {' },
+      // 兩條結構約束（2026-11-14 第八輪）：張表有 69 個詞，刪走一組（再喺其他組加返詞補數）、
+      // 或順手加個唔 related 嘅詞，現有資料都唔會報紅——只能靠「每組要有詞」同
+      // 「每個詞要屬於一組」呢兩條守門。錨點一律用轉義：呢檔唔喺 audit-chars 嘅
+      // SKIP_FILE 內，字面寫出目標錯字會被自己咬。
+      { name: '刪走一整組兩用字規則（后 組）',
+        find: "  \u4ee5\u540e: '\u4ee5\u5f8c', \u4e4b\u540e: '\u4e4b\u5f8c', \u7136\u540e: '\u7136\u5f8c', \u80cc\u540e: '\u80cc\u5f8c', \u540e\u9762: '\u5f8c\u9762',\n", to: '' },
+      { name: '詞級組名單抽走一支（規則變做無人認領）',
+        find: "'\u7740', '\u5374']",
+        to: "'\u5374']" },
+      { name: '詞表混入唔屬於任何組嘅詞（drift 無人查）',
+        find: "  \u51b7\u5374: '\u51b7\u537b',",
+        to: "  \u51b7\u5374: '\u51b7\u537b', \u9060\u5f81: '\u9060\u5f81', \u6771\u5f81: '\u6771\u5f81'," },
     ],
   },
 ]
