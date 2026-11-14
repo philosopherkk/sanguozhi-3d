@@ -43,7 +43,7 @@ export const NANBEI_ROUTES = [
   line('sha-yuan', '沙苑之戰', 537, '西魏', '《周書·文帝紀》。宇文泰敗高歡於沙苑。', [a.changan, a.puban]),
   line('heqiao', '河橋之戰', 538, '東魏', '《北齊書·神武紀下》：「魏帝躬率大衆屯河橋」「神武乃引軍渡河」。河橋即虎牢一帶黃河渡口，東魏軍自鄴西向，必先河橋而後洛陽，故以虎牢為中轉。', [a.yecheng, a.hulao, a.luoyang]),
   line('mangshan', '邙山之戰', 543, '東魏', '《周書·文帝紀》。高歡敗宇文泰於邙山。', [a.yecheng, a.luoyang]),
-  line('yubi', '玉壁之戰', 546, '西魏', '《周書·韋孝寬傳》。高歡攻玉壁，韋孝寬守。', [a.yecheng, a.shouyang]),
+  line('yubi', '玉壁之戰', 546, '西魏', '《周書·韋孝寬傳》。高歡攻玉壁，韋孝寬守。', [a.yecheng, a.yubi]),
   line('houjing', '侯景渡江', 548, '蕭梁', '《梁書·侯景傳》；《資治通鑑》卷一百六十一。自壽陽南下建康。', [a.shouchun, a.guabu, a.jiankang]),
   line('taicheng', '侯景陷臺城', 549, '蕭梁', '《梁書·侯景傳》。圍臺城。線止於建康。', [a.guabu, a.jiankang]),
   line('jiangling', '西魏陷江陵', 554, '西魏', '《周書·文帝紀》；《資治通鑑》卷一百六十五。于謹南下江陵。', [a.changan, a.xiangyang, a.jiangling]),
