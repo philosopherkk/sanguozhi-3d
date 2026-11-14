@@ -1,8 +1,8 @@
 {
   "src/zhou/data/studentEvents.ts#xiangxiao": {
-    "stamp": "26b8a25a",
+    "stamp": "566fb939",
     "page": "春秋左氏傳/襄公",
-    "at": "2026-11-06"
+    "at": "2026-11-13"
   },
   "src/qinhan/data/timeline.ts#unify": {
     "stamp": "5505f8e6",
@@ -1020,19 +1020,19 @@
     "at": "2026-11-11"
   },
   "src/japanEras/packs/asukaPack.ts#as-538": {
-    "stamp": "e1d681d3",
+    "stamp": "6bb8c516",
     "page": "日本書紀/卷第十九",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/japanEras/packs/asukaPack.ts#as-587": {
-    "stamp": "da0f9395",
+    "stamp": "91befab1",
     "page": "日本書紀/卷第廿一",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/japanEras/packs/asukaPack.ts#as-645": {
-    "stamp": "b38a7b31",
+    "stamp": "ce35dcbe",
     "page": "日本書紀/卷第廿五",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/japanEras/packs/asukaPack.ts#as-663": {
     "stamp": "f708884f",
@@ -1040,9 +1040,9 @@
     "at": "2026-11-11"
   },
   "src/japanEras/packs/asukaPack.ts#as-672": {
-    "stamp": "1e7e13f2",
+    "stamp": "daab9d6f",
     "page": "日本書紀/卷第廿八",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/japanEras/packs/kofunPack.ts#kf-250": {
     "stamp": "e0a2b45d",
@@ -1050,9 +1050,9 @@
     "at": "2026-11-11"
   },
   "src/japanEras/packs/kofunPack.ts#kf-350": {
-    "stamp": "85d0c137",
+    "stamp": "8d1ef1da",
     "page": "日本書紀/卷第七",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/japanEras/packs/kofunPack.ts#kf-400": {
     "stamp": "e8b3544e",
@@ -1075,9 +1075,9 @@
     "at": "2026-11-11"
   },
   "src/qinhan/data/timeline.ts#xin-mang": {
-    "stamp": "773318b1",
-    "page": "資治通鑑/卷036",
-    "at": "2026-11-11"
+    "stamp": "316f52a5",
+    "page": "",
+    "at": "2026-11-13"
   },
   "src/imperial/data/jinPack.ts#jin-280": {
     "stamp": "dccce586",
@@ -1210,9 +1210,9 @@
     "at": "2026-11-13"
   },
   "src/zhou/data/timelineMore.ts#lize": {
-    "stamp": "40cc2955",
+    "stamp": "62cb7c88",
     "page": "春秋左氏傳/哀公",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/zhou/data/lateStages.ts#tiandan": {
     "stamp": "ffbb9e42",
@@ -1225,19 +1225,19 @@
     "at": "2026-11-11"
   },
   "src/japanEras/packs/naraPack.ts#nr-710": {
-    "stamp": "88f1c723",
+    "stamp": "e742eca7",
     "page": "續日本紀/卷第五",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/japanEras/packs/naraPack.ts#nr-752": {
-    "stamp": "3a29e8a8",
+    "stamp": "8290c0f6",
     "page": "續日本紀/卷第十八",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/japanEras/packs/naraPack.ts#nr-764": {
-    "stamp": "50216739",
+    "stamp": "451c3b95",
     "page": "續日本紀/卷第廿五",
-    "at": "2026-11-11"
+    "at": "2026-11-13"
   },
   "src/japanEras/packs/naraPack.ts#nr-784": {
     "stamp": "346fc5ee",
@@ -1265,9 +1265,9 @@
     "at": "2026-11-12"
   },
   "src/zhou/data/timeline.ts#yue-wu": {
-    "stamp": "d69b0ea5",
+    "stamp": "74d02927",
     "page": "春秋左氏傳/哀公",
-    "at": "2026-11-12"
+    "at": "2026-11-13"
   },
   "src/zhou/data/timeline.ts#dongzhou": {
     "stamp": "9f82335",
@@ -1418,5 +1418,220 @@
     "stamp": "e7636831",
     "page": "國語/卷01",
     "at": "2026-11-13"
+  },
+  "src/japanEras/packs/imjinWarEvents.ts#az-1592-landing": {
+    "stamp": "294669ec",
+    "page": "明史/卷320",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/imjinWarEvents.ts#az-1593-pyongyang": {
+    "stamp": "673db05e",
+    "page": "明史/卷320",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/imjinWarEvents.ts#az-1596-shippou": {
+    "stamp": "e6de3d42",
+    "page": "明史/卷320",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/imjinWarEvents.ts#az-1597-renewal": {
+    "stamp": "68c712ff",
+    "page": "明史/卷320",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/imjinWarEvents.ts#az-1598-noryang": {
+    "stamp": "9e868318",
+    "page": "明史/卷320",
+    "at": "2026-11-13"
+  },
+  "src/zhou/data/studentEvents.ts#zilu": {
+    "stamp": "3f1a3c7f",
+    "page": "史記/卷067",
+    "at": "2026-11-13"
+  },
+  "src/zhou/data/studentEvents.ts#kongzi-zu": {
+    "stamp": "81e5d022",
+    "page": "史記/卷047",
+    "at": "2026-11-13"
+  },
+  "src/zhou/data/studentEvents.ts#jixia": {
+    "stamp": "692c983",
+    "page": "史記/卷046",
+    "at": "2026-11-13"
+  },
+  "src/zhou/data/studentEvents.ts#jiagu": {
+    "stamp": "57078d72",
+    "page": "春秋左氏傳/定公",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/imjinWarEvents.ts#az-1592-pyongyang": {
+    "stamp": "92e58fdc",
+    "page": "明史/卷320",
+    "at": "2026-11-13"
+  },
+  "src/heian/data/history.ts#heian-810-kusuko": {
+    "stamp": "f9425318",
+    "page": "日本後紀/卷第二十",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/kamakuraPack.ts#km-1185": {
+    "stamp": "b015f4c4",
+    "page": "吾妻鏡/卷005",
+    "at": "2026-11-13"
+  },
+  "src/bakumatsu/data/history.ts#1854-kanagawa": {
+    "stamp": "9fd898eb",
+    "page": "日本國米利堅合衆國和親條約",
+    "at": "2026-11-13"
+  },
+  "src/bakumatsu/data/history.ts#1858-06": {
+    "stamp": "5f2b7490",
+    "page": "日本國米利堅合衆國修好通商條約",
+    "at": "2026-11-13"
+  },
+  "src/bakumatsu/data/history.ts#1859-06": {
+    "stamp": "229540a4",
+    "page": "日本國米利堅合衆國修好通商條約",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/edoPack.ts#edo-1604-matsumae": {
+    "stamp": "72f9cf08",
+    "page": "松前島郷帳",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1945-end": {
+    "stamp": "75e06ecf",
+    "page": "大東亞戰爭終結ノ詔書",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1952-sovereignty": {
+    "stamp": "e0e86ed3",
+    "page": "日本國憲法",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/muromachiPack.ts#mu-1336": {
+    "stamp": "c6fe33cc",
+    "page": "建武式目",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/muromachiPack.ts#mu-1350": {
+    "stamp": "fe5eb6d9",
+    "page": "太平記/巻第二十六",
+    "at": "2026-11-13"
+  },
+  "src/heian/data/history.ts#1180-ishibashi": {
+    "stamp": "4a884925",
+    "page": "吾妻鏡/卷001",
+    "at": "2026-11-14"
+  },
+  "src/heian/data/history.ts#1180-fuji": {
+    "stamp": "3aa5295f",
+    "page": "吾妻鏡/卷001",
+    "at": "2026-11-14"
+  },
+  "src/heian/data/history.ts#1184-uji": {
+    "stamp": "cb08a23a",
+    "page": "吾妻鏡/卷003",
+    "at": "2026-11-14"
+  },
+  "src/heian/data/history.ts#1184-ichinotani": {
+    "stamp": "a95a59af",
+    "page": "吾妻鏡/卷003",
+    "at": "2026-11-14"
+  },
+  "src/heian/data/history.ts#1185-yashima": {
+    "stamp": "83ab251",
+    "page": "吾妻鏡/卷004",
+    "at": "2026-11-14"
+  },
+  "src/heian/data/history.ts#1185-dannoura": {
+    "stamp": "a7d65cc0",
+    "page": "吾妻鏡/卷004",
+    "at": "2026-11-14"
+  },
+  "src/japanEras/packs/edoPack.ts#edo-1615-osaka": {
+    "stamp": "f7e22843",
+    "page": "大日本編年史/卷090",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/edoPack.ts#edo-1635-sankin": {
+    "stamp": "5aa73bd8",
+    "page": "大日本編年史/卷095",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/edoPack.ts#edo-1637-shimabara": {
+    "stamp": "61c784a0",
+    "page": "大日本編年史/卷095",
+    "at": "2026-11-13"
+  },
+  "src/japanEras/packs/edoPack.ts#edo-1639-sakoku": {
+    "stamp": "567e6c7",
+    "page": "大日本編年史/卷096",
+    "at": "2026-11-13"
+  },
+  "src/sengoku/data/readingLayers.ts#1560-okinawaga": {
+    "stamp": "628358da",
+    "page": "大日本編年史/卷052",
+    "at": "2026-11-14"
+  },
+  "src/sengoku/data/readingLayers.ts#1592-bunroku": {
+    "stamp": "f970e7c5",
+    "page": "明史/卷320",
+    "at": "2026-11-14"
+  },
+  "src/sengoku/data/readingLayers.ts#1598-hideyoshi-death": {
+    "stamp": "32ddacef",
+    "page": "明史/卷320",
+    "at": "2026-11-14"
+  },
+  "src/sengoku/data/readingLayers.ts#1615-osaka": {
+    "stamp": "4d12d5c",
+    "page": "大日本編年史/卷090",
+    "at": "2026-11-14"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1873-conscription": {
+    "stamp": "1bbb955b",
+    "page": "徵兵令詔書及ヒ徵兵吿諭",
+    "at": "2026-11-14"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1895-shimonoseki": {
+    "stamp": "eda9a48b",
+    "page": "下関条約",
+    "at": "2026-11-14"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1904-russo-japan": {
+    "stamp": "e22437cd",
+    "page": "露国ニ対スル宣戦ノ詔勅",
+    "at": "2026-11-14"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1905-portsmouth": {
+    "stamp": "de2f9cb3",
+    "page": "日露講和條約",
+    "at": "2026-11-14"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1910-korea": {
+    "stamp": "97b3efc2",
+    "page": "韓國倂合ニ關スル條約",
+    "at": "2026-11-14"
+  },
+  "src/bakumatsu/data/history.ts#1867-taisei": {
+    "stamp": "8d1d833f",
+    "page": "德川內府大政返上ノ奏議",
+    "at": "2026-11-14"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1868-boshin": {
+    "stamp": "472558aa",
+    "page": "五ヶ條ノ御誓文",
+    "at": "2026-11-14"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1914-qingdao": {
+    "stamp": "55614fbb",
+    "page": "独逸国ニ対スル宣戦ノ詔書",
+    "at": "2026-11-14"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1941-war-start": {
+    "stamp": "d441533f",
+    "page": "米國及英國ニ對スル宣戰ノ詔書",
+    "at": "2026-11-14"
   }
 }
