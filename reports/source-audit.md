@@ -2225,3 +2225,47 @@ ja 八條全部以 `qsrc.py --host ja.wikisource.org --verify-batch` 逐字覆�
 2. `sengoku/data/readingLayers.ts` 剩 9 條、edoPack 剩 12 條（蝦夷＋明暦後）：照舊等朝鮮側史料／德川實紀路線。
 3. bakumatsu（15 條）公文書路線未動：ja 站有幕末國書／條約頁（如『日米修好通商条約』），下輪可探測。
 4. 兩宗舊工具問題（同 key stamp、verifyState 次序）繼續交人工裁決；本輪另確認 audit:quotes 的簡體檢查**不豁免 source 欄「」內日文條目名**，寫 ja 頁名須用原字「國」等。
+
+---
+
+## 第 14 輪（2026-11-14，agent/accuracy）：奏議・誓文・宣戰詔書四條（bakumatsu＋modernJapanPack，ja.wikisource 逐字四條）
+
+### 1) 本輪範圍與方法
+
+開工 self-check MODEL_LOCK_OK；`git rebase origin/main` 為 up to date（領先 36），本輪用普通 push。本批四條全部出自 `bakumatsu/data/history.ts` 與 `japanEras/packs/modernJapanPack.ts` READINGS 意譯桶，用 `python3 scripts/qsrc.py --host ja.wikisource.org --verify-batch` 一次四條全部 status ok；ledger 戳記照第 13 輪正路（`collect()` 過濾「同 key 且 quote.kind==='str'」後手算 djb2 stamp），未碰 `--mark`，同 key bug 本輪零接觸。
+
+### 2) 逐條記錄
+
+| 條目 | 出處 | 結果 |
+| --- | --- | --- |
+| `1867-taisei`（bakumatsu） | 「德川內府大政返上ノ奏議」（慶應三年十月十四日慶喜奏聞）核心句 | 「從來之舊習ヲ改メ政權ヲ朝廷ニ奉歸…皇國ヲ保護仕候得ハ」逐字合（46字）；原頁以碼位實體轉錄「德/內/而/三」等異體字，引文段取其中無實體之連續區段；奏文但言奉還政權、廣盡公議，辭將軍職與領地處置之未決一如下四段所論，未新增敘事 |
+| `mj-1868-boshin` | 「五ヶ條ノ御誓文」（明治元年三月十四日）第一、二條 | 「一廣ク會議ヲ興シ萬機公論ニ決スヘシ一上下心ヲ一ニシテ盛ニ經綸ヲ行フヘシ」逐字合（35字，JIS X 0208版；該頁另有常用漢字版，僅字形差異）；本條記戊辰戰爭全程，誓文為新政府施政依據，source 已說明關聯 |
+| `mj-1914-qingdao` | 「独逸國ニ対スル宣戦ノ詔書」（大正三年八月二十三日，據官報號外本）首段 | 「朕玆ニ獨……國ニ對シテ戰ヲ宣ス……軍ハ宜ク力ヲ極メテ戰鬪ノ事ニ從フヘク」逐字合（31字分三段）；斷點即原頁「逸／海」兩處異體字碼位實體，以省略號照標；page name 从原卷日本字形，source 註明 |
+| `mj-1941-war-start` | 「米國及英國ニ對スル宣戰ノ詔書」（昭和十六年十二月八日，通稱開戰詔勅）首句 | 「朕茲ニ米國及英國ニ對シテ戰ヲ宣ス」逐字合（16字）；句式與 1894 對清、1904 對露兩通宣戰詔同（皆前輪已查證）；source 註明與昭和二十年終戰詔書為兩通文書 |
+
+四條全部 `audit:quotes` 驗收 verified，「引文已改 0」。
+
+### 3) 前後對照
+
+| 指標 | 前 | 後 |
+| --- | --- | --- |
+| 已查證 | 237 | **241**（＋4） |
+| 意譯 | 104 | **100**（−4；modernJapanPack 意譯桶 36→32，bakumatsu 15→14） |
+| 未查證／引文已改 | 0／0 | 0／0 |
+| 錯誤／提醒 | 0／44 | 0／44 |
+| `audit:chars` 硬傷 | 0 | **0** |
+| `npm run gates` | — | 無惡化，exit 0（audit:quotes errors=0(=) warns=44(=)、chars hard=0(=)、chars:teeth fail=0(=)、wiki-links dead=0(=)；war-shape 268→101 仍屬其他工作流，基線未更新所致） |
+| `npm run build` | — | EXIT=0 |
+| `npm run lint` | — | EXIT=0（0 error，warnings 照基準） |
+
+### 4) 本輪考訂兩點
+
+1. **假名與漢字視近字形陷阱**：1941 年詔首句原文作「朕茲**ニ**米國及英國…戰**ヲ**宣ス」，第三字為片假名 ニ（U+30CB）、「戰ヲ宣ス」之ヲ為 U+30F2；手打引文一度將片假名 ニ 誤植為漢字「尼」（U+5C3C），靠碼位級核對（逐字 hex(ord(c)) 對照 verify-batch 輸入）先至捉到，檔案與本報告兩處同步以碼位改正。教訓：ja 引文寫入後必須碼位比對已驗證之 needle 原文，唔好靠肉眼。
+2. **簡體檢查唔豁免 ja 頁名（第 13 輪規則再現）**：source 欄「独逸**国**…」之「国」被 audit:quotes 報簡體字硬傷——「」內日文條目名照查，已改「独逸國…」並註明頁名原卷作日本字形。ledger `page` 欄則照原頁名（該檔唔喺字符掃描範圍）。
+
+### 5) 剩餘佇列（交下輪）
+
+1. **modernJapanPack 餘 32 條意譯**：條約・詔書逐字路線已取九條（第 13 輪五＋本輪四）；餘者多屬戰役經過（『戰史叢書』無逐字頁）或閣議決定／內政設施，逐字可得性低，宜維持意譯或探『日本外交文書』公文頁。
+2. **bakumatsu 餘 14 條意譯**（戊辰諸役＋安政獄／櫻田門外／生麥／薩長密約）：奏議類已取；戰記類 ja 站無逐字頁，『日米修好通商条約』等国書・條約頁可同 1854 神奈川條約路線再探（1858 條約對應 `1858-ansei` 之條文句）。
+3. `sengoku/data/readingLayers.ts` 剩 9 條、edoPack 剩 12 條：照舊等朝鮮側史料／《大日本編年史》卷099+ 無 coverage 之限制。
+4. 同 key stamp bug 同 verifyState 次序兩宗舊工具問題繼續交人工裁決；ja-host 條目一律手算戳記已連續兩輪零事故，維持為預設做法。
