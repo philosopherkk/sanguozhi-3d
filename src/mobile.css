@@ -858,3 +858,34 @@
     display: none;
   }
 }
+
+/* ============================================================
+   修 12：文字欄位 16px 下限——防 iOS 聚焦強制縮放
+
+   iOS Safari 對 computed font-size 小於 16px 的文字輸入欄位
+   （text、search、email、select、textarea 等）會在聚焦時強制
+   縮放整頁：使用者點人物搜尋框，頁面即被放大且無法自行還原，
+   頁頭與地圖移出視窗，是手機上最刺眼的互動缺陷。Android Chrome
+   預設不縮，此規則無害；滑鼠桌面不套用以維持原字級。
+
+   本專案在用的文字欄位：type="search" 六支（五支 .people-search
+   與一支 .filters 內）、<select> 兩支（.filters select）。刻意
+   用顯式清單而非 input 通配：type="range" 十六支（年份滑桿）不
+   受聚焦縮放影響，字級亦由 修 7 另行安排，不應被本節波及。
+   16px 恰好等於平板觸控區（修 10）的 --fs-ui，與該處設計一致。
+   本節置於檔案末段，級聯次序在其後者勝，覆寫 App.css 的
+   0.85rem（13.6px）與 修 9.3 的 var(--fs-ui)（15px）。
+   ============================================================ */
+@media (max-width: 700px), (min-width: 701px) and (max-width: 859px),
+       (pointer: coarse) and (min-width: 860px) {
+  input[type='search'],
+  input[type='text'],
+  input[type='email'],
+  input[type='password'],
+  input[type='tel'],
+  input[type='url'],
+  select,
+  textarea {
+    font-size: 1rem; /* 16px = iOS 聚焦縮放臨界值 */
+  }
+}
