@@ -41,7 +41,7 @@ export const NANBEI_ROUTES = [
   line('yuanhao', '元顥入洛', 529, '蕭梁', '《梁書·陳慶之傳》。陳慶之送元顥，自銍至洛陽。', [a.jiankang, a.pengcheng, a.luoyang]),
   line('hanling', '韓陵之戰', 532, '北魏', '《北齊書·神武紀》。高歡敗爾朱氏於韓陵。本年高歡仍是北魏之臣，東魏之號始於 534 年。', [a.taiyuan, a.yecheng]),
   line('sha-yuan', '沙苑之戰', 537, '西魏', '《周書·文帝紀》。宇文泰敗高歡於沙苑。', [a.changan, a.puban]),
-  line('heqiao', '河橋之戰', 538, '東魏', '《北齊書·神武紀》。東西魏戰於河橋。', [a.yecheng, a.luoyang, a.hulao]),
+  line('heqiao', '河橋之戰', 538, '東魏', '《北齊書·神武紀下》：「魏帝躬率大衆屯河橋」「神武乃引軍渡河」。河橋即虎牢一帶黃河渡口，東魏軍自鄴西向，必先河橋而後洛陽，故以虎牢為中轉。', [a.yecheng, a.hulao, a.luoyang]),
   line('mangshan', '邙山之戰', 543, '東魏', '《周書·文帝紀》。高歡敗宇文泰於邙山。', [a.yecheng, a.luoyang]),
   line('yubi', '玉壁之戰', 546, '西魏', '《周書·韋孝寬傳》。高歡攻玉壁，韋孝寬守。', [a.yecheng, a.shouyang]),
   line('houjing', '侯景渡江', 548, '蕭梁', '《梁書·侯景傳》；《資治通鑑》卷一百六十一。自壽陽南下建康。', [a.shouchun, a.guabu, a.jiankang]),
