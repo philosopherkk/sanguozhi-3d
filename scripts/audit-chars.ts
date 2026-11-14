@@ -428,14 +428,35 @@ function walk(dir: string, out: string[] = []): string[] {
 // 舊的白名單 PROSE 已移除：預設掃整個 src（見下方 roots）。
 // 已逐條核過的硬傷（史料原文字形）：記成「哪個檔、哪個字、憑什麼」，
 // 不是只把總數記成基準 2——否則修掉一個、同時闖進另一個，總數不變、閘門全綠。
-type CharAllow = { file: string; char: string; reason: string }
+// 豁免要有錨（2026-11-14 第三輪）。之前只有 file＋char，等於「呢支檔嘅呢支字永遠合法」：
+// 實測中招位置就喺 UI 檔（JapanEraMap.tsx 嘅「CODH 旧国」係資料集原名），即同一支檔其
+// 他地方用咗簡體嘅「國」字形都照樣靜靜過。本專案六次同一根因都係豁免範圍太大＝失明。
+// context 係「呢支字喺呢度憑咩合法」嘅上下文字串（例：CODH 旧国）；豁免只喺含錨嘅行生效。
+// 冇錨／錨短到冇意義（一個標點都算）一律拒絕，並計入硬傷：寧可報錯都唔靜靜擴大豁免。
+type CharAllow = { file: string; char: string; reason: string; context?: string }
+const ALLOW_CONTEXT_MIN = 4
+// 錨嘅長度下限屬「靜默退化」類（放寬佢永遠唔會自己報紅），所以數值由 --teeth 源碼守門釘死。
+const ALLOW_ERRORS: string[] = []
+function anchorOf(a: CharAllow): string {
+  return typeof a.context === 'string' ? a.context.trim() : ''
+}
 function loadCharAllowlist(): CharAllow[] {
   const p = join(import.meta.dirname ?? '.', '..', 'reports', 'chars-allowlist.json')
+  let list: CharAllow[]
   try {
-    return JSON.parse(readFileSync(p, 'utf8')) as CharAllow[]
+    list = JSON.parse(readFileSync(p, 'utf8')) as CharAllow[]
   } catch {
-    return []
+    return [] // 檔唔見咗 → 全部豁免失效 → 錯字成批報紅（fail-closed，比靜靜放行好）
   }
+  for (const a of list) {
+    if (anchorOf(a).length < ALLOW_CONTEXT_MIN) {
+      ALLOW_ERRORS.push(
+        `${a.file} ${a.char}：豁免冇錨或錨短過 ${ALLOW_CONTEXT_MIN} 字（context=${JSON.stringify(a.context ?? '')}）` +
+          `——file＋char 唔夠，會把同檔其他地方同一支字一齊放行`,
+      )
+    }
+  }
+  return list
 }
 const CHAR_ALLOW = loadCharAllowlist()
 
@@ -626,6 +647,50 @@ if (flags.includes('--teeth')) {
   if (!citeKeysSrc.includes("'source'")) { bad += 1; console.log('  ✗ 搵唔到 CITE_KEYS（欄位豁免名單消失：要嘛改名要嘛移除，兩者都要喺呢度講清楚）') }
   else if (swallowed.length) { bad += 1; console.log(`  ✗ CITE_KEYS 入咗敘述欄 ${swallowed.join(' ')}：欄位豁免會吞到網站可見文字`) }
   else console.log('  ✓ CITE_KEYS 冇敘述欄（note／desc／brief／meaning… 一律照掃）')
+  // ── 豁免有錨（2026-11-14 第三輪）──────────────────────────────────────
+  // 用 fixture allowlist、唔靠生產名單：生產名單點改都唔會影響呢啲斷言，測試先至可信。
+  // 成對寫：錨喺呢行必須唔報（唔好誤殺資料集原名）、錨唔喺呢行必須報（豁免唔可以越界）。
+  const JIU = '\u65e7' // 「舊」嘅日文新字：生產名單入面最常見嘅豁免目標（CODH 旧国 呢類）
+  const FIXTURE = `[{"file":"probe.ts","char":"${JIU}","context":"CODH ${JIU}","reason":"測試"}]`
+  const allowCases: Array<[string, string, string, string[], string[], string?]> = [
+    ['豁免有錨先至豁免（錨喺呢行 → 唔報）', `export const a = 'CODH ${JIU} 示意';`, FIXTURE, [], [JIU]],
+    ['豁免唔越界（同檔同字、錨唔喺呢行 → 照報）', `export const b = '我方敘述 ${JIU} 字';`, FIXTURE, [JIU], []],
+    ['冇寫 context 嘅豁免一律拒絕（fail-closed）', `export const c = '${JIU} 字';`,
+      `[{"file":"probe.ts","char":"${JIU}","reason":"冇錨"}]`, [JIU], [], '豁免配置錯誤'],
+    ['錨短過下限視同冇錨（一個字唔可以當豁免）', `export const d = '${JIU} 字';`,
+      `[{"file":"probe.ts","char":"${JIU}","context":"${JIU}","reason":"太短"}]`, [JIU], [], '豁免配置錯誤'],
+  ]
+  const baseLibSrc = readFileSync(join(import.meta.dirname, 'lib', 'gate-baseline.ts'), 'utf8')
+  allowCases.forEach(([name, body, fixture, expect, expectNot, wantMsg], idx) => {
+    const tmpDir = join(dir, 'allowmut', String(idx))
+    mkdirSync(join(tmpDir, 'scripts', 'lib'), { recursive: true })
+    mkdirSync(join(tmpDir, 'reports'), { recursive: true })
+    writeFileSync(join(tmpDir, 'scripts', 'lib', 'gate-baseline.ts'), baseLibSrc, 'utf8')
+    writeFileSync(join(tmpDir, 'reports', 'chars-allowlist.json'), fixture, 'utf8')
+    const script = join(tmpDir, 'scripts', 'audit-chars.ts')
+    writeFileSync(script, selfSrc, 'utf8') // 用本檔源碼嘅副本：改弱規則會被下面幾條突變咬
+    const probe = join(tmpDir, 'probe.ts')
+    writeFileSync(probe, body + '\n', 'utf8')
+    const out =
+      spawnSync(process.execPath, ['--experimental-strip-types', script, probe, '--gate=teeth'], { encoding: 'utf8' }).stdout || ''
+    if (!out.includes('硬傷')) { bad += 1; console.log(`  ✗ ${name}：突變副本跑唔起（冇匯總行）——「冇報」唔係「通過」`); return }
+    const hit = hitsOf(out)
+    const miss = expect.filter((c) => !hit.has(c))
+    const over = expectNot.filter((c) => hit.has(c))
+    const noMsg = wantMsg && !out.includes(wantMsg)
+    if (miss.length || over.length || noMsg) {
+      bad += 1
+      console.log(
+        `  ✗ ${name}：${miss.length ? `未咬到 ${miss.join(' ')}` : ''}` +
+          `${over.length ? `／誤報 ${over.join(' ')}` : ''}` +
+          `${noMsg ? `／冇講明「${wantMsg}」（豁免配置錯咗要話人錯喺邊）` : ''}`,
+      )
+    } else console.log(`  ✓ ${name}`)
+  })
+  // 錨嘅長度下限係「靜靜擴大」類：放寬佢唔會有行為變化（一個標點都成為豁免），只能睇數值。
+  const ctxMin = Number(selfSrc.match(/const ALLOW_CONTEXT_MIN = (\d+)/)?.[1] ?? 0)
+  if (!(ctxMin >= 4)) { bad += 1; console.log(`  ✗ ALLOW_CONTEXT_MIN = ${ctxMin}（錨長度下限被放寬或抽走：豁免會變返冇錨）`) }
+  else console.log(`  ✓ ALLOW_CONTEXT_MIN = ${ctxMin}（未放寬；生產名單最短嘅錨都超過呢個數）`)
   // 標記機制本身都有牙：把正則改弱，用探針重掃一次。
   // 口徑要講清楚：呢度測嘅唔係「變弱之後會報紅」（靜靜擴大豁免本來就唔會報），
   // 而是**呢條豁免係 load-bearing**——抽走佢，探測表啲字就成批落地，即真 repo 嘅
@@ -747,14 +812,19 @@ for (const f of files) {
       const forHard = scanned.replace(/《[^》\n]{1,40}》/g, '')
       for (const [ch, fix] of Object.entries(HARD)) {
         if (forHard.includes(ch)) {
-          const allow = CHAR_ALLOW.find((a) => f.endsWith(a.file) && a.char === ch)
-          if (allow) {
+          // 只有「檔名＋字形」符合、而且呢行真係出現錨上下文，先至算豁免。
+          const cands = CHAR_ALLOW.filter((a) => f.endsWith(a.file) && a.char === ch)
+          const anchored = cands.find((a) => anchorOf(a).length >= ALLOW_CONTEXT_MIN && line.includes(anchorOf(a)))
+          if (anchored) {
             allowed += 1
-            console.log(`ALLOWED ${f}:${i + 1} ${ch}（${allow.reason}）`)
+            console.log(`ALLOWED ${f}:${i + 1} ${ch}（${anchored.reason}）`)
             continue
           }
           hard += 1
-          console.log(`HARD ${f}:${i + 1} ${ch}→${fix}  ${line.trim().slice(0, 60)}`)
+          console.log(
+            `HARD ${f}:${i + 1} ${ch}→${fix}  ${line.trim().slice(0, 60)}` +
+              (cands.length ? `  【同檔同字有豁免，但錨「${anchorOf(cands[0])}」唔喺呢行】` : ''),
+          )
         }
       }
       // 「…」 之內預設豁免（古典引文可能合法用舊字形、日文引文用日本字形）。
@@ -828,6 +898,13 @@ for (const f of files) {
         }
       }
     }
+}
+// 豁免檔自身嘅配置錯誤同樣計入硬傷。點解唔另外用 exit code：gate-ci 對有數字指標嘅閘門
+// 只比「硬傷 N」，exit≠0 佢只會印「既有缺口」而唔當惡化（gate-ci.mjs:206 嗰段）——
+// 只用 exit code 嘅失敗會變做假綠，呢個洞要封。
+for (const e of ALLOW_ERRORS) {
+  hard += 1
+  console.log(`HARD reports/chars-allowlist.json 豁免配置錯誤 → ${e}`)
 }
 console.log(
   `\naudit:chars — 硬傷 ${hard} 處、已核准 ${allowed} 處、待判 ${soft} 處（引文行的視境字已跳過）`,

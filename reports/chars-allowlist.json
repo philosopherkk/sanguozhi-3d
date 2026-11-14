@@ -2,116 +2,157 @@
   {
     "file": "src/data/territory/ATTRIBUTION-CODH-BY-NC.md",
     "char": "国",
-    "reason": "CODH 資料集原名『旧国・旧郡境界データセット』與「日本旧国境界」為日文專名，授權致謝檔照來源名稱，非我方敘述"
+    "context": "旧国・旧郡境界",
+    "reason": "CODH 資料集原名『旧国・旧郡境界データセット』為日文專名，授權致謝檔照來源名稱，非我方敘述。錨「旧国・旧郡境界」喺該行先至豁免"
   },
   {
     "file": "src/data/territory/ATTRIBUTION-CODH-BY-NC.md",
     "char": "旧",
-    "reason": "同上：『旧国・旧郡境界データセット』為資料集原名，照原形"
+    "context": "旧国・旧郡境界",
+    "reason": "同上：資料集原名照原形。錨「旧国・旧郡境界」喺該行先至豁免"
+  },
+  {
+    "file": "src/data/territory/ATTRIBUTION-CODH-BY-NC.md",
+    "char": "国",
+    "context": "九州旧国索引",
+    "reason": "索引說明行寫「本州・四国・九州旧国索引」，屬資料集用字與日語地名，照原形。錨「九州旧国索引」喺該行先至豁免"
+  },
+  {
+    "file": "src/data/territory/ATTRIBUTION-CODH-BY-NC.md",
+    "char": "旧",
+    "context": "九州旧国索引",
+    "reason": "同上。錨「九州旧国索引」喺該行先至豁免"
   },
   {
     "file": "src/data/territory/ATTRIBUTION-CODH-HAN-BY-SA.md",
     "char": "旧",
-    "reason": "「旧高旧領取調帳データベース」為日本史料原名，照原形"
+    "context": "旧高旧領取調帳",
+    "reason": "「旧高旧領取調帳データベース」為日本史料原名，照原形。錨「旧高旧領取調帳」喺該行先至豁免"
+  },
+  {
+    "file": "src/data/territory/ATTRIBUTION-CODH-HAN-BY-SA.md",
+    "char": "旧",
+    "context": "旧国・旧郡",
+    "reason": "授權致謝表列出 CODH 旧国・旧郡 mesh 之來源與授權，照原名。錨「旧国・旧郡」喺該行先至豁免"
   },
   {
     "file": "src/data/territory/ATTRIBUTION-CODH-HAN-BY-SA.md",
     "char": "国",
-    "reason": "「旧国 mesh」「国立歴史民俗博物館」為資料集與機構原名，照原形"
+    "context": "旧国・旧郡",
+    "reason": "同上：資料集名稱用字，照原形。錨「旧国・旧郡」喺該行先至豁免"
   },
   {
     "file": "src/data/territory/ATTRIBUTION-CODH-HAN-BY-SA.md",
     "char": "歴",
-    "reason": "「国立歴史民俗博物館」為機構原名（旧高旧領取調帳データベース 之出處），照原形"
+    "context": "国立歴史民俗博物館",
+    "reason": "「国立歴史民俗博物館」為機構原名（旧高旧領取調帳データベース 之出處），照原形。錨「国立歴史民俗博物館」喺該行先至豁免"
   },
   {
     "file": "src/data/territory/japan_ezo_matsumae/README.md",
     "char": "対",
-    "reason": "圖幅題目『北方の探検と蝦夷地対策』為日文原題（《標準日本史地圖》【39】），照原形"
+    "context": "蝦夷地対策",
+    "reason": "圖幅題目『北方の探検と蝦夷地対策』為日文原題（《標準日本史地圖》【39】），照原形。錨「蝦夷地対策」喺該行先至豁免"
   },
   {
     "file": "src/data/timelineDetails.ts",
     "char": "呉",
-    "reason": "逐字引文「呉主皓面縛輿櫬，詣軍門降」屬《資治通鑑》原文行，依 AGENTS.md 保留原典字形"
+    "context": "呉人於江磧",
+    "reason": "逐字引文「呉人於江磧要害之處……呉主皓面縛輿櫬，詣軍門降」屬《資治通鑑》原文行，依 AGENTS.md 保留原典字形。錨「呉人於江磧」喺該行先至豁免"
   },
   {
     "file": "src/geo/japanEraRings.ts",
     "char": "国",
-    "reason": "註解引用 CODH『旧国·旧郡境界データセット』原名，照原形"
+    "context": "CODH 旧国",
+    "reason": "CODH 資料集原名『旧国・旧郡境界データセット』／「CODH 旧国 GeoJSON」，照原形。錨：「CODH 旧国」喺該行先至豁免"
   },
   {
     "file": "src/geo/japanEraRings.ts",
     "char": "旧",
-    "reason": "同上：CODH 資料集原名"
+    "context": "CODH 旧国",
+    "reason": "同上：CODH 資料集原名。錨「CODH 旧国」喺該行先至豁免"
   },
   {
     "file": "src/japanHistory/components/JapanEraMap.tsx",
     "char": "国",
-    "reason": "註解引用 CODH 旧国 GeoJSON 原名，照原形"
+    "context": "CODH 旧国",
+    "reason": "來源註解引用 CODH 旧国 GeoJSON 原名，照原形。錨「CODH 旧国」喺該行先至豁免"
   },
   {
     "file": "src/japanHistory/components/JapanEraMap.tsx",
     "char": "旧",
-    "reason": "同上：CODH 資料集原名"
+    "context": "CODH 旧国",
+    "reason": "同上：CODH 資料集原名。錨「CODH 旧国」喺該行先至豁免"
   },
   {
     "file": "src/japanEras/packs/edoPack.ts",
     "char": "従",
-    "reason": "quote 欄為日文公文書題名『従松前西在郷并蝦夷地之覚』，引文照原典字形"
+    "context": "従松前西在郷",
+    "reason": "quote 欄為日文公文書題名『従松前西在郷并蝦夷地之覚』，引文照原典字形。錨「従松前西在郷」喺該行先至豁免"
   },
   {
     "file": "src/japanEras/packs/edoPack.ts",
     "char": "郷",
-    "reason": "同上：『従松前西在郷并蝦夷地之覚』為公文書原題"
+    "context": "従松前西在郷",
+    "reason": "同上：『従松前西在郷并蝦夷地之覚』為公文書原題。錨「従松前西在郷」喺該行先至豁免"
   },
   {
     "file": "src/japanEras/packs/edoPack.ts",
     "char": "払",
-    "reason": "「異國船打払令」為該命令之通稱（原為日文），本條並說明當時文書實作驅逐異國船之命；專名照原形"
+    "context": "異國船打払令",
+    "reason": "「異國船打払令」為該命令之通稱（原為日文），本條並說明當時文書實作驅逐異國船之命；專名照原形。錨「異國船打払令」喺該行先至豁免"
+  },
+  {
+    "file": "src/japanEras/packs/edoPack.ts",
+    "char": "払",
+    "context": "打払令頒於",
+    "reason": "同上：敘述行以通稱起頭提及該令，專名照原形（本檔只准喺呢兩處出現此字形）。錨「打払令頒於」喺該行先至豁免"
   },
   {
     "file": "src/sengoku/data/readingLayers.ts",
     "char": "斎",
-    "reason": "《關原軍記大成》編者「宮川忍斎」為日本人姓名，source 欄照原名"
-  },
-  {
-    "file": "docs/MOBILE_PLAN.md",
-    "char": "対",
-    "reason": "本段在舉例說明豁免清單，引用圖幅原題『北方の探検と蝦夷地対策』本身，照原形"
-  },
-  {
-    "file": "docs/MOBILE_PLAN.md",
-    "char": "郷",
-    "reason": "同上：公文書原題『従松前西在郷并蝦夷地之覚』"
-  },
-  {
-    "file": "docs/MOBILE_PLAN.md",
-    "char": "従",
-    "reason": "同上：公文書原題『従松前西在郷并蝦夷地之覚』"
+    "context": "宮川忍斎",
+    "reason": "《關原軍記大成》編者「宮川忍斎」為日本人姓名，source 欄照原名。錨「宮川忍斎」喺該行先至豁免"
   },
   {
     "file": "scripts/build_japan_kokugun_rings.py",
     "char": "旧",
-    "reason": "引用 CODH 資料集原名『旧国・旧郡境界データセット』與「CODH 旧国 GeoJSON」，同 src/geo/japanEraRings.ts 同一判讀；生成物照來源名稱，改了等於篡改出處"
+    "context": "CODH 旧国",
+    "reason": "CODH 資料集原名『旧国・旧郡境界データセット』／「CODH 旧国 GeoJSON」，照原形。錨：「CODH 旧国」喺該行先至豁免"
   },
   {
     "file": "scripts/build_japan_kokugun_rings.py",
     "char": "国",
-    "reason": "同上：「旧国」為日本令制國之資料集用字，照原形"
+    "context": "CODH 旧国",
+    "reason": "同上：「旧国」為日本令制國之資料集用字，照原形。錨「CODH 旧国」喺該行先至豁免"
+  },
+  {
+    "file": "scripts/build_japan_kokugun_rings.py",
+    "char": "旧",
+    "context": "幕末明治旧国界",
+    "reason": "生成檔嘅 note 文案沿用資料集詞「旧国界」，照原形。錨「幕末明治旧国界」喺該行先至豁免"
+  },
+  {
+    "file": "scripts/build_japan_kokugun_rings.py",
+    "char": "国",
+    "context": "幕末明治旧国界",
+    "reason": "同上。錨「幕末明治旧国界」喺該行先至豁免"
   },
   {
     "file": "scripts/build_bakumatsu_han_rings.py",
     "char": "旧",
-    "reason": "「旧国≠藩界」引用同一 CODH 資料集概念，照原形（與 build_japan_kokugun_rings.py 同一判讀）"
+    "context": "旧国≠藩界",
+    "reason": "「旧国≠藩界」引用同一 CODH 資料集概念，照原形（與 build_japan_kokugun_rings.py 同一判讀）。錨「旧国≠藩界」喺該行先至豁免"
   },
   {
     "file": "scripts/build_bakumatsu_han_rings.py",
     "char": "国",
-    "reason": "同上：「旧国」為日本令制國之資料集用字，照原形"
+    "context": "旧国≠藩界",
+    "reason": "同上：「旧国」為日本令制國之資料集用字，照原形。錨「旧国≠藩界」喺該行先至豁免"
   },
   {
     "file": "scripts/check_route_landmarks.py",
     "char": "団",
-    "reason": "陸軍參謀本部『明治二十七八年日清戰史』引文原文之師團用字（第5師団），引文照原典字形；覆核工具 KEEP_PHRASE 同一判讀"
+    "context": "第5師団",
+    "reason": "陸軍參謀本部『明治二十七八年日清戰史』引文原文之師團用字（第5師団），引文照原典字形；覆核工具 KEEP_PHRASE 同一判讀。錨「第5師団」喺該行先至豁免"
   }
 ]

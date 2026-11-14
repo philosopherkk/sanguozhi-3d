@@ -122,7 +122,7 @@ const SUITES = [
   {
     name: 'chars',
     gate: 'audit:chars --teeth',
-    min: 16,
+    min: 19,
     metric: /失敗 (\d+) 項/,
     /** 副本要喺 `<tmp>/chars/` 重鋪成縮小版 repo：佢會 own import.meta.dirname 去搵
      *  `./lib/gate-baseline.ts` 與 `../reports/chars-allowlist.json`；缺一個就係假紅。 */
@@ -185,6 +185,17 @@ const SUITES = [
       { name: '詞頭 locale 一致性抽走（中文條目用日文詞頭都冇人叫）',
         find: 'if (f.endsWith(\'.json\') && full.includes(\'"locale"\')',
         to: 'if (false && f.endsWith(\'.json\') && full.includes(\'"locale"\')' },
+      // ── 豁免有錨（2026-11-14 第三輪：file＋char 粗粒度豁免嘅洞）──
+      // 呢三條對應 audit-chars --teeth 入面四條 fixture 探針（有錨唔報／冇錨照報／
+      // 冇 context 照報並講明係配置錯／錨太短照報）。
+      { name: '豁免唔再睇錨（同檔同字變返全面放行）',
+        find: 'const anchored = cands.find((a) => anchorOf(a).length >= ALLOW_CONTEXT_MIN && line.includes(anchorOf(a)))',
+        to: 'const anchored = cands[0]' },
+      { name: '豁免檔嘅配置檢查抽走（冇錨嘅豁免唔再算錯）',
+        find: 'if (anchorOf(a).length < ALLOW_CONTEXT_MIN) {',
+        to: 'if (false && anchorOf(a).length < ALLOW_CONTEXT_MIN) {' },
+      { name: '錨長度下限放寬為 0（空字串變做萬能豁免）',
+        find: 'const ALLOW_CONTEXT_MIN = 4', to: 'const ALLOW_CONTEXT_MIN = 0' },
     ],
   },
 ]
