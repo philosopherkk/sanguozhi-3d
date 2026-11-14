@@ -122,7 +122,7 @@ const SUITES = [
   {
     name: 'chars',
     gate: 'audit:chars --teeth',
-    min: 11,
+    min: 16,
     metric: /失敗 (\d+) 項/,
     /** 副本要喺 `<tmp>/chars/` 重鋪成縮小版 repo：佢會 own import.meta.dirname 去搵
      *  `./lib/gate-baseline.ts` 與 `../reports/chars-allowlist.json`；缺一個就係假紅。 */
@@ -168,7 +168,23 @@ const SUITES = [
       { name: '標記豁免直接唔生效（偵測表被人「正體化」都冇人叫）',
         find: 'if (blocks.covered.has(i)) return', to: 'void 0' },
       { name: '副檔名清單失去 .py（`处`／`径` 嗰類盲區迴歸）',
-        find: "p.endsWith('.py')) &&", to: "p.endsWith('.pyy')) &&" },
+        find: "p.endsWith('.py') ||", to: "p.endsWith('.pyy') ||" },
+      // ── JSON 欄位級豁免（2026-11-14 納入 .json 時一併加嘅牙）──
+      // 呢一組每條都對得上 audit-chars --teeth 入面一條 JSON 探針：
+      // 豁免制空 → 「引文欄唔報」變誤報；豁免過寬（入敘述欄／成行跳過）→ 「敘述欄照報」變未咬到。
+      // 淨係得一個方向嘅探針係假牙：抽走半邊都會全綠。
+      { name: '副檔名清單失去 .json（資料檔敘述一夜變閘門外）',
+        find: "p.endsWith('.json')) &&", to: "p.endsWith('.jsonn')) &&" },
+      { name: '欄位豁免制空（引文欄變返錯字：會逼人改壞引文原形）',
+        find: "scanned = scanned.replace(CITE_VALUE, '')", to: "void CITE_VALUE // 突變：唔遮" },
+      { name: '欄位豁免過寬（CITE_KEYS 入咗 note → 吞掉網站可見敘述）',
+        find: "'id', 'label', 'source',", to: "'id', 'label', 'note', 'source'," },
+      { name: '用成行跳過代替遮值（同行敘述欄跟住失明）',
+        find: "if (f.endsWith('.json')) scanned = scanned.replace(CITE_VALUE, '')",
+        to: "if (f.endsWith('.json') && CITE_VALUE.test(line)) return" },
+      { name: '詞頭 locale 一致性抽走（中文條目用日文詞頭都冇人叫）',
+        find: 'if (f.endsWith(\'.json\') && full.includes(\'"locale"\')',
+        to: 'if (false && f.endsWith(\'.json\') && full.includes(\'"locale"\')' },
     ],
   },
 ]

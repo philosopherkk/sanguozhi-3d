@@ -328,6 +328,25 @@ const BLOCK_START = /^\s*(?:\/\/|#|\*)\s*chars-block-start\b(.*)$/
 const BLOCK_END = /^\s*(?:\/\/|#|\*)\s*chars-block-end\b/
 const BLOCK_MAX_LINES = 80 // qsrc.py 變體字表 8 行、覆核工具三張表 53 行；上限只防默默擴大
 
+// ── JSON 引文／識別碼欄：遮值區段，唔成行跳過 ────────────────────────────
+// AGENTS.md 訂明「`quote`／`source` 欄照原典字形」，資料 `id` 改了會斷連結（例 噶厦），
+// 維基條目標題（`label`）以各維基實際標題為準。呢啲欄位要豁免；但**成行跳過**會把同一行
+// 嘅敘述一齊放行，所以只遮「鍵對應嘅值區段」，其餘照掃。
+// 欄位名單與覆核工具 verify_chars_opencc.py 嘅 CITE_FIELD 對齊（兩邊口徑一致先至查得到嘢）。
+// ⚠ 敘述欄（note／desc／brief／meaningZhHant／text／title）一律唔准入呢張表：
+//   入了就等於把網站可見文字交俾錯字。呢條邊界由 --teeth 源碼守門釘死。
+const CITE_KEYS = [
+  'id', 'label', 'source', 'sources', 'cite', 'quote', 'classicQuote', 'classicSource',
+  'outcomeSource', 'primary_source', 'sourceLabel', 'source_plate', 'entrySource',
+  'quoteHeading', 'wikiUrl', 'zhwikiUrl', 'wikisource', 'url', 'reading', 'lemma',
+]
+const CITE_VALUE = new RegExp(
+  `"(?:${CITE_KEYS.join('|')})"\\s*:\\s*"(?:[^"\\\\]|\\\\.)*"`,
+  'g',
+)
+// 敘述欄黑名单：呢啲鍵一旦出現在 CITE_KEYS，豁免就吞掉網站可見敘述（靜默失明，永遠唔會報紅）。
+const PROSE_KEYS = ['note', 'desc', 'brief', 'meaning', 'meaningZhHant', 'text', 'title', 'summary', 'body']
+
 /** 回傳「該檔因標記而豁免的行號」與「標記本身的問題」。問題行一律由呼叫端計入 hard。 */
 function blockExemption(lines: string[], f: string): { covered: Set<number>; problems: string[] } {
   const covered = new Set<number>()
@@ -394,7 +413,10 @@ function walk(dir: string, out: string[] = []): string[] {
         // 2026-11-14 使用者裁定納入 .py：腳本註釋與訊息同樣會洩到介面／報告上，
         // 而 `处`→處、`径`→徑 兩條真錯字正是因為 .py 在閘門外才溜進去的。
         // 腳本裡的「錯字偵測表」走 chars-block 標記豁免（見上），不再整檔跳過。
-        p.endsWith('.py')) &&
+        p.endsWith('.py') ||
+        // 同一天第二輪：資料檔嘅 `note`／`desc` 是直接顯示俾讀者睇嘅敘述，之前 .json
+        // 完全喺閘門外。引文與識別碼欄由 CITE_VALUE 遮蔽值區段（見上），唔係整檔放過。
+        p.endsWith('.json')) &&
       !SKIP_FILE.test(p)
     )
       out.push(p)
@@ -564,12 +586,46 @@ if (flags.includes('--teeth')) {
       console.log(`  ✓ ${name}`)
     }
   })
+  // ── JSON 欄位級豁免：引文／識別碼欄照原形，敘述欄照掃（2026-11-14 第二輪）──
+  // 呢一組探針要同時釘死兩個方向，缺一個就係失明：
+  //   淨係測「source 唔報」→ 有人把 note／desc 都塞入豁免名單，閘門對網站可見敘述永遠全綠；
+  //   淨係測「note 會報」→ 有人索性唔掃 .json，一樣全綠。所以每條都成對寫。
+  const jsonCases: Array<[string, string, string[], string[]]> = [
+    // [案例名, JSON 內容一行, 必須報, 必須唔報]
+    ['JSON 敘述欄照掃（note／desc 唔俾欄位豁免吞）',
+      `{"note": "${DUI} 字", "desc": "${QU} 字"}`, [DUI, QU], []],
+    ['JSON 引文欄照原形（source／cite／quote 唔報）',
+      `{"source": "${DUI}", "cite": "${QU}", "quote": "${CHUAN}"}`, [], [DUI, QU, CHUAN]],
+    ['欄位豁免唔越界（同一行入面嘅敘述欄照報）',
+      `{"source": "${DUI}", "note": "${QU} 字"}`, [QU], [DUI]],
+    ['詞頭有牙：locale 唔係 jp 卻用錯字形做詞頭（呉越同舟 呢類）',
+      `[{"locale": "shared", "lemma": "${DUI}${QU}"}]`, [DUI, QU], []],
+    ['詞頭照原形：locale=jp 嘅和讀詞頭唔報（以心伝心 呢類唔好誤殺）',
+      `[{"locale": "jp", "lemma": "${DUI}${QU}"}]`, [], [DUI, QU]],
+  ]
+  jsonCases.forEach(([name, body, expect, expectNot], idx) => {
+    const out = scan([body], `json${idx}`, 'json')
+    const hit = hitsOf(out)
+    const miss = expect.filter((c) => !hit.has(c))
+    const over = expectNot.filter((c) => hit.has(c))
+    if (miss.length || over.length) {
+      bad += 1
+      console.log(`  ✗ ${name}：${miss.length ? `未咬到 ${miss.join(' ')}` : ''}${over.length ? `／誤報 ${over.join(' ')}` : ''}`)
+    } else console.log(`  ✓ ${name}`)
+  })
   // 副檔名清單本身都會退化：抽走一支，嗰類檔一夜變喺閘門外（.py 就係咁漏了 `处`／`径`）。
   const selfSrc = readFileSync(join(import.meta.dirname, 'audit-chars.ts'), 'utf8')
   const walkSrc = selfSrc.match(/function walk[\s\S]*?\n\}/)?.[0] ?? ''
-  const missingExt = ['.ts', '.tsx', '.md', '.css', '.mjs', '.py'].filter((e) => !walkSrc.includes(`p.endsWith('${e}')`))
+  const missingExt = ['.ts', '.tsx', '.md', '.css', '.mjs', '.py', '.json'].filter((e) => !walkSrc.includes(`p.endsWith('${e}')`))
   if (missingExt.length) { bad += 1; console.log(`  ✗ 掃描副檔名缺少 ${missingExt.join(' ')}`) }
-  else console.log('  ✓ 掃描副檔名含 .ts .tsx .md .css .mjs .py')
+  else console.log('  ✓ 掃描副檔名含 .ts .tsx .md .css .mjs .py .json')
+  // 欄位豁免嘅邊界屬「靜默失明」類：有人把 note／desc 加入名單，永遠唔會報紅，
+  // 所以只能用源碼守門——敘述欄名單喺本檔寫死，兩者一旦相撞即刻失敗。
+  const citeKeysSrc = selfSrc.match(/const CITE_KEYS = \[([\s\S]*?)\n\]/)?.[1] ?? ''
+  const swallowed = PROSE_KEYS.filter((k) => citeKeysSrc.includes(`'${k}'`))
+  if (!citeKeysSrc.includes("'source'")) { bad += 1; console.log('  ✗ 搵唔到 CITE_KEYS（欄位豁免名單消失：要嘛改名要嘛移除，兩者都要喺呢度講清楚）') }
+  else if (swallowed.length) { bad += 1; console.log(`  ✗ CITE_KEYS 入咗敘述欄 ${swallowed.join(' ')}：欄位豁免會吞到網站可見文字`) }
+  else console.log('  ✓ CITE_KEYS 冇敘述欄（note／desc／brief／meaning… 一律照掃）')
   // 標記機制本身都有牙：把正則改弱，用探針重掃一次。
   // 口徑要講清楚：呢度測嘅唔係「變弱之後會報紅」（靜靜擴大豁免本來就唔會報），
   // 而是**呢條豁免係 load-bearing**——抽走佢，探測表啲字就成批落地，即真 repo 嘅
@@ -682,6 +738,8 @@ for (const f of files) {
       scanned = scanned.replace(/WIKI(?:_JA)?\(\s*'[^']*'\s*\)/g, '')
       if (!narrative.has(i)) scanned = scanned.replace(/`[^`]*`/g, '')
       if (kanaLine) scanned = maskNearKana(scanned)
+      // JSON 引文／識別碼欄：只遮值區段（鍵唔喺名單內嘅一律照掃，即使擺喺同一行）。
+      if (f.endsWith('.json')) scanned = scanned.replace(CITE_VALUE, '')
 
       const isQuote = QUOTE_LINE.test(line)
       // 《…》 之內是書名（《仮名手本忠臣蔵》《日本歴史地図》），日文書名照原典字形；
@@ -743,6 +801,33 @@ for (const f of files) {
         }
       }
     })
+    // ── 詞頭豁免有條件，條件由本閘門驗證 ──────────────────────────────────
+    // `lemma` 摆入 CITE_KEYS 係因為日文成語（和讀）嘅詞頭只能照原形（以心伝心、忠臣蔵），
+    // 而詞頭係**直接渲染喺卡片最顯眼位置**嘅文字。但「照原形」只應該保護真係日文嘅條目：
+    // 條目自己標明 locale 唔係 jp、詞頭卻用日文新字／簡體形，就係把錯字當正體擺俾讀者睇
+    // （實測中招：呉越同舟，locale=shared，同條 note 自己已經寫「吳」）。
+    // 冇 `locale` 欄嘅檔判唔到，靠上面嘅逐字掃描；呢度唔會放大豁免，只會加牙。
+    if (f.endsWith('.json') && full.includes('"locale"') && full.includes('"lemma"')) {
+      let entries: unknown = null
+      try {
+        entries = JSON.parse(full)
+      } catch {
+        entries = null // JSON 語法由 build／其他閘門把關，呢度唔搶工作
+      }
+      for (const e of Array.isArray(entries) ? entries : []) {
+        const rec = e as { locale?: unknown; lemma?: unknown }
+        if (typeof rec?.locale !== 'string' || rec.locale === 'jp') continue
+        if (typeof rec?.lemma !== 'string') continue
+        for (const [ch, fix] of Object.entries(HARD)) {
+          if (!rec.lemma.includes(ch)) continue
+          const ln = lines.findIndex((l) => l.includes(`"${rec.lemma}"`)) + 1
+          hard += 1
+          console.log(
+            `HARD ${f}:${ln || 1} 詞頭非日文條目（locale=${rec.locale}）用錯字形 ${ch}→${fix}  ${rec.lemma}`,
+          )
+        }
+      }
+    }
 }
 console.log(
   `\naudit:chars — 硬傷 ${hard} 處、已核准 ${allowed} 處、待判 ${soft} 處（引文行的視境字已跳過）`,
