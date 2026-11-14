@@ -122,7 +122,7 @@ const SUITES = [
   {
     name: 'chars',
     gate: 'audit:chars --teeth',
-    min: 23,
+    min: 28,
     metric: /失敗 (\d+) 項/,
     /** 副本要喺 `<tmp>/chars/` 重鋪成縮小版 repo：佢會 own import.meta.dirname 去搵
      *  `./lib/gate-baseline.ts` 與 `../reports/chars-allowlist.json`；缺一個就係假紅。 */
@@ -202,18 +202,37 @@ const SUITES = [
       { name: '詞級規則抽走（兩用字嘅簡體式寫法成批溜走）',
         find: 'for (const [word, fix] of Object.entries(HARD_WORDS)) {',
         to: 'for (const [word, fix] of [] as [string, string][]) {' },
-      // 兩條結構約束（2026-11-14 第八輪）：張表有 69 個詞，刪走一組（再喺其他組加返詞補數）、
+      // 兩條結構約束（2026-11-14 第八輪）：張表有 75 個詞，刪走一組（再喺其他組加返詞補數）、
       // 或順手加個唔 related 嘅詞，現有資料都唔會報紅——只能靠「每組要有詞」同
       // 「每個詞要屬於一組」呢兩條守門。錨點一律用轉義：呢檔唔喺 audit-chars 嘅
       // SKIP_FILE 內，字面寫出目標錯字會被自己咬。
       { name: '刪走一整組兩用字規則（后 組）',
-        find: "  \u4ee5\u540e: '\u4ee5\u5f8c', \u4e4b\u540e: '\u4e4b\u5f8c', \u7136\u540e: '\u7136\u5f8c', \u80cc\u540e: '\u80cc\u5f8c', \u540e\u9762: '\u5f8c\u9762',\n", to: '' },
+        find: "  \u4ee5\u540e: '\u4ee5\u5f8c', \u4e4b\u540e: '\u4e4b\u5f8c', \u7136\u540e: '\u7136\u5f8c', \u80cc\u540e: '\u80cc\u5f8c', \u540e\u9762: '\u5f8c\u9762',\n"
+          + "  \u540e\u52e4: '\u5f8c\u52e4', \u540e\u8005: '\u5f8c\u8005', \u5148\u540e: '\u5148\u5f8c',\n", to: '' },
       { name: '詞級組名單抽走一支（規則變做無人認領）',
         find: "'\u7740', '\u5374']",
         to: "'\u5374']" },
       { name: '詞表混入唔屬於任何組嘅詞（drift 無人查）',
         find: "  \u51b7\u5374: '\u51b7\u537b',",
         to: "  \u51b7\u5374: '\u51b7\u537b', \u9060\u5f81: '\u9060\u5f81', \u6771\u5f81: '\u6771\u5f81'," },
+      // 詞典覆蓋率記錄表（2026-11-15 第九輪）：呢啲詞本身唔係錯字，掃到都唔會報，所以
+      // 張表被清空、變做冇理由嘅萬能豁免、或同 HARD_WORDS 自我矛盾，行為斷言一律全綠。
+      // 唯一嘅證法係破壞張表本身，睇源碼守門會唔會叫。
+      { name: '覆蓋率記錄表改名（守門搵唔到張表，判讀記錄消失）',
+        find: 'const HARD_WORD_KEEP: Array<{ word: string; reason: string }> = [',
+        to: 'const HARD_WORD_KEEPX: Array<{ word: string; reason: string }> = [' },
+      { name: '把 HARD_WORDS 嘅詞搬入覆蓋率記錄表（規則自相矛盾）',
+        find: "  { word: '\u540e\u4e0b',",
+        to: "  { word: '\u4ee5\u540e'," },
+      { name: '覆蓋率記錄冇理由（為咗過閘門填空）',
+        find: "  { word: '\u5e72\u4eba', reason: '\u82e5\u5e72\uff0b\u4eba\uff0c\u300c\u82e5\u5e72\u300d\u672c\u5b57' },",
+        to: "  { word: '\u5e72\u4eba', reason: '\u5e72' }," },
+      { name: '覆蓋率記錄條目形狀改錯（條目靜靜消失都唔知）',
+        find: "  { word: '\u540e\u63a5', reason:",
+        to: "  { wordX: '\u540e\u63a5', reason:" },
+      { name: '兩用字組名單抽走一支（記錄表嘅詞變做冇組可歸）',
+        find: "'\u5e72', '\u4f1a',",
+        to: "'\u4f1a'," },
     ],
   },
 ]

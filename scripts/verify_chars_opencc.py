@@ -142,6 +142,39 @@ _hw_lost = [w for w in _HW_SENTINELS if w not in HARD_WORDS]
 assert not _hw_lost, ('HARD_WORDS 缺少哨兵詞 ' + ' '.join(_hw_lost)
                       + '：某組兩用字規則俾人刪咗，呢類簡體式寫法再無人接')
 assert len(HARD_WORDS) >= 40, f'HARD_WORDS 只剩 {len(HARD_WORDS)} 個詞：詞級規則被清空咗？'
+# 詞典覆蓋率嘅「記錄豁免」表（同一份源碼，唔另寫一份）：呢啲詞判讀過唔係簡體式，
+#   每條要有理由。張表一旦縮水或變成冇理由嘅豁免，覆蓋率就變返「冇人在查」。
+_km = re.search(r"\bconst HARD_WORD_KEEP: Array<\{[^>]*\}> = \[(.*?)\n\]", _bad_ts, re.S)
+assert _km, ('讀唔到 scripts/audit-chars.ts 嘅 HARD_WORD_KEEP：詞典覆蓋率嘅判讀記錄消失，'
+             '下一輪會把同一批詞當新錯字再判一次（或乾脆冇人判）')
+HW_KEEP = {m.group(1): m.group(2) for m in
+           re.finditer(r"\{\s*word:\s*'([^']+)',\s*reason:\s*'([^']+)'\s*\}", _km.group(1))}
+assert len(HW_KEEP) == len(re.findall(r"(?m)^\s*\{", _km.group(1))), (
+    'HARD_WORD_KEEP 有條目解析唔到（形狀錯＝條目靜靜消失）：' + _km.group(1)[:120])
+assert len(HW_KEEP) >= 20, f'HARD_WORD_KEEP 只剩 {len(HW_KEEP)} 條：判讀記錄俾人清走咗'
+_keep_dup = [w for w in HW_KEEP if w in HARD_WORDS]
+assert not _keep_dup, ('呢啲詞同時喺 HARD_WORDS 同 HARD_WORD_KEEP（規則自相矛盾）：'
+                       + ' '.join(_keep_dup))
+_keep_short = [w for w, r in HW_KEEP.items() if len(r) < 8]
+assert not _keep_short, ('HARD_WORD_KEEP 呢啲條目冇理由：' + ' '.join(_keep_short)
+                         + '——冇理由嘅豁免等於失明（本專案五次同一根因）')
+_keep_orphan = [w for w in HW_KEEP if not (set(w) & set(HW_GROUPS))]
+assert not _keep_orphan, ('HARD_WORD_KEEP 有詞唔屬於任何兩用字組：' + ' '.join(_keep_orphan))
+# 詞典覆蓋率掃描：用 opencc 詞組 dictionary（STPhrases）做候選，而唔係逐字比對——
+#   逐字比對實測俾 709 條詞界噪聲淹死，詞組口徑得 33 條，先判得完。
+STP = {}
+for line in open(os.path.join(DD, 'STPhrases.txt'), encoding='utf-8'):
+    p = line.split()
+    if len(p) == 2 and len(p[0]) == len(p[1]) and p[0] != p[1]:
+        STP[p[0]] = p[1]
+assert len(STP) > 30000, (
+    f'STPhrases 只解析出 {len(STP)} 條非恆等條目（檔案 48,976 行，其餘係恆等對映），'
+    '一定是分隔符號錯了')
+GRP = set(HW_GROUPS)
+CAND = {w: to for w, to in STP.items()
+        if any(ch in GRP and to[i] != ch for i, ch in enumerate(w))}
+MAXCAND = max(len(w) for w in CAND)
+assert len(CAND) > 2000, f'候選短語只有 {len(CAND)} 個，覆蓋率掃描一定冇嘢好掃'
 BAD = {k: v for k, v in BAD.items() if k not in KEEP}
 assert ZUN_CHAR not in BAD, '「准」唔喺 KEEP：批准／核准呢類正確用法會成批誤報（全庫 88 處）'
 assert len(BAD) > 3000, f'候選字集只有 {len(BAD)}，一定解析錯了'
@@ -173,6 +206,7 @@ MAX_TABLE_LINES = 80      # 而家實際約 60 行（三張表＋說明）出頭
 
 TEETH = '--teeth' in sys.argv
 STRICT = '--strict' in sys.argv
+WORD_COVERAGE = '--word-coverage' in sys.argv
 # 注入嘅壞字用 \uXXXX：呢啲係我方探針，唔屬於「原文／識別碼」嗰類，所以唔豁免。
 TEETH_WANT = ('\u8c01\u7ee7\u6b8b\u5c02\u56e3\u6e08\u90f7\u4e21'
               '\u6226\u8ee2\u9ed2\u5186\u5e81\u5e2f\u5263\u820e'
@@ -187,9 +221,15 @@ TEETH_WORD_BAD = ['\u51c6\u5099', '\u5173\u4e8e', '\u4ee5\u540e', '\u8fd9\u91cc'
 TEETH_WORD_OK = ['\u6279\u51c6', '\u51c6\u8a31', '\u4f4d\u4e8e', '\u5728\u4e8e',
                  '\u7687\u540e', '\u91cc\u7a0b', '\u515a\u9805', '\u90c1\u90c1',
                  '\u7740\u624b', '\u5374\u884c', '\u8457\u540d']
+# 覆蓋率探針（三個去處成對）：已入 HARD_WORDS／已寫 HARD_WORD_KEEP／兩張表都冇。
+# 淨測一個方向嘅話，有人把 HARD_WORD_KEEP 變做萬能豁免、或把分類邏輯寫反，都照樣全綠。
+COV_PROBE_GATE = '\u540e\u52e4'   # 已入 HARD_WORDS 嘅探針詞（字面寫出嚟本檔會自咬）
+COV_PROBE_KEEP = '\u53f0\u5317'   # 已寫入 HARD_WORD_KEEP（有理由嘅判讀）
+COV_PROBE_TODO = '\u53f0\u9762'   # 兩張表都冇 → 必須分類做未分類
 TEETH_TEXT = ('// 注入測試：' + TEETH_WANT + '\n'
               + ''.join(TEETH_WORD_BAD) + '\n'
-              + ''.join(TEETH_WORD_OK) + '\n')
+              + ''.join(TEETH_WORD_OK) + '\n'
+              + COV_PROBE_GATE + COV_PROBE_KEEP + COV_PROBE_TODO + '\n')
 
 
 def git_status():
@@ -214,6 +254,9 @@ if TEETH:
     files.append(probe_path)          # 絕對路徑：os.path.join 會直接俾佢通過
 
 hits, teeth_hit = [], False
+cov = {'gate': set(), 'keep': set(), 'todo': set()}   # 詞典覆蓋率：三個去處
+cov_hits = {'gate': 0, 'keep': 0, 'todo': 0}
+cov_todo, cov_probe, keep_seen = [], {}, set()
 table_lines = 0
 starts = ends = 0
 try:
@@ -245,6 +288,11 @@ try:
             if in_table:
                 table_lines += 1
                 continue
+            # 「記錄豁免」嘅詞要真係喺庫內見到（用未遮蔽嘅 raw：入面有啲係喺引文／題名之內）。
+            # 掃唔到即係一條冇對象嘅豁免——豁免越多越冇人查，呢度把它釘住。
+            for kw in HW_KEEP:
+                if kw in raw:
+                    keep_seen.add(kw)
             if not is_probe:
                 in_cite = bool(CITE_INLINE.search(raw))
                 if not in_cite:
@@ -281,6 +329,26 @@ try:
                         continue             # 挨住假名＝日文原文用法，唔動
                     hits.append((rel, idx + 1, w, to, scanned[max(0, p - 22):p + 24]))
                     p = scanned.find(w, p + len(w))
+            # 詞典覆蓋率（第九輪）：同一份遮蔽後嘅文字，用 STPhrases 候選掃一次，逐個短語
+            # 分類做「已入 HARD_WORDS（閘門有牙）」／「已寫入 HARD_WORD_KEEP（有理由嘅判讀）」
+            # ／「未分類（要人判）」。未分類唔算失敗（opencc 會誤報），但一定要被人見到。
+            for i0, ch in enumerate(scanned):
+                if ch not in GRP:
+                    continue
+                for L in range(2, MAXCAND + 1):
+                    if i0 + L > len(scanned):
+                        break
+                    w = scanned[i0:i0 + L]
+                    to = CAND.get(w)
+                    if not to:
+                        continue
+                    cls = 'gate' if w in HARD_WORDS else ('keep' if w in HW_KEEP else 'todo')
+                    cov[cls].add(w)
+                    cov_hits[cls] += 1
+                    if is_probe:
+                        cov_probe.setdefault(w, set()).add(cls)
+                    if cls == 'todo':
+                        cov_todo.append((rel, idx + 1, w, to, scanned[max(0, i0 - 20):i0 + 26]))
 finally:
     if probe_dir:
         import shutil
@@ -301,6 +369,27 @@ assert table_lines <= MAX_TABLE_LINES, (
 assert len(files) > 300, f'掃描清單只剩 {len(files)} 檔，SKIP 一定食太寬了'
 print(f'掃描 {len(files)} 檔，候選字 {len(BAD)} 種')
 print(f'命中 {len(hits)} 處')
+# ── 詞典覆蓋率（第九輪）────────────────────────────────────────────────────
+# 「詞表只列咗常見簡體式，新寫法唔會自動被接住」呢個缺口之前從冇被量過。呢度用
+# STPhrases 做候選，把命中分做三個去處；未分類唔算失敗（opencc 會誤報），但一定要見到。
+missing_keep = [w for w in HW_KEEP if w not in keep_seen]
+assert not missing_keep, (
+    'HARD_WORD_KEEP 有條目喺全庫掃唔到（冇對象嘅豁免）：' + ' '.join(missing_keep)
+    + '——呢條判讀要嘛刪走，要嘛對返真實檔案')
+cov_words = cov['gate'] | cov['keep'] | cov['todo']
+print(f'詞典覆蓋率：候選短語 {len(CAND)} 個，庫內命中 {sum(cov_hits.values())} 處／'
+      f'{len(cov_words)} 個短語（已入表 {len(cov["gate"])}／已記錄豁免 {len(cov["keep"])}'
+      f'／未分類 {len(cov["todo"])}）')
+if cov['todo']:
+    print('  未分類（要嘛入 HARD_WORDS、要嘛寫入 HARD_WORD_KEEP 並畀理由）：'
+          + ' '.join(sorted(cov['todo'])))
+if WORD_COVERAGE:
+    print('\n── 已入 HARD_WORDS 嘅命中 ──')
+    for w in sorted(cov['gate']):
+        print(f'  {w}→{HARD_WORDS[w]}')
+    print('── 已記錄豁免（HARD_WORD_KEEP，逐條理由）──')
+    for w in sorted(cov['keep']):
+        print(f'  {w}｜{HW_KEEP[w]}')
 if TEETH:
     want = set(TEETH_WANT)
     got = {h[2] for h in hits if os.path.isabs(h[0]) and len(h[2]) == 1}
@@ -318,6 +407,17 @@ if TEETH:
     assert not over_w, '詞級探針誤咬正體／日文用法：' + ' '.join(over_w)
     print(f'詞級注入：壞詞 {len(TEETH_WORD_BAD)} 個全部咬到、'
           f'控制 {len(TEETH_WORD_OK)} 個零誤報（表內 {len(HARD_WORDS)} 詞）')
+    # 覆蓋率探針：三個去處（已入表／已記錄豁免／未分類）都要分啱。淨測一個方向嘅話，
+    # 有人把 HARD_WORD_KEEP 變做萬能豁免、或把分類寫反，都照樣全綠。
+    want_cov = {COV_PROBE_GATE: 'gate', COV_PROBE_KEEP: 'keep', COV_PROBE_TODO: 'todo'}
+    wrong_cov = [f'{w}→{"/".join(sorted(cov_probe.get(w, set()))) or "無"}（應為 {want}）'
+                 for w, want in want_cov.items() if want not in cov_probe.get(w, set())]
+    assert not wrong_cov, ('覆蓋率探針分類錯：' + ' '.join(wrong_cov)
+                           + '——張表或分類邏輯退化咗')
+    extra_todo = sorted(w for w in cov_probe if w not in want_cov and 'todo' in cov_probe[w])
+    print(f'覆蓋率注入：{COV_PROBE_GATE}→已入表、{COV_PROBE_KEEP}→已記錄豁免、'
+          f'{COV_PROBE_TODO}→未分類 全部啱；探針內其他詞典候選（opencc 誤報嘅樣本）：'
+          + (' '.join(extra_todo) or '無'))
 print()
 for rel, i, ch, to, ctx in hits:
     print(f'{label(rel)}:{i}  {ch}→{to}  …{ctx}…')
