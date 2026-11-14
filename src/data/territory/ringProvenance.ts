@@ -7,6 +7,7 @@
 
 export type RingKind =
   | 'modern-province-proxy'
+  | 'natural-border'
   | 'schematic-box'
   | 'text-derived'
   | 'plate-traced'
@@ -27,14 +28,14 @@ export const RING_PROVENANCE: Record<string, RingProvenance> = {
   hlj: { basis: '黑龍江：民國東三省界，非當時政區', source: '現代行政界（民國東三省界）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
   jl: { basis: '吉林：民國東三省界，非當時政區', source: '現代行政界（民國東三省界）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
   ln: { basis: '遼寧：民國東三省界，非當時政區', source: '現代行政界（民國東三省界）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
-  rehe: { basis: '熱河：民國熱河省界（1928 始設），非當時政區', source: '現代行政界（民國熱河省界（1928 始設））；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
+  rehe: { basis: '熱河：南界燕山長城（古北口—喜峰口）、北包昭烏達卓索頓兩盟、東及努魯兒虎山之示意，近民國熱河省界（1928 始設）而非當時政區', source: '自然界與蒙盟地望示意（《讀史方輿紀要》古北口喜峰口；民國熱河省界參照）；非譚圖圖幅', institution: '無', kind: 'natural-border', approx: true },
   zhili: { basis: '直隸：清直隸省界，非當時政區', source: '現代行政界（清直隸省界）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
   youyun: { basis: '幽薊（古）：依文獻地望的手繪區，非圖幅矢量化', source: '《書·禹貢》幽州；《漢書·地理志》', institution: '無', kind: 'text-derived', approx: true },
   shandong: { basis: '山東：現代山東省界，非當時政區', source: '現代行政界（現代山東省界）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
   henan: { basis: '河南：現代河南省界，非當時政區', source: '現代行政界（現代河南省界）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
-  shanxi: { basis: '山西：現代山西省界，非當時政區', source: '現代行政界（現代山西省界）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
-  shaanxi: { basis: '陝西：現代陝西省界，非當時政區', source: '現代行政界（現代陝西省界）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
-  yanan: { basis: '延安：現代陝西北部地市界，非當時政區', source: '現代行政界（現代陝西北部地市界）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
+  shanxi: { basis: '山西：西北南三面阻河（大河府谷—壺口—龍門—潼關）、東界太行之示意自然界，非當時政區', source: '自然界示意（《書·禹貢》冀河地勢參《讀史方輿紀要》）；非譚圖圖幅', institution: '無', kind: 'natural-border', approx: true },
+  shaanxi: { basis: '陝西：北界長城（定邊—神木）、東界循河（府谷—壺口—龍門—潼關）、南界秦嶺巴山之示意自然界，非當時政區', source: '自然界示意（《書·禹貢》荊岐之域參《讀史方輿紀要·陝西》）；非譚圖圖幅', institution: '無', kind: 'natural-border', approx: true },
+  yanan: { basis: '陝西北部（延安）：北界長城、東界黃河、西界子午嶺之示意自然界，非當時政區', source: '自然界示意（《讀史方輿紀要·延安府》）；非譚圖圖幅', institution: '無', kind: 'natural-border', approx: true },
   gansu: { basis: '甘肅：現代甘肅省界，非當時政區', source: '現代行政界（現代甘肅省界）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
   ningxia: { basis: '寧夏：民國寧夏省界（1928 始設），非當時政區', source: '現代行政界（民國寧夏省界（1928 始設））；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
   qinghai: { basis: '青海：現代青海省界，非當時政區', source: '現代行政界（現代青海省界）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
@@ -62,10 +63,10 @@ export const RING_PROVENANCE: Record<string, RingProvenance> = {
   yiluo: { basis: '伊洛盆地：依文獻地望的手繪區，非圖幅矢量化', source: '地理范圍；金文與《左傳》地望', institution: '無', kind: 'text-derived', approx: true },
   shang_yin: { basis: '商（殷墟期）：依文獻地望的手繪區，非圖幅矢量化', source: '《史記·殷本紀》世系與殷墟出土範圍', institution: '無', kind: 'text-derived', approx: true },
   zhou_wei: { basis: '西周王畿：依文獻地望的手繪區，非圖幅矢量化', source: '《詩·大雅》《逸周書》系；西周金文分布', institution: '無', kind: 'text-derived', approx: true },
-  zhou_luoyi: { basis: '成周洛邑：依文獻地望的手繪區，非圖幅矢量化', source: '《書·洛誥》；何尊「宅茲中國」', institution: '無', kind: 'text-derived', approx: true },
+  zhou_luoyi: { basis: '成周洛邑王畿：北阻大河（孟津）、東界虎牢、南界闕塞嵩高、西及新安之手繪區，非圖幅矢量化', source: '《書·洛誥》《書·召誥》卜澗水東瀍水西大意；何尊「宅茲中國」', institution: '無', kind: 'text-derived', approx: true },
   linzi: { basis: '齊都臨淄：依文獻地望的手繪區，非圖幅矢量化', source: '《史記·齊太公世家》；齊故城考古', institution: '無', kind: 'text-derived', approx: true },
   qi: { basis: '齊（春秋）：依文獻地望的手繪區，非圖幅矢量化', source: '《左傳》《國語·齊語》地望', institution: '無', kind: 'text-derived', approx: true },
-  lu: { basis: '魯（春秋）：依文獻地望的手繪區，非圖幅矢量化', source: '《左傳》《國語·魯語》地望', institution: '無', kind: 'text-derived', approx: true },
+  lu: { basis: '魯（春秋）：泰山之陽、汶泗之野、東及費南及鄒滕之手繪區，非圖幅矢量化', source: '《左傳》《國語·魯語》地望（「費」「鄒」見《左傳》《孟子》）', institution: '無', kind: 'text-derived', approx: true },
   yan_early: { basis: '燕（早期）：依文獻地望的手繪區，非圖幅矢量化', source: '《史記·燕世家》；克罍等金文', institution: '無', kind: 'text-derived', approx: true },
   chu_early: { basis: '楚（早期）：依文獻地望的手繪區，非圖幅矢量化', source: '《史記·楚世家》；荊山一帶', institution: '無', kind: 'text-derived', approx: true },
   jin_quwo: { basis: '晉（曲沃）：依文獻地望的手繪區，非圖幅矢量化', source: '《左傳》曲沃一系；天馬—曲村考古', institution: '無', kind: 'text-derived', approx: true },
@@ -92,8 +93,8 @@ export const RING_PROVENANCE: Record<string, RingProvenance> = {
   tang_silla: { basis: '新羅：依文獻地望的手繪區，非圖幅矢量化', source: '《舊唐書·新羅傳》《三國史記》', institution: '無', kind: 'text-derived', approx: true },
   tang_hehuang: { basis: '河湟（吐蕃界）：依文獻地望的手繪區，非圖幅矢量化', source: '《舊唐書·吐蕃傳》；長慶會盟界線', institution: '無', kind: 'text-derived', approx: true },
   hebei_song: { basis: '河北（宋）：現代河北省界代替河北路／京東路，非當時政區', source: '現代行政界（現代河北省界代替河北路／京東路）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
-  shanxi_n: { basis: '山西北部：現代山西省界之半，非當時政區', source: '現代行政界（現代山西省界之半）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
-  shanxi_s: { basis: '山西南部：現代山西省界之半，非當時政區', source: '現代行政界（現代山西省界之半）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
+  shanxi_n: { basis: '山西北部（代北雲中之屬）：以勾注之險分帶之山西自然界北部示意，非當時政區', source: '自然界示意（勾注之險參《讀史方輿紀要·代州》）；非譚圖圖幅', institution: '無', kind: 'natural-border', approx: true },
+  shanxi_s: { basis: '山西南部（河東、太原盆地之屬）：山西自然界南部示意，非當時政區', source: '自然界示意（同上）；非譚圖圖幅', institution: '無', kind: 'natural-border', approx: true },
   shanxi_song: { basis: '山西（宋）：現代山西省界代替河東路，非當時政區', source: '現代行政界（現代山西省界代替河東路）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
   shaanxi_rest: { basis: '陝西（不含關中）：現代陝西省界，非當時政區', source: '現代行政界（現代陝西省界）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
   qi_west: { basis: '齊（戰國西境）：依文獻地望的手繪區，非圖幅矢量化', source: '《史記·田敬仲完世家》；戰國齊界', institution: '郡', kind: 'text-derived', approx: true },
