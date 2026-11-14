@@ -2210,9 +2210,9 @@ ja 八條全部以 `qsrc.py --host ja.wikisource.org --verify-batch` 逐字覆�
 | 未查證／引文已改 | 0／0 | 0／0 |
 | 錯誤／提醒 | 0／44 | 0／44 |
 | `audit:chars` 硬傷 | 0 | **0** |
-| `npm run gates` | — | （收尾補記） |
-| `npm run build` | — | （收尾補記） |
-| `npm run lint` | — | （收尾補記） |
+| `npm run gates` | — | 無惡化，exit 0（audit:quotes errors=0(=) warns=44(=)、chars hard=0(=)、chars:teeth fail=0(=)；war-shape 268→101 仍屬其他工作流，基線未更新所致） |
+| `npm run build` | — | EXIT=0 |
+| `npm run lint` | — | EXIT=0（0 error，warnings 照基準） |
 
 ### 4) 本輪考訂兩點
 
