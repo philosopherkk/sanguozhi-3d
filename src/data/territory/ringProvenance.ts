@@ -7,6 +7,7 @@
 
 export type RingKind =
   | 'modern-province-proxy'
+  | 'natural-border'
   | 'schematic-box'
   | 'text-derived'
   | 'plate-traced'
