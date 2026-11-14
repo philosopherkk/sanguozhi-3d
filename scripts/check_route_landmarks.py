@@ -22,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# 日本戰區畫布與投影邊界一律從現行資料檔讀，不在這裡另抄常數（同 audit_map_accuracy.mjs 口径）。
+# 日本戰區畫布與投影邊界一律從現行資料檔讀，不在這裡另抄常數（同 audit_map_accuracy.mjs 口徑）。
 _regions = (ROOT / "src" / "sengoku" / "data" / "regions.ts").read_text(encoding="utf-8")
 _borders = (ROOT / "scripts" / "tighten_land_borders.py").read_text(encoding="utf-8")
 JP_W = int(re.search(r"SENGOKU_MAP_W\s*=\s*(\d+)", _regions).group(1))

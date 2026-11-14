@@ -8,8 +8,8 @@ r"""全庫逐字覆核（opencc）：搵出「喺中文敘述裡必錯」嘅字�
 同 `audit:teeth-mutations` 嗰 25 項突變）。
 
 點解仲要呢支：audit-chars 嘅 HARD 表係「見到哪個錯字補哪個」＋ opencc 系統性推導
-長出来嘅；本支另外用 opencc STCharacters 全表＋手寫日文新字表，並**直接從閘門
-原始碼解析 HARD 表**，所以工具同閘門嘅字表唔會分岔。両邊重疊之後多報出嚟嘅嘢
+長出來嘅；本支另外用 opencc STCharacters 全表＋手寫日文新字表，並**直接從閘門
+原始碼解析 HARD 表**，所以工具同閘門嘅字表唔會分岔。兩邊重疊之後多報出嚟嘅嘢
 要人判，而「人判」呢一步正正係閘門做唔到嘅。
 
 判準（四層）：
@@ -19,7 +19,8 @@ r"""全庫逐字覆核（opencc）：搵出「喺中文敘述裡必錯」嘅字�
      呢個係 AGENTS.md 嘅要求。
   3. 含假名嘅行唔再整行跳過（嗰個係上一版嘅洞，azuchiPack「幕府残黨」就係咁逃咗）：
      日文原文嘅字一定挨住假名，我哋嘅中文敘述唔會，所以只報「離任何假名 ≥4 格」嘅字。
-  4. KEEP／KEEP_PHRASE 係逐條判讀過保留原形嘅字與專名（理由見 docs/MOBILE_PLAN.md open item G）。
+  4. KEEP／KEEP_PHRASE 係逐條判讀過保留原形嘅字與專名（逐條理由見 docs/MOBILE_PLAN.md
+     「覆核工具（opencc 全庫逐字覆核）」一節）。
 
 用法：
   pip3 install opencc-python-reimplemented      # 唯一外部依賴（本 repo 冇 pyproject，同 numpy 一樣靠本機）
@@ -33,11 +34,11 @@ r"""全庫逐字覆核（opencc）：搵出「喺中文敘述裡必錯」嘅字�
     會被 `git add -A` 誤收——所以嗰版作廢，呢版唔准重犯。）
 
 本檔入面嘅資料點樣睇（依 AGENTS.md「只換字形、不改用字」嘅判準）：
-  - 敘述（呢段註解在内）一律正體書面語。
+  - 敘述（呢段註解在內）一律正體書面語。
   - JP／KEEP／KEEP_PHRASE 三張表入面嘅字形**照原形**：佢哋係「原典字形／兩用字／
-    可追蹤識別碼（維基條目名、dataset 名）」，正正係規則話唔准郁嘅嗰類；改咗就唔再
+    可追蹤識別碼（維基條目名、dataset 名）」，正正係規則話唔准改動嘅嗰類；改咗就唔再
     係同一張表，亦會令覆核工具自己變錯。
-  - 唯獨 TEETH_TEXT／want 係**我方注入**嘅探針，唔属于原文，所以用 \uXXXX 轉義，
+  - 唯獨 TEETH_TEXT／want 係**我方注入**嘅探針，唔屬於原文，所以用 \uXXXX 轉義，
     唔為本檔開「按檔名豁免」。
 """
 import os
@@ -57,7 +58,12 @@ for line in open(os.path.join(DD, 'STCharacters.txt'), encoding='utf-8'):
         ST[p[0]] = p[1]
 assert len(ST) > 3000, f'STCharacters 只解析出 {len(ST)} 條，一定是分隔符號錯了'
 
-# opencc 字典冇、或者方向唔啱嘅日文新字（JIS 新字体）——第一輪就係漏喺呢度
+# ── 探測表開始 ────────────────────────────────────────────────────────────
+# 以下各表入面出現目標字形屬**預期**（原典字形／兩用字／可追蹤識別碼），所以掃描時
+# 只跳過呢段對照註釋以內嘅行。刻意唔用「按檔名豁免」：檔名豁免會連本檔敘述一起失明，
+# 而敘述入面嘅錯字（本檔第一版就有四個：見 commit 743c805 之後嘅修正）必須繼續俾咬。
+# 豁免段以外嘅行照掃；豁免行數有上限斷言，防止有人默默擴大區塊。
+# opencc 字典冇、或者方向唔啱嘅日文新字（JIS 新字體）——第一輪就係漏喺呢度
 JP = {'両': '兩', '団': '團', '陥': '陷', '廃': '廢', '済': '濟', '権': '權',
       '鉄': '鐵', '収': '收', '黒': '黑', '歳': '歲', '広': '廣', '瀬': '瀨',
       '郷': '鄉', '摂': '攝', '関': '關', '県': '縣', '戸': '戶', '拝': '拜',
@@ -94,9 +100,17 @@ KEEP_PHRASE = ['打払令', '増鏡', '花営三代記', '迹見赤', '最上德
                '忠臣蔵', '以心伝心', '七転八起', '花より団子', 'CODH 旧国', '旧国・旧郡',
                '旧高旧領', '国立歴史民俗博物館', '蝦夷地対策', '関連記録', '阪巻', '巻第二十六',
                '锁国令', '西伯利亚干涉', '英帕尔战役', '朴茨茅斯和约', '逍遥津之战', '源义朝',
-               '源赖朝', '源义平', '大阪の町', '知らぬが仏', '我が田', '近世以後則轉為對免債']
+               '源赖朝', '源义平', '大阪の町', '知らぬが仏', '我が田', '近世以後則轉為對免債',
+               # 覆核工具實測嘅兩條，判為照原形（AGENTS.md：引文／機構原名照原典字形）：
+               #   『明治二十七八年日清戰史』引文入面嘅師團用字、出版社專名
+               '第5師団', '新人物往来社']
+# 規則字面量：`内`（U+5185，目標錯字本體）＋其日文專名前字，用轉義所以唔會咬到自己
+NEI_CHAR = '\u5185'
+NEI_CTX = '德寺大小木岩'
 BAD = {k: v for k, v in BAD.items() if k not in KEEP}
 assert len(BAD) > 3000, f'候選字集只有 {len(BAD)}，一定解析錯了'
+
+# ── 探測表結束 ────────────────────────────────────────────────────────────
 
 # 跳過（每條都要寫憑什麼）：
 #   Meshes/Avatars/.gen./vendor  產生物；audit-*/fetchArticle  偵測表本身含目標字
@@ -119,13 +133,14 @@ CITE_FIELD = re.compile(r'^\s*"?(classicQuote|classicSource|outcomeSource|primar
                         r'|source_plate|sources|source|entrySource|quoteHeading|quote|cite|url'
                         r'|wikiUrl|zhwikiUrl|wikisource|lemma)"?\s*[:=]')
 OTHER_FIELD = re.compile(r'^\s*[A-Za-z_"]+\s*[:=]')
-# 内→內 係詞語級規則（「內」喺「德内／岩内／木古内／寺内」呢類日文專名裡保留）
-NEI = re.compile(r'(?<![德寺大小木岩])内')
+
+TABLE_START = '# ── 探測表開始'
+TABLE_END = '# ── 探測表結束'
+MAX_TABLE_LINES = 80      # 而家實際約 60 行（三張表＋說明）出頭；上限只係防默默擴大
 
 TEETH = '--teeth' in sys.argv
 STRICT = '--strict' in sys.argv
 # 注入嘅壞字用 \uXXXX：呢啲係我方探針，唔屬於「原文／識別碼」嗰類，所以唔豁免。
-# 對照（正體寫法，只俾人睇，唔係資料本體）：誰繼殘 専団済郷両 戦転黒円庁 帯剣舎晩黙抜
 TEETH_WANT = ('\u8c01\u7ee7\u6b8b\u5c02\u56e3\u6e08\u90f7\u4e21'
               '\u6226\u8ee2\u9ed2\u5186\u5e81\u5e2f\u5263\u820e'
               '\u6669\u9ed9\u629c')
@@ -154,6 +169,8 @@ if TEETH:
     files.append(probe_path)          # 絕對路徑：os.path.join 會直接俾佢通過
 
 hits, teeth_hit = [], False
+table_lines = 0
+starts = ends = 0
 try:
     for rel in files:
         try:
@@ -163,7 +180,26 @@ try:
             continue
         is_probe = os.path.isabs(rel)
         lines = text.split('\n')
+        in_table = False
         for idx, raw in enumerate(lines):
+            # 用 startswith 而唔係 `in`：常量定義行 `TABLE_START = '# ── 探測表開始'` 本身
+            # 含 keyword，用 in 嘅話掃描本檔時定義行會被當成標記（實測 clean 都俾
+            # starts==ends==1 咬住，即「未突變副本唔綠」——所有「咬到」立刻變假）。
+            # startswith 同時確保行內提及標記都唔會拉開豁免。
+            if raw.startswith(TABLE_START):
+                in_table = True
+                starts += 1
+                continue
+            if raw.startswith(TABLE_END):
+                in_table = False
+                ends += 1
+                continue
+            if starts > ends:
+                table_lines += 1
+                continue
+            if in_table:
+                table_lines += 1
+                continue
             if not is_probe:
                 in_cite = bool(CITE_INLINE.search(raw))
                 if not in_cite:
@@ -184,7 +220,7 @@ try:
                 for j in [n for n, c in enumerate(scanned) if c == ch]:
                     if kana_pos and min(abs(j - k) for k in kana_pos) < 4:
                         continue             # 挨住假名＝日文原文字形，唔動
-                    if ch == '内' and j and scanned[j - 1] in '德寺大小木岩':
+                    if ch == NEI_CHAR and j and scanned[j - 1] in NEI_CTX:
                         continue             # 最上德内／岩内／木古内／寺内：日文專名
                     hits.append((rel, idx + 1, ch, BAD[ch], scanned[max(0, j - 22):j + 24]))
                     if is_probe:
@@ -204,6 +240,9 @@ if status_after != status_before:
 label = lambda f: '注入樣本' if os.path.isabs(f) else f
 # SKIP 係一支會退化嘅嘢：一旦有人寫咗一條食太寬嘅規則，掃描清單會靜悄悄變空，
 # 之後成支援覆核就永遠「命中 0 處」。呢度用下限釘住佢（同 audit:map 嘅探針斷言同一手法）。
+assert starts == ends == 1, f'探測表開始/結束行攞到 {starts}/{ends}：豁免冇合攏即係失明'
+assert table_lines <= MAX_TABLE_LINES, (
+    f'探測表豁免行數 {table_lines} 超過上限 {MAX_TABLE_LINES}——豁免範圍擴大咗，要喺度寫明憑什麼')
 assert len(files) > 300, f'掃描清單只剩 {len(files)} 檔，SKIP 一定食太寬了'
 print(f'掃描 {len(files)} 檔，候選字 {len(BAD)} 種')
 print(f'命中 {len(hits)} 處')

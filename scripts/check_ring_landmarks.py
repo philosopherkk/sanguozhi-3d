@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parent.parent
 RINGS_TS = ROOT / "src" / "geo" / "eraRegions.ts"
 W, H = 1968, 1567
 
-# 名稱 -> (經度, 緯度, 應在其中（None 代表全圖未著色处）, 不應在其中)
+# 名稱 -> (經度, 緯度, 應在其中（None 代表全圖未著色處）, 不應在其中)
 LANDMARKS = [
     ("哈巴河", 86.4, 48.1, "xinjiang", "steppe"),
     ("布爾津", 87.5, 47.7, "xinjiang", "steppe"),
