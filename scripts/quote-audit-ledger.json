@@ -1588,5 +1588,30 @@
     "stamp": "4d12d5c",
     "page": "大日本編年史/卷090",
     "at": "2026-11-14"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1873-conscription": {
+    "stamp": "1bbb955b",
+    "page": "徵兵令詔書及ヒ徵兵吿諭",
+    "at": "2026-11-14"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1895-shimonoseki": {
+    "stamp": "eda9a48b",
+    "page": "下関条約",
+    "at": "2026-11-14"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1904-russo-japan": {
+    "stamp": "e22437cd",
+    "page": "露国ニ対スル宣戦ノ詔勅",
+    "at": "2026-11-14"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1905-portsmouth": {
+    "stamp": "de2f9cb3",
+    "page": "日露講和條約",
+    "at": "2026-11-14"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1910-korea": {
+    "stamp": "97b3efc2",
+    "page": "韓國倂合ニ關スル條約",
+    "at": "2026-11-14"
   }
 }
