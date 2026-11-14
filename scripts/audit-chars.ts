@@ -249,6 +249,17 @@ const HARD: Record<string, string> = {
 const MIXED_USAGE: Record<string, string> = {
   關于: '關於',
 }
+// 准／準 正體係兩支字（准＝許可、準＝備與度），簡體先合併做「准」。
+// 呢個洞（2026-11-14）：`准` 唔可以入 HARD 表——許可義（批准／核准／不准／請准）
+// 喺正體就係「准」，全庫 88 處逐條查證全部係許可義；但寫「准備／准確」呢類，
+// 逐字表冇任何規則接得住，覆核工具嘅 KEEP 表仲保護住佢——兩支閘門一齊失明。
+// 所以呢度用**詞級**規則：只報「准」組出「準」義詞嘅情況。第二字選自「準」義
+// （備、確、則、時、星、直），刻意唔收「許／假」等許可義，亦唔收日文軍銜
+// （准尉／准将 係日文正字）。覆核工具 verify_chars_opencc.py 載有同一份詞表，
+// 兩邊各自有牙（見 --teeth 以下嘅探針同 audit_teeth_mutations.mjs）。
+const HARD_WORDS: Record<string, string> = {
+  准備: '準備', 准確: '準確', 准則: '準則', 准時: '準時', 准星: '準星', 准直: '準直',
+}
 // 兩用／視語境：古典引文常合法使用（作藩于外、秦并天下），列 info 不自動改
 // 着：繁體裡「著色／著陸」作動詞應寫「著」，但「看着」這類動態助詞
 // 用的是「着」，所以不能進 HARD；進 SOFT 让閘門提示、不自動判錯。
@@ -499,6 +510,12 @@ if (flags.includes('--teeth')) {
     // 這組是「牙」；另一組（豁免）在下面單獨驗，防止豁免被誤關。
     ['粵語口語（網站文字須書面語）', ['嗰', '啲', '嘢', '唔', '喺', '佢', '冇'],
       ["export const p = '嗰啲嘢唔喺度，佢話冇';"]],
+    // 准／準 詞級規則（2026-11-14）：成對寫——「准備」必須咬到；「准」在許可義
+    // （批准／核准／不准）係正體正確字（全庫 88 處查證皆然），一個都唔准咬。
+    ['准備必須咬到（詞級規則：准＋準義字）', ['准備'],
+      ["export const a = '要\u51c6\u5099行軍，\u51c6\u78ba\u5c0d\u9f4a';"]],
+    ['准在許可義唔准咬（批准／核准／不准係正體）', [],
+      ["export const b = '\u6279\u51c6\u6838\u51c6\u4e0d\u51c6\u53ea\u51c6';"], ['准', '准備']],
   ]
   // 控制樣本：這些**不該**報——引文、原典題名、label、URL、短代碼都是機器識別符或原文。
   const control = [
@@ -640,6 +657,16 @@ if (flags.includes('--teeth')) {
   const missingExt = ['.ts', '.tsx', '.md', '.css', '.mjs', '.py', '.json'].filter((e) => !walkSrc.includes(`p.endsWith('${e}')`))
   if (missingExt.length) { bad += 1; console.log(`  ✗ 掃描副檔名缺少 ${missingExt.join(' ')}`) }
   else console.log('  ✓ 掃描副檔名含 .ts .tsx .md .css .mjs .py .json')
+  // 詞級規則（准／準）同字表一樣會靜默退化：清空詞表、或把規則迴圈改名／註解，
+  // 現有資料冇一處「准備」，行為永遠全綠。只能源碼守門——表要在、哨兵詞喺、迴圈用緊。
+  const hwSrc = selfSrc.match(/const HARD_WORDS: Record<string, string> = \{([\s\S]*?)\n\}/)?.[1] ?? ''
+  const hwSentinel = '\u51c6\u5099' // 「准備」
+  if (!selfSrc.includes('const HARD_WORDS: Record<string, string> = {')
+      || !hwSrc.includes(hwSentinel)
+      || !selfSrc.includes('Object.entries(HARD_WORDS)')) {
+    bad += 1
+    console.log('  ✗ HARD_WORDS 詞級規則缺件（表／哨兵詞 准備／規則迴圈）——准備 呢類再無人接')
+  } else console.log(`  ✓ HARD_WORDS 詞級規則完整（${(hwSrc.match(/: /g) ?? []).length} 個詞，含哨兵 准備；迴圈在用）`)
   // 欄位豁免嘅邊界屬「靜默失明」類：有人把 note／desc 加入名單，永遠唔會報紅，
   // 所以只能用源碼守門——敘述欄名單喺本檔寫死，兩者一旦相撞即刻失敗。
   const citeKeysSrc = selfSrc.match(/const CITE_KEYS = \[([\s\S]*?)\n\]/)?.[1] ?? ''
@@ -849,6 +876,15 @@ for (const f of files) {
         if (scanned.includes(word)) {
           hard += 1
           console.log(`HARD ${f}:${i + 1} 簡繁混寫 ${word}→${fix}  ${line.trim().slice(0, 50)}`)
+        }
+      }
+      // 准／準 詞級規則（見 HARD_WORDS 註解）。用 scanned：引號／書名號／假名相鄰／
+      // JSON 引文欄值都已經遮咗，豁免語義同逐字 HARD 表完全一致——引文入面嘅「准備」
+      // 照舊走「…」豁免交人工，唔喺呢度靜默改判。
+      for (const [word, fix] of Object.entries(HARD_WORDS)) {
+        if (scanned.includes(word)) {
+          hard += 1
+          console.log(`HARD ${f}:${i + 1} ${word}→${fix}  ${line.trim().slice(0, 50)}`)
         }
       }
       // 粵語口語：網站原始碼裡不得出現（引文與 code 區段已被 scanned 遮蔽，故不會誤咬原文）

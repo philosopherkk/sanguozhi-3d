@@ -109,7 +109,27 @@ KEEP_PHRASE = ['打払令', '増鏡', '花営三代記', '迹見赤', '最上德
 # 規則字面量：`内`（U+5185，目標錯字本體）＋其日文專名前字，用轉義所以唔會咬到自己
 NEI_CHAR = '\u5185'
 NEI_CTX = '德寺大小木岩'
+# 「准」喺 KEEP：許可義（批准／核准／唔准／請准）喺正體就係「准」，全庫 88 處
+#   （2026-11-14 逐條查證）全部係許可義。但字級豁免同時保護咗另一類寫法：「准」
+#   後面接「備／確／則／時／星／直」（正體應作準備／準確／準則⋯⋯——正體分兩字，
+#   准＝許可、準＝備與度，簡體先合併做「准」），逐字規則永遠接唔到呢種用法。
+#   詞級名單覆寫字級豁免：只報「准」組出「準」義嘅詞；許可義（＋許／假）與日文
+#   軍銜（例：准尉）刻意唔收。同 scripts/audit-chars.ts 嘅 HARD_WORDS 同步，
+#   兩邊各自有牙。詞一律用轉義：呢檔唔喺 SKIP 內，字面寫出嚟會被自己嘅規則咬。
+ZUN_CHAR = '\u51c6'  # 准
+ZUN_KEEP_BUT = {w: '\u6e96' + w[1:] for w in
+                ['\u51c6\u5099', '\u51c6\u78ba', '\u51c6\u5247', '\u51c6\u6642',
+                 '\u51c6\u661f', '\u51c6\u76f4']}  # 第二位一律改做「準」
 BAD = {k: v for k, v in BAD.items() if k not in KEEP}
+assert ZUN_CHAR not in BAD, '「准」唔喺 KEEP：批准／核准呢類正確用法會成批誤報（全庫 88 處）'
+# 兩支閘門要用同一份詞級名單：呢檔照掃 audit-chars.ts（SKIP 冇豁免佢），所以
+# 邊邊改咗一邊，另一邊一定要睇到，唔可以靜悄悄各說各話。
+_hard_ts = open(os.path.join(REPO, 'scripts/audit-chars.ts'), encoding='utf-8').read()
+_hard_m = re.search(r"\bconst HARD_WORDS: Record<string, string> = \{(.*?)\n\}", _hard_ts, re.S)
+assert _hard_m, '讀唔到 scripts/audit-chars.ts 嘅 HARD_WORDS：詞級規則失效（規則本體俾人改走）'
+_hard_map = dict(re.findall(r"([\u4e00-\u9fff]{2,})\s*:\s*'([\u4e00-\u9fff]{2,})'", _hard_m.group(1)))
+assert _hard_map == ZUN_KEEP_BUT, (
+    f'兩支閘門嘅詞級名單唔同步：audit-chars={sorted(_hard_map.items())} 呢支={sorted(ZUN_KEEP_BUT.items())}')
 assert len(BAD) > 3000, f'候選字集只有 {len(BAD)}，一定解析錯了'
 
 # ── 探測表結束 ────────────────────────────────────────────────────────────
@@ -147,7 +167,12 @@ STRICT = '--strict' in sys.argv
 TEETH_WANT = ('\u8c01\u7ee7\u6b8b\u5c02\u56e3\u6e08\u90f7\u4e21'
               '\u6226\u8ee2\u9ed2\u5186\u5e81\u5e2f\u5263\u820e'
               '\u6669\u9ed9\u629c')
-TEETH_TEXT = '// 注入測試：' + TEETH_WANT + '\n'
+# 詞級探針：壞詞用轉義寫（呢檔會掃到自己）；控制樣本用正確用法，必須零命中。
+TEETH_WORD_BAD = ['\u51c6\u5099', '\u51c6\u78ba']  # 注入嘅簡體式詞（正體應作準備／準確）
+TEETH_WORD_OK = ['\u6279\u51c6', '\u51c6\u8a31', '\u51c6\u5c09']  # 批准 准許 准尉（正確）
+TEETH_TEXT = ('// 注入測試：' + TEETH_WANT + '\n'
+              + TEETH_WORD_BAD[0] + '行軍，必須' + TEETH_WORD_BAD[1] + '對齊\n'
+              + '// 控制：批准安全、准許通行、准尉一人\n')
 
 
 def git_status():
@@ -229,6 +254,16 @@ try:
                     if is_probe:
                         teeth_hit = True
                     break
+            # 詞級：「准」喺 KEEP（許可義正確），逐字規則永遠接唔到「准＋備／確／則⋯」
+            for w, to in sorted(ZUN_KEEP_BUT.items()):
+                p = scanned.find(w)
+                while p >= 0:
+                    mid = p + len(w) // 2
+                    if kana_pos and min(abs(mid - k) for k in kana_pos) < 4:
+                        p = scanned.find(w, p + 1)
+                        continue             # 挨住假名＝日文原文用法，唔動
+                    hits.append((rel, idx + 1, w, to, scanned[max(0, p - 22):p + 24]))
+                    p = scanned.find(w, p + len(w))
 finally:
     if probe_dir:
         import shutil
@@ -256,6 +291,11 @@ if TEETH:
     miss = want - got
     assert not miss, f'注入嘅壞字咬唔到：{"".join(sorted(miss))}——工具係壞嘅'
     assert teeth_hit, '注入樣本完全冇命中——掃描範圍冇計佢'
+    # 詞級探針成對：壞詞要咬到、正確用法（批准／准許／准尉）零命中。
+    probe_words = sorted({h[2] for h in hits if os.path.isabs(h[0]) and len(h[2]) > 1})
+    assert probe_words == sorted(TEETH_WORD_BAD), (
+        f'詞級探針：應只咬 {sorted(TEETH_WORD_BAD)}，實際 {probe_words}——'
+        '冇咬到＝規則失效；多咗＝正確用法會成批誤報')
 print()
 for rel, i, ch, to, ctx in hits:
     print(f'{label(rel)}:{i}  {ch}→{to}  …{ctx}…')

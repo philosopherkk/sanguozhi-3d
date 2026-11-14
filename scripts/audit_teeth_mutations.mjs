@@ -122,7 +122,7 @@ const SUITES = [
   {
     name: 'chars',
     gate: 'audit:chars --teeth',
-    min: 19,
+    min: 20,
     metric: /失敗 (\d+) 項/,
     /** 副本要喺 `<tmp>/chars/` 重鋪成縮小版 repo：佢會 own import.meta.dirname 去搵
      *  `./lib/gate-baseline.ts` 與 `../reports/chars-allowlist.json`；缺一個就係假紅。 */
@@ -196,6 +196,13 @@ const SUITES = [
         to: 'if (false && anchorOf(a).length < ALLOW_CONTEXT_MIN) {' },
       { name: '錨長度下限放寬為 0（空字串變做萬能豁免）',
         find: 'const ALLOW_CONTEXT_MIN = 4', to: 'const ALLOW_CONTEXT_MIN = 0' },
+      // ── 詞級規則（2026-11-14 第四輪：`\u51c6` 呢支兩用字）──
+      // 字級 HARD 表收唔到 `\u51c6`（批准／核准／請准 88 處全部係正確字），所以「`\u51c6`
+      // ＋備／確／則／時／星／直」呢類簡體式寫法只能靠詞級名單。抽走迴圈 → 呢類成批溜走，
+      // 探針「詞級：准備必須咬到」同源碼守門都要報紅。
+      { name: '詞級規則抽走（簡體式「准＋備／確」成批溜走）',
+        find: 'for (const [word, fix] of Object.entries(HARD_WORDS)) {',
+        to: 'for (const [word, fix] of [] as [string, string][]) {' },
     ],
   },
 ]
