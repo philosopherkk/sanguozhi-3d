@@ -1568,5 +1568,25 @@
     "stamp": "567e6c7",
     "page": "大日本編年史/卷096",
     "at": "2026-11-13"
+  },
+  "src/sengoku/data/readingLayers.ts#1560-okinawaga": {
+    "stamp": "628358da",
+    "page": "大日本編年史/卷052",
+    "at": "2026-11-14"
+  },
+  "src/sengoku/data/readingLayers.ts#1592-bunroku": {
+    "stamp": "f970e7c5",
+    "page": "明史/卷320",
+    "at": "2026-11-14"
+  },
+  "src/sengoku/data/readingLayers.ts#1598-hideyoshi-death": {
+    "stamp": "32ddacef",
+    "page": "明史/卷320",
+    "at": "2026-11-14"
+  },
+  "src/sengoku/data/readingLayers.ts#1615-osaka": {
+    "stamp": "4d12d5c",
+    "page": "大日本編年史/卷090",
+    "at": "2026-11-14"
   }
 }
