@@ -1613,5 +1613,25 @@
     "stamp": "97b3efc2",
     "page": "韓國倂合ニ關スル條約",
     "at": "2026-11-14"
+  },
+  "src/bakumatsu/data/history.ts#1867-taisei": {
+    "stamp": "8d1d833f",
+    "page": "德川內府大政返上ノ奏議",
+    "at": "2026-11-14"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1868-boshin": {
+    "stamp": "472558aa",
+    "page": "五ヶ條ノ御誓文",
+    "at": "2026-11-14"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1914-qingdao": {
+    "stamp": "55614fbb",
+    "page": "独逸国ニ対スル宣戦ノ詔書",
+    "at": "2026-11-14"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1941-war-start": {
+    "stamp": "d441533f",
+    "page": "米國及英國ニ對スル宣戰ノ詔書",
+    "at": "2026-11-14"
   }
 }
