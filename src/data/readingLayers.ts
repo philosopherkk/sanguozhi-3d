@@ -91,8 +91,8 @@ export const READING_LAYERS: Record<string, ReadingPack> = {
   '208-chibi': {
     quote:
       '公至赤壁，與備戰，不利。於是大疫，吏士多死者，乃引軍還。備遂有荊州、江南諸郡。',
-    // 查證（2026-11-12）：引文已對 zh.wikisource 三國志/卷一（魏書·武帝紀）逐字核對。
-    // https://zh.wikisource.org/wiki/%E4%B8%89%E5%9C%8B%E5%BF%97/%E5%8D%B7001
+    // 查證（2026-11-12）：引文已對 zh.wikisource 三國志/卷01（魏書·武帝紀，zh 站卷頁用兩位補零）逐字核對。
+    // https://zh.wikisource.org/wiki/%E4%B8%89%E5%9C%8B%E5%BF%97/%E5%8D%B701
     source: '《三國志·魏書·武帝紀》（漢文原文，已逐字核對）',
     layers: {
       elementary:
@@ -326,8 +326,8 @@ export const READING_LAYERS: Record<string, ReadingPack> = {
   '280-feihan': {
     quote:
       '蠻民順附者，一戶輸穀數斛，其餘無雜調，而宋民賦役嚴苦，貧者不復堪命，多逃亡入蠻。蠻無傜役，強者又不供官稅，結黨連羣，動有數百千人，州郡力弱，則起為盜賊，種類稍多，戶口不可知也。所在多深險，居武陵者有雄谿、樠谿、辰谿、酉谿、舞谿，謂之五谿蠻。',
-    // 查證（2026-11-12）：引文已對 zh.wikisource 宋書/卷九十七（夷蠻傳·荊、雍州蠻）逐字核對。
-    // https://zh.wikisource.org/wiki/%E5%AE%8B%E6%9B%B8/%E5%8D%B7%E4%B9%9D%E5%8D%81%E4%B8%83
+    // 查證（2026-11-12）：引文已對 zh.wikisource 宋書/卷97（夷蠻傳·荊、雍州蠻，zh 站卷頁用阿拉伯數字）逐字核對。
+    // https://zh.wikisource.org/wiki/%E5%AE%8B%E6%9B%B8/%E5%8D%B797
     source: '《宋書·夷蠻傳》卷九十七（記劉宋時五溪蠻形勢，引作非編戶群體之背景史料，非280年直記；漢文原文，已逐字核對）',
     layers: {
       elementary:
