@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 /**
- * 突變測試：證明兩支 `--teeth` 閘門本身有牙（2026-11-14 使用者裁定入庫）。
+ * 突變測試：證明三支 `--teeth` 閘門本身有牙（2026-11-14 使用者裁定入庫；
+ * 2026-11-15 第十二輪補入 audit:mobile——佢嘅六條注入探針此前冇任何東西驗證過）。
  *
- * 點解要呢支：`audit:map --teeth` 與 `audit:chars --teeth` 都係「注入壞樣本 → 必須報紅」，
- * 但判斷用嘅係**同一支閘門**。所以一旦有人把規則改弱——正則收細、豁免放大、字表抽走一個字、
- * 註冊表來源檔名打錯——teeth 會跟住變橡皮章而照樣全綠（本專案已記過五次同一根因）。
+ * 點解要呢支：`audit:map --teeth`、`audit:chars --teeth` 與 `audit:mobile --teeth`
+ * 都係「注入壞樣本 → 必須報紅」，但判斷用嘅係**同一支閘門**。所以一旦有人把規則
+ * 改弱——正則收細、豁免放大、字表抽走一個字、註冊表來源檔名打錯——teeth 會跟住
+ * 變橡皮章而照樣全綠（本專案已記過五次同一根因）。
  * 唯一嘅證法係主動破壞規則本身，睇 teeth 會唔會叫。
  *
  * 安全設計（硬性要求）：**永遠唔改 tracked 檔**。所有突變都發生喺 mkdtemp 嘅副本上，
@@ -12,8 +14,8 @@
  *   （教訓：之前 temp 目錄嗰支 python 版係直接改 scripts/audit_map_accuracy.mjs，
  *     中途斷喺會留低半改狀態；teeth_chars.py 更係喺 src/ 落盤注入檔，會被 `git add -A` 誤收。）
  *
- * 用法：npm run audit:teeth-mutations            （兩組都跑）
- *       npm run audit:teeth-mutations -- --only=map|chars
+ * 用法：npm run audit:teeth-mutations            （三組都跑）
+ *       npm run audit:teeth-mutations -- --only=map|chars|mobile
  *
  * 口徑：末行 `audit:teeth-mutations — 失敗 N 項` 係 scripts/gate-ci.mjs 抓嘅指標，改格式要一起改。
  */
@@ -236,6 +238,46 @@ const SUITES = [
       { name: '兩用字組名單抽走一支（記錄表嘅詞變做冇組可歸）',
         find: "'\u5e72', '\u4f1a',",
         to: "'\u4f1a'," },
+    ],
+  },
+  {
+    name: 'mobile',
+    gate: 'audit:mobile --teeth',
+    min: 8,
+    metric: /audit:mobile --teeth — 失敗 (\d+) 項/,
+    stage(dir) {
+      const file = join(dir, 'mobile', 'audit_mobile_css.mjs')
+      write(file, read('scripts/audit_mobile_css.mjs'))
+      // 副本以 --files-root 指向真 repo：突變的是規則、唔係樣本。如果連樣本都冇，
+      // 「讀檔炸掉」會被當成「teeth 報紅」——嗰種紅一樣係假綠。
+      return {
+        file,
+        spawn: (f) =>
+          spawnSync(process.execPath, [f, '--teeth', `--files-root=${ROOT}`], {
+            cwd: ROOT,
+            encoding: 'utf8',
+          }),
+      }
+    },
+    mutations: [
+      // 六項逐條放寬六個探測器：放寬咗規則，對應嘅 --teeth 注入就必須冇人抓（套件睇 teeth 報紅）。
+      { name: '爆框探測器唔再睇 min-width（空規則都照過）',
+        find: "declOf(r.body, 'min-width') === '0',", to: 'true,' },
+      { name: '側欄單欄匯報抽走（map-side 壓成窄條永遠唔報）',
+        find: "fails.push('mapside-stack')", to: 'void 0' },
+      { name: '安全區檢查恆真（主頁指示條壓住按鈕冇人叫）',
+        find: '(/safe-area/.test(r.body) || /--safe-/.test(r.body))', to: 'true' },
+      { name: 'dvh 改認 vh（地址欄食晒頁尾嘅舊缺陷復辟）',
+        find: '/dvh/.test(v)', to: '/vh/.test(v)' },
+      { name: '整屏翻頁匯報抽走（地圖下面嘅內容翻唔到冇人叫）',
+        find: "fails.push('mobile-pager')", to: 'void 0' },
+      { name: '按擊區 rem 下限設 0（--tap-min 退回 16px 冇人叫）',
+        find: 'return parseFloat(rem[1]) >= 2.5', to: 'return parseFloat(rem[1]) >= 0' },
+      // ── 接線兩項 ── 上面全部針對單一探測器；呢兩項破壞共用管道，一壞就係成批規則失明。
+      { name: 'parseRules 丟失 media 歸屬（窄屏規則變無從屬，單欄偵測整套失效）',
+        find: 'parseRules(body, selector, out)', to: 'parseRules(body, null, out)' },
+      { name: '窄屏定義收細到 360px（640／700 的修訂全部默默喺閘門以外）',
+        find: 'mediaMaxW(r.media) <= 760', to: 'mediaMaxW(r.media) <= 360' },
     ],
   },
 ]

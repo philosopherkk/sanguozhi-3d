@@ -17,15 +17,21 @@
  *  4 bare-vh        .app-shell 高度必須用 dvh（行動瀏覽器地址欄會吃掉 vh）
  *  5 tap-min        主要控件在窄屏必須補到 ≥40px 按擊區
  *
- * 跑法：node scripts/audit_mobile_css.mjs [--teeth]
+ * 跑法：node scripts/audit_mobile_css.mjs [--teeth] [--files-root=<目錄>]
  *   --teeth 會把每個缺陷重新注入記憶體中的 CSS，確認規則真的會報（防止閘門
- *         退化成永遠綠的橡皮章）。
+ *         退化成永遠綠的橡皮章）。末行輸出 `audit:mobile --teeth — 失敗 N 項`，
+ *         scripts/gate-ci.mjs 與 audit_teeth_mutations.mjs 以之為指標，改格式要一齊改。
+ *   --files-root 給 scripts/audit_teeth_mutations.mjs 的突變副本用：副本放在暫存目錄
+ *         仍讀真 repo 的 CSS。讀不到檔案一律當崩潰（非零 exit），絕不是「冇報＝通過」。
  */
 
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-const ROOT = join(import.meta.dirname, '..')
+const FILES_ROOT = (process.argv.find((a) => a.startsWith('--files-root=')) ?? '').slice(
+  '--files-root='.length,
+)
+const ROOT = FILES_ROOT || join(import.meta.dirname, '..')
 const FILES = ['src/mobile.css', 'src/App.css']
 
 /**
@@ -226,7 +232,8 @@ if (process.argv.includes('--teeth')) {
     console.log(`  ${caught ? '✓' : '✗'} ${name} 注入後 ${caught ? '被抓到' : '沒被抓到'}（報出 ${got.length} 項）`)
     if (!caught) bad++
   }
-  console.log(bad ? `✗ 咬合力測試 ${bad} 項失敗` : '✓ 六條規則全部有牙')
+  // 指標行永遠打印（gate-ci 對「抽唔到數字」當失敗；要明講 0 才算綠）
+  console.log(`audit:mobile --teeth — 失敗 ${bad} 項`)
   process.exit(bad ? 1 : 0)
 }
 

@@ -76,6 +76,17 @@ const GATES = [
     cmd: 'npm run audit:teeth-mutations',
     metrics: { fail: /audit:teeth-mutations — 失敗 (\d+) 項/ },
   },
+  // 2026-11-15 第十二輪補：audit:mobile 的六條結構不變量（每條都對應 393px／640px
+  // 上真實發生過、肉眼睇唔見的缺陷）長期唔喺護欄內——跑唔跑全靠人手習慣，改壞
+  // mobile.css 的單欄堆疊或按擊區，gates 照樣全綠。補兩條：主閘門只查 exit code
+  // （不變量只有成立與否，冇可以量化嘅既存缺口）；teeth 閘門防規則變橡皮章，
+  // 指標行與 map／chars 同一口徑。牙口本身由 audit:teeth-mutations 的 mobile 組驗證。
+  { name: 'audit:mobile', cmd: 'npm run audit:mobile', metrics: {} },
+  {
+    name: 'audit:mobile:teeth',
+    cmd: 'npm run audit:mobile -- --teeth',
+    metrics: { fail: /audit:mobile --teeth — 失敗 (\d+) 項/ },
+  },
   // 2026-11-08 補：使用者隨機抽查應仁之亂即見內容極薄，追查發現既有 event-depth
   // 從未讀取事件詳情檔案（timelineDetails 字串比對 0 次）。41 條受測、27 條缺口。
   // 分開一支閘門是為了不打斷其他 agent 已有的 event-depth 基線。
