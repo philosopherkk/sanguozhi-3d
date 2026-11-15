@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { setLevel, useReadingPrefs } from '../lib/readingPrefs'
 
 export type ReadingLevel = 'elementary' | 'secondary' | 'university'
@@ -54,6 +55,54 @@ export function ClassicDetailModal({
   onClose: () => void
 }) {
   const { level } = useReadingPrefs()
+  const boxRef = useRef<HTMLDivElement>(null)
+  // onClose 每次 render 都可能換參考；ref 置後（非 render 期間寫）令焦點效果只在開合時跑一次
+  const onCloseRef = useRef(onClose)
+  useEffect(() => {
+    onCloseRef.current = onClose
+  })
+
+  // 鍵盤無障礙：對焦入窗（否則 Tab 會穿到彈窗後面）、Esc 關閉、
+  // Tab 環圈不外洩、關閉後還原觸發點焦點。
+  useEffect(() => {
+    const box = boxRef.current
+    if (!box) return
+    const opener = document.activeElement as HTMLElement | null
+    box.focus({ preventScroll: true })
+    const FOCUSABLE =
+      'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.stopPropagation()
+        onCloseRef.current()
+        return
+      }
+      if (e.key !== 'Tab') return
+      const items = [...box.querySelectorAll<HTMLElement>(FOCUSABLE)].filter(
+        (el) => el.offsetParent !== null
+      )
+      if (items.length === 0) {
+        e.preventDefault()
+        box.focus({ preventScroll: true })
+        return
+      }
+      const first = items[0]
+      const last = items[items.length - 1]
+      const active = document.activeElement
+      if (e.shiftKey && (active === first || active === box)) {
+        e.preventDefault()
+        last.focus({ preventScroll: true })
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault()
+        first.focus({ preventScroll: true })
+      }
+    }
+    window.addEventListener('keydown', onKey, true)
+    return () => {
+      window.removeEventListener('keydown', onKey, true)
+      if (opener && document.contains(opener)) opener.focus({ preventScroll: true })
+    }
+  }, [])
 
   return (
     <div
@@ -61,6 +110,8 @@ export function ClassicDetailModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="event-detail-title"
+      tabIndex={-1}
+      ref={boxRef}
     >
       <div className="event-detail__panel event-detail__panel--wide">
         <header className="event-detail__header">
