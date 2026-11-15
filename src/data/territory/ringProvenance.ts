@@ -25,8 +25,8 @@ export interface RingProvenance {
 }
 
 export const RING_PROVENANCE: Record<string, RingProvenance> = {
-  hlj: { basis: '黑龍江：民國東三省界，非當時政區', source: '現代行政界（民國東三省界）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
-  jl: { basis: '吉林：民國東三省界，非當時政區', source: '現代行政界（民國東三省界）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
+  hlj: { basis: '黑龍江：山川形勢——北循黑龍江・烏蘇里江江道（咸豐《璦琿條約》《中俄北京條約》所定江界）、西循大興安嶺主脊、南循松花江嫩江平原分水、東循烏蘇里江，非當時政區', source: '自然界示意（《璦琿條約》《中俄北京條約》江道；大興安嶺山脊）；非譚圖圖幅', institution: '無', kind: 'natural-border', approx: true },
+  jl: { basis: '吉林：山川形勢——北循松花江谷地、西循大興安嶺東麓分界、南循鴨綠江源・長白山脊、東循圖們江上游分水（白城一帶屬科爾沁草原歸草原環），約當民國東三省界，非當時政區', source: '自然界示意（《中華民國史·地理志》吉林省；松花江・長白山脊）；非譚圖圖幅', institution: '無', kind: 'natural-border', approx: true },
   ln: { basis: '遼寧：民國東三省界，非當時政區', source: '現代行政界（民國東三省界）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
   rehe: { basis: '熱河：南界燕山長城（古北口—喜峰口）、北包昭烏達卓索頓兩盟、東及努魯兒虎山之示意，近民國熱河省界（1928 始設）而非當時政區', source: '自然界與蒙盟地望示意（《讀史方輿紀要》古北口喜峰口；民國熱河省界參照）；非譚圖圖幅', institution: '無', kind: 'natural-border', approx: true },
   zhili: { basis: '直隸：清直隸省界，非當時政區', source: '現代行政界（清直隸省界）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
@@ -59,7 +59,7 @@ export const RING_PROVENANCE: Record<string, RingProvenance> = {
   chahar: { basis: '察哈爾：民國察哈爾省界（1928 始設），非當時政區', source: '現代行政界（民國察哈爾省界（1928 始設））；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
   suiyuan: { basis: '綏遠：民國綏遠省界（1928 始設），非當時政區', source: '現代行政界（民國綏遠省界（1928 始設））；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
   neimeng_w: { basis: '內蒙古西部：現代內蒙古自治區界，非當時政區', source: '現代行政界（現代內蒙古自治區界）；非譚圖圖幅', institution: '無', kind: 'modern-province-proxy', approx: true },
-  steppe: { basis: '草原地帶：依文獻地望的手繪區，非圖幅矢量化', source: '《史記·匈奴列傳》；非編戶地帶', institution: '無', kind: 'text-derived', approx: true },
+  steppe: { basis: '草原地帶：依文獻地望的手繪區——南界以陰山・黑山・大興安嶺西麓弧為分界（呼和浩特・包頭在陰山以南不屬，朝陽不屬），非圖幅矢量化', source: '《史記·匈奴列傳》；非編戶地帶', institution: '無', kind: 'text-derived', approx: true },
   yiluo: { basis: '伊洛盆地：依文獻地望的手繪區，非圖幅矢量化', source: '地理范圍；金文與《左傳》地望', institution: '無', kind: 'text-derived', approx: true },
   shang_yin: { basis: '商（殷墟期）：依文獻地望的手繪區，非圖幅矢量化', source: '《史記·殷本紀》世系與殷墟出土範圍', institution: '無', kind: 'text-derived', approx: true },
   zhou_wei: { basis: '西周王畿：依文獻地望的手繪區，非圖幅矢量化', source: '《詩·大雅》《逸周書》系；西周金文分布', institution: '無', kind: 'text-derived', approx: true },
