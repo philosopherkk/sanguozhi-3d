@@ -178,5 +178,11 @@
     "char": "条",
     "context": "下関条約",
     "reason": "同上：頁名「下関条約」之「条」為原題用字。錨「下関条約」喺該行先至豁免"
+  },
+  {
+    "file": "scripts/quote-audit-ledger.json",
+    "char": "亜",
+    "context": "大東亜共同宣言",
+    "reason": "ledger page 欄頁名「大東亜共同宣言」照 ja.wikisource 原題（1943年宣言官方標題即用「亜」）。錨「大東亜共同宣言」喺該行先至豁免"
   }
 ]

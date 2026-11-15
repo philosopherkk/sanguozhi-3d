@@ -1633,5 +1633,20 @@
     "stamp": "d441533f",
     "page": "米國及英國ニ對スル宣戰ノ詔書",
     "at": "2026-11-14"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1942-southern-peak": {
+    "stamp": "43b1d322",
+    "page": "大東亜共同宣言",
+    "at": "2026-11-15"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-1933-rehe": {
+    "stamp": "7a5b79c4",
+    "page": "國際聯盟脱退ノ詔書",
+    "at": "2026-11-15"
+  },
+  "src/japanEras/packs/modernJapanPack.ts#mj-2016-security-laws": {
+    "stamp": "4d976b91",
+    "page": "国の存立を全うし、国民を守るための切れ目のない安全保障法制の整備について",
+    "at": "2026-11-15"
   }
 }
