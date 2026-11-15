@@ -2269,3 +2269,44 @@ ja 八條全部以 `qsrc.py --host ja.wikisource.org --verify-batch` 逐字覆�
 2. **bakumatsu 餘 14 條意譯**（戊辰諸役＋安政獄／櫻田門外／生麥／薩長密約）：奏議類已取；戰記類 ja 站無逐字頁，『日米修好通商条約』等国書・條約頁可同 1854 神奈川條約路線再探（1858 條約對應 `1858-ansei` 之條文句）。
 3. `sengoku/data/readingLayers.ts` 剩 9 條、edoPack 剩 12 條：照舊等朝鮮側史料／《大日本編年史》卷099+ 無 coverage 之限制。
 4. 同 key stamp bug 同 verifyState 次序兩宗舊工具問題繼續交人工裁決；ja-host 條目一律手算戳記已連續兩輪零事故，維持為預設做法。
+
+## 第 15 輪（2026-11-15，agent/accuracy）：詔書・宣言・閣議決定三條（modernJapanPack，ja.wikisource 逐字三條）
+
+### 1) 本輪範圍與方法
+
+開工 self-check MODEL_LOCK_OK；`git fetch origin` 後 `git rebase origin/main` 兩次（main 帶入 audit-chars 詞級規則與 AGENTS.md 更新），rebase 後本地領先 41 而遠端停於 rebase 前之 `c68540f`，故本輪 push 須 `--force-with-lease`。另 main 更新令 `audit:chars` 硬傷一度報 4（豁免缺 `context` 錨之新規則所致），照新規則補四條帶錨豁免（松前島郷帳／下関条約題名）後歸零（commit `0760e69`）。本批三條全部出自 `src/japanEras/packs/modernJapanPack.ts` READINGS 意譯桶：先抓 ja.wikisource 頁正文入快取，引文自快取以碼位切片（唔手打），再以 `python3 scripts/qsrc.py --host ja.wikisource.org --verify-batch` 全部 status ok；落盤後逐條核對檔案字串於快取為 RAW-SUBSTRING。ledger 戳記照第 13、14 輪正路（`collect()` 過濾「同 key 且 quote.kind==='str'」後手算 djb2 stamp），未碰 `--mark`，同 key bug 本輪零接觸（連續第三輪）。另跑一次「已蓋戳但 source 含 通說/意譯」嘅誤歸桶掃描，無 MISFILED 條目。
+
+### 2) 逐條記錄
+
+| 條目 | 出處 | 結果 |
+| --- | --- | --- |
+| `mj-1933-rehe` | 「國際聯盟脱退ノ詔書」（昭和八年三月二十七日，底本『大日本詔勅謹解』）第二節 | 「朕乃チ政府ヲシテ慎重審議遂ニ聯盟ヲ離脱スルノ措置ヲ採ラシムルニ至レリ」逐字合（34字）；原引文欄為佔位句，換為詔書原文；脫退生效之两年期限一如下四段所述，未新增敘事 |
+| `mj-1942-southern-peak` | 「大東亜共同宣言」（昭和十八年十一月六日大東亞會議事務局發表，底本外務省《大東亜条約集》）宣言首句 | 「抑々世界各國ガ各其ノ所ヲ得相倚リ相扶ケテ萬邦共榮ノ樂ヲ偕ニスルハ世界平和確立ノ根本要義ナリ」逐字合（45字）；**舊引句「大東亞共榮圈ノ建設ハ帝國ノ目標ナリ」查無任何可逐字比對文本，屬無據仿作句，本輪刪除**，source 註明改正（照 `mj-1945-end` 先例） |
+| `mj-2016-security-laws` | 平成二十六年（2014）七月一日內閣決定《國の存立を全うし、國民を守るための切れ目のない安全保障法制の整備について》第二節之（3） | 「必要最小限度の実力を行使することは、従来の政府見解の基本的な論理に基づく自衛のための措置として、憲法上許容される」逐字合（56字）。選段說明：同段存立危機事態定義句（80字）虽先通過 live 驗證，但「我が国」等四字之「国」為原頁新字形，audit:quotes 簡體表（quote 欄照查、無豁免）必報硬傷，故捨定義句、取同段後半法律結論；定義句只於按語間接提及。按語另記：該頁轉錄「存立が背かされ」之「背」字（U+80CC）與內閣官房公布 PDF「脅かされ」有字形出入，照頁記錄待核 |
+
+三條全部 `audit:quotes` 驗收 verified，「引文已改 0」；ledger 手算戳記 `43b1d322`／`7a5b79c4`／`4d976b91`。
+
+### 3) 前後對照
+
+| 指標 | 前 | 後 |
+| --- | --- | --- |
+| 已查證 | 241 | **244**（＋3） |
+| 意譯 | 100 | **97**（−3；modernJapanPack 意譯桶 32→29） |
+| 未查證／引文已改 | 0／0 | 0／0 |
+| 錯誤／提醒 | 0／44 | 0／44 |
+| `audit:chars` 硬傷 | 4（新詞級規則下） | **0**（補錨豁免＋改正我方 5 處簡體手民之誤） |
+| `npm run gates` | — | 無惡化，exit 0（chars hard=0(=)、chars:teeth fail=0(=)、wiki-links dead=0(=)） |
+| `npm run build` | — | EXIT=0 |
+| `npm run lint` | — | 0 error（warnings 照基準） |
+
+### 4) 本輪考訂與流程兩點
+
+1. **簡體表連 quote 欄都照查，選段要預先筛查**：audit:quotes 嘅 SIMPLIFIED 表對 quote＋source 全文掃描、「」內唔豁免（第 13 輪已記 source），本輪發現 quote 欄同樣照查：ja 站現代公文（閣議決定等）正文滿是新字形「国」，逐字照錄與工具硬傷正面衝突。取「換同頁無表內字之連續段」為正路（引文仍逐字、仍同一文書同一節），並將取舍理由寫入 source 按語；日后 ja-host 選段第一步先照 SIMPLIFIED 表筛查，唔好等驗完先改。
+2. **我方敘述嘅簡體手民之誤照咬**：本輪 source 按語一度混入「录転两该页」五個簡體字，audit:chars 全部報硬傷（規則：我方撰寫之敘述一律正體，「」引文內先至照原字）。同類教訓連第 14 輪假名視近字形計，落盤後嘅碼位級覆核（本輪三條引文 RAW-SUBSTRING 對快取）必須包括我方自寫文字，唔止引文。
+
+### 5) 剩餘佇列（交下輪）
+
+1. **modernJapanPack 餘 29 條意譯**（mj-1937/1939/1874/1918/1944/1945-okinawa/1991/2004/2022 等）：多屬戰役經過與內政設施，ja 站無逐字頁（『戰史叢書』無 coverage，本輪再探國民總動員法正文頁亦無）；條約・詔書・閣議決定逐字路線已取十二條，短期可探 bakumatsu 側 1858 條約頁外溢，中期宜維持意譯。
+2. **bakumatsu 餘 14 條意譯**：『日米修好通商条約』等條約頁可照神奈川條約路線再探（第 14 輪佇列照轉）。
+3. `sengoku/data/readingLayers.ts` 剩 9 條、edoPack 剩 12 條：限制照舊。
+4. ja-host 手算戳記連續三輪零事故，維持預設；同 key stamp bug 與 verifyState 次序兩宗工具問題繼續交人工裁決。
