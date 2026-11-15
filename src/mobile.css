@@ -274,14 +274,30 @@
     bottom: calc(1.7rem + var(--safe-bottom));
   }
 
-  /* 出處署名：393px 實測 .map-2d__credit 被 ellipsis 裁走 39px（連同底圖授權條款
-     一起看不見；title 屬性在觸控裝置不會顯示）。窄屏允許換行與收縮。 */
+  /* 出處署名與疆域來源說明（修 14）：393px 逐幅實測，六幅時代地圖的
+     .map-2d__credit 全部為行內排版，於窄屏換行之後佔 40–198px
+     （西漢 146px、當代 198px），直接蠶食地圖高度——西周頁地圖餘下
+     192px。曾嘗試改為右下角浮層：短署名（三國，73 字）可行，
+     但長說明（140–346 字）在 30% 寬度下會撐至 321–654px 高反蓋全圖，
+     而且日本時代地圖右下角本有縮放鈕，故放棄浮層方案。
+     本輪改為壓縮排字規格：0.75rem/1.4 → 0.6875rem/1.3，全文照樣完整
+     可見、禁止 ellipsis（此前 ellipsis 曾裁走底圖授權條款，title 屬性
+     在觸控裝置不會顯示），地圖可收回 30–60px。根治方案（摺疊展開）
+     記錄於 docs/MOBILE_PLAN.md 後續輪。 */
   .map-2d__credit {
+    font-size: 0.6875rem;
+    line-height: 1.3;
     flex-shrink: 1;
     min-width: 0;
     white-space: normal;
     overflow: visible;
     text-overflow: clip;
+  }
+
+  /* 地圖殼內距與行距（修 14）：393px 下每 0.1rem 都是地圖畫布高度。 */
+  .map-2d {
+    gap: 0.2rem;
+    padding: 0.2rem 0.35rem 0.15rem;
   }
 
   /* 浮動情報面板不應占滿整幅地圖 */
