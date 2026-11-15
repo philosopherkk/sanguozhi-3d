@@ -154,5 +154,29 @@
     "char": "団",
     "context": "第5師団",
     "reason": "陸軍參謀本部『明治二十七八年日清戰史』引文原文之師團用字（第5師団），引文照原典字形；覆核工具 KEEP_PHRASE 同一判讀。錨「第5師団」喺該行先至豁免"
+  },
+  {
+    "file": "src/japanEras/packs/edoPack.ts",
+    "char": "郷",
+    "context": "松前島郷帳",
+    "reason": "史料題名《松前島郷帳》與查證註解引用之 ja.wikisource 頁名，屬可逐字比對之原典題名，照原形。錨「松前島郷帳」喺該行先至豁免"
+  },
+  {
+    "file": "scripts/quote-audit-ledger.json",
+    "char": "郷",
+    "context": "松前島郷帳",
+    "reason": "ledger page 欄為 ja.wikisource 頁名（可追蹤識別碼），改字即斷查證連結。錨「松前島郷帳」喺該行先至豁免"
+  },
+  {
+    "file": "scripts/quote-audit-ledger.json",
+    "char": "関",
+    "context": "下関条約",
+    "reason": "同上：page 欄頁名「下関条約」照 ja.wikisource 原題。錨「下関条約」喺該行先至豁免"
+  },
+  {
+    "file": "scripts/quote-audit-ledger.json",
+    "char": "条",
+    "context": "下関条約",
+    "reason": "同上：頁名「下関条約」之「条」為原題用字。錨「下関条約」喺該行先至豁免"
   }
 ]
