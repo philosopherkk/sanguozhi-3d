@@ -169,6 +169,20 @@ media query 依 iframe 視口求值，故 `(max-width: 700px)` 的規則確實�
 本輪 `--teeth` 曾抓出自己兩個問題——第一版解析器找不到規則（全部報紅），
 第二版 `tap-min` 的注入樣板改錯目標；兩者都是靠自我測試才現形。
 
+### 入護欄與突變驗證（第十二輪，2026-11-15）
+
+呢支閘門此前唔喺 `npm run gates` 的基線護欄內——跑唔跑全靠人手習慣，改壞
+mobile.css 的單欄堆疊或按擊區，gates 照樣全綠（17 條變 19 條）。補兩條：
+`audit:mobile`（不變量只有成立與否，冇可量化的既存缺口，故只查 exit code，
+同 `audit:geo` 一個形態）與 `audit:mobile:teeth`（指標行
+`audit:mobile --teeth — 失敗 N 項`，與 map／chars 同一口徑；gate-ci 對
+「抽唔到數字」當失敗，要明講 0 才算綠）。牙口本身由 `audit:teeth-mutations`
+新增的第三組驗證：8 項突變（六項逐條放寬六個探測器，另有 2 項破壞
+parseRules 的 media 歸屬與 `narrow()` 的 760px 門檻呢類共用管道），全咬，
+突變總數 47 → 55。副本以 `--files-root=<repo>` 讀真 repo 的 CSS——副本缺檔時
+「讀檔炸掉」會被當成 teeth 報紅，呢種紅一樣係假綠，故突變必須保持工具能跑、
+只弱化判斷。
+
 ## 簡體字閘門也會全綠地失明（`audit:chars`）
 
 `audit:chars` 的字表是手工維護的，本檔上面已記過三次補表。這輪再用
