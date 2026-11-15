@@ -2310,3 +2310,42 @@ ja 八條全部以 `qsrc.py --host ja.wikisource.org --verify-batch` 逐字覆�
 2. **bakumatsu 餘 14 條意譯**：『日米修好通商条約』等條約頁可照神奈川條約路線再探（第 14 輪佇列照轉）。
 3. `sengoku/data/readingLayers.ts` 剩 9 條、edoPack 剩 12 條：限制照舊。
 4. ja-host 手算戳記連續三輪零事故，維持預設；同 key stamp bug 與 verifyState 次序兩宗工具問題繼續交人工裁決。
+
+## 第 16 輪（2026-11-15，agent/accuracy）：stale 恢復一條＋安政條約一條（zh＋ja 逐字）
+
+### 1) 本輪範圍與方法
+
+開工 self-check MODEL_LOCK_OK；`git fetch origin` 後 rebase onto `origin/main`：第 15 輪四 commit 已經 PR #166 併入 main，本地與 main 齊平。rebase 後遠端 `agent/accuracy` 仍停於 rebase 前 SHA（PR 採 squash/重整併入），本輪 push 須 `--force-with-lease`。本批兩個動作：(a) 處置 `audit:quotes` 報「引文已改 1」之 stale 條目（main 他線加厚 course 時觸碰 nb-439 source，戳記失效）；(b) 由 bakumatsu 意譯桶取 `1858-ansei` 一條，ja.wikisource 探頁得《日本國米利堅合衆國修好通商條約》全文（底本『法令全書』），引文自快取碼位切片，`--verify-batch` status ok，落盤後覆核 RAW-SUBSTRING OK。戳記分兩路：nb-439 為 zh-host 且獨 key，用 `--mark`；`1858-ansei` 屬主清單＋READINGS 同 key 結構，照例手算 djb2（連續第四輪零事故）。
+
+### 2) 逐條記錄
+
+| 條目 | 出處 | 結果 |
+| --- | --- | --- |
+| `nb-439`（depthNarrative） | 《資治通鑑》卷一百二十三（宋紀五·元嘉十六年） | 「九月，丙戌，河西王牧犍兄子萬年帥所領降魏……倉庫珍寶不可勝計」live 重驗 61 字全合，引文本身無錯，stale 源於 source 欄被改；`--mark` 重蓋戳記即復位（已查證 243→244） |
+| `1858-ansei`（bakumatsu/history READINGS） | 《日本國米利堅合衆國修好通商條約》（安政五年六月十九日署名，據『法令全書』本）第一條首句 | 「向後日本大君と亞米利加合衆國と世々親睦なるへし」逐字合（23字）。**舊「引文」實為我方敘述撮要（幕府以未奉勅許之條約為既成……）冒充引文格式**，本輪換為條約逐字首句，source 註明改正；未奉勅許與安政獄始末保留於四段，未新增敘事 |
+
+### 3) 前後對照
+
+| 指標 | 前 | 後 |
+| --- | --- | --- |
+| 已查證 | 243 | **245**（＋2：stale 恢復 1＋新增 1） |
+| 意譯 | 97 | **96**（−1） |
+| 未查證／引文已改 | 0／1 | 0／0 |
+| 錯誤／提醒 | 0／44 | 0／44 |
+| `audit:chars` 硬傷 | 0 | **0** |
+| `npm run gates` | — | 見下（無惡化） |
+| `npm run build` | — | 見下 |
+| `npm run lint` | — | 見下 |
+
+### 4) 探勘紀錄（逐字可得性，交下輪免走回頭路）
+
+1. **《信長公記》ja 站僅目錄頁**：`信長公記` 主頁 2,100 字為索引入口（Textquality 50%），allpages 查得僅一子頁；本能寺／長篠條無正文 → readingLayers 軍記系（`1575-nagashino`／`1582-honnoji` 等）維持意譯，其「文學作品」標註已合規。
+2. **《德川實紀》慶長期無正文頁**：ja 站僅見「東照宮御実紀附録/巻廿一」類附錄卷；`edo-1603-open` 之 source 既已自證「慶長期卷無可逐字本文」，與探勘一致，照舊。
+3. **《大日本編年史》zh 站無卷085/086**：coverage 起點仍係卷087（≈1612），故 1603 開府一條不在 coverage 內。
+4. ja 站 `武家諸法度（寛永六年）`／`武家諸法度（元和令）`／`禁中並公家諸法度` 三頁存在——元和令・禁中並公家諸法度兩條已於第 11 輪配戳查證；寛永令無對應意譯條目，如日後新增法令條目可用（本支不做新增敘事，僅記錄頁源）。
+
+### 5) 剩餘佇列（交下輪）
+
+1. modernJapanPack 餘 28 條意譯、bakumatsu 餘 13 條（多為戰役，無逐字頁）、readingLayers 9（本輪再證軍記無正文）、edoPack 餘 12（1603/1716/1739 等在編年史 coverage 外）：四池之中**逐字金礦已近枯竭**，下輪起建議改以「死鏈巡查＋數字口徑 disputed 覆核」為主要產出（任務第 4、5 項歷來漏網較少做），引文升級每輪 0–2 條即可。
+2. 他線加厚 course/outcome 會令既有戳記變 stale（本輪 nb-439 即一例）：排程上 accuracy 輪宜固定先跑 stale 清單再選新批次。
+3. 同 key bug 維持預設手算；zh-host 獨 key 條目可用 `--mark`（nb-439 再證）。
