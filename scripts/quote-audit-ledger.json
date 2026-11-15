@@ -890,9 +890,9 @@
     "at": "2026-11-08"
   },
   "src/imperial/data/depthNarrative.ts#nb-439": {
-    "stamp": "ee5a3b4e",
+    "stamp": "64e8db49",
     "page": "資治通鑑/卷123",
-    "at": "2026-11-08"
+    "at": "2026-11-15"
   },
   "src/imperial/data/depthNarrative.ts#nb-548": {
     "stamp": "a5b19a0c",
@@ -1647,6 +1647,11 @@
   "src/japanEras/packs/modernJapanPack.ts#mj-2016-security-laws": {
     "stamp": "4d976b91",
     "page": "国の存立を全うし、国民を守るための切れ目のない安全保障法制の整備について",
+    "at": "2026-11-15"
+  },
+  "src/bakumatsu/data/history.ts#1858-ansei": {
+    "stamp": "9836b8d7",
+    "page": "日本國米利堅合衆國修好通商條約",
     "at": "2026-11-15"
   }
 }
