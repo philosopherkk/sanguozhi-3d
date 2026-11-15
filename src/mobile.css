@@ -876,3 +876,73 @@
     font-size: 1rem; /* 16px = iOS 聚焦縮放臨界值 */
   }
 }
+
+/* ============================================================
+   修 13：滑鼠桌面（860px 以上且 pointer: fine）UI 標籤字級下限
+
+   修 10 把觸控主裝置全部接上平板字級之後，剩下的細字只在滑鼠桌面：
+   於 1024×768、1366×768、1024×1366 三個視窗以 computed style 實測，
+   三者完全相同（寬度無關，是 App.css 基礎規則本身小），共 23 類低於
+   12.5px，最低一組只有 9.3–9.9px：
+     9.3px  .topic-switch__range            0.58rem
+     9.6px  .map-2d__dynasty-hint           0.60rem
+     9.9px  .year-scrubber__note（含預覽）  0.62rem
+            .year-scrubber__note-toggle・.app-footer__toggle
+            .map-layer-bar__fold span（按鈕內的說明文字）
+     10.4px .year-scrubber__hint（無直屬規則， inherit 得來）
+            .side-rail__map-first・.timeline-title-link__hint・.timeline-type
+     10.9px .app-header__nengo・.map-2d__basemap-title
+            .content-dock__tab-year・.faction-chip
+     11.5px .app-header__tag・.map-layer-bar__fold
+            .side-rail__label・.timeline-month-bar__label
+   正文與卡片內文在桌面不是問題（詳情窗 .event-detail p 實測 17.92px），
+   需要處理的只是這批 9–11px 的 UI 與元資料標籤：繁體宋體筆畫密，
+   9.9px 的「州界為示意」註記在一般視距下已難以卒讀。
+
+   做法是下限而非重排：低於 10px 者一律提到 11px（0.6875rem），
+   10–11px 提到 11.5px（0.71875rem），11–11.5px 提到 12px（0.75rem），
+   已是 12px 者不動。相對大小次序保持不變，兩欄版面與側欄密度
+   （15 個勢力 chip、行軍圖例）只受 +1～1.7px 的影響。全部以 rem 寫，
+   故「小／大」字級控制（FONT_STEPS 改 html 百分比）仍可相乘縮放。
+
+   刻意不碰：
+   • 觸控裝置——(pointer: coarse) 由修 10 全寬接管，本區只補 fine；
+   • .year-scrubber__tick-dot（11.2px 的「·」分隔符，非文字）；
+   • 已達 12px 的刻度年、月 chip、底圖出處與關閉掣；
+   • 三層意譯與正文各層 token（--fs-* 在桌面的預設值本就 ≥15px）。
+
+   判準取 (min-width: 860px) and (pointer: fine)：860px 以下歸修 9／
+   修 10 的窄屏與平板區；860px 以上而 primary 為 coarse 者是平板橫屏
+   與大尺寸平板，屬修 10 範圍。無頭瀏覽器無法模擬 coarse（本檔上方
+   已記錄），但 fine 正是桌面預設值，三個視窗即可直接驗證本區。
+   ============================================================ */
+@media (min-width: 860px) and (pointer: fine) {
+  /* 9.3–9.9px → 11px */
+  .topic-switch__range,
+  .map-2d__dynasty-hint,
+  .year-scrubber__note,
+  .year-scrubber__note-toggle,
+  .app-footer__toggle,
+  .map-layer-bar__fold span {
+    font-size: 0.6875rem;
+  }
+  /* 10.4–10.9px → 11.5px */
+  .year-scrubber__hint,
+  .side-rail__map-first,
+  .timeline-title-link__hint,
+  .timeline-type,
+  .app-header__nengo,
+  .map-2d__basemap-title,
+  .content-dock__tab-year,
+  .faction-chip {
+    font-size: 0.71875rem;
+  }
+  /* 11.5px → 12px */
+  .app-header__tag,
+  .map-layer-bar__fold,
+  .map-layer-bar__tabs button,
+  .side-rail__label,
+  .timeline-month-bar__label {
+    font-size: 0.75rem;
+  }
+}
