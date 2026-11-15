@@ -2349,3 +2349,57 @@ ja 八條全部以 `qsrc.py --host ja.wikisource.org --verify-batch` 逐字覆�
 1. modernJapanPack 餘 28 條意譯、bakumatsu 餘 13 條（多為戰役，無逐字頁）、readingLayers 9（本輪再證軍記無正文）、edoPack 餘 12（1603/1716/1739 等在編年史 coverage 外）：四池之中**逐字金礦已近枯竭**，下輪起建議改以「死鏈巡查＋數字口徑 disputed 覆核」為主要產出（任務第 4、5 項歷來漏網較少做），引文升級每輪 0–2 條即可。
 2. 他線加厚 course/outcome 會令既有戳記變 stale（本輪 nb-439 即一例）：排程上 accuracy 輪宜固定先跑 stale 清單再選新批次。
 3. 同 key bug 維持預設手算；zh-host 獨 key 條目可用 `--mark`（nb-439 再證）。
+
+---
+
+## 第 17 輪（2026-11-16）死鏈巡查＋爭議數字覆核（照第 16 輪建議轉型，引文升級 0 條）
+
+### 0) 開工 self-check
+
+- `MODEL_LOCK_OK`；工作區-clean；rebase 至 origin/main（落后 2）。
+- 開工第一件事照例跑 stale 清單（自算 djb2 對比 ledger）：**stale 0**。
+- 基線：已查證 245｜未查證 0｜意譯 96｜引文已改 0；`audit:chars` 硬傷 0；`audit:wiki-links` 395 條死鏈 0。
+
+### 1) Wikisource 死鏈巡查（任務第 4 項）
+
+**盲點**：`audit:wiki-links` 閘門只掃 wikipedia.org 同 `WIKI()`/`WIKI_JA()` helper，而各 pack `source` 欄內直接書寫的 `zh/ja.wikisource.org/wiki/...` URL（查證註解帶入者）**從無機器覆核**。本輪全量掃一輪：唯一連結 76 條，方法同閘門——MediaWiki API `titles=` 批量判定（每請求約 30 條＋重試），只認 `missing` 欄。
+
+發現死鏈 4 條，全部修復（commit `3cfc61d` 已 push）：
+
+| 檔案 | 原 URL 頁名 | 癥結 | 修正 |
+| --- | --- | --- | --- |
+| `src/bakumatsu/data/history.ts`（`1858-ansei`） | 日本國米利堅合衃國修好通商條約 | **碼位損壞**：`衃`(U+8843) 誤代 `衆`(U+8846)，percent-encoding 照錯字編成 `%E8%A1%83` | 照 live canonical 標題（pageid 17373）逐字碼位覆核後重編 `%E8%A1%86` |
+| `src/japanEras/packs/modernJapanPack.ts`（`mj-1933-rehe`） | 國際聯盟脱退ノ詽書 | **碼位損壞**：`詽`(U+8A7D) 誤代 `詔`(U+8A54) | `%E8%A9%94` |
+| `src/data/readingLayers.ts`（查證註解） | 三國志/卷001 | zh 站卷頁係**兩位補零**（卷01…卷09、卷10+），三位數不存在 | 改 `三國志/卷01` |
+| `src/data/readingLayers.ts`（查證註解） | 宋書/卷九十七 | zh 站該書卷頁用**阿拉伯數字** | 改 `宋書/卷97`（註解補站名頁形說明） |
+
+- 兩條 source 欄含 URL 者戳記連帶重算（手算模板，zh/ja 混合走 ja-host 預設手算路徑）：`1858-ansei`→`da6b5d42`、`mj-1933-rehe`→`d8ee766b`；修畢 `audit:quotes` 245／0／96／0 如常。
+- 修復後終極覆核：**74 條唯一連結，死鏈 0**。
+- 教訓兩條：① percent-encoding **必須從 live canonical 標題抄出**（逐字 `ord()` 核碼位），手打 URL 會把錯字一起編碼「看似合理」；② ja 站單頁短請求會踩限流（回應非 JSON＝PARSE FAIL，**唔係死鏈**），批量＋重試先可靠。
+
+### 2) 爭議數字覆核（任務第 5 項）
+
+- 三大指定爭點全部已合規：南京（`minguoPack.ts`：422 採「精確數字仍有爭論」表述＋地圖註記）、沖繩／英帕爾（`disputed: true`；`modernJapanPack.ts`：1340 口徑註明「死者數資料分歧大，一律標 disputed 且不寫定數」）。全庫 `disputed: true` 共 99 處。
+- 全庫 grep「萬／余人 × 死傷動員」粗篩＋逐條判讀，僅兩處命中且均**非孤立定數**：
+  - `modernJapanPack.ts`：740 「動員數十萬人級」——本身即模糊量級，同段另有「各書所記有出入」；
+  - `minguoPack.ts`：285 「雙方各十餘萬一類」——下句即「各方戰報中差異大」。
+  → **無需修改，本項修改 0 條**（即任務第 5 項「不留孤立定數」達成）。
+
+### 3) 前後對照
+
+| 指標 | 前 | 後 |
+| --- | --- | --- |
+| 已查證／意譯 | 245／96 | 245／96（本輪無引文增減，屬預設） |
+| 未查證／引文已改 | 0／0 | 0／0 |
+| `audit:chars` 硬傷 | 0 | **0** |
+| wikisource 死鏈（原工具盲點） | **4** | **0** |
+| `audit:wiki-links` | 395／死 0 | 395／死 0 |
+| `npm run gates` | 基線 | **無惡化**（war-shape 101→91、event-depth 118→60 屬 main 基線移動之改善，非本輪產出） |
+| `npm run build` | — | exit 0 |
+| `npm run lint` | — | 0 error（warning 皆既有） |
+
+### 4) 剩餘佇列（交下輪）
+
+1. 建議將 wikisource.org URL 納入 `audit:wiki-links`（accuracy 輪禁改 `scripts/audit-*`，故只記錄交主repo；在此之前逐條手掃照本輪腳本方法）。
+2. 引文升級池維持枯竭判斷（第 16 輪），下輪仍死鏈＋disputed 覆核為主、0–2 條升級。
+3. 碼位教訓已入项目 memory：任何 percent-encoding 改動要先取 canonical title 碼位。
