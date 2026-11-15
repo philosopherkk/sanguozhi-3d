@@ -122,7 +122,7 @@ const SUITES = [
   {
     name: 'chars',
     gate: 'audit:chars --teeth',
-    min: 28,
+    min: 29,
     metric: /失敗 (\d+) 項/,
     /** 副本要喺 `<tmp>/chars/` 重鋪成縮小版 repo：佢會 own import.meta.dirname 去搵
      *  `./lib/gate-baseline.ts` 與 `../reports/chars-allowlist.json`；缺一個就係假紅。 */
@@ -210,8 +210,11 @@ const SUITES = [
         find: "  \u4ee5\u540e: '\u4ee5\u5f8c', \u4e4b\u540e: '\u4e4b\u5f8c', \u7136\u540e: '\u7136\u5f8c', \u80cc\u540e: '\u80cc\u5f8c', \u540e\u9762: '\u5f8c\u9762',\n"
           + "  \u540e\u52e4: '\u5f8c\u52e4', \u540e\u8005: '\u5f8c\u8005', \u5148\u540e: '\u5148\u5f8c',\n", to: '' },
       { name: '詞級組名單抽走一支（規則變做無人認領）',
-        find: "'\u7740', '\u5374']",
+        find: "'\u5374', '\u5f81']",
         to: "'\u5374']" },
+      // 2026-11-15 第十輪：\u5f81\u5175\u2192\u5fb5\u5175 係視語境字量出來的唯一真錯字（庫內 1 處／\u5fb5\u5175 43 處）。
+      { name: '\u5169\u7528\u5b57\u8a5e\u8868\u62bd\u8d70 \u5f81\u5175\u2192\u5fb5\u5175\uff08\u65b0\u7d44\u552f\u4e00\u771f\u932f\u5b57\u5152\u53c8\u6d41\u51fa\uff09',
+        find: "  \u5f81\u5175: '\u5fb5\u5175',\n", to: '' },
       { name: '詞表混入唔屬於任何組嘅詞（drift 無人查）',
         find: "  \u51b7\u5374: '\u51b7\u537b',",
         to: "  \u51b7\u5374: '\u51b7\u537b', \u9060\u5f81: '\u9060\u5f81', \u6771\u5f81: '\u6771\u5f81'," },

@@ -126,14 +126,15 @@ HARD_WORDS = dict(re.findall(r"([\u4e00-\u9fff]{2,})\s*:\s*'([\u4e00-\u9fff]{2,}
 _HW_SENTINELS = ['\u51c6\u5099', '\u5173\u4e8e', '\u4ee5\u540e', '\u8fd9\u91cc',
                  '\u53f0\u6e7e', '\u5e72\u51c0', '\u4f1a\u8bae', '\u515a\u5458',
                  '\u8fd9\u79cd', '\u5176\u4f59', '\u6291\u90c1', '\u5076\u5c14',
-                 '\u7740\u540d', '\u51b7\u5374']
+                 '\u7740\u540d', '\u51b7\u5374',
+                 '\u5f81\u5175']
 # 兩條結構約束（同 audit-chars 自己嘅守門同一份名單、同一口徑）：每個詞都要屬於
 #   其中一組（防順手加唔 related 嘅詞）；每組至少一個詞（防刪走一組）。淨係計詞數
 #   唔夠：刪一組再喺其他組加詞，總數照樣過。
 _hg_m = re.search(r"\bconst HARD_WORD_GROUPS = \[([^\]]*)\]", _bad_ts, re.S)
 assert _hg_m, '讀唔到 scripts/audit-chars.ts 嘅 HARD_WORD_GROUPS：兩用字嘅組名單消失'
 HW_GROUPS = re.findall(r"'([^']+)'", _hg_m.group(1))
-assert len(HW_GROUPS) >= 14, f'組名單只剩 {len(HW_GROUPS)} 支：兩用字規則俾人逐支移除'
+assert len(HW_GROUPS) >= 15, f'組名單只剩 {len(HW_GROUPS)} 支：兩用字規則俾人逐支移除'
 _hw_orphan = [w for w in HARD_WORDS if not (set(w) & set(HW_GROUPS))]
 assert not _hw_orphan, 'HARD_WORDS 有詞唔屬於任何兩用字組：' + ' '.join(_hw_orphan)
 _hw_empty = [g for g in HW_GROUPS if not any(g in w for w in HARD_WORDS)]
@@ -216,11 +217,13 @@ TEETH_WANT = ('\u8c01\u7ee7\u6b8b\u5c02\u56e3\u6e08\u90f7\u4e21'
 TEETH_WORD_BAD = ['\u51c6\u5099', '\u5173\u4e8e', '\u4ee5\u540e', '\u8fd9\u91cc',
                   '\u53f0\u6e7e', '\u5e72\u51c0', '\u4f1a\u8bae', '\u515a\u5458',
                   '\u8fd9\u79cd', '\u5176\u4f59', '\u6291\u90c1', '\u5076\u5c14',
-                  '\u7740\u540d', '\u51b7\u5374']
+                  '\u7740\u540d', '\u51b7\u5374',
+                  '\u5f81\u5175']
 # 控制樣本：正體本字／日文原形，一個都唔准咬（呢啲先係「唔誤殺」嘅憑據）
 TEETH_WORD_OK = ['\u6279\u51c6', '\u51c6\u8a31', '\u4f4d\u4e8e', '\u5728\u4e8e',
                  '\u7687\u540e', '\u91cc\u7a0b', '\u515a\u9805', '\u90c1\u90c1',
-                 '\u7740\u624b', '\u5374\u884c', '\u8457\u540d']
+                 '\u7740\u624b', '\u5374\u884c', '\u8457\u540d',
+                 '\u5f81\u4f10', '\u89aa\u5f81']
 # 覆蓋率探針（三個去處成對）：已入 HARD_WORDS／已寫 HARD_WORD_KEEP／兩張表都冇。
 # 淨測一個方向嘅話，有人把 HARD_WORD_KEEP 變做萬能豁免、或把分類邏輯寫反，都照樣全綠。
 COV_PROBE_GATE = '\u540e\u52e4'   # 已入 HARD_WORDS 嘅探針詞（字面寫出嚟本檔會自咬）
