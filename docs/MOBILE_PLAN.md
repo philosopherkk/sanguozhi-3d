@@ -499,3 +499,23 @@ check_route_landmarks.py 嘅 `径`→徑，同埋 src/ 內五處我方敘述用�
   - **後續**（未處理）：`id` 欄內的簡體形（例：`sanguozhi` 的 `tam-噶厦-1751`）是機器
     識別符，改了會斷連結與已存引用，若要清需另做一輪含遷移的改動；`docs/legacy` 內
     引述的證據行若要在文件層統一正體，也要先決定「引證原文」與「我方敘述」的界線。
+
+## 修 14（2026-11-15，PR #175）：首次真瀏覽器視口量測＋彈窗鍵盤出口
+- **量測方法（環境冇視口仿真，要照呢個 harness 做）**：瀏覽器開 `about:blank` tab，
+  注入 393×852 iframe 指 `http://localhost:4270/sanguozhi-3d/?c=china&e=sanguo&y=208`，
+  喺 frame 內 evaluate 量 DOM 幾何；`setVP(w,h)` 改尺寸即食 media query，唔使重載。
+  ⚠ 上一輪「iframe 入面翻去日本戰國」同「y 參數消失」都係 preview 進程死咗嘅假象——
+  而家直接開 deep link 驗證過 URL 保留、range=208、表頭「208年漢建安十三年」。
+  ⚠ 截圖工具喺本環境永遠失敗（冇可見 window），全部用幾何探針；`pointer:coarse`
+  照舊仿真唔到。
+- **量過嘅數字**：393 無爆框、snap y mandatory、era-bar scrollWidth 1994 橫滾、
+  z 階 41/50 實渲染成立、對比度 chip 5.41／scrub 7.31／tick 4.89／year 14.45 全達標；
+  768 雙欄無爆框；1440 表頭 73 地圖 738×502 無退步。
+- **修到嘅缺陷（真測先見到，靜態推導見唔到）**：全站唯一 role=dialog 嘅
+  `.event-detail` 冇任何 Escape 處理（全 repo grep Escape 零命中）、開窗焦點留喺
+  觸發按鈕（Tab 可穿到背景）、容器冇 tabindex。ClassicDetailModal 補：開窗容器
+  （tabIndex=-1）獲得焦點、Esc 關閉、Tab 窗內環圈、關閉還原焦點；onClose 用 ref
+  放 effect 內更新（render 期間寫 ref 會食 lint react(refs) 警告）。七個時代頁共用。
+- **教訓**：`scroll-snap: y mandatory` 之下 `scrollTop=120` 會即刻彈返 0，
+  「捲動隔離」同對照組用 scrollTop 赋值都測唔出——只能靜態查 overscroll-behavior 鏈。
+- PR #167 已合併（維護者逐條收咗），lint 基線而家 74 警告 0 error。
