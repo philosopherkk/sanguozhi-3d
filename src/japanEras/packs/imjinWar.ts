@@ -24,6 +24,12 @@ export const IMJIN_F = {
   joseon: '朝鮮',
 } as const
 
+export const IMJIN_F = {
+  jp: '日軍',
+  ming: '明軍',
+  joseon: '朝鮮',
+} as const
+
 /** 經緯度寫坐標，再由 asiaPx 投影——同底圖同一套註冊坐標 */
 const P = (lon: number, lat: number) => asiaPx(lon, lat)
 const route = (
