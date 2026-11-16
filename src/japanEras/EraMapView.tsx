@@ -5,6 +5,7 @@ import {
   type CSSProperties,
   type ReactNode,
 } from 'react'
+import { MapCredit } from '../components/MapCredit'
 import { MapLayerBar } from '../components/map/MapLayerBar'
 import { MapRouteLegend } from '../components/map/MapRouteLegend'
 import {
@@ -352,7 +353,7 @@ export function EraMapView({
           年快照 · 滾輪縮放，拖曳平移
         </p>
       </div>
-      <p className="map-2d__credit">
+      <MapCredit>
         底圖：
         {mapBase ? (
           `${mapBase.credit}。`
@@ -370,7 +371,7 @@ export function EraMapView({
         {fringeFootnote ? ` 外周：${fringeFootnote}` : ''}
         渡海只標壇之浦與箱館。色塊預設半透明（約
         0.62，點選約 0.78）。{shadeNote}
-      </p>
+      </MapCredit>
     </div>
   )
 }

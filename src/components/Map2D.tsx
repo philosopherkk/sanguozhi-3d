@@ -10,6 +10,7 @@ import {
   type FrontierZone,
 } from '../data/marchRoutes'
 import { basemapForYear } from '../data/historicalBasemaps'
+import { MapCredit } from './MapCredit'
 import { MapLayerBar } from './map/MapLayerBar'
 import { MapRouteLegend } from './map/MapRouteLegend'
 import { MARCH_ROUTE_SAME_YEAR, RouteOverlay } from './map/RouteOverlay'
@@ -595,13 +596,13 @@ export function Map2D() {
         </p>
       </div>
 
-      <p className="map-2d__credit" title={mapCreditTitle}>
+      <MapCredit title={mapCreditTitle}>
         底圖：
         <a href={basemap.commonsUrl} target="_blank" rel="noreferrer" title={mapCreditTitle}>
           {basemap.credit}
         </a>
         {basemap.license ? `（${basemap.license}）` : ''}
-      </p>
+      </MapCredit>
     </div>
   )
 }

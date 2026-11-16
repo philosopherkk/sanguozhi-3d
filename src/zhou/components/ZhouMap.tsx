@@ -14,6 +14,7 @@ import {
   MARCH_ROUTE_SAME_YEAR,
   RouteOverlay,
 } from '../../components/map/RouteOverlay'
+import { MapCredit } from '../../components/MapCredit'
 import { MapLayerBar } from '../../components/map/MapLayerBar'
 import { shapesFromExtensions } from '../../lib/eraShapes'
 import { ZHOU_FRONTIER_ZONES } from '../data/frontier'
@@ -444,14 +445,14 @@ export function ZhouMap() {
         </p>
       </div>
 
-      <p className="map-2d__credit">
+      <MapCredit>
         底圖借用
         <a href={BASEMAP.commonsUrl} target="_blank" rel="noreferrer">
           {BASEMAP.credit}
         </a>
         {BASEMAP.license ? `（${BASEMAP.license}）` : ''}
         。現代東亞地勢，與東漢三國共用，不按時代換古圖。都邑用周名（洛邑、臨淄、郢、咸陽、邯鄲、大梁）。海岸沿底圖陸地收回；內陸界順著山河大勢，未能逐國處為示意。行軍沿河谷與崤函，不穿秦嶺。{ZHOU_TERRITORY_NOTE}
-      </p>
+      </MapCredit>
     </div>
   )
 }
