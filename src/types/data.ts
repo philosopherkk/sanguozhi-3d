@@ -75,6 +75,10 @@ export interface Person extends Sourced {
   zhwiki_url: string
   grokipedia_url?: string
   quote?: string // 史籍原文，逐字對 Wikisource 驗證
+  /** 想像圖路徑（public/portraits/…）；無圖者不設，介面改以姓名首字代替 */
+  portrait?: string
+  /** 想像圖之考據依據（繪製所本），顯示於圖之提示文字 */
+  portrait_note?: string
 }
 
 export interface Battle extends Sourced, TimelineDateFields {

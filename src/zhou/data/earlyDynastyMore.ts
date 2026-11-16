@@ -12,6 +12,8 @@ export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
   
   {
     id: 'xia-xiang',
+    portrait: '/portraits/zhou/xia-xiang.jpg',
+    portrait_note: '正史無面部異徵。夏王，素衣椎髻。',
     name: '相',
     faction: '夏',
     role: '政治',
@@ -26,6 +28,8 @@ export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'xia-jiao',
+    portrait: '/portraits/zhou/xia-jiao.jpg',
+    portrait_note: '正史無面部異徵。早期武人，皮甲。',
     name: '澆',
     faction: '夏',
     role: '軍事',
@@ -40,6 +44,8 @@ export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'shang-weizi',
+    portrait: '/portraits/zhou/shang-weizi.jpg',
+    portrait_note: '正史無面部異徵。商王子，深衣高冠。',
     name: '微子',
     faction: '商',
     role: '政治',
@@ -54,6 +60,8 @@ export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'shang-bigan',
+    portrait: '/portraits/zhou/shang-bigan.jpg',
+    portrait_note: '正史無面部異徵。商臣，深衣布冠。胸像不畫剖心。',
     name: '比干',
     faction: '商',
     role: '政治',
@@ -68,6 +76,8 @@ export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhou-jiangshang',
+    portrait: '/portraits/zhou/zhou-jiangshang.jpg',
+    portrait_note: '《史記·齊太公世家》：年老而窮，遇周西伯。老人，無仙氣。',
     name: '姜尚',
     faction: '周',
     role: '政治',
@@ -82,6 +92,8 @@ export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhou-kang',
+    portrait: '/portraits/zhou/zhou-kang.jpg',
+    portrait_note: '正史無面部異徵。周王，深衣玄冠。',
     name: '周康王',
     faction: '周',
     role: '政治',
@@ -96,6 +108,8 @@ export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhou-zhaigong',
+    portrait: '/portraits/zhou/zhou-zhaigong.jpg',
+    portrait_note: '正史無面部異徵。西周老臣，深衣布冠。',
     name: '祭公謀父',
     faction: '周',
     role: '政治',
@@ -110,6 +124,8 @@ export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhou-yin-jifu',
+    portrait: '/portraits/zhou/zhou-yin-jifu.jpg',
+    portrait_note: '正史無面部異徵。西周將，皮甲。',
     name: '尹吉甫',
     faction: '周',
     role: '軍事',
@@ -124,6 +140,8 @@ export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhou-zhongshanfu',
+    portrait: '/portraits/zhou/zhou-zhongshanfu.jpg',
+    portrait_note: '正史無面部異徵。西周大臣，深衣布冠。',
     name: '仲山甫',
     faction: '周',
     role: '政治',
@@ -138,6 +156,8 @@ export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhou-guo-zhangfu',
+    portrait: '/portraits/zhou/zhou-guo-zhangfu.jpg',
+    portrait_note: '正史無面部異徵。虢公，深衣布冠。',
     name: '虢公長父',
     faction: '周',
     role: '政治',
@@ -152,6 +172,8 @@ export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhou-zi-bai',
+    portrait: '/portraits/zhou/zhou-zi-bai.jpg',
+    portrait_note: '正史無面部異徵。西周將，皮甲。',
     name: '虢季子白',
     faction: '周',
     role: '軍事',
@@ -166,6 +188,8 @@ export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhou-guo-wengong',
+    portrait: '/portraits/zhou/zhou-guo-wengong.jpg',
+    portrait_note: '正史無面部異徵。虢之老臣，深衣布冠。',
     name: '虢文公',
     faction: '周',
     role: '政治',

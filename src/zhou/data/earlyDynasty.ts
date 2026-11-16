@@ -11,6 +11,8 @@ export const EARLY_DYNASTY_PEOPLE: ZhouPerson[] = [
   
   {
     id: 'xia-yi',
+    portrait: '/portraits/zhou/xia-yi.jpg',
+    portrait_note: '有窮后羿。正史無面部異徵。早期武人皮甲，不畫射日神話。',
     name: '后羿',
     faction: '夏',
     role: '軍事',
@@ -24,6 +26,8 @@ export const EARLY_DYNASTY_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'shang-yiyin',
+    portrait: '/portraits/zhou/shang-yiyin.jpg',
+    portrait_note: '正史無面部異徵。商初大臣，深衣布冠。',
     name: '伊尹',
     faction: '商',
     role: '政治',
@@ -36,6 +40,8 @@ export const EARLY_DYNASTY_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhou-cheng',
+    portrait: '/portraits/zhou/zhou-cheng.jpg',
+    portrait_note: '即位時年幼，畫作成年後的周王，深衣玄冠。正史無面部異徵。',
     name: '周成王',
     faction: '周',
     role: '政治',
@@ -48,6 +54,8 @@ export const EARLY_DYNASTY_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhou-mu',
+    portrait: '/portraits/zhou/zhou-mu.jpg',
+    portrait_note: '正史無面部異徵。周王，深衣玄冠。不畫西王母傳說。',
     name: '周穆王',
     faction: '周',
     role: '政治',
@@ -61,6 +69,8 @@ export const EARLY_DYNASTY_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhou-li',
+    portrait: '/portraits/zhou/zhou-li.jpg',
+    portrait_note: '正史無面部異徵。周王，深衣玄冠。',
     name: '周厲王',
     faction: '周',
     role: '政治',
@@ -72,6 +82,8 @@ export const EARLY_DYNASTY_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhou-shaogong',
+    portrait: '/portraits/zhou/zhou-shaogong.jpg',
+    portrait_note: '正史無面部異徵。西周大臣，深衣布冠。',
     name: '召穆公',
     faction: '周',
     role: '政治',

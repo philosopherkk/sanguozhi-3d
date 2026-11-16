@@ -28,4 +28,8 @@ export interface QinHanPerson {
   source: string
   disputed?: boolean
   note?: string
+  /** 想像圖路徑（public/portraits/…）；無圖者不設，介面改以姓名首字代替 */
+  portrait?: string
+  /** 想像圖之考據依據（繪製所本），顯示於圖之提示文字 */
+  portrait_note?: string
 }

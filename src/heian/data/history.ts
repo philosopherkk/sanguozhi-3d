@@ -1489,6 +1489,8 @@ export const HEIAN_READING: Record<string, EraReading> = {
 export const HEIAN_PEOPLE: HeianPerson[] = [
   {
     id: 'saicho',
+    portrait: '/portraits/heian/saicho.jpg',
+    portrait_note: '正史無面部異徵。平安僧人，剃髮、袈裟。',
     name: '最澄',
     birth: 767,
     death: 822,
@@ -1500,6 +1502,8 @@ export const HEIAN_PEOPLE: HeianPerson[] = [
   },
   {
     id: 'kukai',
+    portrait: '/portraits/heian/kukai.jpg',
+    portrait_note: '正史無面部異徵。平安僧人，剃髮、袈裟。',
     name: '空海',
     birth: 774,
     death: 835,
@@ -1511,6 +1515,8 @@ export const HEIAN_PEOPLE: HeianPerson[] = [
   },
   {
     id: 'sugawara-michizane',
+    portrait: '/portraits/heian/sugawara-michizane.jpg',
+    portrait_note: '平安公卿、學者。束帶與冠。無可靠的寫生。',
     name: '菅原道真',
     birth: 845,
     death: 903,
@@ -1524,6 +1530,8 @@ export const HEIAN_PEOPLE: HeianPerson[] = [
   },
   {
     id: 'murasaki-shikibu',
+    portrait: '/portraits/heian/murasaki-shikibu.jpg',
+    portrait_note: '成年女官。十二單與長髮，無肖像可據。',
     name: '紫式部',
     birth: 973,
     death: 1014,
@@ -1537,6 +1545,8 @@ export const HEIAN_PEOPLE: HeianPerson[] = [
   },
   {
     id: 'taira-tadatsune',
+    portrait: '/portraits/heian/taira-tadatsune.jpg',
+    portrait_note: '平安武者。直垂與烏帽子。無面部記載。',
     name: '平忠常',
     death: 1031,
     faction: '平氏',
@@ -1549,6 +1559,8 @@ export const HEIAN_PEOPLE: HeianPerson[] = [
   },
   {
     id: 'fujiwara-sumitomo',
+    portrait: '/portraits/heian/fujiwara-sumitomo.jpg',
+    portrait_note: '平安武士化貴族。直垂與烏帽子。無面部記載。',
     name: '藤原純友',
     death: 941,
     faction: '藤原氏',
@@ -1561,6 +1573,8 @@ export const HEIAN_PEOPLE: HeianPerson[] = [
   },
   {
     id: 'kiyomori',
+    portrait: '/portraits/heian/kiyomori.jpg',
+    portrait_note: '晚年出家，世傳像為削瘦的入道。依那類服制，不另造異相。',
     name: '平清盛',
     birth: 1118,
     death: 1181,
@@ -1572,6 +1586,8 @@ export const HEIAN_PEOPLE: HeianPerson[] = [
   },
   {
     id: 'yoshitomo',
+    portrait: '/portraits/heian/yoshitomo.jpg',
+    portrait_note: '平安武將。鎧與烏帽子。無面部記載。',
     name: '源義朝',
     birth: 1123,
     death: 1160,
@@ -1584,6 +1600,8 @@ export const HEIAN_PEOPLE: HeianPerson[] = [
   },
   {
     id: 'yoritomo',
+    portrait: '/portraits/heian/yoritomo.jpg',
+    portrait_note: '神護寺傳像一類：清瘦、細鬚、烏帽子與直垂。依那類服制，不另造異相。',
     name: '源賴朝',
     birth: 1147,
     death: 1199,
@@ -1596,6 +1614,8 @@ export const HEIAN_PEOPLE: HeianPerson[] = [
   },
   {
     id: 'yoshinaka',
+    portrait: '/portraits/heian/yoshinaka.jpg',
+    portrait_note: '平安末武將。鎧與烏帽子。無可靠的寫生。',
     name: '源義仲',
     aka: '木曾義仲',
     birth: 1154,
@@ -1609,6 +1629,8 @@ export const HEIAN_PEOPLE: HeianPerson[] = [
   },
   {
     id: 'yoshitsune',
+    portrait: '/portraits/heian/yoshitsune.jpg',
+    portrait_note: '青年武將。鎧與烏帽子。不依後世美少年傳說另造相貌。',
     name: '源義經',
     birth: 1159,
     death: 1189,
@@ -1620,6 +1642,8 @@ export const HEIAN_PEOPLE: HeianPerson[] = [
   },
   {
     id: 'koremori',
+    portrait: '/portraits/heian/koremori.jpg',
+    portrait_note: '青年公卿武將。直垂與烏帽子。無面部記載。',
     name: '平維盛',
     birth: 1158,
     death: 1184,
@@ -1633,6 +1657,8 @@ export const HEIAN_PEOPLE: HeianPerson[] = [
   },
   {
     id: 'antoku',
+    portrait: '/portraits/heian/antoku.jpg',
+    portrait_note: '幼年天皇。正式冠服，衣著整齊。',
     name: '安德天皇',
     birth: 1178,
     death: 1185,
@@ -1645,6 +1671,8 @@ export const HEIAN_PEOPLE: HeianPerson[] = [
   },
   {
     id: 'goshirakawa',
+    portrait: '/portraits/heian/goshirakawa.jpg',
+    portrait_note: '法皇，剃髮、法衣。無可靠的寫生。',
     name: '後白河法皇',
     birth: 1127,
     death: 1192,

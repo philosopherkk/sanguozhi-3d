@@ -365,6 +365,8 @@ export const KAMAKURA_PACK: JapanDeepDivePack = {
   people: [
     {
       id: 'km-yoritomo',
+      portrait: '/portraits/japan-kamakura/km-yoritomo.jpg',
+      portrait_note: '神護寺傳像一類：清瘦、細鬚、烏帽子與直垂。依那類服制，不另造異相。',
       name: '源賴朝',
       faction: F.bakufu,
       role: '將軍',
@@ -374,6 +376,8 @@ export const KAMAKURA_PACK: JapanDeepDivePack = {
     },
     {
       id: 'km-yasutoki',
+      portrait: '/portraits/japan-kamakura/km-yasutoki.jpg',
+      portrait_note: '鎌倉執權。直垂與烏帽子。無可靠的寫生。',
       name: '北條泰時',
       faction: F.bakufu,
       role: '執權',
@@ -383,6 +387,8 @@ export const KAMAKURA_PACK: JapanDeepDivePack = {
     },
     {
       id: 'km-gotoba',
+      portrait: '/portraits/japan-kamakura/km-gotoba.jpg',
+      portrait_note: '院。朝服。無可靠的寫生。',
       name: '後鳥羽上皇',
       faction: F.court,
       role: '院',

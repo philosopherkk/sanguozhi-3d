@@ -1,6 +1,8 @@
 [
   {
     "id": "oda-nobunaga",
+    "portrait": "/portraits/sengoku/oda-nobunaga.jpg",
+    "portrait_note": "後世畫像傳統：清瘦、細目、薄鬚。戰國直垂與烏帽子，不用奇幻甲。",
     "name": "織田信長",
     "aka": "おだ のぶなが",
     "birth": 1534,
@@ -12,6 +14,8 @@
   },
   {
     "id": "toyotomi-hideyoshi",
+    "portrait": "/portraits/sengoku/toyotomi-hideyoshi.jpg",
+    "portrait_note": "信長呼之為猿。瘦、機靈，不是貴公子臉。",
     "name": "豐臣秀吉",
     "aka": "とよとみ ひでよし（羽柴秀吉）",
     "birth": 1537,
@@ -27,6 +31,8 @@
   },
   {
     "id": "tokugawa-ieyasu",
+    "portrait": "/portraits/sengoku/tokugawa-ieyasu.jpg",
+    "portrait_note": "依晚年畫像：圓臉、小眼、疏鬚，著裃。",
     "name": "德川家康",
     "aka": "とくがわ いえやす",
     "birth": 1543,
@@ -38,6 +44,8 @@
   },
   {
     "id": "takeda-shingen",
+    "portrait": "/portraits/sengoku/takeda-shingen.jpg",
+    "portrait_note": "中年入道。後世畫像：結實、薙髮、小冠、短鬚。",
     "name": "武田信玄",
     "aka": "たけだ しんげん",
     "birth": 1521,
@@ -49,6 +57,8 @@
   },
   {
     "id": "uesugi-kenshin",
+    "portrait": "/portraits/sengoku/uesugi-kenshin.jpg",
+    "portrait_note": "入道。後世畫像：清瘦、白頭巾。不畫神佛裝。",
     "name": "上杉謙信",
     "aka": "うえすぎ けんしん",
     "birth": 1530,
@@ -60,6 +70,8 @@
   },
   {
     "id": "imagawa-yoshimoto",
+    "portrait": "/portraits/sengoku/imagawa-yoshimoto.jpg",
+    "portrait_note": "公家風的駿河大名。直垂與烏帽子，不是重甲武者。",
     "name": "今川義元",
     "aka": "いまがわ よしもと",
     "birth": 1519,
@@ -71,6 +83,8 @@
   },
   {
     "id": "mori-motonari",
+    "portrait": "/portraits/sengoku/mori-motonari.jpg",
+    "portrait_note": "長壽的戰國大名，畫成晚年。正史級記述無面部異徵。",
     "name": "毛利元就",
     "aka": "もうり もとなり",
     "birth": 1497,
@@ -82,6 +96,8 @@
   },
   {
     "id": "akechi-mitsuhide",
+    "portrait": "/portraits/sengoku/akechi-mitsuhide.jpg",
+    "portrait_note": "戰國大名。後世畫像偏清瘦。不另加叛臣標記。",
     "name": "明智光秀",
     "aka": "あけち みつひで",
     "birth": 1528,
@@ -95,6 +111,8 @@
   },
   {
     "id": "ishida-mitsunari",
+    "portrait": "/portraits/sengoku/ishida-mitsunari.jpg",
+    "portrait_note": "豐臣政權的文吏，畫成青年文官，不是重甲。",
     "name": "石田三成",
     "aka": "いしだ みつなり",
     "birth": 1560,
@@ -106,6 +124,8 @@
   },
   {
     "id": "shimazu-yoshihiro",
+    "portrait": "/portraits/sengoku/shimazu-yoshihiro.jpg",
+    "portrait_note": "薩摩將。體格結實見於後世說法，正史級面部細節不足。",
     "name": "島津義弘",
     "aka": "しまづ よしひろ",
     "birth": 1535,
@@ -117,6 +137,8 @@
   },
   {
     "id": "date-masamune",
+    "portrait": "/portraits/sengoku/date-masamune.jpg",
+    "portrait_note": "幼年因痘失去右眼。右眼閉合有疤，不用海盜眼罩。",
     "name": "伊達政宗",
     "aka": "だて まさむね",
     "birth": 1567,
@@ -128,6 +150,8 @@
   },
   {
     "id": "hojo-ujiyasu",
+    "portrait": "/portraits/sengoku/hojo-ujiyasu.jpg",
+    "portrait_note": "小田原之主。正史級記述無面部異徵。",
     "name": "北條氏康",
     "aka": "ほうじょう うじやす",
     "birth": 1515,
