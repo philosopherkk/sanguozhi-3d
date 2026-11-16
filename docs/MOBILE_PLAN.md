@@ -579,3 +579,23 @@ check_route_landmarks.py 嘅 `径`→徑，同埋 src/ 內五處我方敘述用�
 - **跟住數住嘅數**：三國頁 summary 44px 比原本 35px 多食 9px（全文太短，
   收攏冇賺-return）——代價係全站六檔統一語義同桌面 ellipsis 隱患清除，
   認為值得；如實機嫌三國頁呢 9px，可俾 `MapCredit` 加 `collapsible={false}`。
+
+## 修 16（2026-11-17）：滾動容器連鎖滾動清掃
+
+- 本輪冇瀏覽器工具（環境抽走咗 browser 命名空間），故做純靜態結構掃：
+  python 逐規則 parse 三份 CSS，搵出所有 `overflow(-x)?: auto|scroll` 但
+  同規則冇 `overscroll-behavior` 嘅容器。命中 9 個 selector，處理如下：
+  - **補 containment（7 條，App.css）**：`.collapsible-shell__body`、
+    `.frontier-pop`、`.zhou-dock__body`、`.zhou-faction-card`、
+    `.late-stage-bar__row`（橫軸，用 `-x`）、`.faction-situation`、
+    `.article-panel__body`——全部係帶 max-height／橫向溢出嘅自滾面板，
+    對齊 `.content-dock__body`／`.classic-detail-modal__body`／era-bar
+    既有慣例（「拖到盡頭唔好連鎖滾動整頁」）。
+  - **刻意豁免（2 條，唔改）**：`.map-2d`（佢個 `overflow:auto` 係
+    abs inset:0 固定高嘅防暴框兜底；加 contain 會反效果——喺地圖上 swipe
+    就永遠滾唔動整頁）；`.map-2d__route-legend`（App.css 基底冇，但
+    mobile.css:197 觸控塊已自帶 contain，覆蓋咗真正會發生嘅情境）。
+- **下一輪備忘記**：①`.frontier-pop` 16rem 寬喺 393px 單欄時代（地圖欄
+  得返三成寬）放唔放得落，要靠有瀏覽器嗰輪實測；②SengokuMap.tsx:66
+  react(refs) 警告＝縮放狀態喺渲染期食 ref，可能有「撳咗冇即時更新」
+  類觸控 bug，改法要 live 驗證，唔好靜態改。

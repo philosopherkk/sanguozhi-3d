@@ -234,6 +234,8 @@
 
 .collapsible-shell__body {
   overflow: auto;
+  /* 面板內滾到盡頭不連鎖滾動背後頁面（同 .content-dock__body 慣例） */
+  overscroll-behavior: contain;
   min-height: 0;
   padding: 0 0.4rem 0.45rem;
 }
@@ -809,6 +811,8 @@ html[data-theme='light'] .app-footer {
   width: 16rem;
   max-height: min(22rem, 52vh);
   overflow: auto;
+  /* 彈出卡內滾到盡頭不連鎖滾動地圖與整頁 */
+  overscroll-behavior: contain;
   pointer-events: auto;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
 }
@@ -878,6 +882,8 @@ html[data-theme='light'] .app-footer {
 
 .zhou-dock__body {
   overflow: auto;
+  /* 面板內滾到盡頭不連鎖滾動背後頁面（同 .content-dock__body 慣例） */
+  overscroll-behavior: contain;
   padding: 0 0.4rem 0.45rem;
   min-height: 0;
 }
@@ -912,6 +918,8 @@ html[data-theme='light'] .app-footer {
   width: min(22rem, 36vw);
   max-height: min(62vh, 36rem);
   overflow: auto;
+  /* 卡片內滾到盡頭不連鎖滾動地圖與整頁 */
+  overscroll-behavior: contain;
 }
 
 .zhou-faction-card__events {
@@ -1139,6 +1147,8 @@ html[data-theme='light'] .app-footer {
   display: flex;
   gap: 0.28rem;
   overflow-x: auto;
+  /* 橫向拖到盡頭不連鎖滾動整頁（同 era-bar 慣例，見 mobile.css） */
+  overscroll-behavior-x: contain;
   padding-bottom: 0.2rem;
 }
 
@@ -1567,6 +1577,8 @@ html[data-theme='light'] .app-footer {
   padding: 0.45rem 0.5rem 0.55rem;
   max-height: 20rem;
   overflow: auto;
+  /* 面板內滾到盡頭不連鎖滾動詳情窗與整頁 */
+  overscroll-behavior: contain;
   background: rgba(8, 12, 10, 0.92);
   border: 1px solid var(--line);
 }
@@ -2339,6 +2351,8 @@ html[data-theme='light'] .app-footer {
 .article-panel__body {
   max-height: min(28rem, 46vh);
   overflow: auto;
+  /* 面板內滾到盡頭不連鎖滾動整頁 */
+  overscroll-behavior: contain;
   font-size: 0.85rem;
   line-height: 1.65;
   color: var(--ink-muted);
