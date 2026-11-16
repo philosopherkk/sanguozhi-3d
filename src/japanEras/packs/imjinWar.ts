@@ -24,12 +24,6 @@ export const IMJIN_F = {
   joseon: '朝鮮',
 } as const
 
-export const IMJIN_F = {
-  jp: '日軍',
-  ming: '明軍',
-  joseon: '朝鮮',
-} as const
-
 /** 經緯度寫坐標，再由 asiaPx 投影——同底圖同一套註冊坐標 */
 const P = (lon: number, lat: number) => asiaPx(lon, lat)
 const route = (
@@ -179,7 +173,6 @@ const CONTROL: Record<number, Record<string, string>> = {
     im_chungcheong: IMJIN_F.jp,
     im_jeolla: IMJIN_F.joseon,
     im_gyeongsang: IMJIN_F.jp,
-    im_hamgyong: IMJIN_F.joseon,
   },
   1593: {
     im_kyushu: IMJIN_F.jp,
@@ -190,7 +183,6 @@ const CONTROL: Record<number, Record<string, string>> = {
     im_chungcheong: IMJIN_F.jp,
     im_jeolla: IMJIN_F.joseon,
     im_gyeongsang: IMJIN_F.jp,
-    im_hamgyong: IMJIN_F.joseon,
   },
   1595: {
     im_kyushu: IMJIN_F.jp,
@@ -201,7 +193,6 @@ const CONTROL: Record<number, Record<string, string>> = {
     im_chungcheong: IMJIN_F.joseon,
     im_jeolla: IMJIN_F.joseon,
     im_gyeongsang: IMJIN_F.jp,
-    im_hamgyong: IMJIN_F.joseon,
   },
   1597: {
     im_kyushu: IMJIN_F.jp,
@@ -212,7 +203,6 @@ const CONTROL: Record<number, Record<string, string>> = {
     im_chungcheong: IMJIN_F.jp,
     im_jeolla: IMJIN_F.joseon,
     im_gyeongsang: IMJIN_F.jp,
-    im_hamgyong: IMJIN_F.joseon,
   },
   1598: {
     im_kyushu: IMJIN_F.jp,
@@ -223,12 +213,11 @@ const CONTROL: Record<number, Record<string, string>> = {
     im_chungcheong: IMJIN_F.joseon,
     im_jeolla: IMJIN_F.joseon,
     im_gyeongsang: IMJIN_F.joseon,
-    im_hamgyong: IMJIN_F.joseon,
   },
 }
 
 const SHADE_NOTES: Record<number, string> = {
-  1592: '年終概況：一月而三都陷、六道破；全羅道八月金川之敗前猶固守，咸鏡道次年始陷——色塊大於實控。',
+  1592: '年終概況：一月而三都陷、六道破；全羅道八月金川之敗前猶固守，咸鏡道不在本圖範圍——色塊大於實控。',
   1593: '平壤收復後，大同江以北四道明軍收復，臨津江以南仍日軍據點；逐月變化大，色塊大於實控。',
   1595: '封貢期間，日軍退守慶尚道沿海倭城一線，其餘諸道歸朝鮮、明軍戍王京一帶——色塊大於實控。',
   1597: '丁酉再亂，日軍重占忠清、慶尚，明、朝鮮軍守漢江以北；一年內推移劇烈，此為年末快照——色塊大於實控。',
