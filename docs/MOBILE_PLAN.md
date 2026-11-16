@@ -543,3 +543,39 @@ check_route_landmarks.py 嘅 `径`→徑，同埋 src/ 內五處我方敘述用�
   要同步睇 `audit_mobile_css.mjs` 入面「credit 唔准 ellipsis」嗰條斷言點計。
 - **教訓**：睇版面缺陷唔可以淨量一幅圖就當代表六幅；同一 class 喺唔同頁
   內容長度可以差 5 倍，A/B 逐幅量先算數。
+
+## 修 15（2026-11-16）：credit 根治——`<MapCredit>` 摺疊落地
+
+- **做法**：新建共用元件 `src/components/MapCredit.tsx`（受控 `<details>`，
+  `useEffect` 內 `matchMedia` 決定初始展開，`onToggle` 同步回 React），六檔
+  JSX 嘅 `<p className="map-2d__credit">` 一律換做 `<MapCredit>`，內文一字
+  唔動。斷點 `(max-width: 1023px) and (pointer: coarse), (max-width: 700px)`
+  同 mobile.css 收攏塊一模一樣——觸控平板（例如 768px iPad 直向）都收，
+  桌面滑鼠 window 縮窄就全文常開自然換行。
+- **窄屏（393）收起＝得一行 summary**：按擊區 44px（`--tap-min`），＋/－
+  純文字偽元素指示器（冇引入新字型）；展開後全文先佔位。逐幅實測收起
+  creditH／地圖 wrap（對照修 14 基線 wrapH＋creditH−44 全部對數）：
+
+  | 頁 | 收起 credit | wrap（收起） | 展開 body |
+  | --- | --- | --- | --- |
+  | 三國 | 44 | 274 | 37 |
+  | 西周 | 44 | 279 | 94 |
+  | 漢 | 44 | 343 | 108 |
+  | 元明清 | 44 | 387 | 65 |
+  | 鎌倉 | 44 | 404 | 94 |
+  | 戰國 | 44 | 393 | 108 |
+  | 江戶 | 44 | 404 | 94 |
+  | 當代 | 44 | 404 | 137 |
+
+  即係西漢頁地圖由 247px 回返 343px（+39%），當代由 255px 回返 404px。
+- **1440 桌面**：summary `display:none`、全文常開、無 ellipsis（順手消咗
+  「桌面 ellipsis 截斷授權長文」呢個隱患；三國幅 `title` tooltip 照留）。
+- **768 滑鼠**：落桌面分支全文常開（漢 170px／當代 208px 高，資訊可達、
+  wrap 仍有 400px+）；真觸控平板行收攏分支（同一組 CSS，393 已驗證）。
+- **教訓修正**：上節「要同步睇 `audit_mobile_css.mjs` 條『credit 唔准
+  ellipsis』斷言」係誤記——該腳本六條斷言（blowout/mapside-stack/
+  safe-area×2/bare-vh/tap-min）冇一條涉 credit，改 markup 唔觸閘，已親測
+  `audit:mobile` 六項綠＋teeth fail=0。
+- **跟住數住嘅數**：三國頁 summary 44px 比原本 35px 多食 9px（全文太短，
+  收攏冇賺-return）——代價係全站六檔統一語義同桌面 ellipsis 隱患清除，
+  認為值得；如實機嫌三國頁呢 9px，可俾 `MapCredit` 加 `collapsible={false}`。
