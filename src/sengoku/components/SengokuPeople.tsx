@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { PersonPortrait } from '../../components/PersonPortrait'
 import { PersonWiki } from '../../components/PersonWiki'
 import peopleData from '../data/people.json'
 import { sengokuPersonSummary } from '../data/personProfiles'
@@ -76,6 +77,11 @@ export function SengokuPeople() {
                   className={active ? 'people-card is-active' : 'people-card'}
                   onClick={() => selectPerson(active ? null : p)}
                 >
+                  <PersonPortrait
+                    src={p.portrait}
+                    name={p.name}
+                    note={p.portrait_note}
+                  />
                   <strong>{p.name}</strong>
                   {p.aka ? <span className="people-aka">{p.aka}</span> : null}
                   {fac ? (
@@ -103,6 +109,14 @@ export function SengokuPeople() {
 
       {selectedPerson ? (
         <article className="person-detail">
+          {selectedPerson.portrait ? (
+            <PersonPortrait
+              src={selectedPerson.portrait}
+              name={selectedPerson.name}
+              note={selectedPerson.portrait_note}
+              size="lg"
+            />
+          ) : null}
           <h3>{selectedPerson.name}</h3>
           {selectedPerson.aka ? <p>{selectedPerson.aka}</p> : null}
           <p>

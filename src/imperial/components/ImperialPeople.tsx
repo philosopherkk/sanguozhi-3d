@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { PersonPortrait } from '../../components/PersonPortrait'
 import { PersonWiki } from '../../components/PersonWiki'
 import { DEPTH_PEOPLE } from '../data/depth'
 import { imperialFactionColor, imperialFactionName } from '../lib/factionColor'
@@ -65,6 +66,11 @@ export function ImperialPeople() {
                 }
                 onClick={() => setOpenId(openId === p.id ? null : p.id)}
               >
+                <PersonPortrait
+                  src={p.portrait}
+                  name={p.name}
+                  note={p.portrait_note}
+                />
                 <strong>{p.name}</strong>
                 <span
                   className="faction-chip"
@@ -82,6 +88,14 @@ export function ImperialPeople() {
       )}
       {open ? (
         <article className="person-detail">
+          {open.portrait ? (
+            <PersonPortrait
+              src={open.portrait}
+              name={open.name}
+              note={open.portrait_note}
+              size="lg"
+            />
+          ) : null}
           <h3>{open.name}</h3>
           <p>
             {open.role} · {imperialFactionName(pack, open.faction)}

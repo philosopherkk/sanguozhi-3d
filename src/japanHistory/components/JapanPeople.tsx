@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { PersonPortrait } from '../../components/PersonPortrait'
 import { PersonWiki } from '../../components/PersonWiki'
 import peopleData from '../data/people.json'
 import { useJapanYear } from '../state/JapanYearContext'
@@ -58,6 +59,11 @@ export function JapanPeople() {
                 }
                 onClick={() => setOpenId(p.id)}
               >
+                <PersonPortrait
+                  src={p.portrait}
+                  name={p.name}
+                  note={p.portrait_note}
+                />
                 <strong>{p.name}</strong>
                 <span className="people-aka">{p.years}</span>
                 <span className="people-role">{p.role}</span>
@@ -70,6 +76,14 @@ export function JapanPeople() {
 
       {open ? (
         <div className="person-detail">
+          {open.portrait ? (
+            <PersonPortrait
+              src={open.portrait}
+              name={open.name}
+              note={open.portrait_note}
+              size="lg"
+            />
+          ) : null}
           <h3>{open.name}</h3>
           <p>
             {open.era} · {open.role} · {open.years}

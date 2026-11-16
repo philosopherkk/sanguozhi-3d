@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { PersonPortrait } from '../../components/PersonPortrait'
 import { PersonWiki } from '../../components/PersonWiki'
 import { QINHAN_PEOPLE } from '../data/people'
 import { qinHanFactionColor, qinHanFactionName } from '../lib/factionColors'
@@ -70,6 +71,11 @@ export function QinHanPeople() {
                 className={active ? 'people-card is-active' : 'people-card'}
                 onClick={() => selectPerson(active ? null : p)}
               >
+                <PersonPortrait
+                  src={p.portrait}
+                  name={p.name}
+                  note={p.portrait_note}
+                />
                 <strong>{p.name}</strong>
                 {p.courtesy ? (
                   <span className="people-aka">字 {p.courtesy}</span>
@@ -95,6 +101,14 @@ export function QinHanPeople() {
 
       {selectedPerson ? (
         <article className="person-detail">
+          {selectedPerson.portrait ? (
+            <PersonPortrait
+              src={selectedPerson.portrait}
+              name={selectedPerson.name}
+              note={selectedPerson.portrait_note}
+              size="lg"
+            />
+          ) : null}
           <h3>{selectedPerson.name}</h3>
           {selectedPerson.courtesy ? <p>字 {selectedPerson.courtesy}</p> : null}
           <p>
