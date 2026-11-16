@@ -10,6 +10,7 @@ import {
   BASEMAP_WIDTH,
 } from '../../data/basemapProvinces'
 import { HISTORICAL_BASEMAPS } from '../../data/historicalBasemaps'
+import { MapCredit } from '../../components/MapCredit'
 import { MapLayerBar } from '../../components/map/MapLayerBar'
 import { MapRouteLegend } from '../../components/map/MapRouteLegend'
 import {
@@ -446,14 +447,14 @@ export function QinHanMap() {
         </p>
       </div>
 
-      <p className="map-2d__credit">
+      <MapCredit>
         底圖借用
         <a href={BASEMAP.commonsUrl} target="_blank" rel="noreferrer">
           {BASEMAP.credit}
         </a>
         {BASEMAP.license ? `（${BASEMAP.license}）` : ''}
         。現代東亞地勢，與春秋戰國、東漢三國共用，不按時代換古圖。都邑用秦漢名（咸陽、長安、洛陽、彭城、滎陽）。海岸沿底圖陸地收回；內陸界順著黃河、長江、秦嶺、太行、南嶺的大勢，未能逐郡處為示意。行軍沿河谷、崤函、鴻溝與塞外，不穿秦嶺。{QINHAN_TERRITORY_NOTE}
-      </p>
+      </MapCredit>
     </div>
   )
 }

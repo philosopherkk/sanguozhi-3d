@@ -14,6 +14,7 @@ import {
   MARCH_ROUTE_SAME_YEAR,
   RouteOverlay,
 } from '../../components/map/RouteOverlay'
+import { MapCredit } from '../../components/MapCredit'
 import { MapLayerBar } from '../../components/map/MapLayerBar'
 import { shapesFromExtensions, controlToExtensions } from '../../lib/eraShapes'
 import {
@@ -355,9 +356,9 @@ export function ImperialMap() {
           </button>
         </div>
       </div>
-      <p className="map-2d__credit">
+      <MapCredit>
         底圖現代東亞地勢 · 州格示意大於實控 · {snapshot.note ?? snapshot.source}
-      </p>
+      </MapCredit>
     </div>
   )
 }

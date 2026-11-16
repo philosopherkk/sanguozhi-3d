@@ -1308,15 +1308,22 @@ html[data-theme='light'] .app-footer {
   letter-spacing: 0.12em;
 }
 
+/* 底圖與授權說明（六個地圖元件共用的 <MapCredit> details 元素）：桌面與平板
+   滑鼠下全文常開、自然換行。舊 nowrap+ellipsis 會把 140–346 字的授權長文截斷，
+   資訊不可達；窄屏以 summary 收攏成一行、展開後才佔位（393px 實測全文佔
+   88–198px 蠶食地圖，見 docs/MOBILE_PLAN.md 修 14 跟進節；收攏規則在 mobile.css）。 */
 .map-2d__credit {
   flex-shrink: 0;
   margin: 0;
   font-size: 0.75rem;
-  line-height: 1.4;
+  line-height: 1.3;
   color: var(--ink-muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+.map-2d__credit__summary {
+  display: none; /* 全文常開，毋須收攏開關 */
+}
+.map-2d__credit__body {
+  display: block;
 }
 
 .map-2d__credit a {

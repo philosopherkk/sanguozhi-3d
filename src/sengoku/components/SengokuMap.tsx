@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from 'react'
+import { MapCredit } from '../../components/MapCredit'
 import { MapLayerBar } from '../../components/map/MapLayerBar'
 import { MapRouteLegend } from '../../components/map/MapRouteLegend'
 import { RouteOverlay } from '../../components/map/RouteOverlay'
@@ -174,7 +175,7 @@ export function SengokuMap() {
           {basemap.title} · 勢力示意採 {territoryYear} 年快照 · 滾輪縮放，拖曳平移
         </p>
       </div>
-      <p className="map-2d__credit">
+      <MapCredit>
         底圖：
         <a href={basemap.commonsUrl} target="_blank" rel="noreferrer">
           {basemap.credit}
@@ -182,7 +183,7 @@ export function SengokuMap() {
         {basemap.license ? `（${basemap.license}）` : ''}
         。現代列島地勢，平安、戰國、幕末、江戶共用，不按時代換古圖。域界為 CODH 舊國 mesh（CC BY-NC 4.0）。{SENGOKU_TERRITORY_NOTE}{' '}
         {formatGeometryProvenance(SENGOKU_TERRITORY_GEOMETRY_PROVENANCE)}大名用漢字。渡海只標文祿。
-      </p>
+      </MapCredit>
     </div>
   )
 }
