@@ -1,6 +1,8 @@
 [
   {
     "id": "shotoku",
+    "portrait": "/portraits/japan-history/shotoku.jpg",
+    "portrait_note": "飛鳥攝政。朝服，不是武士。無可靠的寫生。",
     "name": "廄戶皇子（聖德太子）",
     "years": "574–622（傳）",
     "role": "攝政",
@@ -12,6 +14,8 @@
   },
   {
     "id": "abe-hirafu",
+    "portrait": "/portraits/japan-history/abe-hirafu.jpg",
+    "portrait_note": "飛鳥將。朝服。無可靠的寫生。",
     "name": "阿倍比羅夫",
     "years": "7世紀（文獻）",
     "role": "遣使・將",
@@ -23,6 +27,8 @@
   },
   {
     "id": "shomu-tenno",
+    "portrait": "/portraits/japan-history/shomu-tenno.jpg",
+    "portrait_note": "奈良天皇。朝服與冠。無可靠的寫生。",
     "name": "聖武天皇",
     "years": "701–756",
     "role": "天皇／太上天皇",
@@ -34,6 +40,8 @@
   },
   {
     "id": "kanmu-tenno",
+    "portrait": "/portraits/japan-history/kanmu-tenno.jpg",
+    "portrait_note": "平安初的天皇。朝服與冠。無可靠的寫生。",
     "name": "桓武天皇",
     "years": "737–806；在位781–806",
     "role": "天皇",
@@ -45,6 +53,8 @@
   },
   {
     "id": "taira-masakado",
+    "portrait": "/portraits/japan-history/taira-masakado.jpg",
+    "portrait_note": "平安武者。鎧與烏帽子。無可靠的寫生。",
     "name": "平將門",
     "years": "？–940",
     "role": "關東豪族／叛亂者",
@@ -56,6 +66,8 @@
   },
   {
     "id": "fujiwara-michinaga",
+    "portrait": "/portraits/japan-history/fujiwara-michinaga.jpg",
+    "portrait_note": "平安攝政。朝服與冠。無可靠的寫生。",
     "name": "藤原道長",
     "years": "966–1028（約）",
     "role": "攝政・太政大臣",
@@ -67,6 +79,8 @@
   },
   {
     "id": "kukai",
+    "portrait": "/portraits/japan-history/kukai.jpg",
+    "portrait_note": "正史無面部異徵。平安僧人，剃髮、袈裟。",
     "name": "空海",
     "years": "774–835",
     "role": "僧／真言宗開祖",
@@ -78,6 +92,8 @@
   },
   {
     "id": "sugawara-michizane",
+    "portrait": "/portraits/japan-history/sugawara-michizane.jpg",
+    "portrait_note": "平安公卿、學者。束帶與冠。無可靠的寫生。",
     "name": "菅原道真",
     "years": "845–903",
     "role": "學者・右大臣",
@@ -91,6 +107,8 @@
   },
   {
     "id": "murasaki-shikibu",
+    "portrait": "/portraits/japan-history/murasaki-shikibu.jpg",
+    "portrait_note": "成年女官。十二單與長髮，無肖像可據。",
     "name": "紫式部",
     "years": "活躍約1000–1014",
     "role": "女官・作家",
@@ -102,6 +120,8 @@
   },
   {
     "id": "minamoto-yoriyoshi",
+    "portrait": "/portraits/japan-history/minamoto-yoriyoshi.jpg",
+    "portrait_note": "平安將。鎧與烏帽子。無可靠的寫生。",
     "name": "源賴義",
     "years": "988–1075（約）",
     "role": "陸奧守・鎮守府將軍",
@@ -113,6 +133,8 @@
   },
   {
     "id": "shirakawa-tenno",
+    "portrait": "/portraits/japan-history/shirakawa-tenno.jpg",
+    "portrait_note": "院政。法皇剃髮、朝服。無可靠的寫生。",
     "name": "白河天皇（上皇）",
     "years": "1053–1129",
     "role": "天皇／上皇（院政）",
@@ -124,6 +146,8 @@
   },
   {
     "id": "taira-kiyomori",
+    "portrait": "/portraits/japan-history/taira-kiyomori.jpg",
+    "portrait_note": "晚年出家，世傳像為削瘦的入道。依那類服制，不另造異相。",
     "name": "平清盛",
     "years": "1118–1181",
     "role": "太政大臣",
@@ -135,6 +159,8 @@
   },
   {
     "id": "minamoto-yoshiie",
+    "portrait": "/portraits/japan-history/minamoto-yoshiie.jpg",
+    "portrait_note": "平安將。鎧與烏帽子。無可靠的寫生。",
     "name": "源義家",
     "years": "1039–1106（約）",
     "role": "陸奧守",
@@ -146,6 +172,8 @@
   },
   {
     "id": "minamoto-yoritomo",
+    "portrait": "/portraits/japan-history/minamoto-yoritomo.jpg",
+    "portrait_note": "神護寺傳像一類：清瘦、細鬚、烏帽子與直垂。依那類服制，不另造異相。",
     "name": "源賴朝",
     "years": "1147–1199",
     "role": "征夷大將軍",
@@ -157,6 +185,8 @@
   },
   {
     "id": "hojo-yoshitoki",
+    "portrait": "/portraits/japan-history/hojo-yoshitoki.jpg",
+    "portrait_note": "鎌倉執權。直垂與烏帽子。無可靠的寫生。",
     "name": "北條義時",
     "years": "1163–1224（生年約）",
     "role": "鎌倉幕府執權",
@@ -168,6 +198,8 @@
   },
   {
     "id": "ashikaga-yoshimitsu",
+    "portrait": "/portraits/japan-history/ashikaga-yoshimitsu.jpg",
+    "portrait_note": "金閣時代的將軍像一類：圓面、公家服。",
     "name": "足利義滿",
     "years": "1358–1408",
     "role": "征夷大將軍",
@@ -179,6 +211,8 @@
   },
   {
     "id": "sho-hashi",
+    "portrait": "/portraits/japan-history/sho-hashi.jpg",
+    "portrait_note": "琉球國王。明式朝服與冠。無照片。",
     "name": "尚巴志",
     "years": "1376–1439（約）",
     "role": "琉球國王",
@@ -190,6 +224,8 @@
   },
   {
     "id": "oda-nobunaga",
+    "portrait": "/portraits/japan-history/oda-nobunaga.jpg",
+    "portrait_note": "後世畫像傳統：清瘦、細目、薄鬚。戰國直垂與烏帽子，不用奇幻甲。",
     "name": "織田信長",
     "years": "1534–1582",
     "role": "戰國大名",
@@ -201,6 +237,8 @@
   },
   {
     "id": "tokugawa-ieyasu",
+    "portrait": "/portraits/japan-history/tokugawa-ieyasu.jpg",
+    "portrait_note": "依晚年畫像：圓臉、小眼、疏鬚，著裃。",
     "name": "德川家康",
     "years": "1543–1616",
     "role": "征夷大將軍",
@@ -212,6 +250,8 @@
   },
   {
     "id": "meiji-tenno",
+    "portrait": "/portraits/japan-history/meiji-tenno.jpg",
+    "portrait_note": "依公開照片改畫，服裝隨該照。",
     "name": "明治天皇",
     "years": "1852–1912",
     "role": "天皇",
@@ -223,6 +263,8 @@
   },
   {
     "id": "ito-hirobumi",
+    "portrait": "/portraits/japan-history/ito-hirobumi.jpg",
+    "portrait_note": "依公開照片改畫，服裝隨該照。",
     "name": "伊藤博文",
     "years": "1841–1909",
     "role": "政治家",
@@ -234,6 +276,8 @@
   },
   {
     "id": "matsumae-yoshihiro",
+    "portrait": "/portraits/japan-history/matsumae-yoshihiro.jpg",
+    "portrait_note": "初代松前藩主。直垂與烏帽子。無可靠的寫生。",
     "name": "松前慶廣",
     "years": "1548–1616",
     "role": "松前藩主",
@@ -245,6 +289,8 @@
   },
   {
     "id": "shakushain",
+    "portrait": "/portraits/japan-history/shakushain.jpg",
+    "portrait_note": "阿伊努首領。厚司衣。無照片。不畫成戲畫。",
     "name": "シャクシャイン",
     "years": "活躍約1665–1669",
     "role": "阿伊努首長",
@@ -256,6 +302,8 @@
   },
   {
     "id": "shimazu-iehisa",
+    "portrait": "/portraits/japan-history/shimazu-iehisa.jpg",
+    "portrait_note": "薩摩藩主。正史無面部異徵。",
     "name": "島津家久",
     "years": "1576–1638",
     "role": "薩摩藩主",
@@ -267,6 +315,8 @@
   },
   {
     "id": "kuroda-kiyotaka",
+    "portrait": "/portraits/japan-history/kuroda-kiyotaka.jpg",
+    "portrait_note": "依公開照片改畫，服裝隨該照。",
     "name": "黑田清隆",
     "years": "1840–1900",
     "role": "開拓使",
@@ -278,6 +328,8 @@
   },
   {
     "id": "sho-tai",
+    "portrait": "/portraits/japan-history/sho-tai.jpg",
+    "portrait_note": "依公開照片改畫，服裝隨該照。",
     "name": "尚泰",
     "years": "1843–1901",
     "role": "末代琉球王／華族",

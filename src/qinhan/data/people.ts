@@ -3,6 +3,8 @@ import type { QinHanPerson } from '../types'
 export const QINHAN_PEOPLE: QinHanPerson[] = [
   {
     id: 'ying-zheng',
+    portrait: '/portraits/qinhan/ying-zheng.jpg',
+    portrait_note: '《史記·秦始皇本紀》：蜂準，長目，摯鳥膺，豺聲。秦制袍冠，不用後世龍袍。',
     name: '嬴政',
     faction: '秦',
     role: '政治',
@@ -14,6 +16,8 @@ export const QINHAN_PEOPLE: QinHanPerson[] = [
   },
   {
     id: 'li-si',
+    portrait: '/portraits/qinhan/li-si.jpg',
+    portrait_note: '秦丞相，楚人。正史無面部異徵。',
     name: '李斯',
     faction: '秦',
     role: '政治',
@@ -26,6 +30,8 @@ export const QINHAN_PEOPLE: QinHanPerson[] = [
   },
   {
     id: 'chen-sheng',
+    portrait: '/portraits/qinhan/chen-sheng.jpg',
+    portrait_note: '《史記》記其傭耕起事。布衣，無冠。',
     name: '陳勝',
     courtesy: '涉',
     faction: '張楚',
@@ -38,6 +44,8 @@ export const QINHAN_PEOPLE: QinHanPerson[] = [
   },
   {
     id: 'wu-guang',
+    portrait: '/portraits/qinhan/wu-guang.jpg',
+    portrait_note: '與陳勝同起。布衣戍卒，正史無面部異徵。',
     name: '吳廣',
     faction: '張楚',
     role: '軍事',
@@ -49,6 +57,8 @@ export const QINHAN_PEOPLE: QinHanPerson[] = [
   },
   {
     id: 'xiang-yu',
+    portrait: '/portraits/qinhan/xiang-yu.jpg',
+    portrait_note: '《史記·項羽本紀》：長八尺餘，力能扛鼎。重瞳只作目光銳利，不畫雙瞳。',
     name: '項羽',
     faction: '西楚',
     role: '軍事',
@@ -60,6 +70,8 @@ export const QINHAN_PEOPLE: QinHanPerson[] = [
   },
   {
     id: 'liu-bang',
+    portrait: '/portraits/qinhan/liu-bang.jpg',
+    portrait_note: '《史記·高祖本紀》：隆準而龍顏，美須髯。龍顏作額宇，不畫成龍。',
     name: '劉邦',
     faction: '漢',
     role: '政治',
@@ -71,6 +83,8 @@ export const QINHAN_PEOPLE: QinHanPerson[] = [
   },
   {
     id: 'xiao-he',
+    portrait: '/portraits/qinhan/xiao-he.jpg',
+    portrait_note: '沛縣主吏掾出身的漢相。正史無面部異徵。',
     name: '蕭何',
     faction: '漢',
     role: '政治',
@@ -82,6 +96,8 @@ export const QINHAN_PEOPLE: QinHanPerson[] = [
   },
   {
     id: 'zhang-liang',
+    portrait: '/portraits/qinhan/zhang-liang.jpg',
+    portrait_note: '《史記·留侯世家》：狀貌如婦人好女。',
     name: '張良',
     courtesy: '子房',
     faction: '漢',
@@ -95,6 +111,8 @@ export const QINHAN_PEOPLE: QinHanPerson[] = [
   },
   {
     id: 'han-xin',
+    portrait: '/portraits/qinhan/han-xin.jpg',
+    portrait_note: '《史記》記其貧與胯下之辱，無面部異徵。',
     name: '韓信',
     faction: '漢',
     role: '軍事',
@@ -106,6 +124,8 @@ export const QINHAN_PEOPLE: QinHanPerson[] = [
   },
   {
     id: 'han-wendi',
+    portrait: '/portraits/qinhan/han-wendi.jpg',
+    portrait_note: '《史記·孝文本紀》強調身衣弋綈，衣著從簡。',
     name: '漢文帝',
     faction: '漢',
     role: '政治',
@@ -117,6 +137,8 @@ export const QINHAN_PEOPLE: QinHanPerson[] = [
   },
   {
     id: 'han-jingdi',
+    portrait: '/portraits/qinhan/han-jingdi.jpg',
+    portrait_note: '文帝之子。正史無面部異徵，衣著從漢帝簡制。',
     name: '漢景帝',
     faction: '漢',
     role: '政治',
@@ -128,6 +150,8 @@ export const QINHAN_PEOPLE: QinHanPerson[] = [
   },
   {
     id: 'zhou-yafu',
+    portrait: '/portraits/qinhan/zhou-yafu.jpg',
+    portrait_note: '細柳營的嚴將。正史無面部異徵。',
     name: '周亞夫',
     faction: '漢',
     role: '軍事',
@@ -139,6 +163,8 @@ export const QINHAN_PEOPLE: QinHanPerson[] = [
   },
   {
     id: 'han-wudi',
+    portrait: '/portraits/qinhan/han-wudi.jpg',
+    portrait_note: '正史無面部異徵。漢帝冠服。',
     name: '漢武帝',
     faction: '漢',
     role: '政治',
@@ -150,6 +176,8 @@ export const QINHAN_PEOPLE: QinHanPerson[] = [
   },
   {
     id: 'wei-qing',
+    portrait: '/portraits/qinhan/wei-qing.jpg',
+    portrait_note: '出自奴僕之家的漢將。正史無面部異徵。',
     name: '衛青',
     faction: '漢',
     role: '軍事',
@@ -162,6 +190,8 @@ export const QINHAN_PEOPLE: QinHanPerson[] = [
   },
   {
     id: 'huo-qubing',
+    portrait: '/portraits/qinhan/huo-qubing.jpg',
+    portrait_note: '二十四歲卒。青年騎將，少言。正史無面部異徵。',
     name: '霍去病',
     faction: '漢',
     role: '軍事',
@@ -173,6 +203,8 @@ export const QINHAN_PEOPLE: QinHanPerson[] = [
   },
   {
     id: 'wang-mang',
+    portrait: '/portraits/qinhan/wang-mang.jpg',
+    portrait_note: '《漢書·王莽傳》：侈口蹶顄，露眼赤精。寬嘴、短下巴、眼露，不畫成妖。',
     name: '王莽',
     faction: '新',
     role: '政治',
@@ -184,6 +216,8 @@ export const QINHAN_PEOPLE: QinHanPerson[] = [
   },
   {
     id: 'liu-xiu',
+    portrait: '/portraits/qinhan/liu-xiu.jpg',
+    portrait_note: '《後漢書·光武帝紀》：美須眉，大口，隆準，日角。日角只作額上微隆，不畫角。',
     name: '劉秀',
     faction: '漢',
     role: '政治',
@@ -197,6 +231,8 @@ export const QINHAN_PEOPLE: QinHanPerson[] = [
   },
   {
     id: 'zhang-jiao',
+    portrait: '/portraits/qinhan/zhang-jiao.jpg',
+    portrait_note: '黃巾領袖。黃巾是記載裡的標識，不是術士戲裝。',
     name: '張角',
     faction: '黃巾',
     role: '政治',

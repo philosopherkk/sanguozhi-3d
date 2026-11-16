@@ -317,6 +317,8 @@ export const MUROMACHI_PACK: JapanDeepDivePack = {
   people: [
     {
       id: 'mu-takauji',
+      portrait: '/portraits/japan-muromachi/mu-takauji.jpg',
+      portrait_note: '室町將軍。直垂與烏帽子。傳世像有細鬚，不另造異徵。',
       name: '足利尊氏',
       faction: F.ashikaga,
       role: '將軍',
@@ -326,6 +328,8 @@ export const MUROMACHI_PACK: JapanDeepDivePack = {
     },
     {
       id: 'mu-yoshimitsu',
+      portrait: '/portraits/japan-muromachi/mu-yoshimitsu.jpg',
+      portrait_note: '金閣時代的將軍像一類：圓面、公家服。',
       name: '足利義滿',
       faction: F.ashikaga,
       role: '將軍',
@@ -335,6 +339,8 @@ export const MUROMACHI_PACK: JapanDeepDivePack = {
     },
     {
       id: 'mu-go-daigo',
+      portrait: '/portraits/japan-muromachi/mu-go-daigo.jpg',
+      portrait_note: '南朝天皇。朝服。無可靠的寫生。',
       name: '後醍醐天皇',
       faction: F.south,
       role: '南朝',

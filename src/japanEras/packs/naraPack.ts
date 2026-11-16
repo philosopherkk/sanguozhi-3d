@@ -277,6 +277,8 @@ export const NARA_PACK: JapanDeepDivePack = {
   people: [
     {
       id: 'nr-shomu',
+      portrait: '/portraits/japan-nara/nr-shomu.jpg',
+      portrait_note: '奈良天皇。朝服與冠。無可靠的寫生。',
       name: '聖武天皇',
       faction: F.court,
       role: '天皇',
@@ -286,6 +288,8 @@ export const NARA_PACK: JapanDeepDivePack = {
     },
     {
       id: 'nr-nakamaro',
+      portrait: '/portraits/japan-nara/nr-nakamaro.jpg',
+      portrait_note: '奈良大臣。朝服與冠。無可靠的寫生。',
       name: '藤原仲麻呂',
       aka: '惠美押勝',
       faction: F.fujiwara,

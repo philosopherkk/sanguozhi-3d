@@ -94,17 +94,17 @@ export const IMJIN_EVENTS: EraEvent[] = [
 ]
 
 export const IMJIN_PEOPLE: EraPerson[] = [
-  { id: 'az-yukinaga', name: '小西行長', faction: IMJIN_F.jp, role: '第一軍統備主帥', death: 1600, summary: '率第一軍自釜山直取平壤；主和議，封貢往來之關鍵人物。關原敗後被處刑。', source: '日方軍記與《明史》互見（轉述，非逐字）' },
-  { id: 'az-kiyomasa', name: '加藤清正', faction: IMJIN_F.jp, role: '第六軍統備主帥', death: 1611, summary: '率第六軍走東路，咸鏡道之役與南原之圍；退兵時殿後先行發舟。', source: '日方軍記與《明史》互見（轉述，非逐字）' },
-  { id: 'az-seonjo', name: '朝鮮宣祖（李昖）', faction: IMJIN_F.joseon, role: '朝鮮国王', death: 1608, summary: '亂起時北走義州請援；在明軍與親軍、東西黨議之間主持戰時決策。', source: '《明史》稱「昖」；朝鮮《宣祖實錄》轉述' },
-  { id: 'az-yisunsin', name: '李舜臣', faction: IMJIN_F.joseon, role: '全羅左道水軍節度使·三道水軍統制使', death: 1598, summary: '閑山島之勝制海權；下獄白衣從軍後鳴梁再勝；露梁之役戰歿。', source: '朝鮮《宣祖實錄》；李氏家傳系統與之互有出入，本庫不裁決' },
-  { id: 'az-gwonul', name: '權慄', faction: IMJIN_F.joseon, role: '都體察使', death: 1599, summary: '錦川、幸州兩勝後主持八道游擊，以持久耗敵為方策。', source: '朝鮮通說（《宣祖實錄》轉述）' },
-  { id: 'az-wongun', name: '元均', faction: IMJIN_F.joseon, role: '三道水軍統制使', summary: '接手李舜臣後水師；丁酉再亂初期閑山島之潰。', source: '朝鮮《宣祖實錄》；其敗諸說不一，不取家傳一面之詞' },
-  { id: 'az-yingchang', name: '宋應昌', faction: IMJIN_F.ming, role: '兵部尚書·薊遼保塞經略', summary: '主持出師，平壤之役後主封貢；事敗奪職。', source: '《明史》卷二百四本傳（卷次以中華書局點校本為準）' },
-  { id: 'az-rusong', name: '李如松', faction: IMJIN_F.ming, role: '東征提督', death: 1598, summary: '克平壤；碧蹄館之敗後轉入守勢，翌年罷還，後死於遼東。', source: SRC },
-  { id: 'az-shenweijing', name: '沈惟敬', faction: IMJIN_F.ming, role: '議款遊擊', summary: '市人應募使倭，往返行長、惟敬、秀吉之間，封貢成敗之樞紐。', source: '《明史》卷三百二十：「惟敬者，市中無賴也」（明人史筆，非其人自述）' },
-  { id: 'az-xingjie', name: '邢玠', faction: IMJIN_F.ming, role: '兵部尚書·經略', summary: '丁酉再亂後再主征事，募江南水兵、分水陸四路。', source: SRC },
-  { id: 'az-chenlin', name: '陳璘', faction: IMJIN_F.ming, role: '水師總兵', summary: '將廣東兵為水路；露梁之役截擊救應行長之日軍船隊。', source: '《明史》本傳與卷三百二十互見（轉述）' },
+  { id: 'az-yukinaga', portrait: '/portraits/japan-imjin/az-yukinaga.jpg', portrait_note: '文祿之役日將。具足。無可靠的寫生。', name: '小西行長', faction: IMJIN_F.jp, role: '第一軍統備主帥', death: 1600, summary: '率第一軍自釜山直取平壤；主和議，封貢往來之關鍵人物。關原敗後被處刑。', source: '日方軍記與《明史》互見（轉述，非逐字）' },
+  { id: 'az-kiyomasa', portrait: '/portraits/japan-imjin/az-kiyomasa.jpg', portrait_note: '文祿之役日將。具足。不畫後世傳說盔上的怪飾為史實。', name: '加藤清正', faction: IMJIN_F.jp, role: '第六軍統備主帥', death: 1611, summary: '率第六軍走東路，咸鏡道之役與南原之圍；退兵時殿後先行發舟。', source: '日方軍記與《明史》互見（轉述，非逐字）' },
+  { id: 'az-seonjo', portrait: '/portraits/japan-imjin/az-seonjo.jpg', portrait_note: '朝鮮國王。袞龍袍與翼善冠。無照片。', name: '朝鮮宣祖（李昖）', faction: IMJIN_F.joseon, role: '朝鮮国王', death: 1608, summary: '亂起時北走義州請援；在明軍與親軍、東西黨議之間主持戰時決策。', source: '《明史》稱「昖」；朝鮮《宣祖實錄》轉述' },
+  { id: 'az-yisunsin', portrait: '/portraits/japan-imjin/az-yisunsin.jpg', portrait_note: '依顯忠祠肖像一類：美鬚、甲胄。不另造異徵。', name: '李舜臣', faction: IMJIN_F.joseon, role: '全羅左道水軍節度使·三道水軍統制使', death: 1598, summary: '閑山島之勝制海權；下獄白衣從軍後鳴梁再勝；露梁之役戰歿。', source: '朝鮮《宣祖實錄》；李氏家傳系統與之互有出入，本庫不裁決' },
+  { id: 'az-gwonul', portrait: '/portraits/japan-imjin/az-gwonul.jpg', portrait_note: '朝鮮將。甲胄。無照片。', name: '權慄', faction: IMJIN_F.joseon, role: '都體察使', death: 1599, summary: '錦川、幸州兩勝後主持八道游擊，以持久耗敵為方策。', source: '朝鮮通說（《宣祖實錄》轉述）' },
+  { id: 'az-wongun', portrait: '/portraits/japan-imjin/az-wongun.jpg', portrait_note: '朝鮮水師。甲胄。無照片。', name: '元均', faction: IMJIN_F.joseon, role: '三道水軍統制使', summary: '接手李舜臣後水師；丁酉再亂初期閑山島之潰。', source: '朝鮮《宣祖實錄》；其敗諸說不一，不取家傳一面之詞' },
+  { id: 'az-yingchang', portrait: '/portraits/japan-imjin/az-yingchang.jpg', portrait_note: '明朝經略。官服烏紗。無照片。', name: '宋應昌', faction: IMJIN_F.ming, role: '兵部尚書·薊遼保塞經略', summary: '主持出師，平壤之役後主封貢；事敗奪職。', source: '《明史》卷二百四本傳（卷次以中華書局點校本為準）' },
+  { id: 'az-rusong', portrait: '/portraits/japan-imjin/az-rusong.jpg', portrait_note: '明軍提督。披甲。無照片。', name: '李如松', faction: IMJIN_F.ming, role: '東征提督', death: 1598, summary: '克平壤；碧蹄館之敗後轉入守勢，翌年罷還，後死於遼東。', source: SRC },
+  { id: 'az-shenweijing', portrait: '/portraits/japan-imjin/az-shenweijing.jpg', portrait_note: '明朝議款官。官服。無照片。', name: '沈惟敬', faction: IMJIN_F.ming, role: '議款遊擊', summary: '市人應募使倭，往返行長、惟敬、秀吉之間，封貢成敗之樞紐。', source: '《明史》卷三百二十：「惟敬者，市中無賴也」（明人史筆，非其人自述）' },
+  { id: 'az-xingjie', portrait: '/portraits/japan-imjin/az-xingjie.jpg', portrait_note: '明朝經略，高年。官服。無照片。', name: '邢玠', faction: IMJIN_F.ming, role: '兵部尚書·經略', summary: '丁酉再亂後再主征事，募江南水兵、分水陸四路。', source: SRC },
+  { id: 'az-chenlin', portrait: '/portraits/japan-imjin/az-chenlin.jpg', portrait_note: '明水師總兵。披甲。無照片。', name: '陳璘', faction: IMJIN_F.ming, role: '水師總兵', summary: '將廣東兵為水路；露梁之役截擊救應行長之日軍船隊。', source: '《明史》本傳與卷三百二十互見（轉述）' },
 ]
 
 export const IMJIN_LEADERS_BY_YEAR = {

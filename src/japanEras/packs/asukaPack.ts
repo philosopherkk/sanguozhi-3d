@@ -327,6 +327,8 @@ export const ASUKA_PACK: JapanDeepDivePack = {
   people: [
     {
       id: 'as-soga',
+      portrait: '/portraits/japan-asuka/as-soga.jpg',
+      portrait_note: '飛鳥大臣。冠位制的朝服。無可靠的寫生。',
       name: '蘇我馬子',
       faction: F.soga,
       role: '大臣',
@@ -336,6 +338,8 @@ export const ASUKA_PACK: JapanDeepDivePack = {
     },
     {
       id: 'as-nakatomi',
+      portrait: '/portraits/japan-asuka/as-nakatomi.jpg',
+      portrait_note: '飛鳥公卿。朝服與冠。無可靠的寫生。',
       name: '中臣鎌足',
       faction: F.court,
       role: '謀主',
@@ -345,6 +349,8 @@ export const ASUKA_PACK: JapanDeepDivePack = {
     },
     {
       id: 'as-tenmu',
+      portrait: '/portraits/japan-asuka/as-tenmu.jpg',
+      portrait_note: '飛鳥天皇。朝服與冠。無可靠的寫生。',
       name: '天武天皇',
       aka: '大海人皇子',
       faction: F.court,

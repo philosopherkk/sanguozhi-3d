@@ -278,6 +278,8 @@ export const AZUCHI_PACK: JapanDeepDivePack = {
   people: [
     {
       id: 'az-nobunaga',
+      portrait: '/portraits/japan-azuchi/az-nobunaga.jpg',
+      portrait_note: '後世畫像傳統：清瘦、細目、薄鬚。戰國直垂與烏帽子，不用奇幻甲。',
       name: '織田信長',
       faction: '織田',
       role: '霸主',
@@ -287,6 +289,8 @@ export const AZUCHI_PACK: JapanDeepDivePack = {
     },
     {
       id: 'az-hideyoshi',
+      portrait: '/portraits/japan-azuchi/az-hideyoshi.jpg',
+      portrait_note: '信長呼之為猿。瘦、機靈，不是貴公子臉。',
       name: '豐臣秀吉',
       faction: '豐臣',
       role: '關白·太閤',
@@ -296,6 +300,8 @@ export const AZUCHI_PACK: JapanDeepDivePack = {
     },
     {
       id: 'az-ieyasu',
+      portrait: '/portraits/japan-azuchi/az-ieyasu.jpg',
+      portrait_note: '依晚年畫像：圓臉、小眼、疏鬚，著裃。',
       name: '德川家康',
       faction: '德川',
       role: '將軍',

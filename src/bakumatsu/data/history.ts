@@ -778,6 +778,8 @@ export const BAKUMATSU_READING: Record<string, EraReading> = {
 export const BAKUMATSU_PEOPLE: EraPerson[] = [
   {
     id: 'yoshinobu',
+    portrait: '/portraits/bakumatsu/yoshinobu.jpg',
+    portrait_note: '依公開照片改畫，服裝隨該照。',
     name: '德川慶喜',
     birth: 1837,
     death: 1913,
@@ -788,6 +790,8 @@ export const BAKUMATSU_PEOPLE: EraPerson[] = [
   },
   {
     id: 'saigo',
+    portrait: '/portraits/bakumatsu/saigo.jpg',
+    portrait_note: '依公開照片改畫，服裝隨該照。',
     name: '西鄉吉之助',
     aka: '隆盛',
     birth: 1828,
@@ -800,6 +804,8 @@ export const BAKUMATSU_PEOPLE: EraPerson[] = [
   },
   {
     id: 'katsu',
+    portrait: '/portraits/bakumatsu/katsu.jpg',
+    portrait_note: '依公開照片改畫，服裝隨該照。',
     name: '勝海舟',
     birth: 1823,
     death: 1899,
@@ -810,6 +816,8 @@ export const BAKUMATSU_PEOPLE: EraPerson[] = [
   },
   {
     id: 'katamori',
+    portrait: '/portraits/bakumatsu/katamori.jpg',
+    portrait_note: '依公開照片改畫，服裝隨該照。',
     name: '松平容保',
     birth: 1836,
     death: 1893,
@@ -820,6 +828,8 @@ export const BAKUMATSU_PEOPLE: EraPerson[] = [
   },
   {
     id: 'kawai',
+    portrait: '/portraits/bakumatsu/kawai.jpg',
+    portrait_note: '依公開照片改畫，服裝隨該照。',
     name: '河井繼之助',
     birth: 1827,
     death: 1868,
@@ -830,6 +840,8 @@ export const BAKUMATSU_PEOPLE: EraPerson[] = [
   },
   {
     id: 'enomoto',
+    portrait: '/portraits/bakumatsu/enomoto.jpg',
+    portrait_note: '依公開照片改畫，服裝隨該照。',
     name: '榎本武揚',
     birth: 1836,
     death: 1908,
@@ -840,6 +852,8 @@ export const BAKUMATSU_PEOPLE: EraPerson[] = [
   },
   {
     id: 'takasugi',
+    portrait: '/portraits/bakumatsu/takasugi.jpg',
+    portrait_note: '依公開照片改畫，服裝隨該照。',
     name: '高杉晉作',
     birth: 1839,
     death: 1867,

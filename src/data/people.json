@@ -1,6 +1,8 @@
 [
   {
     "id": "cao-cao",
+    "portrait": "/portraits/sanguozhi/cao-cao.jpg",
+    "portrait_note": "世說新語說他自以形陋：不高、短鬚、相貌平實。不用戲曲臉譜。",
     "name": "曹操",
     "字": "孟德",
     "birth": 155,
@@ -19,6 +21,8 @@
   },
   {
     "id": "cao-pi",
+    "portrait": "/portraits/sanguozhi/cao-pi.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "曹丕",
     "字": "子桓",
     "birth": 187,
@@ -37,6 +41,8 @@
   },
   {
     "id": "cao-rui",
+    "portrait": "/portraits/sanguozhi/cao-rui.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "曹叡",
     "字": "元仲",
     "birth": 205,
@@ -57,6 +63,8 @@
   },
   {
     "id": "sima-yi",
+    "portrait": "/portraits/sanguozhi/sima-yi.jpg",
+    "portrait_note": "《晉書》有狼顧之說，只作警覺的人，不畫成狼。",
     "name": "司馬懿",
     "字": "仲達",
     "birth": 179,
@@ -80,6 +88,8 @@
   },
   {
     "id": "sima-zhao",
+    "portrait": "/portraits/sanguozhi/sima-zhao.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "司馬昭",
     "字": "子上",
     "birth": 211,
@@ -98,6 +108,8 @@
   },
   {
     "id": "sima-yan",
+    "portrait": "/portraits/sanguozhi/sima-yan.jpg",
+    "portrait_note": "晉武帝成年像。正史無面部異徵。",
     "name": "司馬炎",
     "字": "安世",
     "birth": 236,
@@ -121,6 +133,8 @@
   },
   {
     "id": "liu-bei",
+    "portrait": "/portraits/sanguozhi/liu-bei.jpg",
+    "portrait_note": "《三國志·蜀書·先主傳》：身長七尺五寸，垂手下膝，顧自見其耳。",
     "name": "劉備",
     "字": "玄德",
     "birth": 161,
@@ -144,6 +158,8 @@
   },
   {
     "id": "liu-shan",
+    "portrait": "/portraits/sanguozhi/liu-shan.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "劉禪",
     "字": "公嗣",
     "birth": 207,
@@ -162,6 +178,8 @@
   },
   {
     "id": "zhuge-liang",
+    "portrait": "/portraits/sanguozhi/zhuge-liang.jpg",
+    "portrait_note": "《三國志·諸葛亮傳》：身長八尺，容貌甚偉。不用羽扇綸巾。",
     "name": "諸葛亮",
     "字": "孔明",
     "birth": 181,
@@ -185,6 +203,8 @@
   },
   {
     "id": "guan-yu",
+    "portrait": "/portraits/sanguozhi/guan-yu.jpg",
+    "portrait_note": "《三國志》只記美鬚髯。不用紅臉、綠袍。",
     "name": "關羽",
     "字": "雲長",
     "death": 220,
@@ -208,6 +228,8 @@
   },
   {
     "id": "zhang-fei",
+    "portrait": "/portraits/sanguozhi/zhang-fei.jpg",
+    "portrait_note": "正史無黑臉、豹頭。畫作晚漢武士。",
     "name": "張飛",
     "字": "益德",
     "death": 221,
@@ -230,6 +252,8 @@
   },
   {
     "id": "zhao-yun",
+    "portrait": "/portraits/sanguozhi/zhao-yun.jpg",
+    "portrait_note": "正史無面部特徵。普通成年騎將，不另加疤。",
     "name": "趙雲",
     "字": "子龍",
     "death": 229,
@@ -252,6 +276,8 @@
   },
   {
     "id": "ma-chao",
+    "portrait": "/portraits/sanguozhi/ma-chao.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "馬超",
     "字": "孟起",
     "birth": 176,
@@ -275,6 +301,8 @@
   },
   {
     "id": "huang-zhong",
+    "portrait": "/portraits/sanguozhi/huang-zhong.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "黃忠",
     "字": "漢升",
     "death": 220,
@@ -297,6 +325,8 @@
   },
   {
     "id": "pang-tong",
+    "portrait": "/portraits/sanguozhi/pang-tong.jpg",
+    "portrait_note": "少時樸鈍。不畫鳳凰裝。",
     "name": "龐統",
     "字": "士元",
     "birth": 179,
@@ -320,6 +350,8 @@
   },
   {
     "id": "fa-zheng",
+    "portrait": "/portraits/sanguozhi/fa-zheng.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "法正",
     "字": "孝直",
     "birth": 176,
@@ -348,6 +380,8 @@
   },
   {
     "id": "wei-yan",
+    "portrait": "/portraits/sanguozhi/wei-yan.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "魏延",
     "字": "文長",
     "death": 234,
@@ -365,6 +399,8 @@
   },
   {
     "id": "jiang-wei",
+    "portrait": "/portraits/sanguozhi/jiang-wei.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "姜維",
     "字": "伯約",
     "birth": 202,
@@ -388,6 +424,8 @@
   },
   {
     "id": "ma-su",
+    "portrait": "/portraits/sanguozhi/ma-su.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "馬謖",
     "字": "幼常",
     "birth": 190,
@@ -406,6 +444,8 @@
   },
   {
     "id": "sun-jian",
+    "portrait": "/portraits/sanguozhi/sun-jian.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "孫堅",
     "字": "文臺",
     "death": 191,
@@ -424,6 +464,8 @@
   },
   {
     "id": "sun-ce",
+    "portrait": "/portraits/sanguozhi/sun-ce.jpg",
+    "portrait_note": "《江表傳》：美姿顏，好笑語。",
     "name": "孫策",
     "字": "伯符",
     "birth": 175,
@@ -442,6 +484,8 @@
   },
   {
     "id": "sun-quan",
+    "portrait": "/portraits/sanguozhi/sun-quan.jpg",
+    "portrait_note": "吳主傳記方頤、大口、目有精光，鬚色深。",
     "name": "孫權",
     "字": "仲謀",
     "birth": 182,
@@ -465,6 +509,8 @@
   },
   {
     "id": "zhou-yu",
+    "portrait": "/portraits/sanguozhi/zhou-yu.jpg",
+    "portrait_note": "《三國志·周瑜傳》：長壯有姿貌。卒年三十六，畫作成年偏輕。",
     "name": "周瑜",
     "字": "公瑾",
     "birth": 175,
@@ -483,6 +529,8 @@
   },
   {
     "id": "lu-su",
+    "portrait": "/portraits/sanguozhi/lu-su.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "魯肅",
     "字": "子敬",
     "birth": 172,
@@ -501,6 +549,8 @@
   },
   {
     "id": "lu-meng",
+    "portrait": "/portraits/sanguozhi/lu-meng.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "呂蒙",
     "字": "子明",
     "birth": 178,
@@ -519,6 +569,8 @@
   },
   {
     "id": "lu-xun",
+    "portrait": "/portraits/sanguozhi/lu-xun.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "陸遜",
     "字": "伯言",
     "birth": 183,
@@ -542,6 +594,8 @@
   },
   {
     "id": "lu-kang",
+    "portrait": "/portraits/sanguozhi/lu-kang.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "陸抗",
     "字": "幼節",
     "birth": 226,
@@ -560,6 +614,8 @@
   },
   {
     "id": "sun-hao",
+    "portrait": "/portraits/sanguozhi/sun-hao.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "孫皓",
     "字": "元宗",
     "birth": 242,
@@ -578,6 +634,8 @@
   },
   {
     "id": "dong-zhuo",
+    "portrait": "/portraits/sanguozhi/dong-zhuo.jpg",
+    "portrait_note": "裴注引《英雄記》：素充肥。",
     "name": "董卓",
     "字": "仲穎",
     "death": 192,
@@ -595,6 +653,8 @@
   },
   {
     "id": "lu-bu",
+    "portrait": "/portraits/sanguozhi/lu-bu.jpg",
+    "portrait_note": "《三國志》稱便弓馬、膂力過人，無俊美容貌，無雉翎冠。",
     "name": "呂布",
     "字": "奉先",
     "death": 198,
@@ -612,6 +672,8 @@
   },
   {
     "id": "yuan-shao",
+    "portrait": "/portraits/sanguozhi/yuan-shao.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "袁紹",
     "字": "本初",
     "death": 202,
@@ -634,6 +696,8 @@
   },
   {
     "id": "yuan-shu",
+    "portrait": "/portraits/sanguozhi/yuan-shu.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "袁術",
     "字": "公路",
     "death": 199,
@@ -656,6 +720,8 @@
   },
   {
     "id": "liu-biao",
+    "portrait": "/portraits/sanguozhi/liu-biao.jpg",
+    "portrait_note": "《三國志》：長八尺餘，姿貌甚偉。",
     "name": "劉表",
     "字": "景升",
     "birth": 142,
@@ -674,6 +740,8 @@
   },
   {
     "id": "liu-zhang",
+    "portrait": "/portraits/sanguozhi/liu-zhang.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "劉璋",
     "字": "季玉",
     "death": 219,
@@ -691,6 +759,8 @@
   },
   {
     "id": "gongsun-yuan",
+    "portrait": "/portraits/sanguozhi/gongsun-yuan.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "公孫淵",
     "字": "文淵",
     "death": 238,
@@ -708,6 +778,8 @@
   },
   {
     "id": "zhang-liao",
+    "portrait": "/portraits/sanguozhi/zhang-liao.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "張遼",
     "字": "文遠",
     "birth": 169,
@@ -738,6 +810,8 @@
   },
   {
     "id": "xu-huang",
+    "portrait": "/portraits/sanguozhi/xu-huang.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "徐晃",
     "字": "公明",
     "death": 227,
@@ -760,6 +834,8 @@
   },
   {
     "id": "zhang-he",
+    "portrait": "/portraits/sanguozhi/zhang-he.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "張郃",
     "字": "儁乂",
     "death": 231,
@@ -787,6 +863,8 @@
   },
   {
     "id": "xiahou-dun",
+    "portrait": "/portraits/sanguozhi/xiahou-dun.jpg",
+    "portrait_note": "《三國志》：流矢傷左目。",
     "name": "夏侯惇",
     "字": "元讓",
     "death": 220,
@@ -809,6 +887,8 @@
   },
   {
     "id": "xiahou-yuan",
+    "portrait": "/portraits/sanguozhi/xiahou-yuan.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "夏侯淵",
     "字": "妙才",
     "death": 219,
@@ -826,6 +906,8 @@
   },
   {
     "id": "guo-jia",
+    "portrait": "/portraits/sanguozhi/guo-jia.jpg",
+    "portrait_note": "三十八歲卒，畫成青年謀士。",
     "name": "郭嘉",
     "字": "奉孝",
     "birth": 170,
@@ -844,6 +926,8 @@
   },
   {
     "id": "xun-yu",
+    "portrait": "/portraits/sanguozhi/xun-yu.jpg",
+    "portrait_note": "傳稱偉美有儀。",
     "name": "荀彧",
     "字": "文若",
     "birth": 163,
@@ -862,6 +946,8 @@
   },
   {
     "id": "xun-you",
+    "portrait": "/portraits/sanguozhi/xun-you.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "荀攸",
     "字": "公達",
     "birth": 157,
@@ -880,6 +966,8 @@
   },
   {
     "id": "jia-xu",
+    "portrait": "/portraits/sanguozhi/jia-xu.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "賈詡",
     "字": "文和",
     "death": 223,
@@ -913,6 +1001,8 @@
   },
   {
     "id": "cheng-yu",
+    "portrait": "/portraits/sanguozhi/cheng-yu.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "程昱",
     "字": "仲德",
     "birth": 141,
@@ -936,6 +1026,8 @@
   },
   {
     "id": "dian-wei",
+    "portrait": "/portraits/sanguozhi/dian-wei.jpg",
+    "portrait_note": "《三國志》：形貌魁梧，膂力過人。",
     "name": "典韋",
     "death": 197,
     "faction_by_year": [
@@ -952,6 +1044,8 @@
   },
   {
     "id": "xu-chu",
+    "portrait": "/portraits/sanguozhi/xu-chu.jpg",
+    "portrait_note": "《三國志》：容貌雄毅，勇力絕人。",
     "name": "許褚",
     "字": "仲康",
     "death": 230,
@@ -976,6 +1070,8 @@
   },
   {
     "id": "yu-jin",
+    "portrait": "/portraits/sanguozhi/yu-jin.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "于禁",
     "字": "文則",
     "death": 221,
@@ -998,6 +1094,8 @@
   },
   {
     "id": "pang-de",
+    "portrait": "/portraits/sanguozhi/pang-de.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "龐德",
     "字": "令明",
     "death": 219,
@@ -1020,6 +1118,8 @@
   },
   {
     "id": "deng-ai",
+    "portrait": "/portraits/sanguozhi/deng-ai.jpg",
+    "portrait_note": "入蜀時已年老。口吃無法入畫。",
     "name": "鄧艾",
     "字": "士載",
     "death": 264,
@@ -1038,6 +1138,8 @@
   },
   {
     "id": "zhong-hui",
+    "portrait": "/portraits/sanguozhi/zhong-hui.jpg",
+    "portrait_note": "四十歲上下的文人將領。",
     "name": "鍾會",
     "字": "士季",
     "birth": 225,
@@ -1056,6 +1158,8 @@
   },
   {
     "id": "cao-shuang",
+    "portrait": "/portraits/sanguozhi/cao-shuang.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "曹爽",
     "字": "昭伯",
     "death": 249,
@@ -1073,6 +1177,8 @@
   },
   {
     "id": "huangfu-song",
+    "portrait": "/portraits/sanguozhi/huangfu-song.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "皇甫嵩",
     "字": "義真",
     "death": 195,
@@ -1090,6 +1196,8 @@
   },
   {
     "id": "emperor-xian",
+    "portrait": "/portraits/sanguozhi/emperor-xian.jpg",
+    "portrait_note": "畫成青年皇帝，不是幼童。",
     "name": "漢獻帝劉協",
     "字": "伯和",
     "birth": 181,
@@ -1108,6 +1216,8 @@
   },
   {
     "id": "zhang-zhao",
+    "portrait": "/portraits/sanguozhi/zhang-zhao.jpg",
+    "portrait_note": "長壽老臣。",
     "name": "張昭",
     "字": "子布",
     "birth": 156,
@@ -1131,6 +1241,8 @@
   },
   {
     "id": "gan-ning",
+    "portrait": "/portraits/sanguozhi/gan-ning.jpg",
+    "portrait_note": "好錦繡，不畫成獨眼海盜。",
     "name": "甘寧",
     "字": "興霸",
     "death": 220,
@@ -1150,6 +1262,8 @@
   },
   {
     "id": "taishi-ci",
+    "portrait": "/portraits/sanguozhi/taishi-ci.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "太史慈",
     "字": "子義",
     "birth": 166,
@@ -1168,6 +1282,8 @@
   },
   {
     "id": "huang-gai",
+    "portrait": "/portraits/sanguozhi/huang-gai.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "黃蓋",
     "字": "公覆",
     "faction_by_year": [
@@ -1186,6 +1302,8 @@
   },
   {
     "id": "zhuge-jin",
+    "portrait": "/portraits/sanguozhi/zhuge-jin.jpg",
+    "portrait_note": "吳書諸葛恪傳以面長取笑諸葛瑾。",
     "name": "諸葛瑾",
     "字": "子瑜",
     "birth": 174,
@@ -1209,6 +1327,8 @@
   },
   {
     "id": "jiang-wan",
+    "portrait": "/portraits/sanguozhi/jiang-wan.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "蔣琬",
     "字": "公琰",
     "death": 246,
@@ -1226,6 +1346,8 @@
   },
   {
     "id": "fei-yi",
+    "portrait": "/portraits/sanguozhi/fei-yi.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "費禕",
     "字": "文偉",
     "death": 253,
@@ -1243,6 +1365,8 @@
   },
   {
     "id": "yang-hu",
+    "portrait": "/portraits/sanguozhi/yang-hu.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "羊祜",
     "字": "叔子",
     "birth": 221,
@@ -1266,6 +1390,8 @@
   },
   {
     "id": "du-yu",
+    "portrait": "/portraits/sanguozhi/du-yu.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "杜預",
     "字": "元凱",
     "birth": 222,
@@ -1284,6 +1410,8 @@
   },
   {
     "id": "wang-jun",
+    "portrait": "/portraits/sanguozhi/wang-jun.jpg",
+    "portrait_note": "滅吳時已年老的水軍將領。",
     "name": "王濬",
     "字": "士治",
     "birth": 206,
@@ -1302,6 +1430,8 @@
   },
   {
     "id": "han-sui",
+    "portrait": "/portraits/sanguozhi/han-sui.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "韓遂",
     "字": "文約",
     "death": 215,
@@ -1324,6 +1454,8 @@
   },
   {
     "id": "zhang-lu",
+    "portrait": "/portraits/sanguozhi/zhang-lu.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "張魯",
     "字": "公祺",
     "death": 216,
@@ -1342,6 +1474,8 @@
   },
   {
     "id": "man-chong",
+    "portrait": "/portraits/sanguozhi/man-chong.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "滿寵",
     "字": "伯寧",
     "death": 242,
@@ -1364,6 +1498,8 @@
   },
   {
     "id": "zhuge-ke",
+    "portrait": "/portraits/sanguozhi/zhuge-ke.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "諸葛恪",
     "字": "元遜",
     "birth": 203,
@@ -1382,6 +1518,8 @@
   },
   {
     "id": "chen-qun",
+    "portrait": "/portraits/sanguozhi/chen-qun.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "陳群",
     "字": "長文",
     "death": 236,
@@ -1404,6 +1542,8 @@
   },
   {
     "id": "wang-ping",
+    "portrait": "/portraits/sanguozhi/wang-ping.jpg",
+    "portrait_note": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。",
     "name": "王平",
     "字": "子均",
     "death": 248,

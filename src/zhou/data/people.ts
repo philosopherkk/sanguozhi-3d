@@ -8,6 +8,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   ...EARLY_DYNASTY_MORE_PEOPLE,
   {
     id: 'king-ping',
+    portrait: '/portraits/zhou/king-ping.jpg',
+    portrait_note: '正史無面部異徵。東周初年的王，深衣玄冠。',
     name: '周平王',
     faction: '周',
     role: '政治',
@@ -21,6 +23,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'qi-huan',
+    portrait: '/portraits/zhou/qi-huan.jpg',
+    portrait_note: '正史無面部異徵。春秋霸主，深衣布冠。',
     name: '齊桓公',
     courtesy: '小白',
     faction: '齊',
@@ -33,6 +37,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'guan-zhong',
+    portrait: '/portraits/zhou/guan-zhong.jpg',
+    portrait_note: '正史無面部異徵。齊相，士人深衣。',
     name: '管仲',
     faction: '齊',
     role: '政治',
@@ -44,6 +50,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'jin-wen',
+    portrait: '/portraits/zhou/jin-wen.jpg',
+    portrait_note: '史記晉世家載其約六十二歲才返國即位。畫作晚年國君，不畫駢脅。',
     name: '晉文公',
     courtesy: '重耳',
     faction: '晉',
@@ -56,6 +64,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'xian-zhen',
+    portrait: '/portraits/zhou/xian-zhen.jpg',
+    portrait_note: '正史無面部異徵。城濮之戰晉軍主帥，皮甲皮冠。',
     name: '先軫',
     faction: '晉',
     role: '軍事',
@@ -68,6 +78,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zi-yu',
+    portrait: '/portraits/zhou/zi-yu.jpg',
+    portrait_note: '正史無面部異徵。楚將成得臣，皮甲。',
     name: '子玉',
     courtesy: '成得臣',
     faction: '楚',
@@ -81,6 +93,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'chu-cheng',
+    portrait: '/portraits/zhou/chu-cheng.jpg',
+    portrait_note: '正史無面部異徵。春秋楚王，深衣玄冠。',
     name: '楚成王',
     faction: '楚',
     role: '政治',
@@ -92,6 +106,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'qin-mu',
+    portrait: '/portraits/zhou/qin-mu.jpg',
+    portrait_note: '正史無面部異徵。春秋秦君，深衣布冠。',
     name: '秦穆公',
     faction: '秦',
     role: '政治',
@@ -103,6 +119,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'mengming',
+    portrait: '/portraits/zhou/mengming.jpg',
+    portrait_note: '正史無面部異徵。秦將，皮甲皮冠。',
     name: '孟明視',
     faction: '秦',
     role: '軍事',
@@ -115,6 +133,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'helu',
+    portrait: '/portraits/zhou/helu.jpg',
+    portrait_note: '正史無面部異徵。吳王，深衣布冠，不畫斷髮文身。',
     name: '吳王闔閭',
     faction: '吳',
     role: '政治',
@@ -126,6 +146,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'wu-zixu',
+    portrait: '/portraits/zhou/wu-zixu.jpg',
+    portrait_note: '楚亡臣，仕吳。不採用一夜白頭的後出故事。',
     name: '伍子胥',
     courtesy: '員',
     faction: '吳',
@@ -138,6 +160,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'sun-wu',
+    portrait: '/portraits/zhou/sun-wu.jpg',
+    portrait_note: '齊人，仕吳。春秋深衣，不用後世板甲。',
     name: '孫武',
     faction: '吳',
     role: '軍事',
@@ -151,6 +175,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'chu-zhao',
+    portrait: '/portraits/zhou/chu-zhao.jpg',
+    portrait_note: '正史無面部異徵。楚王，深衣布冠。',
     name: '楚昭王',
     faction: '楚',
     role: '政治',
@@ -162,6 +188,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'shen-baoxu',
+    portrait: '/portraits/zhou/shen-baoxu.jpg',
+    portrait_note: '正史無面部異徵。楚臣，士人深衣。',
     name: '申包胥',
     faction: '楚',
     role: '政治',
@@ -174,6 +202,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'fuchai',
+    portrait: '/portraits/zhou/fuchai.jpg',
+    portrait_note: '正史無面部異徵。吳王，深衣布冠，不畫斷髮文身。',
     name: '吳王夫差',
     faction: '吳',
     role: '政治',
@@ -185,6 +215,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'goujian',
+    portrait: '/portraits/zhou/goujian.jpg',
+    portrait_note: '正史無面部異徵。越王，深衣布冠。嘗忍辱，畫作風霜之色，不畫文身。',
     name: '越王勾踐',
     faction: '越',
     role: '政治',
@@ -196,6 +228,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'fan-li',
+    portrait: '/portraits/zhou/fan-li.jpg',
+    portrait_note: '正史無面部異徵。越臣，士人深衣。',
     name: '范蠡',
     faction: '越',
     role: '謀士',
@@ -208,6 +242,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'wen-zhong',
+    portrait: '/portraits/zhou/wen-zhong.jpg',
+    portrait_note: '正史無面部異徵。越臣，士人深衣。',
     name: '文種',
     faction: '越',
     role: '政治',
@@ -220,6 +256,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhi-bo',
+    portrait: '/portraits/zhou/zhi-bo.jpg',
+    portrait_note: '正史無面部異徵。晉末世卿，深衣布冠。',
     name: '智伯',
     courtesy: '瑤',
     faction: '晉',
@@ -233,6 +271,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhao-xiang',
+    portrait: '/portraits/zhou/zhao-xiang.jpg',
+    portrait_note: '正史無面部異徵。趙氏宗主，深衣布冠。',
     name: '趙襄子',
     courtesy: '無恤',
     faction: '趙',
@@ -246,6 +286,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'wei-huan',
+    portrait: '/portraits/zhou/wei-huan.jpg',
+    portrait_note: '正史無面部異徵。晉末魏氏宗主，深衣布冠。',
     name: '魏桓子',
     faction: '魏',
     role: '政治',
@@ -258,6 +300,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'han-kang',
+    portrait: '/portraits/zhou/han-kang.jpg',
+    portrait_note: '正史無面部異徵。晉末韓氏宗主，深衣布冠。',
     name: '韓康子',
     faction: '韓',
     role: '政治',
@@ -270,6 +314,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'wei-hui',
+    portrait: '/portraits/zhou/wei-hui.jpg',
+    portrait_note: '孟子稱其為叟。畫作晚年魏王，深衣玄冠。正史無面部異徵。',
     name: '魏惠王',
     courtesy: '罃',
     faction: '魏',
@@ -282,6 +328,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'sun-bin',
+    portrait: '/portraits/zhou/sun-bin.jpg',
+    portrait_note: '史記載其受臏刑。胸像不畫足傷，面部無異徵。戰國策士深衣。',
     name: '孫臏',
     faction: '田齊',
     role: '軍事',
@@ -295,6 +343,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'pang-juan',
+    portrait: '/portraits/zhou/pang-juan.jpg',
+    portrait_note: '正史無面部異徵。魏將，皮甲皮冠。',
     name: '龐涓',
     faction: '魏',
     role: '軍事',
@@ -307,6 +357,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'tian-ji',
+    portrait: '/portraits/zhou/tian-ji.jpg',
+    portrait_note: '正史無面部異徵。齊將，皮甲。',
     name: '田忌',
     faction: '田齊',
     role: '軍事',
@@ -319,6 +371,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'qin-zhao-wang',
+    portrait: '/portraits/zhou/qin-zhao-wang.jpg',
+    portrait_note: '正史無面部異徵。在位既久，畫作成年偏晚的秦王，深衣玄冠。',
     name: '秦昭襄王',
     faction: '秦',
     role: '政治',
@@ -330,6 +384,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'bai-qi',
+    portrait: '/portraits/zhou/bai-qi.jpg',
+    portrait_note: '秦將。正史無面部異徵。',
     name: '白起',
     faction: '秦',
     role: '軍事',
@@ -343,6 +399,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhao-xiaocheng',
+    portrait: '/portraits/zhou/zhao-xiaocheng.jpg',
+    portrait_note: '正史無面部異徵。趙王，深衣玄冠。',
     name: '趙孝成王',
     faction: '趙',
     role: '政治',
@@ -354,6 +412,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhao-kuo',
+    portrait: '/portraits/zhou/zhao-kuo.jpg',
+    portrait_note: '正史無面部異徵。年輕的趙將，皮甲。不畫成丑角。',
     name: '趙括',
     faction: '趙',
     role: '軍事',
@@ -366,6 +426,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'lian-po',
+    portrait: '/portraits/zhou/lian-po.jpg',
+    portrait_note: '史記寫其晚年仍能披甲。畫作高年而壯的趙將，不另造面部異徵。',
     name: '廉頗',
     faction: '趙',
     role: '軍事',
@@ -379,6 +441,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'lv-buwei',
+    portrait: '/portraits/zhou/lv-buwei.jpg',
+    portrait_note: '正史無面部異徵。陽翟大賈出身的秦相，衣著較富。',
     name: '呂不韋',
     faction: '秦',
     role: '政治',
@@ -390,6 +454,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'ying-zheng',
+    portrait: '/portraits/zhou/ying-zheng.jpg',
+    portrait_note: '《史記·秦始皇本紀》：蜂準，長目，摯鳥膺，豺聲。秦制袍冠，不用後世龍袍。',
     name: '嬴政',
     faction: '秦',
     role: '政治',
@@ -401,6 +467,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'li-si',
+    portrait: '/portraits/zhou/li-si.jpg',
+    portrait_note: '秦丞相，楚人。正史無面部異徵。',
     name: '李斯',
     faction: '秦',
     role: '政治',
@@ -413,6 +481,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'wang-jian',
+    portrait: '/portraits/zhou/wang-jian.jpg',
+    portrait_note: '史記寫其為持重老將。畫作高年秦將，皮甲。面部無異徵。',
     name: '王翦',
     faction: '秦',
     role: '軍事',
@@ -425,6 +495,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'wang-ben',
+    portrait: '/portraits/zhou/wang-ben.jpg',
+    portrait_note: '正史無面部異徵。秦將，皮甲。',
     name: '王賁',
     faction: '秦',
     role: '軍事',
@@ -437,6 +509,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'jin-hui',
+    portrait: '/portraits/zhou/jin-hui.jpg',
+    portrait_note: '正史無面部異徵。春秋晉君，深衣布冠。',
     name: '晉惠公',
     courtesy: '夷吾',
     faction: '晉',
@@ -449,6 +523,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'chu-zhuang',
+    portrait: '/portraits/zhou/chu-zhuang.jpg',
+    portrait_note: '正史無面部異徵。春秋楚王、霸主，深衣玄冠。',
     name: '楚莊王',
     faction: '楚',
     role: '政治',
@@ -460,6 +536,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'xun-linfu',
+    portrait: '/portraits/zhou/xun-linfu.jpg',
+    portrait_note: '正史無面部異徵。晉將，皮甲皮冠。',
     name: '荀林父',
     faction: '晉',
     role: '軍事',
@@ -472,6 +550,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'qi-min',
+    portrait: '/portraits/zhou/qi-min.jpg',
+    portrait_note: '正史無面部異徵。戰國齊王，深衣玄冠。',
     name: '齊湣王',
     faction: '田齊',
     role: '政治',
@@ -483,6 +563,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'yue-yi',
+    portrait: '/portraits/zhou/yue-yi.jpg',
+    portrait_note: '正史無面部異徵。燕將，皮甲。',
     name: '樂毅',
     faction: '燕',
     role: '軍事',
@@ -495,6 +577,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'tian-dan',
+    portrait: '/portraits/zhou/tian-dan.jpg',
+    portrait_note: '正史無面部異徵。齊將，皮甲。',
     name: '田單',
     faction: '田齊',
     role: '軍事',
@@ -507,6 +591,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhao-she',
+    portrait: '/portraits/zhou/zhao-she.jpg',
+    portrait_note: '正史無面部異徵。趙將，皮甲。',
     name: '趙奢',
     faction: '趙',
     role: '軍事',
@@ -519,6 +605,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'xinling',
+    portrait: '/portraits/zhou/xinling.jpg',
+    portrait_note: '正史無面部異徵。魏公子，深衣布冠，不作武夫相。',
     name: '魏無忌',
     faction: '魏',
     role: '政治',
@@ -530,6 +618,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'xia-yu',
+    portrait: '/portraits/zhou/xia-yu.jpg',
+    portrait_note: '史記稱其敏給克勤。畫作勞作過的早期君長，素衣椎髻。不畫神異相。',
     name: '禹',
     faction: '夏',
     role: '政治',
@@ -543,6 +633,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'shang-wuding',
+    portrait: '/portraits/zhou/shang-wuding.jpg',
+    portrait_note: '正史無面部異徵。商王，深衣高冠。',
     name: '武丁',
     faction: '商',
     role: '政治',
@@ -556,6 +648,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'shang-diyi',
+    portrait: '/portraits/zhou/shang-diyi.jpg',
+    portrait_note: '《史記·殷本紀》：資辨捷疾，材力過人，手格猛獸。不畫成妖，不用戲曲臉譜。',
     name: '帝辛',
     faction: '商',
     role: '政治',
@@ -568,6 +662,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhou-wu',
+    portrait: '/portraits/zhou/zhou-wu.jpg',
+    portrait_note: '周初之王。深衣幅巾。正史無面部異徵。',
     name: '周武王',
     faction: '周',
     role: '政治',
@@ -580,6 +676,8 @@ export const ZHOU_PEOPLE: ZhouPerson[] = [
   },
   {
     id: 'zhou-gong',
+    portrait: '/portraits/zhou/zhou-gong.jpg',
+    portrait_note: '周初攝政。深衣幅巾，不畫神光。',
     name: '周公旦',
     faction: '周',
     role: '政治',
