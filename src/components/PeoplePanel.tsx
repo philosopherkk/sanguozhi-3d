@@ -10,6 +10,7 @@ import { useSelection } from '../state/SelectionContext'
 import { useYear } from '../state/YearContext'
 import type { FactionId, Person, PersonRole } from '../types/data'
 import { ArticlePanel } from './ArticlePanel'
+import { PersonPortrait } from './PersonPortrait'
 
 const people = peopleData as Person[]
 
@@ -197,6 +198,11 @@ export function PeoplePanel({ compact = false }: { compact?: boolean }) {
                       aria-hidden
                     />
                   ) : null}
+                  <PersonPortrait
+                    src={p.portrait}
+                    name={p.name}
+                    note={p.portrait_note}
+                  />
                   <strong className="person-name">{p.name}</strong>
                   {p.字 ? <span className="person-zi">字{p.字}</span> : null}
                   <span className="person-meta">

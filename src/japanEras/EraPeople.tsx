@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { PersonPortrait } from '../components/PersonPortrait'
 import { PersonWiki } from '../components/PersonWiki'
 import type { EraPerson } from './types'
 
@@ -77,6 +78,11 @@ export function EraPeople({
                   className={active ? 'people-card is-active' : 'people-card'}
                   onClick={() => setSelectedId(active ? null : p.id)}
                 >
+                  <PersonPortrait
+                    src={p.portrait}
+                    name={p.name}
+                    note={p.portrait_note}
+                  />
                   <strong>{p.name}</strong>
                   {p.aka ? <span className="people-aka">{p.aka}</span> : null}
                   <span
@@ -97,6 +103,14 @@ export function EraPeople({
       )}
       {selected ? (
         <article className="person-detail">
+          {selected.portrait ? (
+            <PersonPortrait
+              src={selected.portrait}
+              name={selected.name}
+              note={selected.portrait_note}
+              size="lg"
+            />
+          ) : null}
           <h3>{selected.name}</h3>
           {selected.aka ? <p>{selected.aka}</p> : null}
           <p>

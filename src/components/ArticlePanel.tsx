@@ -12,6 +12,7 @@ import {
 } from '../lib/fetchArticle'
 import { usePersistedOpen } from '../lib/usePersistedOpen'
 import { useSelection } from '../state/SelectionContext'
+import { PersonPortrait } from './PersonPortrait'
 
 export function ArticlePanel() {
   const { article, closeArticle } = useSelection()
@@ -103,6 +104,14 @@ export function ArticlePanel() {
   return (
     <section className="article-panel" aria-label="百科介紹" aria-live="polite">
       <header className="article-panel__head">
+        {article.kind === 'person' && article.person.portrait ? (
+          <PersonPortrait
+            src={article.person.portrait}
+            name={article.person.name}
+            note={article.person.portrait_note}
+            size="lg"
+          />
+        ) : null}
         <h2 className="article-panel__title" style={{ borderColor: accent }}>
           {heading}
         </h2>
