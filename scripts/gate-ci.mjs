@@ -87,6 +87,16 @@ const GATES = [
     cmd: 'npm run audit:mobile -- --teeth',
     metrics: { fail: /audit:mobile --teeth — 失敗 (\d+) 項/ },
   },
+  // 2026-11-17 補：淺色主題的字看不清已修過一次，但沒有護欄會擋住下一次
+  // 色值退化（調淺一號在開發畫面裡看不出）。主閘門查 16 組「文字色／底色」
+  // 對比度是否全部達 4.5:1（只查 exit code）；teeth 閘門把 --ink-muted 疊成
+  // --bg，確認規則仍會報紅，防止變成永遠綠的橡皮章。
+  { name: 'audit:contrast', cmd: 'npm run audit:contrast', metrics: {} },
+  {
+    name: 'audit:contrast:teeth',
+    cmd: 'npm run audit:contrast -- --teeth',
+    metrics: { fail: /audit:contrast --teeth — 失敗 (\d+) 項/ },
+  },
   // 2026-11-08 補：使用者隨機抽查應仁之亂即見內容極薄，追查發現既有 event-depth
   // 從未讀取事件詳情檔案（timelineDetails 字串比對 0 次）。41 條受測、27 條缺口。
   // 分開一支閘門是為了不打斷其他 agent 已有的 event-depth 基線。
