@@ -4,6 +4,7 @@ import {
   useRef,
   useState,
   useSyncExternalStore,
+  type KeyboardEvent,
 } from 'react'
 import {
   applyDocumentPrefs,
@@ -166,6 +167,7 @@ export function BottomBar() {
   const [panel, setPanel] = useState<Panel>(null)
   const [term, setTerm] = useState('')
   const [hits, setHits] = useState<Hit[]>([])
+  const [cursor, setCursor] = useState(-1)
   const [status, setStatus] = useState<string | null>(null)
   const statusTimer = useRef<number | undefined>(undefined)
   const pushYear = useYearPush()
@@ -181,6 +183,16 @@ export function BottomBar() {
     [],
   )
 
+  // 面板開啟時 Escape 一律關面板（搜尋框以外還有書籤列）。
+  useEffect(() => {
+    if (!panel) return
+    const onKey = (ev: globalThis.KeyboardEvent) => {
+      if (ev.key === 'Escape') setPanel(null)
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [panel])
+
   const say = (message: string) => {
     setStatus(message)
     window.clearTimeout(statusTimer.current)
@@ -192,19 +204,56 @@ export function BottomBar() {
     return prefs.bookmarks.some((b) => b.id === id)
   }, [prefs.bookmarks, topic, era, year])
 
-  const toggle = (p: Exclude<Panel, null>) =>
+  const toggle = (p: Exclude<Panel, null>) => {
     setPanel((cur) => (cur === p ? null : p))
+    setCursor(-1)
+  }
 
   const runSearch = (value: string) => {
     setTerm(value)
     setHits(collectHits(value))
+    setCursor(-1)
   }
 
-  const jumpToHit = (hit: Hit) => {
-    setPanel(null)
+  const flashHit = (hit: Hit) => {
     hit.el.scrollIntoView({ block: 'center' })
     hit.el.classList.add('search-flash')
     window.setTimeout(() => hit.el.classList.remove('search-flash'), 2200)
+  }
+
+  const jumpToHit = (hit: Hit, index: number) => {
+    // 命中記錄是 DOM 參照；換過年份或分頁後該節點已不在文件裡，
+    // scrollIntoView 會靜靜失敗，所以要先確認。
+    if (!hit.el.isConnected) {
+      setHits([])
+      setCursor(-1)
+      say('那一則內容已不在目前畫面，請重新搜尋。')
+      return
+    }
+    setCursor(index)
+    flashHit(hit)
+  }
+
+  const stepHit = (dir: 1 | -1) => {
+    const found = hits.length ? hits : collectHits(term)
+    if (found.length !== hits.length) setHits(found)
+    if (found.length === 0) {
+      say(`本分頁沒有符合「${term.trim()}」的內容。`)
+      return
+    }
+    const next =
+      cursor < 0
+        ? dir === 1
+          ? 0
+          : found.length - 1
+        : (cursor + dir + found.length) % found.length
+    jumpToHit(found[next], next)
+  }
+
+  const onSearchKey = (ev: KeyboardEvent<HTMLInputElement>) => {
+    if (ev.key !== 'Enter') return
+    ev.preventDefault()
+    stepHit(ev.shiftKey ? -1 : 1)
   }
 
   const addBookmark = () => {
@@ -251,10 +300,20 @@ export function BottomBar() {
     </p>
   ) : null
 
+  const trimmed = term.trim()
+  const searchHint = !trimmed
+    ? '搜尋範圍：目前年份、目前分頁已顯示的大事、人物與成語。'
+    : hits.length === 0
+      ? `本分頁沒有符合「${trimmed}」的內容；其他年份與分頁要換過去再搜。`
+      : `找到 ${hits.length} 個命中${
+          cursor >= 0 ? `，目前第 ${cursor + 1} 個` : ''
+        }。Enter 跳下一個，Shift+Enter 跳上一個，Escape 關閉。`
+
   return (
     <>
       {panel === 'search' ? (
         <div className="bottom-bar__panel" role="dialog" aria-label="搜尋">
+          {statusLine}
           <input
             className="bottom-bar__input"
             type="search"
@@ -262,22 +321,43 @@ export function BottomBar() {
             autoFocus
             placeholder="搜尋本頁的大事、人物、成語"
             onChange={(ev) => runSearch(ev.target.value)}
+            onKeyDown={onSearchKey}
           />
+          <div className="bottom-bar__tools">
+            <p className="bottom-bar__hint" role="status" aria-live="polite">
+              {searchHint}
+            </p>
+            <div className="bottom-bar__group">
+              <button
+                type="button"
+                disabled={hits.length === 0}
+                onClick={() => stepHit(-1)}
+              >
+                上一個
+              </button>
+              <button
+                type="button"
+                disabled={hits.length === 0}
+                onClick={() => stepHit(1)}
+              >
+                下一個
+              </button>
+            </div>
+          </div>
           <ul className="bottom-bar__list">
             {hits.map((h, i) => (
               <li key={i}>
-                <button type="button" onClick={() => jumpToHit(h)}>
+                <button
+                  type="button"
+                  className={i === cursor ? 'is-current' : undefined}
+                  onClick={() => jumpToHit(h, i)}
+                >
                   <span className="bottom-bar__kind">{h.kind}</span>
                   {h.text}
                 </button>
               </li>
             ))}
           </ul>
-          <p className="bottom-bar__hint">
-            {term.trim() && hits.length === 0
-              ? '找不到。搜尋範圍為目前年份、目前分頁已顯示的內容，可切換分頁或年份再搜。'
-              : '搜尋範圍：目前年份、目前分頁已顯示的內容。'}
-          </p>
         </div>
       ) : null}
 
