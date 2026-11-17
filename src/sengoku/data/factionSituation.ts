@@ -15,7 +15,7 @@ export const SENGOKU_SITUATION: Record<SengokuFactionId, FactionProfile> = {
     military: fact('長篠以後大量使用鐵砲。出陣人數隨戰役而異，沒有一個可通吃各年的兵籍。', '中文維基「長篠之戰」', true),
     grain: fact('兵糧靠尾張、美濃的年貢與城下町。沒有斛數。', '中文維基「織田信長」'),
     politics: fact('桶狹間後上洛，放逐足利義昭。天正十年死於本能寺。', '中文維基「本能寺之變」'),
-    economy: fact('樂市樂座減少城下的座役，方便軍糧與商品進入城下町。', '中文維基「樂市·樂座」'),
+    economy: fact('樂市樂座減少城下的座役，方便軍糧與商品進入城下町。', '中文維基「樂市樂座」'),
   },
   豐臣: {
     population: fact('小田原以後大致統一諸國，仍沒有全國人口總數。太閤檢地是分國丈量，數字因帳而異。', '中文維基「太閤檢地」', true),
