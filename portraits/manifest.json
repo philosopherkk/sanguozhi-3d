@@ -1,0 +1,2459 @@
+{
+  "styleAnchor": "_style/style-anchor.jpg",
+  "style": "統一的歷史書卡通胸像：均勻墨線、石青朱紅赭石松綠的平塗、暖紙底、三分面、無文字。每張都從同一張風格稿改畫，避免各畫各的。",
+  "convention": "檔名即資料 id。同一人若在多個時代各有 id，各存一份。網站尚未接上，留給後續把 portrait 欄寫回資料。",
+  "limits": "正史寫了形貌的，按那幾句畫。沒寫的，不發明紅臉、疤、眼罩或戲曲冠。沒有用照片。近現代有照片的人這一批還沒畫。",
+  "count": 350,
+  "portraits": [
+    {
+      "era": "bakumatsu",
+      "id": "enomoto",
+      "name": "榎本武揚",
+      "file": "bakumatsu/enomoto.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "bakumatsu",
+      "id": "katamori",
+      "name": "松平容保",
+      "file": "bakumatsu/katamori.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "bakumatsu",
+      "id": "katsu",
+      "name": "勝海舟",
+      "file": "bakumatsu/katsu.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "bakumatsu",
+      "id": "kawai",
+      "name": "河井繼之助",
+      "file": "bakumatsu/kawai.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "bakumatsu",
+      "id": "saigo",
+      "name": "西鄉吉之助",
+      "file": "bakumatsu/saigo.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "bakumatsu",
+      "id": "takasugi",
+      "name": "高杉晉作",
+      "file": "bakumatsu/takasugi.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "bakumatsu",
+      "id": "yoshinobu",
+      "name": "德川慶喜",
+      "file": "bakumatsu/yoshinobu.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "heian",
+      "id": "antoku",
+      "name": "安德天皇",
+      "file": "heian/antoku.jpg",
+      "basis": "幼年天皇。正式冠服，衣著整齊。"
+    },
+    {
+      "era": "heian",
+      "id": "fujiwara-sumitomo",
+      "name": "藤原純友",
+      "file": "heian/fujiwara-sumitomo.jpg",
+      "basis": "平安武士化貴族。直垂與烏帽子。無面部記載。"
+    },
+    {
+      "era": "heian",
+      "id": "goshirakawa",
+      "name": "後白河法皇",
+      "file": "heian/goshirakawa.jpg",
+      "basis": "法皇，剃髮、法衣。無可靠的寫生。"
+    },
+    {
+      "era": "heian",
+      "id": "kiyomori",
+      "name": "平清盛",
+      "file": "heian/kiyomori.jpg",
+      "basis": "晚年出家，世傳像為削瘦的入道。依那類服制，不另造異相。"
+    },
+    {
+      "era": "heian",
+      "id": "koremori",
+      "name": "平維盛",
+      "file": "heian/koremori.jpg",
+      "basis": "青年公卿武將。直垂與烏帽子。無面部記載。"
+    },
+    {
+      "era": "heian",
+      "id": "kukai",
+      "name": "空海",
+      "file": "heian/kukai.jpg",
+      "basis": "正史無面部異徵。平安僧人，剃髮、袈裟。"
+    },
+    {
+      "era": "heian",
+      "id": "murasaki-shikibu",
+      "name": "紫式部",
+      "file": "heian/murasaki-shikibu.jpg",
+      "basis": "成年女官。十二單與長髮，無肖像可據。"
+    },
+    {
+      "era": "heian",
+      "id": "saicho",
+      "name": "最澄",
+      "file": "heian/saicho.jpg",
+      "basis": "正史無面部異徵。平安僧人，剃髮、袈裟。"
+    },
+    {
+      "era": "heian",
+      "id": "sugawara-michizane",
+      "name": "菅原道真",
+      "file": "heian/sugawara-michizane.jpg",
+      "basis": "平安公卿、學者。束帶與冠。無可靠的寫生。"
+    },
+    {
+      "era": "heian",
+      "id": "taira-tadatsune",
+      "name": "平忠常",
+      "file": "heian/taira-tadatsune.jpg",
+      "basis": "平安武者。直垂與烏帽子。無面部記載。"
+    },
+    {
+      "era": "heian",
+      "id": "yoritomo",
+      "name": "源賴朝",
+      "file": "heian/yoritomo.jpg",
+      "basis": "神護寺傳像一類：清瘦、細鬚、烏帽子與直垂。依那類服制，不另造異相。"
+    },
+    {
+      "era": "heian",
+      "id": "yoshinaka",
+      "name": "源義仲",
+      "file": "heian/yoshinaka.jpg",
+      "basis": "平安末武將。鎧與烏帽子。無可靠的寫生。"
+    },
+    {
+      "era": "heian",
+      "id": "yoshitomo",
+      "name": "源義朝",
+      "file": "heian/yoshitomo.jpg",
+      "basis": "平安武將。鎧與烏帽子。無面部記載。"
+    },
+    {
+      "era": "heian",
+      "id": "yoshitsune",
+      "name": "源義經",
+      "file": "heian/yoshitsune.jpg",
+      "basis": "青年武將。鎧與烏帽子。不依後世美少年傳說另造相貌。"
+    },
+    {
+      "era": "imperial-civilwar",
+      "id": "cw-p00",
+      "name": "毛澤東",
+      "file": "imperial-civilwar/cw-p00.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-civilwar",
+      "id": "cw-p01",
+      "name": "蔣介石",
+      "file": "imperial-civilwar/cw-p01.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-civilwar",
+      "id": "cw-p02",
+      "name": "林彪",
+      "file": "imperial-civilwar/cw-p02.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-civilwar",
+      "id": "cw-p03",
+      "name": "粟裕",
+      "file": "imperial-civilwar/cw-p03.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-civilwar",
+      "id": "cw-p04",
+      "name": "劉伯承",
+      "file": "imperial-civilwar/cw-p04.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-civilwar",
+      "id": "cw-p05",
+      "name": "鄧小平",
+      "file": "imperial-civilwar/cw-p05.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-civilwar",
+      "id": "cw-p06",
+      "name": "彭德懷",
+      "file": "imperial-civilwar/cw-p06.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-civilwar",
+      "id": "cw-p07",
+      "name": "傅作義",
+      "file": "imperial-civilwar/cw-p07.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-civilwar",
+      "id": "cw-p08",
+      "name": "衛立煌",
+      "file": "imperial-civilwar/cw-p08.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-civilwar",
+      "id": "cw-p09",
+      "name": "杜聿明",
+      "file": "imperial-civilwar/cw-p09.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-civilwar",
+      "id": "cw-p10",
+      "name": "白崇禧",
+      "file": "imperial-civilwar/cw-p10.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-civilwar",
+      "id": "cw-p11",
+      "name": "程潛",
+      "file": "imperial-civilwar/cw-p11.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-civilwar",
+      "id": "cw-p12",
+      "name": "陶峙岳",
+      "file": "imperial-civilwar/cw-p12.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-civilwar",
+      "id": "cw-p13",
+      "name": "盧漢",
+      "file": "imperial-civilwar/cw-p13.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-jin",
+      "id": "p-jia",
+      "name": "賈南風",
+      "file": "imperial-jin/p-jia.jpg",
+      "basis": "晉書后妃傳稱其短而色黑。成年后妃，衣冠整齊，不畫成鬼怪。"
+    },
+    {
+      "era": "imperial-jin",
+      "id": "p-liucong",
+      "name": "劉聰",
+      "file": "imperial-jin/p-liucong.jpg",
+      "basis": "漢趙皇帝。正史無可比劉淵具體的面部異徵，深衣冠。"
+    },
+    {
+      "era": "imperial-jin",
+      "id": "p-liuyuan",
+      "name": "劉淵",
+      "file": "imperial-jin/p-liuyuan.jpg",
+      "basis": "晉書載記：身長八尺四寸，鬚長三尺餘。不畫胸口赤毫。"
+    },
+    {
+      "era": "imperial-jin",
+      "id": "p-lun",
+      "name": "司馬倫",
+      "file": "imperial-jin/p-lun.jpg",
+      "basis": "晉末趙王，高年。正史無面部異徵。"
+    },
+    {
+      "era": "imperial-jin",
+      "id": "p-rui",
+      "name": "司馬睿",
+      "file": "imperial-jin/p-rui.jpg",
+      "basis": "東晉元帝。不畫日角。正史無其他面部異徵。"
+    },
+    {
+      "era": "imperial-jin",
+      "id": "p-sima-yan",
+      "name": "司馬炎",
+      "file": "imperial-jin/p-sima-yan.jpg",
+      "basis": "晉武帝成年像。正史無面部異徵。"
+    },
+    {
+      "era": "imperial-jin",
+      "id": "p-sima-zhong",
+      "name": "司馬衷",
+      "file": "imperial-jin/p-sima-zhong.jpg",
+      "basis": "晉書無奇貌。畫作成年皇帝，不誇張智識。"
+    },
+    {
+      "era": "imperial-jin",
+      "id": "p-wangjun",
+      "name": "王濬",
+      "file": "imperial-jin/p-wangjun.jpg",
+      "basis": "滅吳時已年老的水軍將領。"
+    },
+    {
+      "era": "imperial-liaosong",
+      "id": "p-aguda",
+      "name": "完顏阿骨打",
+      "file": "imperial-liaosong/p-aguda.jpg",
+      "basis": "女真開國皇帝。辮髮、胡帽，不梳漢髻。正史無更細的面部異徵。"
+    },
+    {
+      "era": "imperial-liaosong",
+      "id": "p-gaozong",
+      "name": "趙構",
+      "file": "imperial-liaosong/p-gaozong.jpg",
+      "basis": "正史無面部異徵。南宋皇帝，宋冠。"
+    },
+    {
+      "era": "imperial-liaosong",
+      "id": "p-kou",
+      "name": "寇準",
+      "file": "imperial-liaosong/p-kou.jpg",
+      "basis": "正史無面部異徵。宋相，官服。"
+    },
+    {
+      "era": "imperial-liaosong",
+      "id": "p-sima",
+      "name": "司馬光",
+      "file": "imperial-liaosong/p-sima.jpg",
+      "basis": "後世肖像作高年清瘦。依那一類。"
+    },
+    {
+      "era": "imperial-liaosong",
+      "id": "p-taizong2",
+      "name": "趙炅",
+      "file": "imperial-liaosong/p-taizong2.jpg",
+      "basis": "依宋朝帝像一類，面較太祖窄。不另造異徵。"
+    },
+    {
+      "era": "imperial-liaosong",
+      "id": "p-wanganshi",
+      "name": "王安石",
+      "file": "imperial-liaosong/p-wanganshi.jpg",
+      "basis": "後世肖像作長面清癯。依那一類，不另造異徵。"
+    },
+    {
+      "era": "imperial-liaosong",
+      "id": "p-wentianxiang",
+      "name": "文天祥",
+      "file": "imperial-liaosong/p-wentianxiang.jpg",
+      "basis": "正史無面部異徵。宋臣，官服。"
+    },
+    {
+      "era": "imperial-liaosong",
+      "id": "p-yue",
+      "name": "岳飛",
+      "file": "imperial-liaosong/p-yue.jpg",
+      "basis": "宋將。依後世廟像的冠服：方臉、短鬚、宋札甲。不用戲曲臉譜。"
+    },
+    {
+      "era": "imperial-liaosong",
+      "id": "p-zhao",
+      "name": "趙匡胤",
+      "file": "imperial-liaosong/p-zhao.jpg",
+      "basis": "依宋朝帝后像一類：面寬、鬚整、宋冠。不另造異徵。"
+    },
+    {
+      "era": "imperial-minguo",
+      "id": "p-duan",
+      "name": "段祺瑞",
+      "file": "imperial-minguo/p-duan.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-minguo",
+      "id": "p-feng",
+      "name": "馮玉祥",
+      "file": "imperial-minguo/p-feng.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-minguo",
+      "id": "p-jiang",
+      "name": "蔣介石",
+      "file": "imperial-minguo/p-jiang.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-minguo",
+      "id": "p-li",
+      "name": "李宗仁",
+      "file": "imperial-minguo/p-li.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-minguo",
+      "id": "p-mao-mg",
+      "name": "毛澤東",
+      "file": "imperial-minguo/p-mao-mg.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-minguo",
+      "id": "p-sun",
+      "name": "孫中山",
+      "file": "imperial-minguo/p-sun.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-minguo",
+      "id": "p-wu",
+      "name": "吳佩孚",
+      "file": "imperial-minguo/p-wu.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-minguo",
+      "id": "p-yan",
+      "name": "閻錫山",
+      "file": "imperial-minguo/p-yan.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-minguo",
+      "id": "p-yuan",
+      "name": "袁世凱",
+      "file": "imperial-minguo/p-yuan.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-minguo",
+      "id": "p-zhangzuolin",
+      "name": "張作霖",
+      "file": "imperial-minguo/p-zhangzuolin.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-minguo",
+      "id": "p-zhou",
+      "name": "周恩來",
+      "file": "imperial-minguo/p-zhou.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-nanbei",
+      "id": "p-fuqian",
+      "name": "苻堅",
+      "file": "imperial-nanbei/p-fuqian.jpg",
+      "basis": "晉書載記稱其魁偉。紫光之目只作明亮，不畫異色瞳。氐族而衣漢式冠服。"
+    },
+    {
+      "era": "imperial-nanbei",
+      "id": "p-huanwen",
+      "name": "桓溫",
+      "file": "imperial-nanbei/p-huanwen.jpg",
+      "basis": "晉書、世說：目光銳利，鬚如蝟毛，面有七星。只作短髭與面上數點，不畫星宿。"
+    },
+    {
+      "era": "imperial-nanbei",
+      "id": "p-liuyu",
+      "name": "劉裕",
+      "file": "imperial-nanbei/p-liuyu.jpg",
+      "basis": "正史無面部異徵。北府出身的皇帝，可著甲。"
+    },
+    {
+      "era": "imperial-nanbei",
+      "id": "p-tuoba",
+      "name": "拓跋燾",
+      "file": "imperial-nanbei/p-tuoba.jpg",
+      "basis": "鮮卑太武帝，漢化之前：辮髮、胡服。不畫漢式束髻。"
+    },
+    {
+      "era": "imperial-nanbei",
+      "id": "p-wangdao",
+      "name": "王導",
+      "file": "imperial-nanbei/p-wangdao.jpg",
+      "basis": "正史無面部異徵。東晉丞相，深衣冠。"
+    },
+    {
+      "era": "imperial-nanbei",
+      "id": "p-wangmeng",
+      "name": "王猛",
+      "file": "imperial-nanbei/p-wangmeng.jpg",
+      "basis": "正史無面部異徵。前秦丞相，深衣冠。"
+    },
+    {
+      "era": "imperial-nanbei",
+      "id": "p-xiaowen",
+      "name": "元宏",
+      "file": "imperial-nanbei/p-xiaowen.jpg",
+      "basis": "遷洛改漢服之後。深衣冠、束髻。正史無面部異徵。"
+    },
+    {
+      "era": "imperial-nanbei",
+      "id": "p-xiaoyan",
+      "name": "蕭衍",
+      "file": "imperial-nanbei/p-xiaoyan.jpg",
+      "basis": "在位極久，高壽。畫作瘦削晚年皇帝。正史無面部異徵。"
+    },
+    {
+      "era": "imperial-nanbei",
+      "id": "p-xiean",
+      "name": "謝安",
+      "file": "imperial-nanbei/p-xiean.jpg",
+      "basis": "正史無面部異徵。東晉名士，深衣冠。"
+    },
+    {
+      "era": "imperial-nanbei",
+      "id": "p-xiexuan",
+      "name": "謝玄",
+      "file": "imperial-nanbei/p-xiexuan.jpg",
+      "basis": "正史無面部異徵。北府將，皮甲。"
+    },
+    {
+      "era": "imperial-nanbei",
+      "id": "p-yuwu",
+      "name": "宇文邕",
+      "file": "imperial-nanbei/p-yuwu.jpg",
+      "basis": "年僅三十六。鮮卑系武皇帝，辮髮、胡服。"
+    },
+    {
+      "era": "imperial-prc",
+      "id": "p-deng",
+      "name": "鄧小平",
+      "file": "imperial-prc/p-deng.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-prc",
+      "id": "p-mao",
+      "name": "毛澤東",
+      "file": "imperial-prc/p-mao.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-prc",
+      "id": "p-zhou2",
+      "name": "周恩來",
+      "file": "imperial-prc/p-zhou2.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "imperial-sui",
+      "id": "p-gaojiong",
+      "name": "高熲",
+      "file": "imperial-sui/p-gaojiong.jpg",
+      "basis": "正史無面部異徵。隋相，深衣冠。"
+    },
+    {
+      "era": "imperial-sui",
+      "id": "p-han",
+      "name": "韓擒虎",
+      "file": "imperial-sui/p-han.jpg",
+      "basis": "正史無面部異徵。隋將，披甲。"
+    },
+    {
+      "era": "imperial-sui",
+      "id": "p-heruo",
+      "name": "賀若弼",
+      "file": "imperial-sui/p-heruo.jpg",
+      "basis": "正史無面部異徵。隋將，披甲。"
+    },
+    {
+      "era": "imperial-sui",
+      "id": "p-limi",
+      "name": "李密",
+      "file": "imperial-sui/p-limi.jpg",
+      "basis": "正史無面部異徵。瓦崗首領，深衣冠。"
+    },
+    {
+      "era": "imperial-sui",
+      "id": "p-liyuan",
+      "name": "李淵",
+      "file": "imperial-sui/p-liyuan.jpg",
+      "basis": "正史無面部異徵。唐國公、開國皇帝，軟腳幞頭一類早期冠。"
+    },
+    {
+      "era": "imperial-sui",
+      "id": "p-yangguang",
+      "name": "楊廣",
+      "file": "imperial-sui/p-yangguang.jpg",
+      "basis": "不依後世昏君胖相。成年皇帝，冠服整齊。正史無面部異徵。"
+    },
+    {
+      "era": "imperial-sui",
+      "id": "p-yangjian",
+      "name": "楊堅",
+      "file": "imperial-sui/p-yangjian.jpg",
+      "basis": "隋書有額柱、手紋一類相術，不畫。只作高額的成年皇帝。"
+    },
+    {
+      "era": "imperial-sui",
+      "id": "p-yangsu",
+      "name": "楊素",
+      "file": "imperial-sui/p-yangsu.jpg",
+      "basis": "正史無具體面部異徵。隋將，披甲。"
+    },
+    {
+      "era": "imperial-tang",
+      "id": "p-an",
+      "name": "安祿山",
+      "file": "imperial-tang/p-an.jpg",
+      "basis": "舊唐書稱其腹垂過膝。胸像只作厚面粗頸。胡人節度使冠服，不梳漢髻。"
+    },
+    {
+      "era": "imperial-tang",
+      "id": "p-guo",
+      "name": "郭子儀",
+      "file": "imperial-tang/p-guo.jpg",
+      "basis": "舊唐書：長六尺餘，體貌秀傑。畫作高年大將。"
+    },
+    {
+      "era": "imperial-tang",
+      "id": "p-huang",
+      "name": "黃巢",
+      "file": "imperial-tang/p-huang.jpg",
+      "basis": "正史無面部異徵。起事首領，深衣冠。"
+    },
+    {
+      "era": "imperial-tang",
+      "id": "p-li",
+      "name": "李光弼",
+      "file": "imperial-tang/p-li.jpg",
+      "basis": "正史無面部異徵。唐將，披甲。"
+    },
+    {
+      "era": "imperial-tang",
+      "id": "p-lis",
+      "name": "李愬",
+      "file": "imperial-tang/p-lis.jpg",
+      "basis": "正史無面部異徵。唐將，披甲。"
+    },
+    {
+      "era": "imperial-tang",
+      "id": "p-taizong",
+      "name": "李世民",
+      "file": "imperial-tang/p-taizong.jpg",
+      "basis": "唐太宗。圓領袍、幞頭。正史無面部異徵。"
+    },
+    {
+      "era": "imperial-tang",
+      "id": "p-wuhou",
+      "name": "武則天",
+      "file": "imperial-tang/p-wuhou.jpg",
+      "basis": "成年女皇帝。唐式高髻、圓領寬袖袍，衣覆全身。正史無可畫的面部異徵。"
+    },
+    {
+      "era": "imperial-tang",
+      "id": "p-xuanzong",
+      "name": "李隆基",
+      "file": "imperial-tang/p-xuanzong.jpg",
+      "basis": "正史無面部異徵。畫作成年玄宗，唐冠服。"
+    },
+    {
+      "era": "imperial-tang",
+      "id": "p-zhu",
+      "name": "朱溫",
+      "file": "imperial-tang/p-zhu.jpg",
+      "basis": "正史無面部異徵。節度使出身的皇帝。"
+    },
+    {
+      "era": "imperial-wudai",
+      "id": "p-chai",
+      "name": "柴榮",
+      "file": "imperial-wudai/p-chai.jpg",
+      "basis": "年約三十九。正史無面部異徵。後周世宗，可著甲。"
+    },
+    {
+      "era": "imperial-wudai",
+      "id": "p-cunxu",
+      "name": "李存勗",
+      "file": "imperial-wudai/p-cunxu.jpg",
+      "basis": "沙陀出身的莊宗，年約四十。正史無面部異徵。五代冠服。"
+    },
+    {
+      "era": "imperial-wudai",
+      "id": "p-guo2",
+      "name": "郭威",
+      "file": "imperial-wudai/p-guo2.jpg",
+      "basis": "舊五代史稱其項有雕青。頸側一小雀，此外無異徵。"
+    },
+    {
+      "era": "imperial-wudai",
+      "id": "p-qian",
+      "name": "錢鏐",
+      "file": "imperial-wudai/p-qian.jpg",
+      "basis": "正史無面部異徵。吳越國王。"
+    },
+    {
+      "era": "imperial-wudai",
+      "id": "p-shi",
+      "name": "石敬瑭",
+      "file": "imperial-wudai/p-shi.jpg",
+      "basis": "沙陀出身的後晉皇帝。正史無面部異徵。"
+    },
+    {
+      "era": "imperial-wudai",
+      "id": "p-wangjian",
+      "name": "王建",
+      "file": "imperial-wudai/p-wangjian.jpg",
+      "basis": "前蜀王建，不是秦將王翦。正史無面部異徵。"
+    },
+    {
+      "era": "imperial-wudai",
+      "id": "p-zhu2",
+      "name": "朱溫",
+      "file": "imperial-wudai/p-zhu2.jpg",
+      "basis": "正史無面部異徵。節度使出身的皇帝。"
+    },
+    {
+      "era": "imperial-yuanmingqing",
+      "id": "p-gengjingzhong",
+      "name": "耿精忠",
+      "file": "imperial-yuanmingqing/p-gengjingzhong.jpg",
+      "basis": "靖南王。辮髮、親王服。正史無面部異徵。"
+    },
+    {
+      "era": "imperial-yuanmingqing",
+      "id": "p-kangxi",
+      "name": "玄燁",
+      "file": "imperial-yuanmingqing/p-kangxi.jpg",
+      "basis": "依清宮肖像：薙髮留辮、薄鬚、朝服。"
+    },
+    {
+      "era": "imperial-yuanmingqing",
+      "id": "p-kublai",
+      "name": "忽必烈",
+      "file": "imperial-yuanmingqing/p-kublai.jpg",
+      "basis": "蒙古皇帝。辮髮、軟帽、蒙古袍，不用漢式束髮。"
+    },
+    {
+      "era": "imperial-yuanmingqing",
+      "id": "p-lin",
+      "name": "林則徐",
+      "file": "imperial-yuanmingqing/p-lin.jpg",
+      "basis": "依公開肖像改畫，服裝隨該像。"
+    },
+    {
+      "era": "imperial-yuanmingqing",
+      "id": "p-lizicheng",
+      "name": "李自成",
+      "file": "imperial-yuanmingqing/p-lizicheng.jpg",
+      "basis": "正史無面部異徵。起事首領。"
+    },
+    {
+      "era": "imperial-yuanmingqing",
+      "id": "p-nurhaci",
+      "name": "努爾哈赤",
+      "file": "imperial-yuanmingqing/p-nurhaci.jpg",
+      "basis": "早期滿洲髮式：薙前額、留辮。旗袍軟帽。"
+    },
+    {
+      "era": "imperial-yuanmingqing",
+      "id": "p-qianlong",
+      "name": "弘曆",
+      "file": "imperial-yuanmingqing/p-qianlong.jpg",
+      "basis": "依郎世寧一類朝服像：長面、辮髮、朝冠。不另造異徵。"
+    },
+    {
+      "era": "imperial-yuanmingqing",
+      "id": "p-shangkexi",
+      "name": "尚可喜",
+      "file": "imperial-yuanmingqing/p-shangkexi.jpg",
+      "basis": "平南王，高年。辮髮、親王服。正史無面部異徵。"
+    },
+    {
+      "era": "imperial-yuanmingqing",
+      "id": "p-wusangui",
+      "name": "吳三桂",
+      "file": "imperial-yuanmingqing/p-wusangui.jpg",
+      "basis": "平西王時期：辮髮、親王服。正史無更細的面部異徵。"
+    },
+    {
+      "era": "imperial-yuanmingqing",
+      "id": "p-zhang",
+      "name": "張居正",
+      "file": "imperial-yuanmingqing/p-zhang.jpg",
+      "basis": "明人肖像作長面。官服、烏紗。"
+    },
+    {
+      "era": "imperial-yuanmingqing",
+      "id": "p-zhu-yuanzhang",
+      "name": "朱元璋",
+      "file": "imperial-yuanmingqing/p-zhu-yuanzhang.jpg",
+      "basis": "依明宮廷肖像：長臉、下頜重、鬚疏、頰上數痣。"
+    },
+    {
+      "era": "imperial-yuanmingqing",
+      "id": "p-zhudi",
+      "name": "朱棣",
+      "file": "imperial-yuanmingqing/p-zhudi.jpg",
+      "basis": "依明朝帝像一類：方面、濃鬚、翼善冠。不另造異徵。"
+    },
+    {
+      "era": "japan-asuka",
+      "id": "as-nakatomi",
+      "name": "中臣鎌足",
+      "file": "japan-asuka/as-nakatomi.jpg",
+      "basis": "飛鳥公卿。朝服與冠。無可靠的寫生。"
+    },
+    {
+      "era": "japan-asuka",
+      "id": "as-soga",
+      "name": "蘇我馬子",
+      "file": "japan-asuka/as-soga.jpg",
+      "basis": "飛鳥大臣。冠位制的朝服。無可靠的寫生。"
+    },
+    {
+      "era": "japan-asuka",
+      "id": "as-tenmu",
+      "name": "天武天皇",
+      "file": "japan-asuka/as-tenmu.jpg",
+      "basis": "飛鳥天皇。朝服與冠。無可靠的寫生。"
+    },
+    {
+      "era": "japan-azuchi",
+      "id": "az-hideyoshi",
+      "name": "豐臣秀吉",
+      "file": "japan-azuchi/az-hideyoshi.jpg",
+      "basis": "信長呼之為猿。瘦、機靈，不是貴公子臉。"
+    },
+    {
+      "era": "japan-azuchi",
+      "id": "az-ieyasu",
+      "name": "德川家康",
+      "file": "japan-azuchi/az-ieyasu.jpg",
+      "basis": "依晚年畫像：圓臉、小眼、疏鬚，著裃。"
+    },
+    {
+      "era": "japan-azuchi",
+      "id": "az-nobunaga",
+      "name": "織田信長",
+      "file": "japan-azuchi/az-nobunaga.jpg",
+      "basis": "後世畫像傳統：清瘦、細目、薄鬚。戰國直垂與烏帽子，不用奇幻甲。"
+    },
+    {
+      "era": "japan-edo",
+      "id": "ed-p-iemitsu",
+      "name": "德川家光",
+      "file": "japan-edo/ed-p-iemitsu.jpg",
+      "basis": "三代將軍。正史無面部異徵。袴與烏帽子。"
+    },
+    {
+      "era": "japan-edo",
+      "id": "ed-p-ieyasu",
+      "name": "德川家康",
+      "file": "japan-edo/ed-p-ieyasu.jpg",
+      "basis": "依晚年畫像：圓臉、小眼、疏鬚，著裃。"
+    },
+    {
+      "era": "japan-edo",
+      "id": "ed-p-mamiya",
+      "name": "間宮林藏",
+      "file": "japan-edo/ed-p-mamiya.jpg",
+      "basis": "江戶探險家。旅衣。無可靠照片。"
+    },
+    {
+      "era": "japan-edo",
+      "id": "ed-p-matsumae-k",
+      "name": "松前慶廣",
+      "file": "japan-edo/ed-p-matsumae-k.jpg",
+      "basis": "初代松前藩主。直垂與烏帽子。無可靠的寫生。"
+    },
+    {
+      "era": "japan-edo",
+      "id": "ed-p-shakushain",
+      "name": "シャクシャイン",
+      "file": "japan-edo/ed-p-shakushain.jpg",
+      "basis": "阿伊努首領。厚司衣。無照片。不畫成戲畫。"
+    },
+    {
+      "era": "japan-edo",
+      "id": "ed-p-shonen",
+      "name": "尚寧",
+      "file": "japan-edo/ed-p-shonen.jpg",
+      "basis": "琉球國王。明式朝服與冠。無照片。"
+    },
+    {
+      "era": "japan-edo",
+      "id": "ed-p-tadanori",
+      "name": "松平定信",
+      "file": "japan-edo/ed-p-tadanori.jpg",
+      "basis": "寬政改革的老中。正史無面部異徵。"
+    },
+    {
+      "era": "japan-edo",
+      "id": "ed-p-yoshimune",
+      "name": "德川吉宗",
+      "file": "japan-edo/ed-p-yoshimune.jpg",
+      "basis": "八代將軍。正史無面部異徵。"
+    },
+    {
+      "era": "japan-history",
+      "id": "abe-hirafu",
+      "name": "阿倍比羅夫",
+      "file": "japan-history/abe-hirafu.jpg",
+      "basis": "飛鳥將。朝服。無可靠的寫生。"
+    },
+    {
+      "era": "japan-history",
+      "id": "ashikaga-yoshimitsu",
+      "name": "足利義滿",
+      "file": "japan-history/ashikaga-yoshimitsu.jpg",
+      "basis": "金閣時代的將軍像一類：圓面、公家服。"
+    },
+    {
+      "era": "japan-history",
+      "id": "fujiwara-michinaga",
+      "name": "藤原道長",
+      "file": "japan-history/fujiwara-michinaga.jpg",
+      "basis": "平安攝政。朝服與冠。無可靠的寫生。"
+    },
+    {
+      "era": "japan-history",
+      "id": "hojo-yoshitoki",
+      "name": "北條義時",
+      "file": "japan-history/hojo-yoshitoki.jpg",
+      "basis": "鎌倉執權。直垂與烏帽子。無可靠的寫生。"
+    },
+    {
+      "era": "japan-history",
+      "id": "ito-hirobumi",
+      "name": "伊藤博文",
+      "file": "japan-history/ito-hirobumi.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "japan-history",
+      "id": "kanmu-tenno",
+      "name": "桓武天皇",
+      "file": "japan-history/kanmu-tenno.jpg",
+      "basis": "平安初的天皇。朝服與冠。無可靠的寫生。"
+    },
+    {
+      "era": "japan-history",
+      "id": "kukai",
+      "name": "空海",
+      "file": "japan-history/kukai.jpg",
+      "basis": "正史無面部異徵。平安僧人，剃髮、袈裟。"
+    },
+    {
+      "era": "japan-history",
+      "id": "kuroda-kiyotaka",
+      "name": "黑田清隆",
+      "file": "japan-history/kuroda-kiyotaka.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "japan-history",
+      "id": "matsumae-yoshihiro",
+      "name": "松前慶廣",
+      "file": "japan-history/matsumae-yoshihiro.jpg",
+      "basis": "初代松前藩主。直垂與烏帽子。無可靠的寫生。"
+    },
+    {
+      "era": "japan-history",
+      "id": "meiji-tenno",
+      "name": "明治天皇",
+      "file": "japan-history/meiji-tenno.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "japan-history",
+      "id": "minamoto-yoritomo",
+      "name": "源賴朝",
+      "file": "japan-history/minamoto-yoritomo.jpg",
+      "basis": "神護寺傳像一類：清瘦、細鬚、烏帽子與直垂。依那類服制，不另造異相。"
+    },
+    {
+      "era": "japan-history",
+      "id": "minamoto-yoriyoshi",
+      "name": "源賴義",
+      "file": "japan-history/minamoto-yoriyoshi.jpg",
+      "basis": "平安將。鎧與烏帽子。無可靠的寫生。"
+    },
+    {
+      "era": "japan-history",
+      "id": "minamoto-yoshiie",
+      "name": "源義家",
+      "file": "japan-history/minamoto-yoshiie.jpg",
+      "basis": "平安將。鎧與烏帽子。無可靠的寫生。"
+    },
+    {
+      "era": "japan-history",
+      "id": "murasaki-shikibu",
+      "name": "紫式部",
+      "file": "japan-history/murasaki-shikibu.jpg",
+      "basis": "成年女官。十二單與長髮，無肖像可據。"
+    },
+    {
+      "era": "japan-history",
+      "id": "oda-nobunaga",
+      "name": "織田信長",
+      "file": "japan-history/oda-nobunaga.jpg",
+      "basis": "後世畫像傳統：清瘦、細目、薄鬚。戰國直垂與烏帽子，不用奇幻甲。"
+    },
+    {
+      "era": "japan-history",
+      "id": "shakushain",
+      "name": "シャクシャイン",
+      "file": "japan-history/shakushain.jpg",
+      "basis": "阿伊努首領。厚司衣。無照片。不畫成戲畫。"
+    },
+    {
+      "era": "japan-history",
+      "id": "shimazu-iehisa",
+      "name": "島津家久",
+      "file": "japan-history/shimazu-iehisa.jpg",
+      "basis": "薩摩藩主。正史無面部異徵。"
+    },
+    {
+      "era": "japan-history",
+      "id": "shirakawa-tenno",
+      "name": "白河天皇",
+      "file": "japan-history/shirakawa-tenno.jpg",
+      "basis": "院政。法皇剃髮、朝服。無可靠的寫生。"
+    },
+    {
+      "era": "japan-history",
+      "id": "sho-hashi",
+      "name": "尚巴志",
+      "file": "japan-history/sho-hashi.jpg",
+      "basis": "琉球國王。明式朝服與冠。無照片。"
+    },
+    {
+      "era": "japan-history",
+      "id": "sho-tai",
+      "name": "尚泰",
+      "file": "japan-history/sho-tai.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "japan-history",
+      "id": "shomu-tenno",
+      "name": "聖武天皇",
+      "file": "japan-history/shomu-tenno.jpg",
+      "basis": "奈良天皇。朝服與冠。無可靠的寫生。"
+    },
+    {
+      "era": "japan-history",
+      "id": "shotoku",
+      "name": "廄戶皇子",
+      "file": "japan-history/shotoku.jpg",
+      "basis": "飛鳥攝政。朝服，不是武士。無可靠的寫生。"
+    },
+    {
+      "era": "japan-history",
+      "id": "sugawara-michizane",
+      "name": "菅原道真",
+      "file": "japan-history/sugawara-michizane.jpg",
+      "basis": "平安公卿、學者。束帶與冠。無可靠的寫生。"
+    },
+    {
+      "era": "japan-history",
+      "id": "taira-kiyomori",
+      "name": "平清盛",
+      "file": "japan-history/taira-kiyomori.jpg",
+      "basis": "晚年出家，世傳像為削瘦的入道。依那類服制，不另造異相。"
+    },
+    {
+      "era": "japan-history",
+      "id": "taira-masakado",
+      "name": "平將門",
+      "file": "japan-history/taira-masakado.jpg",
+      "basis": "平安武者。鎧與烏帽子。無可靠的寫生。"
+    },
+    {
+      "era": "japan-history",
+      "id": "tokugawa-ieyasu",
+      "name": "德川家康",
+      "file": "japan-history/tokugawa-ieyasu.jpg",
+      "basis": "依晚年畫像：圓臉、小眼、疏鬚，著裃。"
+    },
+    {
+      "era": "japan-imjin",
+      "id": "az-chenlin",
+      "name": "陳璘",
+      "file": "japan-imjin/az-chenlin.jpg",
+      "basis": "明水師總兵。披甲。無照片。"
+    },
+    {
+      "era": "japan-imjin",
+      "id": "az-gwonul",
+      "name": "權慄",
+      "file": "japan-imjin/az-gwonul.jpg",
+      "basis": "朝鮮將。甲胄。無照片。"
+    },
+    {
+      "era": "japan-imjin",
+      "id": "az-kiyomasa",
+      "name": "加藤清正",
+      "file": "japan-imjin/az-kiyomasa.jpg",
+      "basis": "文祿之役日將。具足。不畫後世傳說盔上的怪飾為史實。"
+    },
+    {
+      "era": "japan-imjin",
+      "id": "az-rusong",
+      "name": "李如松",
+      "file": "japan-imjin/az-rusong.jpg",
+      "basis": "明軍提督。披甲。無照片。"
+    },
+    {
+      "era": "japan-imjin",
+      "id": "az-seonjo",
+      "name": "朝鮮宣祖",
+      "file": "japan-imjin/az-seonjo.jpg",
+      "basis": "朝鮮國王。袞龍袍與翼善冠。無照片。"
+    },
+    {
+      "era": "japan-imjin",
+      "id": "az-shenweijing",
+      "name": "沈惟敬",
+      "file": "japan-imjin/az-shenweijing.jpg",
+      "basis": "明朝議款官。官服。無照片。"
+    },
+    {
+      "era": "japan-imjin",
+      "id": "az-wongun",
+      "name": "元均",
+      "file": "japan-imjin/az-wongun.jpg",
+      "basis": "朝鮮水師。甲胄。無照片。"
+    },
+    {
+      "era": "japan-imjin",
+      "id": "az-xingjie",
+      "name": "邢玠",
+      "file": "japan-imjin/az-xingjie.jpg",
+      "basis": "明朝經略，高年。官服。無照片。"
+    },
+    {
+      "era": "japan-imjin",
+      "id": "az-yingchang",
+      "name": "宋應昌",
+      "file": "japan-imjin/az-yingchang.jpg",
+      "basis": "明朝經略。官服烏紗。無照片。"
+    },
+    {
+      "era": "japan-imjin",
+      "id": "az-yisunsin",
+      "name": "李舜臣",
+      "file": "japan-imjin/az-yisunsin.jpg",
+      "basis": "依顯忠祠肖像一類：美鬚、甲胄。不另造異徵。"
+    },
+    {
+      "era": "japan-imjin",
+      "id": "az-yukinaga",
+      "name": "小西行長",
+      "file": "japan-imjin/az-yukinaga.jpg",
+      "basis": "文祿之役日將。具足。無可靠的寫生。"
+    },
+    {
+      "era": "japan-kamakura",
+      "id": "km-gotoba",
+      "name": "後鳥羽上皇",
+      "file": "japan-kamakura/km-gotoba.jpg",
+      "basis": "院。朝服。無可靠的寫生。"
+    },
+    {
+      "era": "japan-kamakura",
+      "id": "km-yasutoki",
+      "name": "北條泰時",
+      "file": "japan-kamakura/km-yasutoki.jpg",
+      "basis": "鎌倉執權。直垂與烏帽子。無可靠的寫生。"
+    },
+    {
+      "era": "japan-kamakura",
+      "id": "km-yoritomo",
+      "name": "源賴朝",
+      "file": "japan-kamakura/km-yoritomo.jpg",
+      "basis": "神護寺傳像一類：清瘦、細鬚、烏帽子與直垂。依那類服制，不另造異相。"
+    },
+    {
+      "era": "japan-modern",
+      "id": "mj-p-kuribayashi",
+      "name": "栗林淑康",
+      "file": "japan-modern/mj-p-kuribayashi.jpg",
+      "basis": "依公開照片改畫（栗林忠道），服裝隨該照。"
+    },
+    {
+      "era": "japan-modern",
+      "id": "mj-p-nagumo",
+      "name": "南雲忠一",
+      "file": "japan-modern/mj-p-nagumo.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "japan-modern",
+      "id": "mj-p-nogi",
+      "name": "乃木希典",
+      "file": "japan-modern/mj-p-nogi.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "japan-modern",
+      "id": "mj-p-oyama",
+      "name": "大山岩",
+      "file": "japan-modern/mj-p-oyama.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "japan-modern",
+      "id": "mj-p-shigemitsu",
+      "name": "重光葵",
+      "file": "japan-modern/mj-p-shigemitsu.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "japan-modern",
+      "id": "mj-p-togo",
+      "name": "東鄉平八郎",
+      "file": "japan-modern/mj-p-togo.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "japan-modern",
+      "id": "mj-p-tojo",
+      "name": "東條英機",
+      "file": "japan-modern/mj-p-tojo.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "japan-modern",
+      "id": "mj-p-ushijima",
+      "name": "牛島滿",
+      "file": "japan-modern/mj-p-ushijima.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "japan-modern",
+      "id": "mj-p-yamamoto",
+      "name": "山本五十六",
+      "file": "japan-modern/mj-p-yamamoto.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "japan-modern",
+      "id": "mj-p-yamashita",
+      "name": "山下奉文",
+      "file": "japan-modern/mj-p-yamashita.jpg",
+      "basis": "依公開照片改畫，服裝隨該照。"
+    },
+    {
+      "era": "japan-muromachi",
+      "id": "mu-go-daigo",
+      "name": "後醍醐天皇",
+      "file": "japan-muromachi/mu-go-daigo.jpg",
+      "basis": "南朝天皇。朝服。無可靠的寫生。"
+    },
+    {
+      "era": "japan-muromachi",
+      "id": "mu-takauji",
+      "name": "足利尊氏",
+      "file": "japan-muromachi/mu-takauji.jpg",
+      "basis": "室町將軍。直垂與烏帽子。傳世像有細鬚，不另造異徵。"
+    },
+    {
+      "era": "japan-muromachi",
+      "id": "mu-yoshimitsu",
+      "name": "足利義滿",
+      "file": "japan-muromachi/mu-yoshimitsu.jpg",
+      "basis": "金閣時代的將軍像一類：圓面、公家服。"
+    },
+    {
+      "era": "japan-nara",
+      "id": "nr-nakamaro",
+      "name": "藤原仲麻呂",
+      "file": "japan-nara/nr-nakamaro.jpg",
+      "basis": "奈良大臣。朝服與冠。無可靠的寫生。"
+    },
+    {
+      "era": "japan-nara",
+      "id": "nr-shomu",
+      "name": "聖武天皇",
+      "file": "japan-nara/nr-shomu.jpg",
+      "basis": "奈良天皇。朝服與冠。無可靠的寫生。"
+    },
+    {
+      "era": "qinhan",
+      "id": "chen-sheng",
+      "name": "陳勝",
+      "file": "qinhan/chen-sheng.jpg",
+      "basis": "《史記》記其傭耕起事。布衣，無冠。"
+    },
+    {
+      "era": "qinhan",
+      "id": "han-jingdi",
+      "name": "漢景帝",
+      "file": "qinhan/han-jingdi.jpg",
+      "basis": "文帝之子。正史無面部異徵，衣著從漢帝簡制。"
+    },
+    {
+      "era": "qinhan",
+      "id": "han-wendi",
+      "name": "漢文帝",
+      "file": "qinhan/han-wendi.jpg",
+      "basis": "《史記·孝文本紀》強調身衣弋綈，衣著從簡。"
+    },
+    {
+      "era": "qinhan",
+      "id": "han-wudi",
+      "name": "漢武帝",
+      "file": "qinhan/han-wudi.jpg",
+      "basis": "正史無面部異徵。漢帝冠服。"
+    },
+    {
+      "era": "qinhan",
+      "id": "han-xin",
+      "name": "韓信",
+      "file": "qinhan/han-xin.jpg",
+      "basis": "《史記》記其貧與胯下之辱，無面部異徵。"
+    },
+    {
+      "era": "qinhan",
+      "id": "huo-qubing",
+      "name": "霍去病",
+      "file": "qinhan/huo-qubing.jpg",
+      "basis": "二十四歲卒。青年騎將，少言。正史無面部異徵。"
+    },
+    {
+      "era": "qinhan",
+      "id": "li-si",
+      "name": "李斯",
+      "file": "qinhan/li-si.jpg",
+      "basis": "秦丞相，楚人。正史無面部異徵。"
+    },
+    {
+      "era": "qinhan",
+      "id": "liu-bang",
+      "name": "劉邦",
+      "file": "qinhan/liu-bang.jpg",
+      "basis": "《史記·高祖本紀》：隆準而龍顏，美須髯。龍顏作額宇，不畫成龍。"
+    },
+    {
+      "era": "qinhan",
+      "id": "liu-xiu",
+      "name": "劉秀",
+      "file": "qinhan/liu-xiu.jpg",
+      "basis": "《後漢書·光武帝紀》：美須眉，大口，隆準，日角。日角只作額上微隆，不畫角。"
+    },
+    {
+      "era": "qinhan",
+      "id": "wang-mang",
+      "name": "王莽",
+      "file": "qinhan/wang-mang.jpg",
+      "basis": "《漢書·王莽傳》：侈口蹶顄，露眼赤精。寬嘴、短下巴、眼露，不畫成妖。"
+    },
+    {
+      "era": "qinhan",
+      "id": "wei-qing",
+      "name": "衛青",
+      "file": "qinhan/wei-qing.jpg",
+      "basis": "出自奴僕之家的漢將。正史無面部異徵。"
+    },
+    {
+      "era": "qinhan",
+      "id": "wu-guang",
+      "name": "吳廣",
+      "file": "qinhan/wu-guang.jpg",
+      "basis": "與陳勝同起。布衣戍卒，正史無面部異徵。"
+    },
+    {
+      "era": "qinhan",
+      "id": "xiang-yu",
+      "name": "項羽",
+      "file": "qinhan/xiang-yu.jpg",
+      "basis": "《史記·項羽本紀》：長八尺餘，力能扛鼎。重瞳只作目光銳利，不畫雙瞳。"
+    },
+    {
+      "era": "qinhan",
+      "id": "xiao-he",
+      "name": "蕭何",
+      "file": "qinhan/xiao-he.jpg",
+      "basis": "沛縣主吏掾出身的漢相。正史無面部異徵。"
+    },
+    {
+      "era": "qinhan",
+      "id": "ying-zheng",
+      "name": "嬴政",
+      "file": "qinhan/ying-zheng.jpg",
+      "basis": "《史記·秦始皇本紀》：蜂準，長目，摯鳥膺，豺聲。秦制袍冠，不用後世龍袍。"
+    },
+    {
+      "era": "qinhan",
+      "id": "zhang-jiao",
+      "name": "張角",
+      "file": "qinhan/zhang-jiao.jpg",
+      "basis": "黃巾領袖。黃巾是記載裡的標識，不是術士戲裝。"
+    },
+    {
+      "era": "qinhan",
+      "id": "zhang-liang",
+      "name": "張良",
+      "file": "qinhan/zhang-liang.jpg",
+      "basis": "《史記·留侯世家》：狀貌如婦人好女。"
+    },
+    {
+      "era": "qinhan",
+      "id": "zhou-yafu",
+      "name": "周亞夫",
+      "file": "qinhan/zhou-yafu.jpg",
+      "basis": "細柳營的嚴將。正史無面部異徵。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "cao-cao",
+      "name": "曹操",
+      "file": "sanguozhi/cao-cao.jpg",
+      "basis": "世說新語說他自以形陋：不高、短鬚、相貌平實。不用戲曲臉譜。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "cao-pi",
+      "name": "曹丕",
+      "file": "sanguozhi/cao-pi.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "cao-rui",
+      "name": "曹叡",
+      "file": "sanguozhi/cao-rui.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "cao-shuang",
+      "name": "曹爽",
+      "file": "sanguozhi/cao-shuang.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "chen-qun",
+      "name": "陳群",
+      "file": "sanguozhi/chen-qun.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "cheng-yu",
+      "name": "程昱",
+      "file": "sanguozhi/cheng-yu.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "deng-ai",
+      "name": "鄧艾",
+      "file": "sanguozhi/deng-ai.jpg",
+      "basis": "入蜀時已年老。口吃無法入畫。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "dian-wei",
+      "name": "典韋",
+      "file": "sanguozhi/dian-wei.jpg",
+      "basis": "《三國志》：形貌魁梧，膂力過人。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "dong-zhuo",
+      "name": "董卓",
+      "file": "sanguozhi/dong-zhuo.jpg",
+      "basis": "裴注引《英雄記》：素充肥。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "du-yu",
+      "name": "杜預",
+      "file": "sanguozhi/du-yu.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "emperor-xian",
+      "name": "漢獻帝劉協",
+      "file": "sanguozhi/emperor-xian.jpg",
+      "basis": "畫成青年皇帝，不是幼童。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "fa-zheng",
+      "name": "法正",
+      "file": "sanguozhi/fa-zheng.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "fei-yi",
+      "name": "費禕",
+      "file": "sanguozhi/fei-yi.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "gan-ning",
+      "name": "甘寧",
+      "file": "sanguozhi/gan-ning.jpg",
+      "basis": "好錦繡，不畫成獨眼海盜。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "gongsun-yuan",
+      "name": "公孫淵",
+      "file": "sanguozhi/gongsun-yuan.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "guan-yu",
+      "name": "關羽",
+      "file": "sanguozhi/guan-yu.jpg",
+      "basis": "《三國志》只記美鬚髯。不用紅臉、綠袍。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "guo-jia",
+      "name": "郭嘉",
+      "file": "sanguozhi/guo-jia.jpg",
+      "basis": "三十八歲卒，畫成青年謀士。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "han-sui",
+      "name": "韓遂",
+      "file": "sanguozhi/han-sui.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "huang-gai",
+      "name": "黃蓋",
+      "file": "sanguozhi/huang-gai.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "huang-zhong",
+      "name": "黃忠",
+      "file": "sanguozhi/huang-zhong.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "huangfu-song",
+      "name": "皇甫嵩",
+      "file": "sanguozhi/huangfu-song.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "jia-xu",
+      "name": "賈詡",
+      "file": "sanguozhi/jia-xu.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "jiang-wan",
+      "name": "蔣琬",
+      "file": "sanguozhi/jiang-wan.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "jiang-wei",
+      "name": "姜維",
+      "file": "sanguozhi/jiang-wei.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "liu-bei",
+      "name": "劉備",
+      "file": "sanguozhi/liu-bei.jpg",
+      "basis": "《三國志·蜀書·先主傳》：身長七尺五寸，垂手下膝，顧自見其耳。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "liu-biao",
+      "name": "劉表",
+      "file": "sanguozhi/liu-biao.jpg",
+      "basis": "《三國志》：長八尺餘，姿貌甚偉。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "liu-shan",
+      "name": "劉禪",
+      "file": "sanguozhi/liu-shan.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "liu-zhang",
+      "name": "劉璋",
+      "file": "sanguozhi/liu-zhang.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "lu-bu",
+      "name": "呂布",
+      "file": "sanguozhi/lu-bu.jpg",
+      "basis": "《三國志》稱便弓馬、膂力過人，無俊美容貌，無雉翎冠。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "lu-kang",
+      "name": "陸抗",
+      "file": "sanguozhi/lu-kang.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "lu-meng",
+      "name": "呂蒙",
+      "file": "sanguozhi/lu-meng.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "lu-su",
+      "name": "魯肅",
+      "file": "sanguozhi/lu-su.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "lu-xun",
+      "name": "陸遜",
+      "file": "sanguozhi/lu-xun.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "ma-chao",
+      "name": "馬超",
+      "file": "sanguozhi/ma-chao.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "ma-su",
+      "name": "馬謖",
+      "file": "sanguozhi/ma-su.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "man-chong",
+      "name": "滿寵",
+      "file": "sanguozhi/man-chong.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "pang-de",
+      "name": "龐德",
+      "file": "sanguozhi/pang-de.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "pang-tong",
+      "name": "龐統",
+      "file": "sanguozhi/pang-tong.jpg",
+      "basis": "少時樸鈍。不畫鳳凰裝。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "sima-yan",
+      "name": "司馬炎",
+      "file": "sanguozhi/sima-yan.jpg",
+      "basis": "晉武帝成年像。正史無面部異徵。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "sima-yi",
+      "name": "司馬懿",
+      "file": "sanguozhi/sima-yi.jpg",
+      "basis": "《晉書》有狼顧之說，只作警覺的人，不畫成狼。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "sima-zhao",
+      "name": "司馬昭",
+      "file": "sanguozhi/sima-zhao.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "sun-ce",
+      "name": "孫策",
+      "file": "sanguozhi/sun-ce.jpg",
+      "basis": "《江表傳》：美姿顏，好笑語。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "sun-hao",
+      "name": "孫皓",
+      "file": "sanguozhi/sun-hao.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "sun-jian",
+      "name": "孫堅",
+      "file": "sanguozhi/sun-jian.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "sun-quan",
+      "name": "孫權",
+      "file": "sanguozhi/sun-quan.jpg",
+      "basis": "吳主傳記方頤、大口、目有精光，鬚色深。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "taishi-ci",
+      "name": "太史慈",
+      "file": "sanguozhi/taishi-ci.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "wang-jun",
+      "name": "王濬",
+      "file": "sanguozhi/wang-jun.jpg",
+      "basis": "滅吳時已年老的水軍將領。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "wang-ping",
+      "name": "王平",
+      "file": "sanguozhi/wang-ping.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "wei-yan",
+      "name": "魏延",
+      "file": "sanguozhi/wei-yan.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "xiahou-dun",
+      "name": "夏侯惇",
+      "file": "sanguozhi/xiahou-dun.jpg",
+      "basis": "《三國志》：流矢傷左目。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "xiahou-yuan",
+      "name": "夏侯淵",
+      "file": "sanguozhi/xiahou-yuan.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "xu-chu",
+      "name": "許褚",
+      "file": "sanguozhi/xu-chu.jpg",
+      "basis": "《三國志》：容貌雄毅，勇力絕人。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "xu-huang",
+      "name": "徐晃",
+      "file": "sanguozhi/xu-huang.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "xun-you",
+      "name": "荀攸",
+      "file": "sanguozhi/xun-you.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "xun-yu",
+      "name": "荀彧",
+      "file": "sanguozhi/xun-yu.jpg",
+      "basis": "傳稱偉美有儀。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "yang-hu",
+      "name": "羊祜",
+      "file": "sanguozhi/yang-hu.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "yu-jin",
+      "name": "于禁",
+      "file": "sanguozhi/yu-jin.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "yuan-shao",
+      "name": "袁紹",
+      "file": "sanguozhi/yuan-shao.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "yuan-shu",
+      "name": "袁術",
+      "file": "sanguozhi/yuan-shu.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "zhang-fei",
+      "name": "張飛",
+      "file": "sanguozhi/zhang-fei.jpg",
+      "basis": "正史無黑臉、豹頭。畫作晚漢武士。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "zhang-he",
+      "name": "張郃",
+      "file": "sanguozhi/zhang-he.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "zhang-liao",
+      "name": "張遼",
+      "file": "sanguozhi/zhang-liao.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "zhang-lu",
+      "name": "張魯",
+      "file": "sanguozhi/zhang-lu.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "zhang-zhao",
+      "name": "張昭",
+      "file": "sanguozhi/zhang-zhao.jpg",
+      "basis": "長壽老臣。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "zhao-yun",
+      "name": "趙雲",
+      "file": "sanguozhi/zhao-yun.jpg",
+      "basis": "正史無面部特徵。普通成年騎將，不另加疤。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "zhong-hui",
+      "name": "鍾會",
+      "file": "sanguozhi/zhong-hui.jpg",
+      "basis": "四十歲上下的文人將領。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "zhou-yu",
+      "name": "周瑜",
+      "file": "sanguozhi/zhou-yu.jpg",
+      "basis": "《三國志·周瑜傳》：長壯有姿貌。卒年三十六，畫作成年偏輕。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "zhuge-jin",
+      "name": "諸葛瑾",
+      "file": "sanguozhi/zhuge-jin.jpg",
+      "basis": "吳書諸葛恪傳以面長取笑諸葛瑾。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "zhuge-ke",
+      "name": "諸葛恪",
+      "file": "sanguozhi/zhuge-ke.jpg",
+      "basis": "所據傳記沒有寫面部特徵。冠服按時代與身份，臉是該時代的普通成年人，不用小說戲曲造型，也沒有存世照片可依。"
+    },
+    {
+      "era": "sanguozhi",
+      "id": "zhuge-liang",
+      "name": "諸葛亮",
+      "file": "sanguozhi/zhuge-liang.jpg",
+      "basis": "《三國志·諸葛亮傳》：身長八尺，容貌甚偉。不用羽扇綸巾。"
+    },
+    {
+      "era": "sengoku",
+      "id": "akechi-mitsuhide",
+      "name": "明智光秀",
+      "file": "sengoku/akechi-mitsuhide.jpg",
+      "basis": "戰國大名。後世畫像偏清瘦。不另加叛臣標記。"
+    },
+    {
+      "era": "sengoku",
+      "id": "date-masamune",
+      "name": "伊達政宗",
+      "file": "sengoku/date-masamune.jpg",
+      "basis": "幼年因痘失去右眼。右眼閉合有疤，不用海盜眼罩。"
+    },
+    {
+      "era": "sengoku",
+      "id": "hojo-ujiyasu",
+      "name": "北條氏康",
+      "file": "sengoku/hojo-ujiyasu.jpg",
+      "basis": "小田原之主。正史級記述無面部異徵。"
+    },
+    {
+      "era": "sengoku",
+      "id": "imagawa-yoshimoto",
+      "name": "今川義元",
+      "file": "sengoku/imagawa-yoshimoto.jpg",
+      "basis": "公家風的駿河大名。直垂與烏帽子，不是重甲武者。"
+    },
+    {
+      "era": "sengoku",
+      "id": "ishida-mitsunari",
+      "name": "石田三成",
+      "file": "sengoku/ishida-mitsunari.jpg",
+      "basis": "豐臣政權的文吏，畫成青年文官，不是重甲。"
+    },
+    {
+      "era": "sengoku",
+      "id": "mori-motonari",
+      "name": "毛利元就",
+      "file": "sengoku/mori-motonari.jpg",
+      "basis": "長壽的戰國大名，畫成晚年。正史級記述無面部異徵。"
+    },
+    {
+      "era": "sengoku",
+      "id": "oda-nobunaga",
+      "name": "織田信長",
+      "file": "sengoku/oda-nobunaga.jpg",
+      "basis": "後世畫像傳統：清瘦、細目、薄鬚。戰國直垂與烏帽子，不用奇幻甲。"
+    },
+    {
+      "era": "sengoku",
+      "id": "shimazu-yoshihiro",
+      "name": "島津義弘",
+      "file": "sengoku/shimazu-yoshihiro.jpg",
+      "basis": "薩摩將。體格結實見於後世說法，正史級面部細節不足。"
+    },
+    {
+      "era": "sengoku",
+      "id": "takeda-shingen",
+      "name": "武田信玄",
+      "file": "sengoku/takeda-shingen.jpg",
+      "basis": "中年入道。後世畫像：結實、薙髮、小冠、短鬚。"
+    },
+    {
+      "era": "sengoku",
+      "id": "tokugawa-ieyasu",
+      "name": "德川家康",
+      "file": "sengoku/tokugawa-ieyasu.jpg",
+      "basis": "依晚年畫像：圓臉、小眼、疏鬚，著裃。"
+    },
+    {
+      "era": "sengoku",
+      "id": "toyotomi-hideyoshi",
+      "name": "豐臣秀吉",
+      "file": "sengoku/toyotomi-hideyoshi.jpg",
+      "basis": "信長呼之為猿。瘦、機靈，不是貴公子臉。"
+    },
+    {
+      "era": "sengoku",
+      "id": "uesugi-kenshin",
+      "name": "上杉謙信",
+      "file": "sengoku/uesugi-kenshin.jpg",
+      "basis": "入道。後世畫像：清瘦、白頭巾。不畫神佛裝。"
+    },
+    {
+      "era": "zhou",
+      "id": "bai-qi",
+      "name": "白起",
+      "file": "zhou/bai-qi.jpg",
+      "basis": "秦將。正史無面部異徵。"
+    },
+    {
+      "era": "zhou",
+      "id": "chu-cheng",
+      "name": "楚成王",
+      "file": "zhou/chu-cheng.jpg",
+      "basis": "正史無面部異徵。春秋楚王，深衣玄冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "chu-zhao",
+      "name": "楚昭王",
+      "file": "zhou/chu-zhao.jpg",
+      "basis": "正史無面部異徵。楚王，深衣布冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "chu-zhuang",
+      "name": "楚莊王",
+      "file": "zhou/chu-zhuang.jpg",
+      "basis": "正史無面部異徵。春秋楚王、霸主，深衣玄冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "fan-li",
+      "name": "范蠡",
+      "file": "zhou/fan-li.jpg",
+      "basis": "正史無面部異徵。越臣，士人深衣。"
+    },
+    {
+      "era": "zhou",
+      "id": "fuchai",
+      "name": "吳王夫差",
+      "file": "zhou/fuchai.jpg",
+      "basis": "正史無面部異徵。吳王，深衣布冠，不畫斷髮文身。"
+    },
+    {
+      "era": "zhou",
+      "id": "goujian",
+      "name": "越王勾踐",
+      "file": "zhou/goujian.jpg",
+      "basis": "正史無面部異徵。越王，深衣布冠。嘗忍辱，畫作風霜之色，不畫文身。"
+    },
+    {
+      "era": "zhou",
+      "id": "guan-zhong",
+      "name": "管仲",
+      "file": "zhou/guan-zhong.jpg",
+      "basis": "正史無面部異徵。齊相，士人深衣。"
+    },
+    {
+      "era": "zhou",
+      "id": "han-kang",
+      "name": "韓康子",
+      "file": "zhou/han-kang.jpg",
+      "basis": "正史無面部異徵。晉末韓氏宗主，深衣布冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "helu",
+      "name": "吳王闔閭",
+      "file": "zhou/helu.jpg",
+      "basis": "正史無面部異徵。吳王，深衣布冠，不畫斷髮文身。"
+    },
+    {
+      "era": "zhou",
+      "id": "jin-hui",
+      "name": "晉惠公",
+      "file": "zhou/jin-hui.jpg",
+      "basis": "正史無面部異徵。春秋晉君，深衣布冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "jin-wen",
+      "name": "晉文公",
+      "file": "zhou/jin-wen.jpg",
+      "basis": "史記晉世家載其約六十二歲才返國即位。畫作晚年國君，不畫駢脅。"
+    },
+    {
+      "era": "zhou",
+      "id": "king-ping",
+      "name": "周平王",
+      "file": "zhou/king-ping.jpg",
+      "basis": "正史無面部異徵。東周初年的王，深衣玄冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "li-si",
+      "name": "李斯",
+      "file": "zhou/li-si.jpg",
+      "basis": "秦丞相，楚人。正史無面部異徵。"
+    },
+    {
+      "era": "zhou",
+      "id": "lian-po",
+      "name": "廉頗",
+      "file": "zhou/lian-po.jpg",
+      "basis": "史記寫其晚年仍能披甲。畫作高年而壯的趙將，不另造面部異徵。"
+    },
+    {
+      "era": "zhou",
+      "id": "lv-buwei",
+      "name": "呂不韋",
+      "file": "zhou/lv-buwei.jpg",
+      "basis": "正史無面部異徵。陽翟大賈出身的秦相，衣著較富。"
+    },
+    {
+      "era": "zhou",
+      "id": "mengming",
+      "name": "孟明視",
+      "file": "zhou/mengming.jpg",
+      "basis": "正史無面部異徵。秦將，皮甲皮冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "pang-juan",
+      "name": "龐涓",
+      "file": "zhou/pang-juan.jpg",
+      "basis": "正史無面部異徵。魏將，皮甲皮冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "qi-huan",
+      "name": "齊桓公",
+      "file": "zhou/qi-huan.jpg",
+      "basis": "正史無面部異徵。春秋霸主，深衣布冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "qi-min",
+      "name": "齊湣王",
+      "file": "zhou/qi-min.jpg",
+      "basis": "正史無面部異徵。戰國齊王，深衣玄冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "qin-mu",
+      "name": "秦穆公",
+      "file": "zhou/qin-mu.jpg",
+      "basis": "正史無面部異徵。春秋秦君，深衣布冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "qin-zhao-wang",
+      "name": "秦昭襄王",
+      "file": "zhou/qin-zhao-wang.jpg",
+      "basis": "正史無面部異徵。在位既久，畫作成年偏晚的秦王，深衣玄冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "shang-bigan",
+      "name": "比干",
+      "file": "zhou/shang-bigan.jpg",
+      "basis": "正史無面部異徵。商臣，深衣布冠。胸像不畫剖心。"
+    },
+    {
+      "era": "zhou",
+      "id": "shang-diyi",
+      "name": "帝辛",
+      "file": "zhou/shang-diyi.jpg",
+      "basis": "《史記·殷本紀》：資辨捷疾，材力過人，手格猛獸。不畫成妖，不用戲曲臉譜。"
+    },
+    {
+      "era": "zhou",
+      "id": "shang-fuhao",
+      "name": "婦好",
+      "file": "zhou/shang-fuhao.jpg",
+      "basis": "商王武丁之妃，墓出兵器與玉器。成人女子，衣覆全身，頸間一玉牌。"
+    },
+    {
+      "era": "zhou",
+      "id": "shang-weizi",
+      "name": "微子",
+      "file": "zhou/shang-weizi.jpg",
+      "basis": "正史無面部異徵。商王子，深衣高冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "shang-wuding",
+      "name": "武丁",
+      "file": "zhou/shang-wuding.jpg",
+      "basis": "正史無面部異徵。商王，深衣高冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "shang-yiyin",
+      "name": "伊尹",
+      "file": "zhou/shang-yiyin.jpg",
+      "basis": "正史無面部異徵。商初大臣，深衣布冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "shen-baoxu",
+      "name": "申包胥",
+      "file": "zhou/shen-baoxu.jpg",
+      "basis": "正史無面部異徵。楚臣，士人深衣。"
+    },
+    {
+      "era": "zhou",
+      "id": "sun-bin",
+      "name": "孫臏",
+      "file": "zhou/sun-bin.jpg",
+      "basis": "史記載其受臏刑。胸像不畫足傷，面部無異徵。戰國策士深衣。"
+    },
+    {
+      "era": "zhou",
+      "id": "sun-wu",
+      "name": "孫武",
+      "file": "zhou/sun-wu.jpg",
+      "basis": "齊人，仕吳。春秋深衣，不用後世板甲。"
+    },
+    {
+      "era": "zhou",
+      "id": "tian-dan",
+      "name": "田單",
+      "file": "zhou/tian-dan.jpg",
+      "basis": "正史無面部異徵。齊將，皮甲。"
+    },
+    {
+      "era": "zhou",
+      "id": "tian-ji",
+      "name": "田忌",
+      "file": "zhou/tian-ji.jpg",
+      "basis": "正史無面部異徵。齊將，皮甲。"
+    },
+    {
+      "era": "zhou",
+      "id": "wang-ben",
+      "name": "王賁",
+      "file": "zhou/wang-ben.jpg",
+      "basis": "正史無面部異徵。秦將，皮甲。"
+    },
+    {
+      "era": "zhou",
+      "id": "wang-jian",
+      "name": "王翦",
+      "file": "zhou/wang-jian.jpg",
+      "basis": "史記寫其為持重老將。畫作高年秦將，皮甲。面部無異徵。"
+    },
+    {
+      "era": "zhou",
+      "id": "wei-huan",
+      "name": "魏桓子",
+      "file": "zhou/wei-huan.jpg",
+      "basis": "正史無面部異徵。晉末魏氏宗主，深衣布冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "wei-hui",
+      "name": "魏惠王",
+      "file": "zhou/wei-hui.jpg",
+      "basis": "孟子稱其為叟。畫作晚年魏王，深衣玄冠。正史無面部異徵。"
+    },
+    {
+      "era": "zhou",
+      "id": "wen-zhong",
+      "name": "文種",
+      "file": "zhou/wen-zhong.jpg",
+      "basis": "正史無面部異徵。越臣，士人深衣。"
+    },
+    {
+      "era": "zhou",
+      "id": "wu-zixu",
+      "name": "伍子胥",
+      "file": "zhou/wu-zixu.jpg",
+      "basis": "楚亡臣，仕吳。不採用一夜白頭的後出故事。"
+    },
+    {
+      "era": "zhou",
+      "id": "xia-jiao",
+      "name": "澆",
+      "file": "zhou/xia-jiao.jpg",
+      "basis": "正史無面部異徵。早期武人，皮甲。"
+    },
+    {
+      "era": "zhou",
+      "id": "xia-xiang",
+      "name": "相",
+      "file": "zhou/xia-xiang.jpg",
+      "basis": "正史無面部異徵。夏王，素衣椎髻。"
+    },
+    {
+      "era": "zhou",
+      "id": "xia-yi",
+      "name": "后羿",
+      "file": "zhou/xia-yi.jpg",
+      "basis": "有窮后羿。正史無面部異徵。早期武人皮甲，不畫射日神話。"
+    },
+    {
+      "era": "zhou",
+      "id": "xia-yu",
+      "name": "禹",
+      "file": "zhou/xia-yu.jpg",
+      "basis": "史記稱其敏給克勤。畫作勞作過的早期君長，素衣椎髻。不畫神異相。"
+    },
+    {
+      "era": "zhou",
+      "id": "xian-zhen",
+      "name": "先軫",
+      "file": "zhou/xian-zhen.jpg",
+      "basis": "正史無面部異徵。城濮之戰晉軍主帥，皮甲皮冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "xinling",
+      "name": "魏無忌",
+      "file": "zhou/xinling.jpg",
+      "basis": "正史無面部異徵。魏公子，深衣布冠，不作武夫相。"
+    },
+    {
+      "era": "zhou",
+      "id": "xun-linfu",
+      "name": "荀林父",
+      "file": "zhou/xun-linfu.jpg",
+      "basis": "正史無面部異徵。晉將，皮甲皮冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "ying-zheng",
+      "name": "嬴政",
+      "file": "zhou/ying-zheng.jpg",
+      "basis": "《史記·秦始皇本紀》：蜂準，長目，摯鳥膺，豺聲。秦制袍冠，不用後世龍袍。"
+    },
+    {
+      "era": "zhou",
+      "id": "yue-yi",
+      "name": "樂毅",
+      "file": "zhou/yue-yi.jpg",
+      "basis": "正史無面部異徵。燕將，皮甲。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhao-kuo",
+      "name": "趙括",
+      "file": "zhou/zhao-kuo.jpg",
+      "basis": "正史無面部異徵。年輕的趙將，皮甲。不畫成丑角。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhao-she",
+      "name": "趙奢",
+      "file": "zhou/zhao-she.jpg",
+      "basis": "正史無面部異徵。趙將，皮甲。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhao-xiang",
+      "name": "趙襄子",
+      "file": "zhou/zhao-xiang.jpg",
+      "basis": "正史無面部異徵。趙氏宗主，深衣布冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhao-xiaocheng",
+      "name": "趙孝成王",
+      "file": "zhou/zhao-xiaocheng.jpg",
+      "basis": "正史無面部異徵。趙王，深衣玄冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhi-bo",
+      "name": "智伯",
+      "file": "zhou/zhi-bo.jpg",
+      "basis": "正史無面部異徵。晉末世卿，深衣布冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhou-cheng",
+      "name": "周成王",
+      "file": "zhou/zhou-cheng.jpg",
+      "basis": "即位時年幼，畫作成年後的周王，深衣玄冠。正史無面部異徵。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhou-gong",
+      "name": "周公旦",
+      "file": "zhou/zhou-gong.jpg",
+      "basis": "周初攝政。深衣幅巾，不畫神光。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhou-guo-wengong",
+      "name": "虢文公",
+      "file": "zhou/zhou-guo-wengong.jpg",
+      "basis": "正史無面部異徵。虢之老臣，深衣布冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhou-guo-zhangfu",
+      "name": "虢公長父",
+      "file": "zhou/zhou-guo-zhangfu.jpg",
+      "basis": "正史無面部異徵。虢公，深衣布冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhou-jiangshang",
+      "name": "姜尚",
+      "file": "zhou/zhou-jiangshang.jpg",
+      "basis": "《史記·齊太公世家》：年老而窮，遇周西伯。老人，無仙氣。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhou-kang",
+      "name": "周康王",
+      "file": "zhou/zhou-kang.jpg",
+      "basis": "正史無面部異徵。周王，深衣玄冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhou-li",
+      "name": "周厲王",
+      "file": "zhou/zhou-li.jpg",
+      "basis": "正史無面部異徵。周王，深衣玄冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhou-mu",
+      "name": "周穆王",
+      "file": "zhou/zhou-mu.jpg",
+      "basis": "正史無面部異徵。周王，深衣玄冠。不畫西王母傳說。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhou-shaogong",
+      "name": "召穆公",
+      "file": "zhou/zhou-shaogong.jpg",
+      "basis": "正史無面部異徵。西周大臣，深衣布冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhou-wu",
+      "name": "周武王",
+      "file": "zhou/zhou-wu.jpg",
+      "basis": "周初之王。深衣幅巾。正史無面部異徵。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhou-yin-jifu",
+      "name": "尹吉甫",
+      "file": "zhou/zhou-yin-jifu.jpg",
+      "basis": "正史無面部異徵。西周將，皮甲。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhou-zhaigong",
+      "name": "祭公謀父",
+      "file": "zhou/zhou-zhaigong.jpg",
+      "basis": "正史無面部異徵。西周老臣，深衣布冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhou-zhongshanfu",
+      "name": "仲山甫",
+      "file": "zhou/zhou-zhongshanfu.jpg",
+      "basis": "正史無面部異徵。西周大臣，深衣布冠。"
+    },
+    {
+      "era": "zhou",
+      "id": "zhou-zi-bai",
+      "name": "虢季子白",
+      "file": "zhou/zhou-zi-bai.jpg",
+      "basis": "正史無面部異徵。西周將，皮甲。"
+    },
+    {
+      "era": "zhou",
+      "id": "zi-yu",
+      "name": "子玉",
+      "file": "zhou/zi-yu.jpg",
+      "basis": "正史無面部異徵。楚將成得臣，皮甲。"
+    }
+  ]
+}
