@@ -41,7 +41,9 @@ export function yearLabel(year: number): string {
 function normalizeBookmark(raw: unknown): Bookmark | null {
   if (raw === null || typeof raw !== 'object') return null
   const stored = raw as Partial<Bookmark>
-  if (typeof stored.year !== 'number' || !Number.isInteger(stored.year)) return null
+  if (typeof stored.year !== 'number' || !Number.isInteger(stored.year)) {
+    return null
+  }
   if (stored.year < -9999 || stored.year > 9999) return null
   const era = typeof stored.era === 'string' ? stored.era.trim() : ''
   const inChina = CHINA_ERA_IDS.has(era)
@@ -53,10 +55,12 @@ function normalizeBookmark(raw: unknown): Bookmark | null {
   )
   // 國家被改掛時，舊 label 寫的是錯的國家名，因此一併重算。
   const moved = stored.topic !== topic
+  const country = topic === 'china' ? '中國' : '日本'
+  const eraName = slot?.label ?? era
   const label =
     !moved && typeof stored.label === 'string' && stored.label.trim()
       ? stored.label.trim()
-      : `${topic === 'china' ? '中國' : '日本'}·${slot?.label ?? era} ${yearLabel(stored.year)}`
+      : `${country}·${eraName} ${yearLabel(stored.year)}`
   return {
     id: `${topic}:${era}:${stored.year}`,
     topic,
