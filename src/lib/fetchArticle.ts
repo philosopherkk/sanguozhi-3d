@@ -208,7 +208,7 @@ export async function loadFactionInlineArticle(opts: {
     source: 'local',
     sourceLabel: '本站說明',
     url: `https://grokipedia.com/page/${opts.grokipediaSlug}`,
-    note: '中文維基摘要未能載入；可用下方連結開啟維基或 Grokipedia（未審）。',
+    note: '中文維基摘要未能載入；可用下方連結開啟維基或英文備註頁（未審，非正史）。',
   }
 }
 
@@ -239,7 +239,7 @@ export async function loadPersonInlineArticle(opts: {
     source: 'local',
     sourceLabel: '本站說明',
     url: opts.grokipediaUrl ?? opts.zhwikiUrl,
-    note: '中文維基摘要未能載入，改以本站提要；可用下方連結開啟維基或 Grokipedia（未審）。',
+    note: '中文維基摘要未能載入，改以本站提要；可用下方連結開啟維基或英文備註頁（未審，非正史）。',
   }
 }
 

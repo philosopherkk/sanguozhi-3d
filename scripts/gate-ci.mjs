@@ -130,6 +130,18 @@ const GATES = [
     cmd: 'npm run audit:event-depth',
     metrics: { gap: /缺口 (\d+)/, padding: /灌水嫌疑 (\d+) 段/, jpGap: /日本三層未達 (\d+)/ },
   },
+  {
+    // 「關鍵事變」：每個改變時代／地圖政權嘅年份要有卡，卡要有 critical: true。
+    // 首版只警告（腳本唔使 --strict 就 exit 0），惡化先紅；指標要錨定 summary 行，
+    // 因為每條槽線都有「缺口」，唔錨定會抽到第一條槽嘅數字。
+    name: 'audit:critical',
+    cmd: 'node scripts/audit_critical.mjs',
+    metrics: {
+      gap: /audit:critical —[^\n]*缺口 (\d+)/,
+      unflagged: /audit:critical —[^\n]*未標 (\d+)/,
+      boundary: /audit:critical —[^\n]*界線 (\d+)/,
+    },
+  },
 ]
 
 /** audit:geo 需要 Python + numpy；CI runner 未必裝好，缺就跳過而非誤判失敗。 */
