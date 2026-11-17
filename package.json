@@ -14,6 +14,7 @@
     "preview": "vite preview",
     "audit:ranges": "node --experimental-strip-types scripts/audit-ranges.ts",
     "audit:wiring": "node --experimental-strip-types scripts/audit-wiring.ts",
+    "audit:portraits": "node scripts/audit-portraits.mjs",
     "audit:geo": "python3 scripts/audit_geo.py",
     "audit:event-depth": "node scripts/audit_event_depth.mjs",
     "audit:chengyu": "node scripts/audit_chengyu.mjs",
