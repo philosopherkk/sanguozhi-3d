@@ -6,6 +6,7 @@ gen_era_regions.py 的註釋列出新疆／漠北兩側的地名與經緯度，�
 確認其落在指定環之內、且落在相鄰環之外（兩塊應相鄰而不重疊）。
 
 用法：python3 scripts/check_ring_landmarks.py
+      python3 scripts/check_ring_landmarks.py --unasserted   列出尚無任何地標斷言的環（排程佇列）
 """
 import json
 import math
@@ -20,7 +21,7 @@ ROOT = Path(__file__).resolve().parent.parent
 RINGS_TS = ROOT / "src" / "geo" / "eraRegions.ts"
 W, H = 1968, 1567
 
-# 名稱 -> (經度, 緯度, 應在其中（None 代表全圖未著色處）, 不應在其中)
+# 名稱 -> (經度, 緯度, 應在其中（None 代表全圖未著色處）, 不應在其中（None＝不檢查）)
 LANDMARKS = [
     ("哈巴河", 86.4, 48.1, "xinjiang", "steppe"),
     ("布爾津", 87.5, 47.7, "xinjiang", "steppe"),
@@ -44,6 +45,8 @@ LANDMARKS = [
     ("西寧", 101.77, 36.62, "qinghai", "gansu"),
     ("敦煌", 94.66, 40.14, "gansu", "xinjiang"),
     ("開封", 114.35, 34.79, "realm_song_1004", "realm_liao"),
+    ("濟南", 117.00, 36.67, "shandong", "henan"),
+    ("開封（河南環）", 114.35, 34.79, "henan", "shandong"),
 ]
 
 
@@ -70,12 +73,27 @@ def inside(rings, pt):
     return False
 
 
+def list_unasserted(rings) -> int:
+    """佇列模式：ERA_RINGS 裡沒有被任何地標點名的環，附依據首句與經緯度範圍。"""
+    named = {n for _, _, _, a, b in LANDMARKS for n in (a, b) if n}
+    prov = (ROOT / "src" / "data" / "territory" / "ringProvenance.ts").read_text(encoding="utf-8")
+    todo = [k for k in rings if k not in named]
+    for k in todo:
+        m = re.search(rf"^\s*{re.escape(k)}:\s*\{{\s*basis:\s*'([^']*)'", prov, re.M)
+        basis = (m.group(1) if m else "（ringProvenance 無登記）")[:70]
+        print(f"{k}｜{basis}")
+    print(f"check_ring_landmarks --unasserted — 共 {len(rings)} 環，無地標斷言 {len(todo)} 環")
+    return 0
+
+
 def main() -> int:
     rings = load_rings()
+    if "--unasserted" in sys.argv:
+        return list_unasserted(rings)
     bad = 0
     for name, lon, lat, should, should_not in LANDMARKS:
         px = china_px(lat, lon, W, H)
-        in_no = inside(rings[should_not], px)
+        in_no = inside(rings[should_not], px) if should_not else False
         if should is None:
             in_yes = None
             ok = not in_no

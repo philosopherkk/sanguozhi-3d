@@ -14,13 +14,19 @@ audit:map 只判海陸（點落在陸上還是海上），判不出「一條畫�
 白村江、弘安之役這類端點即宣稱本身，差六十公里就是畫錯。
 
 用法：python3 scripts/check_route_landmarks.py
+      python3 scripts/check_route_landmarks.py --unasserted   列出尚無斷言的路線（排程佇列）
+      python3 scripts/check_route_landmarks.py --px china 108.94 34.34   經緯度轉畫布像素
 """
 import math
 import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from audit_geo import china_ll  # noqa: E402  中國戰區反投影只用這一份
+
 ROOT = Path(__file__).resolve().parent.parent
+CN_W, CN_H = 1968, 1567
 
 # 日本戰區畫布與投影邊界一律從現行資料檔讀，不在這裡另抄常數（同 audit_map_accuracy.mjs 口徑）。
 _regions = (ROOT / "src" / "sengoku" / "data" / "regions.ts").read_text(encoding="utf-8")
@@ -39,6 +45,25 @@ if not all([JP_W, JP_H, JP_N, JP_S, JP_WEST, JP_E]):
 
 def px_to_lonlat(x, y):
     return (JP_WEST + (x / JP_W) * (JP_E - JP_WEST), JP_N - (y / JP_H) * (JP_N - JP_S))
+
+
+def lonlat_to_px(theatre, lon, lat):
+    """px_to_lonlat／china_ll 的反方向，改點座標時用。theatre＝china 或 japan。"""
+    if theatre == "china":
+        from audit_geo import china_px
+
+        return china_px(lat, lon, CN_W, CN_H)
+    return ((lon - JP_WEST) / (JP_E - JP_WEST) * JP_W, (JP_N - lat) / (JP_N - JP_S) * JP_H)
+
+
+if "--px" in sys.argv:
+    # 用法：--px china|japan 經度 緯度 [經度 緯度 ...]；印出該戰區畫布像素（取一位小數）
+    i = sys.argv.index("--px")
+    theatre, nums = sys.argv[i + 1], list(map(float, sys.argv[i + 2 :]))
+    for lon, lat in zip(nums[0::2], nums[1::2]):
+        x, y = lonlat_to_px(theatre, lon, lat)
+        print(f"{lon}E,{lat}N → [{x:.1f}, {y:.1f}]")
+    sys.exit(0)
 
 
 def dist_km(a, b):
@@ -62,6 +87,9 @@ PIXEL_FILES = [
     "src/japanEras/packs/azuchiPack.ts",
 ]
 LONLAT_FILES = ["src/japanEras/packs/modernJapanPack.ts"]
+# 中國戰區（1968×1567 畫布，與 eraRegions 同一投影）：只收「物件字面寫出 points」的檔
+CHINA_FILES = ["src/data/marchRoutes.ts"]
+# 中國戰區（1968×1567 畫布，與 eraRegions 同一投影）：只收「物件字面寫出 points」的檔
 
 routes = {}  # id -> {name, year, sea, pts:[(lon,lat)]}
 
@@ -84,6 +112,22 @@ for rel in PIXEL_FILES:
             (re.search(r"\byear:\s*(\d+)", body) or [None, ""])[1],
             bool(re.search(r"kind:\s*'sea'", body)),
             [px_to_lonlat(float(x), float(y)) for x, y in pts],
+        )
+
+for rel in CHINA_FILES:
+    text = (ROOT / rel).read_text(encoding="utf-8")
+    for m in re.finditer(r"\{[^{}]*?points\s*:\s*\[[^\]]*\][^{}]*?\}", text, re.S):
+        body = m.group(0)
+        rid = re.search(r"\bid:\s*'([^']+)'", body)
+        pts = re.findall(r"\[\s*(-?[\d.]+)\s*,\s*(-?[\d.]+)\s*\]", body)
+        if not rid or len(pts) < 2:
+            continue
+        add(
+            rid.group(1),
+            (re.search(r"\bname:\s*'([^']*)'", body) or [None, ""])[1],
+            (re.search(r"\byear:\s*(-?\d+)", body) or [None, ""])[1],
+            bool(re.search(r"kind:\s*'sea'", body)),
+            [china_ll(float(x), float(y), CN_W, CN_H) for x, y in pts],
         )
 
 for rel in LONLAT_FILES:
@@ -184,6 +228,20 @@ ASSERTS = [
 ]
 
 # ---------------------------------------------------------------- 執行
+if "--unasserted" in sys.argv:
+    # 佇列模式：列出尚無任何端點斷言的路線（含起訖點反算出的經緯度），供排程 agent 逐條補斷言
+    done = {a[0] for a in ASSERTS}
+    todo = [rid for rid in routes if rid not in done]
+    for rid in todo:
+        r = routes[rid]
+        a, b = r["pts"][0], r["pts"][-1]
+        print(
+            f"{rid}｜{r['name']}｜{r['year']}{'｜海' if r['sea'] else ''}｜"
+            f"起 {a[0]:.2f}E,{a[1]:.2f}N｜訖 {b[0]:.2f}E,{b[1]:.2f}N"
+        )
+    print(f"check_route_landmarks --unasserted — 在冊 {len(routes)} 條，無斷言 {len(todo)} 條")
+    sys.exit(0)
+
 missing = [a for a in ASSERTS if a[0] not in routes]
 for rid, *_ in missing:
     print(f"FAIL {rid}: 找不到該路線（斷言表與掃描範圍對不上，不接受默默跳過）")

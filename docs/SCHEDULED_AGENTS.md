@@ -2,7 +2,8 @@
 
 > 本檔為五支排程 agent 的共同鐵律。各 agent 每輪開工前必讀本檔與 `AGENTS.md`。
 > 執行環境：OpenCode 背景服務（桌面 app），本機模型 `strata/unsloth-ud-iq4_xs-v31`。
-> 併發上限：**任何時刻最多兩支** agent 同時執行（本機模型資源所限）。
+> 併發上限：**任何時刻最多一支** agent 執行（本機模型一次只載一個；由 `scripts/agent-run.sh` 互斥鎖把關）。
+> 每支 agent 的逐步手冊在 `docs/agents/`（README.md 加各自的 `<key>.md`），排程提示只負責開工 bootstrap。
 
 ## 0. 真確性鐵律（最高優先，違反即本輪作廢）
 
@@ -113,18 +114,24 @@ npm run lint           # 0 error
 
 ## 5. 併發時鐘（OpenCode 排程，Asia/Hong_Kong，皆於整點 :10 觸發）
 
-設計使**任一時刻最多兩支**同時執行：各 agent 佔不同鐘點、彼此至少相隔 1 小時起跑；
-單輪控制在 ~60 分鐘內，故最壞情況只有「前一支尾段」與「後一支開頭」重疊＝2 支，永不達 3。
+設計使**任一時刻最多一支**執行：每小時只排一支，單輪預算 40 分鐘（`HF_AGENT_BUDGET_MIN`），鎖 55 分鐘後視為過期。
+即使某輪超時，下一支開工時 `sh scripts/agent-run.sh start <key>` 會印 `BUSY` 並結束，不會疊上去。
 
 | Agent | cron | 每日次數 |
 |---|---|---|
-| `agent/accuracy` | `10 0,4,8,12,16,20 * * *` | 6 |
-| `agent/enrich` | `10 2,6,10,14,18,22 * * *` | 6 |
-| `agent/map` | `10 1,9,17 * * *` | 3 |
-| `agent/march` | `10 3,11,19 * * *` | 3 |
-| `agent/ui` | `10 5,13,21 * * *` | 3 |
+| `agent/enrich` | `10 0,5,11,17,22 * * *` | 5 |
+| `agent/accuracy` | `10 1,6,12,18 * * *` | 4 |
+| `agent/ui` | `10 2,8,13,19 * * *` | 4 |
+| `agent/march` | `10 3,9,14,20 * * *` | 4 |
+| `agent/map` | `10 4,10,16,21 * * *` | 4 |
 
-（`07,15,23` 時段刻意留空作緩衝。）如需調整頻率，改各 schedule 的 cron 即可，但**務必維持「同一鐘點至多一支起跑、彼此相隔 ≥1 小時」**以守住併發 ≤2。
+（`07,15,23` 時段刻意留空作緩衝。）改頻率時務必維持「同一鐘點至多一支起跑」，且同一支不要連續兩個鐘點。cron 一改，watchdog 才會用新提示重建排程（只改提示文字不會被發現）。
+
+### 互斥鎖與自檢工具
+
+- `sh scripts/agent-run.sh start|left|end <key>`：鎖檔 `$HOME/.historyfirst-agent.lock`，`start` 印 `GO` 或 `BUSY`，`left` 印 `LEFT` 或 `TIMEUP`。
+- `node scripts/agent-selfcheck.mjs [base]`：查新增行的簡體字、粵語虛詞（`src/`）、拉丁亂碼、工具呼叫殘骸、衝突標記，並列出新漢字供人工核對。只看已追蹤或已 `git add` 的檔案。
+- 佇列工具：`scripts/audit_event_depth.mjs`（enrich）、`scripts/quote-audit-ledger.json`（accuracy）、`scripts/check_route_landmarks.py --unasserted`（march）、`scripts/check_ring_landmarks.py --unasserted`（map）、`scripts/ui_queue.mjs`（ui）、`scripts/wp_coord.py`（查座標）。
 
 ## 6. 教訓（每條都付過學費）
 
