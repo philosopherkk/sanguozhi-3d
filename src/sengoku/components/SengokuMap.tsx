@@ -40,6 +40,10 @@ export function SengokuMap() {
   const { selectedFaction, selectFaction } = useSengokuSelection()
   const rootRef = useRef<HTMLDivElement>(null)
   const [showTerritory, setShowTerritory] = useState(true)
+  // 行軍層預設開啟（2026-11-16 使用者指定三國如此，本槽跟隨）：SENGOKU_MARCH_ROUTES
+  // 已有 22 條路線（1546–1615、19 個年份），預設關閉會像三國一樣令新進使用者看不到。
+  // 其餘有開關的地圖（周、秦漢、9 個中國槽、9 個日本槽）本來就是預設開啟，本槽是唯一
+  // 預設關閉的一個。年份窗口沿用 RouteOverlay 預設（15 年），不另設 SAME_YEAR。
   const [showRoutes, setShowRoutes] = useState(true)
   const [showPlaces, setShowPlaces] = useState(false)
   const view = useMapViewport(SENGOKU_MAP_W, SENGOKU_MAP_H)

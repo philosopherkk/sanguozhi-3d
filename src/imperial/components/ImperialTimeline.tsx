@@ -44,10 +44,15 @@ export function ImperialTimeline() {
   const [monthFilter, setMonthFilter] = useState<number | null>(null)
   const [showAll, setShowAll] = useState(false)
   const [openId, setOpenId] = useState<string | null>(null)
-  const events = useMemo(
-    () => [...pack.events, ...(DEPTH_EVENTS[pack.id] ?? [])],
-    [pack.events, pack.id],
-  )
+  // `depth.ts` 的補深條目同 pack 自己的事件有同 id 重疊（如 sui-581、
+  // mg-1945），直接串聯會渲染兩張卡、React key 亦會撞。以 id 去重，
+  // 保留先出現的一條（pack 寫得比較完整，故 pack 在前）。
+  const events = useMemo(() => {
+    const seen = new Set<string>()
+    return [...pack.events, ...(DEPTH_EVENTS[pack.id] ?? [])].filter(
+      (event) => !seen.has(event.id) && seen.add(event.id),
+    )
+  }, [pack.events, pack.id])
 
   useEffect(() => {
     setMonthFilter(null)
