@@ -18,10 +18,19 @@ type PersonPortraitProps = {
 // 原圖再失敗才退回首字徽章。
 const THUMB_WIDTHS = [80, 192] as const
 
+// 資料欄位的 portrait 係根絕對路徑，但頁面部署喈 base（例如
+// /sanguozhi-3d/）之下；只有以 Vercel 根路徑部署時兩者才恰好重合。
+// 渲染時一律以 import.meta.env.BASE_URL 為前綴解析，兩種部署通用。
+function withBase(src: string) {
+  return src.startsWith('/') ? `${import.meta.env.BASE_URL}${src.slice(1)}` : src
+}
+
 function thumbSrc(src: string, width: number) {
-  return src
-    .replace('/portraits/', '/portraits/_thumb/')
-    .replace(/\.jpg$/, `-${width}.jpg`)
+  return withBase(
+    src
+      .replace('/portraits/', '/portraits/_thumb/')
+      .replace(/\.jpg$/, `-${width}.jpg`)
+  )
 }
 
 export function PersonPortrait({
@@ -40,7 +49,7 @@ export function PersonPortrait({
     <span className={cls} title={title}>
       {src && !imgFailed ? (
         <img
-          src={src}
+          src={withBase(src)}
           srcSet={
             thumbFailed
               ? undefined

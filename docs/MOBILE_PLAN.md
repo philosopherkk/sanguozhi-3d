@@ -599,3 +599,28 @@ check_route_landmarks.py 嘅 `径`→徑，同埋 src/ 內五處我方敘述用�
   得返三成寬）放唔放得落，要靠有瀏覽器嗰輪實測；②SengokuMap.tsx:66
   react(refs) 警告＝縮放狀態喺渲染期食 ref，可能有「撳咗冇即時更新」
   類觸控 bug，改法要 live 驗證，唔好靜態改。
+
+## 修 18（2026-11-17）：live 輪——人物想像圖喺 base 部署下全部 404 嘅修正
+
+本輪有瀏覽器工具，將修 17 拉去真環境驗證，即刻抓死一個上游 bug：
+
+- **缺陷**：資料欄位 `portrait: '/portraits/…'` 係根絕對路徑，而頁面部署喺
+  base `/sanguozhi-3d/` 之下（`vite.config` 只有 VERCEL=1 先係 `/`）。
+  實測 preview：`/portraits/sanguozhi/liu-bei.jpg` **404**，加了 base 前綴
+  先 200。即 GitHub Pages 部署上 349 幅人物想像圖由上線首日全部載入失敗，
+  使用者一直淨係睇到首字徽章（onError 退回鏈默默執咗錯）。
+- **修法**（唔動史料檔）：`PersonPortrait.tsx` 渲染層以
+  `import.meta.env.BASE_URL` 解析根絕對路徑，`src` 同縮影 srcset 一律加註
+  前綴；兩種部署通用。
+- **live 驗證（393×852 iframe，?c=china&e=sanguo&y=208）**：
+  - 修正後 `img.currentSrc` ＝ `/sanguozhi-3d/portraits/_thumb/sanguozhi/liu-bei-80.jpg`，
+    兩級 srcset 與 `sizes` 生效；`loading=lazy` 行為正確（視口內自動載入、
+    視口外唔載入）。
+  - **遺留項①解除**：`.frontier-pop` 喺 393 三國頁 DOM 根本唔存在——
+    `Map2D` 只在 `showFrontier && frontierPanel` 先渲染，`frontierPanel`
+    只在 ≥1024px 傳入。唔存在爆框問題，唔使再跟。
+  - 393 基線幾何維持：header 162／era-bar 63／scrubber 210／map 327，
+    `scrollWidth` 無橫向爆框。
+- **遺留項②（SengokuMap.tsx:66 react(refs)）**：本輪未驗證，留待下輪。
+- 口徑修正：縮影 naturalWidth 喺 DPR1 環境回報 40 屬 Chromium 對 srcset
+  候選嘅 presentation 尺寸，檔案實際 80×80（`file` 核實）；唔係缺陷。
