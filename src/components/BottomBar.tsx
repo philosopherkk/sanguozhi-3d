@@ -1,4 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from 'react'
 import {
   applyDocumentPrefs,
   FONT_STEPS,
@@ -8,9 +14,9 @@ import {
   setTheme,
   toggleBookmark,
   useReadingPrefs,
+  yearLabel,
   type Bookmark,
   type ReadingLevel,
-  yearLabel,
 } from '../lib/readingPrefs'
 import { useCollapseOnScroll } from '../lib/useCollapseOnScroll'
 import {
@@ -124,6 +130,32 @@ function useYearPush() {
   }
 }
 
+/**
+ * 目前年份以 URL 的 `?y=` 為準（UrlBridge 於滑桿 input 時寫回）。
+ * 只有三組時代 context 會廣播 `tk:timeline`，其餘時代要靠滑桿的 input
+ * 事件才跟得上，否則面板上的年份會停在舊值。
+ */
+function subscribeTimelineYear(notify: () => void): () => void {
+  const offBroadcast = onTimelineChange(notify)
+  const onInput = (ev: Event) => {
+    const el = ev.target
+    if (el instanceof HTMLInputElement && el.type === 'range') notify()
+  }
+  document.addEventListener('input', onInput)
+  window.addEventListener('popstate', notify)
+  return () => {
+    offBroadcast()
+    document.removeEventListener('input', onInput)
+    window.removeEventListener('popstate', notify)
+  }
+}
+
+function useTimelineYear(): number | null {
+  return useSyncExternalStore(subscribeTimelineYear, () =>
+    readTimelineFromUrl().year,
+  )
+}
+
 /** 固定於畫面底部的常駐設定列：字級、黑白底、閱讀程度、搜尋與書籤。 */
 export function BottomBar() {
   const prefs = useReadingPrefs()
@@ -134,7 +166,6 @@ export function BottomBar() {
   const [panel, setPanel] = useState<Panel>(null)
   const [term, setTerm] = useState('')
   const [hits, setHits] = useState<Hit[]>([])
-  const [year, setYear] = useState<number | null>(null)
   const [status, setStatus] = useState<string | null>(null)
   const statusTimer = useRef<number | undefined>(undefined)
   const pushYear = useYearPush()
@@ -143,12 +174,7 @@ export function BottomBar() {
     applyDocumentPrefs()
   }, [])
 
-  // 年份寫在 URL（由 UrlBridge 維護）；開面板時先讀一次，之後跟著時代
-  // 廣播更新，拖滑桿時「加入／取消本年書籤」才不會停在舊年。
-  useEffect(() => {
-    if (panel) setYear(readTimelineFromUrl().year)
-  }, [panel])
-  useEffect(() => onTimelineChange((state) => setYear(state.year)), [])
+  const year = useTimelineYear()
 
   useEffect(
     () => () => window.clearTimeout(statusTimer.current),
@@ -182,7 +208,7 @@ export function BottomBar() {
   }
 
   const addBookmark = () => {
-    const y = year ?? readTimelineFromUrl().year
+    const y = year
     if (y === null) {
       say('目前沒有年份可加入書籤，請先選擇年份。')
       return
