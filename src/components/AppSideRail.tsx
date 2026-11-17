@@ -35,6 +35,18 @@ export function AppSideRail({
 
   const toolbarLabel = chengyu != null ? '紀事 · 人物 · 成語' : '紀事 · 人物'
 
+  // 窄屏是自然捲動的長頁，地圖與內容同在一個捲動容器內，
+  // 「顯示地圖」應把頁面捲回地圖而不是收合側欄（收合會把剛看的內容藏起來）；
+  // 桌面版地圖與側欄並列，維持原本的收合行為。
+  const backToMap = () => {
+    const scroller = document.querySelector<HTMLElement>('.app-shell__main')
+    if (scroller && window.matchMedia('(max-width: 700px)').matches) {
+      scroller.scrollTo({ top: 0 })
+      return
+    }
+    setOpen(false)
+  }
+
   return (
     <div
       className={`side-rail${open ? '' : ' side-rail--collapsed'}`}
@@ -44,14 +56,6 @@ export function AppSideRail({
         <>
           <div className="side-rail__toolbar">
             <span className="side-rail__label">{toolbarLabel}</span>
-            <button
-              type="button"
-              className="side-rail__map-first"
-              aria-expanded={open}
-              onClick={() => setOpen(false)}
-            >
-              顯示地圖
-            </button>
           </div>
           <div className="app-shell__side app-shell__side--tabs">
             <ContentDock
@@ -62,6 +66,16 @@ export function AppSideRail({
               chengyu={chengyu}
               tab={tab}
               onTabChange={setTab}
+              trailing={
+                <button
+                  type="button"
+                  className="side-rail__map-first"
+                  aria-expanded={open}
+                  onClick={backToMap}
+                >
+                  顯示地圖
+                </button>
+              }
             />
           </div>
         </>

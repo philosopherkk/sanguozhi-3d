@@ -357,6 +357,102 @@
   gap: 0.4rem;
 }
 
+/* 搜尋 Modal（desktop 不會滾動，mobile 才會） */
+.search-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.search-modal__content {
+  background: var(--bg-deep);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.search-modal__input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  background: transparent;
+  color: var(--ink);
+}
+
+.search-modal__results {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.search-modal__result {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.search-modal__result:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.search-modal__result-type {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  background: var(--accent);
+  color: var(--bg-deep);
+  white-space: nowrap;
+}
+
+.search-modal__result-label {
+  flex: 1;
+  text-align: left;
+}
+
+.search-modal__result-year {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9rem;
+  color: var(--accent-dim);
+}
+
+.search-modal__empty {
+  padding: 2rem;
+  text-align: center;
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+}
+
+.search-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: var(--accent-dim);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+}
+
+.search-modal__close:hover {
+  background: rgba(255,255,255,0.1);
+}
+
 .reading-controls {
   display: flex;
   align-items: center;
@@ -2458,6 +2554,12 @@ html[data-theme='light'] .app-footer {
   display: grid;
   grid-template-columns: 3.1rem 1fr;
   gap: 0.65rem;
+  align-items: start;
+}
+
+.timeline-item p {
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .timeline-year {
@@ -3026,6 +3128,10 @@ html:not([data-theme='light']) .app-header {
   letter-spacing: 0.28em;
   color: #e9dcbd;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+}
+
+html[data-theme='light'] .app-header__title {
+  color: #2c3e50;
 }
 
 .app-header__tag {
