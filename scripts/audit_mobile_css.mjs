@@ -146,15 +146,21 @@ function check(css) {
     fails.push('mapside-stack')
   }
 
-  // 2b 地圖下方的內容必須翻得到：主區要有垂直整屏翻頁（或等價的可滾動容器）
-  const pager = rules.some(
+  // 2b 地圖下方的內容必須翻得到：主區要是可垂直滾動的容器，且不可再用 scroll-snap
+  //    （收起時間軸會改變主區高度，吸附點跟著變，畫面會在地圖與內容之間來回跳）
+  const pagerRules = rules.filter((r) => narrow(r) && selHas(r, 'app-shell__main'))
+  const pager = pagerRules.some((r) => declOf(r.body, 'overflow-y') === 'auto')
+  const snaps = pagerRules.some((r) => /y/.test(declOf(r.body, 'scroll-snap-type') ?? ''))
+  if (!pager || snaps) fails.push('mobile-pager')
+
+  // 2c 地圖必須限高：自然捲動版面下，不限高的地圖會佔滿一屏，內容被推到看不見
+  const mapBound = rules.some(
     (r) =>
       narrow(r) &&
-      selHas(r, 'app-shell__main') &&
-      /y/.test(declOf(r.body, 'scroll-snap-type') ?? '') &&
-      declOf(r.body, 'overflow-y') === 'auto',
+      /\.app-shell__main\s*>\s*:first-child/.test(r.selector) &&
+      /(clamp|vh|rem|px)/.test(declOf(r.body, 'height') ?? ''),
   )
-  if (!pager) fails.push('mobile-pager')
+  if (!mapBound) fails.push('mobile-map-bound')
 
   // 3 安全區
   for (const cls of ['map-layer-bar', 'app-footer']) {
@@ -202,16 +208,21 @@ if (process.argv.includes('--teeth')) {
           '.app-shell__main {\n',
         ),
     ],
-    ['safe-area', (s) => s.replace(/bottom: calc\(0\.45rem \+ var\(--safe-bottom\)\);/, 'bottom: 0.45rem;')],
+    ['safe-area', (s) => s.replace(/bottom: calc\(1\.7rem \+ var\(--safe-bottom\)\);/, 'bottom: 1.7rem;')],
     ['bare-vh', (s) => s.replace(/(\.app-shell \{\n\s*height: calc\()100dvh/, '$1100vh')],
     [
       'mobile-pager',
       // 模擬有人把整屏翻頁換回不可滾動的版面（地圖下方內容再度翻不到）
       (s) =>
         s.replace(
-          /display: block;\n\s*overflow-y: auto;\n\s*overscroll-behavior-y: contain;\n\s*scroll-snap-type: y mandatory;/,
+          /display: block;\n\s*overflow-y: auto;\n\s*overscroll-behavior-y: contain;/,
           'display: grid;\n    grid-template-rows: minmax(0, 1.4fr) minmax(0, 1fr);',
         ),
+    ],
+    [
+      'mobile-map-bound',
+      // 模擬有人拿掉地圖限高
+      (s) => s.replace(/height: clamp\(15rem, 40vh, 24rem\);/, 'height: 100%;'),
     ],
     [
       'tap-min',
@@ -243,4 +254,4 @@ if (base.length) {
   console.error('（背景與實測數據見 docs/MOBILE_PLAN.md）')
   process.exit(1)
 }
-console.log('✓ audit:mobile — 6 項結構不變量全部成立')
+console.log('✓ audit:mobile — 7 項結構不變量全部成立')

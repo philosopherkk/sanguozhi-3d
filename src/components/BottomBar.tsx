@@ -64,7 +64,7 @@ export function BottomBar() {
   const { topic, chinaEra, japanEra, setTopic, setChinaEra, setJapanEra } =
     useTopic()
   const era = topic === 'china' ? chinaEra : japanEra
-  useCollapseOnScroll(`${topic}:${era}`)
+  const chrome = useCollapseOnScroll(`${topic}:${era}`)
   const [panel, setPanel] = useState<Panel>(null)
   const [term, setTerm] = useState('')
   const [hits, setHits] = useState<Hit[]>([])
@@ -180,6 +180,17 @@ export function BottomBar() {
             ))}
           </ul>
         </div>
+      ) : null}
+
+      {chrome.state !== 'top' ? (
+        <button
+          type="button"
+          className="chrome-fab"
+          aria-expanded={chrome.state === 'pinned'}
+          onClick={chrome.state === 'pinned' ? chrome.hide : chrome.reveal}
+        >
+          {chrome.state === 'pinned' ? '收起時間軸 ▴' : '時間軸 ▾'}
+        </button>
       ) : null}
 
       <nav className="bottom-bar" aria-label="閱讀設定">

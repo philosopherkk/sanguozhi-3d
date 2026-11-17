@@ -125,10 +125,13 @@
      類名，提示行現為 .year-scrubber__note，基本樣式即自動換行，
      殭屍規則連同其橫滑補救一併移除（2026-11-14 殭屍清理）。 */
 
-  /* ── 修 6：主區改成垂直整屏翻頁 ──
+  /* ── 修 6：主區改成一頁自然捲動 ──
      原本主區是 grid 上下兩格，側欄 overflow:hidden，因此地圖下方的
      「大事／人物／成語」從頭到尾翻不到（使用者實測反映）。
-     改成垂直 scroll-snap：地圖為第一屏，內容為第二屏，向下拖即整屏切換；
+     曾改成整屏 scroll-snap 翻頁，但地圖佔滿一屏，要拖過整個地圖才見到內容，
+     且收起時間軸會改變主區高度，翻頁吸附因此來回跳動。
+     現改為：地圖限高，內容緊接其後，整頁自然捲動；分頁列黏在頂端，
+     內層不再各自捲動，使用者只面對一條捲軸。
      overscroll-behavior 防止拖到盡頭時連鎖滾動整頁。 */
   .app-shell__main,
   .app-shell__main--map-side,
@@ -136,7 +139,6 @@
     display: block;
     overflow-y: auto;
     overscroll-behavior-y: contain;
-    scroll-snap-type: y mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     /* 保留單欄宣告：display:block 已達成堆疊，但這條同時是結構閘門
@@ -148,45 +150,37 @@
     display: none;
   }
 
-  .app-shell__main > *:not(.side-rail--collapsed) {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    height: 100%;
+  /* 地圖限高：約四成螢幕高，下限讓圖例與圖層列放得下，上限避免大螢幕過高。 */
+  .app-shell__main > :first-child {
+    height: clamp(15rem, 40vh, 24rem);
+    min-height: 15rem;
+  }
+
+  /* 內容至少一屏高：收起時間軸令主區變高時，捲動範圍不會縮到低於展開門檻而來回跳。 */
+  .app-shell__main > :not(:first-child) {
+    height: auto;
     min-height: 100%;
   }
 
-  /* 第二屏內部必須可滾動：側欄本身 overflow:hidden，
-     若不同時放開，第二屏會變成一個滾不動的滿版區塊。 */
+  /* 內容區不再自成捲動容器：側欄與分頁本體全部攤開，由主區統一捲動。 */
   .app-shell__main .side-rail,
-  .app-shell__main .app-shell__side {
-    overflow: visible;
-  }
-
+  .app-shell__main .app-shell__side,
   .app-shell__main .content-dock,
-  .app-shell__main .side-rail__chips + * {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: contain;
+  .app-shell__main .content-dock__body {
+    overflow: visible;
+    min-height: 0;
   }
 
-  /* 可發現性：地圖屏底部標明下方還有內容；整屏切下去之後隨第一屏消失，
-     不會變成永久遮罩。pointer-events:none 以免吃掉地圖手勢。 */
-  .app-shell__main > :first-child::after {
-    content: '▾ 向下拖：大事・人物・成語';
-    position: absolute;
-    left: 50%;
-    bottom: 2.9rem;
-    transform: translateX(-50%);
-    z-index: 6;
-    padding: 0.3rem 0.7rem;
-    border: 1px solid var(--line);
-    border-radius: 2px;
-    background: rgba(8, 14, 16, 0.88);
-    color: var(--accent);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    white-space: nowrap;
-    pointer-events: none;
+  .app-shell__main .content-dock__body {
+    overscroll-behavior: auto;
+  }
+
+  /* 分頁列黏在主區頂端：捲過再長的名單也能一指切換分頁。 */
+  .app-shell__main .content-dock__head {
+    position: sticky;
+    top: 0;
+    z-index: 41;
+    background: var(--bg-deep);
   }
 
   /* ── 修 7：地圖浮層防撞 ──
@@ -277,7 +271,7 @@
     right: auto;
     transform: translateX(-50%);
     max-width: calc(100% - 1rem);
-    bottom: calc(0.45rem + var(--safe-bottom));
+    bottom: calc(1.7rem + var(--safe-bottom));
   }
 
   /* 出處署名：393px 實測 .map-2d__credit 被 ellipsis 裁走 39px（連同底圖授權條款
@@ -957,5 +951,62 @@
   html[data-chrome='collapsed'] .topic-switch,
   html[data-chrome='collapsed'] .app-header__tag {
     display: none;
+  }
+}
+
+/* 浮動的「時間軸」鈕：收起後就地展開，不必捲回地圖。拇指可及的右下角。 */
+.chrome-fab {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .chrome-fab {
+    display: block;
+    position: fixed;
+    right: 0.6rem;
+    bottom: calc(var(--bottombar-h, 3rem) + 0.6rem);
+    z-index: 58;
+    min-height: 2.75rem;
+    padding: 0 0.9rem;
+    font: inherit;
+    font-size: 0.9rem;
+    border: 1px solid #c4a574;
+    border-radius: 999px;
+    background: #1b150d;
+    color: #f6eedc;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+    cursor: pointer;
+  }
+
+  html[data-theme='light'] .chrome-fab {
+    background: #fbf7ee;
+    color: #1c1914;
+    border-color: #6d4c2a;
+  }
+}
+
+/* ── 窄屏地圖浮層分層（地圖限高後的防撞） ──
+   地圖限高約四成螢幕後，底部三個浮層會疊在一起：底圖標題（含「滾輪縮放」，
+   觸控無滾輪）、圖層列、國號註記。由下而上固定為：標題單行 → 圖層列 →
+   註記（最多兩行），各自留出自身高度，互不遮蓋。 */
+@media (max-width: 700px) {
+  /* 縮放鈕避開地圖左上、右上的浮動資訊卡（卡底約 64px） */
+  .map-2d__zoom-ui {
+    top: 2.2rem;
+  }
+
+  .map-2d__basemap-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .map-2d__dynasty-hint {
+    bottom: calc(5.2rem + var(--safe-bottom, 0px));
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
   }
 }

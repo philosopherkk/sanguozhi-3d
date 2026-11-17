@@ -243,7 +243,7 @@ const SUITES = [
   {
     name: 'mobile',
     gate: 'audit:mobile --teeth',
-    min: 8,
+    min: 9,
     metric: /audit:mobile --teeth — 失敗 (\d+) 項/,
     stage(dir) {
       const file = join(dir, 'mobile', 'audit_mobile_css.mjs')
@@ -269,8 +269,10 @@ const SUITES = [
         find: '(/safe-area/.test(r.body) || /--safe-/.test(r.body))', to: 'true' },
       { name: 'dvh 改認 vh（地址欄食晒頁尾嘅舊缺陷復辟）',
         find: '/dvh/.test(v)', to: '/vh/.test(v)' },
-      { name: '整屏翻頁匯報抽走（地圖下面嘅內容翻唔到冇人叫）',
+      { name: '可捲動主區匯報抽走（地圖下面嘅內容翻唔到冇人叫）',
         find: "fails.push('mobile-pager')", to: 'void 0' },
+      { name: '地圖限高匯報抽走（地圖佔滿一屏、內容被推走冇人叫）',
+        find: "fails.push('mobile-map-bound')", to: 'void 0' },
       { name: '按擊區 rem 下限設 0（--tap-min 退回 16px 冇人叫）',
         find: 'return parseFloat(rem[1]) >= 2.5', to: 'return parseFloat(rem[1]) >= 0' },
       // ── 接線兩項 ── 上面全部針對單一探測器；呢兩項破壞共用管道，一壞就係成批規則失明。
