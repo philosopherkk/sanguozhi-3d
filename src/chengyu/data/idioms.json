@@ -35,7 +35,10 @@
     "lemma": "口蜜腹劍",
     "reading": "kǒu mì fù jiàn",
     "meaningZhHant": "形容人表面友善，內心陰險狠毒。",
-    "eraLink": { "kind": "year", "year": 742 },
+    "eraLink": {
+      "kind": "year",
+      "year": 742
+    },
     "source": {
       "class": "史籍",
       "cite": "《資治通鑑》卷二一五·唐紀三十一·玄宗天寶元年"
@@ -48,7 +51,10 @@
     "lemma": "東窗事發",
     "reading": "dōng chuāng shì fā",
     "meaningZhHant": "比喻陰謀敗露；常與秦檜害岳飛故事相聯。",
-    "eraLink": { "kind": "year", "year": 1142 },
+    "eraLink": {
+      "kind": "year",
+      "year": 1142
+    },
     "source": {
       "class": "民俗",
       "cite": "《西湖游覽志餘》·佞倖盤荒（明·田汝成）；語本元·孔文卿雜劇《東窗事犯》"
@@ -114,7 +120,8 @@
     "reading": "fù jīng qǐng zuì",
     "meaningZhHant": "帶著荊條請求責罰；表示誠心認錯求和。",
     "eraLink": {
-      "kind": "year",
+      "kind": "event",
+      "id": "jiangxianghe",
       "year": -279
     },
     "source": {
@@ -486,7 +493,10 @@
     "lemma": "竹馬の友",
     "reading": "ちくばのとも",
     "meaningZhHant": "本謂幼時共騎竹馬之伴；今指自幼相交之友。",
-    "eraLink": { "kind": "year", "year": 720 },
+    "eraLink": {
+      "kind": "year",
+      "year": 720
+    },
     "source": {
       "class": "史籍",
       "cite": "《日本書紀》及漢籍「總角之交」語境"
@@ -811,7 +821,10 @@
     "lemma": "以和為貴",
     "reading": "yǐ hé wéi guì；和を以て貴しと為す",
     "meaningZhHant": "本謂施政以和順為貴、以無爭為宗；語本《論語》有子論禮之用，日本《十七條憲法》第一條取之，今通作處事以和氣相得為先。",
-    "eraLink": { "kind": "year", "year": 604 },
+    "eraLink": {
+      "kind": "year",
+      "year": 604
+    },
     "source": {
       "class": "史籍",
       "cite": "《日本書紀》卷第二十二·推古天皇十二年（604）條（十七條憲法第一條）；語本《論語·學而第一》"
@@ -967,7 +980,10 @@
     "lemma": "自毀長城",
     "reading": "zì huǐ cháng chéng",
     "meaningZhHant": "本謂宋文帝自殺拒敵之名將檀道濟，等同自壞所恃之萬里長城；後喻執政者誅殺、棄置己方倚以自重之人，反自損其屏障。",
-    "eraLink": { "kind": "year", "year": 436 },
+    "eraLink": {
+      "kind": "year",
+      "year": 436
+    },
     "source": {
       "class": "史籍",
       "cite": "《宋書》卷四十三·檀道濟傳"
@@ -980,7 +996,10 @@
     "lemma": "三十六計，走為上計",
     "reading": "sān shí liù jì，zǒu wéi shàng jì",
     "meaningZhHant": "本謂王敬則譏東昏侯父子倉皇無謀，只合急走；以「檀公三十六策，走是上計」諷其唯一可辦之事乃逃走；今喻情勢不敵，退避方為上策。",
-    "eraLink": { "kind": "year", "year": 498 },
+    "eraLink": {
+      "kind": "year",
+      "year": 498
+    },
     "source": {
       "class": "史籍",
       "cite": "《南齊書》卷二十六·王敬則傳"
@@ -1048,7 +1067,10 @@
     "lemma": "忠臣蔵",
     "reading": "ちゅうしんぐら",
     "meaningZhHant": "本為以元祿十五年（1703）赤穂浪士討入り為題之近世人形淨瑠璃演目名（出安永六年・1777年大阪竹本座初演之《仮名手本忠臣蔵》）；轉而泛稱為主君捨身之家臣團故事，今亦作報恩、殉職之譬喻。",
-    "eraLink": { "kind": "year", "year": 1703 },
+    "eraLink": {
+      "kind": "year",
+      "year": 1703
+    },
     "source": {
       "class": "民俗",
       "cite": "《仮名手本忠臣蔵》·安永六年（1777）大阪竹本座初演（文藝作品，非史實記錄）；本事は元禄十五年十二月十四日（1703年1月30日）の討入り"
@@ -1505,6 +1527,39 @@
     },
     "disputed": true,
     "note": "逐字引文（zh.wikisource《宋史/卷250》）：「乾德初，帝因晚朝與守信等飲酒，酒酣，帝曰：『我非爾曹不及此，然吾為天子，殊不若為節度使之樂，吾終夕未嘗安枕而臥。』……明日，皆稱病，乞解兵權，帝從之，皆以散官就第，賞齎甚厚。」本傳繫此事於「乾德初」，故年錨取乾德元年（963）。宋人筆記（丁謂《談錄》、王銍《默記》）繫於建隆二年（961）七月，與本傳異；筆記非正史，兩說並存，故標 disputed。同傳又載趙普諫「彥卿名位已盛，不可復委以兵權」，可與此事互證太祖、趙普收兵柄之謀。七字作「杯酒釋兵權」，係後世據傳概括，非史文原語。",
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-guanbaozhijiao",
+    "lemma": "管鮑之交",
+    "reading": "guǎn bào zhī jiāo",
+    "meaningZhHant": "喻相知深、相讓真的交誼。管仲嘗自謂「生我者父母，知我者鮑子也」；鮑叔既進管仲，以身下之，「天下不多管仲之賢而多鮑叔能知人也」。",
+    "eraLink": {
+      "kind": "year",
+      "year": -685
+    },
+    "source": {
+      "class": "史籍",
+      "cite": "《史記·管晏列傳》"
+    },
+    "note": "本事出列傳追敘，無紀年；年份取齊桓公即位用管仲之年（前685），屬推定。三仕三見逐、三戰三走諸節係管仲自述，《列子》所載分財諸細節屬傳說，不取為史實。",
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-chengqingtianxia",
+    "lemma": "澄清天下",
+    "reading": "chéng qīng tiān xià",
+    "meaningZhHant": "形容肅清貪污、整刷亂局的抱負。范滂受清詔使巡行冀州，「登車攬轡，慨然有澄清天下之志」，守令自知臧污，望風解印綬去。",
+    "eraLink": {
+      "kind": "event",
+      "id": "danggu",
+      "year": 166
+    },
+    "source": {
+      "class": "史籍",
+      "cite": "《後漢書·范滂傳》"
+    },
+    "note": "本事出《後漢書·黨錮列傳》本傳，無繫年；范滂以清詔使巡行冀州在延熹年間、稍先於黨錮之獄，本條改掛黨錮事件（166年）以便在地圖年表顯示成語卡，年份從事件年，使職之年（約165）屬推定，不取定月。「登車攬轡」亦成後世語典。",
     "locale": "zh"
   }
 ]
