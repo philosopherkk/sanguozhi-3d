@@ -25,6 +25,18 @@ const GATES = [
     metrics: { fail: /audit:data — fail (\d+)/, warn: /audit:data — fail \d+, warn (\d+)/ },
   },
   { name: 'audit:wiring', cmd: 'npm run audit:wiring', metrics: { fail: /audit:wiring — fail (\d+)/ } },
+  // 人物想像圖：檔案、manifest 與資料 id／name 三邊對照。少了這條，錯人頭像或
+  // 整批圖全家長時間不上線都不會被任何其他閘門察覺（build 只查型別，不查配對）。
+  {
+    name: 'audit:portraits',
+    cmd: 'npm run audit:portraits',
+    metrics: { fail: /audit:portraits — fail (\d+)/, linked: /linked (\d+)\//, files: /files (\d+)/ },
+  },
+  {
+    name: 'audit:portraits:teeth',
+    cmd: 'npm run audit:portraits -- --teeth',
+    metrics: { fail: /audit:portraits --teeth — 失敗 (\d+) 項/ },
+  },
   {
     name: 'audit:ranges',
     cmd: 'npm run audit:ranges',

@@ -8,6 +8,16 @@
     "exit": 0,
     "fail": 0
   },
+  "audit:portraits": {
+    "exit": 0,
+    "fail": 0,
+    "linked": 350,
+    "files": 350
+  },
+  "audit:portraits:teeth": {
+    "exit": 0,
+    "fail": 0
+  },
   "audit:ranges": {
     "exit": 0,
     "fail": 0,
@@ -44,6 +54,13 @@
     "exit": 0,
     "fail": 0
   },
+  "audit:mobile": {
+    "exit": 0
+  },
+  "audit:mobile:teeth": {
+    "exit": 0,
+    "fail": 0
+  },
   "audit:wiki-links": {
     "exit": 0,
     "dead": 0,
@@ -57,7 +74,7 @@
   },
   "audit:war-shape": {
     "exit": 0,
-    "schematic": 101,
+    "schematic": 91,
     "selfInt": 0
   },
   "audit:reading-layers": {
@@ -70,7 +87,7 @@
   },
   "audit:event-depth": {
     "exit": 0,
-    "gap": 118,
+    "gap": 60,
     "padding": 1,
     "jpGap": 0
   },

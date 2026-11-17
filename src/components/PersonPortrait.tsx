@@ -4,7 +4,7 @@ type PersonPortraitProps = {
   src?: string
   name: string
   note?: string
-  size?: 'sm' | 'lg'
+  size?: 'sm' | 'md' | 'lg'
 }
 
 // 人物想像圖：清單用 40px 圓形、展開的介紹用 96px。
@@ -18,7 +18,12 @@ export function PersonPortrait({
   const [failed, setFailed] = useState(false)
   const initial = Array.from(name.trim())[0] ?? '?'
   const title = note ? `考據：${note}` : `想像圖 · ${name}`
-  const cls = size === 'lg' ? 'person-portrait person-portrait--lg' : 'person-portrait'
+  const cls =
+    size === 'lg'
+      ? 'person-portrait person-portrait--lg'
+      : size === 'md'
+        ? 'person-portrait person-portrait--md'
+        : 'person-portrait'
 
   return (
     <span className={cls} title={title}>
@@ -26,6 +31,9 @@ export function PersonPortrait({
         <img
           src={src}
           alt={`想像圖 · ${name}`}
+          width={1024}
+          height={1024}
+          decoding="async"
           loading="lazy"
           onError={() => setFailed(true)}
         />
