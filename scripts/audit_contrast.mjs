@@ -71,7 +71,7 @@ function rules(css) {
   while (i < css.length) {
     if (css[i] === ';') {
       // 頂層語句（例如 @import）沒有大括號，要把它從下一段選擇器裡剔掉，
-      // 否則 index.css 開頭的 @import 会和隨後的 :root 黏成一個選擇器。
+      // 否則 index.css 開頭的 @import 會和隨後的 :root 黏成一個選擇器。
       selStart = i + 1
       i++
       continue
