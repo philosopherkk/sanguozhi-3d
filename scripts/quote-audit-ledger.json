@@ -1076,7 +1076,7 @@
   },
   "src/qinhan/data/timeline.ts#xin-mang": {
     "stamp": "316f52a5",
-    "page": "",
+    "page": "漢書/卷099上",
     "at": "2026-11-13"
   },
   "src/imperial/data/jinPack.ts#jin-280": {
@@ -1336,12 +1336,12 @@
   },
   "src/imperial/data/liaosongPack.ts#ls-1268": {
     "stamp": "775a3391",
-    "page": "",
+    "page": "元史/卷208",
     "at": "2026-11-12"
   },
   "src/imperial/data/tangPack.ts#tang-755": {
     "stamp": "298a34e5",
-    "page": "",
+    "page": "資治通鑑/卷217",
     "at": "2026-11-12"
   },
   "src/imperial/data/yuanMingQingPack.ts#ymq-1271": {
