@@ -145,9 +145,8 @@ export function EraMapView({
 }) {
   const rootRef = useRef<HTMLDivElement>(null)
   const [showTerritory, setShowTerritory] = useState(true)
-  // 日本各地圖預設收起行軍線（與合并前一致）；戰爭時代（戰區底圖）以入侵路線為主要
-  // 內容，預設展開，使用者仍可用下方「行軍」開關收起。
-  const [showRoutes, setShowRoutes] = useState(Boolean(mapBase))
+  // 全站一致：行軍線與勢力疆域一律預設展開，使用者仍可用下方「行軍」開關收起。
+  const [showRoutes, setShowRoutes] = useState(true)
   const [showPlaces, setShowPlaces] = useState(false)
   const basemap = SENGOKU_BASEMAP
   const mapW = mapBase?.w ?? SENGOKU_MAP_W

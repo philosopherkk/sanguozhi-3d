@@ -1,4 +1,3 @@
-import { ReadingControls } from '../../components/ReadingControls'
 import { TopicSwitcher } from '../../components/TopicSwitcher'
 import { formatQinHanYear, qinHanEraLabel } from '../lib/formatYear'
 import { useQinHanYear } from '../state/QinHanYearContext'
@@ -26,7 +25,6 @@ export function QinHanHeader() {
         >
           −
         </button>
-        <ReadingControls />
         <div className="app-header__year" aria-live="polite">
           <span className="app-header__num">{formatQinHanYear(year)}</span>
           <span className="app-header__era">年</span>

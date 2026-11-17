@@ -129,8 +129,8 @@ export function Map2D() {
     true,
   )
   const [showRoutes, setShowRoutes] = usePersistedOpen(
-    'map2d-layer-routes',
-    false,
+    'map2d-layer-routes-v2',
+    true,
   )
   const [showFrontier, setShowFrontier] = usePersistedOpen(
     'map2d-layer-frontier',

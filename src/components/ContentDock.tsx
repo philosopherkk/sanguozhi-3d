@@ -14,6 +14,8 @@ type ContentDockProps = {
   chengyuLabel?: string
   /** 分頁 id 前綴，避免多個 dock 在同一頁衝突 */
   dockId?: string
+  /** 分頁列右側的操作（例如「顯示地圖」），與分頁同列以保持常駐可見 */
+  trailing?: ReactNode
 }
 
 function buildTabs(
@@ -107,7 +109,7 @@ export function ContentDock({
               aria-selected={tab === t.id}
               aria-controls={`${idBase}-panel-${t.id}`}
               className={tab === t.id ? 'content-dock__tab is-active' : 'content-dock__tab'}
-              onClick={() => setTab(t.id)}
+              onClick={() => selectTab(t.id)}
             >
               {t.label}
               <span className="content-dock__tab-year">{year}</span>

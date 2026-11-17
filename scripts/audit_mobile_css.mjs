@@ -203,7 +203,7 @@ if (process.argv.includes('--teeth')) {
         ),
     ],
     ['safe-area', (s) => s.replace(/bottom: calc\(0\.45rem \+ var\(--safe-bottom\)\);/, 'bottom: 0.45rem;')],
-    ['bare-vh', (s) => s.replace(/(\.app-shell \{\n\s*height: )100dvh/, '$1100vh')],
+    ['bare-vh', (s) => s.replace(/(\.app-shell \{\n\s*height: calc\()100dvh/, '$1100vh')],
     [
       'mobile-pager',
       // 模擬有人把整屏翻頁換回不可滾動的版面（地圖下方內容再度翻不到）

@@ -10,6 +10,7 @@ import {
   readTimelineFromUrl,
   writeTimelineToUrl,
 } from './lib/timelineUrl'
+import { BottomBar } from './components/BottomBar'
 import './App.css'
 import './mobile.css'
 
@@ -435,6 +436,7 @@ function App() {
     <TopicProvider>
       <UrlBridge />
       <TopicRoot />
+      <BottomBar />
     </TopicProvider>
   )
 }

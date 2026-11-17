@@ -15,8 +15,7 @@ import { YearProvider, useYear } from './state/YearContext'
 function SanguozhiMain() {
   const { year, setYear, yearMin, yearMax } = useYear()
   return (
-    <main role="main">
-<div className="app-shell__main app-shell__main--map-side">
+    <main role="main" className="app-shell__main app-shell__main--map-side">
       <MapStage />
       <AppSideRail
         storageKey="sanguozhi-side-rail"
@@ -38,7 +37,7 @@ function SanguozhiMain() {
           />
         }
       />
-    </div>
+    </main>
   )
 }
 
@@ -60,7 +59,7 @@ export function SanguozhiApp() {
               不用《三國演義》· 280 年晉收郡縣，未入編戶者見該年面板 · 塞外部族與行軍為示意
             </p>
           </CollapsibleAppFooter>
-        </main>
+        </div>
       </SelectionProvider>
     </YearProvider>
   )

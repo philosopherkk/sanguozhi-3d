@@ -3,7 +3,6 @@ import { localesForChinaTrack } from '../chengyu/lib/filterByYear'
 import { AppSideRail } from '../components/AppSideRail'
 import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraBar } from '../components/EraBar'
-import { ReadingControls } from '../components/ReadingControls'
 import { TopicSwitcher } from '../components/TopicSwitcher'
 import { layoutTicks } from '../lib/tickCollisions'
 import { ImperialMapStage } from './components/ImperialMapStage'
@@ -114,7 +113,6 @@ function ImperialHeader() {
         >
           −
         </button>
-        <ReadingControls />
         <div className="app-header__year" aria-live="polite">
           <span className="app-header__num">{year}</span>
           <span className="app-header__era">年</span>

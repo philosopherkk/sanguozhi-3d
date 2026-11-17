@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 import { EraBar } from '../../components/EraBar'
-import { ReadingControls } from '../../components/ReadingControls'
 import { TopicSwitcher } from '../../components/TopicSwitcher'
 import { BAKUMATSU_KEY_YEARS } from '../data/territory'
 import { useBakumatsuYear } from '../state/BakumatsuYearContext'
@@ -50,7 +49,6 @@ export function BakumatsuHeader() {
         >
           −
         </button>
-        <ReadingControls />
         <div className="app-header__year" aria-live="polite">
           <span className="app-header__num">{year}</span>
           <span className="app-header__era">年</span>

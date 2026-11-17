@@ -5,7 +5,6 @@ import { AppSideRail } from '../components/AppSideRail'
 import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraBar } from '../components/EraBar'
 import { layoutTicks } from '../lib/tickCollisions'
-import { ReadingControls } from '../components/ReadingControls'
 import { TopicSwitcher } from '../components/TopicSwitcher'
 import type { JapanDeepDivePack } from './deepDiveTypes'
 import { DeepDiveMapStage } from './DeepDiveMapStage'
@@ -34,7 +33,6 @@ function DeepDiveHeader({ pack }: { pack: JapanDeepDivePack }) {
         >
           −
         </button>
-        <ReadingControls />
         <div className="app-header__year" aria-live="polite">
           <span className="app-header__num">{year}</span>
           <span className="app-header__era">{month == null ? '年' : `年${month}月`}</span>

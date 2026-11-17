@@ -40,7 +40,7 @@ export function SengokuMap() {
   const { selectedFaction, selectFaction } = useSengokuSelection()
   const rootRef = useRef<HTMLDivElement>(null)
   const [showTerritory, setShowTerritory] = useState(true)
-  const [showRoutes, setShowRoutes] = useState(false)
+  const [showRoutes, setShowRoutes] = useState(true)
   const [showPlaces, setShowPlaces] = useState(false)
   const view = useMapViewport(SENGOKU_MAP_W, SENGOKU_MAP_H)
   const basemap = SENGOKU_BASEMAP

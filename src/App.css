@@ -1,8 +1,8 @@
 /* ── App shell: compact year bar · map left · events TR · people BR ── */
 
 .app-shell {
-  height: 100dvh;
-  max-height: 100dvh;
+  height: calc(100dvh - var(--bottombar-h, 0px));
+  max-height: calc(100dvh - var(--bottombar-h, 0px));
   display: grid;
   grid-template-rows: auto auto auto minmax(0, 1fr) auto;
   overflow: hidden;
@@ -3605,4 +3605,221 @@ html:not([data-theme='light']) .topic-switch button.is-active {
   font-weight: 400;
   letter-spacing: 0.02em;
   color: var(--ink-muted);
+}
+
+/* ── 底部常駐設定列：字級、黑白底、閱讀程度、搜尋、書籤 ── */
+:root {
+  --bottombar-h: calc(3rem + env(safe-area-inset-bottom, 0px));
+}
+
+.bottom-bar {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 60;
+  height: var(--bottombar-h);
+  box-sizing: border-box;
+  padding: 0.3rem 0.5rem calc(0.3rem + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  overflow-x: auto;
+  font-size: 16px;
+  background: #1b150d;
+  color: #f6eedc;
+  border-top: 1px solid #c4a574;
+}
+
+.bottom-bar button {
+  font: inherit;
+  font-size: 0.9rem;
+  min-height: 2.4rem;
+  min-width: 2.4rem;
+  padding: 0 0.6rem;
+  border: 1px solid #c4a574;
+  background: transparent;
+  color: #f6eedc;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.bottom-bar button[aria-pressed='true'],
+.bottom-bar button[aria-expanded='true'] {
+  background: #f6eedc;
+  color: #1b150d;
+}
+
+.bottom-bar button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.bottom-bar__group {
+  display: flex;
+}
+
+.bottom-bar__group button + button {
+  border-left-width: 0;
+}
+
+.bottom-bar__panel {
+  position: fixed;
+  inset: auto 0 var(--bottombar-h) 0;
+  z-index: 59;
+  max-height: min(60dvh, 28rem);
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 0.7rem;
+  font-size: 16px;
+  background: #1b150d;
+  color: #f6eedc;
+  border-top: 1px solid #c4a574;
+}
+
+.bottom-bar__input {
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #c4a574;
+  background: #fff;
+  color: #1c1914;
+}
+
+.bottom-bar__list {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.bottom-bar__list button,
+.bottom-bar__primary {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  min-height: 2.6rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #c4a574;
+  background: transparent;
+  color: #f6eedc;
+  cursor: pointer;
+}
+
+.bottom-bar__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.3rem;
+}
+
+.bottom-bar__row button:last-child {
+  width: auto;
+}
+
+.bottom-bar__kind {
+  display: inline-block;
+  margin-right: 0.5rem;
+  padding: 0 0.35rem;
+  background: #c4a574;
+  color: #1b150d;
+  font-size: 0.8em;
+}
+
+.bottom-bar__hint {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+html[data-theme='light'] .bottom-bar,
+html[data-theme='light'] .bottom-bar__panel {
+  background: #fbf7ee;
+  color: #1c1914;
+  border-top-color: #6d4c2a;
+}
+
+html[data-theme='light'] .bottom-bar button,
+html[data-theme='light'] .bottom-bar__list button,
+html[data-theme='light'] .bottom-bar__primary {
+  border-color: #6d4c2a;
+  color: #1c1914;
+}
+
+html[data-theme='light'] .bottom-bar button[aria-pressed='true'],
+html[data-theme='light'] .bottom-bar button[aria-expanded='true'] {
+  background: #1c1914;
+  color: #fbf7ee;
+}
+
+html[data-theme='light'] .bottom-bar__kind {
+  background: #6d4c2a;
+  color: #fbf7ee;
+}
+
+.search-flash {
+  outline: 3px solid #e0a43a;
+  outline-offset: 2px;
+  transition: outline-color 0.3s;
+}
+
+/* 地圖底色在淺色主題下仍是深藍；疊在其上的說明、署名、圖層列沿用深色主題的
+   文字 token，否則 --ink 變深色會落在深底上看不清。 */
+html[data-theme='light'] .map-layer-bar,
+html[data-theme='light'] .map-stage__hint,
+html[data-theme='light'] .map-stage__overlay--b,
+html[data-theme='light'] .map-2d__basemap-title,
+html[data-theme='light'] .map-2d__dynasty-hint,
+html[data-theme='light'] .map-2d__zoom-btn {
+  --ink: #e8e0d0;
+  --ink-muted: #cfc6b2;
+  --accent: #e0c48f;
+  --accent-dim: #c9b48f;
+  --line: rgba(196, 165, 116, 0.35);
+}
+
+/* 淺色主題的小字對比：量到低於 4.5:1 的標籤一律改用深字。 */
+html[data-theme='light'] .topic-switch__label,
+html[data-theme='light'] .content-dock__tab-year {
+  color: #1c1914;
+}
+
+html[data-theme='light'] .topic-switch__range,
+html[data-theme='light'] .era-bar small,
+html[data-theme='light'] .year-scrubber__tick-dot {
+  color: #4e483e;
+}
+
+/* 淺色主題：朝代列與專題切換不沿用深色的金邊漸層，改為米白底深字。 */
+html[data-theme='light'] .era-bar button,
+html[data-theme='light'] .topic-switch button {
+  background: #fbf7ee;
+  border: 1px solid rgba(40, 28, 12, 0.3);
+  color: #1c1914;
+  box-shadow: none;
+}
+
+html[data-theme='light'] .era-bar button:hover,
+html[data-theme='light'] .topic-switch button:hover {
+  background: #f1e8d3;
+  color: #1c1914;
+  border-color: #6d4c2a;
+}
+
+html[data-theme='light'] .era-bar button.is-active,
+html[data-theme='light'] .topic-switch button.is-active {
+  background: #efe0bd;
+  color: #1c1914;
+  border-color: #6d4c2a;
+  box-shadow: inset 0 -3px 0 var(--cinnabar);
+}
+
+html[data-theme='light'] .era-bar,
+html[data-theme='light'] .topic-switch {
+  background: #efe8da;
+}
+
+html[data-theme='light'] .era-bar button small,
+html[data-theme='light'] .topic-switch__range {
+  opacity: 1;
 }

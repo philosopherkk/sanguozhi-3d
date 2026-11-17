@@ -1,4 +1,3 @@
-import { ReadingControls } from '../../components/ReadingControls'
 import { TopicSwitcher } from '../../components/TopicSwitcher'
 import { japanBandAt } from '../data/eras'
 import { useJapanYear } from '../state/JapanYearContext'
@@ -32,7 +31,6 @@ export function JapanHeader({
         >
           −
         </button>
-        <ReadingControls />
         <div className="app-header__year" aria-live="polite">
           <span className="app-header__num">{year}</span>
           <span className="app-header__era">年</span>

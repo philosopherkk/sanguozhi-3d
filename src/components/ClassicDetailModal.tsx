@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { setLevel, useReadingPrefs } from '../lib/readingPrefs'
 
 export type ReadingLevel = 'elementary' | 'secondary' | 'university'
 
@@ -53,7 +53,7 @@ export function ClassicDetailModal({
   detail: ClassicDetailContent
   onClose: () => void
 }) {
-  const [level, setLevel] = useState<ReadingLevel>('secondary')
+  const { level } = useReadingPrefs()
 
   return (
     <div

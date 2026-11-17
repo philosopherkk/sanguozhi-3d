@@ -1,4 +1,3 @@
-import { ReadingControls } from '../../components/ReadingControls'
 import { TopicSwitcher } from '../../components/TopicSwitcher'
 import { formatZhouMonth } from '../data/lateStages'
 import { formatZhouYear, zhouEraLabel } from '../lib/formatYear'
@@ -28,7 +27,6 @@ export function ZhouHeader() {
         >
           −
         </button>
-        <ReadingControls />
         <div className="app-header__year" aria-live="polite">
           <span className="app-header__num">{formatZhouYear(year)}</span>
           <span className="app-header__era">年</span>

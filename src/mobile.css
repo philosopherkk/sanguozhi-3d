@@ -946,3 +946,16 @@
     font-size: 0.75rem;
   }
 }
+
+/* ── 捲到內容區時收起時間軸控制（僅窄屏；桌面主區不捲動） ──
+   旗標由 useCollapseOnScroll 掛在 <html data-chrome>，各時代標頭共用。
+   標頭只留標題與年份，朝代列、年代滑桿與專題切換收起，把版面還給
+   大事、人物、成語；捲回地圖後旗標關閉，全部自動展開。 */
+@media (max-width: 700px) {
+  html[data-chrome='collapsed'] .era-bar,
+  html[data-chrome='collapsed'] .year-scrubber,
+  html[data-chrome='collapsed'] .topic-switch,
+  html[data-chrome='collapsed'] .app-header__tag {
+    display: none;
+  }
+}
