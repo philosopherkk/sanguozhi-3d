@@ -3656,6 +3656,64 @@ html:not([data-theme='light']) .topic-switch button.is-active {
   opacity: 0.85;
 }
 
+/* 搜尋提示與「上一個／下一個」同一列：提示佔剩餘寬度，按鈕靠右。 */
+.bottom-bar__tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.bottom-bar__tools .bottom-bar__hint {
+  flex: 1 1 12rem;
+  margin: 0;
+}
+
+.bottom-bar__tools .bottom-bar__group {
+  flex: 0 0 auto;
+}
+
+/* 目前停住的命中項：反白，否則三十個結果看不出跳到第幾個。 */
+.bottom-bar__list button.is-current {
+  background: #f6eedc;
+  color: #1b150d;
+}
+
+/*
+ * 訊息列：搜尋找不到、書籤加入或刪除、跳年失敗都靠它回報。
+ * 面板關閉時它獨立存在，因此固定於設定列上方；面板內改回一般排版，
+ * 沿用面板自身背景（見下條）。
+ */
+.bottom-bar__status {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--bottombar-h) + 0.5rem);
+  z-index: 61;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  margin: 0;
+  width: max-content;
+  max-width: calc(100vw - 1rem);
+  padding: 0.45rem 0.7rem;
+  font-size: 0.9rem;
+  background: #1b150d;
+  color: #f6eedc;
+  border: 1px solid #c4a574;
+}
+
+.bottom-bar__panel .bottom-bar__status {
+  position: static;
+  transform: none;
+  width: auto;
+  max-width: none;
+  margin: 0 0 0.5rem;
+  padding: 0.45rem 0;
+  background: transparent;
+  color: inherit;
+  border: 0;
+}
+
 html[data-theme='light'] .bottom-bar,
 html[data-theme='light'] .bottom-bar__panel {
   background: #fbf7ee;
@@ -3679,6 +3737,43 @@ html[data-theme='light'] .bottom-bar button[aria-expanded='true'] {
 html[data-theme='light'] .bottom-bar__kind {
   background: #6d4c2a;
   color: #fbf7ee;
+}
+
+html[data-theme='light'] .bottom-bar__list button.is-current {
+  background: #1c1914;
+  color: #fbf7ee;
+}
+
+html[data-theme='light'] .bottom-bar__status {
+  background: #fbf7ee;
+  color: #1c1914;
+  border-color: #6d4c2a;
+}
+
+/*
+ * 窄屏按擊區：本列原本只有 2.4rem≈38px，行動版最小標準是 44px
+ * （--tap-min，見 src/mobile.css）。列高同步加高，否則按鈕被列高剪掉。
+ */
+@media (max-width: 700px) {
+  :root {
+    --bottombar-h: calc(3.4rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .bottom-bar button,
+  .bottom-bar__panel button,
+  .bottom-bar__primary {
+    min-height: var(--tap-min);
+    font-size: 0.95rem;
+  }
+
+  .bottom-bar__input {
+    min-height: var(--tap-min);
+  }
+
+  /* 刪除書籤屬圖示按鈕，無文字可撐寬，補方形下限以免變成細長條。 */
+  .bottom-bar__row button:last-child {
+    min-width: var(--tap-min);
+  }
 }
 
 .search-flash {
