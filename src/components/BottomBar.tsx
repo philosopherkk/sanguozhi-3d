@@ -81,7 +81,9 @@ function eraLabel(topic: string, era: string): string {
  * 其餘時代（三國、漢、戰國、平安等）的年份只由年代滑桿驅動，光寫 URL 的
  * `?y=` 對它們完全無效。因此這裡除了廣播之外，另外把滑桿的值直接寫一次
  * （用原生 setter，否則 React 的 value tracker 會吞掉 change 事件）。
- * 滑桿在 lazy 分塊內，換時代時要輪詢等它出現。
+ * 滑桿在 lazy 分塊內，換時代時要輪詢等它出現。換時代的點擊當刻，頁面上
+ * 掛著的還是舊時代的滑桿：對它判年份界線會用錯的範圍，寫進去也只驅動舊
+ * 時代，所以先記住舊節點，等新時代的滑桿換上才寫。
  */
 function useYearPush() {
   const timers = useRef<number[]>([])
@@ -95,11 +97,16 @@ function useYearPush() {
     sameEra: boolean,
     say: (msg: string) => void,
   ) => {
+    const stale = sameEra
+      ? null
+      : document.querySelector<HTMLInputElement>(
+          '.year-scrubber input[type=range]',
+        )
     const attempt = (tries: number) => {
       const input = document.querySelector<HTMLInputElement>(
         '.year-scrubber input[type=range]',
       )
-      if (!input) {
+      if (!input || input === stale) {
         if (tries < 20) {
           timers.current.push(window.setTimeout(() => attempt(tries + 1), 150))
         } else {
@@ -112,8 +119,16 @@ function useYearPush() {
       const outOfRange =
         Number.isFinite(lo) && Number.isFinite(hi) && (year < lo || year > hi)
       if (outOfRange) {
-        // 年份落在該時代範圍之外：只換到該時代，不把滑桿硬推出界。
-        say(`${year} 年不在 ${slot.label}（${lo}–${hi}）之內。`)
+        // 年份落在該時代範圍之外：只換到該時代，不把滑桿硬推出界；URL 的
+        // `?y=` 一併改成畫面實際停留的年份，否則分享連結與畫面各說一套。
+        const fmt = (y: number) => (y < 0 ? `前${-y}` : `${y}`)
+        say(
+          `${fmt(year)} 年不在 ${slot.label}（${fmt(lo)}–${fmt(hi)}）之內。`,
+        )
+        const landed = Number(input.value)
+        if (Number.isFinite(landed)) {
+          writeTimelineToUrl({ year: landed, month: null })
+        }
         return
       }
       announceTimeline({ year, month: null })
@@ -286,7 +301,9 @@ export function BottomBar() {
     setTopic(b.topic)
     writeTimelineToUrl({ year: b.year, month: null })
     pushYear(b.year, slot, sameEra, say)
-    if (sameEra && year === b.year) say(`已在 ${slot.label} ${b.year} 年。`)
+    if (sameEra && year === b.year) {
+      say(`已在 ${slot.label} ${yearLabel(b.year)}。`)
+    }
   }
 
   const removeOne = (b: Bookmark) => {
