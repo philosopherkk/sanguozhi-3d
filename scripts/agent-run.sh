@@ -5,13 +5,13 @@
 #   sh scripts/agent-run.sh left          還剩幾分鐘（每做完一項都要看一次）
 #   sh scripts/agent-run.sh end <key>     收工最後一個指令；釋放鎖
 #
-# 為什麼要有鎖：排程已錯開成每小時一支，但某一輪若跑超時，下一支不該疊上去。
+# 為什麼要有鎖：排程已錯開成每兩小時一支，但某一輪若跑超時，下一支不該疊上去。
 # 本機模型一次只載一個，兩支同時跑會互相拖垮或排隊逾時。
-# 時間：預算 BUDGET 分鐘（預設 40）。鎖超過 STALE 分鐘（預設 55）視為上一輪已死，可接手。
+# 時間：預算 BUDGET 分鐘（預設 60）。鎖超過 STALE 分鐘（預設 100）視為上一輪已死，可接手。
 # 鎖檔放在 $HOME，不放 /tmp（沙箱會擋 /tmp）。內容兩行：key、開工 epoch 秒。
 LOCK="${HF_AGENT_LOCK:-$HOME/.historyfirst-agent.lock}"
-BUDGET="${HF_AGENT_BUDGET_MIN:-40}"
-STALE="${HF_AGENT_STALE_MIN:-55}"
+BUDGET="${HF_AGENT_BUDGET_MIN:-60}"
+STALE="${HF_AGENT_STALE_MIN:-100}"
 now=$(date +%s)
 
 read_lock() {
