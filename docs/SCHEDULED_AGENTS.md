@@ -114,7 +114,7 @@ npm run lint           # 0 error
 
 ## 5. 併發時鐘（OpenCode 排程，Asia/Hong_Kong，皆於整點 :10 觸發）
 
-設計使**任一時刻最多一支**執行：每兩小時只排一支，單輪預算 60 分鐘（`HF_AGENT_BUDGET_MIN`），鎖 100 分鐘後視為過期（本機模型每步約 2 至 3 分鐘，一輪實測近 70 分鐘）。
+設計使**任一時刻最多一支**執行：每兩小時只排一支，單輪預算 60 分鐘（`HF_AGENT_BUDGET_MIN`），鎖在「開工滿 100 分鐘且最後心跳超過 35 分鐘」時才視為已死（`HF_AGENT_STALE_MIN`、`HF_AGENT_HB_MIN`）。每次跑 `sh scripts/agent-run.sh left` 會刷新心跳，所以做事的一輪可以超過 100 分鐘而不被接手（本機模型每步約 2 至 3 分鐘，一輪實測近 70 分鐘）。
 即使某輪超時，下一支開工時 `sh scripts/agent-run.sh start <key>` 會印 `BUSY` 並結束，不會疊上去。
 
 | Agent | cron | 每日次數 |
