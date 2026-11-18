@@ -1426,13 +1426,13 @@ html[data-theme='light'] .app-footer {
 
 .power-board__sub {
   margin: 0.15rem 0 0;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: var(--ink-muted);
 }
 
 .power-board__toggle {
   font: inherit;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   padding: 0.2rem 0.4rem;
   border: 1px solid var(--line);
@@ -1448,7 +1448,7 @@ html[data-theme='light'] .app-footer {
   margin: 0 0 0.45rem;
   padding: 0.3rem 0.4rem;
   font: inherit;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
   text-align: left;
   color: var(--accent);
@@ -1531,7 +1531,7 @@ html[data-theme='light'] .app-footer {
 .power-board__nums {
   font-variant-numeric: tabular-nums;
   color: var(--accent);
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   flex-shrink: 0;
 }
 
@@ -1552,14 +1552,14 @@ html[data-theme='light'] .app-footer {
 
 .power-board__provinces {
   margin: 0.15rem 0 0;
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   line-height: 1.35;
   color: var(--accent-dim);
 }
 
 .power-board__note {
   margin: 0.5rem 0 0;
-  font-size: 0.58rem;
+  font-size: 0.75rem;
   line-height: 1.4;
   color: var(--accent-dim);
 }
