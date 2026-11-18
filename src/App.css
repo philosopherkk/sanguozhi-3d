@@ -1158,7 +1158,7 @@ html[data-theme='light'] .app-footer {
   flex-direction: column;
   align-items: flex-start;
   font: inherit;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
   padding: 0.2rem 0.4rem;
   border: 1px solid var(--line);
@@ -1168,7 +1168,7 @@ html[data-theme='light'] .app-footer {
 }
 
 .late-stage-bar__row button small {
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   opacity: 0.8;
 }
 
@@ -1232,7 +1232,7 @@ html[data-theme='light'] .app-footer {
 }
 
 .era-bar button small {
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   letter-spacing: 0.04em;
   opacity: 0.8;
 }
@@ -1757,13 +1757,13 @@ html[data-theme='light'] .app-footer {
 .faction-inspect__stat h4,
 .faction-inspect__changes h4 {
   margin: 0;
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   letter-spacing: 0.14em;
   color: var(--accent);
 }
 
 .faction-inspect__badge {
-  font-size: 0.55rem;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
   color: var(--accent);
   border: 1px solid var(--line);
@@ -1779,7 +1779,7 @@ html[data-theme='light'] .app-footer {
 .faction-inspect__detail,
 .faction-inspect__change p {
   margin: 0.15rem 0 0;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   line-height: 1.45;
   color: var(--ink);
 }
