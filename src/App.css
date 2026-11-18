@@ -501,7 +501,7 @@ html[data-theme='light'] .app-footer {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 0.2rem 0.75rem;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: var(--ink-muted);
   margin-bottom: 0;
   line-height: 1.2;
@@ -530,7 +530,7 @@ html[data-theme='light'] .app-footer {
   align-items: center;
   gap: 0.45rem;
   margin-top: 0.2rem;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   color: var(--accent);
 }
@@ -646,7 +646,7 @@ html[data-theme='light'] .app-footer {
 
 .year-scrubber__note {
   margin: 0;
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   line-height: 1.35;
   color: var(--ink-muted);
   flex: 1;
@@ -661,7 +661,7 @@ html[data-theme='light'] .app-footer {
 
 .year-scrubber__note-toggle {
   font: inherit;
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   padding: 0.1rem 0.35rem;
   border: 1px solid var(--line);
@@ -871,7 +871,7 @@ html[data-theme='light'] .app-footer {
 
 .zhou-dock__bar button {
   font: inherit;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   padding: 0.12rem 0.35rem;
   border: 1px solid var(--line);
@@ -931,7 +931,7 @@ html[data-theme='light'] .app-footer {
 
 .zhou-faction-card__events h4 {
   margin: 0;
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   letter-spacing: 0.14em;
   color: var(--accent);
 }
