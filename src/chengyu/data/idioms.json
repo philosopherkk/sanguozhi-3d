@@ -115,6 +115,38 @@
     "locale": "zh"
   },
   {
+    "id": "cn-chengyu-shizhiweizhuang",
+    "lemma": "師直為壯",
+    "reading": "shī zhí wéi zhuàng",
+    "meaningZhHant": "理直則士氣壯盛，理曲則士氣衰老。城濮之戰前，子犯引「師直為壯，曲為老」勸晉軍退避三舍以報楚恩。",
+    "eraLink": {
+      "kind": "event",
+      "id": "chengpu",
+      "year": -632
+    },
+    "source": {
+      "class": "史籍",
+      "cite": "《左傳·僖公二十八年》"
+    },
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-fenglangjuxu",
+    "lemma": "封狼居胥",
+    "reading": "fēng láng jū xū",
+    "meaningZhHant": "漢武帝元狩四年霍去病率軍深入漠北破匈奴，狼居胥山封土祭天。後世用此語稱將帥征伐邊功。",
+    "eraLink": {
+      "kind": "event",
+      "id": "mobei",
+      "year": -119
+    },
+    "source": {
+      "class": "史籍",
+      "cite": "《史記·衛將軍驃騎列傳》"
+    },
+    "locale": "zh"
+  },
+  {
     "id": "cn-chengyu-fujingqingzui",
     "lemma": "負荊請罪",
     "reading": "fù jīng qǐng zuì",
