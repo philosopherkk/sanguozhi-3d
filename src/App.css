@@ -1600,7 +1600,7 @@ html[data-theme='light'] .app-footer {
 .faction-situation__head small {
   display: block;
   margin-top: 0.1rem;
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   letter-spacing: 0;
   color: var(--accent);
 }
@@ -1613,7 +1613,7 @@ html[data-theme='light'] .app-footer {
 
 .faction-situation__head button {
   font: inherit;
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   color: var(--accent-dim);
   background: transparent;
@@ -1628,14 +1628,14 @@ html[data-theme='light'] .app-footer {
 
 .faction-situation__block h4 {
   margin: 0;
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   letter-spacing: 0.14em;
   color: var(--accent);
 }
 
 .faction-situation__block p {
   margin: 0.12rem 0 0;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   line-height: 1.45;
 }
 
@@ -1643,7 +1643,7 @@ html[data-theme='light'] .app-footer {
   display: block;
   margin-top: 0.08rem;
   font-style: normal;
-  font-size: 0.58rem;
+  font-size: 0.75rem;
   color: var(--accent-dim);
 }
 
@@ -1788,7 +1788,7 @@ html[data-theme='light'] .app-footer {
   display: block;
   margin-top: 0.15rem;
   font-style: normal;
-  font-size: 0.55rem;
+  font-size: 0.75rem;
   line-height: 1.35;
   color: var(--accent-dim);
 }
