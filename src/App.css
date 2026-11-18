@@ -610,7 +610,7 @@ html[data-theme='light'] .app-footer {
 }
 
 .year-scrubber__tick-dot {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   opacity: 0.7;
 }
 
@@ -949,14 +949,14 @@ html[data-theme='light'] .app-footer {
 
 .zhou-faction-card__events strong {
   display: block;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
 }
 
 .zhou-faction-card__events span,
 .zhou-faction-card__events p {
   display: block;
   margin: 0.12rem 0 0;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   line-height: 1.45;
 }
 
@@ -964,7 +964,7 @@ html[data-theme='light'] .app-footer {
   display: block;
   margin-top: 0.08rem;
   font-style: normal;
-  font-size: 0.55rem;
+  font-size: 0.75rem;
   color: var(--accent-dim);
 }
 
