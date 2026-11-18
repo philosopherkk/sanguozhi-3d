@@ -75,3 +75,18 @@ push：ls-remote 與 rev-parse HEAD 皆 3becc18（一致）。remote tip 13f78bd
 PR：已存在 #176（OPEN）
 下輪建議：由 joraku（信長上洛）起做 Sengoku 包六至十條；joraku 起點 136.85,35.22 疑非
      美並（岐阜），先查「岐阜城」座標再定是否移動端點。
+
+## 【march｜2026-11-18 下午】第十六輪（短輪）
+
+基準：1484fda → 本輪 HEAD：見 git log（1 個 commit）
+完成：安土桃山佇列第一批四線七斷言（joraku、chugoku、chugoku-gaeshi、shizugatake）
+      ／scripts/check_route_landmarks.py ASSERTS 末尾／座標全部 wp_coord ja 查得
+      （名古屋城 136.90,35.19；京都御苑 135.76,35.02；広島城 132.46,34.40；
+      山崎の戦い 135.69,34.91 容差 20；丸岡城 136.27,36.15；賤ヶ岳 136.19,35.51），
+      現狀端點差距 0.1–11.0 km 在容差內，路線未動。
+驗證：check_route_landmarks＝62 條失敗 0；audit:map fail 0｜warn 0；tsc=0；build=0；lint=0；
+      chars exit=0（初跑咬出敘述錯字「相邻」「広」兩處，即改「相鄰」「廣島」後過）。
+放棄：komaki／kyushu／odawara／oshu 四線（座標已查：小牧山 136.91,35.29、鹿児島城
+      130.55,31.60、小田原城 139.15,35.25、江戸城 139.75,35.69）／原因＝剩 9 分鐘，
+      手冊指令「剩 10 分鐘內不开新項」；下輪直接落呢四條斷言再接佇列。
+指標：端點斷言 55 → 62；失敗 0；gates before/after exit=0；push 為 fast-forward。
