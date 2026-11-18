@@ -147,6 +147,39 @@
     "locale": "zh"
   },
   {
+    "id": "cn-chengyu-xueyerucaizhou",
+    "lemma": "雪夜入蔡州",
+    "reading": "xuě yè rù Cài zhōu",
+    "meaningZhHant": "唐元和十二年李愬冒大風雪夜行七十里，奇襲蔡州擒吳元濟；後世喻不顧艱險、決斷進取。語本《資治通鑑》卷二四〇：「冒大風甚雪而不止」，又其夜曰「入蔡州取吳元濟」。",
+    "eraLink": {
+      "kind": "event",
+      "id": "tang-817",
+      "year": 817
+    },
+    "source": {
+      "class": "史籍",
+      "cite": "《資治通鑑》卷二四〇元和十二年十月"
+    },
+    "locale": "zh"
+  },
+  {
+    "id": "cn-chengyu-haoranzhengqi",
+    "lemma": "浩然正氣",
+    "reading": "hào rán zhèng qì",
+    "meaningZhHant": "喻浩大剛正之氣，堅守原則至死不屈。宋末文天祥被執北至燕，留之數年不屈，衣帶藏贊「孔曰成仁，孟曰取義」；其《正氣歌》即此語所本。",
+    "eraLink": {
+      "kind": "event",
+      "id": "ls-1279",
+      "year": 1279
+    },
+    "source": {
+      "class": "史籍",
+      "cite": "《宋史·文天祥傳》；文天祥《正氣歌》"
+    },
+    "note": "《正氣歌》小序原文未見於可逐字比對之庫頁，本條不引其文；「浩然正氣」語出文天祥《正氣歌》屬通說。衣帶贊已對《宋史》卷四百十八逐字核對。",
+    "locale": "zh"
+  },
+  {
     "id": "cn-chengyu-fujingqingzui",
     "lemma": "負荊請罪",
     "reading": "fù jīng qǐng zuì",
