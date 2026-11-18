@@ -54,3 +54,24 @@
    落在疆域快照與行軍路線者為 **0**——即本排程擁有嘅欄位已無 source-generic。應交加厚排程處理。
 5. **路線名稱「（黄海）」用字**：該字為簡體寫法，`audit:chars` 嘅掃描未涵蓋單引號字面值，故未報；
    屬字符門檻口徑問題，本輪只記錄，唔擅自改名。
+
+## 【march｜2026-11-18】第十五輪（短輪，預算 40 分鐘）
+
+基準：12adb6c → 本輪 HEAD：3becc18（1 個 commit）
+工作區：git status --porcelain 輸出＝空
+完成項目：
+  1. edo-1868／ueno-1868（src/bakumatsu/data/marchRoutes.ts:119、:131）：戊辰戰爭江戶圈兩線
+     補四條端點斷言（scripts/check_route_landmarks.py ASSERTS 末尾）。座標取自
+     `wp_coord.py "江戸城"／"上野寛永寺" --lang ja`（139.75E,35.69N／139.77E,35.72N），
+     現狀端點差距 0.0–5.2 km，在容差 12 km 內，路線本身未動。
+     驗證：check_route_landmarks＝55 條斷言失敗 0；audit:map＝fail 0｜warn 0；tsc=0。
+放棄清單：
+  1. 佇列第一行 joraku 起（89 條無斷言路線，Sengoku／bakumatsu／明治—太平洋戰爭包）／
+     原因＝本輪開工基線 gates 耗時，實際工作時間只夠一批；下輪照佇列順序由 joraku 繼續。
+指標：端點斷言 51 → 55；失敗 0 → 0；audit:map 保持 fail 0｜warn 0；
+     gates before exit=0、after exit=0（無惡化）；tsc=0；build=0；lint=0；chars exit=0
+push：ls-remote 與 rev-parse HEAD 皆 3becc18（一致）。remote tip 13f78bd 經 range-diff
+     確認係自己舊 commit 群（全部 `=`），按鐵律用 --force-with-lease。
+PR：已存在 #176（OPEN）
+下輪建議：由 joraku（信長上洛）起做 Sengoku 包六至十條；joraku 起點 136.85,35.22 疑非
+     美並（岐阜），先查「岐阜城」座標再定是否移動端點。
