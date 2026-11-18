@@ -1,0 +1,1 @@
+import{c as e}from"./index-CB_05JFe.js";import{x as t}from"./ClassicDetailModal-BjcwBkoW.js";var n=e();function r(e){let n=[t,e.source];return e.note&&n.push(e.note),n.join(` `)}function i({provenance:e,className:t=`territory-provenance-note`}){return(0,n.jsx)(`p`,{className:t,children:r(e)})}export{r as n,i as t};
