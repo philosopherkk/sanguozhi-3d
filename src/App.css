@@ -1686,14 +1686,14 @@ html[data-theme='light'] .app-footer {
 
 .faction-inspect__kicker {
   margin: 0;
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   letter-spacing: 0.16em;
   color: var(--accent);
 }
 
 .faction-inspect__head button {
   font: inherit;
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   color: var(--accent-dim);
   background: transparent;
@@ -1721,7 +1721,7 @@ html[data-theme='light'] .app-footer {
 
 .faction-inspect__head h3 small {
   margin-left: auto;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0;
   color: var(--accent);
 }
@@ -1729,7 +1729,7 @@ html[data-theme='light'] .app-footer {
 .faction-inspect__land {
   grid-column: 1 / -1;
   margin: 0.15rem 0 0;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   line-height: 1.4;
   color: var(--ink-muted);
 }
@@ -1815,14 +1815,14 @@ html[data-theme='light'] .app-footer {
   display: grid;
   place-items: center;
   height: 1.35rem;
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   color: var(--bg-deep);
   background: var(--accent);
 }
 
 .faction-inspect__change-title {
   margin: 0;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   letter-spacing: 0.04em;
 }
 
