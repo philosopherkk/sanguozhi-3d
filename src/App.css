@@ -150,7 +150,7 @@
 
 .side-rail__chip {
   font: inherit;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.14em;
   padding: 0.55rem 0.2rem;
   writing-mode: vertical-rl;
@@ -202,7 +202,7 @@
 }
 
 .collapsible-shell__hint {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: var(--ink-muted);
   letter-spacing: 0.06em;
   overflow: hidden;
@@ -214,7 +214,7 @@
 .collapsible-shell__toggle {
   margin-left: auto;
   font: inherit;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   padding: 0.12rem 0.35rem;
   border: 1px solid var(--line);
@@ -348,7 +348,7 @@
 
 .app-header__tag {
   margin: 0.15rem 0 0;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.2em;
   color: var(--accent);
 }
@@ -368,7 +368,7 @@
 
 .reading-controls button {
   font: inherit;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
   padding: 0.22rem 0.38rem;
   border: 1px solid var(--line);
@@ -434,7 +434,7 @@ html[data-theme='light'] .app-footer {
 .app-header__nengo {
   flex-basis: 100%;
   text-align: center;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.14em;
   color: var(--accent-dim);
   line-height: 1.2;
