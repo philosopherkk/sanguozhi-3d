@@ -7,17 +7,17 @@
   "src/qinhan/data/timeline.ts#unify": {
     "stamp": "5505f8e6",
     "page": "史記/卷006",
-    "at": "2026-11-06"
+    "at": "2026-11-18"
   },
   "src/qinhan/data/timeline.ts#chen-sheng": {
     "stamp": "83bc5a06",
     "page": "史記/卷048",
-    "at": "2026-11-06"
+    "at": "2026-11-18"
   },
   "src/zhou/data/earlyDynasty.ts#xia-yu": {
     "stamp": "f2ec924c",
     "page": "史記/卷002",
-    "at": "2026-11-06"
+    "at": "2026-11-18"
   },
   "src/zhou/data/earlyDynasty.ts#xia-taikang": {
     "stamp": "e3bdb049",
@@ -42,12 +42,12 @@
   "src/zhou/data/earlyDynasty.ts#shang-wuding": {
     "stamp": "9c92c2ad",
     "page": "史記/卷003",
-    "at": "2026-11-06"
+    "at": "2026-11-18"
   },
   "src/zhou/data/earlyDynasty.ts#shang-diyi": {
     "stamp": "6991bf50",
     "page": "史記/卷003",
-    "at": "2026-11-06"
+    "at": "2026-11-18"
   },
   "src/zhou/data/earlyDynasty.ts#zhou-dongzheng": {
     "stamp": "381fa29",
@@ -92,17 +92,17 @@
   "src/zhou/data/earlyDynastyMore.ts#zhou-liyue": {
     "stamp": "a05cc94c",
     "page": "史記/卷004",
-    "at": "2026-11-06"
+    "at": "2026-11-18"
   },
   "src/zhou/data/earlyDynastyMore.ts#zhou-chengkang": {
     "stamp": "6b6da677",
     "page": "史記/卷004",
-    "at": "2026-11-06"
+    "at": "2026-11-18"
   },
   "src/zhou/data/earlyDynastyMore.ts#zhou-mu-quanrong": {
-    "stamp": "184cb441",
+    "stamp": "dffa7e0",
     "page": "史記/卷004",
-    "at": "2026-11-06"
+    "at": "2026-11-18"
   },
   "src/zhou/data/earlyDynastyMore.ts#zhou-shenhou": {
     "stamp": "4b1ec83",
@@ -112,12 +112,12 @@
   "src/zhou/data/earlyDynastyMore.ts#zhou-gonghe-jing": {
     "stamp": "3ee15203",
     "page": "史記/卷004",
-    "at": "2026-11-06"
+    "at": "2026-11-18"
   },
   "src/zhou/data/studentEvents.ts#cefeng-sanjin": {
     "stamp": "c7590aa1",
     "page": "資治通鑑/卷001",
-    "at": "2026-11-06"
+    "at": "2026-11-18"
   },
   "src/zhou/data/studentEvents.ts#mengzi-hui": {
     "stamp": "4fb24bbc",
@@ -152,7 +152,7 @@
   "src/zhou/data/timeline.ts#unify": {
     "stamp": "2ca505ef",
     "page": "史記/卷006",
-    "at": "2026-11-06"
+    "at": "2026-11-18"
   },
   "src/zhou/data/timelineMore.ts#guiling": {
     "stamp": "4b7de027",

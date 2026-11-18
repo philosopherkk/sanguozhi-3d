@@ -555,7 +555,7 @@ export const EARLY_DYNASTY_MORE_EVENTS: ZhouTimelineEvent[] = [
 
 討論：昭王南征不復與穆王征犬戎，在《周本紀》中相連，構成西周由盛轉衰的敘事轉折。本圖不因此改變色塊，因為兩件事都沒有產生可考的行政變化。`,
     outcomeSource: '《國語·周語上》（祭公謀父諫穆王）；《史記·周本紀》；《穆天子傳》（汲冢書，郭璞注）；《竹書紀年》古本（穆王條）',
-    classicQuote: '王遂征之，得四白狼、四白鹿以歸。自是荒服者不至。',
+    classicQuote: '王遂征之，得四白狼四白鹿以歸。自是荒服者不至。',
     classicSource: '《史記·周本紀》。祭公諫辭只取「先王耀德不觀兵」，不全篇照抄。',
     paraphrase: false,
     layers: {
