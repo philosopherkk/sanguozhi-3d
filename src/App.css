@@ -2263,7 +2263,7 @@ html[data-theme='light'] .app-footer {
 
 .person-rank {
   font-variant-numeric: tabular-nums;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: var(--accent-dim);
   min-width: 1.1rem;
 }
@@ -2420,7 +2420,7 @@ html[data-theme='light'] .app-footer {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   padding: 0.08rem 0.35rem;
   border: 1px solid;
   color: var(--ink-muted);
@@ -2537,7 +2537,7 @@ html[data-theme='light'] .app-footer {
 .timeline-type {
   display: inline-block;
   margin-left: 0.4rem;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   color: var(--accent-dim);
   border: 1px solid var(--line);
@@ -2571,7 +2571,7 @@ html[data-theme='light'] .app-footer {
   padding: 0.4rem clamp(0.85rem, 2.5vw, 1.5rem);
   border-top: 1px solid var(--line);
   background: var(--bg-deep);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: var(--accent-dim);
   line-height: 1.4;
 }
@@ -2593,7 +2593,7 @@ html:not([data-theme='light']) .app-footer {
 
 .app-footer__toggle {
   font: inherit;
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   padding: 0.15rem 0.4rem;
   border: 1px solid var(--line);
@@ -2697,7 +2697,7 @@ html:not([data-theme='light']) .app-footer {
 }
 
 .topic-switch__range {
-  font-size: 0.58rem;
+  font-size: 0.75rem;
   letter-spacing: 0.04em;
   opacity: 0.75;
   font-variant-numeric: tabular-nums;
