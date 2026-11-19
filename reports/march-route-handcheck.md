@@ -111,3 +111,27 @@ PR：已存在 #176（OPEN）
 push：remote tip d6a50be 經 range-diff 核係自己舊鏈，--force-with-lease 推 7600c4f，
       ls-remote 與 rev-parse HEAD 一致
 PR：已存在 #176（OPEN、MERGEABLE）
+
+## 【march｜2026-11-20】第十八輪（60 分鐘）
+
+基準：944b0e6 → 本輪 HEAD 見 git log（3 個 commit：兩斷言 commit＋本報告）
+完成：
+  1. 幾何修正：kam-fall 終點、muro-takauji-kyo 起點原共用節點 [860.1,738.2] 實為今小田原位置
+     （139.15E,35.26N），與 source 字面「攻鎌倉」「自鎌倉」矛盾；兩線端点移正至今鎌倉
+     [880.1,734.6]（139.55E,35.32N，日文維基「鎌倉」條），source 補古今對照註。
+     同名節點在 kawagoe／osaka-march／戊辰東海道／ishibashi 等線屬東海道過路點，未動；
+     kam-yoritomo 訖點、kam-jokyu 起點 source 無字面地名，照手冊不動不斷言。
+  2. 斷言六條：kam-fall 訖＝鎌倉、muro-takauji-kyo 起＝鎌倉／訖＝京都御苑、
+     kam-jokyu 訖＝京都御苑（「上京」字面）、nara-fujiwara-nakamaro 起＝平城京
+     （平城宮 135.80,34.69）、edo-1789 起＝松前沖（松前城 140.11,41.43）。
+驗證：check_route_landmarks＝86 條失敗 0；audit:map fail 0｜warn 0；tsc=0；
+      selfcheck 命中 0 新漢字 0；chars exit=0；gates before/after exit=0（無惡化）。
+放棄：kam-yoritomo／kam-jokyu 起訖鎌倉側（source 無字面）、muro-meitoku／muro-onin／
+      muro-kannou（無字面端點／零長線）、nara-emishi、edo-1609／1669（端點喺海面無字面地名）、
+      edo-1789 終點（國後西沖，與維基島址距約百公里）、hogen／heiji／kurikara／dannoura 等未及／
+      原因＝時間所限或依手冊「史料沒寫的端點不寫斷言」。
+觀察（非本 agent 範圍）：edoPack.ts edo-1609 source 有簡體字（「萨摩」「冲绳」等），屬 origin/main 既有狀況，
+      交 chars／content 輪處理。
+指標：端點斷言 80 → 86；失敗 0；gates 全 exit=0；audit:map fail 0｜warn 0
+push：fast-forward（944b0e6..4f00092），未用 force；ls-remote 與 rev-parse HEAD 一致
+PR：已存在 #176（OPEN、沿用）
