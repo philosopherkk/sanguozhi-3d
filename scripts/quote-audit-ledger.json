@@ -225,54 +225,54 @@
     "at": "2026-11-19"
   },
   "src/data/battles.json#battle-conquest-wu": {
-    "stamp": "4f74fad4",
+    "stamp": "9e1dc24d",
     "page": "資治通鑑/卷081",
-    "at": "2026-11-06"
+    "at": "2026-11-19"
   },
   "src/data/battles.json#battle-balang": {
-    "stamp": "3f5b652d",
+    "stamp": "48c14abc",
     "page": "資治通鑑/卷065",
-    "at": "2026-11-06"
+    "at": "2026-11-19"
   },
   "src/data/battles.json#battle-hanzhong-campaign": {
-    "stamp": "54046ef0",
+    "stamp": "beebe13",
     "page": "資治通鑑/卷068",
-    "at": "2026-11-06"
+    "at": "2026-11-19"
   },
   "src/data/battles.json#battle-hefei-253": {
-    "stamp": "5ae31810",
+    "stamp": "c18449b",
     "page": "資治通鑑/卷076",
-    "at": "2026-11-06"
+    "at": "2026-11-19"
   },
   "src/data/people.json#cao-cao": {
-    "stamp": "e785a843",
+    "stamp": "48c14abc",
     "page": "三國志/卷01",
-    "at": "2026-11-06"
+    "at": "2026-11-19"
   },
   "src/data/people.json#cao-pi": {
-    "stamp": "ef4b7bad",
+    "stamp": "45891d3d",
     "page": "三國志/卷02",
-    "at": "2026-11-06"
+    "at": "2026-11-19"
   },
   "src/data/people.json#sima-yi": {
-    "stamp": "fa53409d",
+    "stamp": "58bd0133",
     "page": "晉書/卷001",
-    "at": "2026-11-06"
+    "at": "2026-11-19"
   },
   "src/data/people.json#sima-zhao": {
-    "stamp": "e0d217cc",
+    "stamp": "3e0b1055",
     "page": "晉書/卷002",
-    "at": "2026-11-06"
+    "at": "2026-11-19"
   },
   "src/data/people.json#sima-yan": {
-    "stamp": "2f7e5815",
+    "stamp": "41433dd4",
     "page": "晉書/卷003",
-    "at": "2026-11-06"
+    "at": "2026-11-19"
   },
   "src/data/people.json#liu-bei": {
-    "stamp": "3b247e88",
+    "stamp": "ec2de380",
     "page": "三國志/卷32",
-    "at": "2026-11-06"
+    "at": "2026-11-19"
   },
   "src/data/people.json#liu-shan": {
     "stamp": "a51d5425",
