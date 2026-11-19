@@ -412,14 +412,15 @@
     "reading": "sǐ Zhūgě zǒu shēng Zhòngdá",
     "meaningZhHant": "比喻對手活時難敵，死後仍令人畏懼退避。",
     "eraLink": {
-      "kind": "year",
+      "kind": "event",
+      "id": "wuzhang",
       "year": 234
     },
     "source": {
       "class": "史籍",
       "cite": "《晉書·宣帝紀》"
     },
-    "note": "記民間諺語，非《三國志》正文。",
+    "note": "記民間諺語，非《三國志》正文。《晉書·宣帝紀》青龍一段記亮歿後追軍至赤岸，並言時百姓為之諺，懿聞而笑曰「吾便料生，不便料死故也」。本事即建興十二年（234）五丈原之役，《三國志·蜀書·諸葛亮傳》記由斜谷出、屯五丈原、與司馬懿對峙渭南；本倉該役載於 `src/data/marchRoutes.ts` 的 `wuzhang`，年錨仍取 234。",
     "locale": "zh"
   },
   {
