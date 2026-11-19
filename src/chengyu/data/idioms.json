@@ -149,6 +149,23 @@
     "locale": "zh"
   },
   {
+    "id": "cn-chengyu-xiongnuweimie",
+    "lemma": "匈奴未滅，無以家為",
+    "reading": "xiōngnú wèi miè, wú yǐ jiā wéi",
+    "meaningZhHant": "漢武帝替霍去病修建第宅，令他去看，他辭讓不受，謂匈奴尚未消滅，無以家為。後世用此語形容以身許國、不以家室之私為念。",
+    "eraLink": {
+      "kind": "event",
+      "id": "mobei",
+      "year": -119
+    },
+    "source": {
+      "class": "史籍",
+      "cite": "《史記·衛將軍驃騎列傳》"
+    },
+    "note": "《史記》卷一一一《衛將軍驃騎列傳》：「匈奴未滅，無以家為也。」《漢書》卷五十五同事作「匈奴不滅，無以家為也」，兩書文字小異，並存不取一。此語在本傳屬史家總敘其為人，未繫年，今掛漠北之戰（元狩四年），以其在同段敘次之後。後世通行引作「匈奴未滅，何以家為」，屬節引異文，非兩漢本傳原文。",
+    "locale": "zh"
+  },
+  {
     "id": "cn-chengyu-xueyerucaizhou",
     "lemma": "雪夜入蔡州",
     "reading": "xuě yè rù Cài zhōu",
