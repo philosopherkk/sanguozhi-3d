@@ -930,7 +930,9 @@
 
    做法是下限而非重排：低於 10px 者一律提到 11px（0.6875rem），
    10–11px 提到 11.5px（0.71875rem），11–11.5px 提到 12px（0.75rem），
-   已是 12px 者不動。相對大小次序保持不變，兩欄版面與側欄密度
+   已是 12px 者不動。其後 ui 佇列把一般介面（按鈕、清單、卡片、說明
+   文字）一律改以 12px 為下限，地圖與圖層列標籤仍保留 11／11.5px 的
+   階次，故下面每組規則分開撰寫。相對大小次序保持不變，兩欄版面與側欄密度
    （15 個勢力 chip、行軍圖例）只受 +1～1.7px 的影響。全部以 rem 寫，
    故「小／大」字級控制（FONT_STEPS 改 html 百分比）仍可相乘縮放。
 
@@ -958,15 +960,19 @@
   .map-layer-bar__fold span {
     font-size: 0.6875rem;
   }
-  /* 10.4–10.9px → 11.5px */
+  /* 10.4–10.9px → 12px：一般介面文字（時間軸說明、標題連結提示、
+     事件類型、年號、頁籤年份、勢力 chip） */
   .year-scrubber__hint,
-  .side-rail__map-first,
   .timeline-title-link__hint,
   .timeline-type,
   .app-header__nengo,
-  .map-2d__basemap-title,
   .content-dock__tab-year,
   .faction-chip {
+    font-size: 0.75rem;
+  }
+  /* 地圖標題與側欄地圖首行：字級與縮放綁定，維持原 11.5px 下限 */
+  .side-rail__map-first,
+  .map-2d__basemap-title {
     font-size: 0.71875rem;
   }
   /* 11.5px → 12px */
