@@ -946,12 +946,15 @@
    已記錄），但 fine 正是桌面預設值，三個視窗即可直接驗證本區。
    ============================================================ */
 @media (min-width: 860px) and (pointer: fine) {
-  /* 9.3–9.9px → 11px */
+  /* 9.3–9.9px → 12px：一般介面文字（專題年份、時間軸說明、頁腳開關） */
   .topic-switch__range,
-  .map-2d__dynasty-hint,
   .year-scrubber__note,
   .year-scrubber__note-toggle,
-  .app-footer__toggle,
+  .app-footer__toggle {
+    font-size: 0.75rem;
+  }
+  /* 地圖與圖層列標籤：字級與縮放綁定，維持原 11px 下限 */
+  .map-2d__dynasty-hint,
   .map-layer-bar__fold span {
     font-size: 0.6875rem;
   }
