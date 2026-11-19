@@ -2133,7 +2133,7 @@ html[data-theme='light'] .app-footer {
 
 .chengyu-card__note {
   margin: 0 0 0.35rem;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   line-height: 1.45;
   color: var(--ink-muted);
   font-style: italic;
@@ -2256,7 +2256,7 @@ html[data-theme='light'] .app-footer {
 
 .person-card__cta {
   margin: 0.3rem 0 0;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   color: var(--accent-dim);
 }
@@ -2320,7 +2320,7 @@ html[data-theme='light'] .app-footer {
 
 .article-panel__collapse {
   font: inherit;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   padding: 0.25rem 0.45rem;
   border: 1px solid var(--line);
@@ -2331,7 +2331,7 @@ html[data-theme='light'] .app-footer {
 
 .article-panel__close {
   font: inherit;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   padding: 0.25rem 0.45rem;
   border: 1px solid var(--line);
@@ -2343,7 +2343,7 @@ html[data-theme='light'] .app-footer {
 
 .article-panel__source {
   margin: 0 0 0.4rem;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   color: var(--accent);
   letter-spacing: 0.06em;
 }
@@ -2364,7 +2364,7 @@ html[data-theme='light'] .app-footer {
 
 .article-panel__note {
   margin: 0.45rem 0 0;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   line-height: 1.4;
   color: #c9a060;
 }
