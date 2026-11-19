@@ -2996,7 +2996,7 @@ html:not([data-theme='light']) .app-footer {
 .event-detail__quote cite {
   display: block;
   margin-top: 0.4rem;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-style: normal;
   letter-spacing: 0.06em;
   color: var(--accent-dim);
@@ -3246,7 +3246,7 @@ html:not([data-theme='light']) .topic-switch button.is-active {
 }
 
 .timeline-title-link__hint {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   letter-spacing: 0.1em;
   color: var(--accent-dim);
 }
@@ -3420,13 +3420,13 @@ html:not([data-theme='light']) .topic-switch button.is-active {
 }
 
 .people-aka {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: var(--accent-dim);
 }
 
 .people-role {
   margin-left: auto;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   letter-spacing: 0.1em;
   color: var(--accent);
 }
@@ -3552,7 +3552,7 @@ html:not([data-theme='light']) .topic-switch button.is-active {
 }
 
 .unreg-panel__place {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 400;
   letter-spacing: 0.02em;
   color: var(--ink-muted);
