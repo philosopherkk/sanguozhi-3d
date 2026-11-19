@@ -115,6 +115,7 @@ npm run lint           # 0 error
 ## 5. 併發時鐘（OpenCode 排程，Asia/Hong_Kong，皆於整點 :10 觸發）
 
 設計使**任一時刻最多一支**執行：每兩小時只排一支，單輪預算 60 分鐘（`HF_AGENT_BUDGET_MIN`），鎖在「開工滿 100 分鐘且最後心跳超過 35 分鐘」時才視為已死（`HF_AGENT_STALE_MIN`、`HF_AGENT_HB_MIN`）。每次跑 `sh scripts/agent-run.sh left` 會刷新心跳，所以做事的一輪可以超過 100 分鐘而不被接手（本機模型每步約 2 至 3 分鐘，一輪實測近 70 分鐘）。
+2026-11-18—19 曾連環 BUSY 三輪：排程工作階段實際開工可遲 50—90 分鐘，舊鎖只按開工時間判「仍在跑」，把後續輪次卡死；心跳制的用意是令確實在做事的一輪可逾 100 分鐘而不被接手，死鎖則須開工與心跳兩條線都過期才可接手。
 即使某輪超時，下一支開工時 `sh scripts/agent-run.sh start <key>` 會印 `BUSY` 並結束，不會疊上去。
 
 | Agent | cron | 每日次數 |
@@ -129,7 +130,7 @@ npm run lint           # 0 error
 
 ### 互斥鎖與自檢工具
 
-- `sh scripts/agent-run.sh start|left|end <key>`：鎖檔 `$HOME/.historyfirst-agent.lock`，`start` 印 `GO` 或 `BUSY`，`left` 印 `LEFT` 或 `TIMEUP`。
+- `sh scripts/agent-run.sh start|left|end <key>`：鎖檔 `$HOME/.historyfirst-agent.lock`（三行：key、開工秒、最後心跳秒），`start` 印 `GO` 或 `BUSY`，`left` 印 `LEFT` 或 `TIMEUP` 並刷新心跳。
 - `node scripts/agent-selfcheck.mjs [base]`：查新增行的簡體字、粵語虛詞（`src/`）、拉丁亂碼、工具呼叫殘骸、衝突標記，並列出新漢字供人工核對。只看已追蹤或已 `git add` 的檔案。
 - 佇列工具：`scripts/audit_event_depth.mjs`（enrich）、`scripts/quote-audit-ledger.json`（accuracy）、`scripts/check_route_landmarks.py --unasserted`（march）、`scripts/check_ring_landmarks.py --unasserted`（map）、`scripts/ui_queue.mjs`（ui）、`scripts/wp_coord.py`（查座標）。
 
