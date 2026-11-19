@@ -90,3 +90,24 @@ PR：已存在 #176（OPEN）
       130.55,31.60、小田原城 139.15,35.25、江戸城 139.75,35.69）／原因＝剩 9 分鐘，
       手冊指令「剩 10 分鐘內不开新項」；下輪直接落呢四條斷言再接佇列。
 指標：端點斷言 55 → 62；失敗 0；gates before/after exit=0；push 為 fast-forward。
+
+## 【march｜2026-11-19】第十七輪（60 分鐘）
+
+基準：f5d6c87 → 本輪 HEAD 見 git log（6 個 commit：斷言 5 個＋本報告）
+背景：PR #176 嘅 commit 鏈已入 origin/main（git log origin/main..HEAD 開工時為空），
+      PR 仍未 close，照手冊沿用不重開。
+完成（全部只新增 scripts/check_route_landmarks.py ASSERTS，路線幾何未動）：
+  1. komaki／kyushu／odawara／oshu 四斷言（座標沿第十六輪已查值）
+  2. korea-1598 起訖（順天灣口 127.49,34.95 容差 40；博多灣口 130.33,33.68 同白村江條口徑）
+  3. choshu-1866 起訖（京都御苑；岩國城 132.17,34.18）
+  4. toba-bakufu 起訖（大阪城 135.53,34.69；伏見稻荷 135.77,34.97）、tokaido-1868 訖（江戶城）、
+     hakodate-land 起（若松城 139.93,37.49）
+  5. nagaoka-1868 起訖（丸岡城；長岡城 138.85,37.45）、aizu-1868 起訖（長岡城；若松城）
+  6. perry-1854 起訖（下田港 138.95,34.67；浦賀 139.71,35.25）
+驗證（每批）：check_route_landmarks 失敗 0；audit:map fail 0｜warn 0；selfcheck 命中 0；chars exit=0
+放棄：hakodate-land 終點（津輕，端點喺海面、無字面城砦可錨）；hogen／heiji 等京都近邑線未及／
+      時間所限，下輪接佇列由 perry-1854 之後（choshu 已做，續 nara-fujiwara-nakamaro 等）。
+指標：端點斷言 66 → 80；失敗 0；gates before/after exit=0；tsc=0；build=0；lint=0；chars exit=0
+push：remote tip d6a50be 經 range-diff 核係自己舊鏈，--force-with-lease 推 7600c4f，
+      ls-remote 與 rev-parse HEAD 一致
+PR：已存在 #176（OPEN、MERGEABLE）
