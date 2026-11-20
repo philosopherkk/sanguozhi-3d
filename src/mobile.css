@@ -306,7 +306,7 @@
     outline-offset: 2px;
   }
   .map-2d__credit__body {
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     line-height: 1.3;
     /* 地圖單開路徑中 credit 是貼底的最後一個元素，故加安全區；
        有分頁條的頁面 credit 不貼底，多出的留白無害 */
@@ -973,12 +973,10 @@
   .faction-chip {
     font-size: 0.75rem;
   }
-  /* 地圖標題與側欄地圖首行：字級與縮放綁定，維持原 11.5px 下限 */
+  /* 11.5px → 12px：底圖標題與側欄地圖首行屬一般介面文字，
+     與圖層列按鈕、側欄標籤、月份列標籤同級 */
   .side-rail__map-first,
-  .map-2d__basemap-title {
-    font-size: 0.71875rem;
-  }
-  /* 11.5px → 12px */
+  .map-2d__basemap-title,
   .app-header__tag,
   .map-layer-bar__fold,
   .map-layer-bar__tabs button,
