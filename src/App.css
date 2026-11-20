@@ -118,7 +118,7 @@
 
 .side-rail__label {
   margin-right: auto;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.12em;
   color: var(--accent);
 }
@@ -552,7 +552,7 @@ html[data-theme='light'] .app-footer {
 }
 
 .timeline-month-bar__label {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
   color: var(--muted);
   margin-right: 0.25rem;
