@@ -174,7 +174,9 @@
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/劉禪",
     "grokipedia_url": "https://grokipedia.com/page/Liu_Shan",
-    "source": "《三國志·蜀書·後主傳》"
+    "source": "《三國志·蜀書·後主傳》",
+    "disputed": true,
+    "note": "傳有「泰始七年薨於洛陽」，卒年 271 有據；傳無享年，生年 207 乃據通行年表推算，非史文所載。"
   },
   {
     "id": "zhuge-liang",
@@ -420,7 +422,9 @@
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/姜維",
     "grokipedia_url": "https://grokipedia.com/page/Jiang_Wei",
-    "source": "《三國志·蜀書·姜維傳》"
+    "source": "《三國志·蜀書·姜維傳》",
+    "disputed": true,
+    "note": "傳有「魏將士憤發，殺會及維」，死事有據；《通鑑》卷七八繫於咸熙元年（公元二六四年），有「眾格斬維，爭前殺會」。傳無享年，生年 202 乃據通行年表推算，非史文所載。"
   },
   {
     "id": "ma-su",
