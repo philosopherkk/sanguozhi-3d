@@ -464,7 +464,8 @@
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/孫堅",
     "grokipedia_url": "https://grokipedia.com/page/Sun_Jian",
     "source": "《三國志·吳書·孫破虜討逆傳》",
-    "note": "破虜傳無享年；歷代年表生年不可據為正史定值。"
+    "disputed": true,
+    "note": "卒年異說並存：本傳繫初平三年（一九二），裴注引張璠《漢紀》、《吳歷》以爲初平二年（一九一）死，裴氏以爲「此爲是而本傳誤也」，《英雄記》則云初平四年正月。本站從裴說定卒年。《吳錄》云「堅時年三十七」，然本傳無享年明文，生年不載。"
   },
   {
     "id": "sun-ce",
@@ -558,7 +559,7 @@
     "name": "呂蒙",
     "字": "子明",
     "birth": 178,
-    "death": 220,
+    "death": 219,
     "faction_by_year": [
       {
         "faction": "孫權",
@@ -569,7 +570,8 @@
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/呂蒙",
     "grokipedia_url": "https://grokipedia.com/page/Lu_Meng",
-    "source": "《三國志·吳書·呂蒙傳》"
+    "source": "《三國志·吳書·呂蒙傳》",
+    "note": "本傳不繫卒年；《資治通鑑》卷六十八繫之於建安二十四年（西元二一九年），傳稱年四十二，故生卒作一七八—二一九。建安二十四年十二月已值西元二二〇年初，故年表或作二二〇。"
   },
   {
     "id": "lu-xun",
@@ -634,7 +636,9 @@
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/孫皓",
     "grokipedia_url": "https://grokipedia.com/page/Sun_Hao",
-    "source": "《三國志·吳書·三嗣主傳》"
+    "source": "《三國志·吳書·三嗣主傳》",
+    "disputed": true,
+    "note": "本傳無皓卒文及享年，《三國志》本文、《晉書·武帝紀》、《資治通鑑》皆未見書皓之卒，卒年二八四出通說，故標 disputed。生年二四二據本文「迎立皓，時年二十三」（其歲「於魏咸熙元年」，即元興元年、西元二六四年）。"
   },
   {
     "id": "dong-zhuo",
