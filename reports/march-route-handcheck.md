@@ -159,7 +159,9 @@ PR：已存在 #176（OPEN、沿用）
   4. 第十八輪報告兩處簡體字形修正（commit b5717b7）：一處為「端點」之「端」後字誤作簡體形，
      改正體；另一處轉錄病字句改寫為不複製字形成句。
 驗證（每批）：check_route_landmarks 失敗 0（98→107→118 條）；audit:map fail 0｜warn 0；
-      selfcheck 命中 0；chars exit=0；gates before exit=0；after 見下。
+      selfcheck 命中 0；chars exit=0；gates before exit=0；after 首跑 exit=1，乃背景跑與
+      報告 commit 並發之競態（audit:teeth-mutations 單跑失敗 0、突變 56 項全咬中；工作樹
+      淨後重跑 gates exit=0 無惡化）。
 自我修正：本輪兩度把現代市名用字心打成簡體形（「陽」「區」兩字之簡體寫作）入斷言理由，
       audit:chars 咬實（硬傷 10）後即改再推；引文座標亦因此改以中文維基正體條名為主、
       無正體座標條者取英文條並註明。
