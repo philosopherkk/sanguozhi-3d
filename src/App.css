@@ -1271,7 +1271,7 @@ html[data-theme='light'] .app-footer {
 }
 
 .map-2d__zoom-btn--text {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   height: auto;
   min-height: 1.85rem;
@@ -1279,7 +1279,7 @@ html[data-theme='light'] .app-footer {
 }
 
 .map-2d__zoom-btn--reset {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
 }
 
@@ -1390,7 +1390,7 @@ html[data-theme='light'] .app-footer {
   margin: 0;
   margin-left: auto;
   padding: 0.3rem 0.55rem;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   color: var(--ink-muted);
   background: rgba(8, 12, 14, 0.72);
@@ -1510,7 +1510,7 @@ html[data-theme='light'] .app-footer {
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
 }
 
 .power-board__swatch {
@@ -1658,7 +1658,7 @@ html[data-theme='light'] .app-footer {
   margin: 0;
   max-width: min(94%, 40rem);
   padding: 0.2rem 0.6rem;
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   line-height: 1.45;
   letter-spacing: 0.04em;
   text-align: center;
