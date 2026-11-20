@@ -3,6 +3,59 @@
 > `agent/ui` 排程輪值之逐輪記錄，格式依 `docs/agents/README.md` §6。
 > 只記錄已執行指令的輸出；未經指令證實者不寫。
 
+## 【ui｜2026-11-21 04:10】
+
+基準：`95ea98b` → 本輪 HEAD：`7ff3ac4`（2 個 commit：`eea9ad7`、`7ff3ac4`）
+工作區：`git status --porcelain` 輸出＝空（開工與每次 commit 前皆空）
+
+### 完成項目
+
+1. **時間軸舞臺說明文字低於下限**／`src/App.css:1393`（`.map-stage__hint`）／0.68rem → 0.75rem／
+   實測 `?c=japan&e=sengoku`：1440px 由 10.9px → 12px，框寬 320px、`scrollWidth == clientWidth`
+   （318＝318，無截斷），框高 44px → 46px；390px 為 13px、768px 為 14px（原已達標）。
+2. **勢力欄標籤低於下限**／`src/App.css:1513`（`.power-board__label`）／0.72rem → 0.75rem／
+   實測 `?c=china&e=qin`：1440px 由 11.5px → 12px，框寬 268px、無內部溢出。
+3. **縮放按鈕文字低於下限**／`src/App.css:1274`、`1282`（`.map-2d__zoom-btn--text`／`--reset`）／
+   0.72rem／0.7rem → 0.75rem／實測 1440px 由 11.5px／11.2px → 12px，按鈕 40×24 → 41×24px，
+   `scrollWidth == clientWidth`（39＝39，未爆字）；390px 按鈕仍 44×44px（≥44px 觸控下限成立）。
+4. **國號未立年之地圖提示低於下限**／`src/App.css:1661`、`src/mobile.css:959`（桌面斷點區塊）／
+   0.6rem／0.6875rem → 0.75rem／實測 `?c=china&e=zhou`：1440px 由 11px → 12px，框寬 361px、
+   `scrollWidth == clientWidth`（359＝359，無截斷），框高 40px → 43px；三寬皆
+   `documentElement.scrollWidth == clientWidth`（無橫向溢出）。
+5. **側欄分區標籤與月份列標籤之基準值低於下限**／`src/App.css:121`、`555`／0.72rem → 0.75rem／
+   實測三寬字級不變（390px 13px、768px 14px、1440px 12px），因 `src/mobile.css` 已有更高優先級
+   規則覆蓋；本項只把 `App.css` 的基準值升至同一個下限，不改變現有版面。
+
+驗證（每次 commit 前）：`audit_mobile_css.mjs` 0、`audit_contrast.mjs` 0、`npx tsc -b` 0、
+`npm run build` 0、`agent-selfcheck` 命中 0、`audit:chars` 硬傷 0。
+
+### 放棄清單（剩 11 條 font，全部附實證）
+
+1. `src/App.css:1031`（`.map-2d__toggles button`）／該 class 只出現在 `src/lib/mapViewport.tsx:351`
+   的 `closest()` 字串，全站無元素掛此 class，無法實測。
+2. `src/App.css:1858`、`1903`、`1915`（`.map-view-controls__title`／`__btn--reset`／`__hint`）／
+   元件 `MapViewControls` 只在自身檔案定義，`grep` 全 repo 無任何匯入，未掛載於任何頁面。
+3. `src/App.css:2832`、`2847`、`2909`、`2917`（`.era-map__credit`／`__kicker`／`__band-label`／`__band-range`）／
+   只由 `JapanEraMap` 使用，其父 `JapanHistoryApp` 無被任何處匯入（`src/App.tsx` 無此路線）。
+4. `src/App.css:2940`、`2945`（`@media (max-width: 640px)` 之密集刻度 0.62／0.58rem）／
+   390px 實測 `?c=japan&e=sengoku` 刻度為 9.9px／9.3px；上一輪已實測提升後 `tang`、`edo` 刻度重疊，
+   屬刻意壓小。
+5. `src/App.css:258`（`.map-stage-dock__hint`）／只在收起之「勢力檢視」Dock 內渲染；390px 點選州郡後
+   實測該處字級已是 13px（非 0.58rem），且文字已被省略號截短（需要 27px、僅得 21px），
+   故該基準值在可達視口不生效，改字級反而加劇截短。
+
+### 指標
+
+`ui_queue`：開工 a11y 0｜alt 0｜font 19｜focus-visible 1 → 收工 **a11y 0｜alt 0｜font 11｜focus-visible 1**
+`audit:mobile` 0 → 0；`audit:contrast` 0 → 0；tsc 0；build 0；`audit:chars` 硬傷 0。
+`npm run gates`（開工基準）exit=0；收工值見下。
+
+### 下輪建議
+
+- 「勢力檢視」Dock 於 390px 收起時，其標題列只剩 21px 寬，「曹魏」兩字已被省略號截短（需 27px）：
+  要修的是 `.map-stage-dock__hint` 的寬度與 flex 配置（`src/App.css:257`），非字級。
+- 佇列剩餘 11 條 `font` 全部屬「元件未掛載」或「刻意壓小」兩類，依手冊停止條件，`font` 實質已清空。
+
 ## 【ui｜2026-11-20 14:52】
 
 基準：`a0918e2` → 本輪 HEAD：`359376b`（3 個 commit：`6449ba2`、`bd7ccaa`、`359376b`）
