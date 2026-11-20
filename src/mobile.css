@@ -955,11 +955,9 @@
   .app-footer__toggle {
     font-size: 0.75rem;
   }
-  /* 地圖提示文字：字級與縮放綁定，維持原 11px 下限 */
-  .map-2d__dynasty-hint {
-    font-size: 0.6875rem;
-  }
-  /* 11px → 12px：圖層列的展開按鈕與其說明文字屬一般介面文字 */
+  /* 11px → 12px：圖層列的展開按鈕、其說明文字與國號未立年的
+     地圖提示，皆屬一般介面文字，非與縮放綁定之圖上標籤 */
+  .map-2d__dynasty-hint,
   .map-layer-bar__fold span {
     font-size: 0.75rem;
   }
