@@ -174,3 +174,34 @@ PR：已存在 #176（OPEN、沿用）
 指標：端點斷言 80 → 118；失敗 0；audit:map fail 0｜warn 0；tsc exit=0
 push：fast-forward（c17700e..d96677b），未用 force；origin/agent/march 與 rev-parse HEAD 一致
 PR：已存在 #176（OPEN、MERGEABLE、沿用）
+
+## 第二十輪（2026-11-21）
+
+路線：`agent/march`（HEAD 4002e12 起）。佇列 42 條無斷言路線，依序取三國段。
+
+完成：
+  1. 三國九線十斷言（commit 893e0c1，路線幾何未動，端點全在容差內）：
+     yizhou 起＝公安（孱陵故地，今湖北公安，英文條 112.17,29.93，中文條無座標；
+       縣域中心與縣治有偏移，容差二十）訖＝成都（qsrc 核《三國志》卷三十二「圍成都」）；
+     hanzhong 起＝成都 訖＝漢中今漢中市區（107.02,33.07）；
+     nanzhong 起＝成都（source 字面「成都沿岷江至僰道後分三路」）；
+     nanzhong-west／nanzhong-east 起＝僰道今宜賓市區（104.64,28.75，
+       qsrc 核《華陽國志》卷三「僰道」）；
+     beifa 起＝成都；beifa-qishan 起＝漢中（qsrc 核卷三十五「祁山」十一處）；
+     chencang 訖＝陳倉今寶雞市區（107.24,34.36，qsrc 核卷三十五「圍陳倉」，終點距約八公里）。
+  2. wuzhang 終點移正（commit 5f88b22）：原終點節點距今陝西岐山縣五丈原鎮偏東約五十八公里；
+     依《三國志·蜀書·諸葛亮傳》「屯五丈原」（qsrc 核卷三十五）與維基五丈原條
+     （岐山縣縣城南約二十公里）、岐山縣條縣治座標（107.62,34.44）向南推約二十公里
+     （約 107.62,34.26）設終點，刪偏東節點兩個；source 補今地一句。新增斷言釘住。
+驗證（每批）：check_route_landmarks 失敗 0（118→128→129 條）；audit:map fail 0｜warn 0；
+      selfcheck 命中 0（新漢字均為正體地名用字）；chars 硬傷 0；
+      gates before exit=0、after exit=0（無惡化，war-shape schematic 57、event-depth gap 0）。
+放棄／不斷言：zhanglu 訖（陽平故址多說，無逐字佐證與可溯源座標條，維持漢中側節點）、
+      hebei／wuhuan／tongguan（無字面端點地名或古址多說）、shu-fall／wu-fall（示意線、
+      端點非字面城邑）、chencang 起（散關為關隘非城邑）、wuzhang 起（斜谷同上）。
+觀察項（留佇列）：liaodong 起＝洛陽與 source「自冀幽」不符（幽州治所異說，未動）；
+      zhonghui 訖抵成都與名字面「入漢中」不符（覆核《資治通鑑》卷七十八後再定）；
+      xiapi 訖在徐州市區側（古邳說並存）。
+指標：端點斷言 118 → 129；失敗 0；無斷言路線 42 → 33；audit:map fail 0｜warn 0；tsc exit=0
+push：fast-forward（4002e12..5f88b22），未用 force
+PR：已存在 #176（OPEN，沿用）
