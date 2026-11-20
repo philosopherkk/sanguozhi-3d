@@ -117,7 +117,7 @@ PR：已存在 #176（OPEN、MERGEABLE）
 基準：944b0e6 → 本輪 HEAD 見 git log（3 個 commit：兩斷言 commit＋本報告）
 完成：
   1. 幾何修正：kam-fall 終點、muro-takauji-kyo 起點原共用節點 [860.1,738.2] 實為今小田原位置
-     （139.15E,35.26N），與 source 字面「攻鎌倉」「自鎌倉」矛盾；兩線端点移正至今鎌倉
+     （139.15E,35.26N），與 source 字面「攻鎌倉」「自鎌倉」矛盾；兩線端點移正至今鎌倉
      [880.1,734.6]（139.55E,35.32N，日文維基「鎌倉」條），source 補古今對照註。
      同名節點在 kawagoe／osaka-march／戊辰東海道／ishibashi 等線屬東海道過路點，未動；
      kam-yoritomo 訖點、kam-jokyu 起點 source 無字面地名，照手冊不動不斷言。
@@ -130,7 +130,7 @@ PR：已存在 #176（OPEN、MERGEABLE）
       muro-kannou（無字面端點／零長線）、nara-emishi、edo-1609／1669（端點喺海面無字面地名）、
       edo-1789 終點（國後西沖，與維基島址距約百公里）、hogen／heiji／kurikara／dannoura 等未及／
       原因＝時間所限或依手冊「史料沒寫的端點不寫斷言」。
-觀察（非本 agent 範圍）：edoPack.ts edo-1609 source 有簡體字（「萨摩」「冲绳」等），屬 origin/main 既有狀況，
+觀察（非本 agent 範圍）：edoPack.ts edo-1609 source 有簡體字形兩詞（「薩摩」「沖繩」兩詞之簡體寫作，此處不逐字複製病字），屬 origin/main 既有狀況，
       交 chars／content 輪處理。
 指標：端點斷言 80 → 86；失敗 0；gates 全 exit=0；audit:map fail 0｜warn 0
 push：fast-forward（944b0e6..4f00092），未用 force；ls-remote 與 rev-parse HEAD 一致
