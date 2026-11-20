@@ -744,7 +744,9 @@
     "role": "政治",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/劉表",
     "grokipedia_url": "https://grokipedia.com/page/Liu_Biao",
-    "source": "《三國志·魏書·劉表傳》"
+    "source": "《三國志·魏書·劉表傳》",
+    "disputed": true,
+    "note": "卒年有據：本傳「建安十三年，太祖征表，未至，表病死」。生年一四二出後世年表推算，本傳無年壽明文（僅裴注引謝承《漢書》記其「時年十七」進諫王暢事，不繫歲），故標 disputed。"
   },
   {
     "id": "liu-zhang",
@@ -950,7 +952,9 @@
     "role": "謀士",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/荀彧",
     "grokipedia_url": "https://grokipedia.com/page/Xun_Yu",
-    "source": "《三國志·魏書·荀彧傳》"
+    "source": "《三國志·魏書·荀彧傳》",
+    "disputed": true,
+    "note": "卒年與年壽有據：本傳「彧疾留壽春，以憂薨，時年五十」，下文「明年，太祖遂爲魏公矣」（建安十七年薨，故生卒作一六三—二一二）。死因有異說：本文以爲憂薨，裴注引《魏氏春秋》則以爲太祖饋之空器、「於是飲藥而卒」，二說並存，故標 disputed。"
   },
   {
     "id": "xun-you",
