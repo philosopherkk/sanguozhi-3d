@@ -114,11 +114,19 @@ function DeepDiveYearScrubber({ pack }: { pack: JapanDeepDivePack }) {
             onClick={() => setYear(t.year)}
             title={`${t.year}${t.label ? ` ${t.label}` : ''}`}
           >
-            <span className="year-scrubber__tick-year">{t.year}</span>
+            {/* 年份文字必須由 layoutTicks 的防撞結果決定：無條件渲染會令窄視口
+                （390px）的刻度互相重疊，其他七支滑桿均按 showYear 渲染。 */}
+            <span
+              className={
+                t.showYear
+                  ? 'year-scrubber__tick-year'
+                  : 'year-scrubber__tick-dot'
+              }
+            >
+              {t.showYear ? t.year : t.showDot ? '·' : ''}
+            </span>
             {t.showLabel && t.label ? (
               <span className="year-scrubber__tick-label">{t.label}</span>
-            ) : t.showDot ? (
-              <span className="year-scrubber__tick-dot" />
             ) : null}
           </button>
         ))}
