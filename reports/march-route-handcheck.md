@@ -135,3 +135,40 @@ PR：已存在 #176（OPEN、MERGEABLE）
 指標：端點斷言 80 → 86；失敗 0；gates 全 exit=0；audit:map fail 0｜warn 0
 push：fast-forward（944b0e6..4f00092），未用 force；ls-remote 與 rev-parse HEAD 一致
 PR：已存在 #176（OPEN、沿用）
+
+## 【march｜2026-11-20】第十九輪（60 分鐘）
+
+基準：c17700e → 本輪 HEAD 見 git log（5 個 commit：斷言 commit 3＋報告修正 1＋本報告）
+完成（全部只新增 scripts/check_route_landmarks.py ASSERTS，路線幾何未動）：
+  1. 平安九線十二斷言：hogen-taira／hogen-genji／heiji-taira／kurikara／kyoto-1183 之京師端
+     （京都御苑 135.76,35.02 同信長上洛口徑）；heiji-taira 起＝熊野方向（熊野本宮大社
+     135.77,33.84，廣域容差四十）；kurikara 起＝信濃今長野市（138.19,36.65）；
+     dannoura-land 訖＝今下關市（130.94,33.96）；dannoura-heike 起訖＝壇之浦戰場
+     （「壇ノ浦の戦い」條 130.96,33.97，泊地示意容差二十）；uji-1180 起訖＝京都／今宇治市
+     （135.80,34.88，短線容差十六）。
+  2. 三國六線九斷言：huangjin 起＝冀州廣域（漢刺史部治鄴故城 114.40,36.27，容差四十）、
+     訖＝南陽宛縣（《後漢書·朱儁傳》qsrc 逐字「時南陽黃巾張曼成起兵…屯宛下百餘日」，
+     今南陽市 112.58,33.02）；dongzhuo-changan 訖＝長安今西安市區；guandong 訖＝洛陽；
+     sunjian-luoyang 起訖＝南陽／洛陽；xudu 訖＝許今許昌市（qsrc 逐字「遂都許」）；
+     lubu-xuzhou 訖＝徐州廣域（今徐州市 117.28,34.20，下邳治所異說已註）；guandu 起＝鄴。
+  3. 三國另六線十一斷言：chibi 起＝許（source 字面「許—南陽—襄陽—江陵」，qsrc 核
+     「公進軍江陵」「公至赤壁」）；hefei 起訖＝建業今南京市／合肥今合肥市區（英文條
+     117.23,31.82，中文條無座標）；lvmeng 訖＝江陵今荊州市區；yiling 起訖＝成都／夷陵今宜昌；
+     xiangfan 訖＝襄陽；liaodong 訖＝襄平今遼陽市；zhonghui 起＝長安；xiapi 訖＝下邳廣域
+     （兩說已註）；caopi-wu 訖＝合肥一帶（source 字面「只示中路至合肥一帶」）。
+  4. 第十八輪報告兩處簡體字形修正（commit b5717b7）：一處為「端點」之「端」後字誤作簡體形，
+     改正體；另一處轉錄病字句改寫為不複製字形成句。
+驗證（每批）：check_route_landmarks 失敗 0（98→107→118 條）；audit:map fail 0｜warn 0；
+      selfcheck 命中 0；chars exit=0；gates before exit=0；after 見下。
+自我修正：本輪兩度把現代市名用字心打成簡體形（「陽」「區」兩字之簡體寫作）入斷言理由，
+      audit:chars 咬實（硬傷 10）後即改再推；引文座標亦因此改以中文維基正體條名為主、
+      無正體座標條者取英文條並註明。
+放棄／不斷言（依手冊「史料沒寫的端點不寫斷言」）：chibi 訖（赤壁戰場蒲圻／黃州兩說無座標條）、
+      guandu 訖（官渡無可溯源座標條）、zhanglu 起訖（陽平關距節點約四十公里）、
+      wuzhang 訖（五丈原與節點距約百公里）、wuhuan／hebei／wuhuan 側端（無字面地名）、
+      wu-fall 訖（「吳」非字面建業）、liaodong 起（節點取洛陽，與「自冀幽」不符）、
+      zhonghui 訖（路線抵成都，與名字面「入漢中」不符）、shu-fall／nanzhong 系列（示意線）、
+      以上 liaodong 起點與 zhonghui 終點之幾何與字面不符屬觀察項，留後續輪以史料覆核。
+指標：端點斷言 80 → 118；失敗 0；audit:map fail 0｜warn 0；tsc exit=0
+push：fast-forward（c17700e..d96677b），未用 force；origin/agent/march 與 rev-parse HEAD 一致
+PR：已存在 #176（OPEN、MERGEABLE、沿用）
