@@ -1,7 +1,17 @@
 # map｜地圖與疆域查核
 
-> 先讀 `docs/agents/README.md`。本檔只寫這支 agent 專屬的部分。
+> 本輪只讀 `docs/agents/QUICK.md` 就開工；本檔是參考，只在 QUICK 不夠時讀上面「速查」段（最多 30 行）。
 > worktree：`~/Project/historyfirst-1/historyfirst-wt-map`，分支 `agent/map`。
+
+## 速查（只看這段就夠）
+
+- 佇列：`node scripts/agent-queue.mjs map`（取無地標斷言的第一個環）。
+- 一輪最多 **4 個環**；做完就收工，剩下的寫進「下輪建議」。
+- 單項驗證：`python3 scripts/check_ring_landmarks.py > /tmp/g.log 2>&1; echo exit=$?; tail -n 5 /tmp/g.log`，失敗須為 0。
+- 快驗閘門：`npm run gates -- --only=audit:war-shape`。
+- 路線端點屬 march，不准改；commit scope 用 `(map)`。具體做法見下方。
+
+
 
 ## 目標
 
@@ -28,7 +38,7 @@
 python3 scripts/check_ring_landmarks.py --unasserted
 ```
 
-每行格式：`環id｜依據首句`。這是「沒有任何地標斷言」的環。**從第一行開始做**，每輪做 6–8 個環。
+每行格式：`環id｜依據首句`。這是「沒有任何地標斷言」的環。**從第一行開始做**，一輪最多做 4 個環。
 
 基線（開工時先跑，結尾也要跑）：
 

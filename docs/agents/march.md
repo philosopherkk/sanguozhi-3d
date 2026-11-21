@@ -1,7 +1,17 @@
 # march｜行軍路線查核
 
-> 先讀 `docs/agents/README.md`。本檔只寫這支 agent 專屬的部分。
+> 本輪只讀 `docs/agents/QUICK.md` 就開工；本檔是參考，只在 QUICK 不夠時讀上面「速查」段（最多 30 行）。
 > worktree：`~/Project/historyfirst-1/historyfirst-wt-march`，分支 `agent/march`。
+
+## 速查（只看這段就夠）
+
+- 佇列：`node scripts/agent-queue.mjs march`（取無端點斷言的第一條路線）。
+- 一輪最多 **4 條**；做完就收工，剩下的寫進「下輪建議」。
+- 單項驗證：`python3 scripts/check_route_landmarks.py > /tmp/r.log 2>&1; echo exit=$?; tail -n 5 /tmp/r.log`，失敗須為 0。
+- 快驗閘門：`npm run gates -- --only=audit:map`。
+- 疆域色塊屬 map，不准改；commit scope 用 `(march)`。具體做法見下方。
+
+
 
 ## 目標
 
@@ -25,7 +35,7 @@
 python3 scripts/check_route_landmarks.py --unasserted
 ```
 
-每行格式：`路線id｜名稱｜年份｜（海）｜起 經度E,緯度N｜訖 經度E,緯度N`。這是「還沒有任何端點斷言」的路線（開工時的數量以輸出末行為準）。**從第一行開始做**，每輪做 6–10 條。
+每行格式：`路線id｜名稱｜年份｜（海）｜起 經度E,緯度N｜訖 經度E,緯度N`。這是「還沒有任何端點斷言」的路線（開工時的數量以輸出末行為準）。**從第一行開始做**，一輪最多做 4 條。
 
 先確認基線：
 

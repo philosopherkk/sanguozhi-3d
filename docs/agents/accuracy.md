@@ -1,7 +1,18 @@
 # accuracy｜內容正確性查證
 
-> 先讀 `docs/agents/README.md`。本檔只寫這支 agent 專屬的部分。
+> 本輪只讀 `docs/agents/QUICK.md` 就開工；本檔是參考，只在 QUICK 不夠時讀上面「速查」段（最多 30 行）。
 > worktree：`~/Project/historyfirst-1/historyfirst-wt-accuracy`，分支 `agent/accuracy`。
+
+## 速查（只看這段就夠）
+
+- 佇列：`node scripts/agent-queue.mjs accuracy`（取 `at` 最舊的先查）。
+- 一輪最多 **4 條**；做完就收工，剩下的寫進「下輪建議」。
+- 單項驗證：`npm run audit:quotes > /tmp/q.log 2>&1; echo exit=$?; tail -n 5 /tmp/q.log`，「錯誤」須為 0。
+- 引文逐字核對用 `python3 scripts/qsrc.py <篇名> '<引文開頭>'`，只看匹配行。
+- 快驗閘門：`npm run gates -- --only=audit:quotes`。
+- 具體做法見下方「單一條目的做法」；只在這段不夠時往下讀。
+
+
 
 ## 目標
 
@@ -21,7 +32,7 @@ for k, v in rows:
 PY
 ```
 
-輸出每行：上次日期、出處頁名、`檔案#條目key`。**從第一行開始做**，一輪做 6–10 條。
+輸出每行：上次日期、出處頁名、`檔案#條目key`。**從第一行開始做**，一輪最多做 4 條。
 
 ## 單一條目的做法
 

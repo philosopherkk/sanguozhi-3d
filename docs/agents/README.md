@@ -1,6 +1,6 @@
 # 排程 agent 共同手冊
 
-> 五支排程 agent（enrich、accuracy、ui、march、map）每輪開工後**先讀 `docs/agents/QUICK.md`（約 30 行）**，照它做；只有手冊內容有變（或第一次跑）才回來讀本檔與自己的 `docs/agents/<key>.md`。完整手冊是疑問時的參考，不是每輪的必讀功課。
+> 五支排程 agent（enrich、accuracy、ui、march、map）每輪**只讀 `docs/agents/QUICK.md`（約 45 行）就開工**。本檔與各 `docs/agents/<key>.md` 是疑問時的參考，不是每輪必讀；若要讀，只看各檔開頭的「速查」段（最多 30 行）。重複整檔讀入會吃掉本機模型的 token，是必須避免的浪費。
 > 本檔隨 repo 版本控制，改它不需要 sudo，下一輪就生效。
 > 上位規章：`docs/SCHEDULED_AGENTS.md`（真確性鐵律）與 `AGENTS.md`。衝突時以那兩份為準。
 
@@ -20,6 +20,7 @@
 3. **所有數字、年份、地名、引文都要有出處**。查不到就標 `disputed` 或寫「通說整理，非逐字引文」，不要自己猜。
 4. **宣稱以指令輸出為準**。報告裡每個「完成」都要能用 `git log`、`git status`、指令輸出證明。
 5. **時間到就收**。每做完一項跑一次 `sh scripts/agent-run.sh left <key>`（要帶你自己的 key），不夠就收尾。
+6. **一輪最多 4 項**。做完就收工，不要為跑滿時間預算而繼續找事。剩下的寫進報告「下輪建議」。早收工比晚亂做好。
 
 ## 1. 開工流程（照順序，一步都不要跳）
 
@@ -52,6 +53,9 @@ node scripts/agent-model-check.mjs     # 比對鎖檔內容與權威 registry，
 2. **讀檔**：只讀那一項需要的幾十行。用 `grep -n` 找行號，再 `read` 那段，不要整檔讀。
 3. **小改動**：只改該項。一個 commit 最多 2–4 項。
 4. **單項驗證**：手冊裡每個項目都列了對應指令，跑了才算數。
+   - 長輸出一律重導向再看結尾：`指令 > /tmp/x.log 2>&1; echo exit=$?; tail -n 20 /tmp/x.log`。
+   - 絕不用管線接 `grep`（會吃掉失敗碼）；`head`／`tail` 只在重導向之後用。
+   - 不用內嵌 Python 印明細，改用現成腳本（`agent-queue.mjs`、`agent-report.sh`）。
 5. **自檢**（每次 commit 前，必跑三行）：
    ```sh
    git add -A

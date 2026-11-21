@@ -1,7 +1,17 @@
 # ui｜介面可用性與手機排版
 
-> 先讀 `docs/agents/README.md`。本檔只寫這支 agent 專屬的部分。
+> 本輪只讀 `docs/agents/QUICK.md` 就開工；本檔是參考，只在 QUICK 不夠時讀上面「速查」段（最多 30 行）。
 > worktree：`~/Project/historyfirst-1/historyfirst-wt-ui`，分支 `agent/ui`。
+
+## 速查（只看這段就夠）
+
+- 佇列：`node scripts/agent-queue.mjs ui`（依 focus→a11y→alt→font 順序）。
+- 一輪最多 **4 項**；做完就收工，剩下的寫進「下輪建議」。
+- 單項驗證：`node scripts/ui_queue.mjs > /tmp/u.log 2>&1; echo exit=$?; tail -n 3 /tmp/u.log`。
+- 快驗閘門：`npm run gates -- --only=audit:mobile`。
+- 地圖標籤字級一律跳過；具體做法見下方；只在這段不夠時往下讀。
+
+
 
 ## 目標
 
@@ -55,7 +65,7 @@ grep -rn "outline: *none\|outline:none" src --include=*.css   # 若有，逐條�
 2. `read` 該行上下 12 行，看這條規則屬於哪個 class。
 3. **屬於地圖或 SVG 標籤**（class 含 `map`、`label`、`route`、`svg`、`legend-dot`）：跳過，進放棄清單，原因寫「地圖標籤」。
 4. **屬於一般介面**（按鈕、清單、卡片、標題、頁籤、說明文字）：把小於 `0.75rem` 的值改成 `0.75rem`。
-5. 一次最多改 6 條，改完驗證再 commit。若改了某條之後 `audit:mobile` 變差，把那條還原。
+5. 一次最多改 4 條，改完驗證再 commit。若改了某條之後 `audit:mobile` 變差，把那條還原。
 
 ## 單項驗證（每次 commit 之前都要跑）
 

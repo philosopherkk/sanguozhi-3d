@@ -1,7 +1,17 @@
 # enrich｜內容加厚
 
-> 先讀 `docs/agents/README.md`（開工、自檢、收工、報告格式）。本檔只寫這支 agent 專屬的部分。
+> 本輪只讀 `docs/agents/QUICK.md` 就開工；本檔是參考，只在 QUICK 不夠時讀上面「速查」段（最多 30 行）。
 > worktree：`~/Project/historyfirst-1/historyfirst-wt-enrich`，分支 `agent/enrich`。
+
+## 速查（只看這段就夠）
+
+- 佇列：`node scripts/agent-queue.mjs enrich`（主線取「太短段落」表第一列）。
+- 一輪最多 **4 段**；做完就收工，剩下的寫進「下輪建議」。
+- 單項驗證：`node scripts/audit_event_depth.mjs > /tmp/d.log 2>&1; echo exit=$?; tail -n 5 /tmp/d.log`。
+- 快驗閘門：`npm run gates -- --only=audit:event-depth`。
+- 具體做法見下方「每一項的做法」；只在這段不夠時往下讀。
+
+
 
 ## 目標
 
@@ -23,7 +33,7 @@ node scripts/audit_event_depth.mjs
 sed -n '/最短 15 段/,/^## 三層意譯/p' reports/event-depth.md
 ```
 
-表格欄位是：段（起因／經過／結果）、現長、檔、事件 id、行號。**從表的第一列開始做**，做完 3–4 列就重跑一次取新的前 15 列。目前缺口約 60 段，集中在 `src/zhou/data`、`src/qinhan/data`、`src/imperial/data`。
+表格欄位是：段（起因／經過／結果）、現長、檔、事件 id、行號。**從表的第一列開始做**，做完 4 列就收工，下一輪再重跑取新的前 15 列。目前缺口約 60 段，集中在 `src/zhou/data`、`src/qinhan/data`、`src/imperial/data`。
 
 ### 佇列 2：缺小學生層的事件（主線做完或卡住時）
 
@@ -73,7 +83,7 @@ node scripts/audit_chengyu_coverage.mjs
 
 - 不改 `src/**/components/`、CSS、地圖幾何（`src/geo/`、`marchRoutes`）。
 - 不新增事件、不刪除事件、不新增成語條目（只補既有事件的欄位）。
-- 每輪最多處理 12 個段落；寧可 6 個做好。
+- 一輪最多處理 4 個段落；寧可 2 個做好。
 
 ## 停止條件
 
