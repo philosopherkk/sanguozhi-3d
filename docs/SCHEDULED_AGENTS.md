@@ -136,7 +136,7 @@ npm run lint           # 0 error
 ### 互斥鎖與自檢工具
 
 - `sh scripts/agent-run.sh start|left|end <key>`：鎖檔 `$HOME/.historyfirst-agent.lock`，`start` 印 `GO`、`WAIT` 或 `BUSY`，`left` 印 `LEFT`、`TIMEUP`、`STOP` 或 `NOT_OWNER`。
-- 收割程式 `~/.historyfirst-reaper/reap.py`（使用者層 launchd，每 10 分鐘）：鎖開工滿 90 分鐘就呼叫 `/api/session/<id>/interrupt` 中止鎖主，把該 worktree 未 commit 的改動以 `git stash push -u` 保存（避免下一輪因工作區不乾淨而停擺），再刪鎖。紀錄在 `~/.historyfirst-reaper/reaper.log`。
+- 收割程式 `~/.historyfirst-reaper/reap.py`（使用者層 launchd，每 10 分鐘）：鎖開工滿 90 分鐘就呼叫 `/api/session/<id>/interrupt` 中止鎖主，把該 worktree 未 commit 的改動以 `git stash push -u` 保存（避免下一輪因工作區不乾淨而停擺），再刪鎖。紀錄在 `~/.historyfirst-reaper/reaper.log`。。
 - `node scripts/agent-selfcheck.mjs [base]`：查新增行的簡體字、粵語虛詞（`src/`）、拉丁亂碼、工具呼叫殘骸、衝突標記，並列出新漢字供人工核對。只看已追蹤或已 `git add` 的檔案。
 - 佇列工具：`scripts/audit_event_depth.mjs`（enrich）、`scripts/quote-audit-ledger.json`（accuracy）、`scripts/check_route_landmarks.py --unasserted`（march）、`scripts/check_ring_landmarks.py --unasserted`（map）、`scripts/ui_queue.mjs`（ui）、`scripts/wp_coord.py`（查座標）。
 
