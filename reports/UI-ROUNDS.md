@@ -5,9 +5,58 @@
 
 ## 待辦摘要（每輪收工時更新，不超過 30 行）
 
-- 佇列：`node scripts/agent-queue.mjs ui`（目前 font-size 小於 0.75rem 剩 10 條；a11y／alt 已 0）。
-- 本輪先做：佇列列出的前 6 條；見底就寫「佇列已空」並停止，不要自己另覓新工作。
+- 佇列：`node scripts/agent-queue.mjs ui`（font 小於 0.75rem 剩 10 條，全部屬「元件未掛載」或「刻意壓小」兩類，實證見 11-21 兩輪記錄；a11y／alt 已 0）。佇列已空，不要自己另覓新工作。
+- 本輪先做：sengoku 頁 390px 之 `.power-board` 超出視口（本輪 11-22 記錄發現，屬既有缺陷）；其次 `--bl` 疊層三寬核驗。
 - 舊輪次往後堆；本節只寫「尚餘／下輪先做」。
+
+## 【ui｜2026-11-22 04:10】
+
+基準：`c51274a` → 本輪 HEAD：見下（本檔記錄 commit 為第 3 個）
+工作區：`git status --porcelain` 輸出＝空（開工與每次 commit 前皆空）
+
+### 完成項目
+
+1. **390px 展開「勢力檢視」Dock 超出視口（上一輪下輪建議）**／`src/App.css:1354`
+   （`.map-stage__overlay--inspect`）／加 `height: calc(100% - 1.1rem)`：Dock 的生效上限
+   `min(72vh, calc(100% - 1rem))`（`.map-stage-dock.zhou-dock` 兩類別選擇器勝過 `--tl` 一類）
+   因包含塊（疊層）高度不定而整體失效，面板高度退化為內容高。同源 iframe 390×844／768×1024／
+   1440×900 實測（`?c=china&e=sanguo` 點選州郡，localStorage 釘死展開態）：390 Dock 高
+   1194→304px、底 746＜地圖底 771、面板 `clientHeight 247＜scrollHeight 1137`（內部滾動啟動）；
+   768 底 898＜923（面板 413＜1198）；1440 底 794＜819（面板 412＜601）；三寬
+   `scrollWidth==clientWidth` 且 `scrollHeight==clientHeight`。收起態回歸：390 Dock 158.5×57.2、
+   提示「曹魏」`scrollWidth==clientWidth`＝27（768 為 29、1440 為 25，皆無截短）；地圖中央
+   `elementFromPoint` 仍為 `map-2d__province`（疊層 `pointer-events:none`，放大範圍不遮擋點擊）。
+   `audit_mobile_css=0`、`audit_contrast=0`、`npx tsc -b`=0、`build`=0、`audit:chars`=0。
+2. **同類缺陷：右上浮層之「勢力榜」Dock 展開超出視口**／`src/App.css:1371`
+   （`.map-stage__overlay--tl`，承載 `?c=china&e=sanguo` 之 `.map-stage-dock--tr`，並由
+   sengoku／bakumatsu 兩頁使用）／加同一 `height: calc(100% - 1.1rem)`／實測修正前 390 高
+   1084.3px、底 1526px（遠超視口 844，且 `clientHeight==scrollHeight` 內部滾動未啟動）；修正後
+   390 高 304px、底 746＜771、面板 247＜1027；768 高 1192.4→470.1、底 898＜923；1440 高
+   943.6→448.8、底 794＜819；三寬無溢出。回歸：bakumatsu 390 `--tl` 內 `.power-board`
+   高 185.4px、底 562px，正常；sengoku 390 見下輪建議（既有缺陷，非本輪引入：疊層高度變化
+   不影響 auto 高度子元素之佈局）。`audit_mobile_css=0`、`audit_contrast=0`、tsc=0、build=0、
+   selfcheck 命中 0（新漢字「超遮擋榜」逐個核對碼位無誤）、chars=0。
+
+### 放棄清單
+
+佇列 font 剩 10 條，與 11-21 兩輪記錄相同：`src/App.css:1032`（`.map-2d__toggles`，僅存於
+`mapViewport.tsx` 的 `closest()` 字串）、`1861/1906/1918`（`MapViewControls` 未匯入）、
+`2835/2850/2912/2920`（`JapanHistoryApp` 未匯入）、`2943/2948`（密集刻度刻意壓小，
+前輪實測提升後刻度重疊）。依手冊停止條件不做修改。
+
+### 指標
+
+`agent-queue ui`：開工 a11y 0｜alt 0｜font 10｜focus-visible 1 → 收工 相同（佇列已空，
+本輪未動字級）。`audit:mobile` 0；`audit:contrast` 0；tsc 0；build 0；chars 0。
+`npm run gates`：QUICK 卡未要求開工基準，本輪僅收工跑一次，exit 見收工輸出。
+
+### 下輪建議
+
+- sengoku 頁 390px `--tl` 疊層內 `.power-board` 高 482.9px、底 869px＞視口 844，且
+  `scrollHeight==clientHeight`（頁面不捲動），底部約 25px 不可達；屬既有缺陷，須為該板自身
+  加高度上限與內部滾動，先量三寬再改。
+- `--bl` 疊層（zhou／qinhan／heian／imperial／deepdive 五頁使用）未逐頁核驗；若其中有
+  百分比高度限制亦同樣失效，先量後改。
 
 ## 【ui｜2026-11-21 14:10】
 
