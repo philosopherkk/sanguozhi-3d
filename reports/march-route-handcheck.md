@@ -252,5 +252,6 @@ main 新增鎖心跳語義（WAIT 排隊），本輪 start 首跑即 GO。佇列
       mj-1942-midway 起訖換算口徑；scan_v v3 覆核（第十三輪值 55 未重跑）；
       三國觀察項（liaodong 起、zhonghui 訖、xiapi 訖）照第二十輪留。
 指標：端點斷言 129 → 154；失敗 0；無斷言路線 33 → 19；audit:map fail 0｜warn 0；tsc exit=0
-push：fast-forward（774baee..c86d990），未用 force
+push：rebase 至 origin/main 377e6d4 後，remote tip 仍是自己 rebase 前舊尾 774baee（已核實屬自己舊鏈），
+      依鐵律用 --force-with-lease 推 c879428；推後 origin/agent/march 與 HEAD 一致
 PR：已存在 #176（OPEN，沿用）
