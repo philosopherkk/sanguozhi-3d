@@ -11,7 +11,7 @@
 
 ## 【ui｜2026-11-22 04:10】
 
-基準：`c51274a` → 本輪 HEAD：見下（本檔記錄 commit 為第 3 個）
+基準：`c51274a` → 本輪 HEAD：見 `git log`（本節記錄之 commit 為本輪最後一個）
 工作區：`git status --porcelain` 輸出＝空（開工與每次 commit 前皆空）
 
 ### 完成項目
@@ -47,8 +47,9 @@
 ### 指標
 
 `agent-queue ui`：開工 a11y 0｜alt 0｜font 10｜focus-visible 1 → 收工 相同（佇列已空，
-本輪未動字級）。`audit:mobile` 0；`audit:contrast` 0；tsc 0；build 0；chars 0。
-`npm run gates`：QUICK 卡未要求開工基準，本輪僅收工跑一次，exit 見收工輸出。
+本輪未動字級）。`audit:mobile` 0；`audit:contrast` 0；tsc 0；build 0；chars 0；lint exit 0
+（75 條警告，與基線同數）。`npm run gates`：QUICK 卡未要求開工基準，本輪僅收工跑一次，
+exit=0（無惡化，多項指標較基線改善，屬上游資料變動）。
 
 ### 下輪建議
 
