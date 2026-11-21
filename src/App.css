@@ -1375,6 +1375,9 @@ html[data-theme='light'] .app-footer {
   transform: none;
   max-width: none;
   max-height: none;
+  /* 同 --inspect：高度必須確定，否則浮層內 Dock 的百分比 max-height
+     失效，展開態超出視口（實測 390px 勢力榜高 1084px、底 1526px） */
+  height: calc(100% - 1.1rem);
   overflow: visible;
 }
 
