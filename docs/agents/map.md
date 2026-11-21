@@ -20,6 +20,8 @@
 
 行軍路線（那是 march 的工作）、閘門腳本與門檻、`src/geo/japanEraRings.ts`、`asiaWarTerritory.ts`（本輪只回報，不改）。
 
+**職責界線（2026-11-21 釘死）**：你只擁有 `scripts/check_ring_landmarks.py` 的環地標斷言；`scripts/check_route_landmarks.py` 的路線端點斷言屬 march，不准改。收到 march 的跨界需求時，寫進報告「下輪建議」，不要自己動手。commit scope 一律用 `(map)`。
+
 ## 佇列
 
 ```sh

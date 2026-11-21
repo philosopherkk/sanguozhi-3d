@@ -14,7 +14,9 @@
  */
 import { execFileSync } from 'node:child_process'
 
-const base = process.argv[2] || 'origin/main'
+const args = process.argv.slice(2)
+const commitsOnly = args.includes('--commits')
+const base = args.find((a) => !a.startsWith('--')) || 'origin/main'
 const git = (...a) =>
   execFileSync('git', a, {
     encoding: 'utf8',
@@ -54,6 +56,39 @@ const CANTONESE = /[嘅咗唔冇喺啲嘢睇哋佢咁嚟啱諗]/
 const LATIN_BEFORE_CJK = /[A-Za-z]{4,}(?=[\u4e00-\u9fff])/
 const TOOL_ECHO = /<tool_call>|<function=|<parameter=|<\/function>/
 const HAN = /[\u4e00-\u9fff]/
+
+// --commits：只掃本輪 commit 訊息。小模型會把簡體字寫進 commit 標題，
+// 而原本的自檢只掃檔案，所以 commit 訊息一路沒人查。給 gates 用同一支字表。
+if (commitsOnly) {
+  let log = ''
+  try {
+    log = git('log', `${base}..HEAD`, '--format=%B%x00')
+  } catch (e) {
+    console.error(`git log ${base}..HEAD 失敗：${e.message.split('\n')[0]}`)
+    process.exit(2)
+  }
+  const commitHits = []
+  let n = 0
+  for (const msg of log.split('\0')) {
+    const line = msg.trim()
+    if (!line) continue
+    n++
+    for (const c of line) {
+      if (SIMPLIFIED.has(c)) commitHits.push([`commit #${n}`, `簡體字「${c}」`, line.split('\n')[0]])
+    }
+    if (TOOL_ECHO.test(line)) commitHits.push([`commit #${n}`, '工具呼叫殘骸', line.split('\n')[0]])
+    if (/^(<<<<<<<|=======$|>>>>>>>)/m.test(line)) commitHits.push([`commit #${n}`, '衝突標記', line.split('\n')[0]])
+  }
+  const seenC = new Set()
+  for (const [where, why, text] of commitHits) {
+    const k = `${where}|${why}`
+    if (seenC.has(k)) continue
+    seenC.add(k)
+    console.log(`✗ ${where}｜${why}\n    ${text.slice(0, 110)}`)
+  }
+  console.log(`\nagent-selfcheck --commits — 命中 ${seenC.size} 處／${n} 個 commit`)
+  process.exit(seenC.size ? 1 : 0)
+}
 
 let added = []
 let files = []

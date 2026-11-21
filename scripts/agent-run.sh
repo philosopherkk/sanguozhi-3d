@@ -98,7 +98,7 @@ case "$1" in
       exit 4
     fi
     if [ "${rest}" -le 0 ]; then
-      echo "TIMEUP：已用 ${lk_age} 分鐘（預算 ${BUDGET}）。不要開新項目：commit、push、寫報告、end。"
+      echo "TIMEUP：已用 ${lk_age} 分鐘（預算 ${BUDGET}）。不要再改任何檔案；直接 commit、push、寫報告、end。"
       exit 4
     fi
     echo "LEFT：還有 ${rest} 分鐘（${lk_key} 已用 ${lk_age} 分鐘）。"

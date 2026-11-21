@@ -36,6 +36,10 @@
     "exit": 0,
     "hard": 0
   },
+  "audit:commit-msgs": {
+    "exit": 0,
+    "hard": 0
+  },
   "audit:chars:teeth": {
     "exit": 0,
     "fail": 0

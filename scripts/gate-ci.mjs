@@ -8,6 +8,7 @@
  *
  * 用法：
  *   npm run gates                       比較基線（CI 用）
+ *   npm run gates -- --only=audit:chars 只跑一條（agent 改完單項時用，收工仍要跑全量）
  *   npm run gates -- --update-baseline  記錄新基線（只應在數字改善後執行）
  */
 import { execSync } from 'node:child_process'
@@ -55,6 +56,13 @@ const GATES = [
     metrics: { fail: /audit:map --teeth — 失敗 (\d+) 項/ },
   },
   { name: 'audit:chars', cmd: 'npm run audit:chars', metrics: { hard: /硬傷 (\d+)/ } },
+  // 2026-11-21 補：自檢本來只掃檔案，小模型把簡體字寫入 commit 標題無人察覺
+  // （幾個含簡體字的標題都進了 main）。用同一支字表掃 origin/main..HEAD。
+  {
+    name: 'audit:commit-msgs',
+    cmd: 'node scripts/agent-selfcheck.mjs --commits origin/main',
+    metrics: { hard: /agent-selfcheck --commits — 命中 (\d+) 處/ },
+  },
   // 2026-11-13 補：audit:chars 連續多輪報「硬傷 0」，實則 `对` `传` `开` `学` `经` `张`
   // `赵` `户` `阳` `铁` 這些最常見的簡體字一個都不在字表裡——277 字是「看到哪個錯字就補
   // 哪個」長出來的，覆蓋率從沒被量過，數字綠是因為沒有人在查。這條閘門不量內容，量的是
@@ -165,9 +173,9 @@ function run(cmd) {
   }
 }
 
-function measure() {
+function measure(gateList = GATES) {
   const got = {}
-  for (const g of GATES) {
+  for (const g of gateList) {
     const { code, out } = run(g.cmd)
     const m = { exit: code }
     for (const [key, re] of Object.entries(g.metrics)) {
@@ -183,7 +191,19 @@ function measure() {
 }
 
 const UPDATE = process.argv.includes('--update-baseline')
-const current = measure()
+const ONLY = process.argv.find((a) => a.startsWith('--only='))?.slice('--only='.length)
+if (ONLY && UPDATE) {
+  console.error('gates — --only 不能與 --update-baseline 同時用（會把局部結果寫成全量基線）')
+  process.exit(2)
+}
+const gateList = ONLY
+  ? GATES.filter((g) => g.name.includes(ONLY))
+  : GATES
+if (ONLY && !gateList.length) {
+  console.error(`gates — 找不到符合 --only=${ONLY} 的閘門`)
+  process.exit(2)
+}
+const current = measure(gateList)
 
 const missing = []
 for (const [name, m] of Object.entries(current)) {

@@ -1,6 +1,6 @@
 # 排程 agent 共同手冊
 
-> 五支排程 agent（enrich、accuracy、ui、march、map）每輪開工後先讀本檔，再讀自己的 `docs/agents/<key>.md`。
+> 五支排程 agent（enrich、accuracy、ui、march、map）每輪開工後**先讀 `docs/agents/QUICK.md`（約 30 行）**，照它做；只有手冊內容有變（或第一次跑）才回來讀本檔與自己的 `docs/agents/<key>.md`。完整手冊是疑問時的參考，不是每輪的必讀功課。
 > 本檔隨 repo 版本控制，改它不需要 sudo，下一輪就生效。
 > 上位規章：`docs/SCHEDULED_AGENTS.md`（真確性鐵律）與 `AGENTS.md`。衝突時以那兩份為準。
 
@@ -33,13 +33,14 @@ git switch agent/<key>
 git rebase origin/main            # 衝突就：git rebase --abort，然後停止並報告「REBASE_CONFLICT」
 test -f docs/agents/<key>.md || echo "手冊不在"   # 不在＝本輪停止並報告
 sh scripts/agent-run.sh start <key>               # 印 GO 才繼續；印 WAIT 就原樣再跑一次同一指令（最多約 30 次）；印 BUSY 才停止
-test -f .opencode/opencode.json && echo MODEL_LOCK_OK || echo MODEL_LOCK_MISSING
+node scripts/agent-model-check.mjs     # 比對鎖檔內容與權威 registry，不只是看檔案在不在
 ```
 
 - 印 `MODEL_LOCK_MISSING`、或任何工具回報 `Model unavailable`／`Blocked by configuration policy`：本輪立即停止，報告貼原文。不准換模型，不准改鎖定檔。
 - 若 `node_modules` 不存在：`ln -s ~/Project/historyfirst-1/historyfirst/node_modules node_modules`。
 - 記下基準：`git rev-parse HEAD` 存為 BASE，收工時要用。
-- 跑一次 `npm run gates > /tmp/gates-before-<key>.log 2>&1; echo exit=$?`，把結尾那幾行讀一遍，記下本輪要動的那個指標的數字。**不要**用管線接 `grep`（會吃掉失敗的結束碼）。
+- 取佇列：`node scripts/agent-queue.mjs <key>`（五支統一入口，直接照它列的項目做，不要自己另找事）。
+- baseline 只量你會動的那條：`npm run gates -- --only=<閘門名> > /tmp/gates-before-<key>.log 2>&1; echo exit=$?`（閘門名見自己手冊的最後一節）。不確定才跑全量。**不要**用管線接 `grep`（會吃掉失敗的結束碼）。
 
 ## 2. 每一項的標準節奏
 
@@ -51,16 +52,18 @@ test -f .opencode/opencode.json && echo MODEL_LOCK_OK || echo MODEL_LOCK_MISSING
 2. **讀檔**：只讀那一項需要的幾十行。用 `grep -n` 找行號，再 `read` 那段，不要整檔讀。
 3. **小改動**：只改該項。一個 commit 最多 2–4 項。
 4. **單項驗證**：手冊裡每個項目都列了對應指令，跑了才算數。
-5. **自檢**（每次 commit 前，必跑兩行）：
+5. **自檢**（每次 commit 前，必跑三行）：
    ```sh
    git add -A
    node scripts/agent-selfcheck.mjs origin/main
+   node scripts/agent-selfcheck.mjs --commits origin/main
    npm run audit:chars > /tmp/chars-<key>.log 2>&1; echo exit=$?
    ```
+   `--commits` 查的是本輪已 commit 的標題；看到簡體字立刻用 `git commit --amend` 改掉，不要留到最後。
    - `agent-selfcheck` 有任何 `✗` 行：修掉才能 commit。
    - 它列出的「新出現的漢字」要逐個看：是不是你想打的那個字？看到簡體字或怪字，用該檔既有的同一個詞去複製，不要憑記憶重打。
    - `audit:chars` 結束碼不是 0：修掉才能 commit。
-6. **commit**：訊息要與內容相符，用 `type(scope): 摘要`。例：`data(zhou): zhou-zhao 結果欄補寫至 400 字並附出處`。一個 commit 不混不同類的事。
+6. **commit**：訊息要與內容相符，用 `type(scope): 摘要`；`scope` 必須是**自己的 key**（ui 用 `fix(ui):`、march 用 `test(march):`），不准借用別人的 scope。例：`data(zhou): zhou-zhao 結果欄補寫至 400 字並附出處`。一個 commit 不混不同類的事。
 7. **看時間**：`sh scripts/agent-run.sh left <key>`。印 `TIMEUP` 或 `STOP` 就收尾，不開新項。印 `NOT_OWNER` 代表你沒有鎖：立刻停止所有修改，不要 commit，不要 push，回報一句就結束。
 
 ## 3. 收工流程
@@ -70,7 +73,7 @@ git status --porcelain                          # 必須是空的；不是空的
 npx tsc -b; echo tsc=$?                         # 必須 0（注意：tsc --noEmit 在本專案是空操作，不算數）
 npm run build > /tmp/build-<key>.log 2>&1; echo build=$?   # 必須 0
 npm run lint > /tmp/lint-<key>.log 2>&1; echo lint=$?      # 0 error
-npm run gates > /tmp/gates-after-<key>.log 2>&1; echo gates=$?
+npm run gates > /tmp/gates-after-<key>.log 2>&1; echo gates=$?   # 改完單項可用 npm run gates -- --only=<閘門名> 先快驗
 git push origin agent/<key>
 git ls-remote origin refs/heads/agent/<key>     # 前 40 字元必須等於 git rev-parse HEAD
 node scripts/agent-selfcheck.mjs origin/main    # 最後再跑一次
@@ -102,6 +105,10 @@ sh scripts/agent-run.sh end <key>
 - 禁止「灌水」：同一句話或同一個樣板重複套用到多個事件，會被 `audit:event-depth` 偵測並計為惡化。
 
 ## 6. 報告格式（收工前最後輸出，也追加到對應報告檔）
+
+先跑 `sh scripts/agent-report.sh <key> <BASE> > /tmp/report-<key>.txt` 產生骨架；注意：產生的骨架不要改上面的數字，你只補「完成項目／放棄清單／下輪建議」。
+
+每份報告開頭維持一個 `## 待辦摘要`（不超過 30 行）：寫佇列剩餘量、下輪先做哪幾項。舊輪次往後堆，不要覆蓋；但任何時候摘要都要能一眼看完。
 
 ```text
 【<key>｜<日期> <時:分>】

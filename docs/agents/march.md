@@ -17,6 +17,8 @@
 
 疆域色塊幾何（`src/geo/`，那是 map 的工作）、閘門腳本、`FRONTIER_ZONES`。
 
+**職責界線（2026-11-21 釘死）**：你只擁有 `scripts/check_route_landmarks.py` 的路線端點斷言與路線資料；`scripts/check_ring_landmarks.py` 的環地標斷言屬 map，即使你發現某個路線端點同時是疆域地標，也**不准改 map 的檔**——把需求寫進報告的「下輪建議」，讓 map 自己處理。commit 的 scope 一律用 `(march)`，不准寫 `(map)`（以前有幾輪借了 scope，讓人誤以為你改了 map 的檔）。
+
 ## 佇列
 
 ```sh
