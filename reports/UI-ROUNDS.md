@@ -3,6 +3,53 @@
 > `agent/ui` 排程輪值之逐輪記錄，格式依 `docs/agents/README.md` §6。
 > 只記錄已執行指令的輸出；未經指令證實者不寫。
 
+## 【ui｜2026-11-21 14:10】
+
+基準：`9a27e9e` → 本輪 HEAD：見下（2 個 commit：`684ce8e` 與本檔記錄 commit）
+工作區：`git status --porcelain` 輸出＝空（開工與每次 commit 前皆空）
+
+### 完成項目
+
+1. **390px「勢力檢視」收起時勢力名被省略號截短（上一輪下輪建議）**／`src/App.css:1353`
+   （`.map-stage__overlay--inspect`）與 `src/App.css:254`（`.map-stage-dock--tl`）／
+   兩處 `max-width: min(22.5rem, 36vw)` 改為 `min(22.5rem, max(15rem, 36vw))`：390px 下 36vw 只得
+   140.4px，收起時標題列放不下「標題＋勢力名＋展開按鈕」（實測需約 146px），勢力名只得 21px／需 27px／
+   實測 `?c=china&e=sanguo` 390px 點選州郡：Dock 寬 140.4→158.5px，提示「曹魏」框寬 21.3→27px，
+   `scrollWidth == clientWidth`（27＝27，截短消除）；展開態 Dock 寬 140.4→240px，面板內寬
+   138.4→238px，`scrollWidth == clientWidth`（238＝238，卡內橫向裁剪一併消除）；768px 收起態提示
+   29.1px 無截斷、1440px 收起態 25px 無截斷；390／768／1440 三寬 `documentElement.scrollWidth
+   == clientWidth`（無橫向溢出）。`audit_mobile_css=0`、`audit_contrast=0`、`npx tsc -b`=0、`build`=0。
+2. **字級佇列 `.map-stage-dock__hint` 低於下限**／`src/App.css:258`／0.58rem→0.75rem／該提示屬 Dock
+   標題列的勢力名（一般介面文字，非與縮放綁定之圖上標籤）；實測 1440px 收起態生效後為 12px
+   （原規則值 0.58rem＝9.3px 依 CSS 原值推算）；390／768px 生效值仍為 13／14px（`mobile.css` 寬度塊
+   覆蓋，字級不變）。佇列 font 11→10。
+
+### 放棄清單（剩 10 條 font，全部附實證）
+
+1. `src/App.css:1031`（`.map-2d__toggles button`）／該 class 只出現在 `src/lib/mapViewport.tsx:351`
+   的 `closest()` 字串，全站無元素掛此 class，無法實測。
+2. `src/App.css:1858`、`1903`、`1915`（`.map-view-controls__title`／`__btn--reset`／`__hint`）／
+   元件 `MapViewControls` 全 repo 無匯入，未掛載於任何頁面。
+3. `src/App.css:2832`、`2847`、`2909`、`2917`（`.era-map__credit`／`__kicker`／`__band-label`／`__band-range`）／
+   只由 `JapanEraMap` 使用，其父 `JapanHistoryApp` 無被任何處匯入。
+4. `src/App.css:2940`、`2945`（`@media (max-width: 640px)` 密集刻度 0.62／0.58rem）／刻意壓小：
+   前輪已實測 390px 提升後 `tang` 刻度最小間距 6.2→1.0px、`edo` 原已重疊再惡化。
+
+### 指標
+
+`ui_queue`：開工 a11y 0｜alt 0｜font 11｜focus-visible 1 → 收工 **a11y 0｜alt 0｜font 10｜focus-visible 1**
+（佇列實質已空：剩餘全部屬「元件未掛載」或「刻意壓小」兩類）
+`audit:mobile` 0 → 0（7 項不變式成立）；`audit:contrast` 0 → 0；tsc 0；build 0；`audit:chars` 硬傷 0。
+`npm run gates`（開工）exit=1：唯一紅旗為 `audit:teeth-mutations.fail 0→1`，屬 dev server 併發造成嘅
+已知瞬時假紅，單獨複跑 `node scripts/audit_teeth_mutations.mjs` 回「失敗 0 項（突變 56 項）」exit=0；
+收工值見下。
+
+### 下輪建議
+
+- 390px 展開「勢力檢視」時 Dock 總高約 1194px，超出 844px 視口：`.map-stage-dock--tl` 的
+  `max-height: min(62vh, calc(100% - 8.5rem))` 因包含塊高度不定而未生效（實測 1194px > 62vh），
+  `.zhou-dock__body` 內部滾動因此未啟動；屬結構問題，需先給 Dock 確定的高度約束，與佇列無關，本輪未處理。
+
 ## 【ui｜2026-11-21 04:10】
 
 基準：`95ea98b` → 本輪 HEAD：`7ff3ac4`（2 個 commit：`eea9ad7`、`7ff3ac4`）
