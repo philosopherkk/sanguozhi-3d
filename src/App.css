@@ -1359,6 +1359,11 @@ html[data-theme='light'] .app-footer {
      「勢力檢視＋勢力名＋展開」，勢力名被 ellipsis 截短（實測需 27px 僅得 21px） */
   max-width: min(22.5rem, max(15rem, 36vw));
   max-height: none;
+  /* 高度必須在此確定：浮層內 Dock 的百分比 max-height 以本疊層為包含塊，
+     包含塊高度不定時百分比上限整體失效（實測 390px 展開態高 1194px，
+     超出 844px 視口且面板內部滾動無法啟動）。本疊層 pointer-events:none，
+     放大範圍不遮擋地圖點擊。 */
+  height: calc(100% - 1.1rem);
   overflow: visible;
   z-index: 3;
 }
