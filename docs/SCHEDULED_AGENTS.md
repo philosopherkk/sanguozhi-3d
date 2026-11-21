@@ -114,8 +114,14 @@ npm run lint           # 0 error
 
 ## 5. 併發時鐘（OpenCode 排程，Asia/Hong_Kong，皆於整點 :10 觸發）
 
-設計使**任一時刻最多一支**執行：每兩小時只排一支，單輪預算 60 分鐘（`HF_AGENT_BUDGET_MIN`），鎖在「開工滿 100 分鐘且最後心跳超過 35 分鐘」時才視為已死（`HF_AGENT_STALE_MIN`、`HF_AGENT_HB_MIN`）。每次跑 `sh scripts/agent-run.sh left` 會刷新心跳，所以做事的一輪可以超過 100 分鐘而不被接手（本機模型每步約 2 至 3 分鐘，一輪實測近 70 分鐘）。
-即使某輪超時，下一支開工時 `sh scripts/agent-run.sh start <key>` 會印 `BUSY` 並結束，不會疊上去。
+設計使**任一時刻最多一支**執行：每兩小時只排一支，單輪預算 60 分鐘（`HF_AGENT_BUDGET_MIN`），鎖的活性規則（本機模型每步約 2 至 3 分鐘，一輪實測 40 至 76 分鐘，曾有一輪跑到 146 分鐘）：
+
+- 開工未滿 60 分鐘：視為仍在跑。
+- 60 至 90 分鐘：只有鎖主在最近 35 分鐘內跑過 `left <key>` 才算仍在跑。
+- 滿 90 分鐘（`HF_AGENT_HARD_MIN`）：一律視為已死。外部收割程式（見下）會中止該 session 並釋放鎖。
+- 心跳只有鎖主自己跑 `left <key>` 才會刷新；別人誤跑只會收到 `NOT_OWNER`。
+
+下一支開工時若鎖仍有效，`start` 會等最多 100 秒並印 `WAIT`，agent 原樣重跑，累計最多等 60 分鐘（`HF_AGENT_MAXWAIT_MIN`）才印 `BUSY` 放棄。這樣前一輪超時只是延後下一輪，不是整輪作廢，也不會疊上去。
 
 | Agent | cron | 每日次數 |
 |---|---|---|
@@ -129,7 +135,8 @@ npm run lint           # 0 error
 
 ### 互斥鎖與自檢工具
 
-- `sh scripts/agent-run.sh start|left|end <key>`：鎖檔 `$HOME/.historyfirst-agent.lock`，`start` 印 `GO` 或 `BUSY`，`left` 印 `LEFT` 或 `TIMEUP`。
+- `sh scripts/agent-run.sh start|left|end <key>`：鎖檔 `$HOME/.historyfirst-agent.lock`，`start` 印 `GO`、`WAIT` 或 `BUSY`，`left` 印 `LEFT`、`TIMEUP`、`STOP` 或 `NOT_OWNER`。
+- 收割程式 `~/.historyfirst-reaper/reap.py`（使用者層 launchd，每 10 分鐘）：鎖開工滿 90 分鐘就呼叫 `/api/session/<id>/interrupt` 中止鎖主，把該 worktree 未 commit 的改動以 `git stash push -u` 保存（避免下一輪因工作區不乾淨而停擺），再刪鎖。紀錄在 `~/.historyfirst-reaper/reaper.log`。
 - `node scripts/agent-selfcheck.mjs [base]`：查新增行的簡體字、粵語虛詞（`src/`）、拉丁亂碼、工具呼叫殘骸、衝突標記，並列出新漢字供人工核對。只看已追蹤或已 `git add` 的檔案。
 - 佇列工具：`scripts/audit_event_depth.mjs`（enrich）、`scripts/quote-audit-ledger.json`（accuracy）、`scripts/check_route_landmarks.py --unasserted`（march）、`scripts/check_ring_landmarks.py --unasserted`（map）、`scripts/ui_queue.mjs`（ui）、`scripts/wp_coord.py`（查座標）。
 

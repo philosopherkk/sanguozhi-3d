@@ -19,7 +19,7 @@
 2. **不確定就跳過**。跳過的項目寫進報告的「放棄清單」，附一句原因。跳過不是失敗，編造才是。
 3. **所有數字、年份、地名、引文都要有出處**。查不到就標 `disputed` 或寫「通說整理，非逐字引文」，不要自己猜。
 4. **宣稱以指令輸出為準**。報告裡每個「完成」都要能用 `git log`、`git status`、指令輸出證明。
-5. **時間到就收**。每做完一項跑一次 `sh scripts/agent-run.sh left`，不夠就收尾。
+5. **時間到就收**。每做完一項跑一次 `sh scripts/agent-run.sh left <key>`（要帶你自己的 key），不夠就收尾。
 
 ## 1. 開工流程（照順序，一步都不要跳）
 
@@ -32,7 +32,7 @@ git fetch origin
 git switch agent/<key>
 git rebase origin/main            # 衝突就：git rebase --abort，然後停止並報告「REBASE_CONFLICT」
 test -f docs/agents/<key>.md || echo "手冊不在"   # 不在＝本輪停止並報告
-sh scripts/agent-run.sh start <key>               # 印 BUSY 就停止；印 GO 才繼續
+sh scripts/agent-run.sh start <key>               # 印 GO 才繼續；印 WAIT 就原樣再跑一次同一指令（最多約 30 次）；印 BUSY 才停止
 test -f .opencode/opencode.json && echo MODEL_LOCK_OK || echo MODEL_LOCK_MISSING
 ```
 
@@ -61,7 +61,7 @@ test -f .opencode/opencode.json && echo MODEL_LOCK_OK || echo MODEL_LOCK_MISSING
    - 它列出的「新出現的漢字」要逐個看：是不是你想打的那個字？看到簡體字或怪字，用該檔既有的同一個詞去複製，不要憑記憶重打。
    - `audit:chars` 結束碼不是 0：修掉才能 commit。
 6. **commit**：訊息要與內容相符，用 `type(scope): 摘要`。例：`data(zhou): zhou-zhao 結果欄補寫至 400 字並附出處`。一個 commit 不混不同類的事。
-7. **看時間**：`sh scripts/agent-run.sh left`。印 `TIMEUP` 就收尾。
+7. **看時間**：`sh scripts/agent-run.sh left <key>`。印 `TIMEUP` 或 `STOP` 就收尾，不開新項。印 `NOT_OWNER` 代表你沒有鎖：立刻停止所有修改，不要 commit，不要 push，回報一句就結束。
 
 ## 3. 收工流程
 
