@@ -255,3 +255,48 @@ main 新增鎖心跳語義（WAIT 排隊），本輪 start 首跑即 GO。佇列
 push：rebase 至 origin/main 377e6d4 後，remote tip 仍是自己 rebase 前舊尾 774baee（已核實屬自己舊鏈），
       依鐵律用 --force-with-lease 推 c879428；推後 origin/agent/march 與 HEAD 一致
 PR：已存在 #176（OPEN，沿用）
+
+## 第二十二輪（2026-11-22 早上）
+
+新快速卡流程首跑：只讀 `docs/agents/QUICK.md`、MODEL_LOCK_OK、每項 selfcheck、最多 4 項。
+本輪四項：
+
+1. tongguan（潼關、渭南 211）：起點原落在河東芮城一帶、終點原落在上邽（隴右），
+   與本檔 source 字面「戰事在關中」「涼州是隨後數年的事，不畫到河西」不符。
+   移正：起點潼關 [1189.8, 898.2]（今陝西渭南市潼關縣，維基 Tongguan County 條 110.26E,34.49N，
+   縣治距古關址約三公里）、終點渭南 [1163.8, 898.6]（今渭南市臨渭一帶渭水南岸，維基 Weinan 條
+   109.47E,34.52N），五點線縮做兩點。佐證：《資治通鑑》卷六十六逐字「八月，操至潼關，
+   與超等夾關而軍」「潛以舟載兵入渭，為浮橋，夜，分兵結營於渭南。超等夜攻營，伏兵擊破之」
+   （qsrc 核對）。commit 40abcfb。
+2. zhanglu（曹操征張魯 215）：幾何唔郁——終點節點 [1085.4, 960.3] 反算本已在漢中
+   （107.03E,33.07N），本輪補訖點斷言：南鄭＝今漢中城東一帶，佐證通鑑卷六十七逐字
+   「遂封藏而去。操入南鄭，甚嘉之」；古南鄭城在今城東、今南鄭區治在其東約二十里，
+   故容差 15 公里；陽平關址多說且無座標條，不斷言陽平。commit 6c05f52。
+3. heiji-genji（平治之亂 1159）：裁定唔斷言、唔郁。source 本身標明「日本中世史通說」，
+   無逐字路線敘述；ja.wikisource『吾妻鏡』第一現存治承·壽永條文冇平治元年十二月事，
+   唯一含「平治元年十二月」既句子係「去平治元年十二月於天台山龍華越。奉為故左典厩義朝
+   奔命」（源義隆越山投奔事，喺京都西北，同本線東走端無涉）。端點（136.91E,35.18N，
+   美濃伊勢邊界一帶）喺任何一手史料冇字面佐證，照例留待有逐字敘述先斷言。無 commit。
+4. shu-fall（魏滅蜀 263）：幾何唔郁，補訖點斷言成都（104.06E,30.66N，維基 Chengdu 條，
+   節點距其 1.4 公里），佐證通鑑卷七十八逐字「艾至成都城北，漢主率太子諸王及群臣六十餘人，
+   面縛輿櫬詣軍門」；陰平故址多說（文縣／汶川／松潘諸說），起點節點（上邽今天水）不斷言。
+   commit 7822481。
+
+教訓（再犯）：張魯線 commit 正文把「坐標」二字打做簡體形（「標」誤成言字旁聲旁形）——第 2–4 項貪快慳咗
+`agent-selfcheck.mjs --commits` 一步，收工 gates 先咬（audit:commit-msgs.hard 0→1）。
+三個 commit 未推，用 cherry-pick 重寫該則訊息（40abcfb 不動，005c698→6c05f52、
+2d4bdfb→7822481），重跑 selfcheck --commits 命中 0、gates 重跑 exit=0。
+記低：--commits 唔係可慳嘅可選項，每項 commit 前照跑。
+
+放棄／留佇列：heiji-genji（無字面，上）；hebei 起點觀察——source 字面「取鄴」，
+但起點節點 114.30E,34.85N 喺鄴（114.40E,36.27N）之南約一百六十公里，疑錯位，
+下輪先核；wuhuan／nara-emishi／kam-yoritomo／muro 三線／edo-1609／edo-1669 照前輪裁定唔郁；
+hangzhou-bay 終點（金山衛無座標條）、mj-1942-midway 換算口徑、scan_v 覆核（第十三輪值 55 未重跑）照留。
+
+指標：端點斷言 154 → 158；失敗 0；無斷言路線 19 → 16；audit:map fail 0｜warn 0；
+audit:chars 硬傷 0；selfcheck（新增行）命中 0；gates exit=0（惡化項 commit-msgs 已修回後重跑）；
+tsc exit=0；build exit=0；lint exit=0（僅既有 warning）。
+push：待本報告 commit 後推送（remote 舊尾 13390b7 已入 main，係 fast-forward）。
+PR：已存在 #176（OPEN，沿用）。
+下輪建議：核 hebei 起點錯位；三國觀察項（liaodong 起、zhonghui 訖、xiapi 訖）；
+mj-1942-midway 口徑；scan_v 覆核。
