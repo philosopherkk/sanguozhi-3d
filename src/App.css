@@ -250,12 +250,13 @@
 }
 
 .map-stage-dock--tl {
-  max-width: min(22.5rem, 36vw);
+  /* 同 --inspect：窄視口下限 15rem，收起時標題列先至放得落勢力名 */
+  max-width: min(22.5rem, max(15rem, 36vw));
   max-height: min(62vh, calc(100% - 8.5rem));
 }
 
 .map-stage-dock__hint {
-  font-size: 0.58rem;
+  font-size: 0.75rem;
   color: var(--ink-muted);
   letter-spacing: 0.04em;
   overflow: hidden;
@@ -1354,7 +1355,9 @@ html[data-theme='light'] .app-footer {
   top: 0.55rem;
   left: 0.55rem;
   width: auto;
-  max-width: min(22.5rem, 36vw);
+  /* 窄視口下限 15rem：390px 下 36vw 只得 140px，收起時標題列放不下
+     「勢力檢視＋勢力名＋展開」，勢力名被 ellipsis 截短（實測需 27px 僅得 21px） */
+  max-width: min(22.5rem, max(15rem, 36vw));
   max-height: none;
   overflow: visible;
   z-index: 3;
