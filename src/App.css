@@ -118,14 +118,14 @@
 
 .side-rail__label {
   margin-right: auto;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.12em;
   color: var(--accent);
 }
 
 .side-rail__map-first {
   font: inherit;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   padding: 0.15rem 0.35rem;
   border: 1px solid var(--line);
@@ -250,12 +250,13 @@
 }
 
 .map-stage-dock--tl {
-  max-width: min(22.5rem, 36vw);
+  /* 同 --inspect：窄視口下限 15rem，收起時標題列先至放得落勢力名 */
+  max-width: min(22.5rem, max(15rem, 36vw));
   max-height: min(62vh, calc(100% - 8.5rem));
 }
 
 .map-stage-dock__hint {
-  font-size: 0.58rem;
+  font-size: 0.75rem;
   color: var(--ink-muted);
   letter-spacing: 0.04em;
   overflow: hidden;
@@ -552,7 +553,7 @@ html[data-theme='light'] .app-footer {
 }
 
 .timeline-month-bar__label {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
   color: var(--muted);
   margin-right: 0.25rem;
@@ -987,7 +988,7 @@ html[data-theme='light'] .app-footer {
 .map-layer-bar__fold,
 .map-layer-bar__tabs button {
   font: inherit;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.12em;
   padding: 0.28rem 0.55rem;
   border: 1px solid transparent;
@@ -1005,7 +1006,7 @@ html[data-theme='light'] .app-footer {
 }
 
 .map-layer-bar__fold span {
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
   color: var(--accent-dim);
 }
@@ -1075,7 +1076,7 @@ html[data-theme='light'] .app-footer {
 
 .route-legend h3 {
   margin: 0 0 0.25rem;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.14em;
   color: var(--accent);
 }
@@ -1100,7 +1101,7 @@ html[data-theme='light'] .app-footer {
 }
 
 .route-legend span {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: var(--ink-muted);
   line-height: 1.35;
 }
@@ -1126,7 +1127,7 @@ html[data-theme='light'] .app-footer {
 
 .route-legend__foot {
   margin: 0.45rem 0 0;
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   line-height: 1.4;
   color: var(--ink-muted);
 }
@@ -1271,7 +1272,7 @@ html[data-theme='light'] .app-footer {
 }
 
 .map-2d__zoom-btn--text {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   height: auto;
   min-height: 1.85rem;
@@ -1279,7 +1280,7 @@ html[data-theme='light'] .app-footer {
 }
 
 .map-2d__zoom-btn--reset {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
 }
 
@@ -1294,7 +1295,7 @@ html[data-theme='light'] .app-footer {
   bottom: 0;
   margin: 0;
   padding: 0.35rem 0.5rem;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
   color: var(--ink);
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
@@ -1354,7 +1355,9 @@ html[data-theme='light'] .app-footer {
   top: 0.55rem;
   left: 0.55rem;
   width: auto;
-  max-width: min(22.5rem, 36vw);
+  /* 窄視口下限 15rem：390px 下 36vw 只得 140px，收起時標題列放不下
+     「勢力檢視＋勢力名＋展開」，勢力名被 ellipsis 截短（實測需 27px 僅得 21px） */
+  max-width: min(22.5rem, max(15rem, 36vw));
   max-height: none;
   overflow: visible;
   z-index: 3;
@@ -1390,7 +1393,7 @@ html[data-theme='light'] .app-footer {
   margin: 0;
   margin-left: auto;
   padding: 0.3rem 0.55rem;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   color: var(--ink-muted);
   background: rgba(8, 12, 14, 0.72);
@@ -1510,7 +1513,7 @@ html[data-theme='light'] .app-footer {
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
 }
 
 .power-board__swatch {
@@ -1658,7 +1661,7 @@ html[data-theme='light'] .app-footer {
   margin: 0;
   max-width: min(94%, 40rem);
   padding: 0.2rem 0.6rem;
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   line-height: 1.45;
   letter-spacing: 0.04em;
   text-align: center;
@@ -2133,7 +2136,7 @@ html[data-theme='light'] .app-footer {
 
 .chengyu-card__note {
   margin: 0 0 0.35rem;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   line-height: 1.45;
   color: var(--ink-muted);
   font-style: italic;
@@ -2256,14 +2259,14 @@ html[data-theme='light'] .app-footer {
 
 .person-card__cta {
   margin: 0.3rem 0 0;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   color: var(--accent-dim);
 }
 
 .person-rank {
   font-variant-numeric: tabular-nums;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: var(--accent-dim);
   min-width: 1.1rem;
 }
@@ -2320,7 +2323,7 @@ html[data-theme='light'] .app-footer {
 
 .article-panel__collapse {
   font: inherit;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   padding: 0.25rem 0.45rem;
   border: 1px solid var(--line);
@@ -2331,7 +2334,7 @@ html[data-theme='light'] .app-footer {
 
 .article-panel__close {
   font: inherit;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   padding: 0.25rem 0.45rem;
   border: 1px solid var(--line);
@@ -2343,7 +2346,7 @@ html[data-theme='light'] .app-footer {
 
 .article-panel__source {
   margin: 0 0 0.4rem;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   color: var(--accent);
   letter-spacing: 0.06em;
 }
@@ -2364,7 +2367,7 @@ html[data-theme='light'] .app-footer {
 
 .article-panel__note {
   margin: 0.45rem 0 0;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   line-height: 1.4;
   color: #c9a060;
 }
@@ -2420,7 +2423,7 @@ html[data-theme='light'] .app-footer {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   padding: 0.08rem 0.35rem;
   border: 1px solid;
   color: var(--ink-muted);
@@ -2537,7 +2540,7 @@ html[data-theme='light'] .app-footer {
 .timeline-type {
   display: inline-block;
   margin-left: 0.4rem;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   color: var(--accent-dim);
   border: 1px solid var(--line);
@@ -2571,7 +2574,7 @@ html[data-theme='light'] .app-footer {
   padding: 0.4rem clamp(0.85rem, 2.5vw, 1.5rem);
   border-top: 1px solid var(--line);
   background: var(--bg-deep);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: var(--accent-dim);
   line-height: 1.4;
 }
@@ -2593,7 +2596,7 @@ html:not([data-theme='light']) .app-footer {
 
 .app-footer__toggle {
   font: inherit;
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   padding: 0.15rem 0.4rem;
   border: 1px solid var(--line);
@@ -2697,7 +2700,7 @@ html:not([data-theme='light']) .app-footer {
 }
 
 .topic-switch__range {
-  font-size: 0.58rem;
+  font-size: 0.75rem;
   letter-spacing: 0.04em;
   opacity: 0.75;
   font-variant-numeric: tabular-nums;
@@ -2996,7 +2999,7 @@ html:not([data-theme='light']) .app-footer {
 .event-detail__quote cite {
   display: block;
   margin-top: 0.4rem;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-style: normal;
   letter-spacing: 0.06em;
   color: var(--accent-dim);
@@ -3246,7 +3249,7 @@ html:not([data-theme='light']) .topic-switch button.is-active {
 }
 
 .timeline-title-link__hint {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   letter-spacing: 0.1em;
   color: var(--accent-dim);
 }
@@ -3420,13 +3423,13 @@ html:not([data-theme='light']) .topic-switch button.is-active {
 }
 
 .people-aka {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: var(--accent-dim);
 }
 
 .people-role {
   margin-left: auto;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   letter-spacing: 0.1em;
   color: var(--accent);
 }
@@ -3552,7 +3555,7 @@ html:not([data-theme='light']) .topic-switch button.is-active {
 }
 
 .unreg-panel__place {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 400;
   letter-spacing: 0.02em;
   color: var(--ink-muted);
