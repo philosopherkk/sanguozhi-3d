@@ -6,8 +6,48 @@
 ## 待辦摘要（每輪收工時更新，不超過 30 行）
 
 - 佇列：`node scripts/agent-queue.mjs ui`（font 小於 0.75rem 剩 10 條，全部屬「元件未掛載」或「刻意壓小」兩類，實證見 11-21 兩輪記錄；a11y／alt 已 0）。佇列已空，不要自己另覓新工作。
-- 本輪先做：sengoku 頁 390px 之 `.power-board` 超出視口（本輪 11-22 記錄發現，屬既有缺陷）；其次 `--bl` 疊層三寬核驗。
+- 本輪先做：已知結構性缺陷已清（浮層高度、勢力榜、勢力板、`--bl` 核驗皆於 11-22 兩輪完成）；若佇列仍空且無新缺陷，本節保持「無待辦」並輪值照跑。
 - 舊輪次往後堆；本節只寫「尚餘／下輪先做」。
+
+## 【ui｜2026-11-22 12:22】
+
+基準：`e301183` → 本輪 HEAD：見 `git log`（本節記錄之 commit 為本輪最後一個）
+工作區：`git status --porcelain` 輸出＝空（開工與每次 commit 前皆空）
+
+### 完成項目
+
+1. **sengoku 頁 390px 勢力板超出視口**（晨輪下輪建議）／`src/App.css:1387` 起新增
+   `.map-stage__overlay--tl > .power-board { max-height: 100%; display: flex; flex-direction: column }`
+   ＋列表 `overflow-y: auto; overscroll-behavior: contain; min-height: 4.5rem`＋詳情面板
+   `.faction-situation` 可縮並內部滾動／同源 iframe 390×844／768×1024／1440×900 實測
+   （`?c=japan&e=sengoku`）：390 板高 **482.9→320px**、底 **869→706**（＜視口 844、＜地圖底 714），
+   列表 `clientHeight 278＜scrollHeight 441`（內部滾動啟動）；768（484.9  unchanged、底 868＜923）
+   與 1440（425、底 696＜819）上限不觸發、零變化。點選勢力後（390）：板維持 320，詳情面板
+   141.7px（`clientHeight 140＜scrollHeight 470` 內部滾動）、列表仍留 120px 可換選——修前試做
+   僅收緊板高時列表被面板擠至 0 高，故加面板滾動＋列表下限。回歸：bakumatsu 390 板 185.4px、
+   底 562、列表 `clientHeight==scrollHeight`（unchanged）；中華頁 `--tl` 內直接子層為 Dock 而非
+   勢力板（選擇器實測命中 0），三寬 Dock 與晨輪完全一致（390 高 304、底 746）。三寬
+   `scrollWidth==clientWidth`、`scrollHeight==clientHeight`。`audit_mobile_css=0`、`audit_contrast=0`、
+   tsc=0、build=0、chars=0。⚠ 本輪教訓：初版 commit 嘅 CSS 註解含簡體兩個字（「歸」「樣」之簡體），`audit:chars`
+   exit=1 喺 commit 前已印出但被 `;` 鏈忽略，amend 先至清走——落盤指令要逐個睇 exit 碼先 commit。
+2. **`--bl` 疊層五頁核驗**（晨輪下輪建議，純驗證、無改動）：靜態查 heian／qinhan／imperial／
+   zhou／deepdive 五頁 `--bl` 之唯一子元素均為短文案 `.map-stage__hint`（無 Dock、無百分比高度），
+   不存在同類失效；390px 抽驗兩條最長者（heian／edo 平安同款文案）：hint 高 64.2px、底 620／609
+   ＜844，無溢出。結論：`--bl` 族群無需修改。
+
+### 放棄清單
+
+佇列 font 剩 10 條，與前輪記錄相同（8 條元件未掛載＋2 條密集刻度刻意壓小），依手冊停止條件不做修改。
+
+### 指標
+
+`agent-queue ui`：開工＝收工 a11y 0｜alt 0｜font 10｜focus-visible 1（佇列已空，本輪未動字級）。
+`npm run gates` exit=0（無惡化）；tsc=0；build=0；lint exit=0（75 警告＝基線）；chars exit=0。
+
+### 下輪建議
+
+已知結構性缺陷已清，佇列亦空：若 `agent-queue ui` 仍見底，下輪可只做收工驗證（gates 綠）即結，
+或轉做 `docs/DEVICE_TEST_CHECKLIST.md` 嘅實機清單覆核。
 
 ## 【ui｜2026-11-22 04:10】
 
