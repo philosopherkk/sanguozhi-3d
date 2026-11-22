@@ -80,7 +80,7 @@ export const RING_PROVENANCE: Record<string, RingProvenance> = {
   zhao_handan: { basis: '趙（邯鄲）：依文獻地望的手繪區，非圖幅矢量化', source: '《史記·趙世家》', institution: '無', kind: 'text-derived', approx: true },
   zhao_dai: { basis: '趙（代）：依文獻地望的手繪區，非圖幅矢量化', source: '《史記·趙世家》；趙北邊', institution: '無', kind: 'text-derived', approx: true },
   longxi: { basis: '隴西：山川形勢——渭水上游谷地，西界鳥鼠山—洮河（臨洮以東），東界隴山（與關中分界），北界屈吳山—祖厲河', source: '《史記·秦本紀》；《漢書·地理志》隴西郡；隴山・渭水形勢示意', institution: '郡', kind: 'natural-border', approx: true },
-  xia_yin: { basis: '夏（二里頭期）：依文獻地望的手繪區，非圖幅矢量化', source: '二里頭遺址分布；無同時文字自證', institution: '無', kind: 'text-derived', approx: true },
+  xia_yin: { basis: '夏—銀（定難軍，後西夏）：銀、夏、綏、宥、靜五州地之框，陝北無定河—大理河流域，依文獻地望的手繪區，非圖幅矢量化；舊登記「夏（二里頭期）」係誤標（環名「夏」指夏州，與二里頭無關；伊洛夏周核心見 yiluo 環）', source: '《宋史·夏國傳》「唐末，拓跋思恭鎮夏州，統銀、夏、綏、宥、靜五州地」（逐字核對）；環界北界毛烏素沙地南緣、南界無定河—大理河', institution: '無', kind: 'text-derived', approx: true },
   hexie: { basis: '河西走廊：山川形勢——北界馬鬃山—合黎山北麓，南界祁連山主嶺（門源・西寧不屬），東端至烏鞘嶺（蘭州不屬）', source: '《史記·大宛列傳》；漢四郡設後；祁連・合黎山形勢示意', institution: '郡', kind: 'natural-border', approx: true },
   jingnan: { basis: '荊南（南郡地）：山川形勢——北界武當山餘脈・荊北崗地南緣（襄樊不在內），東南海界華容—洞庭湖港（岳陽在湖之南屬長沙）', source: '《漢書·地理志》南郡；江陵・華容地望；崗地・湖港形勢示意', institution: '郡', kind: 'natural-border', approx: true },
   annam: { basis: '日南以南：依文獻地望的手繪區，非圖幅矢量化', source: '《漢書·地理志》；《後漢書·馬援傳》', institution: '郡', kind: 'text-derived', approx: true },
