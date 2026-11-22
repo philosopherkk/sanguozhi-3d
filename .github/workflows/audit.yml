@@ -9,7 +9,11 @@ jobs:
   build-and-audit:
     runs-on: ubuntu-latest
     steps:
+      # audit:commit-msgs 要比對 origin/main..HEAD；PR 的預設淺層 checkout
+      # 沒有 origin/main，會令該閘門抽不到指標而假紅。取完整歷史與遠端引用。
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
