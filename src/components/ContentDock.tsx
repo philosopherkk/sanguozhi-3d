@@ -1,4 +1,5 @@
 import { useId, useRef, useState, type ReactNode } from 'react'
+import { usesDocumentScroll } from '../lib/scrollRoot'
 
 export type ContentDockTab = 'events' | 'people' | 'chengyu'
 
@@ -88,6 +89,11 @@ export function ContentDock({
     if (next === tab) return
     setTab(next)
     if (bodyRef.current) bodyRef.current.scrollTop = 0
+    if (usesDocumentScroll()) {
+      const top = bodyRef.current?.closest('.content-dock')?.getBoundingClientRect().top ?? 0
+      if (top < 0) window.scrollBy({ top })
+      return
+    }
     const scroller = document.querySelector<HTMLElement>('.app-shell__main')
     if (!scroller || getComputedStyle(scroller).overflowY !== 'auto') return
     const head = scroller.querySelector<HTMLElement>('.content-dock__head')

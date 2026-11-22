@@ -133,21 +133,38 @@
      現改為：地圖限高，內容緊接其後，整頁自然捲動；分頁列黏在頂端，
      內層不再各自捲動，使用者只面對一條捲軸。
      overscroll-behavior 防止拖到盡頭時連鎖滾動整頁。 */
+  /* ── 修 6b：改由整份文件捲動 ──
+     原本主區是唯一捲動容器，視窗只剩約 440px，其中地圖佔 340px 且攔截觸控，
+     一指落在地圖上就捲不動頁面（使用者反映「很難上下捲」）。
+     現把 html／body 與 .app-shell 的高度鎖與 overflow:hidden 解除，頁頭、
+     時代列、年代軸隨內容自然捲走，只剩分頁列黏頂；iOS 網址列也能跟著收起。
+     主區不再 overflow，所以 audit:mobile 的 mobile-pager 改認文件捲動。 */
+  html,
+  body,
+  #root {
+    height: auto;
+    min-height: 100%;
+    overflow: visible;
+  }
+
+  .app-shell {
+    display: block;
+    height: auto;
+    max-height: none;
+    min-height: calc(100dvh - var(--bottombar-h, 0px));
+    overflow-x: clip;
+    overflow-y: visible;
+    padding-bottom: var(--bottombar-h, 3rem);
+  }
+
   .app-shell__main,
   .app-shell__main--map-side,
   .app-shell__main--map-side:has(.side-rail--collapsed) {
     display: block;
-    overflow-y: auto;
-    overscroll-behavior-y: contain;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    overflow: visible;
     /* 保留單欄宣告：display:block 已達成堆疊，但這條同時是結構閘門
        （audit:mobile 的 mapside-stack）所認的可堆疊標記 */
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .app-shell__main::-webkit-scrollbar {
-    display: none;
   }
 
   /* 地圖限高：約四成螢幕高，下限讓圖例與圖層列放得下，上限避免大螢幕過高。 */
@@ -156,10 +173,10 @@
     min-height: 15rem;
   }
 
-  /* 內容至少一屏高：收起時間軸令主區變高時，捲動範圍不會縮到低於展開門檻而來回跳。 */
+  /* 內容至少近一屏高：切換分頁（人物名單較短）時整頁不會突然縮短而被拉回頂端。 */
   .app-shell__main > :not(:first-child) {
     height: auto;
-    min-height: 100%;
+    min-height: calc(100dvh - 10rem);
   }
 
   /* 內容區不再自成捲動容器：側欄與分頁本體全部攤開，由主區統一捲動。 */
@@ -195,8 +212,8 @@
     max-height: 6.5rem;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    /* 圖例內滑動不應連鎖到地圖或整頁 */
-    overscroll-behavior: contain;
+    /* 圖例捲到盡頭就交還給整頁；原本 contain 會令一指落在圖例上整頁不動 */
+    overscroll-behavior: auto;
   }
 
   .map-2d__route-legend {
@@ -986,16 +1003,31 @@
   }
 }
 
-/* ── 捲到內容區時收起時間軸控制（僅窄屏；桌面主區不捲動） ──
-   旗標由 useCollapseOnScroll 掛在 <html data-chrome>，各時代標頭共用。
-   標頭只留標題與年份，朝代列、年代滑桿與專題切換收起，把版面還給
-   大事、人物、成語；捲回地圖後旗標關閉，全部自動展開。 */
-@media (max-width: 700px) {
-  html[data-chrome='collapsed'] .era-bar,
-  html[data-chrome='collapsed'] .year-scrubber,
-  html[data-chrome='collapsed'] .topic-switch,
-  html[data-chrome='collapsed'] .app-header__tag {
-    display: none;
+/* ── 捲到內容區時的旗標 ──
+   旗標由 useCollapseOnScroll 掛在 <html data-chrome>。頁頭、時代列與年代軸現在
+   隨文件自然捲走，不必再用 display:none 收起（那會令高度突變而跳動），
+   旗標只負責收起底欄、換浮動「時間軸」鈕的位置。 */
+
+/* ── 地圖不再吞掉捲動 ──
+   地圖原本一律 touch-action:none，一指落在地圖上（約佔視窗七成）就只會拖
+   地圖、捲不動頁面。未放大時一指上下滑改交還給頁面；兩指捏合仍由
+   mapViewport 接管。放大後（--zoomed）才鎖回 none，讓單指能平移地圖，
+   要繼續捲頁就按「重置」或在地圖外滑動。 */
+@media (max-width: 700px),
+       (orientation: landscape) and (max-height: 460px) and (pointer: coarse) {
+  .map-2d__basemap-wrap {
+    touch-action: pan-y;
+  }
+
+  .map-2d__basemap-wrap--zoomed {
+    touch-action: none;
+  }
+
+  /* 戰國／幕末的勢力榜浮在地圖右側，列表原本可長到近滿高並鎖住連鎖捲動，
+     一指落在其上整頁不動。限制列表高度，捲到盡頭即交還給頁面。 */
+  .map-stage__overlay--tl > .power-board .power-board__list {
+    max-height: 6.5rem;
+    overscroll-behavior-y: auto;
   }
 }
 

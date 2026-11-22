@@ -624,3 +624,24 @@ check_route_landmarks.py 嘅 `径`→徑，同埋 src/ 內五處我方敘述用�
 - **遺留項②（SengokuMap.tsx:66 react(refs)）**：本輪未驗證，留待下輪。
 - 口徑修正：縮影 naturalWidth 喺 DPR1 環境回報 40 屬 Chromium 對 srcset
   候選嘅 presentation 尺寸，檔案實際 80×80（`file` 核實）；唔係缺陷。
+
+## 2026-11-22 整頁捲動改版（手機難上下捲）
+
+實測根因：窄屏 `html/body` 為 `overflow:hidden`，只有 `.app-shell__main` 一個內部捲動容器；
+頁頭、時代列、年代軸、頁腳、底欄固定佔去約 405px，視窗只剩 439px，其中地圖 338px 又是
+`touch-action:none`，一指落在地圖上就只拖地圖、整頁不動。
+
+改法（`src/mobile.css` 修 6b）：
+- 窄屏改由文件本身捲動：html／body／#root 解除高度鎖，`.app-shell` 改 `height:auto`；
+  頁頭、時代列、年代軸隨內容捲走，只剩分頁列黏頂。主區不再 overflow。
+- 地圖未放大時 `touch-action:pan-y`（一指上下滑捲頁，兩指捏合仍由 mapViewport 接管）；
+  放大後（`--zoomed`）才鎖回 `none` 讓單指平移，按「重置」或在地圖外滑動即可繼續捲頁。
+- 行軍路線圖例、戰國／幕末勢力榜（內部可捲動）縮高、捲到盡頭交還頁面。
+- JS 以 `usesDocumentScroll()`（`src/lib/scrollRoot.ts`）判斷捲動容器，`useCollapseOnScroll`、
+  `ContentDock`、`AppSideRail` 隨之改用 `window` 捲動；「時間軸」浮鈕改為平滑捲回頁首。
+- 不再用 `display:none` 收起頁頭列（會令高度突變、捲動位置跳動）；旗標只管底欄與浮鈕。
+- `audit:mobile` 的 mobile-pager 改認「文件捲動」，並新增 map-touch-trap（含 teeth）。
+
+實測（無頭 Chrome 觸控模擬，390×844）：29 個時代上滑手勢均能捲頁；地圖面積中「會吞手勢」
+的比例由 100% 降至 0%（三國系 20%、戰國／幕末約 39%，皆為圖例或勢力榜）；桌面 1440 與
+平板 768 的版面與觸控行為不變。
