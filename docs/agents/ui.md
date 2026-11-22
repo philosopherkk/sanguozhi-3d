@@ -6,12 +6,39 @@
 ## 速查（只看這段就夠）
 
 - 佇列：`node scripts/agent-queue.mjs ui`（依 focus→a11y→alt→font 順序）。
+- **開工與收工各跑一次全時代手機實測**：`node scripts/mobile_probe.mjs --narrow > /tmp/mp.log 2>&1; echo exit=$?; tail -n 8 /tmp/mp.log`（約 2 分鐘，需要本機 Chrome；找不到會印 SKIP）。有 ✗ 的時代是**最優先**，先修它再做佇列。收工時失敗數不得比開工多。
+- 手機版是「整頁捲動」設計，見下方「手機整頁捲動規範」；不要改回內部捲動。
 - 一輪最多 **4 項**；做完就收工，剩下的寫進「下輪建議」。
 - 單項驗證：`node scripts/ui_queue.mjs > /tmp/u.log 2>&1; echo exit=$?; tail -n 3 /tmp/u.log`。
 - 快驗閘門：`npm run gates -- --only=audit:mobile`。
 - 地圖標籤字級一律跳過；具體做法見下方；只在這段不夠時往下讀。
 
 
+
+## 手機整頁捲動規範（2026-11-22 起，不得推翻）
+
+窄屏（≤700px，或橫屏矮觸控）由**文件本身**捲動，不是 `.app-shell__main` 內部捲動。設計理由與實測在 `docs/MOBILE_PLAN.md` 最後一節。
+
+- 頁頭、時代列、年代軸隨內容捲走；只有 `.content-dock__head` 黏頂；底欄在捲入內容時收起，「時間軸」浮鈕平滑捲回頁首。
+- 地圖未放大時 `touch-action: pan-y`（一指上下滑＝捲頁），放大後（`--zoomed`）才 `none`。
+- **任何新增的浮層、圖例、面板若自帶內部捲動**（`overflow-y:auto`）：必須限制高度，且 `overscroll-behavior` 不可是 `contain`（要能捲到盡頭後交還頁面）；不可蓋住地圖大半面積。
+- 不要用 `display:none` 收起頁頭一類固定區塊（會造成高度突變、捲動跳位）。
+- 不要在窄屏把 `html`、`body`、`#root` 設回 `overflow:hidden`，也不要給 `.app-shell` 固定高度。
+- 不要動 `src/lib/scrollRoot.ts`、`src/lib/useCollapseOnScroll.ts`、`src/lib/mapViewport.tsx`：它們是捲動機制本體。要改行為就寫進報告「下輪建議」。
+- 桌面（≥1025px）與平板版面維持原樣：`.app-shell` 仍是 100dvh 網格、地圖 `touch-action:none`。
+
+### 全時代實測
+
+`node scripts/mobile_probe.mjs`（全部）、`--narrow`（只測 390）、`--eras=tang,edo`（指定時代）。時代清單自動讀自 `src/state/TopicContext.tsx`，新增時代會自動納入。
+
+每個時代在 390×844 觸控模擬下檢查五項：`load`（主區有內容、無未捕捉例外）、`width`（無橫向溢出）、`scroll`（一指從地圖上滑真的會捲頁）、`trap`（地圖上吞手勢的面積 ≤ 50%）、`sticky`（分頁列黏頂）；768 與 1440 查 `load`＋`width`。
+
+遇到 ✗：
+
+1. 先用 `--eras=<時代>` 單獨重跑確認不是偶發（網路或冷啟動）。
+2. 看失敗項對應的元素：`trap` 多半是新浮層有內部捲動；`width` 多半是某個元素固定寬度；`sticky` 多半是上層加了 `overflow`。
+3. 只改樣式（`src/mobile.css` 的窄屏區塊優先），改完該時代重跑到 ✓，再跑 `node scripts/audit_mobile_css.mjs`。
+4. 修不好就還原，寫進報告，不要為了過關放寬 `mobile_probe.mjs` 的門檻。
 
 ## 目標
 
@@ -76,30 +103,11 @@ npx tsc -b; echo tsc=$?                                                       # 
 npm run build > /tmp/build-ui.log 2>&1; echo build=$?                         # 必須 0
 ```
 
-開工時先跑一次 `audit_mobile_css.mjs` 記下結果；它有 7 項不變式，**任何一項新出現紅燈就撤回最後一批改動**。
+開工時先跑一次 `audit_mobile_css.mjs` 記下結果；它有 8 項不變式（含 `map-touch-trap`），**任何一項新出現紅燈就撤回最後一批改動**。
 
-## 瀏覽器實測（選做，只有有瀏覽器工具時才做）
+## 瀏覽器實測
 
-沒有瀏覽器工具就整段跳過，不要嘗試安裝。有的話：
-
-1. `npm run dev -- --port 5182 --strictPort` 背景啟動。
-2. 在頁面用同源 iframe 量三個寬度，檢查有沒有橫向捲動：
-   ```js
-   (() => {
-     const out = []
-     for (const w of [390, 768, 1440]) {
-       const f = document.createElement('iframe')
-       f.style.cssText = `position:fixed;left:0;top:0;width:${w}px;height:800px;opacity:0;pointer-events:none`
-       f.src = location.pathname
-       document.body.appendChild(f)
-       out.push({ w, el: f })
-     }
-     return out.length
-   })()
-   ```
-   載入後讀 `iframe.contentDocument.documentElement.scrollWidth` 與 `clientWidth`：`scrollWidth > clientWidth` 就是橫向溢出。
-3. 結束時一定要關閉：`pkill -f "vite.*5182"`，並關掉開啟的分頁。
-4. 瀏覽器量到的問題與上面佇列無關時，只寫進報告「下輪建議」，本輪不處理。
+不要自己開瀏覽器或寫探針：一律用 `node scripts/mobile_probe.mjs`（見上方「全時代實測」）。它會自己啟動與關閉 vite 與 Chrome；若中途被打斷，執行 `pkill -f "remote-debugging-port=9467"` 與 `pkill -f "vite.*5197"` 清場。量到的問題與佇列無關時，只寫進報告「下輪建議」。
 
 ## 判斷準則
 
@@ -111,10 +119,11 @@ npm run build > /tmp/build-ui.log 2>&1; echo build=$?                         # 
 
 ## 停止條件
 
-- 四類佇列都是 0（`font` 只剩地圖標籤）：報告「佇列已空」，結束。
+- 四類佇列都是 0（`font` 只剩地圖標籤），且 `mobile_probe` 全部 ✓：報告「佇列已空」，結束。
+- 佇列空但 `mobile_probe` 有 ✗：照「全時代實測」流程修，修到全 ✓ 為止（仍受一輪 4 項上限）。
 - 連續 3 項改完後 `audit:mobile` 或 `tsc` 變紅：停止，撤回，寫報告。
 - 新增的任何 `aria-label` 或 `alt` 若不確定內容：跳過，不要寫「圖片」「按鈕」之類空話。
 
 ## 本輪指標
 
-`ui_queue` 末行的四個數字（a11y／alt／font／focus-visible）報告寫「開工 → 收工」；`audit:mobile` 7 項不變式維持開工時的狀態；`audit:contrast` 保持 0。
+`ui_queue` 末行的四個數字（a11y／alt／font／focus-visible）報告寫「開工 → 收工」；`audit:mobile` 8 項不變式維持開工時的狀態；`mobile_probe --narrow` 的通過數「開工 → 收工」；`audit:contrast` 保持 0。
