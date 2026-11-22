@@ -9,6 +9,17 @@
 - 本輪先做：已知結構性缺陷已清（浮層高度、勢力榜、勢力板、`--bl` 核驗皆於 11-22 兩輪完成）；若佇列仍空且無新缺陷，本節保持「無待辦」並輪值照跑。
 - 舊輪次往後堆；本節只寫「尚餘／下輪先做」。
 
+## 【ui｜2026-11-23 04:11】（停用記錄）
+
+上游 commit `36b53707`（2026-11-22 18:03，chore(agents): 停用 ui 排程）已把 `agent/ui` 停用：
+`docs/agents/ui.md` 標題改「（已停用）」、`scripts/agent-queue.mjs` 移除 ui（實測 exit=2，
+「未知 agent：ui（可用：enrich、accuracy、map、march）」）、`docs/SCHEDULED_AGENTS.md` 的
+ui 行與 cron 已刪除。手機回歸改由四支 agent 收工時跑 `node scripts/mobile_probe.mjs --narrow`，
+ui 手冊之「手機整頁捲動規範」與「全時代實測」仍有效但歸入四支共同收工檢查。
+本輪據此不做任何 src 改動：佇列不存在，實測僅 `agent-queue ui`（exit=2）與
+`git show 36b53707 --stat`；工作區開工時為空。OpenCode 排程內之 ui 項目由本輪報告人另行清理。
+後續介面工作按手冊口徑「由使用者與助理按需處理」，本檔只在本倉庫重新啟用 ui 輪時才續記。
+
 ## 【ui｜2026-11-22 14:11】
 
 基準：`e301183` → 本輪 HEAD：見 `git log`（本節記錄之 commit 為本輪最後一個）
