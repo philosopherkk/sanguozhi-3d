@@ -1028,6 +1028,25 @@
     color: #1c1914;
     border-color: #6d4c2a;
   }
+
+  /* 進入內容（data-chrome='collapsed'）後收起底部工具列，把約 54px 還給
+     內文；捲回地圖、或按「時間軸」就地展開（pinned）即自動回來。
+     面板打開時必須留著，否則搜尋／書籤會失去返回入口。 */
+  .bottom-bar {
+    transition: transform 0.22s ease;
+  }
+
+  html[data-chrome='collapsed'] .bottom-bar {
+    transform: translateY(100%);
+  }
+
+  html:has(.bottom-bar__panel) .bottom-bar {
+    transform: none;
+  }
+
+  html[data-chrome='collapsed'] .chrome-fab {
+    bottom: calc(0.6rem + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 /* ── 窄屏地圖浮層分層（地圖限高後的防撞） ──

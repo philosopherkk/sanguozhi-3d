@@ -324,12 +324,22 @@ export function BottomBar() {
       ? `本分頁沒有符合「${trimmed}」的內容；其他年份與分頁要換過去再搜。`
       : `找到 ${hits.length} 個命中${
           cursor >= 0 ? `，目前第 ${cursor + 1} 個` : ''
-        }。Enter 跳下一個，Shift+Enter 跳上一個，Escape 關閉。`
+        }。點結果可跳到該處。`
 
   return (
     <>
       {panel === 'search' ? (
         <div className="bottom-bar__panel" role="dialog" aria-label="搜尋">
+          <div className="bottom-bar__panel-head">
+            <strong>搜尋</strong>
+            <button
+              type="button"
+              className="bottom-bar__close"
+              onClick={() => setPanel(null)}
+            >
+              關閉
+            </button>
+          </div>
           {statusLine}
           <input
             className="bottom-bar__input"
@@ -340,10 +350,10 @@ export function BottomBar() {
             onChange={(ev) => runSearch(ev.target.value)}
             onKeyDown={onSearchKey}
           />
+          <p className="bottom-bar__hint" role="status" aria-live="polite">
+            {searchHint}
+          </p>
           <div className="bottom-bar__tools">
-            <p className="bottom-bar__hint" role="status" aria-live="polite">
-              {searchHint}
-            </p>
             <div className="bottom-bar__group">
               <button
                 type="button"
@@ -380,6 +390,16 @@ export function BottomBar() {
 
       {panel === 'bookmarks' ? (
         <div className="bottom-bar__panel" role="dialog" aria-label="書籤">
+          <div className="bottom-bar__panel-head">
+            <strong>書籤</strong>
+            <button
+              type="button"
+              className="bottom-bar__close"
+              onClick={() => setPanel(null)}
+            >
+              關閉
+            </button>
+          </div>
           {statusLine}
           <button
             type="button"
