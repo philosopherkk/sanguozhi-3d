@@ -1204,7 +1204,9 @@
     "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/皇甫嵩",
     "grokipedia_url": "https://grokipedia.com/page/Huangfu_Song",
-    "source": "《後漢書·皇甫嵩傳》"
+    "source": "《後漢書·皇甫嵩傳》",
+    "disputed": true,
+    "note": "卒年傳無明文，僅序『尋李傕作亂，嵩亦病卒』；李傕作亂在今公元一九四年，卒年約在是年前後，通說以為一九五年。"
   },
   {
     "id": "emperor-xian",
