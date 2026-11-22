@@ -1381,6 +1381,36 @@ html[data-theme='light'] .app-footer {
   overflow: visible;
 }
 
+/* 勢力板（sengoku／bakumatsu）直接浮在 --tl 疊層內：390px 下列表長，
+   板高 482.9px、底 869px 超出視口 844px 且頁面不捲動，底部不可達。
+   疊層高度已定，故以 max-height:100% 收緊，超出的部分交由列表內部滾動。 */
+.map-stage__overlay--tl > .power-board {
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.map-stage__overlay--tl > .power-board .power-board__title,
+.map-stage__overlay--tl > .power-board .power-board__head {
+  flex: none;
+}
+
+.map-stage__overlay--tl > .power-board .power-board__list {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* 揀中勢力時詳情面板出現，列表不可被擠到 0 高（實測列表 ch 歸零），
+     留至少三行高度讓用戶仍可換選勢力 */
+  min-height: 4.5rem;
+}
+
+/* 詳情面板同樣可縮並內部滾動，否則 390px 下面板 320px 頂穿板框 */
+.map-stage__overlay--tl > .power-board .faction-situation {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
 .map-stage__overlay--tr {
   top: 0.55rem;
   right: 0.55rem;
