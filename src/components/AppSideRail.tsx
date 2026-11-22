@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { usePersistedOpenResponsive } from '../lib/usePersistedOpen'
+import { usesDocumentScroll } from '../lib/scrollRoot'
 import { ContentDock, type ContentDockTab } from './ContentDock'
 
 type AppSideRailProps = {
@@ -39,10 +40,16 @@ export function AppSideRail({
   // 「顯示地圖」應把頁面捲回地圖而不是收合側欄（收合會把剛看的內容藏起來）；
   // 桌面版地圖與側欄並列，維持原本的收合行為。
   const backToMap = () => {
-    const scroller = document.querySelector<HTMLElement>('.app-shell__main')
-    if (scroller && window.matchMedia('(max-width: 700px)').matches) {
-      scroller.scrollTo({ top: 0 })
-      return
+    if (window.matchMedia('(max-width: 700px)').matches) {
+      if (usesDocumentScroll()) {
+        window.scrollTo({ top: 0 })
+        return
+      }
+      const scroller = document.querySelector<HTMLElement>('.app-shell__main')
+      if (scroller) {
+        scroller.scrollTo({ top: 0 })
+        return
+      }
     }
     setOpen(false)
   }

@@ -16,6 +16,7 @@
  *                   實測：全 repo 原本零個 env(safe-area-inset-*)。
  *  4 bare-vh        .app-shell 高度必須用 dvh（行動瀏覽器地址欄會吃掉 vh）
  *  5 tap-min        主要控件在窄屏必須補到 ≥40px 按擊區
+ *  6 map-touch-trap 窄屏地圖未放大時須 touch-action:pan-y，一指上下滑要能捲頁
  *
  * 跑法：node scripts/audit_mobile_css.mjs [--teeth] [--files-root=<目錄>]
  *   --teeth 會把每個缺陷重新注入記憶體中的 CSS，確認規則真的會報（防止閘門
@@ -149,7 +150,22 @@ function check(css) {
   // 2b 地圖下方的內容必須翻得到：主區要是可垂直滾動的容器，且不可再用 scroll-snap
   //    （收起時間軸會改變主區高度，吸附點跟著變，畫面會在地圖與內容之間來回跳）
   const pagerRules = rules.filter((r) => narrow(r) && selHas(r, 'app-shell__main'))
-  const pager = pagerRules.some((r) => declOf(r.body, 'overflow-y') === 'auto')
+  const mainScrolls = pagerRules.some((r) => declOf(r.body, 'overflow-y') === 'auto')
+  // 現行做法：整份文件捲動——html／body 解除 overflow:hidden，且 .app-shell 高度放開
+  const docOpen = rules.some(
+    (r) =>
+      narrow(r) &&
+      /(^|[\s,])html\s*(,|$)/.test(r.selector) &&
+      declOf(r.body, 'overflow') === 'visible',
+  )
+  const shellFree = rules.some(
+    (r) =>
+      narrow(r) &&
+      r.selector.trim() === '.app-shell' &&
+      declOf(r.body, 'height') === 'auto' &&
+      declOf(r.body, 'max-height') === 'none',
+  )
+  const pager = mainScrolls || (docOpen && shellFree)
   const snaps = pagerRules.some((r) => /y/.test(declOf(r.body, 'scroll-snap-type') ?? ''))
   if (!pager || snaps) fails.push('mobile-pager')
 
@@ -161,6 +177,16 @@ function check(css) {
       /(clamp|vh|rem|px)/.test(declOf(r.body, 'height') ?? ''),
   )
   if (!mapBound) fails.push('mobile-map-bound')
+
+  // 2d 地圖不可吞掉捲動：窄屏未放大時必須 touch-action:pan-y，否則一指落在地圖上
+  //    （約佔視窗七成）頁面就捲不動
+  const mapPan = rules.some(
+    (r) =>
+      narrow(r) &&
+      r.selector.trim() === '.map-2d__basemap-wrap' &&
+      declOf(r.body, 'touch-action') === 'pan-y',
+  )
+  if (!mapPan) fails.push('map-touch-trap')
 
   // 3 安全區
   for (const cls of ['map-layer-bar', 'app-footer']) {
@@ -212,12 +238,17 @@ if (process.argv.includes('--teeth')) {
     ['bare-vh', (s) => s.replace(/(\.app-shell \{\n\s*height: calc\()100dvh/, '$1100vh')],
     [
       'mobile-pager',
-      // 模擬有人把整屏翻頁換回不可滾動的版面（地圖下方內容再度翻不到）
+      // 模擬有人把 html／body 換回 overflow:hidden（文件不能捲，地圖下方內容翻不到）
       (s) =>
         s.replace(
-          /display: block;\n\s*overflow-y: auto;\n\s*overscroll-behavior-y: contain;/,
-          'display: grid;\n    grid-template-rows: minmax(0, 1.4fr) minmax(0, 1fr);',
+          /html,\n\s*body,\n\s*#root \{\n\s*height: auto;\n\s*min-height: 100%;\n\s*overflow: visible;/,
+          'html,\n  body,\n  #root {\n    height: 100%;\n    overflow: hidden;',
         ),
+    ],
+    [
+      'map-touch-trap',
+      // 模擬有人把地圖改回一律 touch-action:none
+      (s) => s.replace(/(\.map-2d__basemap-wrap \{\n\s*touch-action: )pan-y/, '$1none'),
     ],
     [
       'mobile-map-bound',
@@ -254,4 +285,4 @@ if (base.length) {
   console.error('（背景與實測數據見 docs/MOBILE_PLAN.md）')
   process.exit(1)
 }
-console.log('✓ audit:mobile — 7 項結構不變量全部成立')
+console.log('✓ audit:mobile — 8 項結構不變量全部成立')

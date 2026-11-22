@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import { usesDocumentScroll } from './scrollRoot'
 
 const COLLAPSE_AT = 0.6
 const EXPAND_AT = 0.3
@@ -16,14 +17,16 @@ function mapHeight(main: HTMLElement): number {
 }
 
 /**
- * 窄屏時：主區（.app-shell__main）捲入內容後，把 <html data-chrome="collapsed">
- * 打開，由 CSS 收起朝代列、年代滑桿與專題切換。各時代標頭不同，所以旗標掛在
+ * 窄屏時：整份文件捲過地圖六成就算進入內容，把 <html data-chrome="collapsed">
+ * 打開，由 CSS 收起底欄並移動浮動「時間軸」鈕。各時代標頭不同，所以旗標掛在
  * 文件根而非任何一個標頭上，所有時代共用同一套行為。
- * 桌面版主區不捲動，scrollTop 恆為 0，旗標恆關閉，桌面版面不受影響。
+ * 桌面版文件不捲動，主區 scrollTop 恆為 0，旗標恆關閉，桌面版面不受影響。
  *
- * 收起與展開用不同門檻（遲滯），避免版面高度變動後在門檻附近來回閃動。
- * 收起後要回到時間軸不必捲回地圖：回傳的 `reveal()` 讓使用者就地展開
- * （狀態 pinned），內容位置不動；再按一次 `hide()` 收回，或捲回地圖時自動解除。
+ * 頁頭、時代列與年代軸隨文件自然捲走，不再被 display:none 收起（高度突變會令
+ * 捲動位置跳動）。要回到時間軸，`reveal()` 平滑捲回頁首（狀態 pinned，捲回
+ * 地圖時自動解除）；pinned 時再按 `hide()` 只是回到收起前的狀態。
+ *
+ * 收起與展開用不同門檻（遲滯），避免底欄收放改變高度後在門檻附近來回閃動。
  *
  * @param resetKey 換國家或時代時變動；新時代從地圖開始，狀態要歸零。
  */
@@ -37,10 +40,17 @@ export function useCollapseOnScroll(resetKey: string): {
 
   useEffect(() => {
     const onScroll = (ev: Event) => {
-      const main = ev.target
-      if (!(main instanceof HTMLElement) || main !== mainEl()) return
+      const main = mainEl()
+      if (!main) return
+      let top: number
+      if (usesDocumentScroll()) {
+        if (ev.target !== document) return
+        top = window.scrollY - (main.getBoundingClientRect().top + window.scrollY)
+      } else {
+        if (ev.target !== main) return
+        top = main.scrollTop
+      }
       const map = mapHeight(main)
-      const top = main.scrollTop
       setAuto((cur) => (cur ? top > map * EXPAND_AT : top > map * COLLAPSE_AT))
       if (top <= map * EXPAND_AT) setPinned(false)
     }
@@ -63,7 +73,10 @@ export function useCollapseOnScroll(resetKey: string): {
     else delete root.dataset.chrome
   }, [collapsed])
 
-  const reveal = useCallback(() => setPinned(true), [])
+  const reveal = useCallback(() => {
+    setPinned(true)
+    if (usesDocumentScroll()) window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [])
   const hide = useCallback(() => setPinned(false), [])
 
   return {
