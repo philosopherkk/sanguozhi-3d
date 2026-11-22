@@ -208,6 +208,13 @@ LANDMARKS = [
     # （北元）框內、明初框外（明軍取上都為洪武二年，通說整理）
     ("廣州（陳末）", 113.26, 23.13, "realm_chen_581", "realm_sui_581"),
     ("上都（元夏都）", 116.19, 42.36, "realm_yuan_1368", "realm_ming_1368"),
+    # 陝西（不含關中）環照登記口徑減走關中別環後：渭南・咸陽・西安屬關中別環、
+    # 唔喺 shaanxi_rest 內；榆林（綏德銀州之北）喺環內、唔喺關中環內
+    # （現代省界示意，榆林地望用今市政府駐地）
+    ("渭南", 109.50, 34.50, "qin_guanzhong", "shaanxi_rest"),
+    ("咸陽", 108.71, 34.33, "qin_guanzhong", "shaanxi_rest"),
+    ("西安", 108.94, 34.26, "qin_guanzhong", "shaanxi_rest"),
+    ("榆林", 109.73, 38.29, "shaanxi_rest", "qin_guanzhong"),
 ]
 
 

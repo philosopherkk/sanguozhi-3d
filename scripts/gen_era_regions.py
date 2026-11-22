@@ -675,7 +675,9 @@ def main() -> None:
     masks["shanxi_song"] = masks["shanxi"] & ~masks["youyun"]
     masks["shaanxi"] = masks["shaanxi"] & ~masks["hanzhong"]
     masks["qin_guanzhong"] = masks["qin_guanzhong"] & ~masks["hanzhong"]
-    masks["shaanxi_rest"] = masks["shaanxi"] & ~masks["yanan"]
+    # 登記口徑係「陝西（不含關中）」：延安、關中兩個別環都要減走，
+    # 否則西安・咸陽・寶雞三個關中城會同時命中 shaanxi_rest（與登記相反）。
+    masks["shaanxi_rest"] = masks["shaanxi"] & ~masks["yanan"] & ~masks["qin_guanzhong"]
     masks["yanan"] = masks["yanan"] & masks["shaanxi"]
     masks["qi_west"] = masks["qi"] & ~masks["qi_east_box"]
     masks["qi_east"] = masks["qi"] & masks["qi_east_box"]
