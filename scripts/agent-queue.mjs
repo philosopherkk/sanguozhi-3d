@@ -27,10 +27,6 @@ const last = (s, pat) => s.split('\n').filter((l) => pat.test(l)).pop() ?? '（�
 const head = (s, n) => s.split('\n').slice(0, n).join('\n')
 
 const summary = {
-  ui: () => {
-    const o = run('node scripts/ui_queue.mjs')
-    return last(o, /^ui_queue —/)
-  },
   enrich: () => {
     run('node scripts/audit_event_depth.mjs')
     return last(run('node scripts/audit_event_depth.mjs'), /^audit:event-depth —/)
@@ -43,14 +39,6 @@ const summary = {
   march: () => last(run('python3 scripts/check_route_landmarks.py --unasserted'), /無斷言/),
 }
 const detail = {
-  ui: () =>
-    [
-      run('node scripts/ui_queue.mjs').trim(),
-      '',
-      '開工與收工各跑一次全時代手機實測（約 2 分鐘）：',
-      '  node scripts/mobile_probe.mjs --narrow > /tmp/mp.log 2>&1; echo exit=$?; tail -n 8 /tmp/mp.log',
-      '有 ✗ 的時代最優先修；手機是整頁捲動設計，規範見 docs/agents/ui.md「手機整頁捲動規範」。',
-    ].join('\n'),
   enrich: () => {
     const audit = run('node scripts/audit_event_depth.mjs')
     const rep = readFileSync(join(ROOT, 'reports/event-depth.md'), 'utf8')
