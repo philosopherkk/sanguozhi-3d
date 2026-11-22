@@ -73,7 +73,8 @@ export function AppSideRail({
                   aria-expanded={open}
                   onClick={backToMap}
                 >
-                  顯示地圖
+                  <span className="side-rail__map-first--mobile">回到地圖</span>
+                  <span className="side-rail__map-first--desktop">顯示地圖</span>
                 </button>
               }
             />

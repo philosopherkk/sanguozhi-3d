@@ -138,6 +138,22 @@
   color: var(--ink);
 }
 
+/* 窄屏用「回到地圖」如實描述捲回地圖的行為（見 backToMap）；
+   桌面與平板維持「顯示地圖」——那裡的行為是收合側欄讓出地圖。 */
+.side-rail__map-first--mobile {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .side-rail__map-first--desktop {
+    display: none;
+  }
+
+  .side-rail__map-first--mobile {
+    display: inline;
+  }
+}
+
 .side-rail__chips {
   flex: 1;
   display: flex;
@@ -3841,6 +3857,12 @@ html[data-theme='light'] .bottom-bar__status {
   /* 刪除書籤屬圖示按鈕，無文字可撐寬，補方形下限以免變成細長條。 */
   .bottom-bar__row button:last-child {
     min-width: var(--tap-min);
+  }
+
+  /* 單獨按鈕（白底／搜尋／書籤）的兩字標籤被 flex 壓縮至 36px，
+     文字實寬 40px 而溢出框線；收窄左右內距讓文字完整顯示。 */
+  .bottom-bar button.bottom-bar__solo {
+    padding-inline: 0.25rem;
   }
 }
 
