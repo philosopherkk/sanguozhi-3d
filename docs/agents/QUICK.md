@@ -48,6 +48,7 @@ git status --porcelain                      # 必須空
 npx tsc -b; echo tsc=$?
 npm run build > /tmp/build-<key>.log 2>&1; echo build=$?
 npm run lint > /tmp/lint-<key>.log 2>&1; echo lint=$?
+node scripts/mobile_probe.mjs --narrow > /tmp/mp-<key>.log 2>&1; echo mp=$?; tail -n 5 /tmp/mp-<key>.log   # 手機回歸，須 0
 npm run gates > /tmp/gates-after-<key>.log 2>&1; echo gates=$?   # 單項可先用 --only=<閘門名> 快驗
 sh scripts/agent-report.sh <key> <BASE> > /tmp/report-<key>.txt
 git push origin agent/<key>
@@ -57,4 +58,5 @@ sh scripts/agent-run.sh end <key>           # 最後一個指令
 ## 鐵律
 
 正體中文書面語、不編造、不混英文進中文句、引文逐字、scope 用自己的 key。
+收工的 `mp` 非 0：先用 `--eras=<失敗時代>` 單獨重跑一次；仍紅就是本輪改動弄壞了手機版，還原最後一批再收工（手機版是整頁捲動設計，規範在 `docs/agents/ui.md` 前 40 行）。
 報告數字以指令輸出為準，沒跑過的指令不要寫進報告。有疑問才讀 `docs/agents/README.md` 與手冊全文。

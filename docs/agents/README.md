@@ -1,6 +1,6 @@
 # 排程 agent 共同手冊
 
-> 五支排程 agent（enrich、accuracy、ui、march、map）每輪**只讀 `docs/agents/QUICK.md`（約 45 行）就開工**。本檔與各 `docs/agents/<key>.md` 是疑問時的參考，不是每輪必讀；若要讀，只看各檔開頭的「速查」段（最多 30 行）。重複整檔讀入會吃掉本機模型的 token，是必須避免的浪費。
+> 四支排程 agent（enrich、accuracy、march、map；ui 已於 2026-11-22 停用）每輪**只讀 `docs/agents/QUICK.md`（約 45 行）就開工**。本檔與各 `docs/agents/<key>.md` 是疑問時的參考，不是每輪必讀；若要讀，只看各檔開頭的「速查」段（最多 30 行）。重複整檔讀入會吃掉本機模型的 token，是必須避免的浪費。
 > 本檔隨 repo 版本控制，改它不需要 sudo，下一輪就生效。
 > 上位規章：`docs/SCHEDULED_AGENTS.md`（真確性鐵律）與 `AGENTS.md`。衝突時以那兩份為準。
 
@@ -67,7 +67,7 @@ node scripts/agent-model-check.mjs     # 比對鎖檔內容與權威 registry，
    - `agent-selfcheck` 有任何 `✗` 行：修掉才能 commit。
    - 它列出的「新出現的漢字」要逐個看：是不是你想打的那個字？看到簡體字或怪字，用該檔既有的同一個詞去複製，不要憑記憶重打。
    - `audit:chars` 結束碼不是 0：修掉才能 commit。
-6. **commit**：訊息要與內容相符，用 `type(scope): 摘要`；`scope` 必須是**自己的 key**（ui 用 `fix(ui):`、march 用 `test(march):`），不准借用別人的 scope。例：`data(zhou): zhou-zhao 結果欄補寫至 400 字並附出處`。一個 commit 不混不同類的事。
+6. **commit**：訊息要與內容相符，用 `type(scope): 摘要`；`scope` 必須是**自己的 key**（map 用 `fix(map):`、march 用 `test(march):`），不准借用別人的 scope。例：`data(zhou): zhou-zhao 結果欄補寫至 400 字並附出處`。一個 commit 不混不同類的事。
 7. **看時間**：`sh scripts/agent-run.sh left <key>`。印 `TIMEUP` 或 `STOP` 就收尾，不開新項。印 `NOT_OWNER` 代表你沒有鎖：立刻停止所有修改，不要 commit，不要 push，回報一句就結束。
 
 ## 3. 收工流程

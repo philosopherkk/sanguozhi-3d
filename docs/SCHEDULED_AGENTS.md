@@ -96,11 +96,10 @@ npm run lint           # 0 error
 - 維基連結死活：只信 MediaWiki API `action=query&redirects=1&titles=` 的 `missing` 欄；
   **HTTP 200 不等於條目存在**。
 
-## 4. 五支 agent、職責與檔案擁有權
+## 4. 四支 agent、職責與檔案擁有權（`agent/ui` 已於 2026-11-22 停用）
 
 | Agent (branch) | 任務 | 主要負責檔案 | 主閘門 |
 |---|---|---|---|
-| `agent/ui` | 介面與體驗，尤重手機／平板 | `src/App.css`、`src/mobile.css`、`src/index.css`、各 `components/**.tsx`（版面與觸控，不動資料） | `audit:mobile`（結構不變量） |
 | `agent/enrich` | 內容加厚（敘事三段、三層意譯、詳情、人物維基連結、成語覆蓋） | 各 `*/data/timeline*.ts`、`readingLayers`、`detail`/`details`、`studentEvents`、`src/chengyu/data/idioms.json`、人物 `wiki` 欄 | `audit:event-depth`、`audit:detail-depth`、`audit:reading-layers`、`audit:chengyu-coverage` |
 | `agent/map` | 疆域／版圖精度（示意邊界、era rings、勢力控制幾何、底圖） | `src/geo/**`、`src/data/territory/**`、`src/data/{provinces,basemapProvinces,territoryControl,historicalBasemaps}.ts`、imperial `realmRanges/outerRings/tangRings/yananRing/liaoWest/warlordRanges/modernChina.ts`、sengoku `regions/tracedDomains/codhKokugunMeshes`、bakumatsu 藩域 mesh、`jpDomains.ts` | `audit:war-shape`、`audit:geo`、`audit:ranges` |
 | `agent/march` | 行軍／進軍路線（陸海路徑、箭頭座標、路線年份與事件對齊） | `src/data/marchRoutes.ts`（僅 `CHINA_MARCH_ROUTES` 與型別）、各 `*/data/marchRoutes*.ts`、imperial `routesSuitang/routesNanbei/line/waypoints.ts`、`src/components/map/RouteOverlay.tsx`、`MapRouteLegend.tsx` | `audit:map`（路線海陸與年份一致性） |
@@ -125,9 +124,8 @@ npm run lint           # 0 error
 
 | Agent | cron | 每日次數 |
 |---|---|---|
-| `agent/enrich` | `10 0,10,20 * * *` | 3 |
-| `agent/accuracy` | `10 2,12,22 * * *` | 3 |
-| `agent/ui` | `10 4,14 * * *` | 2 |
+| `agent/enrich` | `10 0,4,10,20 * * *` | 4 |
+| `agent/accuracy` | `10 2,12,14,22 * * *` | 4 |
 | `agent/march` | `10 6,16 * * *` | 2 |
 | `agent/map` | `10 8,18 * * *` | 2 |
 
@@ -145,7 +143,7 @@ npm run lint           # 0 error
 - 報告骨架 `sh scripts/agent-report.sh <key> <BASE>`：數字由指令抓，模型只補文字。
 - commit 標題自檢 `node scripts/agent-selfcheck.mjs --commits origin/main`；gates 內有 `audit:commit-msgs` 閘門。
 - 單閘門快驗 `npm run gates -- --only=<閘門名>`（收工仍要跑全量）。
-- 佇列工具：`scripts/audit_event_depth.mjs`（enrich）、`scripts/quote-audit-ledger.json`（accuracy）、`scripts/check_route_landmarks.py --unasserted`（march）、`scripts/check_ring_landmarks.py --unasserted`（map）、`scripts/ui_queue.mjs`（ui）、`scripts/wp_coord.py`（查座標）。
+- 佇列工具：`scripts/audit_event_depth.mjs`（enrich）、`scripts/quote-audit-ledger.json`（accuracy）、`scripts/check_route_landmarks.py --unasserted`（march）、`scripts/check_ring_landmarks.py --unasserted`（map）、`scripts/wp_coord.py`（查座標）。
 
 ## 6. 教訓（每條都付過學費）
 

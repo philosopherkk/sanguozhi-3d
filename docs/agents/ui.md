@@ -1,4 +1,6 @@
-# ui｜介面可用性與手機排版
+# ui｜介面可用性與手機排版（已停用）
+
+> **2026-11-22 起 `agent/ui` 排程已停用**，介面工作改由使用者與助理按需處理。本檔保留為參考：下方「手機整頁捲動規範」與「全時代實測」仍然有效，任何會動到版面的人（含 enrich／map／march／accuracy 的收工檢查）都必須遵守。
 
 > 本輪只讀 `docs/agents/QUICK.md` 就開工；本檔是參考，只在 QUICK 不夠時讀上面「速查」段（最多 30 行）。
 > worktree：`~/Project/historyfirst-1/historyfirst-wt-ui`，分支 `agent/ui`。

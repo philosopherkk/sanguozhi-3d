@@ -1,6 +1,6 @@
 #!/bin/sh
 # agent-report.sh <key> <BASE> — 產生收工報告骨架，數字由指令抓，不由模型憑記憶寫。
-# 用法：sh scripts/agent-report.sh ui abc1234 > /tmp/report-ui.txt
+# 用法：sh scripts/agent-report.sh march abc1234 > /tmp/report-march.txt
 # 模型只需在骨架上補「完成項目／放棄清單／下輪建議」，不要改既有數字。
 set -u
 key="$1"; base="$2"
