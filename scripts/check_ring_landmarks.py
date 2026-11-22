@@ -215,6 +215,9 @@ LANDMARKS = [
     ("咸陽", 108.71, 34.33, "qin_guanzhong", "shaanxi_rest"),
     ("西安", 108.94, 34.26, "qin_guanzhong", "shaanxi_rest"),
     ("榆林", 109.73, 38.29, "shaanxi_rest", "qin_guanzhong"),
+    # 韓環改登記「戰國・徙都新鄭前」（陽翟帶）：禹州（漢陽翟縣地，通說）喺環內、
+    # 唔喺魏（大梁）環內；韓故城（韓城）唔喺此環（其荊衡歸屬等人判斷，見報告）
+    ("禹州（陽翟）", 113.49, 34.15, "han_state", "wei_daliang"),
 ]
 
 
