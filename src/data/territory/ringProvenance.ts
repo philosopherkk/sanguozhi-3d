@@ -74,7 +74,7 @@ export const RING_PROVENANCE: Record<string, RingProvenance> = {
   hanzhong: { basis: '漢中：山川形勢——北界秦嶺主脊（子午・老子嶺，西鄉在秦嶺山谷不屬）、南界大巴山北麓（勉縣—沔水谷）、西高田峪・青木川、東城固河口', source: '《書·禹貢》；《史記·高祖本紀》；秦嶺・大巴山形勢示意', institution: '無', kind: 'natural-border', approx: true },
   wu_delta: { basis: '吳（太湖）：依文獻地望的手繪區，非圖幅矢量化', source: '《史記·吳太伯世家》；《越絕書》', institution: '無', kind: 'text-derived', approx: true },
   yue_zhe: { basis: '越（浙江）：依文獻地望的手繪區，非圖幅矢量化', source: '《史記·越王句踐世家》', institution: '無', kind: 'text-derived', approx: true },
-  han_state: { basis: '韓（春秋）：依文獻地望的手繪區，非圖幅矢量化', source: '《左傳》；其後為韓原', institution: '無', kind: 'text-derived', approx: true },
+  han_state: { basis: '韓（戰國・徙都新鄭前）：豫中陽翟（今禹州）一帶手繪區，非圖幅矢量化；韓故國（陝南韓城）與徙都後之新鄭皆不在此環', source: '《史記·韓世家》「九年，鄭圍我陽翟」「二年，滅鄭，因徙都鄭」（Wikisource 可逐字比對）；陽翟即今禹州係通說', institution: '無', kind: 'text-derived', approx: true },
   wei_daliang: { basis: '魏（大梁）：依文獻地望的手繪區，非圖幅矢量化', source: '《史記·魏世家》；《戰國策》', institution: '無', kind: 'text-derived', approx: true },
   wei_hedong: { basis: '魏（河東）：依文獻地望的手繪區，非圖幅矢量化', source: '《史記·魏世家》；安邑地望', institution: '無', kind: 'text-derived', approx: true },
   zhao_handan: { basis: '趙（邯鄲）：依文獻地望的手繪區，非圖幅矢量化', source: '《史記·趙世家》', institution: '無', kind: 'text-derived', approx: true },
