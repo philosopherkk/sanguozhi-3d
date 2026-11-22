@@ -373,3 +373,11 @@ audit:map fail 0｜warn 0；audit:chars 硬傷 0；selfcheck（新增行）命�
 push／PR／gates 見下方收工記錄。
 下輪建議：scan_v 覆核（已擱三輪）；mj-1942-midway 口徑；edo-1669／mj-1905 兩條海路先查有冇帶座標嘅條目；
 平安十二＋三國訖點觀察項（chibi／guandu 訖、zhanglu 訖陽平）維持前裁。
+
+收工記錄：gates exit=0，多項改善（chengyu shortage 15 → 3、event-depth gap 118 → 0、
+war-shape schematic 101 → 57、ranges warn 179 → 178 等），無惡化。
+push：remote 舊尾係自己第二十三輪尾 89eab33，`git cherry` 確認本鏈十四個 commit 全未入 main
+（PR 未 merge），照例 `--force-with-lease`；推後 remote 尾 == HEAD == f6b0b83。
+PR：#176（OPEN，沿用；本輪五個 commit 都在其分支內）。
+教訓：本輪報告初稿又打出一個簡體形（見字旁加隹嗰個口語常用詞），selfcheck 新增行掃出、
+amend 補救——寫完自證一段都要過工具，唔好靠肉眼。
