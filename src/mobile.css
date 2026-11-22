@@ -625,8 +625,10 @@
      map-2d__caret、map-2d__frontier-legend、terr-label__prov、
      year-scrubber__note--press 共七組，已於同日殭屍清理自兩份
      CSS 移除；faction-legend__btn 一組則由上游先刪）。 */
+  /* 分頁年份（.content-dock__tab-year）刻意不給 min-height：它只是按鈕內
+     的一行標籤，與分頁同屬一個按擊區。先前誤列為獨立控件，44px 下限
+     把整列分頁撐到 93px，白耗手機約 40px 垂直空間。 */
   .content-dock__tab,
-  .content-dock__tab-year,
   .timeline-year--btn,
   .timeline-month-chip,
   .timeline-title-link,
