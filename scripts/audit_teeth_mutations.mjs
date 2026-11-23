@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 /**
- * 突變測試：證明三支 `--teeth` 閘門本身有牙（2026-11-14 使用者裁定入庫；
- * 2026-11-15 第十二輪補入 audit:mobile——佢嘅六條注入探針此前冇任何東西驗證過）。
+ * 突變測試：證明四支 `--teeth` 閘門本身有牙（2026-11-14 使用者裁定入庫；
+ * 2026-11-15 第十二輪補入 audit:mobile——佢嘅六條注入探針此前冇任何東西驗證過；
+ * 2026-11-23 補入 audit:data——簡體表混入繁簡同形「西」誤報 30 處，舊牙口連
+ *   「唔准誤報」嗰邊都冇，逼到其他 agent 刪正文避閘，呢組成對突變係直接回歸）。
  *
- * 點解要呢支：`audit:map --teeth`、`audit:chars --teeth` 與 `audit:mobile --teeth`
+ * 點解要呢支：`audit:map --teeth`、`audit:chars --teeth`、`audit:mobile --teeth` 與
+ * `audit:data --teeth`
  * 都係「注入壞樣本 → 必須報紅」，但判斷用嘅係**同一支閘門**。所以一旦有人把規則
  * 改弱——正則收細、豁免放大、字表抽走一個字、註冊表來源檔名打錯——teeth 會跟住
  * 變橡皮章而照樣全綠（本專案已記過五次同一根因）。
@@ -14,12 +17,12 @@
  *   （教訓：之前 temp 目錄嗰支 python 版係直接改 scripts/audit_map_accuracy.mjs，
  *     中途斷喺會留低半改狀態；teeth_chars.py 更係喺 src/ 落盤注入檔，會被 `git add -A` 誤收。）
  *
- * 用法：npm run audit:teeth-mutations            （三組都跑）
- *       npm run audit:teeth-mutations -- --only=map|chars|mobile
+ * 用法：npm run audit:teeth-mutations            （四組都跑）
+ *       npm run audit:teeth-mutations -- --only=map|chars|mobile|data
  *
  * 口徑：末行 `audit:teeth-mutations — 失敗 N 項` 係 scripts/gate-ci.mjs 抓嘅指標，改格式要一起改。
  */
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { spawnSync } from 'node:child_process'
@@ -280,6 +283,41 @@ const SUITES = [
         find: 'parseRules(body, selector, out)', to: 'parseRules(body, null, out)' },
       { name: '窄屏定義收細到 360px（640／700 的修訂全部默默喺閘門以外）',
         find: 'mediaMaxW(r.media) <= 760', to: 'mediaMaxW(r.media) <= 360' },
+    ],
+  },
+  {
+    name: 'data',
+    gate: 'audit:data --teeth',
+    min: 4,
+    metric: /audit:data --teeth — 失敗 (\d+) 項/,
+    /** 副本要 import 真 src/data 先跑到得 `--teeth`（頂層 import 冇得避）；
+     *  symlink 指返真 src，突變的是規則、唔係樣本，亦唔會覆寫 docs/AUDIT.md。 */
+    stage(dir) {
+      const base = join(dir, 'data')
+      const file = join(base, 'audit-data.ts')
+      write(file, read('scripts/audit-data.ts'))
+      symlinkSync(join(ROOT, 'src'), join(dir, 'src'), 'dir')
+      return {
+        file,
+        spawn: (f) =>
+          spawnSync(process.execPath, ['--experimental-strip-types', f, '--teeth'], {
+            cwd: ROOT,
+            encoding: 'utf8',
+          }),
+      }
+    },
+    mutations: [
+      // 呢組係 2026-11-23 單事故的直接回歸：「西」喺簡體表入面誤報 30 處，
+      // 而舊牙口連「唔准誤報」嗰邊都冇——以下每條都要睇到 teeth 報紅。
+      { name: '簡體表抽走 U+6C49（最常見的簡體字之一失明）',
+        find: '\u4eea\u6c49\u8fb9\u53d8\u4e91', to: '\u4eea\u8fb9\u53d8\u4e91' },
+      { name: '簡體表加返「西」（30 處誤報復辟，正正係本輪嘅事故）',
+        find: '\u6ca1\u4e1c\u4e60\u6b22\u8fdb', to: '\u6ca1\u4e1c\u897f\u4e60\u6b22\u8fdb' },
+      { name: '粵語表抽走「嘅」（網站文案口語化無人叫）',
+        find: '/[嘅咗佢喺冇咩噉嚟嘢唔]/u', to: '/[咗佢喺冇咩噉嚟嘢唔]/u' },
+      { name: '要偵到嗰邊嘅探針清單抽走一半（淨低嘅清單照樣全綠）',
+        find: "const MUST_BITE = ['\u6c49', '\u4e1c\u6c49', '\u8fd9\u662f', '\u8bf4\u4e0d\u5b8c', '\u6211\u4eec', '\u6218\u4e89', '\u5934\u53d1']",
+        to: "const MUST_BITE = ['\u6c49', '\u4e1c\u6c49', '\u8fd9\u662f']" },
     ],
   },
 ]
