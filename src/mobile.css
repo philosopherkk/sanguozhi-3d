@@ -205,15 +205,30 @@
      圖例改置頂，底部留給圖層列與縮放。
      （原並列 .map-2d__frontier-legend：邊界圖例元件已刪，TSX 無
      此類名，殭屍規則已移除。） */
+  /* 行軍圖例改為橫向條：直向一指交還整頁，橫向滑動才瀏覽圖例。
+     原本直向內部捲動會吞掉整頁上滑，即使 overscroll 設 auto 亦會先耗掉手勢。 */
   .map-2d__route-legend {
     top: 2.4rem;
     bottom: auto;
-    max-width: 42vw;
-    max-height: 6.5rem;
-    overflow-y: auto;
+    max-width: 76vw;
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
-    /* 圖例捲到盡頭就交還給整頁；原本 contain 會令一指落在圖例上整頁不動 */
-    overscroll-behavior: auto;
+  }
+
+  .map-2d__route-legend ul {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .map-2d__route-legend li {
+    flex: 0 0 auto;
+    max-width: 9rem;
   }
 
   .map-2d__route-legend {
@@ -1023,10 +1038,24 @@
     touch-action: none;
   }
 
-  /* 戰國／幕末的勢力榜浮在地圖右側，列表原本可長到近滿高並鎖住連鎖捲動，
-     一指落在其上整頁不動。限制列表高度，捲到盡頭即交還給頁面。 */
+  /* 戰國／幕末的勢力榜改為多行排列：全部項目一次顯示，不設內部捲動，
+     直向一指必定交還整頁（橫向條仍會被瀏覽器當成捲動容器而吞掉手勢）。 */
   .map-stage__overlay--tl > .power-board .power-board__list {
-    max-height: 6.5rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-height: none;
+    min-height: 0;
+    overflow: visible;
+    padding-bottom: 0.25rem;
+  }
+
+  .map-stage__overlay--tl > .power-board .power-board__list > li {
+    flex: 0 1 auto;
+    min-width: 7rem;
+  }
+
+  /* 勢力詳情面板的內部捲動不應鎖住整頁：內容讀到盡頭時把捲動交還給頁面。 */
+  .map-stage__overlay--tl > .power-board .faction-situation {
     overscroll-behavior-y: auto;
   }
 }
