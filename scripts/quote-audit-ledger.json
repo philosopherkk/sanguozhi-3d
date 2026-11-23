@@ -22,12 +22,12 @@
   "src/zhou/data/earlyDynasty.ts#xia-taikang": {
     "stamp": "e3bdb049",
     "page": "史記/卷002",
-    "at": "2026-11-08"
+    "at": "2026-11-23"
   },
   "src/zhou/data/earlyDynasty.ts#xia-jie": {
     "stamp": "cbd2ea8c",
     "page": "史記/卷002",
-    "at": "2026-11-08"
+    "at": "2026-11-23"
   },
   "src/zhou/data/earlyDynasty.ts#shang-tang": {
     "stamp": "18928233",
@@ -535,14 +535,14 @@
     "at": "2026-11-23"
   },
   "src/data/people.json#man-chong": {
-    "stamp": "485eb0c2",
+    "stamp": "4aab71a0",
     "page": "三國志/卷26",
-    "at": "2026-11-06"
+    "at": "2026-11-23"
   },
   "src/data/people.json#wang-ping": {
-    "stamp": "f23ea90",
+    "stamp": "ff3c811b",
     "page": "三國志/卷43",
-    "at": "2026-11-06"
+    "at": "2026-11-23"
   },
   "src/imperial/data/jinPack.ts#jin-291": {
     "stamp": "92b06320",
