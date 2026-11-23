@@ -440,8 +440,12 @@ export function ZhouMap() {
         </div>
 
         <p className="map-2d__basemap-title">
-          周世勢力示意 · 快照 {formatZhouYear(territoryYear)}（{snapshot.label}）
-          · 滾輪縮放
+          <span className="map-2d__basemap-name">周世勢力示意</span>
+          <span className="map-2d__basemap-meta">
+             · 快照 {formatZhouYear(territoryYear)}（{snapshot.label}） ·{' '}
+            <span className="map-2d__hint-desktop">滾輪縮放</span>
+            <span className="map-2d__hint-touch">雙指縮放</span>
+          </span>
         </p>
       </div>
 

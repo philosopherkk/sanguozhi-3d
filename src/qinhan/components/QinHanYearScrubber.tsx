@@ -1,4 +1,5 @@
 import { layoutTicks } from '../../lib/tickCollisions'
+import { useTrackWidth } from '../../lib/useTrackWidth'
 import { formatQinHanYear } from '../lib/formatYear'
 import { useQinHanYear } from '../state/QinHanYearContext'
 
@@ -14,6 +15,8 @@ const TICKS: { year: number; label: string }[] = [
 export function QinHanYearScrubber() {
   const { year, setYear, yearMin, yearMax, territoryYear, snapshot } =
     useQinHanYear()
+  const { ref: ticksRef, width: ticksWidth } = useTrackWidth<HTMLDivElement>()
+  const laid = layoutTicks(TICKS, yearMin, yearMax, year, ticksWidth)
 
   return (
     <div className="year-scrubber" role="group" aria-label="秦漢年份">
@@ -38,8 +41,8 @@ export function QinHanYearScrubber() {
         aria-label="選擇年份"
       />
 
-      <div className="year-scrubber__ticks">
-        {layoutTicks(TICKS, yearMin, yearMax, year).map((t) => (
+      <div ref={ticksRef} className="year-scrubber__ticks">
+        {laid.map((t) => (
           <button
             key={t.year}
             type="button"

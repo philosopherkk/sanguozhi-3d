@@ -1,4 +1,5 @@
 import { layoutTicks } from '../lib/tickCollisions'
+import { useTrackWidth } from '../lib/useTrackWidth'
 
 /**
  * 全闊年份滑桿（共用）：中國 Imperial、日本 DeepDive 都用這個實作，
@@ -19,11 +20,13 @@ export function SharedYearScrubber({
   ticks: { year: number; label?: string }[]
   onYear: (year: number) => void
 }) {
+  const { ref: ticksRef, width: ticksWidth } = useTrackWidth<HTMLDivElement>()
   const laid = layoutTicks(
     ticks.map((t) => ({ year: t.year, label: t.label })),
     yearMin,
     yearMax,
     year,
+    ticksWidth,
   )
   return (
     <div
@@ -44,7 +47,7 @@ export function SharedYearScrubber({
         onChange={(e) => onYear(Number(e.target.value))}
         aria-label="選擇公元年"
       />
-      <div className="year-scrubber__ticks">
+      <div ref={ticksRef} className="year-scrubber__ticks">
         {laid.map((t) => (
           <button
             key={t.year}

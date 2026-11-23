@@ -234,7 +234,7 @@ if (process.argv.includes('--teeth')) {
           '.app-shell__main {\n',
         ),
     ],
-    ['safe-area', (s) => s.replace(/bottom: calc\(1\.7rem \+ var\(--safe-bottom\)\);/, 'bottom: 1.7rem;')],
+    ['safe-area', (s) => s.replace(/bottom: calc\(2\.9rem \+ var\(--safe-bottom\)\);/, 'bottom: 2.9rem;')],
     ['bare-vh', (s) => s.replace(/(\.app-shell \{\n\s*height: calc\()100dvh/, '$1100vh')],
     [
       'mobile-pager',

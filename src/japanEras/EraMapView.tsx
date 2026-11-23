@@ -347,10 +347,16 @@ export function EraMapView({
           </div>
         ) : null}
         <p className="map-2d__basemap-title">
-          {mapBase
-            ? mapBase.title ?? '亞洲—太平洋戰區（今測海岸線）'
-            : '現代列島地勢'} · 勢力示意採 {territoryYear}
-          年快照 · 滾輪縮放，拖曳平移
+          <span className="map-2d__basemap-name">
+            {mapBase
+              ? mapBase.title ?? '亞洲—太平洋戰區（今測海岸線）'
+              : '現代列島地勢'}
+          </span>
+          <span className="map-2d__basemap-meta">
+             · 勢力示意採 {territoryYear} 年快照 ·{' '}
+            <span className="map-2d__hint-desktop">滾輪縮放，拖曳平移</span>
+            <span className="map-2d__hint-touch">雙指縮放</span>
+          </span>
         </p>
       </div>
       <MapCredit>

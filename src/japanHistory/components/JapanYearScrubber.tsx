@@ -1,4 +1,5 @@
 import { layoutTicks } from '../../lib/tickCollisions'
+import { useTrackWidth } from '../../lib/useTrackWidth'
 import { JAPAN_KEY_YEARS } from '../data/eras'
 import { useJapanYear } from '../state/JapanYearContext'
 
@@ -36,6 +37,7 @@ const SNAP_LABELS: Partial<Record<number, string>> = {
 
 export function JapanYearScrubber() {
   const { year, setYear, yearMin, yearMax, keyYear } = useJapanYear()
+  const { ref: ticksRef, width: ticksWidth } = useTrackWidth<HTMLDivElement>()
   const ticks = layoutTicks(
     JAPAN_KEY_YEARS.filter((y) => y >= yearMin && y <= yearMax).map((y) => ({
       year: y,
@@ -44,6 +46,7 @@ export function JapanYearScrubber() {
     yearMin,
     yearMax,
     keyYear,
+    ticksWidth,
   )
 
   return (
@@ -72,7 +75,10 @@ export function JapanYearScrubber() {
         aria-label="選擇公元年"
       />
 
-      <div className="year-scrubber__ticks year-scrubber__ticks--dense">
+      <div
+        ref={ticksRef}
+        className="year-scrubber__ticks year-scrubber__ticks--dense"
+      >
         {ticks.map((t) => (
           <button
             key={t.year}
