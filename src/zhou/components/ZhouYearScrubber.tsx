@@ -1,4 +1,5 @@
 import { layoutTicks } from '../../lib/tickCollisions'
+import { useTrackWidth } from '../../lib/useTrackWidth'
 import {
   formatZhouMonth,
   LATE_FROM,
@@ -34,6 +35,8 @@ export function ZhouYearScrubber() {
   const stage = LATE_STAGES[stageIndex]
   const onStage =
     lateStage != null && lateStage.year === year && lateStage.month === month
+  const { ref: ticksRef, width: ticksWidth } = useTrackWidth<HTMLDivElement>()
+  const laid = layoutTicks(TICKS, yearMin, yearMax, year, ticksWidth)
 
   return (
     <div className="year-scrubber" role="group" aria-label="春秋戰國年份">
@@ -58,8 +61,8 @@ export function ZhouYearScrubber() {
         aria-label="選擇年份"
       />
 
-      <div className="year-scrubber__ticks">
-        {layoutTicks(TICKS, yearMin, yearMax, year).map((t) => (
+      <div ref={ticksRef} className="year-scrubber__ticks">
+        {laid.map((t) => (
           <button
             key={t.year}
             type="button"

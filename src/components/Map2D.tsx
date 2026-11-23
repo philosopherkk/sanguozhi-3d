@@ -592,7 +592,12 @@ export function Map2D() {
         </div>
 
         <p className="map-2d__basemap-title">
-          {basemap.title} · 疆域示意採 {territoryYear} 年快照 · 滾輪縮放
+          <span className="map-2d__basemap-name">{basemap.title}</span>
+          <span className="map-2d__basemap-meta">
+             · 疆域示意採 {territoryYear} 年快照 ·{' '}
+            <span className="map-2d__hint-desktop">滾輪縮放</span>
+            <span className="map-2d__hint-touch">雙指縮放</span>
+          </span>
         </p>
       </div>
 

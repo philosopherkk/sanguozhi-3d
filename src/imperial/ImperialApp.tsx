@@ -5,6 +5,7 @@ import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraBar } from '../components/EraBar'
 import { TopicSwitcher } from '../components/TopicSwitcher'
 import { layoutTicks } from '../lib/tickCollisions'
+import { useTrackWidth } from '../lib/useTrackWidth'
 import { ImperialMapStage } from './components/ImperialMapStage'
 import { ImperialPeople } from './components/ImperialPeople'
 import { ImperialTimeline } from './components/ImperialTimeline'
@@ -14,11 +15,13 @@ import type { ImperialPack } from './types'
 
 function ImperialScrubber() {
   const { pack, year, month, setYear, setMonth, yearMin, yearMax } = useImperialYear()
+  const { ref: ticksRef, width: ticksWidth } = useTrackWidth<HTMLDivElement>()
   const ticks = layoutTicks(
     pack.ticks.map((t) => ({ year: t.year, label: t.label })),
     yearMin,
     yearMax,
     year,
+    ticksWidth,
   )
   return (
     <div
@@ -54,7 +57,7 @@ function ImperialScrubber() {
           <span>{month}月</span>
         </div>
       ) : null}
-      <div className="year-scrubber__ticks">
+      <div ref={ticksRef} className="year-scrubber__ticks">
         {ticks.map((t) => (
           <button
             key={t.year}

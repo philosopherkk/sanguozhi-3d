@@ -288,7 +288,7 @@
     right: auto;
     transform: translateX(-50%);
     max-width: calc(100% - 1rem);
-    bottom: calc(1.7rem + var(--safe-bottom));
+    bottom: calc(2.9rem + var(--safe-bottom));
   }
 
   /* 地圖出處與疆域說明（修 15，根治）：393px 逐幅實測六幅時代地圖的
@@ -1091,15 +1091,34 @@
     top: 2.2rem;
   }
 
+  /* 底圖標題分兩行：地名一行、快照與操作提示一行。原本單行 + ellipsis
+     在 390px 下最長要 564px（日本列島地勢），地名被攔腰截斷。 */
   .map-2d__basemap-title {
+    white-space: normal;
+    overflow: hidden;
+    padding: 0.2rem 0.5rem;
+    line-height: 1.35;
+  }
+
+  .map-2d__basemap-name,
+  .map-2d__basemap-meta {
+    display: block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 0.25rem 0.5rem;
+  }
+
+  /* 觸控沒有滾輪：把桌面提示換成「雙指縮放」，用語貼近實際操作。 */
+  .map-2d__hint-desktop {
+    display: none;
+  }
+
+  .map-2d__hint-touch {
+    display: inline;
   }
 
   .map-2d__dynasty-hint {
-    bottom: calc(5.2rem + var(--safe-bottom, 0px));
+    bottom: calc(6.4rem + var(--safe-bottom, 0px));
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;

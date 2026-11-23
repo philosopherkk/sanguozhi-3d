@@ -5,6 +5,7 @@ import { AppSideRail } from '../components/AppSideRail'
 import { CollapsibleAppFooter } from '../components/CollapsibleAppFooter'
 import { EraBar } from '../components/EraBar'
 import { layoutTicks } from '../lib/tickCollisions'
+import { useTrackWidth } from '../lib/useTrackWidth'
 import { TopicSwitcher } from '../components/TopicSwitcher'
 import type { JapanDeepDivePack } from './deepDiveTypes'
 import { DeepDiveMapStage } from './DeepDiveMapStage'
@@ -65,9 +66,10 @@ function DeepDiveHeader({ pack }: { pack: JapanDeepDivePack }) {
  */
 function DeepDiveYearScrubber({ pack }: { pack: JapanDeepDivePack }) {
   const { year, month, setYear, setMonth, yearMin, yearMax } = useDeepDiveYear()
+  const { ref: ticksRef, width: ticksWidth } = useTrackWidth<HTMLDivElement>()
   // 與其他時代一致：刻度以絕對定位分佈於整條滑桿上（之前係一般 <li> 列表，
   // 全部疊於左邊，令安土桃山、江戶的年代軸看落好短）。
-  const laid = layoutTicks(pack.ticks, yearMin, yearMax, year)
+  const laid = layoutTicks(pack.ticks, yearMin, yearMax, year, ticksWidth)
   return (
     <div className="year-scrubber year-scrubber--compact" role="group" aria-label={`${pack.title}年份`}>
       <input
@@ -96,7 +98,7 @@ function DeepDiveYearScrubber({ pack }: { pack: JapanDeepDivePack }) {
           <span>{month}月</span>
         </div>
       ) : null}
-      <div className="year-scrubber__ticks">
+      <div ref={ticksRef} className="year-scrubber__ticks">
         {laid.map((t) => (
           <button
             key={t.year}

@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react'
+import { layoutTicks } from '../../lib/tickCollisions'
+import { useTrackWidth } from '../../lib/useTrackWidth'
 import { EraBar } from '../../components/EraBar'
 import { TopicSwitcher } from '../../components/TopicSwitcher'
 import { BAKUMATSU_KEY_YEARS } from '../data/territory'
@@ -80,6 +82,17 @@ export function BakumatsuHeader() {
 export function BakumatsuYearScrubber() {
   const { year, month, setYear, setMonth, yearMin, yearMax, territoryYear } =
     useBakumatsuYear()
+  const { ref: ticksRef, width: ticksWidth } = useTrackWidth<HTMLDivElement>()
+  const laid = layoutTicks(
+    BAKUMATSU_KEY_YEARS.filter((y) => y >= yearMin && y <= yearMax).map((y) => ({
+      year: y,
+      label: TICK[y],
+    })),
+    yearMin,
+    yearMax,
+    territoryYear,
+    ticksWidth,
+  )
   return (
     <div className="year-scrubber year-scrubber--compact" role="group" aria-label="幕末年份">
       <input
@@ -108,24 +121,31 @@ export function BakumatsuYearScrubber() {
           <span>{month}月</span>
         </div>
       ) : null}
-      <div className="year-scrubber__ticks">
-        {BAKUMATSU_KEY_YEARS.filter((y) => y >= yearMin && y <= yearMax).map((y) => (
+      <div ref={ticksRef} className="year-scrubber__ticks">
+        {laid.map((t) => (
           <button
-            key={y}
+            key={t.year}
             type="button"
             className={
-              territoryYear === y
+              territoryYear === t.year
                 ? 'year-scrubber__tick is-active'
                 : 'year-scrubber__tick'
             }
             style={{
-              left: `${((y - yearMin) / (yearMax - yearMin)) * 100}%`,
+              left: `${t.pct}%`,
+              opacity: t.faint ? 0.25 : undefined,
             }}
-            onClick={() => setYear(y)}
+            onClick={() => setYear(t.year)}
           >
-            <span className="year-scrubber__tick-year">{y}</span>
-            {TICK[y] ? (
-              <span className="year-scrubber__tick-label">{TICK[y]}</span>
+            <span
+              className={
+                t.showYear ? 'year-scrubber__tick-year' : 'year-scrubber__tick-dot'
+              }
+            >
+              {t.showYear ? t.year : t.showDot ? '·' : ''}
+            </span>
+            {t.showLabel && t.label ? (
+              <span className="year-scrubber__tick-label">{t.label}</span>
             ) : null}
           </button>
         ))}

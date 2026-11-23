@@ -19,16 +19,18 @@ export function layoutTicks(
   yearMin: number,
   yearMax: number,
   activeYear?: number,
+  widthPx = 1280,
 ): TickView[] {
   const span = yearMax - yearMin || 1
-  // 校準自實際渲染：滑桿闊約1280px時，一個中日文字約1.1%、四位年份約3.4%、圓點約1.2%
-  const YEAR_HALF = 1.9
-  const DOT_HALF = 0.7
+  // 常數校準自約 1280px 的滑桿；窄屏要把百分比按比例放大，否則年份互相重疊。
+  const scale = 1280 / Math.max(widthPx, 1)
+  const YEAR_HALF = 1.9 * scale
+  const DOT_HALF = 0.7 * scale
   // 年數字與標籤係上下兩行，所以同一條刻度只需要一個橫向區間
   const inRange = items.filter((t) => t.year >= yearMin && t.year <= yearMax)
   const laid = inRange.map((t) => {
     const labelLen = (t.label || '').length
-    const labelHalf = labelLen > 0 ? labelLen * 1.05 + 0.9 : 0
+    const labelHalf = labelLen > 0 ? (labelLen * 1.05 + 0.9) * scale : 0
     const pct = Math.min(100, Math.max(0, ((t.year - yearMin) / span) * 100))
     return { ...t, pct, labelHalf }
   })

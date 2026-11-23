@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { EraBar } from '../../components/EraBar'
 import { TopicSwitcher } from '../../components/TopicSwitcher'
 import { layoutTicks } from '../../lib/tickCollisions'
+import { useTrackWidth } from '../../lib/useTrackWidth'
 import { HEIAN_KEY_YEARS } from '../data/territory'
 import { useHeianYear } from '../state/HeianYearContext'
 
@@ -91,6 +92,14 @@ export function HeianHeader() {
 export function HeianYearScrubber() {
   const { year, month, setYear, setMonth, yearMin, yearMax, territoryYear } =
     useHeianYear()
+  const { ref: ticksRef, width: ticksWidth } = useTrackWidth<HTMLDivElement>()
+  const laid = layoutTicks(
+    HEIAN_KEY_YEARS.map((y) => ({ year: y, label: TICK[y] })),
+    yearMin,
+    yearMax,
+    territoryYear,
+    ticksWidth,
+  )
   return (
     <div className="year-scrubber year-scrubber--compact" role="group" aria-label="平安年份">
       <input
@@ -119,13 +128,8 @@ export function HeianYearScrubber() {
           <span>{month}月</span>
         </div>
       ) : null}
-      <div className="year-scrubber__ticks">
-        {layoutTicks(
-          HEIAN_KEY_YEARS.map((y) => ({ year: y, label: TICK[y] })),
-          yearMin,
-          yearMax,
-          territoryYear,
-        ).map((t) => (
+      <div ref={ticksRef} className="year-scrubber__ticks">
+        {laid.map((t) => (
           <button
             key={t.year}
             type="button"

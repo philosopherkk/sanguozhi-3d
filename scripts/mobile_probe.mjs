@@ -175,6 +175,19 @@ const MAP_SCAN = `(()=>{
   return {pct:Math.round(100*bad/tot),free}
 })()`
 
+// 刻度與底圖標題：窄屏易出現在地圖以外的兩類溢出，逐一時代都檢查。
+const TICK_TITLE_SCAN = `(()=>{
+  const ticks=[...document.querySelectorAll('.year-scrubber__tick')]
+    .filter(b=>(b.innerText||'').trim() && +getComputedStyle(b).opacity>0.5)
+    .map(b=>{const r=b.getBoundingClientRect();return [r.left,r.right]})
+  let overlap=0
+  for(let i=0;i<ticks.length;i++)for(let j=i+1;j<ticks.length;j++)
+    if(Math.min(ticks[i][1],ticks[j][1])-Math.max(ticks[i][0],ticks[j][0])>1) overlap++
+  const t=document.querySelector('.map-2d__basemap-title')
+  return {overlap,titleCut:!!t && t.scrollWidth>t.clientWidth+1,
+          sw:t?t.scrollWidth:0,cw:t?t.clientWidth:0}
+})()`
+
 const results = []
 const eras = eraList().filter(([e]) => !pick || pick.includes(e))
 if (!eras.length) {
@@ -189,6 +202,9 @@ for (const [era, c] of eras) {
   if (!(text > 100)) fails.push('load:主區無內容')
   if (exceptions) fails.push(`load:${exceptions} 個未捕捉例外`)
   const m = await ev(MAP_SCAN)
+  const tt = await ev(TICK_TITLE_SCAN)
+  if (tt?.overlap) fails.push(`ticks:刻度重疊 ${tt.overlap} 組`)
+  if (tt?.titleCut) fails.push(`title:底圖標題被截斷 ${tt.sw}/${tt.cw}`)
   const sw = await ev('document.documentElement.scrollWidth')
   const docH = await ev('document.documentElement.scrollHeight')
   if (sw > 390) fails.push(`width:scrollWidth ${sw}`)
@@ -237,7 +253,7 @@ for (const [era, c] of eras) {
   }
   results.push({ era, fails })
   console.log(
-    `${fails.length ? '✗' : '✓'} ${era.padEnd(13)} docH=${docH} swipe=${dy} trap=${m?.pct ?? '?'}%${fails.length ? '  ' + fails.join('；') : wide}`,
+    `${fails.length ? '✗' : '✓'} ${era.padEnd(13)} docH=${docH} swipe=${dy} trap=${m?.pct ?? '?'}% overlap=${tt?.overlap ?? '?'} title=${tt?.titleCut ? 'CUT' : 'ok'}${fails.length ? '  ' + fails.join('；') : wide}`,
   )
 }
 

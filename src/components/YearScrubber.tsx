@@ -4,6 +4,7 @@ import { TimelineMonthBar } from './TimelineMonthBar'
 import { usePersistedOpen } from '../lib/usePersistedOpen'
 import { yearHasMonthDensity } from '../lib/timelineDate'
 import { layoutTicks } from '../lib/tickCollisions'
+import { useTrackWidth } from '../lib/useTrackWidth'
 import { useYear } from '../state/YearContext'
 import type { TimelineEvent } from '../types/data'
 
@@ -61,6 +62,14 @@ export function YearScrubber() {
     useYear()
   const snapLabel = SNAP_LABELS[territoryYear]
   const monthDense = yearHasMonthDensity(timelineEvents, year)
+  const { ref: ticksRef, width: ticksWidth } = useTrackWidth<HTMLDivElement>()
+  const laid = layoutTicks(
+    TERRITORY_KEY_YEARS.map((y) => ({ year: y, label: SNAP_LABELS[y] })),
+    yearMin,
+    yearMax,
+    territoryYear,
+    ticksWidth,
+  )
 
   return (
     <div className="year-scrubber" role="group" aria-label="年代滑桿">
@@ -86,13 +95,8 @@ export function YearScrubber() {
         aria-label="選擇公元年"
       />
 
-      <div className="year-scrubber__ticks">
-        {layoutTicks(
-          TERRITORY_KEY_YEARS.map((y) => ({ year: y, label: SNAP_LABELS[y] })),
-          yearMin,
-          yearMax,
-          territoryYear,
-        ).map((t) => (
+      <div ref={ticksRef} className="year-scrubber__ticks">
+        {laid.map((t) => (
           <button
             key={t.year}
             type="button"

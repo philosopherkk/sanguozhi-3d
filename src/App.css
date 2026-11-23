@@ -1304,6 +1304,10 @@ html[data-theme='light'] .app-footer {
   pointer-events: auto;
 }
 
+.map-2d__hint-touch {
+  display: none;
+}
+
 .map-2d__basemap-title {
   position: absolute;
   left: 0;
