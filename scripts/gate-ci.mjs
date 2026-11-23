@@ -25,6 +25,14 @@ const GATES = [
     cmd: 'npm run audit:data',
     metrics: { fail: /audit:data — fail (\d+)/, warn: /audit:data — fail \d+, warn (\d+)/ },
   },
+  // 2026-11-23 補：audit:data 嘅簡體字表曾混入繁簡同形嘅「西」，30 處假 warn
+  // 逼到其他 agent 刪正文避閘（commit 2bddae2d）。成對探針（要偵到／唔准誤報）
+  // 入閘，牙口由 audit:teeth-mutations 嘅 data 組驗證。
+  {
+    name: 'audit:data:teeth',
+    cmd: 'npm run audit:data:teeth',
+    metrics: { fail: /audit:data --teeth — 失敗 (\d+) 項/ },
+  },
   { name: 'audit:wiring', cmd: 'npm run audit:wiring', metrics: { fail: /audit:wiring — fail (\d+)/ } },
   {
     name: 'audit:ranges',

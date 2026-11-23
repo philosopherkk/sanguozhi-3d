@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "audit:data": "node --experimental-strip-types scripts/audit-data.ts",
+    "audit:data:teeth": "node --experimental-strip-types scripts/audit-data.ts --teeth",
     "audit:quotes": "node scripts/audit_quotes.mjs",
     "audit:quotes:json": "node scripts/audit_quotes.mjs --rows",
     "test": "node scripts/test_audit_quotes.mjs",

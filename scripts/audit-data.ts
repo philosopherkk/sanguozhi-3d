@@ -48,15 +48,51 @@ const YANYI_TROPE_WARN = [
 
 /** 簡體專用字（與繁體不同碼位；不含繁簡同形如「表」「西」） */
 const SIMPLIFIED_ONLY_RE =
-  /[国学会长门东车为发时这来过说们么没东西习欢进还电点产见飞风仪汉边变云气团万与专书页齐广庄庆击补网对队阳阴隐显灵虽虫医药总画线战观舰]/u
+  /[国学会长门东车为发时这来过说们么没东习欢进还电点产见飞风仪汉边变云气团万与专书页齐广庄庆击补网对队阳阴隐显灵虽虫医药总画线战观舰]/u
 // 2026-11-08 補入「战／观／舰」：gen_civil_war.py 曾把「三大战役」寫進產物，
 // 而本閘門當時掃唔到，直到把生成器輸出與已提交 pack 對跑先發現（見 docs/PORT_FROM_LEGACY.md）。
+// 2026-11-23 抽走「西」：佢繁簡同形，一直喺字表入面，同上面句註解直接矛盾。
+// 後果實測：30 處假 warn（東漢、西漢／巴西／YearScrubber 註解），仲逼到其他
+// agent 為「避開簡體字探針」刪走正文「、西漢」（commit 2bddae2d）——閘門誤報
+// 唔止係噪音，佢會把合法內容剷走。成對探針見下面 `--teeth` 探針段。
 
 /**
  * 粵語語氣字：repo 規則（AGENTS.md）規定資料欄位、程式註釋與 UI 文案
  * 一律用書面語，只有回覆使用者時才可使用粵語口語。
  */
-const COLLOQUIAL_RE = /[嘅咗佢喺冇咩噉嚟嘢]/u
+const COLLOQUIAL_RE = /[嘅咗佢喺冇咩噉嚟嘢唔]/u
+// 2026-11-23 補「唔」：audit-chars 嘅 CANTONESE 表有佢，本檔冇——同一個口語字
+// 兩支閘門一口徑先唔會漏。補前實測語料 0 命中，warn 基線唔會升。
+
+// ── --teeth：成對探針（2026-11-23）──
+// 本閘門嘅教訓同 audit:chars 一樣：淨寫「要偵到」嗰邊，抽走半個字表都照樣全綠；
+// 而「西」入咗字表呢單事故證明了**必須連「唔准誤報」嗰邊都釘**。
+// 兩邊都係 fixture 名單，唔靠生產資料（其他 agent 改數據會令斷言飄移）。
+// 探針跑完即退出，唔會覆寫 docs/AUDIT.md。
+if (process.argv.slice(2).includes('--teeth')) {
+  let teethFail = 0
+  const t = (name: string, ok: boolean) => {
+    if (!ok) {
+      teethFail += 1
+      console.log(`  ✗ ${name}`)
+    }
+  }
+  // 探針數量斷言：抽走探針＝抽走牙（同 teeth-mutations harness 嘅 min 一樣嘅防線）。
+  const MUST_BITE = ['汉', '东汉', '这是', '说不完', '我们', '战争', '头发']
+  const MUST_NOT_BITE = ['西漢', '巴西', '西服', '表格', '東西']
+  t('探針名單縮水（MUST_BITE < 7）', MUST_BITE.length >= 7)
+  t('探針名單縮水（MUST_NOT_BITE < 5）', MUST_NOT_BITE.length >= 5)
+  for (const s of MUST_BITE) t(`簡體表偵唔到：「${s}」`, SIMPLIFIED_ONLY_RE.test(s))
+  for (const s of MUST_NOT_BITE) t(`簡體表誤報繁簡同形／正體詞：「${s}」`, !SIMPLIFIED_ONLY_RE.test(s))
+  // 粵語表同成對口徑：口語字要偵到，繁簡同形／形近的正體字唔准誤報。
+  const COL_BITE = ['嘅', '唔', '冇']
+  const COL_NOT_BITE = ['其中', '來自', '矛盾']
+  t('粵語探針縮水（COL_BITE < 3）', COL_BITE.length >= 3)
+  for (const s of COL_BITE) t(`粵語表偵唔到：「${s}」`, COLLOQUIAL_RE.test(s))
+  for (const s of COL_NOT_BITE) t(`粵語表誤報正體詞：「${s}」`, !COLLOQUIAL_RE.test(s))
+  console.log(`\naudit:data --teeth — 失敗 ${teethFail} 項`)
+  process.exit(teethFail ? 1 : 0)
+}
 
 type Level = 'fail' | 'warn'
 
