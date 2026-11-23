@@ -3167,3 +3167,33 @@ qsrc 覆核補記：羊祜傳「尋卒」無紀年，靠《武帝紀》咸寧四
 1. ledger `at=2026-11-08` 尚餘 84 行（佇列頭四條＝`shang-tang`／`shang-pangeng`／`zhou-zhao`／`zhou-xuan`，史記/卷003—卷004）。
 2. 雙十協定中央日報本對讀（第 21 輪遺留）。
 3. 全庫 source 引用題名 titles= 掃描（第 24 輪做法，隔輪重跑）。
+
+---
+
+## 第 41 輪（2026-11-23）｜成湯盤庚昭王宣王覆核（一輪四項）
+
+### 1) 本輪範圍
+
+第 39／40 輪六 commit 未合併（PR #195 OPEN），本輪 rebase 照主線新 base `cf473acb` 重放，無衝突，BASE ＝ `ed0d0c96`。佇列頭四條（皆 `earlyDynasty.ts`，disputed 已備）：成湯、盤庚、昭王南征、宣王。
+
+### 2) 逐條結論
+
+1. `shang-tang`：classicQuote「湯始居亳，從先王居。」對《史記·殷本紀》卷003（匹配 1 處）。不動。
+2. `shang-pangeng`：classicQuote「帝盤庚之時，殷已都河北，盤庚渡河南，復居成湯之故居。」對卷003（匹配 1 處）；source 欄已自注「此句與『遷殷』之說不同，故 disputed」。不動。
+3. `zhou-zhao`：classicQuote「昭王南巡狩不返，卒於江上。其卒不赴告，諱之也。」對《史記·周本紀》卷004（匹配 1 處）。不動。
+4. `zhou-xuan`：classicQuote「宣王即位，二相輔之，修政，法文、武、成、康之遺風，諸侯復宗周。」對卷004（匹配 1 處）——「法文、武、成、康」頓號照原卷，needle 照錄即中。不動。
+
+### 3) 前後對照
+
+| 指標 | 前 | 後 |
+| --- | --- | --- |
+| audit:quotes 錯誤／提醒 | 0／44 | 0／44（本輪 4 行 at 刷新至 11-23） |
+| audit:chars 硬傷 | 0 | 0 |
+
+改動：`earlyDynasty.ts` 零欄位改動（四條引文俱逐字合卷）；ledger 4 行 `--mark <key> --page <卷頁>` 重戳，手算 djb2 覆核 4/4（hash(quote＋'␟'＋source)，shang-pangeng 嘅 source 連同欄內自注整串計入）。qsrc 官方口徑四條 needle 全部「匹配 1 處」。
+
+### 4) 剩餘佇列（交下輪）
+
+1. ledger `at=2026-11-08` 尚餘 80 行（佇列頭四條＝`zhou-you`／`xia-zhongkang`／`shang-taijia`／`shang-taiwu`，史記/卷002—卷004，其後轉入 jinPack／liaosongPack）。
+2. 雙十協定中央日報本對讀（第 21 輪遺留）。
+3. 全庫 source 引用題名 titles= 掃描（第 24 輪做法，隔輪重跑）。
