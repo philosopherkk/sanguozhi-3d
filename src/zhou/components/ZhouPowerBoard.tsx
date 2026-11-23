@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useBoardCollapsed } from '../../lib/useBoardCollapsed'
 import { zhouTerritoryStats } from '../data/territoryControl'
 import {
   zhouFactionColor,
@@ -14,6 +15,7 @@ export function ZhouPowerBoard() {
   const { selectedFaction, selectFaction } = useZhouSelection()
   const rows = useMemo(() => zhouTerritoryStats(snapshot.ranges), [snapshot])
   const maxPercent = rows[0]?.percent ?? 1
+  const { open, toggle } = useBoardCollapsed()
 
   return (
     <aside className="power-board" aria-label="勢力疆域比較">
@@ -27,8 +29,18 @@ export function ZhouPowerBoard() {
               : ''}
           </p>
         </div>
+        <button
+          type="button"
+          className="power-board__toggle"
+          aria-expanded={open}
+          onClick={toggle}
+        >
+          {open ? '收起' : '展開'}
+        </button>
       </header>
 
+      {open ? (
+      <>
       {selectedFaction ? (
         <button
           type="button"
@@ -86,6 +98,8 @@ export function ZhouPowerBoard() {
         })}
       </ol>
       <p className="power-board__note">面積按本時代的示意塊，不是三國州界，也不是縣界。百分比為示意面積占比，非戶籍。</p>
+      </>
+      ) : null}
     </aside>
   )
 }

@@ -10,7 +10,7 @@ import { useYear } from '../state/YearContext'
 export function PowerBoard({ embedded = false }: { embedded?: boolean }) {
   const { year, control, territoryYear, activeFactions } = useYear()
   const { selectedFaction, selectFaction, clearFaction } = useSelection()
-  const [expanded, setExpanded] = useState(true)
+  const [expanded, setExpanded] = useState(false)
 
   const rows = useMemo(() => territoryStatsForControl(control), [control])
   // 附註原掛在已刪的「勢力圖例」Dock（其清單與本面板同由 control 生成，
@@ -19,8 +19,8 @@ export function PowerBoard({ embedded = false }: { embedded?: boolean }) {
     ? wuxiLegendNote(year)
     : null
   const maxPercent = rows[0]?.percent ?? 1
-  // 內嵌（dock）場合一律顯示完整列表；獨立場合才可摺疊
-  const showFull = embedded || expanded
+  // 所有場合一律先收起，點「展開」才顯示完整列表
+  const showFull = expanded
   const rootClass = embedded ? 'power-board power-board--embedded' : 'power-board'
 
   return (
@@ -44,10 +44,23 @@ export function PowerBoard({ embedded = false }: { embedded?: boolean }) {
         </button>
       </header>
       ) : (
-        <p className="power-board__sub power-board__sub--embedded">
-          {year} 年 · 點選勢力，左方開啟本年檢視
-          {territoryYear !== year ? `（底圖 ${territoryYear}）` : ''}
-        </p>
+        <header className="power-board__head">
+          <div>
+            <h2 className="power-board__title">勢力疆域</h2>
+            <p className="power-board__sub power-board__sub--embedded">
+              {year} 年 · 點選勢力，左方開啟本年檢視
+              {territoryYear !== year ? `（底圖 ${territoryYear}）` : ''}
+            </p>
+          </div>
+          <button
+            type="button"
+            className="power-board__toggle"
+            aria-expanded={expanded}
+            onClick={() => setExpanded((v) => !v)}
+          >
+            {expanded ? '收起' : '展開'}
+          </button>
+        </header>
       )}
 
       {selectedFaction ? (
