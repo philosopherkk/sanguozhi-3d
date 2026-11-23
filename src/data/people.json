@@ -1484,7 +1484,8 @@
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/張魯",
     "grokipedia_url": "https://grokipedia.com/page/Zhang_Lu_(warlord)",
     "source": "《三國志·魏書·張魯傳》",
-    "note": "據漢中，政教合一；降曹操後封列侯。"
+    "disputed": true,
+    "note": "據漢中，政教合一；降曹操後封列侯。卒年傳無明文，僅序「魯薨，諡之曰原侯」；建安二十年降魏封閬中侯，通說以為翌年卒，今從通說系二一六年。"
   },
   {
     "id": "man-chong",
