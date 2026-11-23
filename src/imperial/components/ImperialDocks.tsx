@@ -5,6 +5,7 @@ import {
   type PointerEvent as ReactPointerEvent,
   type ReactNode,
 } from 'react'
+import { CollapsiblePowerBoard } from '../../components/CollapsiblePowerBoard'
 import { FactionSituationPanel } from '../../components/FactionSituationPanel'
 import { MapRouteLegend } from '../../components/map/MapRouteLegend'
 import { MARCH_ROUTE_SAME_YEAR } from '../../components/map/RouteOverlay'
@@ -228,10 +229,13 @@ export function ImperialTerritoryDock() {
       defaultOpenDesktop={true}
       defaultOpenMobile={false}
     >
-      <div className="power-board">
-        <p className="power-board__title">
-          勢力疆域（{territoryYear} 快照）· 點選看人口、戰力、經濟
-        </p>
+      <CollapsiblePowerBoard
+        title={
+          <>
+            勢力疆域（{territoryYear} 快照）· 點選看人口、戰力、經濟
+          </>
+        }
+      >
         {selectedFaction && view ? (
           <FactionSituationPanel
             name={imperialFactionName(pack, selectedFaction)}
@@ -286,7 +290,7 @@ export function ImperialTerritoryDock() {
             )
           })}
         </ul>
-      </div>
+      </CollapsiblePowerBoard>
     </Dock>
   )
 }

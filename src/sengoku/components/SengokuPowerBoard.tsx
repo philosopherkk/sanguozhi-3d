@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { CollapsiblePowerBoard } from '../../components/CollapsiblePowerBoard'
 import { FactionSituationPanel } from '../../components/FactionSituationPanel'
 import { composeFactionYear, type YearNote } from '../../lib/factionYearView'
 import { withLandlessFactions } from '../../lib/factionRows'
@@ -58,8 +59,7 @@ export function SengokuPowerBoard() {
   }, [selectedFaction, year])
 
   return (
-    <div className="power-board">
-      <p className="power-board__title">勢力佔區（{territoryYear} 快照）</p>
+    <CollapsiblePowerBoard title={`勢力佔區（${territoryYear} 快照）`}>
       {selectedFaction && situation ? (
         <FactionSituationPanel
           name={sengokuFactionName(selectedFaction)}
@@ -94,6 +94,6 @@ export function SengokuPowerBoard() {
           )
         })}
       </ul>
-    </div>
+    </CollapsiblePowerBoard>
   )
 }

@@ -5,6 +5,7 @@ import {
   type PointerEvent as ReactPointerEvent,
   type ReactNode,
 } from 'react'
+import { CollapsiblePowerBoard } from '../components/CollapsiblePowerBoard'
 import { FactionSituationPanel } from '../components/FactionSituationPanel'
 import { MapRouteLegend } from '../components/map/MapRouteLegend'
 import { MARCH_ROUTE_SAME_YEAR } from '../components/map/RouteOverlay'
@@ -172,10 +173,13 @@ export function EraTerritoryDock({ pack }: { pack: JapanDeepDivePack }) {
       defaultOpenDesktop={true}
       defaultOpenMobile={false}
     >
-      <div className="power-board">
-        <p className="power-board__title">
-          勢力佔區（{territoryYear} 快照）· 點選看人口、戰力、經濟
-        </p>
+      <CollapsiblePowerBoard
+        title={
+          <>
+            勢力佔區（{territoryYear} 快照）· 點選看人口、戰力、經濟
+          </>
+        }
+      >
         {selectedFaction && situation ? (
           <FactionSituationPanel
             name={nameFor(selectedFaction)}
@@ -217,7 +221,7 @@ export function EraTerritoryDock({ pack }: { pack: JapanDeepDivePack }) {
             )
           })}
         </ul>
-      </div>
+      </CollapsiblePowerBoard>
     </Dock>
   )
 }

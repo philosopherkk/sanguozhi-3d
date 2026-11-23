@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useBoardCollapsed } from '../../lib/useBoardCollapsed'
 import { FactionSituationPanel } from '../../components/FactionSituationPanel'
 import { composeFactionYear, type YearNote } from '../../lib/factionYearView'
 import { QINHAN_SITUATION } from '../data/factionSituation'
@@ -18,6 +19,7 @@ export function QinHanPowerBoard() {
   const { selectedFaction, selectFaction } = useQinHanSelection()
   const rows = useMemo(() => qinHanTerritoryStats(snapshot.ranges), [snapshot])
   const maxPercent = rows[0]?.percent ?? 1
+  const { open, toggle } = useBoardCollapsed()
   const situation = useMemo(() => {
     if (!selectedFaction) return null
     const notes: YearNote[] = QINHAN_TIMELINE.filter(
@@ -42,8 +44,18 @@ export function QinHanPowerBoard() {
               : ''}
           </p>
         </div>
+        <button
+          type="button"
+          className="power-board__toggle"
+          aria-expanded={open}
+          onClick={toggle}
+        >
+          {open ? '收起' : '展開'}
+        </button>
       </header>
 
+      {open ? (
+      <>
       {selectedFaction ? (
         <button
           type="button"
@@ -111,6 +123,8 @@ export function QinHanPowerBoard() {
         })}
       </ol>
       <p className="power-board__note">面積按本時代的示意塊，不是三國州界，也不是郡界。百分比為示意面積占比，非戶籍。</p>
+      </>
+      ) : null}
     </aside>
   )
 }

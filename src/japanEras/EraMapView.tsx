@@ -6,6 +6,7 @@ import {
   type ReactNode,
 } from 'react'
 import { MapCredit } from '../components/MapCredit'
+import { CollapsiblePowerBoard } from '../components/CollapsiblePowerBoard'
 import { MapLayerBar } from '../components/map/MapLayerBar'
 import { MapRouteLegend } from '../components/map/MapRouteLegend'
 import {
@@ -401,8 +402,7 @@ export function EraPowerBoard({
 }) {
   const intro = selectedFaction ? eraIntro?.(selectedFaction) : undefined
   return (
-    <div className="power-board">
-      <p className="power-board__title">勢力佔區（{territoryYear} 快照）</p>
+    <CollapsiblePowerBoard title={`勢力佔區（${territoryYear} 快照）`}>
       {intro ? (
         <p className="power-board__sub">
           <strong>時代簡介 · </strong>
@@ -432,6 +432,6 @@ export function EraPowerBoard({
           )
         })}
       </ul>
-    </div>
+    </CollapsiblePowerBoard>
   )
 }
