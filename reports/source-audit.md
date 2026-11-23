@@ -3197,3 +3197,33 @@ qsrc 覆核補記：羊祜傳「尋卒」無紀年，靠《武帝紀》咸寧四
 1. ledger `at=2026-11-08` 尚餘 80 行（佇列頭四條＝`zhou-you`／`xia-zhongkang`／`shang-taijia`／`shang-taiwu`，史記/卷002—卷004，其後轉入 jinPack／liaosongPack）。
 2. 雙十協定中央日報本對讀（第 21 輪遺留）。
 3. 全庫 source 引用題名 titles= 掃描（第 24 輪做法，隔輪重跑）。
+
+---
+
+## 第 42 輪（2026-11-24）｜幽王仲康太甲太戊覆核（一輪四項，改正兩處引文標點）
+
+### 1) 本輪範圍
+
+分支對 main 無新舊（BASE ＝ `2a55fc2e`，rebase 無操作，PR #195 仍 OPEN）。佇列頭四條：`earlyDynasty.ts` 之幽王＋`earlyDynastyMore.ts` 之仲康、太甲、太戊（皆 disputed 已備）。
+
+### 2) 逐條結論
+
+1. `zhou-you`：classicQuote「遂殺幽王驪山下。」對《史記·周本紀》卷004（匹配 1 處）。不動。
+2. `xia-zhongkang`：原引「廢時亂日**，**胤往征之」——原卷作「廢時亂日**。**胤往征之」（句號），qsrc 判冇匹配＝真漂移，**照原卷改正逗點為句號**；改後「帝中康時，羲、和湎淫，廢時亂日。胤往征之，作胤征。」匹配 1 處。
+3. `shang-taijia`：classicQuote「於是伊尹放之於桐宮。三年，伊尹攝行政當國，以朝諸侯。」對《史記·殷本紀》卷003（匹配 1 處，「桐宮」照原卷）；source 欄自注「竹書異說不併進」照舊。不動。
+4. `shang-taiwu`：原引「亳有祥桑穀共生於朝。」截頭去咗原卷「亳有祥**，**桑穀共生於朝**，**一暮大拱。」兩個逗號＋斷句，qsrc 判冇匹配，**照原卷補回成完整一句**；改後匹配 1 處。source 欄「生長日數各書不同」自注照舊。
+
+### 3) 前後對照
+
+| 指標 | 前 | 後 |
+| --- | --- | --- |
+| audit:quotes 錯誤／提醒 | 0／44 | 0／44（本輪 4 行 at 刷新至 11-23） |
+| audit:chars 硬傷 | 0 | 0 |
+
+改動：`earlyDynastyMore.ts` 兩處 classicQuote 標點／截句改正（仲康、太戊）；ledger 4 行 `--mark <key> --page <卷頁>` 重戳，手算 djb2 覆核 4/4（hash(quote＋'␟'＋source)）。⚠ `xia-zhongkang` 喺 `earlyDynasty.ts`／`earlyDynastyMore.ts` 兩檔都有同 key（第 26 輪教訓），ledger 一律按 `file#key` 讀，本次標記行號即見兩檔分流正確（earlyDynasty.ts:844 係 `zhou-you`，仲康喺 earlyDynastyMore.ts:232）。覆核補記：標點照原卷先至係逐字引文嘅一部分——本庫以往改 needle 就補得，本輪先至明白**數據欄都要跟原卷**，同第 26 輪 mengzi-hui 同一規則嘅再一次命中。
+
+### 4) 剩餘佇列（交下輪）
+
+1. ledger `at=2026-11-08` 尚餘 76 行（佇列頭四條＝`shang-di-yi`／`zhou-shenhou`／`jin-291`／`ls-960`，史記卷003—卷004 之後轉入通鑑／宋史卷頁）。
+2. 雙十協定中央日報本對讀（第 21 輪遺留）。
+3. 全庫 source 引用題名 titles= 掃描（第 24 輪做法，隔輪重跑）。
