@@ -1409,6 +1409,27 @@
     "name": "杜預",
     "字": "元凱",
     "birth": 222,
+    "death": 284,
+    "faction_by_year": [
+      {
+        "faction": "西晉",
+        "from": 265,
+        "to": 284
+      }
+    ],
+    "role": "軍事",
+    "zhwiki_url": "https://zh.wikipedia.org/zh-tw/杜預",
+    "grokipedia_url": "https://grokipedia.com/page/Du_Yu",
+    "source": "《晉書·杜預傳》",
+    "note": "傳無卒年紀年；《武帝紀》太康五年「閏月，鎮南大將軍、當陽侯杜預卒」，太康五年即二八四年，卒年從本紀。"
+  },
+  {
+    "id": "wang-jun",
+    "portrait": "/portraits/sanguozhi/wang-jun.jpg",
+    "portrait_note": "滅吳時已年老的水軍將領。",
+    "name": "王濬",
+    "字": "士治",
+    "birth": 206,
     "death": 285,
     "faction_by_year": [
       {
@@ -1418,29 +1439,10 @@
       }
     ],
     "role": "軍事",
-    "zhwiki_url": "https://zh.wikipedia.org/zh-tw/杜預",
-    "grokipedia_url": "https://grokipedia.com/page/Du_Yu",
-    "source": "《晉書·杜預傳》"
-  },
-  {
-    "id": "wang-jun",
-    "portrait": "/portraits/sanguozhi/wang-jun.jpg",
-    "portrait_note": "滅吳時已年老的水軍將領。",
-    "name": "王濬",
-    "字": "士治",
-    "birth": 206,
-    "death": 286,
-    "faction_by_year": [
-      {
-        "faction": "西晉",
-        "from": 265,
-        "to": 286
-      }
-    ],
-    "role": "軍事",
     "zhwiki_url": "https://zh.wikipedia.org/zh-tw/王濬",
     "grokipedia_url": "https://grokipedia.com/page/Wang_Jun_(Jin_dynasty)",
-    "source": "《晉書·王濬傳》"
+    "source": "《晉書·王濬傳》",
+    "note": "卒據本傳「太康六年卒，時年八十」，太康六年即二八五年。"
   },
   {
     "id": "han-sui",
@@ -1485,7 +1487,7 @@
     "grokipedia_url": "https://grokipedia.com/page/Zhang_Lu_(warlord)",
     "source": "《三國志·魏書·張魯傳》",
     "disputed": true,
-    "note": "據漢中，政教合一；降曹操後封列侯。卒年傳無明文，僅序「魯薨，諡之曰原侯」；建安二十年降魏封閬中侯，通說以為翌年卒，今從通說系二一六年。"
+    "note": "據漢中，政教合一；降曹操後封列侯。卒年傳無明文，僅序「魯薨，諡之曰原侯」；建安二十年降曹操，本傳「封閬中侯，邑萬戶」，通說以為翌年卒，今從通說系二一六年。"
   },
   {
     "id": "man-chong",
