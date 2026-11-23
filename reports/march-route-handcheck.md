@@ -412,3 +412,13 @@ amend 補救——寫完自證一段都要過工具，唔好靠肉眼。
 先入隊，edo-1669 起點補咗斷言即落隊，佢嘅訖點照前裁仍無斷言）。其餘見收工記錄。
 下輪建議：edo-1609-ryukyu 起點（鹿兒島側，先查有冇帶座標嘅條目）；mj-1905 照上第 4 項裁定唔再覆；
 scan_v 已重建成 v3b，之後得改過路線先要重跑對數；平安十二＋三國訖點觀察項維持前裁。
+
+收工記錄：gates exit=0（多項基線改善沿用：shortage 3、event-depth gap 0、war-shape 57、
+ranges warn 178），無惡化；tsc、build、lint、mobile_probe 29/29 全過。
+push：PR #176 已 merge，分支與 origin/main 同步，本輪三個 commit 正常 push（95290803..8f103a70），
+唔使 force。
+PR：新建待開（分支 agent/march）。
+教訓：(1) 報告寫指標前一定要即刻跑工具對數——本輪「edo-1669 照舊計入佇列」一句同工具口徑
+（有任一端斷言即落隊）相反，靠 tail --unasserted 輸出先捉到。(2) commit 訊息把 edo-1669 打成
+edd-1669，--commits 唔咬 id 錯形，要自己睇；amend 補救。(3) scan_v 檔頭寫死口徑同解析規則，
+先至得返一個檔就唔怕 tmp 清咗——下次直接抄檔頭，唔使再憑記憶重建。
