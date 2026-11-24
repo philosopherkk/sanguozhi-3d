@@ -597,17 +597,17 @@
   "src/imperial/data/wudaiPack.ts#wd-936": {
     "stamp": "d6d63eb1",
     "page": "資治通鑑/卷280",
-    "at": "2026-11-08"
+    "at": "2026-11-24"
   },
   "src/imperial/data/wudaiPack.ts#wd-960": {
     "stamp": "5f027837",
     "page": "宋史/卷001",
-    "at": "2026-11-08"
+    "at": "2026-11-24"
   },
   "src/qinhan/data/timeline.ts#fenshu": {
     "stamp": "844730a2",
     "page": "資治通鑑/卷007",
-    "at": "2026-11-08"
+    "at": "2026-11-24"
   },
   "src/qinhan/data/timeline.ts#juliu": {
     "stamp": "ecf3c783",
@@ -617,7 +617,7 @@
   "src/qinhan/data/timeline.ts#ruguan": {
     "stamp": "ff657aa5",
     "page": "史記/卷008",
-    "at": "2026-11-08"
+    "at": "2026-11-24"
   },
   "src/qinhan/data/timeline.ts#pengcheng": {
     "stamp": "d13aec66",
