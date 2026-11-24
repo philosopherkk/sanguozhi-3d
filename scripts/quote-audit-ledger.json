@@ -87,7 +87,7 @@
   "src/zhou/data/earlyDynastyMore.ts#shang-di-yi": {
     "stamp": "58f7c01e",
     "page": "史記/卷003",
-    "at": "2026-11-08"
+    "at": "2026-11-24"
   },
   "src/zhou/data/earlyDynastyMore.ts#zhou-liyue": {
     "stamp": "a05cc94c",
@@ -107,7 +107,7 @@
   "src/zhou/data/earlyDynastyMore.ts#zhou-shenhou": {
     "stamp": "4b1ec83",
     "page": "史記/卷004",
-    "at": "2026-11-08"
+    "at": "2026-11-24"
   },
   "src/zhou/data/earlyDynastyMore.ts#zhou-gonghe-jing": {
     "stamp": "3ee15203",
@@ -545,14 +545,14 @@
     "at": "2026-11-23"
   },
   "src/imperial/data/jinPack.ts#jin-291": {
-    "stamp": "92b06320",
+    "stamp": "f406d537",
     "page": "資治通鑑/卷082",
-    "at": "2026-11-08"
+    "at": "2026-11-24"
   },
   "src/imperial/data/liaosongPack.ts#ls-960": {
     "stamp": "3058ba89",
     "page": "宋史/卷001",
-    "at": "2026-11-08"
+    "at": "2026-11-24"
   },
   "src/imperial/data/liaosongPack.ts#ls-1127": {
     "stamp": "ec1c86e3",
