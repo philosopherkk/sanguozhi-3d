@@ -311,26 +311,84 @@ for (const file of walk(join(ROOT, ONLY), [])) {
   if (!/\blayers\s*:\s*layers\s*\(/.test(text)) continue
   helperLens.set(file, layersHelperCall(readLiteral)(text))
 }
-for (const [key, cfg] of Object.entries(LAYERS)) {
+/**
+ * 三層的「哪一條要補」清單。舊版只統計筆數與中位（見下方 layerStats），
+ * 結果 enrich agent 打開佇列只看到「中國大學生層未達標 191 條」，
+ * 卻不知道是哪 191 條——只能自己 grep 全倉庫猜，等於每輪重新設計工作。
+ * 現在同一趟掃描就把 檔:行｜層｜現字數｜門檻 記下來（行號比 id 可靠：
+ * READINGS 的鍵有 TS 與 JSON 兩種寫法，解析錯會浪費更多輪）。
+ */
+const layerTargets = []
+// 行號：每個檔先做一次換行位置表，之後用二分查，避免逐筆 slice 大檔。
+function lineOf(offsets, pos) {
+  let lo = 0
+  let hi = offsets.length - 1
+  while (lo < hi) {
+    const mid = (lo + hi + 1) >> 1
+    if (offsets[mid] <= pos) lo = mid
+    else hi = mid - 1
+  }
+  return lo + 1
+}
+const lineOffsets = new Map()
+function offsetsFor(text) {
+  const out = [0]
+  for (let i = text.indexOf('\n'); i >= 0; i = text.indexOf('\n', i + 1)) out.push(i + 1)
+  return out
+}
+for (const key of Object.keys(LAYERS)) {
+  const cfg = LAYERS[key]
   const idx = { elementary: 0, secondary: 1, university: 2 }[key]
   const lens = []
   const byTheatre = { 日本: [], 中國: [] }
   for (const file of walk(join(ROOT, ONLY), [])) {
     const text = readFileSync(file, 'utf8')
     const th = theatreOf(relative(ROOT, file).replace(/\\/g, '/'))
+    let offs = lineOffsets.get(file)
+    if (!offs) {
+      offs = offsetsFor(text)
+      lineOffsets.set(file, offs)
+    }
+    const rel = relative(ROOT, file).replace(/\\/g, '/')
+    const note = (pos, n, value) => {
+      if (n >= cfg.min) return
+      layerTargets.push({
+        file: rel,
+        line: lineOf(offs, pos),
+        layer: cfg.label,
+        min: cfg.min,
+        chars: n,
+        preview: value.replace(/\s+/g, '').slice(0, 18),
+      })
+    }
     for (const m of text.matchAll(new RegExp(`(?:^|[{,\\s])${key}\\s*:\\s*`, 'g'))) {
       const lit = readLiteral(text, m.index + m[0].length)
       if (!lit) continue
       const n = lit.value.replace(/\s+/g, '').length
       lens.push(n)
       if (byTheatre[th]) byTheatre[th].push(n)
+      note(m.index + m[0].length, n, lit.value)
     }
     // helper 形式：每 3 個長度一組，按位置歸屬 elementary/secondary/university
     const hl = helperLens.get(file)
     if (hl) {
+      // 呼叫點行號用同一順序的正規表達式配對（layersHelperCall 是線性掃過全文，
+      // 兩者順序一致；非三參數的呼叫本來就會讓既有統計錯位，這裡不另外掩蓋）。
+      const sites = [...text.matchAll(/\blayers\s*\(\s*['"`]/g)].map((m) => m.index)
       for (let g = idx; g < hl.length; g += 3) {
         lens.push(hl[g])
         if (byTheatre[th]) byTheatre[th].push(hl[g])
+        if (hl[g] < cfg.min) {
+          const site = sites[Math.floor(g / 3)]
+          layerTargets.push({
+            file: rel,
+            line: site === undefined ? 0 : lineOf(offs, site),
+            layer: cfg.label,
+            min: cfg.min,
+            chars: hl[g],
+            preview: '',
+          })
+        }
       }
     }
   }
@@ -371,6 +429,64 @@ for (const r of rows) {
   }
 }
 const shortest = [...gaps].sort((a, b) => a.chars - b.chars).slice(0, TOP)
+
+/**
+ * `--todo[=N]`：印「下一批做哪幾條」的具體清單（enrich agent 的佇列來源）。
+ * 舊版只有統計表，agent 每輪都要自己從reports 裡猜目標；現在按缺口大小排序，
+ * 直接給 檔:行｜層｜現字數｜門檻，做完再跑一次即可。預設 12 條：清單要進小模型上下文，
+ * 全部列出來等於每輪多燒幾千 token（見 docs/agents/QUICK.md 的省 token 約定）。
+ */
+if (argv.some((a) => a === '--todo' || a.startsWith('--todo='))) {
+  const arg = argv.find((a) => a.startsWith('--todo'))
+  const rawTodo = arg.includes('=') ? arg.slice(arg.indexOf('=') + 1) : optVal('--todo', String(TOP))
+  const lim = Number(rawTodo)
+  const showEvent = has('--all')
+  const byDeficit = [...layerTargets].sort(
+    (a, b) => b.min - b.chars - (a.min - a.chars) || a.file.localeCompare(b.file) || a.line - b.line,
+  )
+  /**
+   * 同一檔常有一份佔位文字被貼到幾十個事件上（civilWarPack 實測 8 連同一段），
+   * 不過篩的話前 12 條會全是同一句，agent 一輪只做得到一件事。
+   * 同檔同文的限制取 3 條，其餘補後面其他缺口，一輪能覆蓋多點。
+   */
+  const perTemplate = new Map()
+  const perFile = new Map()
+  const picked = []
+  for (const t of byDeficit) {
+    const k = `${t.file}|${t.preview}`
+    const used = perTemplate.get(k) ?? 0
+    // 同檔上限 5 條：不然一份 pack 就佔滿整份佇列，一輪只碰得到一個模組。
+    const usedFile = perFile.get(t.file) ?? 0
+    if (used >= 3 || usedFile >= 5) continue
+    perTemplate.set(k, used + 1)
+    perFile.set(t.file, usedFile + 1)
+    picked.push(t)
+    if (lim > 0 && picked.length >= lim) break
+  }
+  for (const t of picked) {
+    const at = t.line ? `${t.file}:${t.line}` : t.file
+    console.log(
+      `☐ ${at}｜${t.layer}層｜${t.chars} 字（門檻 ${t.min}，缺 ${t.min - t.chars}）` +
+        (t.preview ? `｜「${t.preview}…」` : ''),
+    )
+  }
+  if (showEvent) {
+    console.log('\n── 起因／經過／結果缺口（同檔可一次處理）──')
+    for (const r of shortest) console.log(`☐ ${r.file}:${r.line}｜${r.field}｜${r.chars} 字`)
+  }
+  const byLayer = {}
+  for (const t of layerTargets) byLayer[t.layer] = (byLayer[t.layer] ?? 0) + 1
+  console.log(
+    `\n三層未達標共 ${layerTargets.length} 條（` +
+      Object.entries(byLayer)
+        .map(([k, v]) => `${k} ${v}`)
+        .join('／') +
+      `）｜已列 ${picked.length} 條` +
+      (showEvent ? `｜起因經過結果缺口最短 ${shortest.length} 條` : '（加 --all 連起因／經過／結果缺口一起列）') +
+      `\n做完跑：node scripts/audit_event_depth.mjs --todo=${picked.length}`,
+  )
+  process.exit(0)
+}
 
 if (has('--json')) {
   console.log(
@@ -462,6 +578,20 @@ if (has('--json')) {
     '注意：沒有 READINGS 的日本 pack 仍會顯示三層，因為 DeepDiveApp 會用 events 的 desc／note／source 自動填充。' +
       '那屬於佔位文字，不是加厚成果；判斷好壞要看上面「筆數／中位」而非面板是否有字。',
   )
+  L.push('')
+  L.push('## 三層待補清單（缺口最大的前 20 條：檔:行｜層｜現字數）')
+  L.push('')
+  L.push('agent 用 `node scripts/audit_event_depth.mjs --todo 12` 取同一份清單（可加 `--all` 連起因／經過／結果一起列）。')
+  L.push('')
+  L.push('| 位置 | 層 | 現字數 | 門檻 | 缺 |')
+  L.push('|---|---|---|---|---|')
+  for (const t of [...layerTargets]
+    .sort((a, b) => b.min - b.chars - (a.min - a.chars))
+    .slice(0, 20)) {
+    L.push(
+      `| \`${t.line ? `${t.file}:${t.line}` : t.file}\` | ${t.layer} | ${t.chars} | ${t.min} | ${t.min - t.chars} |`,
+    )
+  }
   L.push('')
   L.push('## 「大學生程度」的實質要求（不是湊字數）')
   L.push('')
