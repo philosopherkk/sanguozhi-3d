@@ -58,9 +58,12 @@ PY
 
 4. **記錄查證**（更新 ledger 的日期與戳記，一律用指令，不要手改 JSON）：
    ```sh
-   node scripts/audit_quotes.mjs --mark unify --page 史記/卷006
+   node scripts/audit_quotes.mjs --mark 'src/zhou/data/timeline.ts#unify' --page 史記/卷006
    ```
-   `--mark` 後面接的是條目 key（上例的 `unify`），不是整串 `檔案#key`。
+   `--mark` 後面一定要接**完整的 `檔案#key`**（就是 `--todo` 每條印出的那個 id）。
+   裸 key 在本倉有 15+ 組同名（`unify`、`184-huangjin`、`208-chibi`、`zhaoling`…），
+   腳本現在會直接拒絕執行：以前它默默挑第一筆，章就蓋到別的檔案的條目上，
+   那條沒查過的引文從此顯示「已查證」（2026-11-25 同一輪踩到兩次）。
 5. 單項驗證：`npm run audit:quotes > /tmp/q.log 2>&1; echo exit=$?`，結尾「錯誤」必須是 0。
 
 ## 其他可查的東西（做完引文後、時間還夠時）
