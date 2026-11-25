@@ -9,7 +9,8 @@
  *   4. 新出現的漢字：列出「base 版本沒有出現過的字」，逐個人工核對碼位
  *      （將／隊／潰／擱／無 常被打成相近的錯字，錯字也是合法 Unicode，只能靠這一步看出來）
  *
- * 用法：node scripts/agent-selfcheck.mjs [base]    base 預設 origin/main
+ * 用法：node scripts/agent-selfcheck.mjs [base] [--branch]
+ *   base 預設 origin/main；--branch 把 base 換算成共同祖先（閘門用，見下方說明）。
  * 結束碼：1＝第 1–3 項有命中（必須修）；0＝無命中（第 4 項仍要自己看）。
  */
 import { execFileSync } from 'node:child_process'
@@ -20,13 +21,27 @@ const ROOT = join(import.meta.dirname, '..')
 
 const args = process.argv.slice(2)
 const commitsOnly = args.includes('--commits')
-const base = args.find((a) => !a.startsWith('--')) || 'origin/main'
+let base = args.find((a) => !a.startsWith('--')) || 'origin/main'
 const git = (...a) =>
   execFileSync('git', a, {
     encoding: 'utf8',
     maxBuffer: 256 * 1024 * 1024,
     stdio: ['ignore', 'pipe', 'ignore'],
   })
+/**
+ * `--branch`：只為本支自己的行負責（gate-ci 的 audit:selfcheck 用）。
+ * 預設的 `git diff origin/main` 是兩點式：主線領先時，主線已經改好的行會在差異裡
+ * 變成「本支新增的行」，代理會為別人在主線的修正挨咬（實測發生在四支 agent 分支的
+ * public/robots.txt:4）。這裡把 base 換算成共同祖先，語義等於 `base...HEAD`。
+ * 代理本地收工時不帶這個旗標，仍把工作區未 commit 的改動一起掃。
+ */
+if (args.includes('--branch')) {
+  try {
+    base = git('merge-base', base, 'HEAD').trim()
+  } catch {
+    console.error('--branch：查不到共同祖先（淺克隆？），退回兩點式比對')
+  }
+}
 
 // chars-block-start 簡體／日本新字偵測表：以下這段（載入器註解＋NOT_YET_IN_HARD）
 // 含本檔要抓的目標字形，把它們正體化會令自檢永遠失靈；同 audit-chars.ts 的 HARD 表同一待遇
