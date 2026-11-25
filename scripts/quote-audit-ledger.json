@@ -727,12 +727,12 @@
   "src/data/timelineDetails.ts#184-huangjin": {
     "stamp": "b0f71961",
     "page": "後漢書/卷71",
-    "at": "2026-11-08"
+    "at": "2026-11-25"
   },
   "src/data/timelineDetails.ts#189-dongzhuo": {
     "stamp": "1610b72e",
     "page": "後漢書/卷72",
-    "at": "2026-11-08"
+    "at": "2026-11-25"
   },
   "src/data/timelineDetails.ts#190-guandong": {
     "stamp": "922c6847",
@@ -742,12 +742,12 @@
   "src/data/timelineDetails.ts#192-dongzhuo-killed": {
     "stamp": "6ba5d51a",
     "page": "後漢書/卷72",
-    "at": "2026-11-08"
+    "at": "2026-11-25"
   },
   "src/data/timelineDetails.ts#196-xudu": {
     "stamp": "d2119388",
     "page": "三國志/卷01",
-    "at": "2026-11-08"
+    "at": "2026-11-25"
   },
   "src/data/timelineDetails.ts#200-guandu": {
     "stamp": "c7adcc24",
@@ -1292,7 +1292,7 @@
   "src/data/readingLayers.ts#184-huangjin": {
     "stamp": "c039ce48",
     "page": "後漢書/卷71",
-    "at": "2026-11-12"
+    "at": "2026-11-25"
   },
   "src/data/readingLayers.ts#208-chibi": {
     "stamp": "4179859c",
@@ -1650,9 +1650,9 @@
     "at": "2026-11-15"
   },
   "src/bakumatsu/data/history.ts#1858-ansei": {
-    "stamp": "da6b5d42",
-    "page": "日本國米利堅合衆國修好通商條約",
-    "at": "2026-11-15"
+    "stamp": "e42d6065",
+    "page": "幽囚録",
+    "at": "2026-11-25"
   },
   "src/qinhan/data/chengyuBridge.ts#jiangxianghe": {
     "stamp": "2bdb715",
@@ -1697,6 +1697,21 @@
   "src/zhou/data/marchRoutes.ts#handan-relief": {
     "stamp": "e64f941f",
     "page": "資治通鑑/卷005",
+    "at": "2026-11-25"
+  },
+  "src/data/timeline.json#189-dongzhuo": {
+    "stamp": "12b076f8",
+    "page": "後漢書/卷72",
+    "at": "2026-11-25"
+  },
+  "src/data/timeline.json#192-dongzhuo-killed": {
+    "stamp": "56418362",
+    "page": "後漢書/卷72",
+    "at": "2026-11-25"
+  },
+  "src/data/timeline.json#196-xudu": {
+    "stamp": "48c14abc",
+    "page": "三國志/卷01",
     "at": "2026-11-25"
   }
 }

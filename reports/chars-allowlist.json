@@ -190,5 +190,11 @@
     "char": "録",
     "context": "吉田松陰『幽囚録』",
     "reason": "《幽囚録》為吉田松陰親筆文獻之原典題名（日文原字形），依 AGENTS 題名照原形規則保留；引文出處與敘述行提及題名皆同一專名"
+  },
+  {
+    "file": "scripts/quote-audit-ledger.json",
+    "char": "録",
+    "context": "\"page\": \"幽囚録\"",
+    "reason": "ledger page 欄為 ja.wikisource 頁名（可追蹤識別碼），「幽囚録」照原題，改字即斷查證連結。錨「\"page\": \"幽囚録\"」喺該行先至豁免"
   }
 ]
