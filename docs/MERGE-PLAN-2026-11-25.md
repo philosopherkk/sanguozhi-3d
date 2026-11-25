@@ -100,3 +100,29 @@ commit 數遠大於淨檔數，是因為它們大多數內容早已被 main 收�
 2. 本地 main 領先的 4 條要推上去嗎？不推，agent 每輪都看不見它們（文案與出處修正會重複做）。
 3. 非 `src/` 的粵語虛詞要不要升級成閘門？現在 41 行（march 的 reports）只提示不計失敗。
 4. b2 ＋ #183 ＋ #182 是否同意重切成單一 PR（我可以在 KK 驗完 :5198/:5199 之後做）。
+
+## 七、落地後實測（同日晚些）
+
+四題都已裁：改檔＋重寫標題、推 main、粵語升級成閘門、同意重切單一 PR。做完的數字：
+
+- 四支分支清理（用共用 HARD 表的新自檢重掃，不是舊的手抄表）：
+  march 52 處 → hard 0（11 處簡體／新字形：`抽査`→`抽查` 11 處、`在册`→`在冊`；
+  其餘 41 行是粵語虛詞）；map 10 → 0；accuracy 18 → 0（`口径`→`口徑`）；enrich 本來就 0。
+  commit 標題：march 4 個、map 1 個改寫（`抽査`→`抽查`、`在册`→`在冊`、`塩池`→`鹽池`），
+  樹零變化已逐支核對（`git diff --stat <舊HEAD> HEAD` 為空）。
+  force-push 用 `--force-with-lease=<ref>:<舊 sha>`；march／map 是快進，accuracy 亦快進，未動 cron worktree。
+- 本地 main 已推，`origin/main` = `a4a4f893`。
+- 粵語的處理分成兩欄（這是過程中改的口徑，理由寫在 gate-ci 註解裡）：
+  `hard`＝新增行的簡體字／日本新字形，零容忍；`warn`＝粵語虛詞，棘輪。
+  一開始把兩者合成一欄，合併樹 hard 立刻變 68，全是代理報告的工作語言，
+  同期真簡體字 0 處被淹在裡面——一欄報表等於把紅變噪音。
+- 合併樹（`origin/main` ＋ #195 #196 #197 #198 ＋ 本分支）實測：
+  `gates exit=0`、`tsc -b` 0、`build` 0；`chars.hard` 0、`commit-msgs.hard` 0、
+  `selfcheck hard=0(新) warn=68(新)`。第四節預測的 `chars 2／commit-msgs 5` 已歸零。
+- 順帶修掉兩個會咬人的實作缺陷：
+  1. `audit:selfcheck` 用兩點式 diff，主線領先時會把主線改好的行算到分支頭上
+     （四支分支各被冤枉 `public/robots.txt:4`）→ 自檢加 `--branch`，閘門換算共同祖先。
+  2. 自檢的引號豁免沒剝反引號短代碼，而本倉慣例是把爭議字形包在反引號裡寫進報告
+     → 補上，判準與 audit-chars 一致（單行且 <12 個中日韓字才豁免），豁免用空格填，行號不錯位。
+- 基線仍待人工重記（`data.warn` 49→20、`event-depth.gap` 118→0、`war-shape` 101→57、
+  `chengyu.shortage` 15→3），並把 `selfcheck.warn` 68 記進去當棘輪起點。
