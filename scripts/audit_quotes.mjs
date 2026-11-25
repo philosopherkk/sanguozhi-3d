@@ -77,10 +77,11 @@ const PAGE = opt('page')
 function usage(code = 0) {
   console.log(
     [
-      '用法: node scripts/audit_quotes.mjs [--todo|--json|--stats]',
-      '      node scripts/audit_quotes.mjs --mark <entry-key> --page <書名/卷N>',
+      '用法: node scripts/audit_quotes.mjs [--todo [--all] [--limit=N]] | --json | --stats | --rows',
+      '      node scripts/audit_quotes.mjs --mark \'<檔案#key>\' --page <書名/卷N>',
       '',
       'npm run audit:quotes -- --todo',
+      '⚠ --mark 一定要給完整的「檔案#key」：裸 key 在本倉有 15+ 組同名，會蓋到別的檔案的條目。',
     ].join('\n'),
   )
   process.exit(code)
@@ -505,13 +506,46 @@ function main() {
   const ledger = loadLedger()
 
   if (MARK) {
-    const hit = entries.find((e) => e.key === MARK)
-    if (!hit) {
-      console.error(`找不到條目 key：${MARK}`)
-      console.error('可用 key：', entries.map((e) => e.key).join(', ').slice(0, 1500))
+    /**
+     * 2026-11-25 修正：以前只按 key 找「第一筆」，而 key 在同一倉庫會重複
+     * （unify、184-huangjin、208-chibi、zhaoling… 實測 15+ 組），
+     * 結果 accuracy agent 查完 A 檔的引文，帳本卻把章蓋到 B 檔同名的條目上——
+     * 蓋錯檔的條目會永久顯示「已查證」，等於把沒核過的引文洗白。
+     * 現在只接受「檔#key」完整識別碼；給裸 key 時一律列候選並拒絕執行。
+     */
+    const all = entries.map((e) => ({ e, id: `${relative(ROOT, e.file)}#${e.key}` }))
+    const exact = MARK.includes('#') ? all.filter((r) => r.id === MARK) : []
+    if (MARK.includes('#') && exact.length !== 1) {
+      console.error(`找不到條目識別碼：${MARK}${exact.length > 1 ? `（重複 ${exact.length} 筆，帳本不可能對）` : ''}`)
+      console.error(`用法：npm run audit:quotes -- --mark='<相對路徑>#<key>' --page='卷四十'`)
+      console.error(
+        '候選：',
+        all
+          .filter((r) => r.id.endsWith(`#${MARK.split('#')[1]}`))
+          .map((r) => r.id)
+          .join(', ')
+          .slice(0, 1200),
+      )
       process.exit(1)
     }
-    ledger[`${relative(ROOT, hit.file)}#${hit.key}`] = {
+    let chosen = exact
+    if (!MARK.includes('#')) {
+      const cands = all.filter((r) => r.e.key === MARK)
+      if (!cands.length) {
+        console.error(`找不到條目 key：${MARK}`)
+        console.error('可用 key：', entries.map((e) => e.key).join(', ').slice(0, 1500))
+        process.exit(1)
+      }
+      if (cands.length > 1) {
+        console.error(`key「${MARK}」在 ${cands.length} 個檔案都有——拒絕猜測會蓋到哪一筆。`)
+        console.error('請改用完整識別碼：--mark=\'<檔>#' + MARK + "'")
+        for (const c of cands) console.error(`  ${c.id}  @${c.e.line}`)
+        process.exit(1)
+      }
+      chosen = cands
+    }
+    const hit = chosen[0].e
+    ledger[chosen[0].id] = {
       stamp: stamp(hit),
       page: PAGE ?? '',
       at: new Date().toISOString().slice(0, 10),
@@ -678,41 +712,75 @@ function main() {
   }
 
   if (MODE === 'todo') {
-    let n = 0
-    for (const [f, list] of byFile) {
-      const items = list.filter(
-        (r) =>
+    /**
+     * 待辦清單（accuracy agent 每輪唯一的工作來源）。2026-11-25 重寫三處：
+     *   1. 以前按檔案分組、不排優先級，第 48 輪以後打開清單看到的全是
+     *      「已經蓋過章、只是還有出處格式提醒」的舊條——agent 無從分辨哪些才是未查證的，
+     *      於是在同一批條目上打轉。現在未查證／引文已改排前面，已查證的壓到最後並標明。
+     *   2. 每一行都印完整 `--mark='檔#key'` 指令（裸 key 會蓋錯檔，見上方 MARK 區塊）。
+     *   3. 預設只印 40 條並印出剩餘筆數：整份清單要進小模型的上下文，等於每輪燒掉幾千 token。
+     */
+    const items = rows
+      .map((r) => {
+        const id = `${relative(ROOT, r.e.file)}#${r.e.key}`
+        const led = ledger[id]
+        const pri = r.state === 'stale' ? 0 : r.state === 'unverified' ? 1 : 2
+        return { r, id, pri, at: led?.at ?? '' }
+      })
+      .filter(
+        ({ r }) =>
           isError(r) ||
           r.state === 'stale' ||
           r.state === 'unverified' ||
           (ALL && r.state === 'paraphrase'),
       )
-      if (!items.length) continue
-      console.log(`\n\u001b[1m${f}\u001b[0m`)
-      for (const r of items) {
-        n++
-        const tags = [
-          ...r.issues.filter((i) => i[0] !== 'info').map((i) => i[1]),
-          ...(r.state === 'stale'
-            ? ['引文已改，需重查']
-            : r.state === 'unverified'
-              ? ['未查證']
-              : []),
-        ]
-        console.log(`  ☐ ${r.e.key}（:${r.e.line}） ${tags.join('、')}`)
-        const q = text(r.e.quote).replace(/\s+/g, ' ')
-        if (q) console.log(`      引文: ${q.slice(0, 64)}`)
-        if (text(r.e.source)) console.log(`      出處: ${text(r.e.source)}`)
-        const cmd = verifyCommand(r.e)
-        if (cmd) console.log(`      查證: ${cmd}`)
+      .sort((a, b) => a.pri - b.pri || (a.at || '9999').localeCompare(b.at || '9999') || a.id.localeCompare(b.id))
+    const rawLimit = opt('limit')
+    const limit = rawLimit === undefined ? 40 : Number(rawLimit)
+    const shown = limit > 0 ? items.slice(0, limit) : items
+    const label = ['引文已改，需重查', '未查證', '已查證但仍有提醒']
+    for (const { r, id, pri, at } of shown) {
+      const tags = [...r.issues.filter((i) => i[0] !== 'info').map((i) => i[1]), label[pri]]
+      console.log(`\n☐ ${id}`)
+      console.log(`    ${tags.join('、')}${at ? `（上次查證 ${at}）` : ''}`)
+      const q = text(r.e.quote).replace(/\s+/g, ' ')
+      if (q) console.log(`    引文: ${q.slice(0, 64)}`)
+      if (text(r.e.source)) console.log(`    出處: ${text(r.e.source)}`)
+      const cmd = verifyCommand(r.e)
+      if (cmd) console.log(`    查證: ${cmd}`)
+      console.log(`    記錄: npm run audit:quotes -- --mark='${id}' --page <書名/卷N>`)
+    }
+    const open = items.filter((i) => i.pri < 2).length
+    const para = ALL ? 0 : rows.filter((r) => r.state === 'paraphrase').length
+    /**
+     * 只列「有引文待核」會得出待辦 0 條——2026-11-25 實測如此，
+     * 因為 accuracy 十幾輪已經把有引文的條目全查完了，帳本卻還有 1,117 條
+     * 「出處寫了《書名》卻根本沒有原文」的條目：那些才是同一政策下的下一批工作
+     * （AGENTS.md 要引文可逐字對，光有書名不算）。列出來才不會叫 agent 原地打轉。
+     */
+    // 出處已自己聲明「通說整理／非逐字引文」的條目是裁定過的結果，不是漏寫原文；
+    // 那些行常常只是在註解裡提到某書名，混進清單會讓 agent 去「補」一條不該補的引文。
+    const QUOTELESS_SKIP = /通說|意譯|非逐字|查無此書/
+    const quoteless = rows.filter(
+      (r) => !r.e.quote && /《[^》]+》/.test(text(r.e.source) || '') && !QUOTELESS_SKIP.test(text(r.e.source)),
+    )
+    const qSample = quoteless.slice(0, Math.max(4, Math.floor(limit / 3)))
+    if (qSample.length) {
+      console.log(`\n── 出處具名但無原文（${quoteless.length} 條，先列 ${qSample.length} 條：補原文，不是查原文）──`)
+      for (const r of qSample) {
+        const id = `${relative(ROOT, r.e.file)}#${r.e.key}`
+        console.log(`☐ ${id}（:${r.e.line}）`)
+        console.log(`    出處: ${text(r.e.source).replace(/\s+/g, ' ').slice(0, 70)}`)
+        const t = text(r.e.title)
+        if (t) console.log(`    條目: ${t.replace(/\s+/g, ' ').slice(0, 50)}`)
+        console.log('    做法: 用 scripts/qsrc.py 到該卷找原句 → 寫進 quote（逐字）→ --mark 記錄；找不到就改標通說')
       }
     }
-    const para = ALL ? 0 : rows.filter((r) => r.state === 'paraphrase').length
     console.log(
-      `\n待辦 ${n} 條` +
-        (para ? `（另 ${para} 條明標意譯／通說，無原文可以逐字對；要看加 --all）` : '') +
-        `。查證後記錄： npm run audit:quotes -- --mark <key> --page <書名/卷N>` +
-        `（寫入 ${relative(ROOT, LEDGER_PATH)}）`,
+      `\n待辦 ${items.length} 條（其中真正未查證／待重查 ${open} 條；已查證但有格式提醒 ${items.length - open} 條）` +
+        (para ? `\n另 ${para} 條明標意譯／通說，無原文可逐字對（要看加 --all）` : '') +
+        (items.length > shown.length ? `\n只列前 ${shown.length} 條，其餘 ${items.length - shown.length} 條加 --limit=0 全列` : '') +
+        `。\n⚠ --mark 一定要用完整的「檔#key」，裸 key 在本倉有 15+ 組同名，會蓋到別的檔案的條目。`,
     )
     return
   }
