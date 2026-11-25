@@ -78,7 +78,11 @@ const GATES = [
   // 代理的工作語言，一次性改寫會引入錯碼位風險；這個數字因此只能下降、不能上升。
   {
     name: 'audit:selfcheck',
-    cmd: 'node scripts/agent-selfcheck.mjs origin/main',
+    // --branch 一定要給：預設的 `git diff origin/main` 是兩點式，主線領先時會把
+    // 「主線已經改好的行」當成本支新增的行來咬（實測：主線 a4a4f893 把 robots.txt
+    // 第四行的粵語虛詞與簡體形「個」改回書面語之後，四支 agent 分支各被冤枉兩處）。
+    // --branch 讓自檢自己換算成共同祖先，等價於三點式，代理只為自己的行負責。
+    cmd: 'node scripts/agent-selfcheck.mjs origin/main --branch',
     metrics: { hard: /agent-selfcheck — 新增 \d+ 行／\d+ 檔｜命中 (\d+) 處/ },
   },
   // 2026-11-13 補：audit:chars 連續多輪報「硬傷 0」，實則 `对` `传` `开` `学` `经` `张`
