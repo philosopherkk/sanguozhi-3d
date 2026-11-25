@@ -680,9 +680,9 @@
     "at": "2026-11-25"
   },
   "src/zhou/data/studentEvents.ts#qi-yan-meng": {
-    "stamp": "d34738eb",
+    "stamp": "cd91f4bd",
     "page": "資治通鑑/卷003",
-    "at": "2026-11-08"
+    "at": "2026-11-25"
   },
   "src/zhou/data/timeline.ts#fenjin": {
     "stamp": "25351fb8",
@@ -692,17 +692,17 @@
   "src/zhou/data/timeline.ts#tianqi": {
     "stamp": "ac37eb87",
     "page": "資治通鑑/卷001",
-    "at": "2026-11-08"
+    "at": "2026-11-25"
   },
   "src/zhou/data/timeline.ts#chu-yue": {
-    "stamp": "ce308877",
+    "stamp": "c0eda275",
     "page": "史記/卷041",
-    "at": "2026-11-08"
+    "at": "2026-11-25"
   },
   "src/zhou/data/timeline.ts#bashu": {
     "stamp": "a989fdb1",
     "page": "資治通鑑/卷003",
-    "at": "2026-11-08"
+    "at": "2026-11-25"
   },
   "src/zhou/data/timeline.ts#baying": {
     "stamp": "1760acbb",
@@ -1667,6 +1667,16 @@
   "src/qinhan/data/places.ts#kunyang": {
     "stamp": "f9b87462",
     "page": "資治通鑑/卷039",
+    "at": "2026-11-25"
+  },
+  "src/zhou/data/marchRoutes.ts#chu-yue": {
+    "stamp": "2c8b17fe",
+    "page": "史記/卷041",
+    "at": "2026-11-25"
+  },
+  "src/zhou/data/marchRoutes.ts#bashu": {
+    "stamp": "3bf6eebb",
+    "page": "資治通鑑/卷003",
     "at": "2026-11-25"
   }
 }
