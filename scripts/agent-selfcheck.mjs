@@ -3,7 +3,7 @@
  * agent-selfcheck.mjs — 排程 agent 收工前的「新增行」自檢。
  *
  * 只看本輪新增的行（git diff <base>，含已 commit 與未 commit 的追蹤檔），查小模型最常犯的四種錯：
- *   1. 簡體字（常見簡體專用字；完整字表仍以 npm run audit:chars 為準）
+ *   1. 簡體字／日本新字（字表只有一份來源：scripts/audit-chars.ts 的 HARD，見下方載入器）
  *   2. 粵語虛詞（src/ 內一律不准；docs/、scripts/ 允許但不在此檢查範圍）
  *   3. 拉丁亂碼夾在中文前（[A-Za-z]{4,} 後面緊接中日文字）與工具呼叫殘骸
  *   4. 新出現的漢字：列出「base 版本沒有出現過的字」，逐個人工核對碼位
@@ -13,6 +13,10 @@
  * 結束碼：1＝第 1–3 項有命中（必須修）；0＝無命中（第 4 項仍要自己看）。
  */
 import { execFileSync } from 'node:child_process'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
+
+const ROOT = join(import.meta.dirname, '..')
 
 const args = process.argv.slice(2)
 const commitsOnly = args.includes('--commits')
@@ -24,33 +28,126 @@ const git = (...a) =>
     stdio: ['ignore', 'pipe', 'ignore'],
   })
 
-// chars-block-start 簡體字偵測表：本檔的用途就是列出簡體字
-const SIMPLIFIED = new Set(
-  ('条关实录奥议泽荣说让们这时体线补织国图书军将师众旧举艺显区杀属续归乱号单尽隐稳独异' +
-    '战点击统称观认产义习当个转办飞从头记团队长门间东车马岛汉语话设应术阶伤价优运还' +
-    '写变读误难边类医银钱响极连进远迁过为则约悬纪证评论许访诉详趋宪协简卖厅圣' +
-    '级来这发会对没后开关兴业丛两严乐习书买乱争亏亚仅从仓价众优伙伟传伤伦伪体余佣侠侣' +
-    '侥侦侧侨俭债倾偿储兑党兰养兽冲决况净凉减凤击刘则刚创删别剧剑剂劝办务动励劲势勋' +
-    '匀华协单卫却厂历压厌县参双变叙叠号叹后吗启员呐咏响哑唤啸喷嘘团园围图坏坛垒垦' +
-    '备复够头夹奋奖妆妇妈姗娱孙学宁宝实宠审宪宫寻导寿将尔尘尝层岁岭岳峡币帅师帐帘帮' +
-    '广庆库应庙废开异弃张弹强归当录彦彻惊惨惯愿慑扑执扩扫扬换损摄摆撑擞攒敌数斗断' +
-    '无旷昙显晋晓暂术杂权条枪枫构标栈样档桥梦检楼欢欧毕毙气汇汤沟泪泽洁洒浅测济浏浑' +
-    '涛润涨渐渔湾湿溃滚滞满滤滨灭灵灾灿炉炼烁烂烟烦热爱爷牍牺犹狭狮独狱猎猪猫献' +
-    '环现玛珐琐电画畅畴疗疯疮症痴盐监盖盘着矿码砖础础确碍礼祸祯离秃积称稳穷窃窍' +
-    '竞笔笋筑签简粮紧纠红约级纪纫纯纲纳纵纷纸纹纺纽线练组细织终绍经结绕绘给络绝统继' +
-    '绩绪续维综绿缓编缘缩缴网罗罚职联聪肃肠肤肾胀胁胜脑脚脸腊腾舰舱艰艳艺节芜芦苏苹茧' +
-    '荐荡荣药莲获萝萤营萧著蓝蔼虏虑虚虫蚀蚁蛮蜡补衬袄装裆见观规觅视览觉观计订认讨让' +
-    '训议讯记讲许论讽设访证评识诈诉词译试诗诚话诞询该详诫诬语误诱说诵请诸诺读课谁调' +
-    '谅谈谊谋谍谎谐谓谕谜谢谣谤谦谨谬谱贝贞负贡财责贤败账货质贩贪贫购贮贯贰贱贴贵' +
-    '贷贸费贺贼贾资赋赌赏赐赔赖赚赛赞赠赢赵趋跃践踪车轨轩转轮软轰轴轻载轿较辅辆辈' +
-    '辉辑输辖辞边辽达迁迈运还这进远违连迟适选递逻遗邓邮邻郑酝酱释里鉴针钉钓钟钢钥钦钱' +
-    '钻铁铃铜铭银铺链销锁锅锋错锡键锦镇镜长门闪闭问闯闲间闷闹闻阀阁阅队阳阴阵阶际陆陈' +
-    '陕险随隐隶难雾静页顶项顺须顾顿颁颂预领颇频题颜额风飘饥饭饮饰饱饼馆驱驳驻驾驶骂' +
-    '骄验骑骗鱼鲁鲜鸟鸡鸣鸦鸭鸿鹅鹰麦黄齐齿龄龙龟').split(''),
+// chars-block-start 簡體／日本新字偵測表：以下這段（載入器註解＋NOT_YET_IN_HARD）
+// 含本檔要抓的目標字形，把它們正體化會令自檢永遠失靈；同 audit-chars.ts 的 HARD 表同一待遇
+// ── 簡體／日本新字表：只有一份來源，就是 scripts/audit-chars.ts 的 HARD ──────
+// 2026-11-25 教訓：本檔以前自己維護一份手抄表（約 700 字），和 audit-chars 的
+// 1,336 字表已經漂移了 702 字——`改动`、`抽査`（查的日本新字形 U+67FB）這類錯字
+// 兩邊都不咬。而 gate-ci 的 audit:commit-msgs 就是叫本檔 `--commits`，所以
+// commit 標題與 reports/ 一路全綠：閘門看起來有人查，查的其實是過時副本。
+// 現在直接解析 HARD 的鍵，副本消失，漂移在結構上不可能再發生。
+function loadHardKeys() {
+  let src = ''
+  try {
+    src = readFileSync(join(ROOT, 'scripts', 'audit-chars.ts'), 'utf8')
+  } catch (e) {
+    console.error(`讀唔到 scripts/audit-chars.ts（${e.message.split('\n')[0]}）`)
+    console.error('字表不能退化成空表——本輪自檢拒絕執行，請先修好路徑')
+    process.exit(2)
+  }
+  const start = src.indexOf('const HARD: Record<string, string> = {')
+  if (start < 0) {
+    console.error('讀唔到 HARD 表（改咗名定搬咗檔？）——自檢拒絕執行')
+    process.exit(2)
+  }
+  const block = src.slice(start, src.indexOf('\n}', start))
+  // 註解行先拿掉：本專案記過兩次同一個坑——表內註解寫成「某字: 某詞」會被解析器
+  // 當成一條規則（audit-chars.ts 第十四輪的註解亦已寫明這條限制）。
+  const table = block
+    .split('\n')
+    .filter((l) => !/^\s*\/\//.test(l))
+    .join('\n')
+  const keys = new Set([...table.matchAll(/(?:^|[{,\s])(\p{Script=Han})\s*:\s*'/gum)].map((m) => m[1]))
+  // fail-closed：解析出一張小表比解析失敗更危險（它會安靜地全綠）。
+  if (keys.size < 500) {
+    console.error(`HARD 只解析出 ${keys.size} 支字（應有 1,300 上下）——解析器壞了，自檢拒絕執行`)
+    process.exit(2)
+  }
+  return keys
+}
+const SIMPLIFIED = loadHardKeys()
+// HARD 還沒收、但本檔老表已在查的簡體字（逐支查過：正體一律用右邊的字形，
+// 沒有兩用義）。刻意不收 HARD 明言排除的兩用字——来 会 没 党 却 尔 愿 着 猪
+// （audit-chars.ts 把它們留在 SOFT 或註明「進表會誤殺引文」）：自檢和閘門標準
+// 不一致時，小模型會去「修」一個本來正確的字，那比漏報更糟。
+// 這些字終究該合併進 HARD；在合併之前先留在這裡，免得今天的 coverage 退回昨天。
+const NOT_YET_IN_HARD = new Set(
+  ('匀吗哑啸嘘妆妈姗娱帘擞攒昙枫洒湾灿炉烁爷狮猫珐琐疯痴砖窍笋纫纺肠肾舱' +
+    '苹茧萝蔼蚁蜡袄裆觅谎赚轿酝酱钢闷饱饼').split(''),
 )
-// 這些字在繁體與日文裡也合法（例如「干」「后」「里」），不納入簡體字表以免誤報
-for (const ok of '著余干后里台才占向症岳筑斗彦伙奥') SIMPLIFIED.delete(ok)
+for (const c of NOT_YET_IN_HARD) SIMPLIFIED.add(c)
 // chars-block-end
+
+// ── 與 audit-chars.ts 同步的豁免（不對齊就會「selfcheck 紅、gates 綠」）──────
+// 閘門判的是「我們的敘述」；史料原題、引文、維基條目標題、label 都是機器識別符或原文，
+// 依 §1AJ 要照原典字形。本檔以前不做這層剝離，所以對齊 HARD 之後會大量誤報。
+const JP_LINE = /[\u3041-\u309f\u30a1-\u30fa\u30fc]/
+const SKIP_LINE = /"name":|^\s*(id|name|label|code):\s*['"]|^\s*\{\s*(id|label|code):\s*['"]/
+// 偵測表所在的檔案：檔內那一長串目標字形是它要抓的東西，不是寫錯的正文。
+// 名稱需與 audit-chars.ts 的 SKIP_FILE 保持一致（兩邊都寫明憑什麼＝豁免範圍要看得見）。
+const DETECTOR_TABLES =
+  /audit-chars|audit-data|audit_chengyu|audit_quotes|audit_entries|fetchArticle|agent-selfcheck|verify_chars_opencc|qsrc\.py|docs\/legacy\/|scripts\/legacy\/|HANDOVER|OVERNIGHT_TASKS|ENRICH_MERGE_/
+// chars-block 標記豁免（同 audit-chars）：有些檔的職責就是列錯字，正體化會令偵測永遠失靈。
+const BLOCK_START = /^\s*(?:\/\/|#|\*)\s*chars-block-start\b(.*)$/
+const BLOCK_END = /^\s*(?:\/\/|#|\*)\s*chars-block-end\b/
+function blockRanges(lines) {
+  const covered = new Set()
+  let open = -1
+  lines.forEach((l, i) => {
+    if (BLOCK_START.test(l)) {
+      if (open < 0) open = i
+      return
+    }
+    if (BLOCK_END.test(l) && open >= 0) {
+      for (let k = open; k <= i; k++) covered.add(k)
+      open = -1
+    }
+  })
+  return covered
+}
+// 引文／書名／機器識別符先拿掉（逐條對應 audit-chars.ts 掃描前的剝離步驟）。
+function stripQuoted(text) {
+  return text
+    .replace(/『[^』]*』/g, '')
+    .replace(/「[^」]*」/g, '')
+    .replace(/《[^》\n]{1,40}》/g, '')
+    .replace(/https?:\/\/(?:zh|ja)\.wikipedia\.org\/\S+/g, '')
+    .replace(/WIKI(?:_JA)?\(\s*'[^']*'\s*\)/g, '')
+}
+// 含假名的行不再整行放過，改成遮蔽假名鄰字（同 audit-chars 的 maskNearKana）。
+function maskNearKana(s) {
+  const kana = []
+  for (let i = 0; i < s.length; i++) if (JP_LINE.test(s[i])) kana.push(i)
+  if (!kana.length) return s
+  return [...s].map((c, i) => (kana.some((k) => Math.abs(k - i) < 4) ? '\u0000' : c)).join('')
+}
+// 已核准的史料原字形（reports/chars-allowlist.json）：只有「檔＋字＋錨喺同一行」才豁免。
+function loadAllowlist() {
+  try {
+    return JSON.parse(readFileSync(join(ROOT, 'reports', 'chars-allowlist.json'), 'utf8'))
+  } catch {
+    return [] // 檔唔見咗 → 豁免失效 → 寧可多報（fail-closed，同 audit-chars 一樣）
+  }
+}
+const ALLOW = loadAllowlist()
+function allowedFor(file, ch, rawLine) {
+  return ALLOW.some(
+    (a) =>
+      file.endsWith(a.file) &&
+      a.char === ch &&
+      typeof a.context === 'string' &&
+      a.context.trim().length >= 4 &&
+      rawLine.includes(a.context.trim()),
+  )
+}
+// 一行該不該查簡體字：回傳要掃的字串（空字串＝這行豁免）。
+function simplifiableText(file, rawLine) {
+  if (DETECTOR_TABLES.test(file)) return ''
+  if (SKIP_LINE.test(rawLine)) return ''
+  let s = stripQuoted(rawLine)
+  if (JP_LINE.test(s)) s = maskNearKana(s)
+  return s
+}
 
 const CANTONESE = /[嘅咗唔冇喺啲嘢睇哋佢咁嚟啱諗]/
 const LATIN_BEFORE_CJK = /[A-Za-z]{4,}(?=[\u4e00-\u9fff])/
@@ -73,8 +170,13 @@ if (commitsOnly) {
     const line = msg.trim()
     if (!line) continue
     n++
-    for (const c of line) {
-      if (SIMPLIFIED.has(c)) commitHits.push([`commit #${n}`, `簡體字「${c}」`, line.split('\n')[0]])
+    // commit 訊息同樣要走豁免：本倉的修正 commit 慣用「」引用被修的那支字
+    // （例：fix(chars): 派系敘述「噶廈」正體化），日文史料題名則走《》與假名鄰字遮蔽。
+    // 對齊 HARD 之後多查 700 支字（一批只在日文出現的字形也在表內），
+    // 不剝這層就會把自己的修正 commit 報成錯字。
+    const msgText = maskNearKana(stripQuoted(line))
+    for (const c of msgText) {
+      if (SIMPLIFIED.has(c)) commitHits.push([`commit #${n}`, `簡體字／日本新字「${c}」`, line.split('\n')[0]])
     }
     if (TOOL_ECHO.test(line)) commitHits.push([`commit #${n}`, '工具呼叫殘骸', line.split('\n')[0]])
     if (/^(<<<<<<<|=======$|>>>>>>>)/m.test(line)) commitHits.push([`commit #${n}`, '衝突標記', line.split('\n')[0]])
@@ -90,7 +192,17 @@ if (commitsOnly) {
   process.exit(seenC.size ? 1 : 0)
 }
 
-let added = []
+// 未納入版本控制的新檔也要查：agent 常見「寫了檔忘記 commit」，
+// 只掃 git diff 的話，一整份新檔（正是簡體字最愛的地方）會完全進不了自檢。
+const untracked = (() => {
+  try {
+    return git('ls-files', '--others', '--exclude-standard').split('\n').filter(Boolean)
+  } catch {
+    return []
+  }
+})()
+
+const added = []
 let files = []
 try {
   files = git('diff', '--name-only', base).split('\n').filter(Boolean)
@@ -99,9 +211,18 @@ try {
   process.exit(2)
 }
 for (const f of files) {
-  if (f === 'scripts/agent-selfcheck.mjs') continue // 本檔的簡體字表本身會全部命中
+  // 偵測表／交接紀錄整檔跳過：那些檔的職責就是列出錯字與被拒的理由，
+  // 把它們「正體化」會讓偵測永遠失靈（同 audit-chars.ts 的 SKIP_FILE 同一組理由）。
+  if (DETECTOR_TABLES.test(f)) continue
   if (/\.(png|jpe?g|webp|gif|ico|woff2?|pdf|lock)$/i.test(f)) continue
   if (/(^|\/)package-lock\.json$/.test(f)) continue
+  // chars-block 標記豁免要用工作區的檔案內容來算行號（diff 只有新增行）
+  let covered = new Set()
+  try {
+    covered = blockRanges(readFileSync(join(ROOT, f), 'utf8').split('\n'))
+  } catch {
+    /* 新增檔讀不到就用空集合：寧可多報 */
+  }
   let diff = ''
   try {
     diff = git('diff', '-U0', base, '--', f)
@@ -116,13 +237,37 @@ for (const f of files) {
       continue
     }
     if (line.startsWith('+') && !line.startsWith('+++')) {
-      added.push({ f, ln, text: line.slice(1) })
+      added.push({ f, ln, text: line.slice(1), blocked: covered.has(ln - 1) })
       ln++
     }
   }
 }
+// 未追蹤的新檔：整檔都算新增行（git diff 看不到它們）。
+for (const f of untracked) {
+  if (DETECTOR_TABLES.test(f)) continue
+  if (/\.(png|jpe?g|webp|gif|ico|woff2?|pdf|lock)$/i.test(f)) continue
+  if (/(^|\/)package-lock\.json$/.test(f)) continue
+  let text = ''
+  try {
+    text = readFileSync(join(ROOT, f), 'utf8')
+  } catch {
+    continue // 死鏈或權限問題：跳過而非中止，其他檔還要查
+  }
+  const lines = text.split('\n')
+  const covered = blockRanges(lines)
+  lines.forEach((line, i) => added.push({ f, ln: i + 1, text: line, blocked: covered.has(i) }))
+}
+files = [...new Set([...files, ...untracked])]
 
 const hits = []
+// reports/、docs/ 的粵語口語：audit-chars 有牙咬 src/，對 agent 產物（docs/、scripts/、
+// reports/）刻意豁免——這是 2026-11-14 --teeth 釘死的政策，不是漏。但 QUICK.md 要求書面語，
+// 所以這裡只做「提示不計入失敗」的計數：要收緊成閘門是使用者的政策決定，不該由自檢偷偷改。
+let colloqLines = 0
+const reportColloq = (where) => {
+  colloqLines += 1
+  if (colloqLines === 1) console.log(`提示｜粵語虛詞（非 src/，不計入失敗）首例：${where}`)
+}
 const newHan = new Map()
 const baseChars = new Map()
 const baseHan = (f) => {
@@ -155,11 +300,17 @@ try {
   /* 缺 base 檔只代表新檔案，略過 */
 }
 
-for (const { f, ln, text } of added) {
+for (const { f, ln, text, blocked } of added) {
   const inSrc = f.startsWith('src/')
   const where = `${f}:${ln}`
+  // 簡體／日本新字：用與閘門相同的豁免（偵測表／引文／書名／label／假名鄰字／allowlist 錨）。
+  const scanned = blocked ? '' : simplifiableText(f, text)
+  if (scanned) {
+    for (const c of scanned) {
+      if (SIMPLIFIED.has(c) && !allowedFor(f, c, text)) hits.push([where, `簡體字／日本新字「${c}」`, text.trim()])
+    }
+  }
   for (const c of text) {
-    if (SIMPLIFIED.has(c)) hits.push([where, `簡體字「${c}」`, text.trim()])
     if (HAN.test(c) && !baseHan(f).has(c) && !siteHan.has(c)) {
       if (!newHan.has(c)) newHan.set(c, where)
     }
@@ -167,6 +318,7 @@ for (const { f, ln, text } of added) {
   if (inSrc && CANTONESE.test(text)) {
     hits.push([where, '粵語虛詞（src/ 不准）', text.trim()])
   }
+  if (!inSrc && CANTONESE.test(text)) reportColloq(where)
   const lm = text.match(LATIN_BEFORE_CJK)
   if (lm) hits.push([where, `拉丁亂碼「${lm[0]}」`, text.trim()])
   if (TOOL_ECHO.test(text)) hits.push([where, '工具呼叫殘骸', text.trim()])
@@ -190,6 +342,7 @@ if (newHan.size) {
   console.log('  （例：看到「将堤潫搁沥」就是錯碼位，應為「將隊潰擱無」）')
 }
 console.log(
-  `\nagent-selfcheck — 新增 ${added.length} 行／${files.length} 檔｜命中 ${seen.size} 處｜新漢字 ${newHan.size}`,
+  `\nagent-selfcheck — 新增 ${added.length} 行／${files.length} 檔｜命中 ${seen.size} 處｜新漢字 ${newHan.size}` +
+    (colloqLines ? `｜粵語虛詞提示 ${colloqLines} 行（非 src/，不計入失敗）` : ''),
 )
 process.exit(seen.size ? 1 : 0)
