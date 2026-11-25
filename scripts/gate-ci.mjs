@@ -71,6 +71,16 @@ const GATES = [
     cmd: 'node scripts/agent-selfcheck.mjs --commits origin/main',
     metrics: { hard: /agent-selfcheck --commits — 命中 (\d+) 處/ },
   },
+  // 2026-11-25 補：自檢本來要 agent「自己記得跑」才生效，而且對非 src/ 的新增行只提示
+  // 不計失敗，所以 agents 往 reports/ 寫入口語、寫入錯字都得靠人工覆核才發現。
+  // 現在由 gate-ci 直接對分支淨差異跑一次：新增行不分目錄都要書面語，命中即惡化。
+  // 只掃 diff 是刻意的——既有語料（reports/ 五百多行、docs/ 與 scripts/ 近千行）屬
+  // 代理的工作語言，一次性改寫會引入錯碼位風險；這個數字因此只能下降、不能上升。
+  {
+    name: 'audit:selfcheck',
+    cmd: 'node scripts/agent-selfcheck.mjs origin/main',
+    metrics: { hard: /agent-selfcheck — 新增 \d+ 行／\d+ 檔｜命中 (\d+) 處/ },
+  },
   // 2026-11-13 補：audit:chars 連續多輪報「硬傷 0」，實則 `对` `传` `开` `学` `经` `张`
   // `赵` `户` `阳` `铁` 這些最常見的簡體字一個都不在字表裡——277 字是「看到哪個錯字就補
   // 哪個」長出來的，覆蓋率從沒被量過，數字綠是因為沒有人在查。這條閘門不量內容，量的是
@@ -246,8 +256,13 @@ for (const [name, cur] of Object.entries(current)) {
     const b = old[key]
     const tag = b === undefined ? '新' : val < b ? `↓${b - val}` : val > b ? `↑${val - b}` : '='
     parts.push(`${key}=${val}(${tag})`)
-    if (b !== undefined && val > b) worse.push(`${name}.${key} ${b} → ${val}`)
-    if (b !== undefined && val < b) better.push(`${name}.${key} ${b} → ${val}`)
+    if (b === undefined) {
+      // 基線只能人手更新（--update-baseline），所以新閘門若帶非零值入場而不計惡化，
+      // 就可以「先進場、等人補基線」把紅永久合法化——新加的 audit:selfcheck 正好
+      // 踩到這條縫。新指標未進基線前，非零就算惡化。
+      if (val > 0) worse.push(`${name}.${key} 新指標 ${val}（新閘門要以零值進場，先修再入 gate-ci）`)
+    } else if (val > b) worse.push(`${name}.${key} ${b} → ${val}`)
+    else if (val < b) better.push(`${name}.${key} ${b} → ${val}`)
   }
   // 有數字指標的閘門以指標為準：audit:wiring 等目前就有既存 fail，
   // 把 exit≠0 當成惡化會讓護欄永遠紅，最後所有人都忽略它——這正是要避免的失效模式。

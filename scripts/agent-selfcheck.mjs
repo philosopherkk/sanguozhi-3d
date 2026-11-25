@@ -4,7 +4,7 @@
  *
  * 只看本輪新增的行（git diff <base>，含已 commit 與未 commit 的追蹤檔），查小模型最常犯的四種錯：
  *   1. 簡體字／日本新字（字表只有一份來源：scripts/audit-chars.ts 的 HARD，見下方載入器）
- *   2. 粵語虛詞（src/ 內一律不准；docs/、scripts/ 允許但不在此檢查範圍）
+ *   2. 粵語虛詞（新增行一律不准，不分 src/ 與 agent 產物；見下方 2026-11-25 裁定）
  *   3. 拉丁亂碼夾在中文前（[A-Za-z]{4,} 後面緊接中日文字）與工具呼叫殘骸
  *   4. 新出現的漢字：列出「base 版本沒有出現過的字」，逐個人工核對碼位
  *      （將／隊／潰／擱／無 常被打成相近的錯字，錯字也是合法 Unicode，只能靠這一步看出來）
@@ -260,14 +260,15 @@ for (const f of untracked) {
 files = [...new Set([...files, ...untracked])]
 
 const hits = []
-// reports/、docs/ 的粵語口語：audit-chars 有牙咬 src/，對 agent 產物（docs/、scripts/、
-// reports/）刻意豁免——這是 2026-11-14 --teeth 釘死的政策，不是漏。但 QUICK.md 要求書面語，
-// 所以這裡只做「提示不計入失敗」的計數：要收緊成閘門是使用者的政策決定，不該由自檢偷偷改。
+/**
+ * 粵語虛詞的邊界（2026-11-25 使用者裁定收緊）：以前只咬 src/，對 docs/、scripts/、
+ * reports/ 刻意豁免（11-13 的政策），結果 agent 每輪往 reports/ 寫進幾十行口語，
+ * 覆核時要把「實測如此」與「代理自述」分開讀，等於把成本轉嫁給人。現在新增行一律要書面語。
+ * 只量新增行是刻意的：既有語料（reports/ 561 行、docs/ scripts/ 約 1,000 行）是代理
+ * 的工作語言，一次改寫會引入大量錯碼位風險，改由 gate-ci 的 `audit:selfcheck`
+ * 對分支淨差異做零容忍，存量只能減不能增。
+ */
 let colloqLines = 0
-const reportColloq = (where) => {
-  colloqLines += 1
-  if (colloqLines === 1) console.log(`提示｜粵語虛詞（非 src/，不計入失敗）首例：${where}`)
-}
 const newHan = new Map()
 const baseChars = new Map()
 const baseHan = (f) => {
@@ -315,10 +316,12 @@ for (const { f, ln, text, blocked } of added) {
       if (!newHan.has(c)) newHan.set(c, where)
     }
   }
-  if (inSrc && CANTONESE.test(text)) {
-    hits.push([where, '粵語虛詞（src/ 不准）', text.trim()])
+  // 用遮蔽後的 scanned 判，與閘門一致：逐字引文裡本來就可能出現「嘅」「唔」，
+  // 引文／書名／code／偵測表都已被 simplifiableText 遮蔽成空字串，不該誤殺。
+  if (CANTONESE.test(scanned)) {
+    colloqLines += 1
+    hits.push([where, `粵語虛詞（${inSrc ? '網站文字' : '新增行'}須書面語）`, text.trim()])
   }
-  if (!inSrc && CANTONESE.test(text)) reportColloq(where)
   const lm = text.match(LATIN_BEFORE_CJK)
   if (lm) hits.push([where, `拉丁亂碼「${lm[0]}」`, text.trim()])
   if (TOOL_ECHO.test(text)) hits.push([where, '工具呼叫殘骸', text.trim()])
@@ -343,6 +346,6 @@ if (newHan.size) {
 }
 console.log(
   `\nagent-selfcheck — 新增 ${added.length} 行／${files.length} 檔｜命中 ${seen.size} 處｜新漢字 ${newHan.size}` +
-    (colloqLines ? `｜粵語虛詞提示 ${colloqLines} 行（非 src/，不計入失敗）` : ''),
+    (colloqLines ? `｜其中粵語虛詞 ${colloqLines} 行` : ''),
 )
 process.exit(seen.size ? 1 : 0)

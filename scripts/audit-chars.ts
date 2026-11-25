@@ -731,8 +731,10 @@ if (flags.includes('--teeth')) {
   const falseHit = run(control)
   if (falseHit.size) { bad += 1; console.log(`  ✗ 控制樣本誤報：${[...falseHit].join(' ')}（豁免被關掉了？）`) }
   else console.log('  ✓ 控制樣本（引文／原典題名／label／URL／短代碼／同形字）零誤報')
-  // 豁免方向也要驗：粵語口語是**准寫在 agent 產物**裡的（docs/、scripts/、repo 根 *.md）。
+  // 豁免方向也要驗：粵語口語對**存量**是准寫在 agent 產物（docs/、scripts/、repo 根 *.md）的。
   // 這條一旦誤關，docs 與 scripts 現存的 150 處會一夜變紅，所以兩邊都釘死。
+  // 2026-11-25 使用者裁定收緊的是「新增行」，不是存量：新增行由 gate-ci 的 audit:selfcheck
+  // 逐行零容忍（見下方源碼守門），整檔掃描照舊豁免。
   const colloqProbe = "export const p = '嗰啲嘢唔喺度，佢話冇';"
   const exempt: Array<[string, () => Set<string>]> = [
     ['docs/ 下的探针', () => run([colloqProbe], 'docs')],
@@ -971,6 +973,26 @@ if (flags.includes('--teeth')) {
   const missing = ['src', 'scripts', 'docs'].filter((r) => !rootsSrc?.[1].includes(`'${r}'`))
   if (missing.length) { bad += 1; console.log(`  ✗ 預設掃描根目錄缺少 ${missing.join(' ')}`) }
   else console.log('  ✓ 預設根目錄含 src、scripts、docs')
+  // 字表與「新增行」檢查現在分兩層：audit-chars 管存量、audit:selfcheck 管新增行。
+  // 後者一旦被刪，既有輸出零變化、行為檢查永遠抓不到，只能用源碼守門。
+  let gateSrc = ''
+  try {
+    gateSrc = readFileSync(join(import.meta.dirname, 'gate-ci.mjs'), 'utf8')
+  } catch {
+    bad += 1
+    console.log('  ✗ 讀不到 scripts/gate-ci.mjs（註冊表消失無從驗證，失敗閉環）')
+  }
+  for (const [what, re] of [
+    ['audit:commit-msgs（掃 commit 標題）', /agent-selfcheck\.mjs --commits/],
+    ['audit:selfcheck（掃新增行）', /agent-selfcheck\.mjs origin\/main/],
+  ] as Array<[string, RegExp]>) {
+    if (gateSrc && !re.test(gateSrc)) {
+      bad += 1
+      console.log(`  ✗ gate-ci 已不再註冊 ${what}：拿掉閘門不會讓任何現有輸出變紅，只能在這裡釘死`)
+    } else if (gateSrc) {
+      console.log(`  ✓ gate-ci 仍註冊 ${what}`)
+    }
+  }
   rmSync(dir, { recursive: true, force: true })
   // 這一行是给 scripts/gate-ci.mjs 抓的（抓不到數字一律當失敗），要改格式就一起改那邊。
   console.log(`\naudit:chars --teeth — 失敗 ${bad} 項`)
