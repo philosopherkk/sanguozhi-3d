@@ -33,35 +33,54 @@ const summary = {
   },
   accuracy: () => {
     const d = JSON.parse(readFileSync(join(ROOT, 'scripts/quote-audit-ledger.json'), 'utf8'))
-    return `已戳記 ${Object.keys(d).length} 條`
+    return `已戳記 ${Object.keys(d).length} 條（另有出處具名卻無原文的條目，見 detail）`
   },
   map: () => last(run('python3 scripts/check_ring_landmarks.py --unasserted'), /無地標斷言/),
   march: () => last(run('python3 scripts/check_route_landmarks.py --unasserted'), /無斷言/),
 }
 const detail = {
   enrich: () => {
-    const audit = run('node scripts/audit_event_depth.mjs')
-    const rep = readFileSync(join(ROOT, 'reports/event-depth.md'), 'utf8')
-    const i = rep.indexOf('## 三層意譯')
-    return [last(audit, /^audit:event-depth —/), i < 0 ? rep.slice(-2000) : head(rep.slice(i), 30)].join('\n')
+    run('node scripts/audit_event_depth.mjs')
+    // 以前只轉發統計表（「中學生層未達標 164 條」），agent 不知道是哪幾條，
+    // 每輪自己 grep 猜目標。現在直接給 檔:行｜層｜現字數 的具體清單。
+    const todo = run('node scripts/audit_event_depth.mjs --todo 12')
+    return [last(run('node scripts/audit_event_depth.mjs'), /^audit:event-depth —/), '', todo.trim()].join('\n')
   },
   accuracy: () => {
     const d = JSON.parse(readFileSync(join(ROOT, 'scripts/quote-audit-ledger.json'), 'utf8'))
-    const rows = Object.entries(d).sort((a, b) => String(a[1].at).localeCompare(String(b[1].at)))
+    /**
+     * 2026-11-25 修正：本欄以前只列「最舊的 12 條已戳記引文」，
+     * 等於叫 accuracy 每輪去覆核自己查過的東西——332 條蓋過章的引文就這樣被轉圈查了十幾輪，
+     * 而 1,690 條從未查證的引文一條都沒進佇列。待辦一律以 --todo 為準（未查證優先）。
+     */
+    const todo = run('node scripts/audit_quotes.mjs --todo --limit 12')
     return [
-      `已戳記 ${rows.length} 條；最舊 ${Math.min(12, rows.length)} 條（先覆核這些）`,
-      ...rows.slice(0, 12).map(([k, v]) => `${k}｜${v.at}｜${v.page}｜stamp ${v.stamp}`),
+      `已戳記 ${Object.keys(d).length} 條（覆核用的舊帳本不當日佇列）`,
+      '',
+      todo.trim(),
     ].join('\n')
   },
   map: () => {
     const o = run('python3 scripts/check_ring_landmarks.py --unasserted')
-    return [last(o, /無地標斷言/), '前十條：', head(o, 12)].join('\n')
+    // 佇列見底就明講見底：之前照樣印「前十條」，agent 找不到事做就自己發明工作
+    // （實測發生過憑空畫政權），寧可讓它改去做備援清單。
+    return [last(o, /無地標斷言/), head(o, 12), MAP_FALLBACK].join('\n')
   },
   march: () => {
     const o = run('python3 scripts/check_route_landmarks.py --unasserted')
-    return [last(o, /無斷言/), '前十條：', head(o, 12)].join('\n')
+    return [last(o, /無斷言/), head(o, 12), MARCH_FALLBACK].join('\n')
   },
 }
+// 主佇列見底時的備援工作（都是量出來的具體清單，不是「再想想做什麼」）。
+const MAP_FALLBACK = `
+主佇列若見底（剩下的都是已放棄／巨框），改做：
+  npm run audit:war-shape > /tmp/ws.log 2>&1; echo exit=$?
+報告裡「示意框」那一批（目前 57 個）才是可核的實地標；
+或跑 python3 scripts/audit_critical.mjs 補關鍵年地圖上的政權興亡。`
+const MARCH_FALLBACK = `
+主佇列若見底（其餘全部已載明理由地延後），改做：
+  python3 scripts/audit_critical.mjs --cards | head -60
+挑沒有行軍線的關鍵年補線（新線一律示意、吸附既有表，不得憑空造政權）。`
 
 if (key && !summary[key]) {
   console.error(`未知 agent：${key}（可用：${Object.keys(summary).join('、')}）`)
