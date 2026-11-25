@@ -152,6 +152,11 @@ const SUITES = [
       // 豁免範圍太大就等於失明（audit:chars 嘅五次根因）。U+5BF9 對、U+6238 日式新字。
       { name: 'HARD 抽走最常見簡體字 U+5BF9（字表覆蓋率退化）', find: "\u5bf9: '對', ", to: '' },
       { name: 'HARD 抽走日本新字 U+6238', find: "\u6238: '戶', ", to: '' },
+      // 第十四輪（2026-11-25）：「噶U+53A6」呢類簡體形溜過閘門後補入嘅字級條目。抽走佢 →
+      // audit-chars --teeth 嘅「U+53A6 必須咬到」未咬到 ＋ 源碼守門「HARD 表含 U+53A6→U+5EC8」報紅。
+      // ⚠ 廈 係 U+5EC8 唔係 U+5ECA（本檔第一版寫錯 codepoint，突變搵唔到錨點先至露餡）
+      { name: 'HARD 抽走 U+53A6（廈 字級條目退化 → 簡體形溜過）',
+        find: "\u53a6: '\u5ec8',", to: '' },
       { name: '粵語豁免過寬（isAgentWorkspace 恒真 → 網站文字都放行）',
         find: 'function isAgentWorkspace(p: string): boolean {',
         to: 'function isAgentWorkspace(p: string): boolean {\n  return true // 突變' },

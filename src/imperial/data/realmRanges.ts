@@ -8,6 +8,11 @@ import {
   type TerritoryGeometryProvenance,
 } from '../../data/territory/provenance'
 
+// chars-block-start 派系 id 是機器識別碼：AGENTS.md 訂明 `id` 照原形，改值會斷 snapshots
+// 的地盤映射、factionIntros 鍵與既有深連結；敘述欄已全數改用正體「噶廈」，只留呢個識別碼原形
+export const GAGSHA_ID = '噶厦'
+// chars-block-end
+
 export const REALM_RANGES_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance =
   ERA_REGIONS_GEOMETRY
 
@@ -382,7 +387,7 @@ export const MINGUO_1912: FactionRange[] = [
   cover('桂系', 'guangxi'),
   cover('川系', 'sichuan'),
   cover('新疆地方', 'xinjiang'),
-  cover('噶厦', 'tibet'),
+  cover(GAGSHA_ID, 'tibet'),
   cover('日本', 'taiwan'),
 ]
 
@@ -395,7 +400,7 @@ export const MINGUO_1916: FactionRange[] = [
   cover('滇系', 'yunnan', 'guizhou'),
   cover('川系', 'sichuan'),
   cover('新疆地方', 'xinjiang'),
-  cover('噶厦', 'tibet'),
+  cover(GAGSHA_ID, 'tibet'),
   cover('日本', 'taiwan'),
 ]
 
@@ -409,7 +414,7 @@ export const MINGUO_1922: FactionRange[] = [
   cover('桂系', 'guangxi'),
   cover('川系', 'sichuan'),
   cover('新疆地方', 'xinjiang'),
-  cover('噶厦', 'tibet'),
+  cover(GAGSHA_ID, 'tibet'),
   cover('日本', 'taiwan'),
 ]
 
@@ -422,7 +427,7 @@ export const MINGUO_1928: FactionRange[] = [
   cover('滇系', 'yunnan'),
   cover('川系', 'sichuan'),
   cover('新疆地方', 'xinjiang'),
-  cover('噶厦', 'tibet'),
+  cover(GAGSHA_ID, 'tibet'),
   cover('日本', 'taiwan'),
 ]
 
@@ -435,13 +440,13 @@ export const MINGUO_1937: FactionRange[] = [
   cover('川系', 'sichuan'),
   cover('共產黨', 'yanan'),
   cover('盛世才', 'xinjiang'),
-  cover('噶厦', 'tibet'),
+  cover(GAGSHA_ID, 'tibet'),
   cover('日本', 'taiwan'),
 ]
 
 export const MINGUO_1949: FactionRange[] = [
   cover('共產黨', 'realm_prc_1949'),
-  cover('噶厦', 'tibet'),
+  cover(GAGSHA_ID, 'tibet'),
   cover('國民黨', 'taiwan', 'hainan'),
 ]
 
