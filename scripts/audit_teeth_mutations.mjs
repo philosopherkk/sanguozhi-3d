@@ -127,7 +127,7 @@ const SUITES = [
   {
     name: 'chars',
     gate: 'audit:chars --teeth',
-    min: 29,
+    min: 30,
     metric: /失敗 (\d+) 項/,
     /** 副本要喺 `<tmp>/chars/` 重鋪成縮小版 repo：佢會 own import.meta.dirname 去搵
      *  `./lib/gate-baseline.ts` 與 `../reports/chars-allowlist.json`；缺一個就係假紅。 */
@@ -137,6 +137,9 @@ const SUITES = [
       write(file, read('scripts/audit-chars.ts'))
       write(join(base, 'scripts', 'lib', 'gate-baseline.ts'), read('scripts/lib/gate-baseline.ts'))
       write(join(base, 'reports', 'chars-allowlist.json'), read('reports/chars-allowlist.json'))
+      // 2026-11-25 補：audit-chars 會讀同目錄的 gate-ci.mjs（核對兩條 selfcheck 閘門仍有註冊），
+      // 副本缺這檔就 fail-closed 報紅 → 控制項假紅。照 lib／allowlist 的慣例一併鋪進去。
+      write(join(base, 'scripts', 'gate-ci.mjs'), read('scripts/gate-ci.mjs'))
       return {
         file,
         spawn: (f) =>
@@ -246,6 +249,11 @@ const SUITES = [
       { name: '兩用字組名單抽走一支（記錄表嘅詞變做冇組可歸）',
         find: "'\u5e72', '\u4f1a',",
         to: "'\u4f1a'," },
+      // 2026-11-25：新增行零容忍（audit:selfcheck）只能靠源碼守門——閘門被註銷時，
+      // 既有輸出零變化，行為突變永遠測不到。呢條把守門的正則改錯，健康 repo 都要照報。
+      { name: '守門正則寫錯（selfcheck 閘門被註銷也照綠，護欄變裝飾）',
+        find: '/agent-selfcheck\\.mjs origin\\/main/',
+        to: '/agent-selfcheck\\.mjs origin\\/nope/' },
     ],
   },
   {
