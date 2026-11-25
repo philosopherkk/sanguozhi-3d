@@ -173,6 +173,7 @@ const CONTROL: Record<number, Record<string, string>> = {
     im_chungcheong: IMJIN_F.jp,
     im_jeolla: IMJIN_F.joseon,
     im_gyeongsang: IMJIN_F.jp,
+    im_hamgyong: IMJIN_F.jp,
   },
   1593: {
     im_kyushu: IMJIN_F.jp,
@@ -183,6 +184,7 @@ const CONTROL: Record<number, Record<string, string>> = {
     im_chungcheong: IMJIN_F.jp,
     im_jeolla: IMJIN_F.joseon,
     im_gyeongsang: IMJIN_F.jp,
+    im_hamgyong: IMJIN_F.ming,
   },
   1595: {
     im_kyushu: IMJIN_F.jp,
@@ -193,6 +195,7 @@ const CONTROL: Record<number, Record<string, string>> = {
     im_chungcheong: IMJIN_F.joseon,
     im_jeolla: IMJIN_F.joseon,
     im_gyeongsang: IMJIN_F.jp,
+    im_hamgyong: IMJIN_F.joseon,
   },
   1597: {
     im_kyushu: IMJIN_F.jp,
@@ -203,6 +206,7 @@ const CONTROL: Record<number, Record<string, string>> = {
     im_chungcheong: IMJIN_F.jp,
     im_jeolla: IMJIN_F.joseon,
     im_gyeongsang: IMJIN_F.jp,
+    im_hamgyong: IMJIN_F.joseon,
   },
   1598: {
     im_kyushu: IMJIN_F.jp,
@@ -213,12 +217,13 @@ const CONTROL: Record<number, Record<string, string>> = {
     im_chungcheong: IMJIN_F.joseon,
     im_jeolla: IMJIN_F.joseon,
     im_gyeongsang: IMJIN_F.joseon,
+    im_hamgyong: IMJIN_F.joseon,
   },
 }
 
 const SHADE_NOTES: Record<number, string> = {
-  1592: '年終概況：一月而三都陷、六道破；全羅道八月金川之敗前猶固守，咸鏡道不在本圖範圍——色塊大於實控。',
-  1593: '平壤收復後，大同江以北四道明軍收復，臨津江以南仍日軍據點；逐月變化大，色塊大於實控。',
+  1592: '年終概況：一月而三都陷、六道破；咸鏡道為加藤清正第一路沿東海岸北進之地，控制多集中城池道路；全羅道八月金川之敗前猶固守——色塊大於實控。',
+  1593: '平壤收復後，大同江以北諸道漸由明軍與朝鮮北道軍收復，臨津江以南仍日軍據點；逐月變化大，色塊大於實控。',
   1595: '封貢期間，日軍退守慶尚道沿海倭城一線，其餘諸道歸朝鮮、明軍戍王京一帶——色塊大於實控。',
   1597: '丁酉再亂，日軍重占忠清、慶尚，明、朝鮮軍守漢江以北；一年內推移劇烈，此為年末快照——色塊大於實控。',
   1598: '露梁之役後日軍盡撤，八道全歸朝鮮；明軍次年亦盡撤。',
@@ -228,7 +233,7 @@ const PLACES = [
   ['名護屋', 130.22, 33.44], ['對馬', 129.3, 34.35], ['釜山浦', 129.04, 35.07],
   ['王京漢城', 126.98, 37.57], ['開城', 126.56, 37.97], ['平壤', 125.75, 39.03],
   ['義州', 124.4, 39.8], ['安州', 125.53, 39.49], ['黃州', 125.7, 38.04],
-  ['咸興', 128.74, 39.79], ['江華', 126.41, 37.73], ['忠州', 127.92, 36.99],
+  ['咸興', 127.53, 39.92], ['江華', 126.41, 37.73], ['忠州', 127.92, 36.99],
   ['全州', 127.15, 35.82], ['錦川', 127.33, 36.22], ['晉州', 128.1, 35.19],
   ['蔚山', 129.21, 35.55], ['順天', 127.49, 34.85], ['閑山島', 126.54, 34.57],
   ['鳴梁', 126.34, 34.16], ['露梁', 127.7, 34.86], ['碧蹄館', 126.88, 37.68],

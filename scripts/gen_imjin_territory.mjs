@@ -44,6 +44,8 @@ const EXTENTS = [
     '王京漢城（126.98E/37.57N）所在；開城在其北緣，碧蹄館之戰（1593年正月）於王京與開城之間'],
   ['im_gangwon', '江原道', [[127.9, 129.2, 37.0, 39.0]],
     '太白山脈以東與朝鮮半島蜂腰東側；1592–93年之戰線西段跨此道南端，屬游擊與拉鋸區，塗色從所屬年度快照'],
+  ['im_hamgyong', '咸鏡道（咸興）', [[126.9, 129.9, 39.0, 42.9]],
+    '半島東北沿海道，南緣接江原框北界、西緣接平安框東界；1592年加藤清正率第一路沿東海岸北進，陷咸興，北抵鐘城，俘臨海君、順和君二王子；控制並不完整，翌年由明將祖承訓與朝鮮北道軍收復。北緣以圖們江通說位置為界，屬示意框'],
   ['im_chungcheong', '忠清道', [[126.0, 128.1, 36.05, 37.0]],
     '1592年7月清州花山陣之戰、1597年7月清州之戰皆在此道；1597年倭軍再度入侵後之南部前沿'],
   ['im_jeolla', '全羅道', [[126.05, 127.85, 34.3, 36.05]],
@@ -71,7 +73,7 @@ for (const [id, name, rects, note] of EXTENTS) {
     for (const ring of poly) {
       if (ring.length < 4) continue
       const projected = ring.map(([lo, la]) => pxRaw(lo, la))
-      // 不做 DP 簡化：本檔框幅只有 13–52px，RealN Earth 1:50m 海岸本身已粗；
+      // 不做 DP 簡化：本檔框幅只有 13–52px，Natural Earth 1:50m 海岸本身已粗；
       // 實測 0.9px 容差會把咸鏡東路貼岸窄帶剪走（raw 環含地標、簡化後不含），
       // 與上面自我相交修復同一類錯誤。九個範圍原始點數合共千點級，檔案成本可接受。
       const use = projected
@@ -94,11 +96,11 @@ const body = `/**
  * 文祿・慶長之役（壬辰戰爭，1592–1598）戰區控制範圍（自動生成，不要手改）
  *
  * 生成：node scripts/gen_imjin_territory.mjs scripts/.cache/countries-50m.json
- * 方法：通說控制範圍以經緯度矩形定義，再同 Natural Earth 1:50m 陸地求交集，
+ * 方法：通說控制範圍以經緯度矩形定義，再與 Natural Earth 1:50m 陸地求交集，
  *       所以色塊只會出現於陸地上，海岸線跟真實地形。
- * 注意：這些係控制範圍示意，不是行政區界，亦不表示實效支配無爭議；
- *       誰控制哪道屬年度快照，口徑與爭點見 imjinWar.ts 的 territoryByYear
- *       shadeNotes 同各事件的起因／經過／結果。
+ * 注意：這些是控制範圍示意，不是行政區界，亦不表示實效支配無爭議；
+ *       誰控制哪道屬年度快照，口徑與爭點見 imjinWar.ts 的 territoryByYear、
+ *       shadeNotes 及各事件的起因／經過／結果。
  */
 
 export interface ImjinExtent {
@@ -139,6 +141,8 @@ const CHECKS = [
   ['im_gangwon', '平壤（不屬江原道）', 125.75, 39.03, false],
   ['im_hwanghae', '王京漢城（屬京畿道）', 126.98, 37.57, false],
   ['im_chungcheong', '王京漢城（屬京畿道）', 126.98, 37.57, false],
+  ['im_hamgyong', '咸興（須落在咸鏡框陸地上）', 127.53, 39.92, true],
+  ['im_hamgyong', '平壤（屬平安道，不屬咸鏡）', 125.75, 39.03, false],
 ]
 let bad = 0
 for (const [id, label, lo, la, want] of CHECKS) {
