@@ -3400,10 +3400,40 @@ qsrc 覆核補記：羊祜傳「尋卒」無紀年，靠《武帝紀》咸寧四
 | audit:quotes 錯誤／提醒 | 0／44 | 0／44（本輪 4 行 at 刷新至 11-25） |
 | audit:chars 硬傷 | 0 | 0 |
 
-改動：`timeline.ts` jianwu 一处 classicQuote（校勘補字改省略號）＋classicSource 補註；ledger 4 行重戳。**跨檔同 key 第六度**：`--mark kunyang` 又命中 `places.ts`（na 行新建，stamp＝hash('␟'＋source) 核算 OK），正主 `timeline.ts#kunyang` 手算覆核——戳 3a1dae16 與原值同（欄位無漂移），只補寫 at／page。覆核補記：官方 qsrc **唔拆「……」**（拆段係 audit:quotes 嘅 check_quote），省略號兩邊嘅段要各自落 needle；原卷校勘補字〔〕照記憶規則以省略號斷開、唔入引文欄。
+改動：`timeline.ts` jianwu 一處 classicQuote（校勘補字改省略號）＋classicSource 補註；ledger 4 行重戳。**跨檔同 key 第六度**：`--mark kunyang` 又命中 `places.ts`（na 行新建，stamp＝hash('␟'＋source) 核算 OK），正主 `timeline.ts#kunyang` 手算覆核——戳 3a1dae16 與原值同（欄位無漂移），只補寫 at／page。覆核補記：官方 qsrc **唔拆「……」**（拆段係 audit:quotes 嘅 check_quote），省略號兩邊嘅段要各自落 needle；原卷校勘補字〔〕照記憶規則以省略號斷開、唔入引文欄。
 
 ### 4) 剩餘佇列（交下輪）
 
 1. ledger `at=2026-11-08` 尚餘 52 行（佇列頭四條＝`qi-yan-meng`／`tianqi`／`chu-yue`／`bashu`，通鑑卷001—卷003／史記卷041，戰國批）。
+2. 雙十協定中央日報本對讀（第 21 輪遺留）。
+3. 全庫 source 引用題名 titles= 掃描（第 24 輪做法，隔輪重跑）。
+
+---
+
+## 第 49 輪（2026-11-25）｜齊孟子問伐燕・田氏代齊・楚滅越・司馬錯伐蜀覆核（一輪四項，兩處引文漂移修正）
+
+### 1) 本輪範圍
+
+開工工作區乾淨，rebase 零操作（main 仍 `2f201804`，已在本支線），BASE ＝ `fc419549`。佇列頭四條屬戰國批：`qi-yan-meng`（studentEvents.ts）、`tianqi`／`chu-yue`／`bashu`（zhou/timeline.ts）。
+
+### 2) 逐條結論
+
+1. `qi-yan-meng`：quote 兩段核《資治通鑑》卷003。首段（齊王問孟子曰：「……以萬乘之國伐萬乘之國……取之何如？」）逐段即中；**次段揪出偽造閉引號**——我庫作「孟子對曰：「……文王是也。」」，原卷孟子之對其引號實接至「亦運而已矣！」，「文王是也」後原卷無閉合符號，我庫補的 `」` 屬扮作原文。照「補至原卷真實閉引號」口徑**引文延伸至「……亦運而已矣！」**（簞食壺漿一段全屬本條主題，非湊字）；改後整段「匹配 1 處」，並補核「取之何如？」孟子對曰」銜接位亦「匹配 1 處」。
+2. `tianqi`：「初命齊大夫田和為諸侯。」核卷001「匹配 1 處」。不動。
+3. `chu-yue`：三段核《史記》卷041。**中段揪出逗號連寫截斷**——我庫作「大敗越，殺王無彊。」，原卷實作「殺王無彊，盡取……北破齊於徐州。而越以此散」（「彊」後原卷係逗號連寫），我庫截尾補 `。` 係真漂移（同 42/43/45 輪同型）。**改「大敗越，殺王無彊……而越以此散」**（去偽句號，省號照斷）；改後該段「匹配 1 處」，前後兩段（王無彊時……爭彊／而越以此散……服朝於楚，含「或爲王」之「爲」照原卷字形）照舊「匹配 1 處」。
+4. `bashu`：兩段核卷003（司馬錯請伐蜀／王從錯計……輕諸侯），全部「匹配 1 處」。不動。
+
+### 3) 前後對照
+
+| 指標 | 前 | 後 |
+| --- | --- | --- |
+| audit:quotes 錯誤／提醒 | 0／44 | 0／44（本輪 4 行 at 刷新至 11-25） |
+| audit:chars 硬傷 | 0 | 0 |
+
+改動：`studentEvents.ts` qi-yan-meng classicQuote（引文補至原卷閉引號）；`zhou/timeline.ts` chu-yue classicQuote（逗號連寫截斷改正）；ledger 6 行落盤。**跨檔同 key 第七度**：`chu-yue`／`bashu` 同時存在 `marchRoutes.ts`（無 quote 欄 na 行），`--mark` 兩擊皆命中 marchRoutes（新建 na 行，stamp＝hash('␟'＋source) 與手算 2c8b17fe／3bf6eebb 相符），正主 `zhou/timeline.ts` 兩行照正路手算 djb2 補寫（chu-yue 新戳 c0eda275＝欄位修正所致；bashu 原戳 a989fdb1 複核相符，只補 at）。本輪 tsc 於改欄後即跑＝0。覆核補記：qsrc **CLI 模式係逐段字面正則**（「」照咬，同 check_quote 嘅容錯口徑唔同），引文中嘅「」必須同原卷出現位置一致先過到——本輪兩處漂移都係咁揪出。
+
+### 4) 剩餘佇列（交下輪）
+
+1. ledger `at=2026-11-08` 尚餘 48 行（佇列頭四條＝`baying`／`changping`／`yanyu`／`handan-relief`，史記卷073／通鑑卷005，戰國批）。
 2. 雙十協定中央日報本對讀（第 21 輪遺留）。
 3. 全庫 source 引用題名 titles= 掃描（第 24 輪做法，隔輪重跑）。
