@@ -1,1 +1,0 @@
-import{p as e}from"./index-6zCh45mP.js";var t=e();function n(){let[e,n]=(0,t.useState)(!1);return{open:e,toggle:()=>n(e=>!e)}}export{n as t};
