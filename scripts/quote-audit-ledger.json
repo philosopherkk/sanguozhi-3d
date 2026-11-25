@@ -657,7 +657,7 @@
   "src/qinhan/data/timeline.ts#kunyang": {
     "stamp": "3a1dae16",
     "page": "資治通鑑/卷039",
-    "at": "2026-11-08"
+    "at": "2026-11-25"
   },
   "src/qinhan/data/timeline.ts#hebei": {
     "stamp": "c8751525",
@@ -665,19 +665,19 @@
     "at": "2026-11-11"
   },
   "src/qinhan/data/timeline.ts#jianwu": {
-    "stamp": "cb275324",
+    "stamp": "903529dd",
     "page": "資治通鑑/卷040",
-    "at": "2026-11-08"
+    "at": "2026-11-25"
   },
   "src/qinhan/data/timeline.ts#danggu": {
     "stamp": "48a7500b",
     "page": "資治通鑑/卷055",
-    "at": "2026-11-08"
+    "at": "2026-11-25"
   },
   "src/qinhan/data/timeline.ts#huangjin-prelude": {
     "stamp": "e1eb2322",
     "page": "資治通鑑/卷058",
-    "at": "2026-11-08"
+    "at": "2026-11-25"
   },
   "src/zhou/data/studentEvents.ts#qi-yan-meng": {
     "stamp": "d34738eb",
@@ -1663,5 +1663,10 @@
     "stamp": "8d7aab88",
     "page": "資治通鑑/卷009",
     "at": "2026-11-24"
+  },
+  "src/qinhan/data/places.ts#kunyang": {
+    "stamp": "f9b87462",
+    "page": "資治通鑑/卷039",
+    "at": "2026-11-25"
   }
 }
