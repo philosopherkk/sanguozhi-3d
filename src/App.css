@@ -3516,10 +3516,13 @@ html:not([data-theme='light']) .topic-switch button.is-active {
   align-self: center;
   display: inline-grid;
   place-items: center;
+  position: relative;
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  overflow: hidden;
+  /* 角標要露出圓外，不能用 overflow:hidden 裁它；
+     圓形裁切改由 img 自身的 border-radius 負責。 */
+  overflow: visible;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.05);
   color: inherit;
@@ -3534,6 +3537,24 @@ html:not([data-theme='light']) .topic-switch button.is-active {
   height: 100%;
   object-fit: cover;
   object-position: 50% 22%;
+  border-radius: 50%;
+}
+
+/* 「想像圖」可見角標：不只靠 alt／title。底色用紙色 token，
+   深淺兩主題都與圖像內容對得開；11px 為 UI 標籤下限，不得再小。 */
+.person-portrait__badge {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  padding: 1px 4px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--accent);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
 }
 
 .person-portrait--lg {

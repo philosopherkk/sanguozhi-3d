@@ -845,7 +845,7 @@ export const EDO_PACK: JapanDeepDivePack = {
     {
       id: 'ed-p-ieyasu',
       portrait: '/portraits/japan-edo/ed-p-ieyasu.jpg',
-      portrait_note: '依晚年畫像：圓臉、小眼、疏鬚，著裃。',
+      portrait_note: '依晚年畫像：圓臉、小眼、疏鬚。考據應著裃；現圖衣冠從明式，屬穿幫，待重繪。',
       name: '德川家康',
       birth: 1543,
       death: 1616,
@@ -857,7 +857,7 @@ export const EDO_PACK: JapanDeepDivePack = {
     {
       id: 'ed-p-iemitsu',
       portrait: '/portraits/japan-edo/ed-p-iemitsu.jpg',
-      portrait_note: '三代將軍。正史無面部異徵。袴與烏帽子。',
+      portrait_note: '三代將軍。正史無面部異徵，禮服當為袴與烏帽子；現圖衣冠從明式，屬穿幫，待重繪。',
       name: '德川家光',
       birth: 1604,
       death: 1651,
@@ -881,7 +881,7 @@ export const EDO_PACK: JapanDeepDivePack = {
     {
       id: 'ed-p-tadanori',
       portrait: '/portraits/japan-edo/ed-p-tadanori.jpg',
-      portrait_note: '寬政改革的老中。正史無面部異徵。',
+      portrait_note: '寬政改革的老中。正史無面部異徵；現圖冠服仿明式，非日本大名服制，屬穿幫，待重繪。',
       name: '松平定信',
       birth: 1759,
       death: 1829,
@@ -893,7 +893,7 @@ export const EDO_PACK: JapanDeepDivePack = {
     {
       id: 'ed-p-matsumae-k',
       portrait: '/portraits/japan-edo/ed-p-matsumae-k.jpg',
-      portrait_note: '初代松前藩主。直垂與烏帽子。無可靠的寫生。',
+      portrait_note: '初代松前藩主。考據當著直垂與烏帽子；現圖衣冠從明式，屬穿幫，待重繪。無可靠的寫生。',
       name: '松前慶廣（蠣崎慶廣）',
       birth: 1548,
       death: 1616,
@@ -905,7 +905,7 @@ export const EDO_PACK: JapanDeepDivePack = {
     {
       id: 'ed-p-shakushain',
       portrait: '/portraits/japan-edo/ed-p-shakushain.jpg',
-      portrait_note: '阿伊努首領。厚司衣。無照片。不畫成戲畫。',
+      portrait_note: '阿伊努首領。考據著厚司衣，現圖袍紋近之，惟頭巾非阿伊努服制，屬瑕疵待重繪。無照片，不畫成戲畫。',
       name: 'シャクシャイン',
       death: 1669,
       faction: '蝦夷（阿伊努）',
@@ -930,7 +930,7 @@ export const EDO_PACK: JapanDeepDivePack = {
     {
       id: 'ed-p-mamiya',
       portrait: '/portraits/japan-edo/ed-p-mamiya.jpg',
-      portrait_note: '江戶探險家。旅衣。無可靠照片。',
+      portrait_note: '江戶探險家。無可靠照片；現圖頭巾從明式，非江戶旅裝，屬穿幫，待重繪。',
       name: '間宮林藏',
       birth: 1780,
       death: 1850,

@@ -230,7 +230,7 @@ export function PeoplePanel({ compact = false }: { compact?: boolean }) {
                 </a>
                 {p.grokipedia_url ? (
                   <a href={p.grokipedia_url} target="_blank" rel="noreferrer">
-                    英文備註（未審）
+                    英文備註（機械撰寫，未審）
                   </a>
                 ) : null}
               </div>

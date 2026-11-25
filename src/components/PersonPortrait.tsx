@@ -42,8 +42,10 @@ export function PersonPortrait({
   const [thumbFailed, setThumbFailed] = useState(false)
   const [imgFailed, setImgFailed] = useState(false)
   const initial = Array.from(name.trim())[0] ?? '?'
-  const title = note ? `考據：${note}` : `想像圖 · ${name}`
+  // 「想像圖」三字一律放最前：hover 提示不得被考據 note 蓋掉（繪像非寫生）。
+  const title = note ? `想像圖 · 考據：${note}` : `想像圖 · ${name}`
   const cls = size === 'lg' ? 'person-portrait person-portrait--lg' : 'person-portrait'
+  const hasImage = Boolean(src) && !imgFailed
 
   return (
     <span className={cls} title={title}>
@@ -66,6 +68,13 @@ export function PersonPortrait({
           {initial}
         </span>
       )}
+      {/* 可見角標：alt／title 讀屏之外，眼睛也要看到「想像圖」。
+          圓形縮圖只有 40px，全稱放不下，sm 用單字「想」；lg 給足三字。 */}
+      {hasImage ? (
+        <span className="person-portrait__badge" aria-hidden>
+          {size === 'lg' ? '想像圖' : '想'}
+        </span>
+      ) : null}
     </span>
   )
 }
