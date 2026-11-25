@@ -518,3 +518,23 @@ origin/main 對上輪冇前進（rebase 係 no-op），佇列八條全部已有�
 下輪建議：r30 照樣先查路線檔改動；r31 抽十九至二十輪錨點批（京都／長安／洛陽／許／鄴／成都／漢中／陳倉／僰道／公安／合肥等）。PR #198 merge 後分支會同 origin/main 同步，push 轉返正常 FF。
 
 ⚠ 本輪自己 commit 訊息正文又漏咗一個簡體形常用字（循環錯型第五種），`agent-selfcheck --commits` 照樣冇咬，靠人手睇先發現——即場 amend 重寫訊息，再跑 gate-ci 確認 `audit:commit-msgs` hard=0 先重推。寫完 commit 訊息要即刻用 grep 掃常用簡體字形，同報告一個標準。
+
+## 第三十輪（2026-11-26）：覆核輪（remote 俾人重寫過，逐層核過先推）
+
+開工 BASE da070f46（rebase 後）。兩單外部改動要處理：
+
+1. **origin/main 多咗四個 commit**（imjin 咸鏡道、sengoku 時間軸、ui 角標、copy 批次四），全部命中路線檔目錄——逐 diff 睇過：無任何 `points` 行或座標改動，純文字／生成檔，scan_v 照口徑唔使重跑。九戶線改 id 嗰單亦冇打爆斷言表（check_route_landmarks 重跑 exit=0，172 條失敗 0）。
+2. **remote agent/march 俾人重寫**：我哋條鏈上面多咗一支 `65b1154f`（copy 輪），佢把我 r28 檔入面九處日本新字形（查字嘅日本形，U+67FB）改成正確字形。呢種形就係循環錯型嘅第六種，當時嘅閘門冇咬，而家由佢補咗牙。推之前照鐵律核晒三樣嘢：`git diff` 證明 remote 嗰支 fix 嘅內容已經完全包含喺我 rebase 後嘅鏈（march 產物 diff 為空、兩邊檔都查無該形）；range-diff 證明除 main 四個新 commit 外兩邊一組；remote tip 確係 `65b1154f`。先至用 `--force-with-lease=agent/march:65b1154f` 重推 rebase 後嘅鏈，PR #198 跟住更新，無損失任何內容。
+
+佇列八條維持前裁；斷言抽查照排 r31（十九至二十輪錨點批），本輪唔抽。
+
+### 收工記錄（第三十輪）
+
+| 項目 | 結果 |
+| --- | --- |
+| 本輪 commit | 本報告一支 |
+| check_route_landmarks | 172 條斷言失敗 0、佇列 8（冇變） |
+| 其餘 gates | gate-ci exit=0（rebase 後全套，與基線一致） |
+| 指標 | 端點斷言 172；失敗 0；無斷言佇列 8 |
+
+下輪建議：r31 抽十九至二十輪錨點批（京都／長安／洛陽／許／鄴／成都／漢中／陳倉／僰道／公安／合肥等）；PR #198 merge 後 push 轉返正常 FF。教訓補一句：自己打錯嘅唔淨簡體形，日文新字形都會中招——grep 掃形嗰手要連常用日本新字形一齊掃。
