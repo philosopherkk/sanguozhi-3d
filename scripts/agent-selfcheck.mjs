@@ -128,6 +128,15 @@ function stripQuoted(text) {
     .replace(/《[^》\n]{1,40}》/g, '')
     .replace(/https?:\/\/(?:zh|ja)\.wikipedia\.org\/\S+/g, '')
     .replace(/WIKI(?:_JA)?\(\s*'[^']*'\s*\)/g, '')
+    // 反引號短區段照 audit-chars 同一準則豁免：單行、且中日韓字少於 12 才算
+    // 「程式碼」或「正在討論的那個字本身」（本倉文件慣例：引用錯字要包反引號）。
+    // 跨行或長段是敘事內容，照掃——否則加厚過的敘事對閘門徹底失明。
+    .replace(/`[^`]*`/g, (span) => {
+      const cjk = (span.match(/[\u3400-\u4dbf\u4e00-\u9fff\u3040-\u30ff]/g) ?? []).length
+      if (span.includes('\n') || cjk >= 12) return span
+      // 用空格填而不是刪掉：保留行數與行內偏移，行號和報錯片段才不會錯位
+      return span.replace(/[^\n]/g, ' ')
+    })
 }
 // 含假名的行不再整行放過，改成遮蔽假名鄰字（同 audit-chars 的 maskNearKana）。
 function maskNearKana(s) {
