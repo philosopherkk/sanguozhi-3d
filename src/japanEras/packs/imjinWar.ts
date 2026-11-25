@@ -277,7 +277,7 @@ export const IMJIN_WINDOW: DeepDiveMapWindow = {
   geometryNote: {
     approx: true,
     source:
-      '朝鮮八道與九州以經緯度區間矩形定義，再由 scripts/gen_imjin_territory.mjs 剪裁至 Natural Earth 1:50m 陸地；地標命中驗證 18 條',
+      '朝鮮八道與九州以經緯度區間矩形定義，再剪裁至 Natural Earth 1:50m 陸地；一八處要地逐一校驗落點',
     note: '道界為通說示意，非實測政區邊界；色塊表示年度控制估計，不表示主權歸屬',
   },
   territoryNote:

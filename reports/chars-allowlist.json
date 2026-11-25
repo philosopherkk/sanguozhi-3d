@@ -184,5 +184,11 @@
     "char": "亜",
     "context": "大東亜共同宣言",
     "reason": "ledger page 欄頁名「大東亜共同宣言」照 ja.wikisource 原題（1943年宣言官方標題即用「亜」）。錨「大東亜共同宣言」喺該行先至豁免"
+  },
+  {
+    "file": "src/bakumatsu/data/history.ts",
+    "char": "録",
+    "context": "吉田松陰『幽囚録』",
+    "reason": "《幽囚録》為吉田松陰親筆文獻之原典題名（日文原字形），依 AGENTS 題名照原形規則保留；引文出處與敘述行提及題名皆同一專名"
   }
 ]
