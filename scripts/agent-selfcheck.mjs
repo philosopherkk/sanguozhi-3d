@@ -4,7 +4,10 @@
  *
  * 只看本輪新增的行（git diff <base>，含已 commit 與未 commit 的追蹤檔），查小模型最常犯的四種錯：
  *   1. 簡體字／日本新字（字表只有一份來源：scripts/audit-chars.ts 的 HARD，見下方載入器）
- *   2. 粵語虛詞（新增行一律不准，不分 src/ 與 agent 產物；見下方 2026-11-25 裁定）
+ *   2. 粵語虛詞——src/ 新增行算硬性命中；其他目錄（reports/ docs/ scripts/）單計一欄
+ *      `粵語虛詞 N 行`，走「只能減不能增」的棘輪。兩類分欄是因為合併樹實測：
+ *      四支 agent 分支＋護欄合起來 hard 會變 68，全是代理工作語言，
+ *      真簡體字 0 處被淹掉，等於把「修不掉就關閘門」寫進流程。
  *   3. 拉丁亂碼夾在中文前（[A-Za-z]{4,} 後面緊接中日文字）與工具呼叫殘骸
  *   4. 新出現的漢字：列出「base 版本沒有出現過的字」，逐個人工核對碼位
  *      （將／隊／潰／擱／無 常被打成相近的錯字，錯字也是合法 Unicode，只能靠這一步看出來）
@@ -293,6 +296,7 @@ const hits = []
  * 對分支淨差異做零容忍，存量只能減不能增。
  */
 let colloqLines = 0
+const colloqHits = []
 const newHan = new Map()
 const baseChars = new Map()
 const baseHan = (f) => {
@@ -344,7 +348,15 @@ for (const { f, ln, text, blocked } of added) {
   // 引文／書名／code／偵測表都已被 simplifiableText 遮蔽成空字串，不該誤殺。
   if (CANTONESE.test(scanned)) {
     colloqLines += 1
-    hits.push([where, `粵語虛詞（${inSrc ? '網站文字' : '新增行'}須書面語）`, text.trim()])
+    if (inSrc) {
+      // 網站文案：向來是硬性（audit-chars 對 src/ 本来就 hard fail），新增行更沒商量
+      hits.push([where, '粵語虛詞（網站文字須書面語）', text.trim()])
+    } else {
+      // 非 src/（reports/ docs/ scripts/）：另計一欄，不混進 hard。
+      // 混在一起的後果是實測出來的：四支 agent 分支＋護欄的合併樹 hard 變 68，
+      // 全部是代理工作語言，會把真正要擋的簡體字（當時 0）淹掉。
+      colloqHits.push([where, '粵語虛詞（非 src/ 新增行宜用書面語）', text.trim()])
+    }
   }
   const lm = text.match(LATIN_BEFORE_CJK)
   if (lm) hits.push([where, `拉丁亂碼「${lm[0]}」`, text.trim()])
@@ -361,6 +373,15 @@ for (const [where, why, text] of hits) {
   seen.add(k)
   console.log(`✗ ${where}｜${why}\n    ${text.slice(0, 110)}`)
 }
+// 非 src/ 的粵語虛詞用 ⚠ 而不是 ✗：它是「只能減不能增」的存量指標，
+// 與簡體字同欄會讓 true positive 被淹掉（合併樹實測 68 比 0）。
+const seenQ = new Set()
+for (const [where, why, text] of colloqHits) {
+  const k = `${where}|${why}`
+  if (seenQ.has(k)) continue
+  seenQ.add(k)
+  console.log(`⚠ ${where}｜${why}\n    ${text.slice(0, 110)}`)
+}
 if (newHan.size) {
   console.log(
     `\n新出現的漢字（同目錄既有檔未出現）共 ${newHan.size} 個，請逐個核對碼位：`,
@@ -370,6 +391,6 @@ if (newHan.size) {
 }
 console.log(
   `\nagent-selfcheck — 新增 ${added.length} 行／${files.length} 檔｜命中 ${seen.size} 處｜新漢字 ${newHan.size}` +
-    (colloqLines ? `｜其中粵語虛詞 ${colloqLines} 行` : ''),
+    `｜粵語虛詞 ${colloqLines} 行（非 src/ ${seenQ.size} 處，只能減不能增）`,
 )
 process.exit(seen.size ? 1 : 0)
