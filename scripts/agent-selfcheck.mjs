@@ -349,7 +349,7 @@ for (const { f, ln, text, blocked } of added) {
   if (CANTONESE.test(scanned)) {
     colloqLines += 1
     if (inSrc) {
-      // 網站文案：向來是硬性（audit-chars 對 src/ 本来就 hard fail），新增行更沒商量
+      // 網站文案：向來是硬性（audit-chars 對 src/ 本來就 hard fail），新增行更沒商量
       hits.push([where, '粵語虛詞（網站文字須書面語）', text.trim()])
     } else {
       // 非 src/（reports/ docs/ scripts/）：另計一欄，不混進 hard。
