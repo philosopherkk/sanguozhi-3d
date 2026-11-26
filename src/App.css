@@ -1119,6 +1119,22 @@ html[data-theme='light'] .app-footer {
   color: var(--accent);
 }
 
+/* 收起態（MapRouteLegend）：整盒只剩一行摘要，讓位給地圖；
+   標題本身即開關按鈕，外觀沿用 h3 字級與色。 */
+.route-legend--collapsed {
+  max-width: none;
+}
+
+.route-legend__toggle {
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
 .route-legend ul {
   list-style: none;
   margin: 0;
@@ -3907,6 +3923,9 @@ html[data-theme='light'] .bottom-bar__status {
   .bottom-bar__panel button,
   .bottom-bar__primary {
     min-height: var(--tap-min);
+    /* 搜尋、書籤、A−／A+、白底等按鈕一併拉到 44px 方形下限，
+       不再停在 2.4rem≈38px（批次 5）。 */
+    min-width: var(--tap-min);
     font-size: 0.95rem;
   }
 

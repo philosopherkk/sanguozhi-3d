@@ -5,6 +5,7 @@ import {
   type CSSProperties,
   type ReactNode,
 } from 'react'
+import { usePersistedOpenResponsive } from '../lib/usePersistedOpen'
 import { MapCredit } from '../components/MapCredit'
 import { CollapsiblePowerBoard } from '../components/CollapsiblePowerBoard'
 import { MapLayerBar } from '../components/map/MapLayerBar'
@@ -146,9 +147,17 @@ export function EraMapView({
   fringeGeometryProvenance?: TerritoryGeometryProvenance
 }) {
   const rootRef = useRef<HTMLDivElement>(null)
-  const [showTerritory, setShowTerritory] = useState(true)
-  // 全站一致：行軍線與勢力疆域一律預設展開，使用者仍可用下方「行軍」開關收起。
-  const [showRoutes, setShowRoutes] = useState(true)
+  // 與主地圖（Map2D）同一口徑：桌面預設展開勢力與行軍；窄屏（≤640px）對
+  // 首次訪客預設關閉，使用者存過選擇後一律跟 localStorage（見 mobile.css 修 16）。
+  const [showTerritory, setShowTerritory] = usePersistedOpenResponsive(
+    'deepdive-layer-territory',
+    { desktop: true, mobile: false },
+  )
+  const [showRoutes, setShowRoutes] = usePersistedOpenResponsive(
+    'deepdive-layer-routes',
+    { desktop: true, mobile: false },
+  )
+  // 地名（塞外對位）維持預設關。
   const [showPlaces, setShowPlaces] = useState(false)
   const basemap = SENGOKU_BASEMAP
   const mapW = mapBase?.w ?? SENGOKU_MAP_W

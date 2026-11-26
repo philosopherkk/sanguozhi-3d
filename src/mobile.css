@@ -63,8 +63,23 @@
     scrollbar-width: none;
     padding-block: 0.3rem;
     /* 右緣淡出：提示仍有內容，同時收束成紙緣般的漸層 */
-    mask-image: linear-gradient(to right, #000 calc(100% - 1.75rem), transparent);
-    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 1.75rem), transparent);
+    /* 右緣淡出：提示仍有內容，同時收束成紙緣般的漸層。
+       修 16 改兩端淡出：目前時代會捲入置中，左方可能同樣仍有內容，
+       單邊淡出會讓人不知道從左邊也能拖。 */
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 1.75rem,
+      #000 calc(100% - 1.75rem),
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 1.75rem,
+      #000 calc(100% - 1.75rem),
+      transparent
+    );
   }
 
   .era-bar::-webkit-scrollbar {
@@ -1152,5 +1167,22 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
+  }
+}
+
+/* ── 修 16：手機地圖預設圖層與時代列指向（批次 5）──
+   一、首次訪客在 ≤640px 載入地圖時，勢力與行軍圖層預設關閉
+      （Map2D／EraMapView 改用 usePersistedOpenResponsive，門檻
+      MOBILE_LAYOUT_MAX_PX = 640）；已存過選擇的使用者不受影響。
+      本檔只負責配套的視覺與觸控：收起態的行軍說明盒只剩一行，
+      其開關補到 --tap-min。
+   二、時代列的右緣淡出已就地改兩端淡出（見 修 3 區內註解），
+      並由 EraBar 把目前時代捲入置中；淡出提示「兩邊都能拖」，
+      置中回答「我在哪一格」。 */
+@media (max-width: 700px), (min-width: 701px) and (max-width: 859px),
+       (pointer: coarse) and (min-width: 860px) {
+  .route-legend__toggle {
+    min-height: var(--tap-min);
+    padding-inline: 0.4rem;
   }
 }
