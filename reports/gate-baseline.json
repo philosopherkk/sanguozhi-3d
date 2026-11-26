@@ -2,7 +2,11 @@
   "audit:data": {
     "exit": 0,
     "fail": 0,
-    "warn": 49
+    "warn": 20
+  },
+  "audit:data:teeth": {
+    "exit": 0,
+    "fail": 0
   },
   "audit:wiring": {
     "exit": 0,
@@ -11,7 +15,7 @@
   "audit:ranges": {
     "exit": 0,
     "fail": 0,
-    "warn": 179
+    "warn": 178
   },
   "audit:quotes": {
     "exit": 0,
@@ -40,11 +44,29 @@
     "exit": 0,
     "hard": 0
   },
+  "audit:selfcheck": {
+    "exit": 0,
+    "hard": 0
+  },
   "audit:chars:teeth": {
     "exit": 0,
     "fail": 0
   },
   "audit:teeth-mutations": {
+    "exit": 0,
+    "fail": 0
+  },
+  "audit:mobile": {
+    "exit": 0
+  },
+  "audit:mobile:teeth": {
+    "exit": 0,
+    "fail": 0
+  },
+  "audit:contrast": {
+    "exit": 0
+  },
+  "audit:contrast:teeth": {
     "exit": 0,
     "fail": 0
   },
@@ -56,12 +78,12 @@
   "audit:chengyu-coverage": {
     "exit": 0,
     "missingCentury": 0,
-    "shortage": 15,
-    "noEventLink": 52
+    "shortage": 3,
+    "noEventLink": 51
   },
   "audit:war-shape": {
     "exit": 0,
-    "schematic": 101,
+    "schematic": 57,
     "selfInt": 0
   },
   "audit:reading-layers": {
@@ -74,8 +96,8 @@
   },
   "audit:event-depth": {
     "exit": 0,
-    "gap": 118,
-    "padding": 1,
+    "gap": 0,
+    "padding": 0,
     "jpGap": 0
   },
   "audit:geo": {

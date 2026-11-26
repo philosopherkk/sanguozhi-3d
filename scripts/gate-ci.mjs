@@ -77,7 +77,7 @@ const GATES = [
   //   hard＝新增行的簡體字／日本新字形／殘骸／衝突標記，零容忍；
   //   warn＝粵語虛詞，棘輪（只能減不能增）。
   // 分成兩欄是實測逼出來的：四支 agent 分支＋護欄的合併樹 hard 一度變 68，全部是
-  // 代理寫報告的工作語言，而真簡體字 0 處被淹在里面——一欄報表等於把紅變成噪音。
+  // 代理寫報告的工作語言，而真簡體字 0 處被淹在裡面——一欄報表等於把紅變成噪音。
   // 只掃 diff、不改寫存量也出於同一考慮：reports/ 五百多行、docs/ 與 scripts/ 近千行，
   // 一次改寫會引入錯碼位風險（小模型把「將」寫成「将」就是這樣來的）。
   {
@@ -93,6 +93,12 @@ const GATES = [
       hard: /agent-selfcheck —[^\n]*命中 (\d+) 處/,
       warn: /粵語虛詞 (\d+) 行/,
     },
+    // absolute 欄位＝唔同基線比較（見下方比較迴圈）。warn 量嘅係「呢輪 diff 帶咗幾多
+    // 工作語言行」，唔係倉庫狀態：同一條閘門喺 main 上跑 = 0（diff 空嘅恆真式），
+    // 喺正常 PR 上跑 = 69~74。若記進基線就等於要求每一支 PR 的報告零粵語虛詞，
+    // 而消紅最省力嘅做法係刪掉代理嘅覆核記錄——正正係 11-16 記低嘅失效模式。
+    // 數值照樣印喺報告（warn=74(abs)），只係唔做棘輪；hard 仍然以零值進場。
+    absolute: ['warn'],
   },
   // 2026-11-13 補：audit:chars 連續多輪報「硬傷 0」，實則 `对` `传` `开` `学` `经` `张`
   // `赵` `户` `阳` `铁` 這些最常見的簡體字一個都不在字表裡——277 字是「看到哪個錯字就補
@@ -249,8 +255,21 @@ if (missing.length) {
   process.exit(1)
 }
 
+/** 標了 absolute 嘅欄位唔同人基線比（佢哋量 diff 體量／當下狀態，唔係倉庫存量）。 */
+const gAbsolute = Object.fromEntries(GATES.map((g) => [g.name, g.absolute ?? []]))
+
 if (UPDATE || !existsSync(BASELINE)) {
-  writeFileSync(BASELINE, JSON.stringify(current, null, 2) + '\n')
+  // absolute 欄位唔寫進基線：儲一個永遠唔會被人比較嘅數字，只會令下次睇基線嘅人
+  // 誤會佢係棘輪目標（audit:selfcheck.warn 喺 main 上記錄必定係 0，就係例子）。
+  const stored = Object.fromEntries(
+    Object.entries(current).map(([name, m]) => [
+      name,
+      Object.fromEntries(
+        Object.entries(m).filter(([k]) => !(gAbsolute[name] ?? []).includes(k)),
+      ),
+    ]),
+  )
+  writeFileSync(BASELINE, JSON.stringify(stored, null, 2) + '\n')
   console.log(`gates — 已記錄基線（${Object.keys(current).length} 條閘門）→ reports/gate-baseline.json`)
   process.exit(0)
 }
@@ -266,6 +285,10 @@ for (const [name, cur] of Object.entries(current)) {
   const parts = []
   for (const [key, val] of Object.entries(cur)) {
     if (key === 'exit') continue
+    if ((gAbsolute[name] ?? []).includes(key)) {
+      parts.push(`${key}=${val}(abs)`)
+      continue
+    }
     const b = old[key]
     const tag = b === undefined ? '新' : val < b ? `↓${b - val}` : val > b ? `↑${val - b}` : '='
     parts.push(`${key}=${val}(${tag})`)
