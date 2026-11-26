@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 /**
- * agent-queue.mjs [key] — 五支排程 agent 的統一佇列入口。
+ * agent-queue.mjs [key] — 排程 agent 的統一佇列入口。
  *
  * 以前每支手冊各自寫「跑哪條指令、自己數」，模型常常數錯，或者佇列見底還在原地找。
  * 這支把剩下多少、下一批做什麼集中輸出；agent 只管照單做事，不需要自己設計工作。
  *
+ * 2026-11-27 新增 critical：關鍵事變的缺口與未標卡（見 reports/critical-incidents.md）。
+ *
  * 用法：
- *   node scripts/agent-queue.mjs          印五支的剩餘量（適合人看）
+ *   node scripts/agent-queue.mjs          印各支的剩餘量（適合人看）
  *   node scripts/agent-queue.mjs <key>    印該支的明細（agent 用）
  */
 import { execSync } from 'node:child_process'
@@ -37,6 +39,7 @@ const summary = {
   },
   map: () => last(run('python3 scripts/check_ring_landmarks.py --unasserted'), /無地標斷言/),
   march: () => last(run('python3 scripts/check_route_landmarks.py --unasserted'), /無斷言/),
+  critical: () => last(run('node scripts/audit_critical.mjs'), /^audit:critical —/),
 }
 const detail = {
   enrich: () => {
@@ -70,16 +73,30 @@ const detail = {
     const o = run('python3 scripts/check_route_landmarks.py --unasserted')
     return [last(o, /無斷言/), head(o, 12), MARCH_FALLBACK].join('\n')
   },
+  critical: () => {
+    const o = run('node scripts/audit_critical.mjs --todo 12')
+    // 前面 24 行是各槽統計（給人看），代理只要待辦清單，故從 --todo 總結行起轉發
+    const at = o.indexOf('audit:critical --todo')
+    return [at >= 0 ? o.slice(at).trimEnd() : o, CRITICAL_NOTE].join('\n')
+  },
 }
+// 關鍵事變的界線：盤點器的「界線」年屬時代終點、或最後一個換圖年之後的政權退出，
+// 屬時代界線而非缺口；未標的卡必須逐條判斷後才加旗幟（定義由 KK 定，不得放寬）。
+const CRITICAL_NOTE = `
+界線年（報告第一節標「界線」者）屬時代界線，不算缺口，不要為它們造卡。
+「未標」的卡要逐條判斷：只有關係政權興亡或改變時代，才加 critical: true；
+判斷不成立的，留在原卡並在 note 寫明理由，不得刪除既有內容。
+「缺口」造新卡時：正史／六國史為據，引文用 node scripts/qsrc.py 查原文與卷次，
+不得憑空創造地圖上的政權；新增行軍線一律示意並吸附既有表。`
 // 主佇列見底時的備援工作（都是量出來的具體清單，不是「再想想做什麼」）。
 const MAP_FALLBACK = `
 主佇列若見底（剩下的都是已放棄／巨框），改做：
   npm run audit:war-shape > /tmp/ws.log 2>&1; echo exit=$?
 報告裡「示意框」那一批（目前 57 個）才是可核的實地標；
-或跑 python3 scripts/audit_critical.mjs 補關鍵年地圖上的政權興亡。`
+或跑 node scripts/audit_critical.mjs --todo 20 補關鍵年地圖上的政權興亡。`
 const MARCH_FALLBACK = `
 主佇列若見底（其餘全部已載明理由地延後），改做：
-  python3 scripts/audit_critical.mjs --cards | head -60
+  node scripts/audit_critical.mjs --cards | grep critical | head -60
 挑沒有行軍線的關鍵年補線（新線一律示意、吸附既有表，不得憑空造政權）。`
 
 if (key && !summary[key]) {

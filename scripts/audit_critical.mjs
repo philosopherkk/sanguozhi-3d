@@ -20,6 +20,8 @@
  * 用法：node scripts/audit_critical.mjs [--md 輸出.md] [--era 關鍵字] [--strict]
  *       --md 只重寫第一節；檔案已有「## 第二節：政治轉折年」時原樣保留該節。
  *       --cards 傾所有事件卡（槽<TAB>年<TAB>標題<TAB>critical），俾第二節對帳。
+  *       --todo N 列出前 N 項待辦（缺口先、未標其次，附原因與檔案路徑）；
+  *                --start K 分頁。給 agent-queue.mjs 同關鍵事變代理用。
  *       HF_ROOT=… 指住任何 checkout／worktree 跑（默認用腳本自身所在嘅倉）
  * 輸出（gate-ci 錨定 summary 行，唔好改格式）：
  *   <槽名>｜關鍵年 n｜有卡 n｜缺口 n｜未標 n｜界線 年…
@@ -383,7 +385,15 @@ function scanEvents(body, flagged = true) {
     const key = `${year}|${title}`
     if (seen.has(key)) continue
     seen.add(key)
-    out.push({ year, title, critical: literal(b, 'critical') === 'true', flagged })
+    // 一併取出 id：packSlot 以 events 的 id 與 depthEvents() 去重，此前未寫
+    // 本欄，該集合恆為 {undefined}，去重等於無效，重複條目會被重計。
+    out.push({
+      year,
+      id: literal(b, 'id'),
+      title,
+      critical: literal(b, 'critical') === 'true',
+      flagged,
+    })
   }
   return out
 }
@@ -397,7 +407,7 @@ function jsonEvents(arr) {
     const key = `${it.year}|${it.title}`
     if (seen.has(key)) continue
     seen.add(key)
-    out.push({ year: it.year, title: it.title, critical: it.critical === true })
+    out.push({ year: it.year, id: it.id, title: it.title, critical: it.critical === true })
   }
   return out
 }
@@ -548,6 +558,7 @@ function packSlot(label, dir, file) {
   for (const d of depthEvents(packId)) if (!known.has(d.id)) events.push(d)
   slots.push({
     name: label,
+    file: `src/${join(dir, file)}`,
     yearMin: yMin,
     yearMax: yMax,
     lastMapYear: mapYears.length ? Math.max(...mapYears) : null,
@@ -618,11 +629,12 @@ for (const [label, file] of [
 
 /** 獨立槽（冇 pack 物件）：周、秦漢、三國、平安、幕末、戰國 */
 function standaloneSlot(label, opts) {
-  const { crit, mapYears, events, yearMin, yearMax, noCriticalField } = opts
+  const { crit, mapYears, events, yearMin, yearMax, noCriticalField, file } = opts
   mark(crit, yearMin, '時代起點')
   mark(crit, yearMax, '時代終點')
   slots.push({
     name: label,
+    file,
     yearMin,
     yearMax,
     lastMapYear: mapYears.length ? Math.max(...mapYears) : null,
@@ -662,6 +674,7 @@ function standaloneSlot(label, opts) {
   const years = [...mapYears, ...events.map((e) => e.year)]
   standaloneSlot('三國', {
     crit,
+    file: 'src/data/timeline.json',
     mapYears,
     events,
     yearMin: Math.min(...years),
@@ -695,6 +708,7 @@ function standaloneSlot(label, opts) {
   }
   standaloneSlot('夏商周', {
     crit,
+    file: 'src/zhou/data/timeline*.ts',
     mapYears,
     events: ev,
     yearMin: Math.min(...years),
@@ -727,6 +741,7 @@ function standaloneSlot(label, opts) {
   const ev = scanEvents(read('qinhan/data/timeline.ts'), false)
   standaloneSlot('秦漢', {
     crit,
+    file: 'src/qinhan/data/timeline.ts',
     mapYears,
     events: ev,
     yearMin: Math.min(...years),
@@ -765,6 +780,7 @@ for (const [label, dir, prefix, stateFile] of [
   }
   standaloneSlot(label, {
     crit,
+    file: `src/${dir}/data/history.ts`,
     mapYears,
     events: scanEvents(read(join(dir, 'data/history.ts'))),
     yearMin: Number(/YEAR_MIN\s*=\s*(-?\d+)/.exec(state)?.[1]),
@@ -794,6 +810,7 @@ for (const [label, dir, prefix, stateFile] of [
   }
   standaloneSlot('戰國', {
     crit,
+    file: 'src/sengoku/data/timeline.json',
     mapYears,
     events,
     yearMin: Number(/YEAR_MIN\s*=\s*(-?\d+)/.exec(state)?.[1]),
@@ -816,6 +833,7 @@ let allGaps = 0
 let allUnflagged = 0
 let allBound = 0
 const lines = []
+const queue = []
 const md = [
   '# 關鍵事變盤點（audit:critical）',
   '',
@@ -877,6 +895,29 @@ for (const s of slots) {
   allUnflagged += unflagged.length
   allCards += withCard.length
   if (eraFilter && !s.name.includes(eraFilter)) continue
+  // 待辦佇列：缺口（連事件卡也沒有）排前，未標（有卡但需判斷）其次。
+  // 每項附原因與檔案路徑，代理不必自行搜尋目標。
+  for (const g of gaps) {
+    queue.push({
+      kind: '缺口',
+      slot: s.name,
+      year: g.year,
+      why: [...g.reasons].join('、'),
+      todo: '新增事件卡（出處要引原典，深度要過 audit:event-depth）',
+      file: s.file,
+    })
+  }
+  for (const u of unflagged) {
+    queue.push({
+      kind: '未標',
+      slot: s.name,
+      year: u.year,
+      why: [...u.reasons].join('、'),
+      cards: u.titles.join('；'),
+      todo: '判斷是否關鍵事變：是則加 critical: true，否則在 note 寫明理由',
+      file: s.file,
+    })
+  }
   lines.push(
     `${s.name}｜關鍵年 ${rows.length}｜有卡 ${withCard.length}` +
       `｜缺口 ${gaps.length}｜未標 ${unflagged.length}` +
@@ -924,6 +965,39 @@ if (mdOut) {
   const tail = at >= 0 ? '\n' + prev.slice(at).trimEnd() + '\n' : ''
   writeFileSync(mdOut, md.join('\n').replace(/\s*$/, '\n') + tail)
   console.log(`寫入 ${mdOut}${tail ? '（已保留第二節）' : ''}`)
+}
+// --todo N：列出可執行的待辦（缺口先、未標其次），讓代理每輪照辦幾項
+if (argAfter('--todo') !== null) {
+  const n = Math.max(1, Number(argAfter('--todo')) || 1)
+  const start = Math.max(0, Number(argAfter('--start')) || 0)
+  const rank = { 缺口: 0, 未標: 1 }
+  const items = [...queue].sort(
+    (a, b) => rank[a.kind] - rank[b.kind] || a.year - b.year
+  )
+  const nGap = items.filter((x) => x.kind === '缺口').length
+  const slice = items.slice(start, start + n)
+  console.log(
+    `audit:critical --todo — 待辦 ${items.length}（缺口 ${nGap}｜未標 ${items.length - nGap}）` +
+      `｜本次列第 ${start + 1}–${start + slice.length} 項`
+  )
+  console.log(
+    '準則：關鍵事變＝改變時代，或令地圖上的政權出現／消失；時代界線年豁免（見報告第一節）。'
+  )
+  slice.forEach((it, i) => {
+    const cut = (s2, k) => (s2 && s2.length > k ? s2.slice(0, k) + '…' : s2 || '')
+    console.log(
+      `${start + i + 1}. ${it.kind}｜${it.slot}｜${it.year}｜${cut(it.why, 60)}` +
+        (it.cards ? `｜已有卡：${cut(it.cards, 40)}` : '') +
+        `｜${it.todo} → ${it.file || '（未記檔案）'}`
+    )
+  })
+  const rest = items.length - slice.length
+  if (rest > 0) {
+    console.log(
+      `尚餘 ${rest} 項未列，下一批用 node scripts/audit_critical.mjs --todo ${n} --start ${start + slice.length}`
+    )
+  }
+  console.log('改完必跑：npm run gates 與 node scripts/agent-selfcheck.mjs --branch')
 }
 // --cards：傾每張事件卡一行（槽<TAB>年<TAB>標題<TAB>critical），俾第二節對帳用
 if (process.argv.includes('--cards')) {
