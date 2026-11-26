@@ -991,6 +991,8 @@ html[data-theme='light'] .app-footer {
   bottom: 0.45rem;
   z-index: 6;
   display: flex;
+  /* 「本年有行軍資料」提示須另起一行，故允許換行；現行各按鈕在窄屏仍佔同一行。 */
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.2rem;
   max-width: calc(100% - 1.2rem);
@@ -1025,6 +1027,26 @@ html[data-theme='light'] .app-footer {
   font-size: 0.75rem;
   letter-spacing: 0.06em;
   color: var(--accent-dim);
+}
+
+/*
+ * 本年有行軍路線而「行軍」圖層未開時的提示。它佔滿圖層列的一整行
+ * （flex-basis: 100%），文字可換行，因此寬度只受 .map-layer-bar 的
+ * max-width 約束：360px 螢幕上為 360 − 1rem（16px）＝ 344px，字串
+ * 「本年有行軍資料，可在圖層打開」14 字以 0.62rem（9.92px）加 0.06em
+ * 字距約 148px，遠低於上限，且不會與「圖層／已開…」同一行爭位。
+ * pointer-events: none 讓它不擋地圖上的點擊。
+ */
+.map-layer-bar__hint {
+  flex: 1 0 100%;
+  padding: 0.1rem 0.3rem 0.05rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  text-align: center;
+  white-space: normal;
+  color: var(--accent-dim);
+  pointer-events: none;
 }
 
 .map-layer-bar__tabs {

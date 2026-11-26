@@ -185,6 +185,11 @@ const GATES = [
     cmd: 'npm run audit:event-depth',
     metrics: { gap: /缺口 (\d+)/, padding: /灌水嫌疑 (\d+) 段/, jpGap: /日本三層未達 (\d+)/ },
   },
+  // audit:critical（關鍵事變盤點）唔喺度：佢係 WAVE A 嘅閘門，而家量到
+  // gap 23／未標 146／界線 26。主人 2026-11-27 裁定「先補缺口再上閘門」，
+  // 而 gate-ci 嘅規矩係硬性新指標必須以零值進場，所以本支只帶資料與腳本
+  // （scripts/audit_critical.mjs、reports/critical-incidents.md），閘門由
+  // WAVE A 補齊嗰 23 個缺口之後自己帶入。
 ]
 
 /** audit:geo 需要 Python + numpy；CI runner 未必裝好，缺就跳過而非誤判失敗。 */

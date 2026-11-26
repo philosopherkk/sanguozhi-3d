@@ -17,6 +17,13 @@ export interface EraEvent extends TimelineDateFields {
   source: string
   disputed?: boolean
   note?: string
+  /**
+   * 關鍵事變：導致時代改變，或令地圖上一個政權出現／消失，或令整體權力格局
+   * 改變（政體與正統、選官與賦稅、中央與地方、軍權歸屬）的事件。
+   * 判據取自資料本身（`keyYears`、勢力 `activeFrom`／`activeTo`、時代界線年），不是主觀分級；另見政治轉折清單
+   * reports/critical-incidents.md。詳情卡要寫明點解呢一年改變了格局。
+   */
+  critical?: boolean
   /** 同時期另一國（中國）的對應事件 */
   crossRefs?: CrossRef[]
 }
