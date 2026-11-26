@@ -75,6 +75,22 @@ export const EARLY_DYNASTY_MORE_PEOPLE: ZhouPerson[] = [
     note: '生年未詳。活動年不是壽數。',
   },
   {
+    id: 'shang-fuhao',
+    portrait: '/portraits/zhou/shang-fuhao.jpg',
+    portrait_note: '商王武丁之妃，墓出兵器與玉器。成人女子，衣覆全身，頸間一玉牌。',
+    name: '婦好',
+    faction: '商',
+    role: '軍事',
+    activeFrom: -1240,
+    activeTo: -1210,
+    datesNote: '生卒未詳。活動年放在武丁晚期的架子上；前1240是卜辭分期的位置，不是生卒年。',
+    summary:
+      '武丁卜辭屢見令婦好征伐、主持祭祀的記載，殷墟五號墓的銅器銘文與卜辭人名相合，學界據此比定墓主。她不見於《殷本紀》的列傳，征伐對象與兵數都不能從卜辭復原。',
+    source: '殷墟甲骨卜辭；殷墟婦好墓',
+    disputed: true,
+    note: '墓主比定屬考古結論，仍有不同意見；不把後世女將軍傳說當作史實。',
+  },
+  {
     id: 'zhou-jiangshang',
     portrait: '/portraits/zhou/zhou-jiangshang.jpg',
     portrait_note: '《史記·齊太公世家》：年老而窮，遇周西伯。老人，無仙氣。',

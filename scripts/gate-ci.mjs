@@ -34,6 +34,22 @@ const GATES = [
     metrics: { fail: /audit:data --teeth — 失敗 (\d+) 項/ },
   },
   { name: 'audit:wiring', cmd: 'npm run audit:wiring', metrics: { fail: /audit:wiring — fail (\d+)/ } },
+  // 人物想像圖：檔案、manifest 與資料 id／name 三邊對照。少了這條，錯人頭像或
+  // 整批圖全家長時間不上線都不會被任何其他閘門察覺（build 只查型別，不查配對）。
+  {
+    name: 'audit:portraits',
+    cmd: 'npm run audit:portraits',
+    metrics: { fail: /audit:portraits — fail (\d+)/, linked: /linked (\d+)\//, files: /files (\d+)/ },
+    // linked／files 是覆蓋存量而非錯誤數：350/350 才是合格狀態，按「新指標須以零值
+    // 進場」會把合格的閘門永遠擋在門外。這類指標以現值進場，之後只許升不許跌——
+    // 下跌即代表有頭像失聯或檔案失蹤，正是這條閘門要防的事。
+    atLeast: ['linked', 'files'],
+  },
+  {
+    name: 'audit:portraits:teeth',
+    cmd: 'npm run audit:portraits -- --teeth',
+    metrics: { fail: /audit:portraits --teeth — 失敗 (\d+) 項/ },
+  },
   {
     name: 'audit:ranges',
     cmd: 'npm run audit:ranges',
@@ -262,6 +278,8 @@ if (missing.length) {
 
 /** 標了 absolute 嘅欄位唔同人基線比（佢哋量 diff 體量／當下狀態，唔係倉庫存量）。 */
 const gAbsolute = Object.fromEntries(GATES.map((g) => [g.name, g.absolute ?? []]))
+/** atLeast 欄位＝覆蓋存量（例：已配對頭像數）：新閘門以現值進場，之後下跌即惡化。 */
+const gAtLeast = Object.fromEntries(GATES.map((g) => [g.name, g.atLeast ?? []]))
 
 if (UPDATE || !existsSync(BASELINE)) {
   // absolute 欄位唔寫進基線：儲一個永遠唔會被人比較嘅數字，只會令下次睇基線嘅人
@@ -295,6 +313,7 @@ for (const [name, cur] of Object.entries(current)) {
       continue
     }
     const b = old[key]
+    const floor = (gAtLeast[name] ?? []).includes(key)
     const tag = b === undefined ? '新' : val < b ? `↓${b - val}` : val > b ? `↑${val - b}` : '='
     parts.push(`${key}=${val}(${tag})`)
     if (b === undefined) {
@@ -307,11 +326,19 @@ for (const [name, cur] of Object.entries(current)) {
       // 而小模型改寫正是錯碼位的來源（11-21 教訓）。warn 以現值進場、人工記一次基線，
       // 之後只能減不能增；進場值會印在報告裡，不會無聲通過。
       const kind = Object.keys(gMetrics[name] ?? {}).find((k) => k === key)
-      if (val > 0 && kind !== 'warn') {
+      if (floor) {
+        console.log(
+          `  ‼ ${name}.${key} 新指標 ${val}：覆蓋存量以現值進場，記錄基線後只能升不能跌`
+        )
+      } else if (val > 0 && kind !== 'warn') {
         worse.push(`${name}.${key} 新指標 ${val}（硬性新閘門要以零值進場，先修再入 gate-ci）`)
       } else if (val > 0) {
         console.log(`  ‼ ${name}.${key} 新指標 ${val}：warn 以現值進場，人工記錄基線後只能下降`)
       }
+    } else if (floor) {
+      // 覆蓋存量：下跌才算惡化（有頭像失聯或檔案失蹤），上升則是改善。
+      if (val < b) worse.push(`${name}.${key} ${b} → ${val}（覆蓋存量下跌）`)
+      else if (val > b) better.push(`${name}.${key} ${b} → ${val}`)
     } else if (val > b) worse.push(`${name}.${key} ${b} → ${val}`)
     else if (val < b) better.push(`${name}.${key} ${b} → ${val}`)
   }

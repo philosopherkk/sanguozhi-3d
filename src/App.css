@@ -3579,6 +3579,13 @@ html:not([data-theme='light']) .topic-switch button.is-active {
   border-radius: 6px;
 }
 
+/* 圖鑑列表用的展開尺寸，與元件 size='md' 一一對應（40／64／96px 三檔）。 */
+.person-portrait--md {
+  width: 4rem;
+  height: 4rem;
+  font-size: 1.5rem;
+}
+
 .person-portrait--lg {
   width: 6rem;
   height: 6rem;
@@ -3598,6 +3605,175 @@ html:not([data-theme='light']) .topic-switch button.is-active {
 
 .article-panel__title {
   flex: 1;
+}
+
+/* 人物圖鑑：獨立的懸浮入口與模態視窗，不依賴任何單一時代的殼層。 */
+.portrait-gallery__trigger {
+  position: fixed;
+  right: 0.9rem;
+  bottom: calc(0.9rem + env(safe-area-inset-bottom, 0px));
+  z-index: 45;
+  min-height: 2.5rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.28);
+}
+
+.portrait-gallery {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.portrait-gallery__backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: rgba(0, 0, 0, 0.72);
+  cursor: pointer;
+}
+
+.portrait-gallery__panel {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  width: min(72rem, 100%);
+  max-height: calc(100dvh - 2rem);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 0.6rem;
+  background: var(--bg);
+  color: var(--ink);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+}
+
+.portrait-gallery__head,
+.portrait-gallery__filters {
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.portrait-gallery__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.portrait-gallery__head h2 {
+  margin: 0 0 0.3rem;
+  font-size: 1.15rem;
+}
+
+.portrait-gallery__head p {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.8rem;
+}
+
+.portrait-gallery__close,
+.portrait-gallery__filters select,
+.portrait-gallery__filters input {
+  border: 1px solid var(--line);
+  border-radius: 0.3rem;
+  background: var(--bg-deep);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.85rem;
+}
+
+.portrait-gallery__close {
+  flex: 0 0 auto;
+  min-height: 2.5rem;
+  padding: 0.35rem 0.8rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.portrait-gallery__filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.8rem;
+}
+
+.portrait-gallery__filters label {
+  display: grid;
+  gap: 0.25rem;
+  color: var(--ink-muted);
+  font-size: 0.75rem;
+}
+
+.portrait-gallery__filters select,
+.portrait-gallery__filters input {
+  padding: 0.4rem 0.5rem;
+}
+
+.portrait-gallery__count {
+  margin-left: auto;
+  color: var(--ink-muted);
+  font-size: 0.78rem;
+}
+
+.portrait-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+  gap: 0.85rem;
+  margin: 0;
+  padding: 1rem;
+  overflow: auto;
+  list-style: none;
+}
+
+.portrait-gallery__item {
+  display: grid;
+  justify-items: center;
+  gap: 0.3rem;
+  padding: 0.6rem 0.3rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.portrait-gallery__item > span:last-child {
+  color: var(--ink-muted);
+  font-size: 0.7rem;
+}
+
+.portrait-gallery__empty {
+  padding: 2rem;
+  color: var(--ink-muted);
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .portrait-gallery {
+    padding: 0.5rem;
+  }
+
+  .portrait-gallery__panel {
+    max-height: calc(100dvh - 1rem);
+  }
+
+  .portrait-gallery__grid {
+    grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+    gap: 0.5rem;
+    padding: 0.7rem;
+  }
+
+  .portrait-gallery__count {
+    margin-left: 0;
+  }
 }
 
 .text-btn {

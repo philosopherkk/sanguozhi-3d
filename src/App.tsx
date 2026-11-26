@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, type ComponentType } from 'react'
+import { PortraitGallery } from './components/PortraitGallery'
 import {
   CHINA_ERA_SLOTS,
   JAPAN_ERA_SLOTS,
@@ -436,6 +437,7 @@ function App() {
     <TopicProvider>
       <UrlBridge />
       <TopicRoot />
+      <PortraitGallery />
       <BottomBar />
     </TopicProvider>
   )
