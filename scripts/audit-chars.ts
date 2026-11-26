@@ -469,8 +469,10 @@ const SKIP_LINE = /"name":|^\s*(id|name|label|code):\s*['"]|^\s*\{\s*(id|label|c
 // fail-closed：開始冇結束、段太長、冇理由，一律**照常掃**並報 HARD。
 // 標記用「註釋符開頭 + 行首」判，唔准用 `in`：2026-11-14 在 verify_chars_opencc.py 用 `in`
 // 判標記，常量定義行自己就含標記，令**未突變副本都被斷言咬住**（2/2），所有「咬到」變假。
-const BLOCK_START = /^\s*(?:\/\/|#|\*)\s*chars-block-start\b(.*)$/
-const BLOCK_END = /^\s*(?:\/\/|#|\*)\s*chars-block-end\b/
+// 註釋前綴加 `<!--`：markdown 報告沒有 `//` 也沒有 `#` 註釋。兩支閘門（audit-chars 與
+// agent-selfcheck）必須同一口徑，否則同一對標記一邊豁免、一邊報硬傷。
+const BLOCK_START = /^\s*(?:\/\/|#|\*|<!--)\s*chars-block-start\b(.*)$/
+const BLOCK_END = /^\s*(?:\/\/|#|\*|<!--)\s*chars-block-end\b/
 const BLOCK_MAX_LINES = 80 // qsrc.py 變體字表 8 行、覆核工具三張表 53 行；上限只防默默擴大
 
 // ── JSON 引文／識別碼欄：遮值區段，唔成行跳過 ────────────────────────────

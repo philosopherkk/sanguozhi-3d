@@ -103,11 +103,18 @@ const JP_LINE = /[\u3041-\u309f\u30a1-\u30fa\u30fc]/
 const SKIP_LINE = /"name":|^\s*(id|name|label|code):\s*['"]|^\s*\{\s*(id|label|code):\s*['"]/
 // 偵測表所在的檔案：檔內那一長串目標字形是它要抓的東西，不是寫錯的正文。
 // 名稱需與 audit-chars.ts 的 SKIP_FILE 保持一致（兩邊都寫明憑什麼＝豁免範圍要看得見）。
+// 豁免帳本 `reports/chars-allowlist.json` 也要跳過：它整檔就是「哪個檔的哪個錯字、
+// 憑哪一行豁免」的清單，把它正體化會令 allowedFor() 永遠配唔中（同 audit-chars 唔掃自己
+// 張 HARD 表一個道理）。實測：accuracy 第 51 輪補一條「幽囚録」豁免，自檢把帳本自己嘅
+// 兩行判成硬傷，而 audit:chars 判 0——雨支閘門對同一個檔案必須同一個口徑。
 const DETECTOR_TABLES =
-  /audit-chars|audit-data|audit_chengyu|audit_quotes|audit_entries|fetchArticle|agent-selfcheck|verify_chars_opencc|qsrc\.py|docs\/legacy\/|scripts\/legacy\/|HANDOVER|OVERNIGHT_TASKS|ENRICH_MERGE_/
+  /audit-chars|audit-data|audit_chengyu|audit_quotes|audit_entries|fetchArticle|agent-selfcheck|verify_chars_opencc|qsrc\.py|chars-allowlist|docs\/legacy\/|scripts\/legacy\/|HANDOVER|OVERNIGHT_TASKS|ENRICH_MERGE_/
 // chars-block 標記豁免（同 audit-chars）：有些檔的職責就是列錯字，正體化會令偵測永遠失靈。
-const BLOCK_START = /^\s*(?:\/\/|#|\*)\s*chars-block-start\b(.*)$/
-const BLOCK_END = /^\s*(?:\/\/|#|\*)\s*chars-block-end\b/
+// 註釋前綴加 `<!--`：markdown 報告（reports/*.md）沒有 `//` 也沒有 `#` 註釋，
+// 之前代理想在報告裡豁免一個要照原題的日文漢字，唯一選擇就是把錯字直接貼進散文，
+// 然後被自己的閘門咬。給一個正路：<!-- chars-block-start 照 ja.wikisource 原題 -->
+const BLOCK_START = /^\s*(?:\/\/|#|\*|<!--)\s*chars-block-start\b(.*)$/
+const BLOCK_END = /^\s*(?:\/\/|#|\*|<!--)\s*chars-block-end\b/
 function blockRanges(lines) {
   const covered = new Set()
   let open = -1
