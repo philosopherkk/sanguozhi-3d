@@ -122,13 +122,18 @@ export function Map2D() {
 
   const wrapRef = useRef<HTMLDivElement>(null)
   const { view, viewRef, setView } = useRafView()
-  // 勢力疆域是本地圖的主體，預設開啟（各時代地圖一致）；行軍與塞外為加分層，預設收。
+  // 勢力疆域是本地圖的主體，預設開啟（各時代地圖一致）；塞外為加分層，預設收。
+  // 行軍線預設開啟（2026-11-16 使用者指定）：三國行軍是本槽的主線內容之一，
+  // 預設收令新進使用者看不到已登錄的 38 條路線。
   // 7b179b2 曾把三項一起關掉，使三國地圖再也看不到州郡界線，此處恢復勢力一項。
   // 三個開關都記住上次選擇，使用者關掉的層不會每次重新載入又被打開。
   const [showTerritory, setShowTerritory] = usePersistedOpen(
     'map2d-layer-territory',
     true,
   )
+  // 鍵名帶 v2：舊鍵 `map2d-layer-routes` 記住過「關」的使用者，預設改 true 之後
+  // 仍會被舊值壓住而看不到行軍線，故另起一鍵，讓所有人先看到一次；
+  // 其後使用者自己關掉，會記在 v2 鍵上，不再被覆寫。
   const [showRoutes, setShowRoutes] = usePersistedOpen(
     'map2d-layer-routes-v2',
     true,

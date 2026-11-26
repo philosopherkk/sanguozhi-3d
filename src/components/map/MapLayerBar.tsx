@@ -1,4 +1,6 @@
 import { useState, type ReactNode } from 'react'
+import type { MarchRoute } from '../../data/marchRoutes'
+import { MARCH_ROUTE_SAME_YEAR, isMarchRouteVisible } from './RouteOverlay'
 
 export function MapLayerBar({
   showTerritory,
@@ -12,6 +14,8 @@ export function MapLayerBar({
   frontierPanel,
   extraTabs,
   extraTabsOn = false,
+  routes,
+  year,
 }: {
   showTerritory: boolean
   showRoutes: boolean
@@ -25,6 +29,13 @@ export function MapLayerBar({
   /** 時代專用圖層按鈕（例如幕末「藩界」），沿用同一列樣式與計數 */
   extraTabs?: ReactNode
   extraTabsOn?: boolean
+  /**
+   * 地圖同一組行軍路線與目前年份，由呼叫方傳入（與同頁 RouteOverlay 的
+   * `routes`／`year` 相同）。兩者齊備時，本年有路線而「行軍」未開即顯示提示。
+   * 只影響提示文字：不影響任何圖層的預設開關。
+   */
+  routes?: readonly MarchRoute[]
+  year?: number
 }) {
   const [open, setOpen] = useState(false)
   const onNames = [
@@ -34,6 +45,13 @@ export function MapLayerBar({
     onToggleFrontier && showFrontier ? '塞外' : null,
     extraTabs && extraTabsOn ? '附加' : null,
   ].filter(Boolean) as string[]
+
+  const routesThisYear =
+    routes !== undefined && year !== undefined
+      ? routes.some((route) =>
+          isMarchRouteVisible(route.year, year, MARCH_ROUTE_SAME_YEAR),
+        )
+      : false
 
   return (
     <div className="map-layer-bar" role="group" aria-label="地圖圖層">
@@ -46,6 +64,9 @@ export function MapLayerBar({
         圖層
         <span>{open ? '收起' : onNames.length === 0 ? '圖層已關' : `已開：${onNames.join('、')}`}</span>
       </button>
+      {!open && !showRoutes && routesThisYear ? (
+        <span className="map-layer-bar__hint">本年有行軍資料，可在圖層打開</span>
+      ) : null}
       {open ? (
         <div className="map-layer-bar__tabs">
           <button
