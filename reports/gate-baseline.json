@@ -12,6 +12,16 @@
     "exit": 0,
     "fail": 0
   },
+  "audit:portraits": {
+    "exit": 0,
+    "fail": 0,
+    "linked": 350,
+    "files": 350
+  },
+  "audit:portraits:teeth": {
+    "exit": 0,
+    "fail": 0
+  },
   "audit:ranges": {
     "exit": 0,
     "fail": 0,

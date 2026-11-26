@@ -4,7 +4,7 @@ type PersonPortraitProps = {
   src?: string
   name: string
   note?: string
-  size?: 'sm' | 'lg'
+  size?: 'sm' | 'md' | 'lg'
 }
 
 // 人物想像圖：清單用 40px 圓形、展開的介紹用 96px。
@@ -21,7 +21,7 @@ const THUMB_WIDTHS = [80, 192] as const
 // 資料欄位的 portrait 是根絕對路徑，但頁面部署在 base（例如
 // /sanguozhi-3d/）之下；只有以 Vercel 根路徑部署時兩者才恰好重合。
 // 渲染時一律以 import.meta.env.BASE_URL 為前綴解析，兩種部署通用。
-function withBase(src: string) {
+export function withBase(src: string) {
   return src.startsWith('/') ? `${import.meta.env.BASE_URL}${src.slice(1)}` : src
 }
 
@@ -44,7 +44,12 @@ export function PersonPortrait({
   const initial = Array.from(name.trim())[0] ?? '?'
   // 「想像圖」三字一律放最前：hover 提示不得被考據 note 蓋掉（繪像非寫生）。
   const title = note ? `想像圖 · 考據：${note}` : `想像圖 · ${name}`
-  const cls = size === 'lg' ? 'person-portrait person-portrait--lg' : 'person-portrait'
+  const cls =
+    size === 'lg'
+      ? 'person-portrait person-portrait--lg'
+      : size === 'md'
+        ? 'person-portrait person-portrait--md'
+        : 'person-portrait'
   const hasImage = Boolean(src) && !imgFailed
 
   return (
@@ -57,10 +62,20 @@ export function PersonPortrait({
               ? undefined
               : THUMB_WIDTHS.map((w) => `${thumbSrc(src, w)} ${w}w`).join(', ')
           }
-          sizes={thumbFailed ? undefined : size === 'lg' ? '96px' : '40px'}
+          sizes={
+            thumbFailed
+              ? undefined
+              : size === 'lg'
+                ? '96px'
+                : size === 'md'
+                  ? '64px'
+                  : '40px'
+          }
           alt={`想像圖 · ${name}`}
-          loading="lazy"
+          width={1024}
+          height={1024}
           decoding="async"
+          loading="lazy"
           onError={() => (thumbFailed ? setImgFailed(true) : setThumbFailed(true))}
         />
       ) : (
