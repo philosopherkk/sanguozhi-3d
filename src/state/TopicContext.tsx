@@ -9,8 +9,14 @@ import {
 } from 'react'
 import { announceTimeline, readTimelineFromUrl } from '../lib/timelineUrl'
 
-/** 頂欄只得兩項。中國＝三國志深潛；日本＝戰國深潛。 */
-export type AppTopic = 'china' | 'japan'
+/** 頂欄六國。中國＝三國志深潛；日本＝戰國深潛；韓國、泰國、越南、馬來西亞＝時代深潛。 */
+export type AppTopic =
+  | 'china'
+  | 'japan'
+  | 'korea'
+  | 'thailand'
+  | 'vietnam'
+  | 'malaysia'
 
 export interface TopicMeta {
   id: AppTopic
@@ -21,6 +27,10 @@ export interface TopicMeta {
 export const TOPIC_META: TopicMeta[] = [
   { id: 'china', label: '中國', range: '夏–當代' },
   { id: 'japan', label: '日本', range: '有史以來–當代' },
+  { id: 'korea', label: '韓國', range: '前108–當代' },
+  { id: 'thailand', label: '泰國', range: '1238–當代' },
+  { id: 'vietnam', label: '越南', range: '前111–當代' },
+  { id: 'malaysia', label: '馬來西亞', range: '1400–當代' },
 ]
 
 export type ChinaEraSlot =
@@ -54,6 +64,22 @@ export type JapanEraSlot =
   | 'edo'
   | 'bakumatsu'
   | 'modern'
+export type KoreaEraSlot = 'koancient' | 'kogoryeo' | 'kojoseon' | 'komodern'
+export type ThailandEraSlot =
+  | 'thsukhothai'
+  | 'thayutthaya'
+  | 'thchakri'
+  | 'thmodern'
+export type VietnamEraSlot =
+  | 'vnnorth'
+  | 'vndynasty'
+  | 'vnnguyen'
+  | 'vnmodern'
+export type MalaysiaEraSlot =
+  | 'mymalacca'
+  | 'mycolonial'
+  | 'mymerdeka'
+  | 'mymodern'
 
 export interface EraSlotMeta<T extends string> {
   id: T
@@ -96,6 +122,74 @@ export const JAPAN_ERA_SLOTS: EraSlotMeta<JapanEraSlot>[] = [
   { id: 'modern', label: '明治至當代', range: '1868–2026' },
 ]
 
+/** 韓國四期：年界與 src/countries/korea/*Pack.ts 的 yearMin／yearMax 一致。 */
+export const KOREA_ERA_SLOTS: EraSlotMeta<KoreaEraSlot>[] = [
+  { id: 'koancient', label: '古朝鮮與三國', range: '前108–668' },
+  { id: 'kogoryeo', label: '統一新羅與高麗', range: '668–1392' },
+  { id: 'kojoseon', label: '朝鮮王朝', range: '1392–1897' },
+  { id: 'komodern', label: '韓國近現代', range: '1897–2026' },
+]
+
+/** 泰國四期：年界與 src/countries/thailand/*Pack.ts 的 yearMin／yearMax 一致。 */
+export const THAILAND_ERA_SLOTS: EraSlotMeta<ThailandEraSlot>[] = [
+  { id: 'thsukhothai', label: '素可泰與蘭納', range: '1238–1351' },
+  { id: 'thayutthaya', label: '阿瑜陀耶與吞武里', range: '1438–1767' },
+  { id: 'thchakri', label: '卻克里與條約時代', range: '1782–1909' },
+  { id: 'thmodern', label: '立憲與戰後', range: '1932–1997' },
+]
+
+/** 越南四期：年界與 src/countries/vietnam/*Pack.ts 的 yearMin／yearMax 一致。 */
+export const VIETNAM_ERA_SLOTS: EraSlotMeta<VietnamEraSlot>[] = [
+  { id: 'vnnorth', label: '北屬與自主立國', range: '前111–1009' },
+  { id: 'vndynasty', label: '李陳後黎與鄭阮', range: '1010–1802' },
+  { id: 'vnnguyen', label: '阮朝與法國保護', range: '1802–1945' },
+  { id: 'vnmodern', label: '戰爭與統一', range: '1945–1990' },
+]
+
+/** 馬來西亞四期：年界與 src/countries/malaysia/*Pack.ts 的 yearMin／yearMax 一致。 */
+export const MALAYSIA_ERA_SLOTS: EraSlotMeta<MalaysiaEraSlot>[] = [
+  { id: 'mymalacca', label: '馬六甲蘇丹國', range: '1400–1511' },
+  { id: 'mycolonial', label: '列強與英屬時期', range: '1511–1941' },
+  { id: 'mymerdeka', label: '日佔、獨立與聯邦', range: '1941–1965' },
+  { id: 'mymodern', label: '聯邦至當代', range: '1965–2026' },
+]
+
+/** 六國時代槽位總表：槽位 id 全站唯一，任何一個時代 id 只屬一國。 */
+export const COUNTRY_ERA_SLOTS: Record<AppTopic, EraSlotMeta<string>[]> = {
+  china: CHINA_ERA_SLOTS,
+  japan: JAPAN_ERA_SLOTS,
+  korea: KOREA_ERA_SLOTS,
+  thailand: THAILAND_ERA_SLOTS,
+  vietnam: VIETNAM_ERA_SLOTS,
+  malaysia: MALAYSIA_ERA_SLOTS,
+}
+
+export function eraSlotsForTopic(topic: AppTopic): EraSlotMeta<string>[] {
+  return COUNTRY_ERA_SLOTS[topic]
+}
+
+export function countryLabelForTopic(topic: AppTopic): string {
+  return TOPIC_META.find((t) => t.id === topic)?.label ?? topic
+}
+
+/** 由時代 id 反查所屬國家；六國槽位互不重疊，查不到即不認識的鍵。 */
+export function topicForEra(eraId: string): AppTopic | null {
+  for (const topic of Object.keys(COUNTRY_ERA_SLOTS) as AppTopic[]) {
+    if (COUNTRY_ERA_SLOTS[topic].some((s) => s.id === eraId)) return topic
+  }
+  return null
+}
+
+/** 各國預設時代：直接進站或 URL 只寫國家時落在這些時代。 */
+const DEFAULT_ERA: Record<AppTopic, string> = {
+  china: 'sanguo',
+  japan: 'sengoku',
+  korea: 'kojoseon',
+  thailand: 'thayutthaya',
+  vietnam: 'vndynasty',
+  malaysia: 'mymalacca',
+}
+
 interface TopicContextValue {
   topic: AppTopic
   setTopic: (t: AppTopic) => void
@@ -103,55 +197,96 @@ interface TopicContextValue {
   setChinaEra: (e: ChinaEraSlot) => void
   japanEra: JapanEraSlot
   setJapanEra: (e: JapanEraSlot) => void
+  /** 目前國家的目前時代（六國通用）。 */
+  activeEra: string
+  /** 換某個國家的時代；時代 id 不屬該國時不生效，避免畫面整頁空白。 */
+  setEraForTopic: (topic: AppTopic, era: string) => void
   /** 由 URL 讀上來的年份（無則 null）；比年代屏用作初始年。 */
   urlYear: number | null
 }
 
-const CHINA_ERA_IDS = new Set<string>(CHINA_ERA_SLOTS.map((s) => s.id))
-const JAPAN_ERA_IDS = new Set<string>(JAPAN_ERA_SLOTS.map((s) => s.id))
+interface UrlSnapshot {
+  topic: AppTopic | null
+  /** URL 的 `?e=` 原文（可能是不認識的鍵） */
+  era: string | null
+  /** `?e=` 所屬國家（由槽位反查）；null 代表不認識 */
+  eraTopic: AppTopic | null
+  year: number | null
+}
+
+const TOPIC_IDS = new Set<string>(TOPIC_META.map((t) => t.id))
 
 /**
- * 讀 URL：`?c=china|japan`（或 country）、`?e=<era slot>`（或 era）、`?y=<年份>`（或 year）。
+ * 讀 URL：`?c=<國家>`（或 country）、`?e=<時代槽位>`（或 era）、`?y=<年份>`（或 year）。
  * 此處只係初始值；之後寫回 URL 由下面的 effect 負責。
  */
-function readUrlState() {
-  const empty = { topic: null as AppTopic | null, chinaEra: null as ChinaEraSlot | null, japanEra: null as JapanEraSlot | null, year: null as number | null }
+function readUrlState(): UrlSnapshot {
+  const empty: UrlSnapshot = {
+    topic: null,
+    era: null,
+    eraTopic: null,
+    year: null,
+  }
   if (typeof window === 'undefined') return empty
   const q = new URLSearchParams(window.location.search)
   const c = (q.get('c') ?? q.get('country') ?? '').toLowerCase()
-  const topic: AppTopic | null = c === 'japan' ? 'japan' : c === 'china' ? 'china' : null
+  const topic: AppTopic | null = TOPIC_IDS.has(c) ? (c as AppTopic) : null
   const e = (q.get('e') ?? q.get('era') ?? '').trim()
-  const chinaEra = CHINA_ERA_IDS.has(e) ? (e as ChinaEraSlot) : null
-  const japanEra = JAPAN_ERA_IDS.has(e) ? (e as JapanEraSlot) : null
+  const eraTopic = e ? topicForEra(e) : null
   const yRaw = q.get('y') ?? q.get('year')
   const year = yRaw && /^-?\d{1,4}$/.test(yRaw.trim()) ? Number(yRaw.trim()) : null
-  return { topic, chinaEra, japanEra, year }
+  return { topic, era: e || null, eraTopic, year }
 }
 
 const TopicContext = createContext<TopicContextValue | null>(null)
 
 export function TopicProvider({ children }: { children: ReactNode }) {
   const initial = readUrlState()
-  // URL 只寫了時代（未寫國家）都足以判斷邊邊；例如 ?e=edo 應該落日本。
-  const initialTopic: AppTopic =
-    initial.topic ?? (initial.japanEra && !initial.chinaEra ? 'japan' : 'china')
+  // URL 只寫了時代（未寫國家）也足以判斷落在哪國；例如 ?e=edo 應該落日本。
+  const initialTopic: AppTopic = initial.topic ?? initial.eraTopic ?? 'china'
   const [topic, setTopicState] = useState<AppTopic>(initialTopic)
-  const [chinaEra, setChinaEraState] = useState<ChinaEraSlot>(initial.chinaEra ?? 'sanguo')
-  const [japanEra, setJapanEraState] = useState<JapanEraSlot>(initial.japanEra ?? 'sengoku')
+  const [eraByTopic, setEraByTopic] = useState<Record<AppTopic, string>>(() => {
+    const eras: Record<AppTopic, string> = { ...DEFAULT_ERA }
+    if (initial.era && initial.eraTopic) eras[initial.eraTopic] = initial.era
+    return eras
+  })
   const urlYear = initial.year
   const setTopic = useCallback((t: AppTopic) => setTopicState(t), [])
-  const setChinaEra = useCallback((e: ChinaEraSlot) => setChinaEraState(e), [])
-  const setJapanEra = useCallback((e: JapanEraSlot) => setJapanEraState(e), [])
+  const setEraForTopic = useCallback((t: AppTopic, era: string) => {
+    if (!COUNTRY_ERA_SLOTS[t].some((s) => s.id === era)) return
+    setEraByTopic((cur) => (cur[t] === era ? cur : { ...cur, [t]: era }))
+  }, [])
+  const setChinaEra = useCallback(
+    (e: ChinaEraSlot) => setEraForTopic('china', e),
+    [setEraForTopic],
+  )
+  const setJapanEra = useCallback(
+    (e: JapanEraSlot) => setEraForTopic('japan', e),
+    [setEraForTopic],
+  )
+  /** 把 URL 里的時代（附帶其反查出的國家）併入狀態；不認識的鍵忽略。 */
+  const applyUrlEra = useCallback((next: UrlSnapshot) => {
+    if (!next.era || !next.eraTopic) return
+    const eraTopic = next.eraTopic
+    const era = next.era
+    setEraByTopic((cur) =>
+      cur[eraTopic] === era ? cur : { ...cur, [eraTopic]: era },
+    )
+  }, [])
+
+  const chinaEra = eraByTopic.china as ChinaEraSlot
+  const japanEra = eraByTopic.japan as JapanEraSlot
+  const activeEra = eraByTopic[topic]
 
   // 國家／時代變更 → 寫回 URL（用 replaceState，不要污染返回歷史）。
   useEffect(() => {
     if (typeof window === 'undefined') return
     const q = new URLSearchParams(window.location.search)
     q.set('c', topic)
-    q.set('e', topic === 'china' ? chinaEra : japanEra)
+    q.set('e', eraByTopic[topic])
     const qs = q.toString()
     window.history.replaceState(null, '', `${window.location.pathname}${qs ? `?${qs}` : ''}`)
-  }, [topic, chinaEra, japanEra])
+  }, [topic, eraByTopic])
 
   /**
    * 瀏覽器前／後退，或同一份文件內切換 query 時，以 URL 為權威來源。
@@ -163,13 +298,12 @@ export function TopicProvider({ children }: { children: ReactNode }) {
     const onPop = () => {
       const next = readUrlState()
       if (next.topic) setTopicState(next.topic)
-      if (next.chinaEra) setChinaEraState(next.chinaEra)
-      if (next.japanEra) setJapanEraState(next.japanEra)
+      applyUrlEra(next)
       announceTimeline(readTimelineFromUrl())
     }
     window.addEventListener('popstate', onPop)
     return () => window.removeEventListener('popstate', onPop)
-  }, [])
+  }, [applyUrlEra])
 
   /**
    * 兜底校對：某些導航情境（同一份文件內 query 被改寫、歷史導覽未派送
@@ -180,18 +314,14 @@ export function TopicProvider({ children }: { children: ReactNode }) {
     if (typeof window === 'undefined') return
     const id = window.setInterval(() => {
       const next = readUrlState()
-      const target: AppTopic | null =
-        next.topic ?? (next.japanEra && !next.chinaEra ? 'japan' : null)
-      if (target) setTopicState((cur) => (cur === target ? cur : target))
-      const jpEra = next.japanEra
-      if (jpEra) setJapanEraState((cur) => (cur === jpEra ? cur : jpEra))
-      const cnEra = next.chinaEra
-      if (cnEra) setChinaEraState((cur) => (cur === cnEra ? cur : cnEra))
+      const targetTopic = next.topic
+      if (targetTopic) setTopicState((cur) => (cur === targetTopic ? cur : targetTopic))
+      applyUrlEra(next)
       // 年份／月份同樣跟隨 URL（各時代 context 會跟隨 tk:timeline 廣播）
       announceTimeline(readTimelineFromUrl())
     }, 1000)
     return () => window.clearInterval(id)
-  }, [])
+  }, [applyUrlEra])
 
   const value = useMemo(
     () => ({
@@ -201,9 +331,21 @@ export function TopicProvider({ children }: { children: ReactNode }) {
       setChinaEra,
       japanEra,
       setJapanEra,
+      activeEra,
+      setEraForTopic,
       urlYear,
     }),
-    [topic, setTopic, chinaEra, setChinaEra, japanEra, setJapanEra, urlYear],
+    [
+      topic,
+      setTopic,
+      chinaEra,
+      setChinaEra,
+      japanEra,
+      setJapanEra,
+      activeEra,
+      setEraForTopic,
+      urlYear,
+    ],
   )
   return (
     <TopicContext.Provider value={value}>{children}</TopicContext.Provider>

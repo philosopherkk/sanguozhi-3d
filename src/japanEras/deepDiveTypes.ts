@@ -1,5 +1,6 @@
 import type { MarchRoute } from '../data/marchRoutes'
 import type { TerritoryGeometryProvenance } from '../data/territory/provenance'
+import type { ChengyuLocale } from '../chengyu/types'
 import type { FactionProfile } from '../lib/factionYearView'
 import type { EraDetail, EraEvent, EraFaction, EraPerson, EraReading } from './types'
 
@@ -98,4 +99,16 @@ export interface JapanDeepDivePack {
   emptyHint: string
   detailFor: (id: string) => EraDetail | undefined
   readingFor: (id: string) => EraReading | undefined
+  /**
+   * 國家總覽的中文維基連結；事件缺自訂 detail 時 fallback 用。
+   * 未提供即沿用日本歷史條目（日方 pack 不變）。
+   */
+  countryWikiUrl?: string
+  /**
+   * 領土色塊的口徑說明（僅矢量底圖顯示）；未提供即沿用亞洲—太平洋戰區預設文字。
+   * 韓國、泰國、越南、馬來西亞四國應由外殼傳入本國口徑，避免出現戰區字樣。
+   */
+  territoryNote?: string
+  /** 成語面板語域；未提供即沿用日本軌道（中日共同漢字文化圈）。 */
+  chengyuLocales?: ChengyuLocale[]
 }

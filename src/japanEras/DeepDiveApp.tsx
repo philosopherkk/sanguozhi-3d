@@ -176,7 +176,7 @@ function DeepDiveBody({ pack }: { pack: JapanDeepDivePack }) {
                   })),
                   outcome: event.note ?? event.source,
                   brief: event.desc,
-                  zhwikiUrl: 'https://zh.wikipedia.org/wiki/日本歷史',
+                  zhwikiUrl: pack.countryWikiUrl ?? 'https://zh.wikipedia.org/wiki/日本歷史',
                 }
               }}
               readingFor={(id) => {
@@ -213,7 +213,7 @@ function DeepDiveBody({ pack }: { pack: JapanDeepDivePack }) {
               year={year}
               yearMin={yearMin}
               yearMax={yearMax}
-              locales={localesForJapanTrack()}
+              locales={pack.chengyuLocales ?? localesForJapanTrack()}
               onJumpYear={setYear}
             />
           }

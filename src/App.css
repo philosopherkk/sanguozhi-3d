@@ -2773,7 +2773,7 @@ html:not([data-theme='light']) .app-footer {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent),
     rgba(0, 0, 0, 0.28);
-  max-width: min(28rem, 100%);
+  max-width: min(44rem, 100%);
 }
 
 .topic-switch button {

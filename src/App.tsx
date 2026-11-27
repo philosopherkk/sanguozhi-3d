@@ -1,11 +1,16 @@
 import { lazy, Suspense, useEffect, type ComponentType } from 'react'
 import { PortraitGallery } from './components/PortraitGallery'
 import {
-  CHINA_ERA_SLOTS,
-  JAPAN_ERA_SLOTS,
+  countryLabelForTopic,
+  eraSlotsForTopic,
   TopicProvider,
   useTopic,
+  type KoreaEraSlot,
+  type MalaysiaEraSlot,
+  type ThailandEraSlot,
+  type VietnamEraSlot,
 } from './state/TopicContext'
+import type { JapanDeepDivePack } from './japanEras/deepDiveTypes'
 import {
   onTimelineChange,
   readTimelineFromUrl,
@@ -174,8 +179,229 @@ const PrcApp = lazyPack(() =>
   })),
 )
 
+/**
+ * 韓國、泰國、越南、馬來西亞四國十六包的共同補充欄。
+ * pack 檔本身不動：維基總覽連結、成語語域與領土口徑都在這裡補上，
+ * 免得把「亞洲—太平洋戰區」的戰區口徑誤掛到馬六甲或素可泰的地圖上。
+ */
+const COUNTRY_WIKI_URL: Record<
+  'korea' | 'thailand' | 'vietnam' | 'malaysia',
+  string
+> = {
+  korea: 'https://zh.wikipedia.org/wiki/韓國歷史',
+  thailand: 'https://zh.wikipedia.org/wiki/泰國歷史',
+  vietnam: 'https://zh.wikipedia.org/wiki/越南歷史',
+  malaysia: 'https://zh.wikipedia.org/wiki/馬來西亞歷史',
+}
+
+const COUNTRY_TERRITORY_NOTE_ZH =
+  '色塊為通說控制範圍示意（經緯度界定後剪裁至真實海岸線），非行政區界，亦不表示實效支配無爭議；界線隨年代變動，爭議見對應事件之起因／經過／結果。'
+
+type CountryKey = keyof typeof COUNTRY_WIKI_URL
+
+function countryPack(
+  pack: JapanDeepDivePack,
+  country: CountryKey,
+): JapanDeepDivePack {
+  return {
+    ...pack,
+    countryWikiUrl: COUNTRY_WIKI_URL[country],
+    territoryNote: COUNTRY_TERRITORY_NOTE_ZH,
+    chengyuLocales: ['shared'],
+  }
+}
+
+const KoAncientApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./countries/korea/koancientPack'),
+  ]).then(([app, data]) => ({
+    default: function KoAncientEra() {
+      return (
+        <app.DeepDiveApp pack={countryPack(data.KOANCIENT_PACK, 'korea')} />
+      )
+    },
+  })),
+)
+const KoGoryeoApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./countries/korea/kogoryeoPack'),
+  ]).then(([app, data]) => ({
+    default: function KoGoryeoEra() {
+      return (
+        <app.DeepDiveApp pack={countryPack(data.KOGORYEO_PACK, 'korea')} />
+      )
+    },
+  })),
+)
+const KoJoseonApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./countries/korea/kojoseonPack'),
+  ]).then(([app, data]) => ({
+    default: function KoJoseonEra() {
+      return (
+        <app.DeepDiveApp pack={countryPack(data.KOJOSEON_PACK, 'korea')} />
+      )
+    },
+  })),
+)
+const KoModernApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./countries/korea/komodernPack'),
+  ]).then(([app, data]) => ({
+    default: function KoModernEra() {
+      return <app.DeepDiveApp pack={countryPack(data.KOMODERN_PACK, 'korea')} />
+    },
+  })),
+)
+const ThSukhothaiApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./countries/thailand/thsukhothaiPack'),
+  ]).then(([app, data]) => ({
+    default: function ThSukhothaiEra() {
+      return (
+        <app.DeepDiveApp
+          pack={countryPack(data.THSUKHOTHAI_PACK, 'thailand')}
+        />
+      )
+    },
+  })),
+)
+const ThAyutthayaApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./countries/thailand/thayutthayaPack'),
+  ]).then(([app, data]) => ({
+    default: function ThAyutthayaEra() {
+      return (
+        <app.DeepDiveApp
+          pack={countryPack(data.THAYUTTHAYA_PACK, 'thailand')}
+        />
+      )
+    },
+  })),
+)
+const ThChakriApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./countries/thailand/thchakriPack'),
+  ]).then(([app, data]) => ({
+    default: function ThChakriEra() {
+      return (
+        <app.DeepDiveApp pack={countryPack(data.THCHAKRI_PACK, 'thailand')} />
+      )
+    },
+  })),
+)
+const ThModernApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./countries/thailand/thmodernPack'),
+  ]).then(([app, data]) => ({
+    default: function ThModernEra() {
+      return (
+        <app.DeepDiveApp pack={countryPack(data.THMODERN_PACK, 'thailand')} />
+      )
+    },
+  })),
+)
+const VnNorthApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./countries/vietnam/vnnorthPack'),
+  ]).then(([app, data]) => ({
+    default: function VnNorthEra() {
+      return <app.DeepDiveApp pack={countryPack(data.VNNORTH_PACK, 'vietnam')} />
+    },
+  })),
+)
+const VnDynastyApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./countries/vietnam/vndynastyPack'),
+  ]).then(([app, data]) => ({
+    default: function VnDynastyEra() {
+      return (
+        <app.DeepDiveApp pack={countryPack(data.VNDYNASTY_PACK, 'vietnam')} />
+      )
+    },
+  })),
+)
+const VnNguyenApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./countries/vietnam/vnnguyenPack'),
+  ]).then(([app, data]) => ({
+    default: function VnNguyenEra() {
+      return (
+        <app.DeepDiveApp pack={countryPack(data.VNNGUYEN_PACK, 'vietnam')} />
+      )
+    },
+  })),
+)
+const VnModernApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./countries/vietnam/vnmodernPack'),
+  ]).then(([app, data]) => ({
+    default: function VnModernEra() {
+      return <app.DeepDiveApp pack={countryPack(data.VNMODERN_PACK, 'vietnam')} />
+    },
+  })),
+)
+const MyMalaccaApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./countries/malaysia/mymalaccaPack'),
+  ]).then(([app, data]) => ({
+    default: function MyMalaccaEra() {
+      return (
+        <app.DeepDiveApp pack={countryPack(data.MYMALACCA_PACK, 'malaysia')} />
+      )
+    },
+  })),
+)
+const MyColonialApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./countries/malaysia/mycolonialPack'),
+  ]).then(([app, data]) => ({
+    default: function MyColonialEra() {
+      return (
+        <app.DeepDiveApp pack={countryPack(data.MYCOLONIAL_PACK, 'malaysia')} />
+      )
+    },
+  })),
+)
+const MyMerdekaApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./countries/malaysia/mymerdekaPack'),
+  ]).then(([app, data]) => ({
+    default: function MyMerdekaEra() {
+      return (
+        <app.DeepDiveApp pack={countryPack(data.MYMERDEKA_PACK, 'malaysia')} />
+      )
+    },
+  })),
+)
+const MyModernApp = lazyPack(() =>
+  Promise.all([
+    import('./japanEras/DeepDiveApp'),
+    import('./countries/malaysia/mymodernPack'),
+  ]).then(([app, data]) => ({
+    default: function MyModernEra() {
+      return <app.DeepDiveApp pack={countryPack(data.MYMODERN_PACK, 'malaysia')} />
+    },
+  })),
+)
+
 function TopicRoot() {
-  const { topic, chinaEra, japanEra } = useTopic()
+  const { topic, chinaEra, japanEra, activeEra } = useTopic()
 
   let screen = null
   if (topic === 'china') {
@@ -302,7 +528,7 @@ function TopicRoot() {
         screen = _exhaustive
       }
     }
-  } else {
+  } else if (topic === 'japan') {
     switch (japanEra) {
       case 'kofun':
         screen = <KofunApp />
@@ -342,6 +568,103 @@ function TopicRoot() {
         screen = _exhaustive
       }
     }
+  } else {
+    // 韓國、泰國、越南、馬來西亞：activeEra 即本國目前時代，
+    // 槽位一律經 setEraForTopic 驗過，此處轉回本國槽位型別。
+    switch (topic) {
+      case 'korea': {
+        const era = activeEra as KoreaEraSlot
+        switch (era) {
+          case 'koancient':
+            screen = <KoAncientApp />
+            break
+          case 'kogoryeo':
+            screen = <KoGoryeoApp />
+            break
+          case 'kojoseon':
+            screen = <KoJoseonApp />
+            break
+          case 'komodern':
+            screen = <KoModernApp />
+            break
+          default: {
+            const _exhaustive: never = era
+            screen = _exhaustive
+          }
+        }
+        break
+      }
+      case 'thailand': {
+        const era = activeEra as ThailandEraSlot
+        switch (era) {
+          case 'thsukhothai':
+            screen = <ThSukhothaiApp />
+            break
+          case 'thayutthaya':
+            screen = <ThAyutthayaApp />
+            break
+          case 'thchakri':
+            screen = <ThChakriApp />
+            break
+          case 'thmodern':
+            screen = <ThModernApp />
+            break
+          default: {
+            const _exhaustive: never = era
+            screen = _exhaustive
+          }
+        }
+        break
+      }
+      case 'vietnam': {
+        const era = activeEra as VietnamEraSlot
+        switch (era) {
+          case 'vnnorth':
+            screen = <VnNorthApp />
+            break
+          case 'vndynasty':
+            screen = <VnDynastyApp />
+            break
+          case 'vnnguyen':
+            screen = <VnNguyenApp />
+            break
+          case 'vnmodern':
+            screen = <VnModernApp />
+            break
+          default: {
+            const _exhaustive: never = era
+            screen = _exhaustive
+          }
+        }
+        break
+      }
+      case 'malaysia': {
+        const era = activeEra as MalaysiaEraSlot
+        switch (era) {
+          case 'mymalacca':
+            screen = <MyMalaccaApp />
+            break
+          case 'mycolonial':
+            screen = <MyColonialApp />
+            break
+          case 'mymerdeka':
+            screen = <MyMerdekaApp />
+            break
+          case 'mymodern':
+            screen = <MyModernApp />
+            break
+          default: {
+            const _exhaustive: never = era
+            screen = _exhaustive
+          }
+        }
+        break
+      }
+      default: {
+        const _exhaustive: never = topic
+        screen = _exhaustive
+      }
+    }
   }
 
   return <Suspense fallback={<p className="era-loading">載入中…</p>}>{screen}</Suspense>
@@ -354,8 +677,8 @@ function TopicRoot() {
  * 標題：跟國家／時代改 document.title 同 OG 標籤，方便分享卡同 SEO。
  */
 function UrlBridge() {
-  const { topic, chinaEra, japanEra, urlYear } = useTopic()
-  const eraId = topic === 'china' ? chinaEra : japanEra
+  const { topic, activeEra, urlYear } = useTopic()
+  const eraId = activeEra
   const eraKey = `${topic}:${eraId}`
 
   useEffect(() => {
@@ -408,12 +731,12 @@ function UrlBridge() {
   }, [eraKey, urlYear])
 
   useEffect(() => {
-    const slots = topic === 'china' ? CHINA_ERA_SLOTS : JAPAN_ERA_SLOTS
-    const slot = slots.find((s) => s.id === eraId)
-    const country = topic === 'china' ? '中國' : '日本'
-    const title = slot
-      ? `${country}·${slot.label}（${slot.range}）｜中日歷史回顧`
-      : '中日歷史回顧'
+    const slot = eraSlotsForTopic(topic).find((s) => s.id === eraId)
+    const country = countryLabelForTopic(topic)
+    // 中日保留原站名；新增的韓國、泰國、越南、馬來西亞用通用書名。
+    const isChinaOrJapan = topic === 'china' || topic === 'japan'
+    const brand = isChinaOrJapan ? '中日歷史回顧' : '歷史回顧'
+    const title = slot ? `${country}·${slot.label}（${slot.range}）｜${brand}` : brand
     document.title = title
     const setMeta = (selector: string, content: string) => {
       const el = document.head.querySelector(selector)
@@ -423,7 +746,9 @@ function UrlBridge() {
     setMeta('meta[name="twitter:title"]', title)
     const desc = slot
       ? `${country}${slot.label}（${slot.range}）——正史疆域、勢力與人物、行軍路徑逐年對照`
-      : '中日歷史回顧——中國（夏—當代）與日本（有史以來—當代）的正史疆域、勢力與人物互動年表'
+      : isChinaOrJapan
+        ? '中日歷史回顧——中國（夏—當代）與日本（有史以來—當代）的正史疆域、勢力與人物互動年表'
+        : '歷史回顧——韓國（前108—當代）、泰國（1238—當代）、越南（前111—當代）與馬來西亞（1400—當代）的正史疆域、勢力與人物互動年表'
     setMeta('meta[property="og:description"]', desc)
     setMeta('meta[name="description"]', desc)
     setMeta('meta[name="twitter:description"]', desc)

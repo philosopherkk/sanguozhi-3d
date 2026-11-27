@@ -96,7 +96,9 @@ export function DeepDiveMapStage({ pack }: { pack: JapanDeepDivePack }) {
           }
           territoryNote={
             base
-              ? mapWindow?.territoryNote ?? ASIA_WAR_TERRITORY_NOTE_ZH
+              ? mapWindow?.territoryNote ??
+                pack.territoryNote ??
+                ASIA_WAR_TERRITORY_NOTE_ZH
               : undefined
           }
         />

@@ -27,12 +27,11 @@ import {
   writeTimelineToUrl,
 } from '../lib/timelineUrl'
 import {
-  CHINA_ERA_SLOTS,
-  JAPAN_ERA_SLOTS,
+  countryLabelForTopic,
+  eraSlotsForTopic,
   useTopic,
-  type ChinaEraSlot,
+  type AppTopic,
   type EraSlotMeta,
-  type JapanEraSlot,
 } from '../state/TopicContext'
 
 const LEVELS: { id: ReadingLevel; label: string }[] = [
@@ -69,9 +68,8 @@ function collectHits(term: string): Hit[] {
   return hits.slice(0, 30)
 }
 
-function eraLabel(topic: string, era: string): string {
-  const slots = topic === 'china' ? CHINA_ERA_SLOTS : JAPAN_ERA_SLOTS
-  return slots.find((s) => s.id === era)?.label ?? era
+function eraLabel(topic: AppTopic, era: string): string {
+  return eraSlotsForTopic(topic).find((s) => s.id === era)?.label ?? era
 }
 
 /**
@@ -175,9 +173,8 @@ function useTimelineYear(): number | null {
 /** 固定於畫面底部的常駐設定列：字級、黑白底、閱讀程度、搜尋與書籤。 */
 export function BottomBar() {
   const prefs = useReadingPrefs()
-  const { topic, chinaEra, japanEra, setTopic, setChinaEra, setJapanEra } =
-    useTopic()
-  const era = topic === 'china' ? chinaEra : japanEra
+  const { topic, activeEra, setEraForTopic, setTopic } = useTopic()
+  const era = activeEra
   const chrome = useCollapseOnScroll(`${topic}:${era}`)
   const [panel, setPanel] = useState<Panel>(null)
   const [term, setTerm] = useState('')
@@ -277,7 +274,7 @@ export function BottomBar() {
       say('目前沒有年份可加入書籤，請先選擇年份。')
       return
     }
-    const label = `${topic === 'china' ? '中國' : '日本'}·${eraLabel(
+    const label = `${countryLabelForTopic(topic)}·${eraLabel(
       topic,
       era,
     )} ${yearLabel(y)}`
@@ -286,8 +283,7 @@ export function BottomBar() {
   }
 
   const goBookmark = (b: Bookmark) => {
-    const slots = b.topic === 'china' ? CHINA_ERA_SLOTS : JAPAN_ERA_SLOTS
-    const slot = slots.find((s) => s.id === b.era)
+    const slot = eraSlotsForTopic(b.topic).find((s) => s.id === b.era)
     // 時代鍵與國家不配的書籤（舊版本殘留或手改過存檔）會把時代畫面
     // 變成一片空白，因此寧可不跳，也不把它交回 TopicContext。
     if (!slot) {
@@ -296,8 +292,7 @@ export function BottomBar() {
     }
     const sameEra = topic === b.topic && era === b.era
     setPanel(null)
-    if (b.topic === 'china') setChinaEra(b.era as ChinaEraSlot)
-    else setJapanEra(b.era as JapanEraSlot)
+    setEraForTopic(b.topic, b.era)
     setTopic(b.topic)
     writeTimelineToUrl({ year: b.year, month: null })
     pushYear(b.year, slot, sameEra, say)

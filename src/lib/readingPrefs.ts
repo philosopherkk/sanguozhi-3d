@@ -1,7 +1,8 @@
 import { useSyncExternalStore } from 'react'
 import {
-  CHINA_ERA_SLOTS,
-  JAPAN_ERA_SLOTS,
+  countryLabelForTopic,
+  eraSlotsForTopic,
+  topicForEra,
   type AppTopic,
 } from '../state/TopicContext'
 
@@ -25,9 +26,6 @@ export interface Bookmark {
   label: string
 }
 
-const CHINA_ERA_IDS = new Set<string>(CHINA_ERA_SLOTS.map((s) => s.id))
-const JAPAN_ERA_IDS = new Set<string>(JAPAN_ERA_SLOTS.map((s) => s.id))
-
 /** 書籤文案用：西元前寫成「前100年」，與站內年份顯示一致。 */
 export function yearLabel(year: number): string {
   return year < 0 ? `前${-year}年` : `${year}年`
@@ -35,8 +33,8 @@ export function yearLabel(year: number): string {
 
 /**
  * 存盤的書籤要重驗：舊版本用過與現在不同的 topic／時代鍵，字串也可能被手改。
- * 時代鍵決定國家（兩國槽位不重疊），所以鍵不屬於原 topic 時改掛到正確國家，
- * 兩邊都不認識才丟掉——把陌生的時代鍵交回 TopicContext 會讓時代畫面整頁空白。
+ * 時代鍵決定國家（六國槽位互不重疊），所以鍵不屬於原 topic 時改掛到正確國家，
+ * 六國都不認識才丟掉——把陌生的時代鍵交回 TopicContext 會讓時代畫面整頁空白。
  */
 function normalizeBookmark(raw: unknown): Bookmark | null {
   if (raw === null || typeof raw !== 'object') return null
@@ -46,16 +44,12 @@ function normalizeBookmark(raw: unknown): Bookmark | null {
   }
   if (stored.year < -9999 || stored.year > 9999) return null
   const era = typeof stored.era === 'string' ? stored.era.trim() : ''
-  const inChina = CHINA_ERA_IDS.has(era)
-  const inJapan = JAPAN_ERA_IDS.has(era)
-  if (!inChina && !inJapan) return null
-  const topic: AppTopic = inJapan ? 'japan' : 'china'
-  const slot = (inJapan ? JAPAN_ERA_SLOTS : CHINA_ERA_SLOTS).find(
-    (s) => s.id === era,
-  )
+  const topic = topicForEra(era)
+  if (!topic) return null
+  const slot = eraSlotsForTopic(topic).find((s) => s.id === era)
   // 國家被改掛時，舊 label 寫的是錯的國家名，因此一併重算。
   const moved = stored.topic !== topic
-  const country = topic === 'china' ? '中國' : '日本'
+  const country = countryLabelForTopic(topic)
   const eraName = slot?.label ?? era
   const label =
     !moved && typeof stored.label === 'string' && stored.label.trim()
