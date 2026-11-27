@@ -228,6 +228,15 @@ function hasNumpy() {
 }
 if (hasNumpy()) {
   GATES.push({ name: 'audit:geo', cmd: 'npm run audit:geo', metrics: {} })
+} else if (process.env.CI) {
+  // 跳過只准喺本地發生：本地冇裝 numpy 係開發者嘅選擇，CI 冇裝就係閘門靜靜消失。
+  // 真實教訓：runner 鏡像把系統 python 換做 3.14（冇預裝 numpy）之後，audit:geo 喺 CI
+  // 消失咗好耐，日誌淨係一行提示，護欄照樣印「無惡化」——呢種失效模式要即刻紅。
+  console.error(
+    'gates — CI 偵測唔到 python3+numpy，audit:geo 唔准喺 CI 跳過。\n' +
+      '  請喺 .github/workflows/audit.yml 嘅「安裝 Python 閘門依賴」步驟補齊 numpy／pillow。'
+  )
+  process.exit(1)
 } else {
   console.log('提示：偵測不到 python3+numpy，本輪跳過 audit:geo（裝好後自動納入）')
 }
