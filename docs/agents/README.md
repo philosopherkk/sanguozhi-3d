@@ -91,7 +91,7 @@ sh scripts/agent-run.sh end <key>
 
 ## 4. 禁止事項
 
-- 不准改：`reports/gate-baseline.json`、`scripts/audit-*`、`scripts/audit_*`、`scripts/gate-ci.mjs`、`AGENTS.md`、`.cursorrules`、`docs/agents/`、`.opencode/`。不准跑任何 `--update-baseline`。
+- 不准改：`reports/gate-baseline.json`、`scripts/audit-*`、`scripts/audit_*`、`scripts/gate-ci.mjs`、`AGENTS.md`、`.cursorrules`、`docs/agents/`、`.opencode/`、`.agents/`。不准跑任何 `--update-baseline`。
 - 不准 `git reset --hard`、`git stash`、`git push --force`、`git checkout -- <檔>`（會洗掉別人的改動）。
 - 不准 `cd` 到自己 worktree 以外的目錄；尤其不准碰 `~/Project/historyfirst-1/historyfirst`（使用者自己的工作目錄）。
 - 不准 `git merge`、不准 `git rebase` 以外的整合動作。

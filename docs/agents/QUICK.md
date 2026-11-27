@@ -1,7 +1,7 @@
 # 排程 agent 快速卡（本輪唯一必讀，約 45 行）
 
-你是本機小模型。**只讀本卡就開工**；不要讀 `README.md`，也不要讀完整手冊。
-只有本卡講不清楚、或指令輸出看不懂時，才讀自己手冊開頭的「速查」那段（最多 30 行）。
+你是本機小模型。**只讀本卡就開工**；不要讀 `README.md`，也不要整檔讀完整手冊。
+開工後先載入對應技能（`.agents/skills/hf-<key>/SKILL.md`）；commit 與收工載入 `hf-gate-commit`。
 讀檔一律只取需要的那幾十行：`grep -n` 找行號，再取該段，不整檔讀入。
 
 ## 開工（照順序，不跳步）
@@ -11,7 +11,7 @@ cd <worktree>
 git status --porcelain                      # 非空＝立刻停，報告，不要碰
 git fetch origin && git switch agent/<key> && git rebase origin/main
 test -f docs/agents/QUICK.md && echo QUICK_OK || exit 1
-sh scripts/agent-run.sh start <key>         # GO 才繼續；WAIT 原樣再跑；BUSY 就停
+sh scripts/agent-run.sh start <key>         # GO 才繼續；WAIT／BUSY 就立即停止並報告
 node scripts/agent-model-check.mjs          # 必須 MODEL_LOCK_OK，否則停
 git rev-parse HEAD                          # 記為 BASE
 node scripts/agent-queue.mjs <key>          # 照佇列第一項做，不自己找事
@@ -22,7 +22,7 @@ node scripts/agent-queue.mjs <key>          # 照佇列第一項做，不自己�
 ```sh
 # 改完、單項驗證之後，commit 前必跑：
 git add -A
-node scripts/agent-selfcheck.mjs origin/main
+node scripts/agent-selfcheck.mjs origin/main > /tmp/sc-<key>.log 2>&1; echo sc=$?; tail -n 20 /tmp/sc-<key>.log
 node scripts/agent-selfcheck.mjs --commits origin/main
 npm run audit:chars > /tmp/chars-<key>.log 2>&1; echo exit=$?
 git commit -m "type(<key>): 摘要"
@@ -48,7 +48,7 @@ git status --porcelain                      # 必須空
 npx tsc -b; echo tsc=$?
 npm run build > /tmp/build-<key>.log 2>&1; echo build=$?
 npm run lint > /tmp/lint-<key>.log 2>&1; echo lint=$?
-node scripts/mobile_probe.mjs --narrow > /tmp/mp-<key>.log 2>&1; echo mp=$?; tail -n 5 /tmp/mp-<key>.log   # 手機回歸，須 0
+sh scripts/agent-probe-if-ui.sh "$BASE"     # 僅於改動 UI／CSS 時才跑手機 Chrome 探針
 npm run gates > /tmp/gates-after-<key>.log 2>&1; echo gates=$?   # 單項可先用 --only=<閘門名> 快驗
 sh scripts/agent-report.sh <key> <BASE> > /tmp/report-<key>.txt
 git push origin agent/<key>

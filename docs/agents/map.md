@@ -3,7 +3,7 @@
 > 本輪只讀 `docs/agents/QUICK.md` 就開工；本檔是參考，只在 QUICK 不夠時讀上面「速查」段（最多 30 行）。
 > worktree：`~/Project/historyfirst-1/historyfirst-wt-map`，分支 `agent/map`。
 
-## 速查（只看這段就夠）
+## 速查（只看這段就夠；實作步驟優先載入 `.agents/skills/hf-map/SKILL.md`）
 
 - 佇列：`node scripts/agent-queue.mjs map`（取無地標斷言的第一個環）。
 - 一輪最多 **4 個環**；做完就收工，剩下的寫進「下輪建議」。

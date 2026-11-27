@@ -3,10 +3,10 @@
 > 本輪只讀 `docs/agents/QUICK.md` 就開工；本檔是參考，只在 QUICK 不夠時讀上面「速查」段（最多 30 行）。
 > worktree：`~/Project/historyfirst-1/historyfirst-wt-enrich`，分支 `agent/enrich`。
 
-## 速查（只看這段就夠）
+## 速查（只看這段就夠；實作步驟優先載入 `.agents/skills/hf-enrich/SKILL.md`）
 
-- 佇列：`node scripts/agent-queue.mjs enrich`（主線取「太短段落」表第一列）。
-- 一輪最多 **4 段**；做完就收工，剩下的寫進「下輪建議」。
+- 佇列：`node scripts/agent-queue.mjs enrich`（直接取待辦前幾項；同檔條目可優先合併於同一輪）。
+- 一輪最多 **4 段**；做完就收工，commit scope 必須為 `(enrich)`，剩下的寫進「下輪建議」。
 - 單項驗證：`node scripts/audit_event_depth.mjs > /tmp/d.log 2>&1; echo exit=$?; tail -n 5 /tmp/d.log`。
 - 快驗閘門：`npm run gates -- --only=audit:event-depth`。
 - 具體做法見下方「每一項的做法」；只在這段不夠時往下讀。
@@ -24,20 +24,19 @@
 | `outcome`（結果） | ≥ 400 字 | 之後怎樣：直接結果、對地圖與制度的影響、後世評價 |
 | `layers.elementary` | 見佇列 2 | 小學生程度意譯，短句、少術語 |
 
-## 佇列（每輪從這裡取，不要自己找題目）
+## 佇列（每輪從 `agent-queue.mjs` 取，不要自己讀完整報告）
 
-### 佇列 1：太短的事件段落（主線）
+### 佇列 1 與 2：太短段落與缺小學生層（主線）
 
 ```sh
-node scripts/audit_event_depth.mjs
-sed -n '/最短 15 段/,/^## 三層意譯/p' reports/event-depth.md
+node scripts/agent-queue.mjs enrich
 ```
 
-表格欄位是：段（起因／經過／結果）、現長、檔、事件 id、行號。**從表的第一列開始做**，做完 4 列就收工，下一輪再重跑取新的前 15 列。目前缺口約 60 段，集中在 `src/zhou/data`、`src/qinhan/data`、`src/imperial/data`。
+`agent-queue.mjs` 會直接列出 `檔:行｜層｜現字數` 或缺少 `elementary` 的事件。**從清單前排開始做**，做完 4 項就收工，下一輪再重跑。目前太短段落已歸零，待辦集中在缺小學生層的條目。
 
-### 佇列 2：缺小學生層的事件（主線做完或卡住時）
+### 佇列 2 補充：小學生層格式
 
-在同一份報告的「三層意譯」一節看缺口數。用 `grep -n "elementary" <檔>` 找已有的寫法，照同檔既有條目的格式補在該事件的 `layers` 裡。小學生層的字數要在中學生層的一半以下（`audit:reading-layers` 會檢查比例）。
+用 `grep -n "elementary" <檔>` 找已有的寫法，照同檔既有條目的格式補在該事件的 `layers` 裡。小學生層的字數要在中學生層的一半以下（`audit:reading-layers` 會檢查 `1 : 1.5 : 3` 比例）。
 
 ### 佇列 3：成語薄弱世紀（前兩個佇列都空或卡住時）
 

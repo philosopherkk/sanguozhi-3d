@@ -2,8 +2,7 @@
 # agent-run.sh — 排程 agent 的「同時只准一支」互斥鎖與時間預算。
 #
 #   sh scripts/agent-run.sh start <key>   開工前第一個指令；印 GO 才准繼續
-#                                         印 WAIT 就原樣再跑一次同一指令（最多等 MAXWAIT 分鐘）
-#                                         印 BUSY 才是放棄本輪
+#                                         印 WAIT 或 BUSY 均立即停止（預設 MAXWAIT=0 快速失敗）
 #   sh scripts/agent-run.sh left <key>    還剩幾分鐘（每做完一項都要看一次，並刷新鎖心跳）
 #   sh scripts/agent-run.sh end <key>     收工最後一個指令；釋放鎖
 #
@@ -21,7 +20,7 @@ BUDGET="${HF_AGENT_BUDGET_MIN:-60}"
 HARD="${HF_AGENT_HARD_MIN:-90}"
 HB="${HF_AGENT_HB_MIN:-35}"
 WAITSEC="${HF_AGENT_WAIT_SEC:-100}"
-MAXWAIT="${HF_AGENT_MAXWAIT_MIN:-60}"
+MAXWAIT="${HF_AGENT_MAXWAIT_MIN:-0}"
 now=$(date +%s)
 
 read_lock() {
@@ -49,6 +48,12 @@ case "$1" in
   start)
     key="$2"
     [ -n "${key}" ] || { echo "用法：agent-run.sh start <key>"; exit 2; }
+    cli_n=$(pgrep -f 'opencode-cli run' 2>/dev/null | wc -l | tr -d ' ')
+    case "$cli_n" in ''|*[!0-9]*) cli_n=0 ;; esac
+    if [ "${cli_n}" -gt 1 ]; then
+      echo "BUSY：偵測到同時有 ${cli_n} 個 opencode-cli run 程序正在執行。為避免並發拖垮本機模型，本輪立即跳過。"
+      exit 3
+    fi
     WF="${LOCK}.wait.${key}"
     if [ -f "${LOCK}" ]; then
       read_lock

@@ -3,7 +3,7 @@
 > 本輪只讀 `docs/agents/QUICK.md` 就開工；本檔是參考，只在 QUICK 不夠時讀上面「速查」段（最多 30 行）。
 > worktree：`~/Project/historyfirst-1/historyfirst-wt-march`，分支 `agent/march`。
 
-## 速查（只看這段就夠）
+## 速查（只看這段就夠；實作步驟優先載入 `.agents/skills/hf-march/SKILL.md`）
 
 - 佇列：`node scripts/agent-queue.mjs march`（取無端點斷言的第一條路線）。
 - 一輪最多 **4 條**；做完就收工，剩下的寫進「下輪建議」。
