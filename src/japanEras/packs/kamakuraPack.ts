@@ -255,7 +255,7 @@ export const KAMAKURA_PACK: JapanDeepDivePack = {
     {
       id: F.court,
       name: '朝廷',
-      color: '#C4A574',
+      color: '#a1875f',
       activeFrom: 1185,
       activeTo: 1333,
       source: '日本中世史通說：京都朝廷與院政',

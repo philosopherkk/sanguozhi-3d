@@ -213,7 +213,7 @@ export const NARA_PACK: JapanDeepDivePack = {
     {
       id: F.court,
       name: '朝廷',
-      color: '#C9A227',
+      color: '#a98821',
       activeFrom: 710,
       activeTo: 793,
       source: '《續日本紀》：平城京律令國家',

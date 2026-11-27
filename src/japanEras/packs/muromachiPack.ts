@@ -207,7 +207,7 @@ export const MUROMACHI_PACK: JapanDeepDivePack = {
     {
       id: F.south,
       name: '南朝',
-      color: '#C4A574',
+      color: '#a1875f',
       activeFrom: 1336,
       activeTo: 1392,
       source: '日本中世史通說：吉野朝廷',

@@ -4,7 +4,7 @@ export const JAPAN_ERA_BANDS: JapanEraBand[] = [
   { id: 'kofun', label: '古墳', from: 250, to: 537, color: '#6a5a4a' },
   { id: 'asuka', label: '飛鳥', from: 538, to: 710, color: '#8a6a4a' },
   { id: 'nara', label: '奈良', from: 710, to: 794, color: '#a08050' },
-  { id: 'heian', label: '平安', from: 794, to: 1185, color: '#c4a574' },
+  { id: 'heian', label: '平安', from: 794, to: 1185, color: '#a1875f' },
   { id: 'kamakura', label: '鎌倉', from: 1185, to: 1333, color: '#5a6a8a' },
   { id: 'muromachi', label: '室町', from: 1336, to: 1573, color: '#4a7a6a' },
   { id: 'sengoku', label: '戰國', from: 1467, to: 1573, color: '#8b3a3a' },

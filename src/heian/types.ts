@@ -27,7 +27,7 @@ export const HEIAN_FACTIONS: {
   {
     id: '朝廷',
     name: '朝廷',
-    color: '#CA8A04',
+    color: '#bc8004',
     activeFrom: 1150,
     activeTo: 1185,
     source: '日本中世史通說：院與天皇仍在京都。色塊是名義核心，不是令制國界',

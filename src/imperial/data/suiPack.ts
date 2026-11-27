@@ -22,7 +22,7 @@ export const SUI_PACK: ImperialPack = {
   factions: [
     { id: '隋', name: '隋', color: '#6b2a2a' },
     { id: '陳', name: '陳', color: '#3a5a4a' },
-    { id: '唐', name: '唐', color: '#c9a227' },
+    { id: '唐', name: '唐', color: '#a98821' },
   ],
   snapshots: [
     {

@@ -4187,3 +4187,10 @@ html[data-theme='light'] .era-bar button small,
 html[data-theme='light'] .topic-switch__range {
   opacity: 1;
 }
+
+/* 淺色主題色塊外框：不用白色陰影（在米白面板上不可見），改用深褐細框以維持圖形邊界可辨。 */
+html[data-theme='light'] .power-board__swatch,
+html[data-theme='light'] .faction-situation__swatch,
+html[data-theme='light'] .person-swatch {
+  box-shadow: 0 0 0 1px rgba(40, 28, 12, 0.55);
+}

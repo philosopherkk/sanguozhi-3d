@@ -229,7 +229,7 @@ export const ASUKA_PACK: JapanDeepDivePack = {
     {
       id: F.court,
       name: '大王家',
-      color: '#C4A574',
+      color: '#a1875f',
       activeFrom: 538,
       activeTo: 709,
       source: '《日本書紀》系；天皇／大王與改新後中央',

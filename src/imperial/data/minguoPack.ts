@@ -31,7 +31,7 @@ export const MINGUO_PACK: ImperialPack = {
   factions: [
     { id: '北洋', name: '北洋', color: '#4A6A8A' },
     { id: '皖系', name: '皖系', color: '#7A3E2E' },
-    { id: '直系', name: '直系', color: '#C4A35A' },
+    { id: '直系', name: '直系', color: '#a88438' },
     { id: '奉系', name: '奉系', color: '#1B4F72' },
     { id: '晉系', name: '晉系', color: '#5C6B3A' },
     { id: '西北軍', name: '西北軍', color: '#3D6B8A' },
@@ -39,12 +39,12 @@ export const MINGUO_PACK: ImperialPack = {
     { id: '滇系', name: '滇系', color: '#6B3A6B' },
     { id: '粵系', name: '粵系', color: '#B85C38' },
     { id: '川系', name: '川系', color: '#8B6914' },
-    { id: '新疆地方', name: '新疆地方', color: '#C4A56A' },
+    { id: '新疆地方', name: '新疆地方', color: '#9e8656' },
     { id: '國民黨', name: '國民黨', color: '#1F7A4D' },
     { id: '日軍', name: '日軍', color: '#8B1A1A' },
     { id: '日本', name: '日本', color: '#6E2430' },
     { id: '共產黨', name: '共產黨', color: '#A33B3B' },
-    { id: '盛世才', name: '盛世才', color: '#D4A017' },
+    { id: '盛世才', name: '盛世才', color: '#b08513' },
     { id: GAGSHA_ID, name: '噶廈', color: '#6E6256' },
   ],
   snapshots: [

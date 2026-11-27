@@ -30,12 +30,12 @@ export const TANG_PACK: ImperialPack = {
     { year: 907, label: '亡唐' },
   ],
   factions: [
-    { id: '唐', name: '唐', color: '#c9a227' },
+    { id: '唐', name: '唐', color: '#a98821' },
     { id: '安史', name: '安史', color: '#8b1a1a' },
     { id: '藩鎮', name: '藩鎮', color: '#6a5a2a' },
     { id: '吐蕃', name: '吐蕃', color: '#4a6a5a' },
     { id: '南詔', name: '南詔', color: '#5a4030' },
-    { id: '新羅', name: '新羅（朝貢）', color: '#b7c4d4' },
+    { id: '新羅', name: '新羅（朝貢）', color: '#7d8e9e' },
     { id: '黃巢', name: '黃巢', color: '#a33b2a' },
   ],
   snapshots: [

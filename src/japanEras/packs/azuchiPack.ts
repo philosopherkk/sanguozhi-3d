@@ -67,7 +67,7 @@ const FACTIONS = [
   {
     id: '豐臣',
     name: '豐臣',
-    color: '#CA8A04',
+    color: '#bc8004',
     activeFrom: 1582,
     activeTo: 1615,
     source: '日本戰國通說：秀吉—秀賴',

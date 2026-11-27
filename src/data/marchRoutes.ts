@@ -651,7 +651,7 @@ export const FRONTIER_ZONES: FrontierZone[] = [
     source:
       '《後漢書·南匈奴列傳》：南單于款塞，部眾散居并州北緣。304年劉淵起事見《晉書·劉元海載記》。示意，非郡界',
     note: '附塞，非編戶；304 年劉淵起事後方成政權',
-    color: '#C4A574',
+    color: '#a1875f',
     from: 184,
     to: 280,
     labelAt: [1206.2, 702.2],
