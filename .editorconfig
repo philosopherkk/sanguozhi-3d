@@ -1,0 +1,26 @@
+# EditorConfig：本 repo 冇 prettier 設定檔， formatter 只能靠編輯器自律。
+# 2026-11-27 補：多個 agent 同場改檔，曾因跑 `npx prettier`（無設定檔 → default 雙引號＋分號）
+# 把整檔重排，逼到要 `git checkout` 成檔重改。呢度只釘「不會改變語意」的四項，
+# 不釘 printWidth／引號風格——全庫 191–230 支檔與 prettier 預設輸出有意義差異，
+# 要引入 prettier 屬「一次重排全庫」嘅決定，需另開一輪連 CI 一起處理。
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+[*.{ts,tsx,js,mjs,json,css,html}]
+indent_style = space
+indent_size = 2
+
+# Python 腳本用 4 空格（PEP 8）：scripts/audit_geo.py、verify_chars_opencc.py
+[*.py]
+indent_size = 4
+
+[*.md]
+# Markdown 用兩個空格結尾表示換行，唔准 trim 剝走
+trim_trailing_whitespace = false
