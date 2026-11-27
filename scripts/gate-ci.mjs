@@ -80,6 +80,15 @@ const GATES = [
     metrics: { fail: /audit:map --teeth — 失敗 (\d+) 項/ },
   },
   { name: 'audit:chars', cmd: 'npm run audit:chars', metrics: { hard: /硬傷 (\d+)/ } },
+  // 2026-11-27 批次 6 補：覆核工具嘅「詞典覆蓋率」一直只係口頭規矩（未分類必須 0）。
+  // 未分類＝冇人判過嘅詞，唔係「opencc 誤報」嘅證明；同 audit:chars 一樣要數字入閘，
+  // 否則新出現嘅簡體式寫法只會靜靜留喺「未分類」。工具只量呢一個數字（--strict-coverage），
+  // 唔會因為 opencc 對正字嘅建議而失敗。CI 需 python3 + opencc-python-reimplemented。
+  {
+    name: 'verify:chars-coverage',
+    cmd: 'npm run verify:chars-coverage',
+    metrics: { unclassified: /未分類 (\d+)/ },
+  },
   // 2026-11-21 補：自檢本來只掃檔案，小模型把簡體字寫入 commit 標題無人察覺
   // （幾個含簡體字的標題都進了 main）。用同一支字表掃 origin/main..HEAD。
   {

@@ -19,7 +19,26 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
+      # 2026-11-27 補：`npm run gates` 入面有兩條閘門用 Python：
+      #   audit:geo            → numpy + pillow（ubuntu-latest 系統 Python 已內含）
+      #   verify:chars-coverage → opencc 字典（系統冇，必須自己裝）
+      # 刻意用系統 python3 安裝，唔用 actions/setup-python：setup-python 會把自己的
+      # 解釋器排喺 PATH 前面，而佢冇預裝 numpy／pillow → 反而令 audit:geo 起唔嚟。
+      # Ubuntu 24.04 runner 係 externally-managed（PEP 668），所以要 --break-system-packages。
+      # 呢條唔係「裝唔到就算」：verify_chars_opencc.py 喺 import opencc 失敗時非零 exit，
+      # 閘門會紅（fail-closed）；下面嗰條自證步驟只係令原因一眼睇到，唔係攔河板。
+      - name: 安裝覆核工具依賴（opencc，詞典覆蓋率閘門用）
+        run: python3 -m pip install --user --break-system-packages opencc-python-reimplemented==0.1.7
+      - name: 覆核工具依賴自證（字典檔要搵到）
+        run: >-
+          python3 -c "import opencc, os;
+          d = os.path.join(os.path.dirname(opencc.__file__), 'dictionary');
+          assert os.path.isdir(d), 'opencc 字典目錄缺失: ' + d;
+          print('opencc dictionary ok:', d)"
       - run: npm run build
+      # oxlint：gates 冇包 lint（佢只量內容／格式以外嘅東西），之前只有本地 agent 記得跑
+      # 先有意義，故喺 CI 補一條；有 error 即紅（warning 唔阻）。
+      - run: npm run lint
       # 純靜態 SPA：任何 VITE_* 金鑰都會被打進公開 bundle，.gitignore 擋不住，
       # 因此針對建置產物掃金鑰外形。
       - run: npm run check:secrets

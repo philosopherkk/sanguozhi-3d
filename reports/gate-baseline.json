@@ -112,5 +112,8 @@
   },
   "audit:geo": {
     "exit": 0
+  },
+  "verify:chars-coverage": {
+    "unclassified": 0
   }
 }
