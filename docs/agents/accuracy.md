@@ -3,9 +3,9 @@
 > 本輪只讀 `docs/agents/QUICK.md` 就開工；本檔是參考，只在 QUICK 不夠時讀上面「速查」段（最多 30 行）。
 > worktree：`~/Project/historyfirst-1/historyfirst-wt-accuracy`，分支 `agent/accuracy`。
 
-## 速查（只看這段就夠）
+## 速查（只看這段就夠；實作步驟優先載入 `.agents/skills/hf-accuracy/SKILL.md`）
 
-- 佇列：`node scripts/agent-queue.mjs accuracy`（取 `at` 最舊的先查）。
+- 佇列：`node scripts/agent-queue.mjs accuracy`（固定取 `--todo` 未查證條目，同典籍或同檔優先）。
 - 一輪最多 **4 條**；做完就收工，剩下的寫進「下輪建議」。
 - 單項驗證：`npm run audit:quotes > /tmp/q.log 2>&1; echo exit=$?; tail -n 5 /tmp/q.log`，「錯誤」須為 0。
 - 引文逐字核對用 `python3 scripts/qsrc.py <篇名> '<引文開頭>'`，只看匹配行。
@@ -18,21 +18,15 @@
 
 把站上的**引文、出處、年份、人名、數字**逐條對回原典，錯的改正，查不到的標明。**查證不等於創作**：你的工作是比對與記錄，不是改寫。
 
-## 佇列：最舊戳記先查
+## 佇列：未查證條目優先（`--todo`）
 
-每個已查證的條目在 `scripts/quote-audit-ledger.json` 有一筆 `{stamp, page, at}`，`at` 是上次查證日期。從最舊的開始：
+不要自行用 Python 讀 `scripts/quote-audit-ledger.json`；一律由佇列腳本列出未查證條目：
 
 ```sh
-python3 - <<'PY'
-import json
-d = json.load(open('scripts/quote-audit-ledger.json'))
-rows = sorted(d.items(), key=lambda kv: kv[1]['at'])[:10]
-for k, v in rows:
-    print(v['at'], v['page'] or '(無頁)', k)
-PY
+node scripts/agent-queue.mjs accuracy
 ```
 
-輸出每行：上次日期、出處頁名、`檔案#條目key`。**從第一行開始做**，一輪最多做 4 條。
+輸出每行格式：`檔案#條目key` 與對應 `qsrc.py` 查證指令。**優先挑選同檔或同典籍的條目**（快取命中率最高），一輪最多做 4 條。
 
 ## 單一條目的做法
 
