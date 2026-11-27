@@ -903,7 +903,9 @@ for (const s of slots) {
       slot: s.name,
       year: g.year,
       why: [...g.reasons].join('、'),
-      todo: '新增事件卡（出處要引原典，深度要過 audit:event-depth）',
+      // 沒有 critical: true，補完卡只是把該年從「缺口」推到「未標」：
+      // 總待辦數不動，代理卻會以為已經做完。
+      todo: '新增事件卡並設 critical: true（出處要引原典，深度要過 audit:event-depth）',
       file: s.file,
     })
   }
