@@ -78,7 +78,7 @@ npx tsc -b; echo tsc=$?                         # 必須 0（注意：tsc --noEm
 npm run build > /tmp/build-<key>.log 2>&1; echo build=$?   # 必須 0
 npm run lint > /tmp/lint-<key>.log 2>&1; echo lint=$?      # 0 error
 npm run gates > /tmp/gates-after-<key>.log 2>&1; echo gates=$?   # 改完單項可用 npm run gates -- --only=<閘門名> 先快驗
-git push origin agent/<key>
+git push --force-with-lease origin agent/<key>
 git ls-remote origin refs/heads/agent/<key>     # 前 40 字元必須等於 git rev-parse HEAD
 node scripts/agent-selfcheck.mjs origin/main    # 最後再跑一次
 sh scripts/agent-run.sh end <key>
