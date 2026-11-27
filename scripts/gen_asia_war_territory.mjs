@@ -409,6 +409,9 @@ const CHECKS = [
   ['hongkong', '廣州（不入港九框）', 113.26, 23.13, false],
   ['okinawa', '那霸（沖繩縣廳駐地）', 127.68, 26.21, true],
   ['okinawa', '廈門（閩南，不入琉球框）', 118.09, 24.48, false],
+  // 熱河・遼東方面框（1933，座標一律 wp_coord）：承德為作戰目標地；北平在框界（東經116.5度）以西
+  ['re_hotung', '承德（1933年3月9日熱河作戰後陷落）', 117.96, 40.95, true],
+  ['re_hotung', '北京（框界以西，不入熱河遼東方面框）', 116.40, 39.90, false],
 ]
 let bad = 0
 for (const [id, label, lo, la, want] of CHECKS) {
