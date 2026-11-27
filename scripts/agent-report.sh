@@ -3,7 +3,7 @@
 # 用法：sh scripts/agent-report.sh march abc1234 > /tmp/report-march.txt
 # 模型只需在骨架上補「完成項目／放棄清單／下輪建議」，不要改既有數字。
 set -u
-key="$1"; base="$2"
+key="$1"; base="${2:-origin/main}"
 head=$(git rev-parse --short HEAD)
 n=$(git rev-list --count "${base}..HEAD" 2>/dev/null || echo '?')
 dirty=$(git status --porcelain)

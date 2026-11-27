@@ -22,10 +22,10 @@ git status --porcelain
 npx tsc -b; echo tsc=$?
 npm run build > /tmp/build.log 2>&1; echo build=$?; tail -n 10 /tmp/build.log
 npm run lint > /tmp/lint.log 2>&1; echo lint=$?; tail -n 10 /tmp/lint.log
-sh scripts/agent-probe-if-ui.sh "$BASE"
+sh scripts/agent-probe-if-ui.sh "${BASE:-origin/main}"
 npm run gates > /tmp/gates-after.log 2>&1; echo gates=$?; tail -n 20 /tmp/gates-after.log
-sh scripts/agent-report.sh <key> "$BASE" > /tmp/report.txt
-git push origin agent/<key>
+sh scripts/agent-report.sh <key> "${BASE:-origin/main}" > /tmp/report.txt
+git push --force-with-lease origin agent/<key>
 git ls-remote origin refs/heads/agent/<key>
 sh scripts/agent-run.sh end <key>
 ```

@@ -48,10 +48,10 @@ git status --porcelain                      # 必須空
 npx tsc -b; echo tsc=$?
 npm run build > /tmp/build-<key>.log 2>&1; echo build=$?
 npm run lint > /tmp/lint-<key>.log 2>&1; echo lint=$?
-sh scripts/agent-probe-if-ui.sh "$BASE"     # 僅於改動 UI／CSS 時才跑手機 Chrome 探針
+sh scripts/agent-probe-if-ui.sh "${BASE:-origin/main}"     # 僅於改動 UI／CSS 時才跑手機 Chrome 探針
 npm run gates > /tmp/gates-after-<key>.log 2>&1; echo gates=$?   # 單項可先用 --only=<閘門名> 快驗
 sh scripts/agent-report.sh <key> <BASE> > /tmp/report-<key>.txt
-git push origin agent/<key>
+git push --force-with-lease origin agent/<key>
 sh scripts/agent-run.sh end <key>           # 最後一個指令
 ```
 
