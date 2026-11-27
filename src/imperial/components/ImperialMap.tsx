@@ -2,7 +2,6 @@ import {
   useEffect,
   useMemo,
   useRef,
-  useState,
   type PointerEvent as ReactPointerEvent,
 } from 'react'
 import {
@@ -16,6 +15,7 @@ import {
 } from '../../components/map/RouteOverlay'
 import { MapCredit } from '../../components/MapCredit'
 import { MapLayerBar } from '../../components/map/MapLayerBar'
+import { useMapLayers } from '../../lib/layerUrl'
 import { shapesFromExtensions, controlToExtensions } from '../../lib/eraShapes'
 import {
   clampMapPan,
@@ -76,8 +76,13 @@ export function ImperialMap() {
 
   const wrapRef = useRef<HTMLDivElement>(null)
   const { view, viewRef, setView } = useRafView()
-  const [showTerritory, setShowTerritory] = useState(true)
-  const [showRoutes, setShowRoutes] = useState(true)
+  const {
+    layers: { territory: showTerritory, routes: showRoutes },
+    toggleLayer,
+  } = useMapLayers({
+    territory: { defaultOpen: true },
+    routes: { defaultOpen: true },
+  })
   const dragRef = useRef<{
     active: boolean
     x0: number
@@ -287,8 +292,8 @@ export function ImperialMap() {
         <MapLayerBar
           showTerritory={showTerritory}
           showRoutes={showRoutes}
-          onToggleTerritory={() => setShowTerritory((v) => !v)}
-          onToggleRoutes={() => setShowRoutes((v) => !v)}
+          onToggleTerritory={() => toggleLayer('territory')}
+          onToggleRoutes={() => toggleLayer('routes')}
         />
 
         <div className="map-2d__zoom-ui">

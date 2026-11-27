@@ -37,10 +37,7 @@ import {
   useRafView,
   type ViewTransform,
 } from '../lib/mapViewport'
-import {
-  usePersistedOpen,
-  usePersistedOpenResponsive,
-} from '../lib/usePersistedOpen'
+import { useMapLayers } from '../lib/layerUrl'
 import { useSelection } from '../state/SelectionContext'
 import { useYear } from '../state/YearContext'
 import type { FactionId } from '../types/data'
@@ -125,27 +122,36 @@ export function Map2D() {
 
   const wrapRef = useRef<HTMLDivElement>(null)
   const { view, viewRef, setView } = useRafView()
-  // 勢力疆域是本地圖的主體：桌面預設開啟；窄屏（≤640px，MOBILE_LAYOUT_MAX_PX）
-  // 對首次訪客預設關閉勢力與行軍，避免色塊與路線在小地圖上一開始就蓋住畫面
-  // （見 mobile.css 修 16）。使用者存過選擇後一律跟 localStorage，不再被預設
-  // 或跨 640px 縮放覆蓋（usePersistedOpenResponsive 約定）。塞外維持預設關。
-  // 7b179b2 曾把三項一起關掉，使三國地圖再也看不到州郡界線，此處恢復勢力一項。
-  // 註解與代碼對齊（批次 5）：此前註解寫「行軍預設收」而程式碼預設開，以程式碼為準。
-  const [showTerritory, setShowTerritory] = usePersistedOpenResponsive(
-    'map2d-layer-territory',
-    { desktop: true, mobile: false },
-  )
-  // 鍵名帶 v2：舊鍵 `map2d-layer-routes` 記住過「關」的使用者，預設改 true 之後
-  // 仍會被舊值壓住而看不到行軍線，故另起一鍵，讓所有人先看到一次；
-  // 其後使用者自己關掉，會記在 v2 鍵上，不再被覆寫。
-  const [showRoutes, setShowRoutes] = usePersistedOpenResponsive(
-    'map2d-layer-routes-v2',
-    { desktop: true, mobile: false },
-  )
-  const [showFrontier, setShowFrontier] = usePersistedOpen(
-    'map2d-layer-frontier',
-    false,
-  )
+  const {
+    layers: {
+      territory: showTerritory,
+      routes: showRoutes,
+      frontier: showFrontier,
+    },
+    toggleLayer,
+  } = useMapLayers({
+    // 勢力疆域是本地圖的主體：桌面預設開啟；窄屏（≤640px，MOBILE_LAYOUT_MAX_PX）
+    // 對首次訪客預設關閉勢力與行軍，避免色塊與路線在小地圖上一開始就蓋住畫面
+    // （見 mobile.css 修 16）。使用者存過選擇後一律跟 localStorage，不再被預設
+    // 或跨 640px 縮放覆蓋（usePersistedOpenResponsive 約定）。塞外維持預設關。
+    // 7b179b2 曾把三項一起關掉，使三國地圖再也看不到州郡界線，此處恢復勢力一項。
+    // 註解與代碼對齊（批次 5）：此前註解寫「行軍預設收」而程式碼預設開，以程式碼為準。
+    territory: {
+      storageKey: 'map2d-layer-territory',
+      defaultOpen: { desktop: true, mobile: false },
+    },
+    // 鍵名帶 v2：舊鍵 `map2d-layer-routes` 記住過「關」的使用者，預設改 true 之後
+    // 仍會被舊值壓住而看不到行軍線，故另起一鍵，讓所有人先看到一次；
+    // 其後使用者自己關掉，會記在 v2 鍵上，不再被覆寫。
+    routes: {
+      storageKey: 'map2d-layer-routes-v2',
+      defaultOpen: { desktop: true, mobile: false },
+    },
+    frontier: {
+      storageKey: 'map2d-layer-frontier',
+      defaultOpen: false,
+    },
+  })
   const dragRef = useRef<{
     active: boolean
     x0: number
@@ -470,10 +476,10 @@ export function Map2D() {
         <MapLayerBar
           showTerritory={showTerritory}
           showRoutes={showRoutes}
-          onToggleTerritory={() => setShowTerritory((v) => !v)}
-          onToggleRoutes={() => setShowRoutes((v) => !v)}
+          onToggleTerritory={() => toggleLayer('territory')}
+          onToggleRoutes={() => toggleLayer('routes')}
           showFrontier={showFrontier}
-          onToggleFrontier={() => setShowFrontier((v) => !v)}
+          onToggleFrontier={() => toggleLayer('frontier')}
           frontierPanel={
             <div
               id="frontier-pop"

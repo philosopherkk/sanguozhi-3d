@@ -2,7 +2,6 @@ import {
   useEffect,
   useMemo,
   useRef,
-  useState,
   type PointerEvent as ReactPointerEvent,
 } from 'react'
 import {
@@ -12,6 +11,7 @@ import {
 import { HISTORICAL_BASEMAPS } from '../../data/historicalBasemaps'
 import { MapCredit } from '../../components/MapCredit'
 import { MapLayerBar } from '../../components/map/MapLayerBar'
+import { useMapLayers } from '../../lib/layerUrl'
 import { MapRouteLegend } from '../../components/map/MapRouteLegend'
 import {
   MARCH_ROUTE_SAME_YEAR,
@@ -84,9 +84,18 @@ export function QinHanMap() {
 
   const wrapRef = useRef<HTMLDivElement>(null)
   const { view, viewRef, setView } = useRafView()
-  const [showTerritory, setShowTerritory] = useState(true)
-  const [showRoutes, setShowRoutes] = useState(true)
-  const [showFrontier, setShowFrontier] = useState(false)
+  const {
+    layers: {
+      territory: showTerritory,
+      routes: showRoutes,
+      frontier: showFrontier,
+    },
+    toggleLayer,
+  } = useMapLayers({
+    territory: { defaultOpen: true },
+    routes: { defaultOpen: true },
+    frontier: { defaultOpen: false },
+  })
   const dragRef = useRef<{
     active: boolean
     x0: number
@@ -359,10 +368,10 @@ export function QinHanMap() {
         <MapLayerBar
           showTerritory={showTerritory}
           showRoutes={showRoutes}
-          onToggleTerritory={() => setShowTerritory((v) => !v)}
-          onToggleRoutes={() => setShowRoutes((v) => !v)}
+          onToggleTerritory={() => toggleLayer('territory')}
+          onToggleRoutes={() => toggleLayer('routes')}
           showFrontier={showFrontier}
-          onToggleFrontier={() => setShowFrontier((v) => !v)}
+          onToggleFrontier={() => toggleLayer('frontier')}
         />
         {showRoutes ? (
           <div className="map-2d__route-legend">

@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 const PREFIX = 'sanguozhi-3d:'
 export const MOBILE_LAYOUT_MAX_PX = 640
 
-function readStored(key: string): boolean | null {
+export function readPersistedOpen(key: string): boolean | null {
   if (typeof window === 'undefined') return null
   try {
     const raw = localStorage.getItem(`${PREFIX}${key}`)
@@ -15,17 +15,29 @@ function readStored(key: string): boolean | null {
   return null
 }
 
+export function writePersistedOpen(key: string, value: boolean): void {
+  if (typeof window === 'undefined') return
+  try {
+    localStorage.setItem(`${PREFIX}${key}`, value ? '1' : '0')
+  } catch {
+    /* ignore quota / private mode */
+  }
+}
+
 export function isMobileLayoutViewport(): boolean {
   if (typeof window === 'undefined') return false
   return window.matchMedia(`(max-width: ${MOBILE_LAYOUT_MAX_PX}px)`).matches
 }
 
-function responsiveDefault(defaults: { desktop: boolean; mobile: boolean }): boolean {
+export function resolveResponsiveOpen(defaults: {
+  desktop: boolean
+  mobile: boolean
+}): boolean {
   return isMobileLayoutViewport() ? defaults.mobile : defaults.desktop
 }
 
 function initialOpen(storageKey: string, defaultOpen: boolean): boolean {
-  const stored = readStored(storageKey)
+  const stored = readPersistedOpen(storageKey)
   if (stored !== null) return stored
   return defaultOpen
 }
@@ -34,9 +46,9 @@ function initialOpenResponsive(
   storageKey: string,
   defaults: { desktop: boolean; mobile: boolean },
 ): boolean {
-  const stored = readStored(storageKey)
+  const stored = readPersistedOpen(storageKey)
   if (stored !== null) return stored
-  return responsiveDefault(defaults)
+  return resolveResponsiveOpen(defaults)
 }
 
 /** 記住面板展開狀態（同一瀏覽器分頁關閉前有效）。 */
@@ -52,11 +64,7 @@ export function usePersistedOpen(
     (next: boolean | ((prev: boolean) => boolean)) => {
       setOpenState((prev) => {
         const value = typeof next === 'function' ? next(prev) : next
-        try {
-          localStorage.setItem(`${PREFIX}${storageKey}`, value ? '1' : '0')
-        } catch {
-          /* ignore */
-        }
+        writePersistedOpen(storageKey, value)
         return value
       })
     },
@@ -79,8 +87,8 @@ export function usePersistedOpenResponsive(
     const query = `(max-width: ${MOBILE_LAYOUT_MAX_PX}px)`
     const mq = window.matchMedia(query)
     const sync = () => {
-      if (readStored(storageKey) !== null) return
-      setOpenState(responsiveDefault(defaults))
+      if (readPersistedOpen(storageKey) !== null) return
+      setOpenState(resolveResponsiveOpen(defaults))
     }
     mq.addEventListener('change', sync)
     return () => mq.removeEventListener('change', sync)
@@ -90,11 +98,7 @@ export function usePersistedOpenResponsive(
     (next: boolean | ((prev: boolean) => boolean)) => {
       setOpenState((prev) => {
         const value = typeof next === 'function' ? next(prev) : next
-        try {
-          localStorage.setItem(`${PREFIX}${storageKey}`, value ? '1' : '0')
-        } catch {
-          /* ignore */
-        }
+        writePersistedOpen(storageKey, value)
         return value
       })
     },

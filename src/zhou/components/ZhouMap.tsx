@@ -2,7 +2,6 @@ import {
   useEffect,
   useMemo,
   useRef,
-  useState,
   type PointerEvent as ReactPointerEvent,
 } from 'react'
 import {
@@ -16,6 +15,7 @@ import {
 } from '../../components/map/RouteOverlay'
 import { MapCredit } from '../../components/MapCredit'
 import { MapLayerBar } from '../../components/map/MapLayerBar'
+import { useMapLayers } from '../../lib/layerUrl'
 import { shapesFromExtensions } from '../../lib/eraShapes'
 import { ZHOU_FRONTIER_ZONES } from '../data/frontier'
 import { zhouRoutesForView } from '../data/lateStages'
@@ -88,9 +88,18 @@ export function ZhouMap() {
 
   const wrapRef = useRef<HTMLDivElement>(null)
   const { view, viewRef, setView } = useRafView()
-  const [showTerritory, setShowTerritory] = useState(true)
-  const [showRoutes, setShowRoutes] = useState(true)
-  const [showFrontier, setShowFrontier] = useState(false)
+  const {
+    layers: {
+      territory: showTerritory,
+      routes: showRoutes,
+      frontier: showFrontier,
+    },
+    toggleLayer,
+  } = useMapLayers({
+    territory: { defaultOpen: true },
+    routes: { defaultOpen: true },
+    frontier: { defaultOpen: false },
+  })
   const dragRef = useRef<{
     active: boolean
     x0: number
@@ -367,10 +376,10 @@ export function ZhouMap() {
         <MapLayerBar
           showTerritory={showTerritory}
           showRoutes={showRoutes}
-          onToggleTerritory={() => setShowTerritory((v) => !v)}
-          onToggleRoutes={() => setShowRoutes((v) => !v)}
+          onToggleTerritory={() => toggleLayer('territory')}
+          onToggleRoutes={() => toggleLayer('routes')}
           showFrontier={showFrontier}
-          onToggleFrontier={() => setShowFrontier((v) => !v)}
+          onToggleFrontier={() => toggleLayer('frontier')}
         />
         <div className="map-2d__zoom-ui">
           <button

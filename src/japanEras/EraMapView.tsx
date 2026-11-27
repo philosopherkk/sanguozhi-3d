@@ -1,11 +1,10 @@
 import {
   useMemo,
   useRef,
-  useState,
   type CSSProperties,
   type ReactNode,
 } from 'react'
-import { usePersistedOpenResponsive } from '../lib/usePersistedOpen'
+import { useMapLayers } from '../lib/layerUrl'
 import { MapCredit } from '../components/MapCredit'
 import { CollapsiblePowerBoard } from '../components/CollapsiblePowerBoard'
 import { MapLayerBar } from '../components/map/MapLayerBar'
@@ -149,16 +148,27 @@ export function EraMapView({
   const rootRef = useRef<HTMLDivElement>(null)
   // 與主地圖（Map2D）同一口徑：桌面預設展開勢力與行軍；窄屏（≤640px）對
   // 首次訪客預設關閉，使用者存過選擇後一律跟 localStorage（見 mobile.css 修 16）。
-  const [showTerritory, setShowTerritory] = usePersistedOpenResponsive(
-    'deepdive-layer-territory',
-    { desktop: true, mobile: false },
-  )
-  const [showRoutes, setShowRoutes] = usePersistedOpenResponsive(
-    'deepdive-layer-routes',
-    { desktop: true, mobile: false },
-  )
   // 地名（塞外對位）維持預設關。
-  const [showPlaces, setShowPlaces] = useState(false)
+  const {
+    layers: {
+      territory: showTerritory,
+      routes: showRoutes,
+      places: showPlaces,
+    },
+    toggleLayer,
+  } = useMapLayers({
+    territory: {
+      storageKey: 'deepdive-layer-territory',
+      defaultOpen: { desktop: true, mobile: false },
+    },
+    routes: {
+      storageKey: 'deepdive-layer-routes',
+      defaultOpen: { desktop: true, mobile: false },
+    },
+    places: {
+      defaultOpen: false,
+    },
+  })
   const basemap = SENGOKU_BASEMAP
   const mapW = mapBase?.w ?? SENGOKU_MAP_W
   const mapH = mapBase?.h ?? SENGOKU_MAP_H
@@ -341,9 +351,9 @@ export function EraMapView({
           showTerritory={showTerritory}
           showRoutes={showRoutes}
           showPlaces={showPlaces}
-          onToggleTerritory={() => setShowTerritory((v) => !v)}
-          onToggleRoutes={() => setShowRoutes((v) => !v)}
-          onTogglePlaces={() => setShowPlaces((v) => !v)}
+          onToggleTerritory={() => toggleLayer('territory')}
+          onToggleRoutes={() => toggleLayer('routes')}
+          onTogglePlaces={() => toggleLayer('places')}
           extraTabs={extraLayerTabs}
           extraTabsOn={extraLayerOn}
         />
