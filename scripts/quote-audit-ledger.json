@@ -1963,5 +1963,25 @@
     "stamp": "1b0ec61a",
     "page": "魏書/卷7下",
     "at": "2026-11-27"
+  },
+  "src/japanEras/packs/asukaPack.ts#as-592-suiko": {
+    "stamp": "f500c22a",
+    "page": "日本書紀/卷第廿一",
+    "at": "2026-11-27"
+  },
+  "src/japanEras/packs/asukaPack.ts#as-603-kani": {
+    "stamp": "ef4031e4",
+    "page": "日本書紀/卷第廿二",
+    "at": "2026-11-27"
+  },
+  "src/japanEras/packs/azuchiPack.ts#az-1603": {
+    "stamp": "8a1447c",
+    "page": "東照宮御実紀/卷五",
+    "at": "2026-11-27"
+  },
+  "src/japanEras/packs/edoPack.ts#edo-1868-restoration": {
+    "stamp": "3d6acf68",
+    "page": "德川內府大政返上將軍辭職ノ請ヲ允シ攝關幕府ヲ廢シ假ニ總裁議定參與ノ三職ヲ置ク",
+    "at": "2026-11-27"
   }
 }

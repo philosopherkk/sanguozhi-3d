@@ -196,5 +196,17 @@
     "char": "録",
     "context": "\"page\": \"幽囚録\"",
     "reason": "ledger page 欄為 ja.wikisource 頁名（可追蹤識別碼），「幽囚録」照原題，改字即斷查證連結。錨「\"page\": \"幽囚録\"」喺該行先至豁免"
+  },
+  {
+    "file": "src/japanEras/packs/asukaPack.ts",
+    "char": "弑",
+    "context": "東漢直駒弑于天皇",
+    "reason": "zh.wikisource《日本書紀/卷第廿一》原頁作「弑」（「弒」之異體），引文欄照原卷字形，屬可逐字比對之引文不得正體化。錨「東漢直駒弑于天皇」喺該行先至豁免"
+  },
+  {
+    "file": "scripts/quote-audit-ledger.json",
+    "char": "実",
+    "context": "東照宮御実紀",
+    "reason": "帳本 page 欄係 ja.wikisource 頁題「東照宮御実紀/卷五」原識別碼，屬可追蹤識別碼照原形；改字即無法回溯頁名。錨「東照宮御実紀」喺該行先至豁免"
   }
 ]
