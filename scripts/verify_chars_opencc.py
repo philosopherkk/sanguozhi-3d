@@ -211,6 +211,7 @@ MAX_TABLE_LINES = 80      # 而家實際約 60 行（三張表＋說明）出頭
 
 TEETH = '--teeth' in sys.argv
 STRICT = '--strict' in sys.argv
+COV_STRICT = '--strict-coverage' in sys.argv
 WORD_COVERAGE = '--word-coverage' in sys.argv
 # 注入嘅壞字用 \uXXXX：呢啲係我方探針，唔屬於「原文／識別碼」嗰類，所以唔豁免。
 TEETH_WANT = ('\u8c01\u7ee7\u6b8b\u5c02\u56e3\u6e08\u90f7\u4e21'
@@ -222,12 +223,12 @@ TEETH_WORD_BAD = ['\u51c6\u5099', '\u5173\u4e8e', '\u4ee5\u540e', '\u8fd9\u91cc'
                   '\u53f0\u6e7e', '\u5e72\u51c0', '\u4f1a\u8bae', '\u515a\u5458',
                   '\u8fd9\u79cd', '\u5176\u4f59', '\u6291\u90c1', '\u5076\u5c14',
                   '\u7740\u540d', '\u51b7\u5374',
-                  '\u5f81\u5175']
+                  '\u5f81\u5175', '\u540e\u671f']
 # 控制樣本：正體本字／日文原形，一個都唔准咬（呢啲先係「唔誤殺」嘅憑據）
 TEETH_WORD_OK = ['\u6279\u51c6', '\u51c6\u8a31', '\u4f4d\u4e8e', '\u5728\u4e8e',
                  '\u7687\u540e', '\u91cc\u7a0b', '\u515a\u9805', '\u90c1\u90c1',
                  '\u7740\u624b', '\u5374\u884c', '\u8457\u540d',
-                 '\u5f81\u4f10', '\u89aa\u5f81']
+                 '\u5f81\u4f10', '\u89aa\u5f81', '\u5348\u5f8c', '\u5f8c\u671f']
 # 覆蓋率探針（三個去處成對）：已入 HARD_WORDS／已寫 HARD_WORD_KEEP／兩張表都冇。
 # 淨測一個方向嘅話，有人把 HARD_WORD_KEEP 變做萬能豁免、或把分類邏輯寫反，都照樣全綠。
 COV_PROBE_GATE = '\u540e\u52e4'   # 已入 HARD_WORDS 嘅探針詞（字面寫出嚟本檔會自咬）
@@ -430,4 +431,9 @@ for rel, i, ch, to, ctx in hits:
     print(f'{label(rel)}:{i}  {ch}→{to}  …{ctx}…')
 
 if STRICT and hits:
+    sys.exit(1)
+# --strict-coverage：只把「詞典覆蓋率有未分類詞」當失敗（2026-11-27 批次 6）。
+# 同 --strict（任何命中即失敗）分開：本庫仍有已記錄嘅覆核命中，兩者混用會令閘門永遠紅。
+# TEETH 模式故意注入一個未分類探針，所以嗰時豁免。
+if COV_STRICT and not TEETH and cov['todo']:
     sys.exit(1)
