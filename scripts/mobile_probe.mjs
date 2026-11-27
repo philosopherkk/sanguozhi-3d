@@ -39,7 +39,21 @@ const pick = arg('eras')?.split(',')
 const VITE_PORT = 5197
 const CDP_PORT = 9467
 const TAP_MIN_PX = 44 // src/mobile.css --tap-min: 2.75rem (44px)
-const BREAKPOINT_DEFAULT_ERAS = ['sanguo', 'tang', 'azuchi', 'modern', 'sengoku']
+const BREAKPOINT_DEFAULT_ERAS = [
+  'sanguo',
+  'tang',
+  'azuchi',
+  'modern',
+  'sengoku',
+  // 四國各取一期：斷點回歸要覆蓋到矢量底圖（asiaPx）畫布，
+  // 只測日本戰區就等於四國殼層從來冇跑過斷點。
+  'kojoseon',
+  'thayutthaya',
+  'vndynasty',
+  'mymalacca',
+]
+/** 地圖圖層開關（`useMapLayers`）會隨狹屏重排的時代：走 `EraMapView` 的深究包都算。
+ *  四國 pack 經 `DeepDiveApp` → `DeepDiveMapStage` → `EraMapView`，同一條路徑。 */
 const RESPONSIVE_LAYER_ERAS = new Set([
   'sanguo',
   'kofun',
@@ -52,6 +66,26 @@ const RESPONSIVE_LAYER_ERAS = new Set([
   'edo',
   'bakumatsu',
   'modern',
+  // 韓國
+  'koancient',
+  'kogoryeo',
+  'kojoseon',
+  'komodern',
+  // 泰國
+  'thsukhothai',
+  'thayutthaya',
+  'thchakri',
+  'thmodern',
+  // 越南
+  'vnnorth',
+  'vndynasty',
+  'vnnguyen',
+  'vnmodern',
+  // 馬來西亞
+  'mymalacca',
+  'mycolonial',
+  'mymerdeka',
+  'mymodern',
 ])
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
@@ -76,6 +110,11 @@ function eraList() {
   return [
     ...grab('CHINA_ERA_SLOTS').map((e) => [e, 'china']),
     ...grab('JAPAN_ERA_SLOTS').map((e) => [e, 'japan']),
+    // 四國：槽位來源同中日一樣在 TopicContext，漏咗就等於探針從來冇去過四國殼層
+    ...grab('KOREA_ERA_SLOTS').map((e) => [e, 'korea']),
+    ...grab('THAILAND_ERA_SLOTS').map((e) => [e, 'thailand']),
+    ...grab('VIETNAM_ERA_SLOTS').map((e) => [e, 'vietnam']),
+    ...grab('MALAYSIA_ERA_SLOTS').map((e) => [e, 'malaysia']),
   ]
 }
 

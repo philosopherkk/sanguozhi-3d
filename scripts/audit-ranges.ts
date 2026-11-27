@@ -13,7 +13,7 @@
  * 7. 色塊裡的勢力要在該包 factions 有顏色，否則圖例會缺色。
  */
 
-import { readFileSync, writeFileSync } from 'node:fs'
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createServer } from 'vite'
@@ -838,22 +838,25 @@ const JAPAN_PACK_FILES = [
   'azuchiPack',
 ]
 
-for (const file of JAPAN_PACK_FILES) {
-  const mod = await server.ssrLoadModule(`/src/japanEras/packs/${file}.ts`)
-  const pack = Object.values(mod).find(
-    (v) => v && typeof v === 'object' && (v as any).id && Array.isArray((v as any).events),
-  ) as
-    | {
-        id: string
-        events?: { id?: string; year: number; title: string; source?: string }[]
-        people?: { name: string; source?: string }[]
-        situation?: Record<string, { source?: string }>
-        leadersByYear?: Record<string, { name: string; source?: string }[]>
-        routes?: { id: string; source?: string }[]
-      }
-    | undefined
-  if (!pack) continue
+/** 深究包（`JapanDeepDivePack` 形狀）共用的出處欄位。韓國、泰國、越南、馬來西亞
+ *  四國 pack 同日本 pack 係同一個型別，規則必須共用：各寫一份就會一邊加欄位、
+ *  另一邊靜默失明（`audit:map` 之前漏咗 `src/countries` 就係同一種走形）。 */
+interface DeepDivePackLike {
+  id: string
+  yearMin?: number
+  yearMax?: number
+  events?: { id?: string; year: number; title: string; source?: string }[]
+  people?: { name: string; source?: string }[]
+  situation?: Record<string, { source?: string }>
+  leadersByYear?: Record<string, { name: string; source?: string }[]>
+  routes?: { id: string; source?: string }[]
+}
 
+const isDeepDivePack = (v: unknown): v is DeepDivePackLike =>
+  Boolean(v) && typeof v === 'object' && (v as DeepDivePackLike).id && Array.isArray((v as DeepDivePackLike).events)
+
+/** 收齊一個深究包所有要出處嘅位置（事件、人物、派系簡介、逐年人物、行軍路線）。 */
+function deepDiveSeen(pack: DeepDivePackLike) {
   const seen: { where: string; source: string }[] = []
   for (const e of pack.events ?? []) {
     seen.push({ where: `${pack.id}/${e.id ?? e.year}（${e.year} ${e.title}）`, source: e.source ?? '' })
@@ -879,8 +882,12 @@ for (const file of JAPAN_PACK_FILES) {
   for (const r of pack.routes ?? []) {
     seen.push({ where: `${pack.id} 行軍路線 ${r.id}`, source: r.source ?? '' })
   }
+  return seen
+}
 
-  for (const { where, source } of seen) {
+/** 規則 16 嘅唯一實作點：缺出處 fail、只有百科 warn、只有通說 warn。 */
+function reportDeepDiveSources(pack: DeepDivePackLike) {
+  for (const { where, source } of deepDiveSeen(pack)) {
     if (!source.trim()) {
       add('fail', 'source-missing', where, '沒有 source')
       continue
@@ -902,10 +909,72 @@ for (const file of JAPAN_PACK_FILES) {
   }
 }
 
+/** 規則 3（深究包版）：事件年份要落在滑桿 `yearMin–yearMax` 之內，否則那張卡永遠點不到。 */
+function reportDeepDiveYears(pack: DeepDivePackLike, where: string) {
+  const from = pack.yearMin
+  const to = pack.yearMax
+  if (typeof from !== 'number' || typeof to !== 'number') {
+    add('fail', 'deepdive-range-missing', where, '深究包缺少 yearMin／yearMax，年份範圍無法核對')
+    return
+  }
+  for (const e of pack.events ?? []) {
+    if (e.year < from || e.year > to) {
+      add(
+        'fail',
+        'deepdive-year-out-of-range',
+        `${where} ${pack.id}/${e.id ?? e.year}`,
+        `事件年份 ${e.year} 不在該包 ${from}–${to} 的滑桿範圍內：這一年的時間軸上看不到這件事`,
+      )
+    }
+  }
+}
+
+/** 由模組攞出唯一嘅深究包本體（四國 pack 會另外 export 槽位等次要符號）。 */
+const pickDeepDivePack = (mod: Record<string, unknown>) => Object.values(mod).find(isDeepDivePack)
+
+for (const file of JAPAN_PACK_FILES) {
+  const mod = await server.ssrLoadModule(`/src/japanEras/packs/${file}.ts`)
+  const pack = pickDeepDivePack(mod)
+  if (!pack) continue
+
+  reportDeepDiveSources(pack)
+}
+
+// --- 四國深究包（src/countries/<國家>/<時期>Pack.ts）---
+// 同一套出處與年份規則。檔案名單由目錄掃出來，唔寫死：新加一包就自動入閘，
+// 寫死名單就會出現「包已經上線、閘門從未見過」嘅靜默盲區。
+const COUNTRY_DIRS = ['korea', 'thailand', 'vietnam', 'malaysia']
+const countryPackFiles: { country: string; file: string }[] = []
+for (const country of COUNTRY_DIRS) {
+  const dir = join(ROOT, 'src/countries', country)
+  let entries: string[] = []
+  try {
+    entries = readdirSync(dir)
+  } catch {
+    add('fail', 'country-dir-missing', `src/countries/${country}`, '國家目錄不存在')
+    continue
+  }
+  for (const file of entries.filter((f) => f.endsWith('Pack.ts')).sort()) {
+    countryPackFiles.push({ country, file })
+  }
+}
+
+for (const { country, file } of countryPackFiles) {
+  const mod = await server.ssrLoadModule(`/src/countries/${country}/${file}`)
+  const pack = pickDeepDivePack(mod)
+  const where = `src/countries/${country}/${file}`
+  if (!pack) {
+    add('fail', 'deepdive-pack-missing', where, '檔案冇 export 任何 JapanDeepDivePack 形狀嘅包（events 係陣列先算）')
+    continue
+  }
+  reportDeepDiveSources(pack)
+  reportDeepDiveYears(pack, where)
+}
+
 add(
   'info',
   'source-naming',
-  'imperial（11 包）＋japanEras（6 包）',
+  `imperial（${IMPERIAL_FILES.length} 包）＋japanEras（${JAPAN_PACK_FILES.length} 包）＋四國（${countryPackFiles.length} 包）`,
   `${namedSources} 條出處點名了書名／條約名／制書名／檔案名；未點名 ${genericSources} 條`,
 )
 
@@ -1185,7 +1254,8 @@ ${byCode(warns)}
 13. 日本外周時間窗（\`src/geo/japanFringeWindows.ts\`）：每窗要有出處（《》或『』）與 note、環要存在、\`from ≤ to\`；附庸／外來施政必須虛線，行政直轄必須實色；同一環的窗不得重疊。
 14. 敘事深度（\`src/imperial/data/depthNarrative.ts\`）：每條 \`DEPTH_EVENTS\` 事件要有獨立的 \`course\`／\`outcome\`／意譯，三者不得與 \`desc\` 相同（否則詳情窗重複同一句）；大學層少於 150 字要報 \`university-thin\`。
 15. 日本年表（\`src/japanHistory/data/timeline.json\`）：每條要有 \`source\`（書名、條約名、制書名或通說）與 \`desc\`；1603 年以後的條目另要有 \`note\`，寫明年份與史源的限度。
-16. 出處要點名：各包的快照、事件、派系簡介（讀 \`politics.source\` 等子欄）、逐年人物、行軍路線，\`source\` 要含《》或『』裡的書名、條約名、制書名或檔案名。只有「××通說」報 \`source-generic\`；只有百科全書（維基／Wikipedia）報 \`source-wiki-only\`。通說可以並列，不能是唯一出處。覆蓋：帝國 11 包＋japanEras 6 包。
+16. 出處要點名：各包的快照、事件、派系簡介（讀 \`politics.source\` 等子欄）、逐年人物、行軍路線，\`source\` 要含《》或『』裡的書名、條約名、制書名或檔案名。只有「××通說」報 \`source-generic\`；只有百科全書（維基／Wikipedia）報 \`source-wiki-only\`。通說可以並列，不能是唯一出處。覆蓋：帝國 11 包＋japanEras 6 包＋四國 \`src/countries/*/*Pack.ts\`（目錄掃描，共 16 包）。
+17. 四國深究包嘅事件年份要落在該包 \`yearMin–yearMax\` 之內，否則該卡在時間軸上永遠點不到（\`deepdive-year-out-of-range\`）；包本身缺 \`yearMin\`／\`yearMax\` 報 \`deepdive-range-missing\`，目錄掃到檔案但冇 export 包體報 \`deepdive-pack-missing\`。
 17. 幾何出處登記：色塊引用的每一條環編號都要在 \`src/data/territory/ringProvenance.ts\`（手維登記表，無生成腳本）有登記：實際代表什麼（basis）、點名依據（source）、所假定的政區制度（institution）、等級（kind：modern-province-proxy／text-derived／schematic-box／plate-traced／gis-import）。找不到登記報 \`ring-unregistered\`。
 18. 環依據要點名：登記裡的 source 若是「未登記」，報 \`ring-source-generic\`。
 19. 制度時代檢查：環若假定某一政區制度（縣、郡、州、道、路、省、羈縻），該快照年份不得早於該制度最早可考的年份（縣 前688《史記·秦本紀》；郡 前400；州 前106《漢書·武帝紀》；道 627《舊唐書·地理志》；路 983《宋史·職官志》；省 1260《元史·百官志》；羈縻 630）。違反報 \`institution-anachronism\`。

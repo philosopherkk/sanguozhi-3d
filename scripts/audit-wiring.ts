@@ -340,25 +340,36 @@ for (const f of files) {
       },
     )
   }
-  const chinaSlots = slotsOf('CHINA_ERA_SLOTS')
-  const japanSlots = slotsOf('JAPAN_ERA_SLOTS')
+  const SLOT_SETS: Record<string, string> = {
+    china: 'CHINA_ERA_SLOTS',
+    japan: 'JAPAN_ERA_SLOTS',
+    korea: 'KOREA_ERA_SLOTS',
+    thailand: 'THAILAND_ERA_SLOTS',
+    vietnam: 'VIETNAM_ERA_SLOTS',
+    malaysia: 'MALAYSIA_ERA_SLOTS',
+  }
+  const slotsByTopic: Record<string, { id: string; from: number | null; to: number | null }[]> = {}
+  for (const [topic, name] of Object.entries(SLOT_SETS)) {
+    slotsByTopic[topic] = slotsOf(name)
+  }
+  const allSlotNames = Object.values(SLOT_SETS).join(' / ')
 
   for (const f of files) {
     const src = readFileSync(f, 'utf8')
     // .ts 用單引號、.json 用雙引號，兩種都要掃（日本近現代的年表在 JSON 裡）
     for (const m of src.matchAll(
-      /"?topic"?\s*:\s*["'](china|japan)["']\s*,\s*"?era"?\s*:\s*["']([a-z]+)["']\s*,\s*"?year"?\s*:\s*(-?\d+)/g,
+      /"?topic"?\s*:\s*["'](china|japan|korea|thailand|vietnam|malaysia)["']\s*,\s*"?era"?\s*:\s*["']([a-z]+)["']\s*,\s*"?year"?\s*:\s*(-?\d+)/g,
     )) {
       const [, topic, era, yearRaw] = m
       const year = Number(yearRaw)
       const where = rel(f)
-      const slot = (topic === 'china' ? chinaSlots : japanSlots).find((s) => s.id === era)
+      const slot = (slotsByTopic[topic!] ?? []).find((s) => s.id === era)
       if (!slot) {
         add(
           'fail',
           'crossref-bad-era',
           where,
-          `crossRefs 指向 ${topic} 的時代 id「${era}」不存在於 CHINA_ERA_SLOTS / JAPAN_ERA_SLOTS，連結會靜默失靈。`,
+          `crossRefs 指向 ${topic} 的時代 id「${era}」不存在於 ${allSlotNames}，連結會靜默失靈。`,
         )
         continue
       }

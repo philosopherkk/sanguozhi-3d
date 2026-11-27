@@ -162,6 +162,10 @@ function namedObjectBody(text, name) {
 // 亞洲戰區畫布（1710×1000）：明治至當代＋朝鮮之役窗口同用 asiaPx 直寫經緯度。
 // 要喺呢度：下面嘅版圖規則靠呢個名單判「呢個 id 有冇本畫布嘅幾何」。
 const WAR_THEATRE = /^src\/japanEras\/packs\/(modernJapanPack|imjinWar)\.ts$/
+// 東南亞／東北亞四國嘅 pack 同樣用亞洲戰區畫布（1710×1000，asiaPx 直寫經緯度），
+// 所以要同 WAR_THEATRE 一齊入版圖規則同畫布分派。獨立常數而唔係改 WAR_THEATRE：
+// 後者嘅字面值由 audit_teeth_mutations.mjs 當錨點盯住，改半個字就斷牙。
+const COUNTRY_THEATRE = /^src\/countries\/.+\.ts$/
 
 /** 幾何註冊表：三國州郡、歷史上環、亞洲戰區範圍。
  *  產生器產物用雙引號、手寫檔用單引號，兩種都要認——只認一種會令整批 id 喺
@@ -188,6 +192,8 @@ addFrom('src/data/provinces.ts', ID_Q)
 addFrom('src/geo/eraRegions.ts', /"([a-z_0-9]+)":\[\[/g)
 addFrom('src/geo/asiaWarTerritory.ts', ID_Q, warGeoIds)
 addFrom('src/geo/imjinTerritory.ts', ID_Q, warGeoIds)
+// 四國 pack 嘅版圖鍵幾何（src/countries/*／asiaCountryDomains.ts）：冇登記就會 territory-id-off-canvas 假紅。
+addFrom('src/geo/asiaCountryDomains.ts', ID_Q, warGeoIds)
 // 環檔嘅鍵係雙引號（`"matsumae": [[[`），正則唔認引號就一個都食唔到——
 // 呢條線斷咗嗰陣 matsumae／hokkaido／ryukyu 三個 id 對閘門完全消失。
 addFrom('src/geo/japanEraRings.ts', /"([a-z_0-9]+)"\s*:\s*\[/g)
@@ -225,7 +231,7 @@ for (const f of files) {
   //     `kyushu` 從來唔係區塊 id（jpDomains 用 `id: d.id`，佢只係 marchRoutes 嘅路線 id）。
   //     寫錯嘅 `kyushu` 能瞞過閘門，真正原因是上面三個解析盲點（識別碼引用／雙引號 id／
   //     常數值），唔係跨畫布同名。見 --teeth 案例 A。
-  if (WAR_THEATRE.test(r)) {
+  if (WAR_THEATRE.test(r) || COUNTRY_THEATRE.test(r)) {
     const offCanvas = [...keys].filter((id) => !warGeoIds.has(id) && !localIds.has(id))
     if (offCanvas.length) {
       add(
@@ -566,16 +572,16 @@ if (selfCheck.length) {
  * 檔案 → 畫布：路線 points 存在邊個畫布，取決於該戰區用邊張底圖，判錯就成批誤判。
  *   中國戰區  china_edcp_relief 1968×1567，投影 china_px
  *   日本戰區  japan_relief 1482×1477（src/sengoku/data/regions.ts SENGOKU_MAP_W/H），投影 japan_px
- *   亞洲戰區  Natural Earth 戰區畫布 1710×1000（modernJapanPack 用 asiaPx 直寫經緯度）
+ *   亞洲戰區  Natural Earth 戰區畫布 1710×1000（modernJapanPack 與 src/countries/* 用 asiaPx 直寫經緯度）
  * 名單之外一律跳過並計數，而且報紅——未登記的新戰區不可默默溜過。
  */
 const CHINA_THEATRE = /^src\/(data|zhou|qinhan|imperial)\//
 const JAPAN_THEATRE = /^src\/(sengoku|bakumatsu|heian|japanEras)\//
-// WAR_THEATRE 喺檔頭定義（版圖規則都要用），呢度只係畫布分派
+// WAR_THEATRE／COUNTRY_THEATRE 喺檔頭定義（版圖規則都要用），呢度只係畫布分派
 /** points 係 prop 名而非資料的檔案（渲染元件），唔在海陸判定範圍。 */
 const NON_DATA = /^src\/(components|lib)\//
 const canvasOf = (relPath) => {
-  if (WAR_THEATRE.test(relPath)) return CANVASES.war
+  if (WAR_THEATRE.test(relPath) || COUNTRY_THEATRE.test(relPath)) return CANVASES.war
   if (JAPAN_THEATRE.test(relPath)) return CANVASES.japan
   if (CHINA_THEATRE.test(relPath)) return CANVASES.china
   return null

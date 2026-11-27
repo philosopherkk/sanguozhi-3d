@@ -627,6 +627,28 @@ for (const [label, file] of [
   ['明治大正昭和', 'modernJapanPack.ts'],
 ]) packSlot(label, 'japanEras/packs', file)
 
+/* 四國深究包（韓國、泰國、越南、馬來西亞）：同日本深究包同一個 `JapanDeepDivePack`
+ * shape，`packSlot` 靠 `yearMin`／`yearMax`／`ticks`／`keyYears`／`territoryByYear`／`events`
+ * 就食到，唔使另寫一條路。標籤一律「國家·時期」，報告先分得出邊個國家。 */
+for (const [label, dir, file] of [
+  ['韓國·古朝鮮三國', 'countries/korea', 'koancientPack.ts'],
+  ['韓國·高麗', 'countries/korea', 'kogoryeoPack.ts'],
+  ['韓國·朝鮮', 'countries/korea', 'kojoseonPack.ts'],
+  ['韓國·近代', 'countries/korea', 'komodernPack.ts'],
+  ['泰國·素可泰', 'countries/thailand', 'thsukhothaiPack.ts'],
+  ['泰國·大城', 'countries/thailand', 'thayutthayaPack.ts'],
+  ['泰國·曼谷', 'countries/thailand', 'thchakriPack.ts'],
+  ['泰國·現代', 'countries/thailand', 'thmodernPack.ts'],
+  ['越南·北屬自主', 'countries/vietnam', 'vnnorthPack.ts'],
+  ['越南·李陳黎', 'countries/vietnam', 'vndynastyPack.ts'],
+  ['越南·阮朝法屬', 'countries/vietnam', 'vnnguyenPack.ts'],
+  ['越南·現代', 'countries/vietnam', 'vnmodernPack.ts'],
+  ['馬來西亞·馬六甲', 'countries/malaysia', 'mymalaccaPack.ts'],
+  ['馬來西亞·列強英屬', 'countries/malaysia', 'mycolonialPack.ts'],
+  ['馬來西亞·獨立建國', 'countries/malaysia', 'mymerdekaPack.ts'],
+  ['馬來西亞·現代', 'countries/malaysia', 'mymodernPack.ts'],
+]) packSlot(label, dir, file)
+
 /** 獨立槽（冇 pack 物件）：周、秦漢、三國、平安、幕末、戰國 */
 function standaloneSlot(label, opts) {
   const { crit, mapYears, events, yearMin, yearMax, noCriticalField, file } = opts
