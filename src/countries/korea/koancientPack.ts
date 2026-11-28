@@ -432,9 +432,9 @@ export const KOANCIENT_PACK: JapanDeepDivePack = {
   },
   leadersByYear: {
     '-108': [
-      { faction: F.han, name: '劉徹', role: '漢武帝，主東征', source: '《漢書·武帝紀》' },
-      { faction: F.han, name: '楊僕', role: '樓船將軍', source: '《史記·朝鮮列傳》' },
-      { faction: F.cmd, name: '衛右渠', role: '朝鮮侯，守王險城', source: '《史記·朝鮮列傳》' },
+      { faction: F.han, name: '劉徹', role: '漢武帝，主東征', source: '《漢書·武帝紀》；通說整理，非逐字引文' },
+      { faction: F.han, name: '楊僕', role: '樓船將軍', source: '《史記·朝鮮列傳》；通說整理，非逐字引文' },
+      { faction: F.cmd, name: '衛右渠', role: '朝鮮侯，守王險城', source: '《史記·朝鮮列傳》；通說整理，非逐字引文' },
     ],
     372: [
       { faction: F.goguryeo, name: '小獸林王', role: '立太學、受佛像', source: '《三國史記·高句麗本紀》' },
