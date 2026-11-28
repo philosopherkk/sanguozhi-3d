@@ -27,6 +27,18 @@ import { join } from 'node:path'
 const ROOT = join(import.meta.dirname, '..')
 const UA = 'sanguozhi3d-wiki-link-audit/1.0 (repo CI)'
 
+/** 傳輸層：用 curl（node 原生 fetch 的 UA 實測會被 Wikimedia 擋）。抽出來先可以喺 selftest 注入失敗。 */
+function curlFetch(api) {
+  return execFileSync('curl', ['-s', '--max-time', '25', '-A', UA, api], {
+    encoding: 'utf8',
+    maxBuffer: 8 * 1024 * 1024,
+  })
+}
+
+function defaultNap(seconds) {
+  try { execFileSync('sleep', [String(seconds)]) } catch { /* 忽略 */ }
+}
+
 function walk(dir, out = []) {
   for (const f of readdirSync(dir)) {
     if (f === 'node_modules' || f === 'dist' || f === '.git' || f === 'vendor') continue
@@ -69,8 +81,46 @@ export function collectLinks(files) {
   return [...seen.values()]
 }
 
+/**
+ * 一組標題問一次 API；連輸三次就**二分重試**，只有細到單一標題仍失敗才回 null。
+ *
+ * 為什麼要拆：CI 實測（PR #221，2026-11-28）整批 32 條因限速／逾時失敗，
+ * 直接把 32 條全計為未驗 → `audit:wiki-links.unvalidated 0 → 32` 假紅，
+ * 拖住一個同 wikilink 完全無關的 PR。限速通常是短促的，拆細重試就能補回來；
+ * 真死鏈不受影響（拆細後 API 正常回應、仍會回 `missing`）。
+ */
+function resolveChunk(host, titles, fetchImpl, nap = defaultNap) {
+  let last = ''
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const api = `https://${host}/w/api.php?action=query&format=json&redirects=1&titles=` +
+        encodeURIComponent(titles.join('|'))
+      return JSON.parse(fetchImpl(api))
+    } catch (e) {
+      last = String(e instanceof Error ? e.message : e).slice(0, 70)
+      nap(2 + attempt * 4)
+    }
+  }
+  if (titles.length === 1) {
+    console.log(`  ! ${host} 單條「${titles[0]}」三次仍失敗：${last}`)
+    return null
+  }
+  const mid = Math.ceil(titles.length / 2)
+  console.log(`  · ${host} 批次 ${titles.length} 條失敗，改二分重試（${last}）`)
+  const left = resolveChunk(host, titles.slice(0, mid), fetchImpl, nap)
+  const right = resolveChunk(host, titles.slice(mid), fetchImpl, nap)
+  if (!left || !right) return null
+  return {
+    query: {
+      pages: { ...(left.query?.pages ?? {}), ...(right.query?.pages ?? {}) },
+      normalized: [...(left.query?.normalized ?? []), ...(right.query?.normalized ?? [])],
+      redirects: [...(left.query?.redirects ?? []), ...(right.query?.redirects ?? [])],
+    },
+  }
+}
+
 /** 批量查存在性；回傳 { dead, unvalidated }。網路失敗保守計為未驗，唔當死鏈。 */
-export function findDead(links) {
+export function findDead(links, fetchImpl = curlFetch, nap = defaultNap) {
   const dead = []
   let unvalidated = 0
   const byHost = {}
@@ -78,27 +128,12 @@ export function findDead(links) {
   for (const [host, list] of Object.entries(byHost)) {
     for (let i = 0; i < list.length; i += 50) {
       const chunk = list.slice(i, i + 50)
-      const api = `https://${host}/w/api.php?action=query&format=json&redirects=1&titles=` +
-        encodeURIComponent(chunk.map((l) => l.title).join('|'))
-      let data
-      let lastSnippet = ''
       // 短暫停之後先做較長退避：實測連續全量掃描會觸發 Wikimedia 限速，
       // 重試不夠就會 unvalidated 飆升、gates 變紅（寧可紅不可假綠，但紅要係真問題）
-      try { execFileSync('sleep', ['1.5']) } catch { /* 忽略 */ }
-      for (let attempt = 0; attempt < 4; attempt++) {
-        try {
-          const out = execFileSync('curl', ['-s', '--max-time', '25', '-A', UA, api],
-            { encoding: 'utf8', maxBuffer: 8 * 1024 * 1024 })
-          data = JSON.parse(out)
-          break
-        } catch (e) {
-          lastSnippet = String(e instanceof Error ? (e.stdout ?? e.message) : e).slice(0, 70)
-          try { execFileSync('sleep', [String(3 + attempt * 5)]) } catch { /* 忽略 */ }
-          data = undefined
-        }
-      }
+      nap(1.5)
+      const data = resolveChunk(host, chunk.map((l) => l.title), fetchImpl, nap)
       if (!data) {
-        console.log(`  ! ${host} 批次 ${Math.floor(i / 50) + 1} 重試 4 次仍失敗（${chunk.length} 條計為未驗）：${lastSnippet}`)
+        console.log(`  ! ${host} 批次 ${Math.floor(i / 50) + 1} 拆到單條仍失敗（${chunk.length} 條計為未驗）`)
         unvalidated += chunk.length
         continue
       }
@@ -114,7 +149,7 @@ export function findDead(links) {
       for (const l of chunk) {
         if (missingTitles.has(l.title.replace(/ /g, '_'))) dead.push(l)
       }
-      execFileSync('sleep', ['1.2'])
+      nap(1.2)
     }
   }
   return { dead, unvalidated }
@@ -125,6 +160,41 @@ function main() {
 
   if (argv.includes('--selftest')) {
     const mk = (host, title) => ({ host, title, file: 'selftest' })
+    let bad = 0
+    const chk = (name, cond) => { console.log(`  ${cond ? '✓' : '✗'} ${name}`); if (!cond) bad++ }
+
+    // 先做離線模擬（唔使網絡）：證明「限速時會拆細重試」呢條邏輯真有牙。
+    // 假裝 Wikimedia 只對多標題請求限速：`titles` 有幾條就唔郁，單條先回資料。
+    const offline = [
+      mk('zh.wikipedia.org', '織田信長'),
+      mk('zh.wikipedia.org', '此條目必定唔存在_xxx_9f3a'),
+      mk('zh.wikipedia.org', '足利義政'),
+      mk('zh.wikipedia.org', '大內政弘'),
+    ]
+    const fakeFetch = (api) => {
+      const titles = decodeURIComponent(api.slice(api.indexOf('titles=') + 7)).split('|')
+      if (titles.length > 1) throw new Error('模擬限速：多標題請求俾人拒')
+      const pages = {}
+      for (const title of titles) {
+        // 用標題雜湖做 pageid，令每次呼叫嘅 key 唔會撞（真 API 都係唯一 id；
+        // 若用序號，拆細重試後合併會靜靜覆蓋，測試就假綠）
+        const pageid = String([...title].reduce((a, c) => a + c.charCodeAt(0), 0))
+        pages[pageid] = title.includes('唔存在') || title === '大內政弘'
+          ? { title, missing: '' }
+          : { title, pageid: 1 }
+      }
+      return JSON.stringify({ query: { pages } })
+    }
+    const noNap = () => {}
+    const sim = findDead(offline, fakeFetch, noNap)
+    chk('限速拆細後無一條被當未驗（四條全部補回）', sim.unvalidated === 0)
+    chk('限速拆細後真死鏈照樣偵測到',
+      sim.dead.length === 2 &&
+      sim.dead.every((d) => d.title === '此條目必定唔存在_xxx_9f3a' || d.title === '大內政弘'))
+    // 真·斷網（連單條都失敗）must 仍保守計為未驗，唔好扮綠
+    const allFail = findDead(offline, () => { throw new Error('模擬斷網') }, noNap)
+    chk('全部失敗時要保守計為未驗（4 條），唔准當通過', allFail.unvalidated === 4)
+
     const probe = [
       mk('zh.wikipedia.org', '織田信長'),
       mk('zh.wikipedia.org', '此條目必定唔存在_xxx_9f3a'),
@@ -134,8 +204,6 @@ function main() {
     ]
     const { dead } = findDead(probe)
     const deadTitles = new Set(dead.map((d) => d.title))
-    let bad = 0
-    const chk = (name, cond) => { console.log(`  ${cond ? '✓' : '✗'} ${name}`); if (!cond) bad++ }
     chk('存在的條目不誤報（織田信長／足利義政）', !deadTitles.has('織田信長') && !deadTitles.has('足利義政'))
     chk('不存在的假條目要有牙', deadTitles.has('此條目必定唔存在_xxx_9f3a') && deadTitles.has('某假條目名_xxx_7c2b'))
     chk('PR #95 漏網實例「大內政弘」要被偵測', deadTitles.has('大內政弘'))
