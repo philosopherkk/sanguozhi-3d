@@ -148,7 +148,7 @@ const detail = {
         }),
       ].join('\n')
     }
-    const hit = files.find((p) => p.track === PLAN_TRACK)
+    const hit = findPlan(PLAN_TRACK)
     if (!hit) {
       return `無此軌道：${PLAN_TRACK}（可用：${files.map((p) => p.track).join('、')}）`
     }
@@ -258,6 +258,18 @@ const planFiles = () => {
     .sort()
     .map((f) => ({ track: f.replace(/\.md$/, ''), path: join(dir, f) }))
 }
+/**
+ * 代理是按自己的 key 打 `--track=enrich` 的（見 docs/agents/QUICK.md），
+ * 而軌道名來自檔案名（enrichment.md）。兩邊不同名時代理會收到「無此軌道」，
+ * 然後照舊路做——等於整個 plan 佇列白做。所以 key 要在這裡對上檔案名。
+ * accuracy 走 citations.md（引證是其延伸職責）；ui 無對應單，走舊佇列。
+ */
+const PLAN_ALIAS = { enrich: 'enrichment', accuracy: 'citations' }
+const findPlan = (track) => {
+  const files = planFiles()
+  const want = PLAN_ALIAS[track] || track
+  return files.find((p) => p.track === want) || null
+}
 /** 只認行首的 ☐／☑：plans 裡正文也會提到這兩個符號，不能誤計。 */
 const planRows = (path) =>
   readFileSync(path, 'utf8')
@@ -270,7 +282,7 @@ const planCount = (path) => {
 }
 
 if (key === 'plan' && PLAN_DONE) {
-  const hit = planFiles().find((p) => p.track === PLAN_TRACK)
+  const hit = findPlan(PLAN_TRACK)
   if (!hit) {
     console.error(`無此軌道：${PLAN_TRACK}（可用：${planFiles().map((p) => p.track).join('、') || 'docs/plans 系空'}）`)
     process.exit(2)
