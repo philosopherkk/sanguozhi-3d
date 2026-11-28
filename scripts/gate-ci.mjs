@@ -58,6 +58,16 @@ const GATES = [
   // 注意：audit:quotes 每檔都會印「錯誤 N｜提醒 N」，錨定要落在「合計」行，
   // 否則量到嘅係第一個檔案嘅數字（呢個 bug 曾令護欄一直睇錯引文缺口）。
   { name: 'audit:quotes', cmd: 'npm run audit:quotes', metrics: { errors: /合計：[^\n]*錯誤 (\d+)/, warns: /合計：[^\n]*提醒 (\d+)/ } },
+  // 2026-11-29 補：計畫檔 `docs/plans/<date>/*.md` 由本機小模型逐條執行，`☑` 是它自己勾的。
+  // 這條閘門不量內容，量「已勾的東西現在還驗不驗得過」：plan_verify 逐條讀取每個 `☑` 行尾的
+  // 「驗收=」指令並重跑一次；任何一條不過 = 那條成果已壞（被改回原狀、指令本身寫錯、
+  // 或當初根本是假綠）→ 紅。以零失敗進場（今日 11 條全過、1 條會寫帳本故跳過）；
+  // 日後新增 `☑` 自動納入，不必修改本閘門。
+  {
+    name: 'audit:plans',
+    cmd: 'npm run audit:plans',
+    metrics: { fail: /=== 通過 \d+｜失敗 (\d+)/ },
+  },
   {
     name: 'audit:chengyu',
     cmd: 'npm run audit:chengyu',
