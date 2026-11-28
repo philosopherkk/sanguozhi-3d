@@ -45,6 +45,25 @@ const ERA_FILES = {
   'japan-edo': ['src/japanEras/packs/edoPack.ts'],
   'japan-modern': ['src/japanEras/packs/modernJapanPack.ts'],
   'japan-imjin': ['src/japanEras/packs/imjinWarEvents.ts'],
+  // 2026-11-28：韓國、泰國、越南、馬來西亞 16 槽。現在四國還沒有任何 portrait 條目，
+  // 鍵先登記好，代理補第一張圖時閘門才認得該 era——否則會以 unknown-era 判紅，
+  // 而代理為求過閘只能亂塞一個既有的日本 era（實測發生過別處的同類走樣）。
+  koancient: ['src/countries/korea/koancientPack.ts'],
+  kogoryeo: ['src/countries/korea/kogoryeoPack.ts'],
+  kojoseon: ['src/countries/korea/kojoseonPack.ts'],
+  komodern: ['src/countries/korea/komodernPack.ts'],
+  thsukhothai: ['src/countries/thailand/thsukhothaiPack.ts'],
+  thayutthaya: ['src/countries/thailand/thayutthayaPack.ts'],
+  thchakri: ['src/countries/thailand/thchakriPack.ts'],
+  thmodern: ['src/countries/thailand/thmodernPack.ts'],
+  vnnorth: ['src/countries/vietnam/vnnorthPack.ts'],
+  vndynasty: ['src/countries/vietnam/vndynastyPack.ts'],
+  vnnguyen: ['src/countries/vietnam/vnnguyenPack.ts'],
+  vnmodern: ['src/countries/vietnam/vnmodernPack.ts'],
+  mymalacca: ['src/countries/malaysia/mymalaccaPack.ts'],
+  mycolonial: ['src/countries/malaysia/mycolonialPack.ts'],
+  mymerdeka: ['src/countries/malaysia/mymerdekaPack.ts'],
+  mymodern: ['src/countries/malaysia/mymodernPack.ts'],
 }
 const DEPTH = 'src/imperial/data/depth.ts'
 const DEPTH_SECTION = {

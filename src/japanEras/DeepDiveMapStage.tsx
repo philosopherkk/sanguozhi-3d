@@ -92,7 +92,9 @@ export function DeepDiveMapStage({ pack }: { pack: JapanDeepDivePack }) {
           hideInlineRouteLegend
           mapBase={base}
           domainGeometryProvenance={
-            base ? mapWindow?.geometryNote ?? ASIA_WAR_EXTENTS_GEOMETRY : undefined
+            base
+              ? mapWindow?.geometryNote ?? pack.geometryNote ?? ASIA_WAR_EXTENTS_GEOMETRY
+              : undefined
           }
           territoryNote={
             base

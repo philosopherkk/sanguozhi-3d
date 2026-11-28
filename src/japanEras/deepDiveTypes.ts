@@ -109,6 +109,12 @@ export interface JapanDeepDivePack {
    * 韓國、泰國、越南、馬來西亞四國應由外殼傳入本國口徑，避免出現戰區字樣。
    */
   territoryNote?: string
+  /**
+   * 本包色塊幾何的出處（`approx` 與來源聲明）。四國色塊出自
+   * `src/geo/asiaCountryDomains.ts` 的手繪頂點，與戰區範圍（`ASIA_WAR_EXTENTS_GEOMETRY`）
+   * 是兩個產生器，寫在一張卡上等於把來源記錯，故由外殼傳入。
+   */
+  geometryNote?: TerritoryGeometryProvenance
   /** 成語面板語域；未提供即沿用日本軌道（中日共同漢字文化圈）。 */
   chengyuLocales?: ChengyuLocale[]
 }

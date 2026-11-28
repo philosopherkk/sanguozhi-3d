@@ -647,7 +647,7 @@ const checkRouteYear = (relPath, win, rid, year) => {
       'fail',
       'route-year-out-of-window',
       relPath,
-      `路線「${rid}」的 year ${year} 在本 pack 窗口 ${win[0]}–${win[1]} 以外——滑桿行唔到該年，該線永遠不會出現。要麼改年份，要麼搬去年份所屬的時代槽`,
+      `路線「${rid}」的 year ${year} 在本 pack 窗口 ${win[0]}–${win[1]} 以外——滑桿到不了該年，該線永遠不會出現。請改年份，或搬到該年所屬的時代槽`,
     )
 }
 
@@ -953,9 +953,9 @@ if (argv.includes('--teeth')) {
   )
 
   // F：四國 pack 的 `P(經度, 緯度)` 座標寫法——這些路線 2026-11-28 才首次入海陸判定。
-  //    第一條畫喺陸上（漢城—開京—平壤，全部錨點實測係陸），第二條全喺海面（渤海中央
+  //    第一條畫在陸上（漢城—開京—平壤，全部錨點實測為陸），第二條全在海面（渤海中央
   //    —大東溝），第二條係控制樣本：如果解析器把 `P()` 當垃圾或者投影反轉（經緯倒序），
-  //    要麼第一條唔報、要麼第二條被誤報。
+  //    則要麼第一條不報、要麼第二條被誤報。
   const fF = write(
     'src/countries/korea/teeth_sea_lane.ts',
     [
@@ -969,9 +969,9 @@ if (argv.includes('--teeth')) {
     ].join('\n'),
   )
 
-  // G：幽靈路線——pack 有 yearMin／yearMax，路線年份喺窗口以外就永遠渲染唔到。
-  //    第一條越界（1592 > 上限 1500）要咬；第二條喺窗口內，係控制樣本。
-  //    再放一檔完全冇 yearMin／yearMax 的（F 檔就係），證明冇窗口時唔會亂報。
+  // G：幽靈路線——pack 有 yearMin／yearMax，路線年份在窗口以外就永遠渲染不到。
+  //    第一條越界（1592 > 上限 1500）要咬；第二條在窗口內，是控制樣本。
+  //    再放一檔完全沒有 yearMin／yearMax 的（F 檔即是），證明沒有窗口時不會亂報。
   const fG = write(
     'src/countries/korea/teeth_window.ts',
     [
@@ -1085,14 +1085,14 @@ if (argv.includes('--teeth')) {
   check(`真樹只掃到 ${files.length} 檔（似有 root 俾人收細）`, files.length >= 100)
   check('真樹冇掃到 imjinWar.ts（窗口資料喺閘門外）', files.some((f) => rel(f).endsWith('packs/imjinWar.ts')))
 
-  // 8) 四國 pack 嘅 `P(經度, 緯度)` 座標寫法：畫喺陸上嘅海路要咬（呢個 id 唔喺帳本，
-  //    所以唔准降 warn），全喺海面嘅控制樣本唔該唔好報。兩條要一齊睇——淨係第一條
+  // 8) 四國 pack 的 `P(經度, 緯度)` 座標寫法：畫在陸上的海路要咬（這個 id 不在帳本，
+  //    所以不准降 warn），全在海面的控制樣本則不該報。兩條要一起看——只靠第一條
   //    通過可能係「全部亂報」，淨係第二條通過可能係解析器對 P() 完全失明。
   const sea = iss.filter((i) => i.code === 'sea-route-over-land')
   check(
-    'P(經度, 緯度) 寫法嘅陸上海路冇被抓到（四國路線仍在閘門外）',
+    'P(經度, 緯度) 寫法的陸上海路沒有被抓到（四國路線仍在閘門外）',
     sea.some((i) => i.where === fF && i.msg.includes('teeth-land-lane')),
-    sea.map((i) => i.where).join(' ') || '（一條 sea-route-over-land 都冇）',
+    sea.map((i) => i.where).join(' ') || '（一條 sea-route-over-land 也沒有）',
   )
   check(
     'P() 控制樣本俾誤報（經緯倒序／座標讀錯就會中招）',
@@ -1103,21 +1103,21 @@ if (argv.includes('--teeth')) {
       .join(' ')
       .slice(0, 140),
   )
-  // 9) 帳本會自己縮：修好而未刪嘅 id 要判紅，否則呢張債務單只會越擱越長
+  // 9) 帳本會自己縮：修好而未刪除的 id 要判紅，否則這張債務單只會越擱越長
   check(
-    '帳本死帳冇判紅（route-allowlist-stale 規則失靈）',
+    '帳本死帳沒有判紅（route-allowlist-stale 規則失靈）',
     iss.some((i) => i.code === 'route-allowlist-stale'),
   )
 
-  // 10) 幽靈路線：年份喺 pack 窗口以外要咬，窗口內嘅控制樣本唔該唔好報
+  // 10) 幽靈路線：年份在 pack 窗口以外要咬，窗口內的控制樣本則不該報
   const ghost = iss.filter((i) => i.code === 'route-year-out-of-window')
   check(
-    '年份越窗嘅幽靈路線冇被抓到',
+    '年份越窗的幽靈路線沒有被抓到',
     ghost.some((i) => i.where === fG && i.msg.includes('teeth-ghost-lane')),
-    ghost.map((i) => i.msg).join(' ').slice(0, 120) || '（一條都冇）',
+    ghost.map((i) => i.msg).join(' ').slice(0, 120) || '（一條也沒有）',
   )
   check(
-    '窗口內嘅路線俾誤報（窗口讀錯就會成批冤枉）',
+    '窗口內的路線被誤報（窗口讀錯就會成批冤枉）',
     !ghost.some((i) => i.msg.includes('teeth-in-window')),
     ghost
       .filter((i) => i.msg.includes('teeth-in-window'))

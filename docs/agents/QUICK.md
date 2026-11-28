@@ -14,8 +14,11 @@ test -f docs/agents/QUICK.md && echo QUICK_OK || exit 1
 sh scripts/agent-run.sh start <key>         # GO 才繼續；WAIT／BUSY 就立即停止並報告
 node scripts/agent-model-check.mjs          # 必須 MODEL_LOCK_OK，否則停
 git rev-parse HEAD                          # 記為 BASE
-node scripts/agent-queue.mjs <key>          # 照佇列第一項做，不自己找事
+node scripts/agent-queue.mjs plan --track=<key> --todo=2   # 先取計畫行（有就優先做）
+node scripts/agent-queue.mjs <key>          # 計畫行做完才回既有佇列，不自己找事
 ```
+計畫行的做法見 `.agents/skills/hf-plan/SKILL.md`：每行已寫好改哪個檔與「驗收」指令，
+驗收通過才能把該行的 `☐` 改成 `☑`。
 
 ## 每一項的標準節奏
 

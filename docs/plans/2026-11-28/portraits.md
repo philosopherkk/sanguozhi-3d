@@ -7,7 +7,7 @@
   - 日本 12 槽共 `99` 筆：`japan-history` 26、`heian` 14、`sengoku` 12、`japan-imjin` 11、`japan-modern` 10、`japan-edo` 8、`bakumatsu` 7、`japan-asuka` 3、`japan-azuchi` 3、`japan-kamakura` 3、`japan-muromachi` 3、`japan-nara` 2。
 - **四國 16 包現況（`src/countries/{korea,thailand,vietnam,malaysia}/*Pack.ts`）**：合計宣告 `107` 位人物，目前掛入 `portrait` 欄位者皆為 `0`：
   - 韓國（`12` 人）：`koancientPack.ts` 3、`kogoryeoPack.ts` 3、`kojoseonPack.ts` 3、`komodernPack.ts` 3。
-  - 泰國（`23` 人）：`thsukhothaiPack.ts` 4、`thayutthayaPack.ts` 6、`thchakriPack.ts` 6、`thmodernPack.ts` 7（內含簡體錯字 `th-p-phibun`「銮披汶」）。
+  - 泰國（`23` 人）：`thsukhothaiPack.ts` 4、`thayutthayaPack.ts` 6、`thchakriPack.ts` 6、`thmodernPack.ts` 7（人名欄 `th-p-phibun` 原為簡體形，2026-11-28 已修，見下表 ☑）。
   - 越南（`52` 人）：`vnnorthPack.ts` 10、`vndynastyPack.ts` 13、`vnnguyenPack.ts` 12、`vnmodernPack.ts` 17。
   - 馬來西亞（`20` 人）：`mymalaccaPack.ts` 5、`mycolonialPack.ts` 5、`mymerdekaPack.ts` 5、`mymodernPack.ts` 5。
   - 既有可複用跨國同人 `2` 筆：`kojoseonPack.ts` `ko-p-sunsin`（李舜臣＝`japan-imjin/az-yisunsin.jpg`）、`mymerdekaPack.ts` `myp3-yamashita`（山下奉文＝`japan-modern/mj-p-yamashita.jpg`）；四國跨槽同人 `4` 組：李成桂（`ko-p-iclee`/`ko-p-taejo`）、胡志明（`vnp3-hochiminh`/`vnp4-hochiminh`）、武元甲（`vnp3-vonguyengiap`/`vnp4-vonguyenvap`）、東姑阿都拉曼（`myp3-tunku`/`myp4-tunku`）。註：`imperial-wudai/p-wangjian` 為前蜀王建，不可誤給高麗王建。
@@ -22,9 +22,9 @@
 
 ## P0 佇列（本機代理今天可做，<=12 條）
 
-☐ `scripts/audit-portraits.mjs`｜於 `ERA_FILES` 註冊四國 16 個時代槽位鍵（`koancient`、`kogoryeo`、`kojoseon`、`komodern`、`thsukhothai`、`thayutthaya`、`thchakri`、`thmodern`、`vnnorth`、`vndynasty`、`vnnguyen`、`vnmodern`、`mymalacca`、`mycolonial`、`mymerdeka`、`mymodern`）指向對應 `*Pack.ts`｜驗收=`node scripts/audit-portraits.mjs && node scripts/audit-portraits.mjs --teeth`
-☐ `src/components/PortraitGallery.tsx`｜於 `ERA_LABELS` 補齊上述 16 個四國時代中文名稱（對照 `src/state/TopicContext.tsx` 各 `*_ERA_SLOTS` 之 `label`）｜驗收=`node -e "const s=require('fs').readFileSync('src/components/PortraitGallery.tsx','utf8');for(const k of ['koancient','thsukhothai','vnnorth','mymalacca'])if(!s.includes(k))process.exit(1)"`
-☐ `src/countries/thailand/thmodernPack.ts`｜修正 `th-p-phibun` 之 `name` 欄位簡體錯字「銮披汶」為「鑾披汶」｜驗收=`node scripts/country_check.mjs src/countries/thailand/thmodernPack.ts`
+☑ `scripts/audit-portraits.mjs`｜於 `ERA_FILES` 註冊四國 16 個時代槽位鍵（`koancient`、`kogoryeo`、`kojoseon`、`komodern`、`thsukhothai`、`thayutthaya`、`thchakri`、`thmodern`、`vnnorth`、`vndynasty`、`vnnguyen`、`vnmodern`、`mymalacca`、`mycolonial`、`mymerdeka`、`mymodern`）指向對應 `*Pack.ts`｜2026-11-28 由雲端那層完成｜驗收=`node scripts/audit-portraits.mjs && node scripts/audit-portraits.mjs --teeth`
+☑ `src/components/PortraitGallery.tsx`｜於 `ERA_LABELS` 補齊上述 16 個四國時代中文名稱（對照 `src/state/TopicContext.tsx` 各 `*_ERA_SLOTS` 之 `label`）｜2026-11-28 由雲端那層完成｜驗收=`node -e "const s=require('fs').readFileSync('src/components/PortraitGallery.tsx','utf8');for(const k of ['koancient','thsukhothai','vnnorth','mymalacca'])if(!s.includes(k))process.exit(1)"`
+☑ `src/countries/thailand/thmodernPack.ts`｜修正 `th-p-phibun` 之 `name` 欄位簡體錯字（U+9218 → 正體「鑾」U+943E；2026-11-28 由雲端那層完成，同檔共 5 處一併改，並把 U+9218 補入 `scripts/audit-chars.ts` 黑名單）｜驗收=`node scripts/country_check.mjs src/countries/thailand/thmodernPack.ts`
 ☐ `kojoseon`（李舜臣 `ko-p-sunsin`，1545–1598）｜複製 `public/portraits/japan-imjin/az-yisunsin.jpg` 至 `public/portraits/kojoseon/ko-p-sunsin.jpg` 與對應 `_thumb` 兩級檔，於 `kojoseonPack.ts` `ko-p-sunsin` 之 `name` 後加 `portrait` 與 `portrait_note`，並增補 `manifest.json`（`count`→351）｜驗收=`node scripts/audit-portraits.mjs`
 ☐ `mymerdeka`（山下奉文 `myp3-yamashita`，1885–1946）｜複製 `public/portraits/japan-modern/mj-p-yamashita.jpg` 至 `public/portraits/mymerdeka/myp3-yamashita.jpg` 與對應 `_thumb` 兩級檔，於 `mymerdekaPack.ts` `myp3-yamashita` 之 `name` 後加 `portrait` 與 `portrait_note`，並增補 `manifest.json`（`count`→352）｜驗收=`node scripts/audit-portraits.mjs`
 ☐ `korea`（PD 圖源盤點）｜以 Wikimedia Commons API 查詢 `Category:Portraits of Joseon kings`、`Category:Goryeo Dynasty`、`Category:Independence activists of Korea`，篩選 `Public domain`/`CC0` 檔案寫入 `reports/portraits-pd-korea.json`（含檔名、授權、作者/館藏、`basis` 草稿）｜驗收=`node -e "const d=JSON.parse(require('fs').readFileSync('reports/portraits-pd-korea.json','utf8'));if(!d.length||d.some(x=>!x.license||!x.commonsFile))process.exit(1)"`
@@ -88,7 +88,7 @@
 
 ## 禁止事項
 
-- **嚴禁簡體字與粵語口語**：所有 `name`、`portrait_note`、`basis`、`manifest.json` 與註釋只許用正體書面語（不可把「鑾」寫成「銮」，不可寫入口語虛詞）。
+- **嚴禁簡體字與粵語口語**：所有 `name`、`portrait_note`、`basis`、`manifest.json` 與註釋只許用正體書面語（不可把「鑾」寫成簡體形 U+9218，不可寫入口語虛詞）。
 - **嚴禁編造逐字引文**：人物簡介與考據筆記未於中／日文維基文庫逐字核對者，不得加引號充作史料原文，一律須標明「通說整理，非逐字引文」。
 - **嚴禁杜撰 `basis` 或使用非公有領域圖**：每筆 `basis` 須指明實際來源（Commons 檔名、博物館公有領域藏本或「依公開照片改畫，服裝隨該照」）；在世人物與版權未釋出照片一律跳過不掛圖。
 - **嚴禁繞過 `withBase()` 的路徑寫法**：資料欄位 `portrait` 一律寫 `/portraits/<era>/<id>.jpg`，不得寫死 `/sanguozhi-3d/` 或相對路徑；前端載圖與讀 `manifest.json` 一律經 `PersonPortrait.tsx` 的 `withBase()`。
