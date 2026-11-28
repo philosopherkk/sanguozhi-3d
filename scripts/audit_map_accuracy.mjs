@@ -167,6 +167,20 @@ const WAR_THEATRE = /^src\/japanEras\/packs\/(modernJapanPack|imjinWar)\.ts$/
 // 後者嘅字面值由 audit_teeth_mutations.mjs 當錨點盯住，改半個字就斷牙。
 const COUNTRY_THEATRE = /^src\/countries\/.+\.ts$/
 
+/**
+ * 存量債帳本：海路畫在陸上的路線，座標要改（內容工作，由排程代理照計畫逐條修）。
+ * 帳本並非靜默豁免——命中的 id 照常印 warn，而「已修好但仍留在帳本」會判 fail，
+ * 所以清掉一筆就必須刪除一筆，這張清單自己會縮到零。新增條目＝加新債，要人工批准。
+ */
+const DEBT_FILE = 'reports/route-accuracy-allowlist.json'
+let DEBT = { seaRouteOverLand: new Set() }
+try {
+  const raw = JSON.parse(readFileSync(join(ROOT, DEBT_FILE), 'utf8'))
+  DEBT.seaRouteOverLand = new Set(raw['sea-route-over-land'] ?? [])
+} catch {
+  DEBT.seaRouteOverLand = new Set()
+}
+
 /** 幾何註冊表：三國州郡、歷史上環、亞洲戰區範圍。
  *  產生器產物用雙引號、手寫檔用單引號，兩種都要認——只認一種會令整批 id 喺
  *  註冊表消失，配咗名嘅版圖鍵就永遠查唔到（imjinTerritory.ts 就係咁逃咗一輪）。 */
@@ -556,6 +570,8 @@ for (const [key, c] of Object.entries(CANVASES)) {
   c.scanned = 0
   c.short = 0
   c.pointsNoMask = 0
+  c.seaHits = new Set()
+  c.seaDebt = new Set()
   for (const [name, lon, lat, want] of ANCHORS[key]) {
     if (c.isLand(c.px(lat, lon)) !== want)
       selfCheck.push(`${c.label}：${name}(${lon},${lat}) 期望${want ? '陸' : '海'}`)
@@ -615,6 +631,27 @@ function objectBody(text, start) {
 }
 
 /**
+ * pack 自帶的時代窗口（`yearMin`／`yearMax`）。路線的 year 在窗口以外，年表滑桿
+ * 就永遠到不了該年——線畫得再漂亮也不會渲染（幽靈路線）。四國槽對 `?y=` 有 clamp，
+ * 呢個錯以前只有開瀏覽器先發現到，故設為 fail。
+ */
+const windowOf = (t) => {
+  const lo = t.match(/\byearMin:\s*(-?\d+)/)
+  const hi = t.match(/\byearMax:\s*(-?\d+)/)
+  return lo && hi ? [Number(lo[1]), Number(hi[1])] : null
+}
+const checkRouteYear = (relPath, win, rid, year) => {
+  if (!win || !Number.isFinite(year)) return
+  if (year < win[0] || year > win[1])
+    add(
+      'fail',
+      'route-year-out-of-window',
+      relPath,
+      `路線「${rid}」的 year ${year} 在本 pack 窗口 ${win[0]}–${win[1]} 以外——滑桿行唔到該年，該線永遠不會出現。要麼改年份，要麼搬去年份所屬的時代槽`,
+    )
+}
+
+/**
  * 一條路線的海陸判定口徑，三個畫布共用；cv 決定用邊套遮罩與容差。
  * 規則同舊版：海路落陸過半即 fail；陸路兩個以上點落外海先列 warn（貼灣誤判未清到零，
  * 升 fail 的條件係「各戰區都判過且連續兩輪冇新反例」，見 reports/map-human-decisions.md）。
@@ -628,11 +665,18 @@ function judgeRoute(cv, file, rid, pts, isSeaRoute) {
   const openSea = covered.filter((p) => !cv.nearCoast(p))
   const tag = `【${cv.label}】`
   if (isSeaRoute && onLand.length * 2 >= covered.length) {
+    cv.seaHits.add(rid)
+    // 存量債（見 reports/route-accuracy-allowlist.json）：降為 warn，但照樣印出來；
+    // 債清掉但仍未由帳本刪除 → 下面 route-allowlist-stale 會判紅，所以這個豁免會自己失效。
+    const debt = DEBT.seaRouteOverLand.has(rid)
+    if (debt) cv.seaDebt.add(rid)
     add(
-      'fail',
+      debt ? 'warn' : 'fail',
       'sea-route-over-land',
       file,
-      `${tag}海路「${rid}」有 ${onLand.length}/${covered.length} 個點落在陸地上——海上交通或艦戰的路線不該畫在陸上`,
+      `${tag}海路「${rid}」有 ${onLand.length}/${covered.length} 個點落在陸地上——海上交通或艦戰的路線不該畫在陸上${
+        debt ? '（存量債，見 reports/route-accuracy-allowlist.json；修好請由帳本刪除此 id）' : ''
+      }`,
     )
   }
   if (!isSeaRoute && openSea.length >= 2) {
@@ -663,6 +707,7 @@ for (const f of files) {
     else routesUnregistered.push(`${r}（${hits} 條）`)
     continue
   }
+  const win = windowOf(t)
   for (const m of t.matchAll(/\bpoints\s*:\s*\[/g)) {
     routesTotal += 1
     const start = m.index + m[0].length - 1
@@ -686,6 +731,17 @@ for (const f of files) {
     for (const p of t.slice(start, end + 1).matchAll(/\[\s*(-?[\d.]+)\s*,\s*(-?[\d.]+)\s*\]/g)) {
       pts.push([Number(p[1]), Number(p[2])])
     }
+    /**
+     * 四國 pack（`src/countries/**`）的座標全部寫成 `P(經度, 緯度)`（見
+     * `asiaCountryDomains.ts` 的 `asiaPx` 投影），上面認 `[x, y]` 字面量的正則
+     * 一條都命中不了，103 條路線因此全被歸入「點數不足」，亞洲戰區的覆蓋率恆為 0，
+     * 海路畫在陸上、陸路畫在海里的錯全都不報。呢度把它們投到同一張戰區畫布再判。
+     */
+    if (pts.length < 2) {
+      for (const p of t.slice(start, end + 1).matchAll(/\bP\(\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*\)/g)) {
+        pts.push(cv.px(Number(p[2]), Number(p[1])))
+      }
+    }
     if (pts.length < 2) {
       cv.short += 1
       continue
@@ -695,6 +751,8 @@ for (const f of files) {
     const body = objStart >= 0 ? objectBody(t, objStart) : ''
     const idHit = body.match(/\bid:\s*['"]([\w:.-]+)['"]/)
     const rid = idHit ? idHit[1] : '(未識別)'
+    const yearHit = body.match(/\byear:\s*(-?\d+)/)
+    checkRouteYear(r, win, rid, yearHit ? Number(yearHit[1]) : NaN)
     const isSeaRoute = /kind:\s*['"]sea['"]/.test(body)
     judgeRoute(cv, r, rid, pts, isSeaRoute)
   }
@@ -749,6 +807,8 @@ for (const f of files) {
       continue
     }
     lonLatParsed += 1
+    const yr = call.match(/^\(\s*'[^']*'\s*,\s*'[^']*'\s*,\s*(-?\d{1,4})\s*,/)
+    checkRouteYear(r, windowOf(t), m[1], yr ? Number(yr[1]) : NaN)
     judgeRoute(cv, r, m[1], coords.map(([lo, la]) => cv.px(la, lo)), seaIds.has(m[1]))
   }
 }
@@ -777,11 +837,31 @@ if (lonLatTotal !== lonLatParsed + lonLatShort) {
     `經緯度直寫路線 ${lonLatTotal} 條，實際解析 ${lonLatParsed} 條、點數不足 ${lonLatShort} 條——解析器漏抓，海陸規則的「0 命中」不可信`,
   )
 }
+const allSeaHits = new Set(
+  Object.values(CANVASES).flatMap((c) => [...c.seaHits]),
+)
+const staleDebt = [...DEBT.seaRouteOverLand].filter((id) => !allSeaHits.has(id))
+for (const id of staleDebt) {
+  add(
+    'fail',
+    'route-allowlist-stale',
+    DEBT_FILE,
+    `帳本仍列「${id}」，但海陸判定已不再報該路線——座標已修好，請由 ${DEBT_FILE} 刪除此 id（帳本只准縮短，不准留死帳）`,
+  )
+}
+const debtAll = new Set(Object.values(CANVASES).flatMap((c) => [...c.seaDebt]))
+
 add(
   'info',
   'route-sea-check-coverage',
   'src/**',
   `海陸判定覆蓋：中國戰區 ${CANVASES.china.scanned} 條／日本戰區 ${CANVASES.japan.scanned} 條／亞洲戰區 ${CANVASES.war.scanned} 條；另經緯度直寫 ${lonLatParsed} 條；點數不足 ${shortAll + lonLatShort} 條；非資料檔 ${routesNonData} 個 points: 欄位；${noMaskAll} 個點落在遮罩框外`,
+)
+add(
+  'info',
+  'route-sea-debt',
+  DEBT_FILE,
+  `海路落陸存量債：${debtAll.size} 條（帳本共 ${DEBT.seaRouteOverLand.size} 條，本次未命中 ${staleDebt.length} 條）——逐條修座標後由帳本刪除`,
 )
 
 const fails = issues.filter((i) => i.level === 'fail')
@@ -872,6 +952,39 @@ if (argv.includes('--teeth')) {
     ].join('\n'),
   )
 
+  // F：四國 pack 的 `P(經度, 緯度)` 座標寫法——這些路線 2026-11-28 才首次入海陸判定。
+  //    第一條畫喺陸上（漢城—開京—平壤，全部錨點實測係陸），第二條全喺海面（渤海中央
+  //    —大東溝），第二條係控制樣本：如果解析器把 `P()` 當垃圾或者投影反轉（經緯倒序），
+  //    要麼第一條唔報、要麼第二條被誤報。
+  const fF = write(
+    'src/countries/korea/teeth_sea_lane.ts',
+    [
+      "export const ROUTES = [",
+      "  { id: 'teeth-land-lane', year: 1592, kind: 'sea',",
+      "    points: [P(126.98, 37.57), P(126.9, 37.9), P(125.75, 39.03)] },",
+      "  { id: 'teeth-sea-lane', year: 1592, kind: 'sea',",
+      "    points: [P(119.8, 39.0), P(124.6, 39.2)] },",
+      ']',
+      '',
+    ].join('\n'),
+  )
+
+  // G：幽靈路線——pack 有 yearMin／yearMax，路線年份喺窗口以外就永遠渲染唔到。
+  //    第一條越界（1592 > 上限 1500）要咬；第二條喺窗口內，係控制樣本。
+  //    再放一檔完全冇 yearMin／yearMax 的（F 檔就係），證明冇窗口時唔會亂報。
+  const fG = write(
+    'src/countries/korea/teeth_window.ts',
+    [
+      "export const PACK = { id: 'teethwin', yearMin: 1400, yearMax: 1500, routes: [",
+      "  { id: 'teeth-ghost-lane', year: 1592, kind: 'land',",
+      "    points: [P(126.98, 37.57), P(125.75, 39.03)] },",
+      "  { id: 'teeth-in-window', year: 1450, kind: 'land',",
+      "    points: [P(126.98, 37.57), P(125.75, 39.03)] },",
+      '] } }',
+      '',
+    ].join('\n'),
+  )
+
   const r = spawnSync(process.execPath, [fileURLToPath(import.meta.url), `--files-root=${dir}`, '--json'], {
     encoding: 'utf8',
     maxBuffer: 32 * 1024 * 1024,
@@ -896,7 +1009,7 @@ if (argv.includes('--teeth')) {
 
   // 先證明 fixture 真係掃到——冇呢一步，下面所有「冇報」嘅控制樣本都係假綠。
   const scanned = new Set(child?.scanned ?? [])
-  for (const f of [fA, fB, fC, fD, fE]) check(`fixture 冇被掃描：${f}`, scanned.has(f))
+  for (const f of [fA, fB, fC, fD, fE, fF, fG]) check(`fixture 冇被掃描：${f}`, scanned.has(f))
   if (child) check('注入壞 id 之後子行程竟然 fail 0', child.fails > 0, '規則可能整套失效')
 
   // 1) 識別碼引用＋常數值寫法入面嘅假 id 要咬到（呢個係逃咗一輪嘅案例）
@@ -971,6 +1084,47 @@ if (argv.includes('--teeth')) {
   // 7) 掃描範圍：真樹縮水即係 roots 被人改細，規則會對新 pack 失明
   check(`真樹只掃到 ${files.length} 檔（似有 root 俾人收細）`, files.length >= 100)
   check('真樹冇掃到 imjinWar.ts（窗口資料喺閘門外）', files.some((f) => rel(f).endsWith('packs/imjinWar.ts')))
+
+  // 8) 四國 pack 嘅 `P(經度, 緯度)` 座標寫法：畫喺陸上嘅海路要咬（呢個 id 唔喺帳本，
+  //    所以唔准降 warn），全喺海面嘅控制樣本唔該唔好報。兩條要一齊睇——淨係第一條
+  //    通過可能係「全部亂報」，淨係第二條通過可能係解析器對 P() 完全失明。
+  const sea = iss.filter((i) => i.code === 'sea-route-over-land')
+  check(
+    'P(經度, 緯度) 寫法嘅陸上海路冇被抓到（四國路線仍在閘門外）',
+    sea.some((i) => i.where === fF && i.msg.includes('teeth-land-lane')),
+    sea.map((i) => i.where).join(' ') || '（一條 sea-route-over-land 都冇）',
+  )
+  check(
+    'P() 控制樣本俾誤報（經緯倒序／座標讀錯就會中招）',
+    !sea.some((i) => i.msg.includes('teeth-sea-lane')),
+    sea
+      .filter((i) => i.msg.includes('teeth-sea-lane'))
+      .map((i) => i.msg)
+      .join(' ')
+      .slice(0, 140),
+  )
+  // 9) 帳本會自己縮：修好而未刪嘅 id 要判紅，否則呢張債務單只會越擱越長
+  check(
+    '帳本死帳冇判紅（route-allowlist-stale 規則失靈）',
+    iss.some((i) => i.code === 'route-allowlist-stale'),
+  )
+
+  // 10) 幽靈路線：年份喺 pack 窗口以外要咬，窗口內嘅控制樣本唔該唔好報
+  const ghost = iss.filter((i) => i.code === 'route-year-out-of-window')
+  check(
+    '年份越窗嘅幽靈路線冇被抓到',
+    ghost.some((i) => i.where === fG && i.msg.includes('teeth-ghost-lane')),
+    ghost.map((i) => i.msg).join(' ').slice(0, 120) || '（一條都冇）',
+  )
+  check(
+    '窗口內嘅路線俾誤報（窗口讀錯就會成批冤枉）',
+    !ghost.some((i) => i.msg.includes('teeth-in-window')),
+    ghost
+      .filter((i) => i.msg.includes('teeth-in-window'))
+      .map((i) => i.msg)
+      .join(' ')
+      .slice(0, 120),
+  )
 
   rmSync(dir, { recursive: true, force: true })
   console.log(`\naudit:map --teeth — 失敗 ${bad} 項`)
