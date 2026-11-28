@@ -37,6 +37,28 @@ export function licenseCheck(license) {
 }
 
 /**
+ * 圖上可見的署名：站內唯一會顯示給讀者的欄位是 `basis`（圖鑑與頭像的
+ * hover 提示「想像圖 · 考據：…」）。BY 系列因此要把作者與授權寫進 `basis`，
+ * 唔准只寫喺 `attribution` 而讀者完全睇唔到。合格回 null，否則回問題字串。
+ */
+export function basisCreditIssue(row) {
+  const author = String(row.attribution ?? '')
+    .split('／')[0]
+    .trim()
+  const basis = String(row.basis ?? '')
+  if (!author || author === '佚名') {
+    return 'BY 系列的 basis 要寫得出作者'
+  }
+  if (!basis.includes(author)) {
+    return `basis 未寫作者「${author}」（只寫喺 attribution 裡＝讀者睇唔到）`
+  }
+  if (!/CC\s?BY(-SA)?/i.test(basis)) {
+    return 'basis 未寫授權名稱（例：CC BY-SA 4.0）'
+  }
+  return null
+}
+
+/**
  * 署名要同時看得到作者與可點的來源頁。
  * 只有授權名、只有一串 URL、或「佚名」兩字加網址，都不算合規。
  */
@@ -46,3 +68,4 @@ export function attributionOk(value) {
   if (!/https?:\/\/\S+/.test(s)) return false
   return s.replace(/https?:\/\/\S+/g, '').trim().length >= 2
 }
+

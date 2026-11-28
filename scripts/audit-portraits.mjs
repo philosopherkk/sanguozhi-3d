@@ -27,7 +27,7 @@
  */
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { attributionOk, licenseCheck } from './portrait_license.mjs'
+import { attributionOk, basisCreditIssue, licenseCheck } from './portrait_license.mjs'
 
 const ROOT = join(import.meta.dirname, '..')
 const MANIFEST = join(ROOT, 'public', 'portraits', 'manifest.json')
@@ -289,6 +289,10 @@ function check(rows, opts = {}) {
     if (!creditFiles.has(row.file)) {
       fail('credits-missing', where, `${row.file} 未列入 public/portraits/credits.json`)
     }
+    const shown = basisCreditIssue(row)
+    if (shown) {
+      fail('license-basis-credit', where, shown)
+    }
   }
 
   const files = rows.filter((r) => existsSync(join(ROOT, 'public', 'portraits', r.file))).length
@@ -323,6 +327,7 @@ if (process.argv.includes('--teeth')) {
     license: 'CC BY-SA 4.0',
     attribution:
       'Prokurator11／Wikimedia Commons，https://commons.wikimedia.org/wiki/File:Taejo.jpg',
+    basis: '測試改畫；原作者 Prokurator11，原圖在 Wikimedia Commons，CC BY-SA 4.0',
   }
   const CREDITS_OK = [{ file: BY_ROW.file }]
   const teeth = [
@@ -371,6 +376,13 @@ if (process.argv.includes('--teeth')) {
       name: 'license-no-attribution',
       expect: 'license-no-attribution',
       run: () => check([...rows, { ...BY_ROW, attribution: undefined }], { credits: CREDITS_OK }),
+    },
+    {
+      // 署名只寫喺 attribution、讀者欄 basis 空泛＝法律上等於冇署名
+      name: 'license-basis-credit',
+      expect: 'license-basis-credit',
+      run: () =>
+        check([...rows, { ...BY_ROW, basis: '依銅像改畫' }], { credits: CREDITS_OK }),
     },
     {
       name: 'credits-dropped',

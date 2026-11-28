@@ -103,21 +103,28 @@
 3. 跑 `node scripts/portrait_credits.mjs` 產生 `public/portraits/credits.json`，連同圖一併 commit
 4. `basis` 照 `basis_draft` 寫明來源（工具已把署名文字組好，照貼即可）
 
-⚠ 站內而家**冇任何組件讀 `basis`／`credits.json`**（`PersonPortrait.tsx` 只畫圖＋「想像圖」角標）。即係署名目前只做到「資料齊、閘門管住」，瀏覽器睇唔到。要真正合 CC 的公開署名要求，要喺人物卡或圖鑑加一格出處（UI 改動，要主人拍板先做）；未做之前 **BY 系列唔准上線**，只准留喺倉外參考區。｜驗收=`node scripts/portrait_credits.mjs --check`
+**署名要讀者睇見**：站內唯一會顯示給人嘅欄位係 `basis`（頭像 hover 與圖鑑嘅「想像圖 · 考據：…」提示）。所以 BY 圖除咗 `attribution`，`basis` 都要寫到作者同授權名，否則閘門以 `license-basis-credit` 判紅。照呢句改即可（作者與授權工具已組好）：
+
+```
+依 Wikimedia Commons 照片改畫；原作者 <作者>，原圖 <原圖檔名>，CC BY-SA 4.0
+```
+
+`public/portraits/credits.json` 係由 manifest 產生嘅機械可讀署名清單（日後做授權頁或圖鑑署名格仔先有用），目前 `count: 0`。加一格可見署名屬 UI 改動，仍需主人拍板；未做之前 BY 圖**可以上線**，因為 hover 已見到作者與授權。｜驗收=`node scripts/portrait_credits.mjs --check`
 
 ### 待人裁定（唔准代理自行放行）
 
 
 
 - **CC BY-SA 已批（2026-11-28）**：原本掛喺 `other_license_hits` 嘅命中已隨白名單改寬而納入候選（實測 `ko-p-wanggeon` 即刻多一張 `CC BY-SA 4.0` 候選）。仍不准代理自己再放寬名單：要加新授權先改 `portrait_license.mjs` 並連同成對探針一齊改。
-- **無合格來源者**：`ko-p-wanggeon`（王建，只有 CC BY-SA 銅照）、`vnp4-navarre`（標題不含姓名嘅全部命中）→ 照現行規則維持無圖，等主人另行裁定。
+- **無合格來源者**：`vnp4-navarre`（納瓦爾；標題含姓名嘅命中全部係 NC／ND 或唔係本人）→ 照現行規則維持無圖，等主人另行裁定。
+- `ko-p-wanggeon`（王建）唔再係「無合格來源」：白名單改寬後已有 `CC BY-SA 4.0` 候選（`reports/portraits-pd-korea.json` 嘅 `chosen`，連署名文字已組好），入庫照本節四步做。
 
 ## 工具缺口（要雲端那層我來建）
 
 1. **`scripts/gen_country_portraits.mjs`（PD 取圖＋風格轉繪＋縮圖管線）**
-   - 輸入：經人工或 P0 驗證之 JSON 清單（`[{era, id, name, commonsFile, basis}]`）＋ `public/portraits/_style/style-anchor.jpg`。
-   - 輸出：呼叫 Commons API 下載驗證為 `Public domain`/`CC0` 之來源圖至暫存區，呼多模態生圖工具以雙參考圖產出 `1024x1024` 風格一致 JPEG 至 `public/portraits/<era>/<id>.jpg`，並生成 `80/192px` 縮圖與 `manifest` 草稿。
-   - 通過／失敗判準：Commons `LicenseShortName` 非 PD/CC0 即拒絕；輸出檔實測 JPEG 尺寸 `1024x1024` 且對應 `_thumb` 兩檔存在。
+   - 輸入：經人工或 P0 驗證之 JSON 清單（`[{era, id, name, commonsFile, basis, license, attribution}]`）＋ `public/portraits/_style/style-anchor.jpg`。
+   - 輸出：呼叫 Commons API 下載並用 `scripts/portrait_license.mjs` 嘅口徑驗證授權（白名單見上面「授權政策」）後存入暫存區，呼多模態生圖工具以雙參考圖產出 `1024x1024` 風格一致 JPEG 至 `public/portraits/<era>/<id>.jpg`，並生成 `80/192px` 縮圖與 `manifest` 草稿（BY 系列要一併寫入 `license`／`attribution`，再跑 `node scripts/portrait_credits.mjs`）。
+   - 通過／失敗判準：`LicenseShortName` 唔喺白名單即拒絕（NC／ND 一律拒）；輸出檔實測 JPEG 尺寸 `1024x1024` 且對應 `_thumb` 兩檔存在；`node scripts/audit-portraits.mjs` 與 `node scripts/portrait_credits.mjs --check` 都要 exit 0。
    - 為何本機小模型無法即興替代：30B 文字模型無 `generate_image` 視覺生圖與風格比對能力，且無法自行驗證圖片像素尺寸與真實授權。
 2. **擴充 `scripts/audit-portraits.mjs`（雙向掛載＋縮圖＋出處閘門）**
    - 輸入：`public/portraits/manifest.json`、`public/portraits/_thumb/**`、25 個既有時代與 16 個四國 `*Pack.ts`。

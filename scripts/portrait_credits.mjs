@@ -17,7 +17,7 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
 import { join } from 'node:path'
-import { attributionOk, licenseCheck } from './portrait_license.mjs'
+import { attributionOk, basisCreditIssue, licenseCheck } from './portrait_license.mjs'
 
 const ROOT = join(import.meta.dirname, '..')
 const MANIFEST = join(ROOT, 'public', 'portraits', 'manifest.json')
@@ -130,6 +130,51 @@ if (process.argv.includes('--selftest')) {
     if (attributionOk(s) !== want) {
       failed++
       console.error(`  署名判定 ${JSON.stringify(s)} — 期望 ${want}`)
+    }
+  }
+  const shown = [
+    // 合格：讀者看得到的 basis 寫到作者與授權
+    [
+      {
+        attribution: 'Prokurator11／Commons，https://commons.wikimedia.org/wiki/File:A.jpg',
+        basis: '依 Wikimedia Commons 照片改畫；原作者 Prokurator11，CC BY-SA 4.0',
+      },
+      null,
+    ],
+    // 署名只寫喺 attribution，讀者欄空泛＝等於冇署名
+    [
+      {
+        attribution: 'Prokurator11／Commons，https://commons.wikimedia.org/wiki/File:A.jpg',
+        basis: '依銅像改畫',
+      },
+      'issue',
+    ],
+    // 有作者但冇授權名稱
+    [
+      {
+        attribution: 'Prokurator11／Commons，https://commons.wikimedia.org/wiki/File:A.jpg',
+        basis: '依 Commons 原圖改畫，作者 Prokurator11',
+      },
+      'issue',
+    ],
+    // 作者寫「佚名」：BY 不能靠匿名推責
+    [
+      {
+        attribution: '佚名／Commons，https://commons.wikimedia.org/wiki/File:A.jpg',
+        basis: '佚名，CC BY 2.0',
+      },
+      'issue',
+    ],
+  ]
+  for (const [row, want] of shown) {
+    const got = basisCreditIssue(row)
+    if (want === null && got !== null) {
+      failed++
+      console.error(`  讀者可見署名：合規條目被誤判 — ${got}`)
+    }
+    if (want === 'issue' && got === null) {
+      failed++
+      console.error(`  讀者可見署名：${row.basis} 應該被擋`)
     }
   }
   console.log(`portrait_credits --selftest — 失敗 ${failed} 項`)
