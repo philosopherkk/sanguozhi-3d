@@ -8,7 +8,8 @@
  *   2 coord-out-of-frame —— 座標為負或超出畫布（例：中途島 -177.37，位於畫布以外）
  *   3 route-year-no-event —— 路線該年無對應事件，違反「選定該年應同時顯示事件與路線」的設計
  *
- * 用法：node scripts/audit_map_accuracy.mjs [--json] [--fail-on-gap] [--teeth]
+ * 用法：node scripts/audit_map_accuracy.mjs [--json] [--fail-on-gap] [--route=id[,id…]] [--teeth]
+ *
  *      --teeth 把壞 id 注入暫存根再掃一遍，確認每條規則都會咬（見檔尾 teeth 區塊）
  */
 import { readFileSync, readdirSync, writeFileSync, mkdirSync, mkdtempSync, rmSync } from 'node:fs'
@@ -217,6 +218,25 @@ addFrom('src/sengoku/data/tracedDomains.ts', ID_Q)
 
 const issues = []
 const add = (level, code, where, msg) => issues.push({ level, code, where, msg })
+
+/**
+ * `--route=id[,id…]`：只驗那幾條路線，exit code 就是該路線的判定。
+ * 代理修一條路線要的是「呢條修好未」，而全域 fail 計數會被存量債帳本降成 warn，
+ * 拿 `--fail-on-gap` 驗收會變成「冇改也過」（實測過）。故這裡刻意**不理帳本**：
+ * 命中帳本的路線照樣算未通過，逼修好的人同時把 id 由帳本刪除。
+ */
+const ROUTE_ARG = (argv.find((x) => x.startsWith('--route=')) || '').slice(8)
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean)
+const routeVerdicts = new Map()
+const touchRoute = (rid) => {
+  if (rid && !routeVerdicts.has(rid)) routeVerdicts.set(rid, [])
+}
+const noteRoute = (rid, text) => {
+  touchRoute(rid)
+  if (text) routeVerdicts.get(rid).push(text)
+}
 const coverage = []
 
 for (const f of files) {
@@ -642,13 +662,15 @@ const windowOf = (t) => {
 }
 const checkRouteYear = (relPath, win, rid, year) => {
   if (!win || !Number.isFinite(year)) return
-  if (year < win[0] || year > win[1])
+  if (year < win[0] || year > win[1]) {
+    noteRoute(rid, `year ${year} 在本 pack 窗口 ${win[0]}–${win[1]} 以外（幽靈路線）`)
     add(
       'fail',
       'route-year-out-of-window',
       relPath,
       `路線「${rid}」的 year ${year} 在本 pack 窗口 ${win[0]}–${win[1]} 以外——滑桿到不了該年，該線永遠不會出現。請改年份，或搬到該年所屬的時代槽`,
     )
+  }
 }
 
 /**
@@ -657,19 +679,25 @@ const checkRouteYear = (relPath, win, rid, year) => {
  * 升 fail 的條件係「各戰區都判過且連續兩輪冇新反例」，見 reports/map-human-decisions.md）。
  */
 function judgeRoute(cv, file, rid, pts, isSeaRoute) {
+  touchRoute(rid)
   const box = cv.maskBox
   const covered = pts.filter((p) => p[0] >= box.x0 && p[0] <= box.x1 && p[1] >= box.y0 && p[1] <= box.y1)
   cv.pointsNoMask += pts.length - covered.length
-  if (covered.length < 2) return
+  if (covered.length < 2) {
+    noteRoute(rid, `可判點不足（${covered.length}/${pts.length} 點在遮罩框內），無法判定`)
+    return
+  }
   const onLand = covered.filter((p) => cv.isLand(p))
   const openSea = covered.filter((p) => !cv.nearCoast(p))
   const tag = `【${cv.label}】`
   if (isSeaRoute && onLand.length * 2 >= covered.length) {
     cv.seaHits.add(rid)
+    noteRoute(rid, `海路有 ${onLand.length}/${covered.length} 點落在陸地上`)
     // 存量債（見 reports/route-accuracy-allowlist.json）：降為 warn，但照樣印出來；
     // 債清掉但仍未由帳本刪除 → 下面 route-allowlist-stale 會判紅，所以這個豁免會自己失效。
     const debt = DEBT.seaRouteOverLand.has(rid)
     if (debt) cv.seaDebt.add(rid)
+    void debt // 帳本只影響全域層級的 fail／warn，--route 一律算未通過
     add(
       debt ? 'warn' : 'fail',
       'sea-route-over-land',
@@ -680,6 +708,7 @@ function judgeRoute(cv, file, rid, pts, isSeaRoute) {
     )
   }
   if (!isSeaRoute && openSea.length >= 2) {
+    noteRoute(rid, `陸路有 ${openSea.length}/${covered.length} 點落在外海`)
     // 暫列 warn：底圖是 1:50m 示意，容差只有貼岸級別的十餘 px，貼灣海岸線（遼東灣、
     // 瀨戶內海、大阪灣呢類）容易被判成外海。逐條判完先升 fail。
     add(
@@ -875,6 +904,36 @@ const warns = issues.filter((i) => i.level === 'warn')
 // 正則」，而是閘門要自己證明自己有牙：做法同 audit:chars --teeth 一樣，把壞 id
 // 注入暫存根，用同一支掃描邏輯（子行程）掃一次，每條規則都要咬；另外跑控制樣本，
 // 防止規則越界或誤殺（豁免方向都要驗）。
+/**
+ * `--route=` 的收口：逐條路線印判定，exit code 只取決於這幾條（存量債帳本不豁免）。
+ * id 打錯／該檔未進入掃描範圍同樣 exit 1，否則「找不到」會被讀成「通過」。
+ */
+if (ROUTE_ARG.length) {
+  let bad = 0
+  for (const rid of ROUTE_ARG) {
+    const verdict = routeVerdicts.get(rid)
+    if (verdict === undefined) {
+      bad += 1
+      console.log(`✗ ${rid}：找不到該路線（id 打錯，或該檔未進入掃描範圍）`)
+    } else if (verdict.length) {
+      bad += 1
+      console.log(`✗ ${rid}：${verdict.join('；')}`)
+    } else {
+      console.log(`✓ ${rid}：海陸判定與年份窗口皆通過`)
+    }
+  }
+  console.log(
+    bad
+      ? `--route — ${bad}/${ROUTE_ARG.length} 條未通過${
+          DEBT.seaRouteOverLand.size ? `；帳本尚有 ${DEBT.seaRouteOverLand.size} 條債，修好要由 ${DEBT_FILE} 刪除該 id` : ''
+        }`
+      : `--route — ${ROUTE_ARG.length} 條全部通過${
+          DEBT.seaRouteOverLand.has(ROUTE_ARG[0]) ? `；請同時由 ${DEBT_FILE} 刪除已修好的 id，否則 route-allowlist-stale 會判紅` : ''
+        }`,
+  )
+  process.exit(bad ? 1 : 0)
+}
+
 if (argv.includes('--teeth')) {
   const dir = mkdtempSync(join(tmpdir(), 'map-teeth-'))
   const write = (relPath, text) => {

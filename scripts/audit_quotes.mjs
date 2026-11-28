@@ -61,7 +61,11 @@ const argv = process.argv.slice(2)
 const has = (f) => argv.includes('--' + f)
 const opt = (name) => {
   const i = argv.indexOf('--' + name)
-  return i >= 0 ? argv[i + 1] : undefined
+  if (i >= 0) return argv[i + 1]
+  // `--mark=<v>` 這種等號寫法以前會靜靜回 undefined：命令 exit 0、ledger 卻沒寫入，
+  // 拿它當驗收指令就等于「冇做也算過」（2026-11-27 accuracy 第 56 輪實錄）。
+  const eq = argv.find((x) => x.startsWith(`--${name}=`))
+  return eq === undefined ? undefined : eq.slice(name.length + 3)
 }
 const MODE = has('json') ? 'json' : has('live') ? 'live' : has('todo') ? 'todo' : 'report'
 // --rows：照 scripts/legacy/* 的契約輸出 {"rows":[{kind,quote,source,...}]}，
