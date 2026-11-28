@@ -3754,3 +3754,37 @@ commit `0fdce470`（帳本 252 行）；push --force-with-lease `10c9687c...0fdc
 
 1. 「出處具名但無原文」依序續做 `battles.json`：平吳（晉書武帝紀／王濬傳／杜預傳＋通鑑卷八十）、巴陵（武帝紀）等；平吳用晉書通卷頁（武帝紀 003、王濬傳、杜預傳卷次先試 insource 定位）。
 2. 待使用者裁定的工具缺口不變：`--mark=` 等號式靜默失效；`--live` 紀傳名逐卷掃誤配；雙十協定中央日報本對讀（第 21 輪遺留）。
+
+## 第 59 輪（2026-11-28 16:11–16:35，首輪走「計畫軌道優先」新制）
+
+### 1) 本輪項目（3 項：citations 計畫 1＋accuracy 2）
+
+1. `src/countries/korea/koancientPack.ts:ko-m108`（citations 計畫第 1 條）：READINGS 引文由自撰語句改為《史記·朝鮮列傳》逐字引文「以故遂定朝鮮，為四郡。」，`source` 移去「通說整理」標記。
+2. `src/imperial/data/liaosongPack.ts#ls-1115-jinjian`：金建國長引文（91 字含本紀原話）整段對 zh.wikisource《金史/卷2》逐字核對，匹配 1 處；工具 `--mark` 入帳（頁記 `金史/卷2`）。
+3. `src/imperial/data/liaosongPack.ts#ls-1125-liaowang`：遼亡降封引文對《金史/卷3》逐字核對，匹配 1 處；工具 `--mark` 入帳（頁記 `金史/卷3`）。
+
+### 2) 過程記錄
+
+- 計畫工單照 `docs/plans/2026-11-28/citations.md` 第 1 條執行；驗收指令中段（`--mark`）因帳本限制改由手算補戳（見下），前後兩段照跑：qsrc 匹配 1 處、`country_check.mjs` PASS；驗收通過後 `--done=1` 標 ☑，連同計畫檔一併 commit `d6e15f46`（commit scope 依 hf-plan 技能用軌道名 `citations`）。
+- 同 key 雙行限制：`ko-m108` 在 READINGS 與 events 兩結構同 key，`--mark` 見「重複 2 筆」即拒寫（與第 57 輪 READINGS＋EVENTS 同類）。帳本原無該行，故按工具原版 hash（`audit_quotes.mjs` 第 382 行 djb2、`charCodeAt` 逐步 `>>>0`）手算補寫 `{stamp:'2cf43733', page:'史記/卷115', at}`，並以另一獨立實作覆核戳記一致；`--json` 顯示該條 state=verified（events 行無 quote 欄照例 na，不會轉 stale）。
+- 金史兩條引文欄本已照原卷（「爲」「于是」照錄，檔內已有 chars-block 標記與查證註解），本輪屬補記帳單；查證用整段長 needle（含「」與全角標點）而非佇列建議的短片段，一次覆蓋全引文。
+- 收工 gate 首跑紅：`audit:commit-msgs.hard 0 → 8`，原因是第二個 commit 標題混入簡體字（建國／與／遼／兩／對／記／帳）；`git commit --amend` 改回正體標題後 gate 回 0（與第 57 輪「引文原字入標題亦照咬」同一張字表，教訓：標題只准正體書面語，不得引原卷字形之外再混簡體）。amend 後 commit 為 `98285e5a`。
+
+### 3) 前後對照
+
+| 指標 | 前 | 後 |
+| --- | --- | --- |
+| audit:quotes 已查證／未查證／引文已改 | 313／0／0 | 316／0／0 |
+| 帳本戳記行數 | 399 | 402 |
+| citations 計畫餘量 | 12 | 11 |
+| audit:chars 硬傷 | 0 | 0 |
+
+（「有引文」欄由 444 增至 510，屬 rebase 期間主線各軌新增引文，非本輪改動。）
+
+收工驗證：tsc=0；build=0；lint=0；probe-if-ui＝SKIP(no-ui-diff)；gates=0（無惡化）；selfcheck 兩式 0 命中；qsrc 三條長段逐一「匹配 1 處」。commit `d6e15f46`（citations 第 1 條）＋`98285e5a`（金史兩條記帳）。
+
+### 4) 剩餘佇列（交下輪）
+
+1. citations 軌道餘 11 條，下輪照 `node scripts/agent-queue.mjs plan --track=citations --todo=1` 取頭條。
+2. accuracy「出處具名但無原文」大類依序續做 `src/countries/korea/koancientPack.ts` 各事件（《漢書·武帝紀》《史記·朝鮮列傳》《三國史記·高句麗本紀》等出處補原文）；其後為 `battles.json` 平吳（晉書武帝紀／王濬傳／杜預傳＋通鑑卷八十）、巴陵（武帝紀）。
+3. 待使用者裁定的工具缺口不變：`--mark=` 等號式靜默失效；`--live` 紀傳名逐卷掃誤配；同 key 多結構 `--mark` 拒寫（本輪再起一次，建議帳本改以「檔#結構#key」為鍵）；雙十協定中央日報本對讀（第 21 輪遺留）。

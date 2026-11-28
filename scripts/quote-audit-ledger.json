@@ -1993,5 +1993,20 @@
     "stamp": "9641c61d",
     "page": "春秋左氏傳/宣公",
     "at": "2026-11-27"
+  },
+  "src/countries/korea/koancientPack.ts#ko-m108": {
+    "stamp": "2cf43733",
+    "page": "史記/卷115",
+    "at": "2026-11-28"
+  },
+  "src/imperial/data/liaosongPack.ts#ls-1115-jinjian": {
+    "stamp": "1594562",
+    "page": "金史/卷2",
+    "at": "2026-11-28"
+  },
+  "src/imperial/data/liaosongPack.ts#ls-1125-liaowang": {
+    "stamp": "5efc0616",
+    "page": "金史/卷3",
+    "at": "2026-11-28"
   }
 }
