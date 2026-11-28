@@ -81,6 +81,35 @@
   font-size: var(--kid-font);
 }
 
+.kid-river {
+  display: flex;
+  flex-direction: column;
+  gap: var(--kid-gap);
+  padding: 0 12px;
+}
+
+/* 踏腳石：可點面積不得小於 var(--kid-tap)；目前時代靠外框標示，不只靠顏色。 */
+[data-kid="era"] {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--kid-tap);
+  min-width: var(--kid-tap);
+  padding: 12px var(--kid-gap);
+  border: 2px solid var(--kid-card-line);
+  border-radius: var(--kid-radius);
+  background: var(--kid-card);
+  color: inherit;
+  font-size: var(--kid-font);
+  text-align: start;
+  scroll-snap-align: center;
+}
+
+[data-kid="era"][aria-current="true"] {
+  outline: 4px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .kid-machine {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -113,6 +142,12 @@
 @media (min-width: 1025px) {
   .kid-home__grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .kid-river {
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
   }
 
   .kid-machine {
