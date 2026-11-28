@@ -35,6 +35,13 @@ const TARGETS = [
   // 事件列表形態（無三段欄位），本閘門跳過，僅在回報裡列明跳過了什麼
   { file: 'src/heian/data/history.ts', label: '平安（事件列表形態）', eventShape: false },
   { file: 'src/bakumatsu/data/history.ts', label: '幕末（事件列表形態）', eventShape: false },
+  // 2026-11-29 補：時代包（japanEras）的深讀卡放在各包自己的 DETAILS 裡，
+  // 之前這個閘門完全沒讀過——1585 關白、1588 刀狩兩張卡從本檔移過去之後等於脫離把關。
+  // 事件本身（causes/course/outcome）由 audit:event-depth 掃 src/japanEras/，兩邊不重疊。
+  { file: 'src/japanEras/packs/azuchiPack.ts', label: '安土桃山（包內詳情卡）' },
+  { file: 'src/japanEras/packs/edoPack.ts', label: '江戶（包內詳情卡）' },
+  { file: 'src/japanEras/packs/imjinWarEvents.ts', label: '萬曆朝鮮（包內詳情卡）' },
+  { file: 'src/japanEras/packs/modernJapanPack.ts', label: '近代日本（包內詳情卡）' },
 ]
 
 const MIN = { causes: 200, course: 200, outcome: 400 }
@@ -72,6 +79,11 @@ function fields(body) {
     const m = re.exec(body)
     res[key] = m ? [...m[2].replace(/\\n/g, '\n')].length : -1
   }
+  // 同一支檔常同時放好幾個 Record（例：包內的 DETAILS 與 READINGS）。
+  // 三者都找不到時要能分辨「這是三層意譯條目」還是「詳情卡缺欄」，
+  // 否則回報會寫成非事件詳情，讀的人以為該事件沒有內容。
+  // 引號形態有三種：單引號、反引號（多行）、雙引號（azuchiPack 實測）；layers 是物件不是字串。
+  res.isReading = /\bquote:\s*[`'"]/.test(body) || /\blayers:\s*\{/.test(body)
   return res
 }
 
@@ -86,10 +98,12 @@ function collect() {
       continue
     }
     let offShape = 0
+    let readings = 0
     for (const e of entries) {
       // 混合檔案：三段全找不到 → 該條不是事件詳情形態，跳過而不是判失敗
       if (Object.keys(MIN).every((k) => e[k] < 0)) {
-        offShape += 1
+        if (e.isReading) readings += 1
+        else offShape += 1
         continue
       }
       const bad = []
@@ -99,6 +113,7 @@ function collect() {
       }
       rows.push({ ...e, file: t.file, label: t.label, ok: bad.length === 0, bad })
     }
+    if (readings) skipped.push({ file: t.file, count: readings, why: '三層意譯條目，由 audit:reading-layers 管' })
     if (offShape) skipped.push({ file: t.file, count: offShape, why: '三段欄位皆無，非事件詳情' })
   }
   return { rows, skipped }
