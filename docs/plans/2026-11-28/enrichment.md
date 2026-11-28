@@ -21,8 +21,8 @@
 
 ## P0 佇列（本機代理今天可做，<=12 條）
 
-☐ src/imperial/data/prcPack.ts:105｜`critical`｜為1949「中華人民共和國成立」補 `critical: true`（新中國槽零張關鍵卡），保留既有 outcome 並於 note 簡述建政改變東亞版圖之由｜驗收=node scripts/audit_critical.mjs --era 新中國 && node scripts/agent-selfcheck.mjs origin/main --branch
-☐ src/imperial/data/civilWarPack.ts:896｜`critical`｜為1946「中原突圍：全面內戰爆發」補 `critical: true`（國共內戰槽零張關鍵卡），補齊三段/小學層免降級，避開重複「1946年6月26日是階段的分界」｜驗收=node scripts/audit_critical.mjs --era 國共內戰 && node scripts/agent-selfcheck.mjs origin/main --branch
+☐ src/imperial/data/prcPack.ts:105｜`critical`｜為1949「中華人民共和國成立」補 `critical: true`（新中國槽零張關鍵卡），保留既有 outcome 並於 note 簡述建政改變東亞版圖之由｜驗收=`node scripts/audit_critical.mjs --era 新中國 --year 1949` && node scripts/agent-selfcheck.mjs origin/main --branch
+☐ src/imperial/data/civilWarPack.ts:896｜`critical`｜為1946「中原突圍：全面內戰爆發」補 `critical: true`（國共內戰槽零張關鍵卡），補齊三段/小學層免降級，避開重複「1946年6月26日是階段的分界」｜驗收=`node scripts/audit_critical.mjs --era 國共內戰 --year 1946` && node scripts/agent-selfcheck.mjs origin/main --branch
 ☐ src/countries/korea/koancientPack.ts:101｜大學生層｜補大學生層至305+字（現272缺28；已過3×小學213），就樂浪實物與《漢書》郡治戶口差距補史源辨析，避開重複「走向早期國家」與「界線細節應以考古材料為準」｜驗收=node scripts/country_check.mjs src/countries/korea/koancientPack.ts
 ☐ src/countries/korea/koancientPack.ts:115｜大學生層｜補大學生層至305+字（現273缺27；已過3×小學210），就小獸林王律令與太學/佛教並置補制度互文，避開重複「共築塔寺」與「不宜據以描繪完備制度」｜驗收=node scripts/country_check.mjs src/countries/korea/koancientPack.ts
 ☐ src/countries/korea/koancientPack.ts:129｜大學生層｜補大學生層至305+字（現276缺24；已過3×小學228），就唐羅熊津都督府與白村江前百濟復國軍補充地緣張力，避開重複「促成了佛教藝術與技術的北傳與南播」｜驗收=node scripts/country_check.mjs src/countries/korea/koancientPack.ts
@@ -132,6 +132,11 @@
   - `1998`：《安華被革職引發烈火莫熄改革運動》（併覆 `1999` 公正黨成立）
 
 ## 工具缺口（要雲端那層我來建）
+
+> **已完成（2026-11-28 雲端層）**：`audit_critical.mjs` 新增 `--era <關鍵字>`（只盤點該槽；時代名
+> 打錯即 exit 2，不會默默不驗）與 `--year <年>`（驗收「該年有卡且已標 `critical: true`」，未達標
+> exit 1；年分不在該槽關鍵年清單即 exit 2）。`--era` 與 `--md` 互斥。上下都已偽造驗證。
+> **本檔 `critical` 行的驗收一律寫成 `--era <槽> --year <年>`**；只有 `--era` 是空的（未補也 exit 0）。
 
 1. **`scripts/audit_detail_depth.mjs` 補齊 `src/countries/`（與 `japanEras`）覆蓋**
    - 輸入：掃描 `src/countries/**` 與 `src/japanEras/packs/**` 內之 `DETAILS`（支援 `causes/course/outcome` 單一字面量）。
