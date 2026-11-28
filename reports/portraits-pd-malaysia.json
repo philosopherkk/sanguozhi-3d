@@ -1,0 +1,250 @@
+{
+  "country": "malaysia",
+  "generated": "2026-11-28",
+  "min_side_px": 600,
+  "license_policy": "只取 LicenseShortName 為 PD／CC0 之檔案",
+  "people": [
+    {
+      "era": "mycolonial",
+      "id": "myp2-raffles",
+      "name": "萊佛士",
+      "search_term": "Stamford Raffles portrait",
+      "candidate_count": 3,
+      "chosen": {
+        "commons_file": "File:Raffles Raden Rana Dipura.jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Raffles_Raden_Rana_Dipura.jpg",
+        "license": "Public domain",
+        "artist": "Thomas Stamford Raffles (1781-1826)",
+        "usage_terms": "Public domain",
+        "attribution_required": false,
+        "width": 1244,
+        "height": 1597,
+        "mime": "image/jpeg"
+      },
+      "basis_draft": "Wikimedia Commons「File:Raffles Raden Rana Dipura.jpg」（Public domain，Thomas Stamford Raffles (1781-1826)）",
+      "alternates": [
+        "File:StamfordRaffles.jpeg",
+        "File:George Francis Joseph - Sir Thomas Stamford Bingley Raffles.jpg"
+      ],
+      "rejected": [
+        {
+          "file": "File:Drawing of Francis Chantrey's bust of Stamford Raffles from The Natural History of Game-birds (1844).jpg",
+          "why": "尺寸 421x617 不足 600"
+        },
+        {
+          "file": "File:Miniature portrait of Sir Stamford Raffles.jpg",
+          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
+        },
+        {
+          "file": "File:National Museum of Singapore - Joy of Museums - Portrait of Sir Thomas Stamford Bingley Raffles.jpg",
+          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
+        },
+        {
+          "file": "File:National Museum of Singapore - Joy of Museums - Portrait of Sir Thomas Stamford Bingley Raffles 2.jpg",
+          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
+        },
+        {
+          "file": "File:Seal of Sir Thomas Stamford Bingley Raffles.png",
+          "why": "非肖像（印章／地圖／碑刻等）"
+        },
+        {
+          "file": "File:Sir Stamford Raffles; England in the Far East (IA stamfordraffles00eger).pdf",
+          "why": "不是圖像檔（application/pdf）"
+        }
+      ],
+      "other_license_hits": [
+        "File:Miniature portrait of Sir Stamford Raffles.jpg",
+        "File:National Museum of Singapore - Joy of Museums - Portrait of Sir Thomas Stamford Bingley Raffles 2.jpg",
+        "File:National Museum of Singapore - Joy of Museums - Portrait of Sir Thomas Stamford Bingley Raffles.jpg",
+        "File:Sir Thomas Stamford Bingley Raffles. Stipple engraving by J. Wellcome V0004871.jpg"
+      ]
+    },
+    {
+      "era": "mycolonial",
+      "id": "myp2-light",
+      "name": "萊特",
+      "search_term": "William Light Penang founder portrait",
+      "candidate_count": 4,
+      "chosen": {
+        "commons_file": "File:Colonel William Light - Self portrait - Google Art Project.jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Colonel_William_Light_-_Self_portrait_-_Google_Art_Project.jpg",
+        "license": "Public domain",
+        "artist": "Colonel William LIGHT (1786 - 1839)  (Australia) Born in Kuala Kedah, Malaya. Died in Adelaide. Details on Google Art Project",
+        "usage_terms": "Public domain",
+        "attribution_required": false,
+        "width": 3351,
+        "height": 4547,
+        "mime": "image/jpeg"
+      },
+      "basis_draft": "Wikimedia Commons「File:Colonel William Light - Self portrait - Google Art Project.jpg」（Public domain，Colonel William LIGHT (1786 - 1839)  (Australia) Born in Kuala Kedah, Malaya. Died in Adelaide. Details on Google Art Project）",
+      "alternates": [
+        "File:Colonel William Light's house, Adelaide(GN02338).jpg",
+        "File:Colonel William Light, (1786-1839), Founder of Adelaide(GN00881).jpg",
+        "File:William Light by George Jones.jpg"
+      ],
+      "rejected": [
+        {
+          "file": "File:A roll of the graduates of the University of Glasgow from 31st December, 1727 to 31st December, 1897. With short biographical notes (IA rollofgraduateso00univrich).pdf",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Gallinaceous-birds (IA Gallinaceousbir00Jard).pdf",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Ornithology (IA ornithologyv8ptjard).pdf",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Reveries over childhood and youth (IA overchilreveries00yeatrich).pdf",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Reveries over childhood and youth (IA reveries00overchilyeatrich).pdf",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Reveries over childhood and youth (IA reveriesoverchil00yeatrich).pdf",
+          "why": "標題不含姓名"
+        }
+      ],
+      "other_license_hits": []
+    },
+    {
+      "era": "mycolonial",
+      "id": "myp2-brooke",
+      "name": "砂拉越之拉惹",
+      "search_term": "James Brooke Rajah of Sarawak portrait",
+      "candidate_count": 1,
+      "chosen": {
+        "commons_file": "File:Sir James Brooke (1847) by Francis Grant.jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Sir_James_Brooke_(1847)_by_Francis_Grant.jpg",
+        "license": "Public domain",
+        "artist": "Francis Grant",
+        "usage_terms": "Public domain",
+        "attribution_required": false,
+        "width": 622,
+        "height": 800,
+        "mime": "image/jpeg"
+      },
+      "basis_draft": "Wikimedia Commons「File:Sir James Brooke (1847) by Francis Grant.jpg」（Public domain，Francis Grant）",
+      "alternates": [],
+      "rejected": [
+        {
+          "file": "File:A short account of portraits, pictures, plate, etc., etc., in the possession of the Company (IA shortaccountofpo00wors).pdf",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Catalogue of a Collection of Coins, Etc. No. 27 (IA catalogueofcolle0027stei).pdf",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Catalogue of a valuable collection of English & other coins & medals, ... the property of Robert John Hopkins, Esq., of Tidmarsh Manor, Pangbourne, near Reading (IA catalogueofvalua00sot uya).pdf",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Catalogue of a valuable collection of coins and medals ... the property of J. Colvin Randall ... (11-28-1882) (IA catalogueofvalua00bang 5).pdf",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Catalogue of a very fine collection of U.S. and foreign coins ... the property of P.H. Hill, Esq., of Brooklyn ... (03-16-17-1886) (IA catalogueofveryf00ortg 0).pdf",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Catalogue of a very fine collection of U.S. and foreign coins ... the property of P.H. Hill ... (03-16-1886) (IA catalogueofveryf00ortg).pdf",
+          "why": "標題不含姓名"
+        }
+      ],
+      "other_license_hits": []
+    },
+    {
+      "era": "mymalacca",
+      "id": "myp1-albuquerque",
+      "name": "阿爾布克爾克",
+      "search_term": "Afonso de Albuquerque portrait engraving",
+      "candidate_count": 5,
+      "chosen": {
+        "commons_file": "File:Portret van Alfons d'Albuquerque, RP-P-1905-1408.jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Portret_van_Alfons_d%27Albuquerque,_RP-P-1905-1408.jpg",
+        "license": "CC0",
+        "artist": "Rijksmuseum",
+        "usage_terms": "Creative Commons Zero, Public Domain Dedication",
+        "attribution_required": false,
+        "width": 2976,
+        "height": 3678,
+        "mime": "image/jpeg"
+      },
+      "basis_draft": "Wikimedia Commons「File:Portret van Alfons d'Albuquerque, RP-P-1905-1408.jpg」（CC0，Rijksmuseum）",
+      "alternates": [
+        "File:Portret van Afonso de Albuquerque, RP-P-2016-707.jpg",
+        "File:Portrait of the Portuguese Admiral Albuquerque (c. 1615) - Edwin Binney 3rd Collection, San Diego Museum of Art.png",
+        "File:Alphonse Albuquerque (BM 1879,1213.236).jpg"
+      ],
+      "rejected": [
+        {
+          "file": "File:Journal of the Straits Branch of the Royal Asiatic Society (IA journalof606319111912roya).pdf",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Sebastien, I. du nom, Roy de Portugal (BM 1879,1213.250).jpg",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:The travels of Pietro della Valle in India - from the old English translation of 1664 (IA travelsofpietrod00dell).pdf",
+          "why": "標題不含姓名"
+        }
+      ],
+      "other_license_hits": []
+    },
+    {
+      "era": "mymerdeka",
+      "id": "myp3-tunku",
+      "name": "東姑阿都拉曼",
+      "search_term": "Tunku Abdul Rahman photograph",
+      "candidate_count": 1,
+      "chosen": {
+        "commons_file": "File:Tunku Abdul Rahman 1960.jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Tunku_Abdul_Rahman_1960.jpg",
+        "license": "CC0",
+        "artist": "Harry Pot for Anefo",
+        "usage_terms": "Creative Commons Zero, Public Domain Dedication",
+        "attribution_required": false,
+        "width": 772,
+        "height": 1099,
+        "mime": "image/jpeg"
+      },
+      "basis_draft": "Wikimedia Commons「File:Tunku Abdul Rahman 1960.jpg」（CC0，Harry Pot for Anefo）",
+      "alternates": [],
+      "rejected": [
+        {
+          "file": "File:Aankomst van premier van Malakka Abdul Rahman, Bestanddeelnr 911-2803.jpg",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Aankomst van premier van Malakka Abdul Rahman , premier De Quay was ter begroeti, Bestanddeelnr 911-2805.jpg",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:KD Tunku Abdul Rahman in Langkawi 2023.jpg",
+          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
+        },
+        {
+          "file": "File:KotaKinabalu Sabah Tunku-Abdu-Rahman-Monument-01.jpg",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:KotaKinabalu Sabah Tunku-Abdu-Rahman-Monument-02.jpg",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Merdeka 1957 tunku abdul rahman.jpg",
+          "why": "尺寸 362x272 不足 600"
+        }
+      ],
+      "other_license_hits": [
+        "File:KD Tunku Abdul Rahman in Langkawi 2023.jpg",
+        "File:Tunku Abdul Rahman University.JPG"
+      ]
+    }
+  ]
+}

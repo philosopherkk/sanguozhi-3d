@@ -387,7 +387,7 @@ export const MYMERDEKA_PACK: JapanDeepDivePack = {
       note: '1965年分離之議之始末，兩地所記主名不同，本條但取其綱；中文維基條目「李光耀」。',
     },
     {
-      id: 'myp3-yamashita', name: '山下奉文', aka: '馬來之攻者', birth: 1885, death: 1946, faction: F.japan,
+      id: 'myp3-yamashita', name: '山下奉文', portrait: '/portraits/mymerdeka/myp3-yamashita.jpg', portrait_note: '依公開照片改畫，服裝隨該照', aka: '馬來之攻者', birth: 1885, death: 1946, faction: F.japan,
       role: '以陸基航空與自行車之輕兵取半島之速',
       summary:
         '領馬來半島之攻。其策不以艦隊正面強攻，而以陸基航空兵先制機場，以泰南之河口登陸，沿西岸道路急進；' +

@@ -17,6 +17,7 @@ import { join } from 'node:path'
 
 const ROOT = join(import.meta.dirname, '..')
 const BASELINE = join(ROOT, 'reports', 'gate-baseline.json')
+const BASELINE_REL = join('reports', 'gate-baseline.json')
 
 /** 每條閘門：指令 + 從輸出抽幾個數字（名字要穩定，基線靠它對照）。 */
 const GATES = [
@@ -324,6 +325,56 @@ if (UPDATE || !existsSync(BASELINE)) {
   console.log(`gates — 已記錄基線（${Object.keys(current).length} 條閘門）→ reports/gate-baseline.json`)
   process.exit(0)
 }
+
+// 基準檔完整性：棘輪的價值全繫於基準可信。實測曾有分支把未提交的「放寬」留在工作區，
+// 再宣稱「閘門全綠、零退化」收貨（案例：把 audit:wiki-links 的 rate-limit 假紅 0→18 寫進基準），
+// 而 `agent-selfcheck --branch` 只看已提交的 diff，看不見工作區改動，所以不會報警。
+// 兩條線：(1) 基準檔有未提交改動即紅；(2) 已提交但相對 origin/main 放寬了 hard 上限、
+// 或下調了 atLeast 下限，亦紅（確屬上游變動時，須在 PR 內寫明理由並以 GATE_BASELINE_ALLOW=1 明示）。
+function guardBaseline() {
+  let dirty = ''
+  try {
+    dirty = execSync(`git -C ${JSON.stringify(ROOT)} status --porcelain -- ${JSON.stringify(BASELINE_REL)}`, {
+      encoding: 'utf8',
+    }).trim()
+  } catch {
+    return // 非 git 環境（部分 CI checkout）略過
+  }
+  if (dirty) {
+    console.error(`\n✗ 基準檔 ${BASELINE_REL} 有未提交改動：\n  ${dirty}`)
+    console.error('  基準只能經 PR 修改；要重記請跑 npm run gates:record 後在 PR 內提交')
+    process.exit(1)
+  }
+  let upstream = ''
+  try {
+    upstream = execSync(`git -C ${JSON.stringify(ROOT)} show origin/main:${BASELINE_REL}`, { encoding: 'utf8' })
+  } catch {
+    return // origin/main 無此檔（首次進場）無可比較
+  }
+  const ubase = JSON.parse(upstream)
+  const cur = JSON.parse(readFileSync(BASELINE, 'utf8'))
+  const floors = new Set(GATES.flatMap((g) => (g.atLeast ?? []).map((k) => `${g.name}.${k}`)))
+  const loosened = []
+  for (const [name, m] of Object.entries(cur)) {
+    const old = ubase[name]
+    if (!old) continue // 以現值進場：該閘門尚未在 origin/main 基線內
+    for (const [key, cap] of Object.entries(m)) {
+      const prev = old[key]
+      if (typeof cap !== 'number' || typeof prev !== 'number') continue
+      if (floors.has(`${name}.${key}`) ? cap < prev : cap > prev) loosened.push(`${name}.${key} ${prev} → ${cap}`)
+    }
+  }
+  if (!loosened.length) return
+  if (!process.env.GATE_BASELINE_ALLOW) {
+    console.error(`\n✗ ${BASELINE_REL} 相對 origin/main 放寬了基準（棘輪只許收緊）：`)
+    for (const line of loosened) console.error(`  ${line}`)
+    console.error('  若確屬上游指標變動，請在 PR 內寫明理由，並以 GATE_BASELINE_ALLOW=1 跑一次作為明示確認')
+    process.exit(1)
+  }
+  console.log(`⚠ 已放寬 ${loosened.length} 項基準（GATE_BASELINE_ALLOW=1）：${loosened.join('、')}`)
+}
+
+guardBaseline()
 
 const base = JSON.parse(readFileSync(BASELINE, 'utf8'))
 /** 每條閘門有沒有「可追蹤的數字指標」，決定 exit 要不要計入失敗。 */
