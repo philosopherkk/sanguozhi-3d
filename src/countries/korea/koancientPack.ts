@@ -243,7 +243,7 @@ export const KOANCIENT_PACK: JapanDeepDivePack = {
   mapBase: COUNTRY_BASEMAPS.korea,
   territoryByYear: {
     '-108': {
-      [F.cmd]: F.han,
+      ko_liaodong: F.han,
       ko_north: F.cmd,
       ko_central: F.samhan,
       ko_southwest: F.samhan,
