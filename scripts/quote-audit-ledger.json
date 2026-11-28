@@ -215,14 +215,14 @@
     "at": "2026-11-27"
   },
   "src/data/battles.json#battle-liaodong": {
-    "stamp": "bdfc211",
-    "page": "資治通鑑/卷074",
-    "at": "2026-11-19"
+    "stamp": "daa2d3f0",
+    "page": "三國志/卷08",
+    "at": "2026-11-27"
   },
   "src/data/battles.json#battle-yinping": {
-    "stamp": "426ac293",
-    "page": "資治通鑑/卷078",
-    "at": "2026-11-19"
+    "stamp": "fad11701",
+    "page": "三國志/卷28",
+    "at": "2026-11-27"
   },
   "src/data/battles.json#battle-conquest-wu": {
     "stamp": "9e1dc24d",
@@ -1982,6 +1982,16 @@
   "src/japanEras/packs/edoPack.ts#edo-1868-restoration": {
     "stamp": "3d6acf68",
     "page": "德川內府大政返上將軍辭職ノ請ヲ允シ攝關幕府ヲ廢シ假ニ總裁議定參與ノ三職ヲ置ク",
+    "at": "2026-11-27"
+  },
+  "src/zhou/data/timelineMore.ts#zhou-mibing-546": {
+    "stamp": "6c7c7590",
+    "page": "春秋左氏傳/襄公",
+    "at": "2026-11-27"
+  },
+  "src/zhou/data/timelineMore.ts#zhou-wending-606": {
+    "stamp": "9641c61d",
+    "page": "春秋左氏傳/宣公",
     "at": "2026-11-27"
   }
 }
