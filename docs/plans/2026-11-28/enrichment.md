@@ -21,18 +21,18 @@
 
 ## P0 佇列（本機代理今天可做，<=12 條）
 
-☑ src/imperial/data/prcPack.ts:105｜`critical`｜為1949「中華人民共和國成立」補 `critical: true`（新中國槽零張關鍵卡），保留既有 outcome 並於 note 簡述建政改變東亞版圖之由｜驗收=`node scripts/audit_critical.mjs --era 新中國 --year 1949` && node scripts/agent-selfcheck.mjs origin/main --branch
-☑ src/imperial/data/civilWarPack.ts:896｜`critical`｜為1946「中原突圍：全面內戰爆發」補 `critical: true`（國共內戰槽零張關鍵卡），補齊三段/小學層免降級，避開重複「1946年6月26日是階段的分界」｜驗收=`node scripts/audit_critical.mjs --era 國共內戰 --year 1946` && node scripts/agent-selfcheck.mjs origin/main --branch
+☑ src/imperial/data/prcPack.ts:105｜`critical`｜為1949「中華人民共和國成立」補 `critical: true`（新中國槽零張關鍵卡），保留既有 outcome 並於 note 簡述建政改變東亞版圖之由｜驗收=`node scripts/audit_critical.mjs --era 新中國 --year 1949`
+☑ src/imperial/data/civilWarPack.ts:896｜`critical`｜為1946「中原突圍：全面內戰爆發」補 `critical: true`（國共內戰槽零張關鍵卡），補齊三段/小學層免降級，避開重複「1946年6月26日是階段的分界」｜驗收=`node scripts/audit_critical.mjs --era 國共內戰 --year 1946`
 ☑ src/countries/korea/koancientPack.ts:101｜大學生層｜補大學生層至305+字（現272缺28；已過3×小學213），就樂浪實物與《漢書》郡治戶口差距補史源辨析，避開重複「走向早期國家」與「界線細節應以考古材料為準」｜驗收=node scripts/country_check.mjs src/countries/korea/koancientPack.ts
 ☑ src/countries/korea/koancientPack.ts:115｜大學生層｜補大學生層至305+字（現273缺27；已過3×小學210），就小獸林王律令與太學/佛教並置補制度互文，避開重複「共築塔寺」與「不宜據以描繪完備制度」｜驗收=node scripts/country_check.mjs src/countries/korea/koancientPack.ts
-☐ src/countries/korea/koancientPack.ts:129｜大學生層｜補大學生層至305+字（現276缺24；已過3×小學228），就唐羅熊津都督府與白村江前百濟復國軍補充地緣張力，避開重複「促成了佛教藝術與技術的北傳與南播」｜驗收=node scripts/country_check.mjs src/countries/korea/koancientPack.ts
-☐ src/countries/korea/kojoseonPack.ts:103｜大學生層｜補大學生層至305+字（現258缺42；已過3×小學252），補漢陽遷都風水/宗廟制度與士林興起之長程影響，避開重複「崇儒抑佛」與「制度推行因地遲速」｜驗收=node scripts/country_check.mjs src/countries/korea/kojoseonPack.ts
-☐ src/countries/korea/kojoseonPack.ts:116｜大學生層｜補大學生層至305+字（現265缺35；已過3×小學234），補《解例本》聲韻分類與吏讀轉換意義，避開重複「漢文為正書」與「本包取1446之通說紀年」｜驗收=node scripts/country_check.mjs src/countries/korea/kojoseonPack.ts
-☐ src/countries/korea/kojoseonPack.ts:144｜大學生層｜補大學生層至305+字（現266缺34；已過3×小學249），補瀋陽質子政治與對清朝貢使行之物質交換，避開重複「小中華之論」與「三百年之國是遂定於城下一跪」｜驗收=node scripts/country_check.mjs src/countries/korea/kojoseonPack.ts
-☐ src/countries/korea/komodernPack.ts:131｜大學生層｜補大學生層至305+字（現276缺24；已過3×小學255），補《韓美共同防禦條約》與戰後韓日關係正常化脈絡，避開重複「確立文官統帥之例」與「半島無核化之迴圈」｜驗收=node scripts/country_check.mjs src/countries/korea/komodernPack.ts
-☐ src/countries/thailand/thsukhothaiPack.ts:103｜大學生層｜補大學生層至305+字（現272缺28；已過3×小學243），補父城/子城與周邊孟（Mueang）網路之差別，避開重複「效忠關係的轉移」與「華瓷鐵器入於河谷」｜驗收=node scripts/country_check.mjs src/countries/thailand/thsukhothaiPack.ts
-☐ src/countries/thailand/thsukhothaiPack.ts:144｜大學生層｜補大學生層至305+字（現274缺26；已過3×小學201），補阿瑜陀耶薩克迪納（食邑等級）雛形與水利稻作關係，避開重複「上游之米」與「1351年之義，在重心南移而已」｜驗收=node scripts/country_check.mjs src/countries/thailand/thsukhothaiPack.ts
-☐ src/countries/korea/kogoryeoPack.ts:103｜大學生層｜補大學生層至305+字（現263缺37；已過3×小學210），補骨品制下六頭品士人出路與新羅末豪族離心，避開重複「各得其所的一半」與「崔致遠其人也」｜驗收=node scripts/country_check.mjs src/countries/korea/kogoryeoPack.ts
+☐ src/countries/korea/koancientPack.ts:READINGS#ko-660｜大學生層｜補大學生層至305+字（現276缺29；已過3×小學228），就唐羅熊津都督府與白村江前百濟復國軍補充地緣張力，避開重複「促成了佛教藝術與技術的北傳與南播」｜驗收=node scripts/country_check.mjs src/countries/korea/koancientPack.ts && node scripts/audit_reading_layers.mjs --require="src/countries/korea/koancientPack.ts:READINGS#ko-660:university:305"
+☐ src/countries/korea/kojoseonPack.ts:READINGS#ko-1392｜大學生層｜補大學生層至305+字（現258缺47；已過3×小學252），補漢陽遷都風水/宗廟制度與士林興起之長程影響，避開重複「崇儒抑佛」與「制度推行因地遲速」｜驗收=node scripts/country_check.mjs src/countries/korea/kojoseonPack.ts && node scripts/audit_reading_layers.mjs --require="src/countries/korea/kojoseonPack.ts:READINGS#ko-1392:university:305"
+☐ src/countries/korea/kojoseonPack.ts:READINGS#ko-1446｜大學生層｜補大學生層至305+字（現258缺47；已過3×小學234），補《解例本》聲韻分類與吏讀轉換意義，避開重複「漢文為正書」與「本包取1446之通說紀年」｜驗收=node scripts/country_check.mjs src/countries/korea/kojoseonPack.ts && node scripts/audit_reading_layers.mjs --require="src/countries/korea/kojoseonPack.ts:READINGS#ko-1392:university:305"
+☐ src/countries/korea/kojoseonPack.ts:READINGS#ko-1636｜大學生層｜補大學生層至305+字（現258缺47；已過3×小學249），補瀋陽質子政治與對清朝貢使行之物質交換，避開重複「小中華之論」與「三百年之國是遂定於城下一跪」｜驗收=node scripts/country_check.mjs src/countries/korea/kojoseonPack.ts && node scripts/audit_reading_layers.mjs --require="src/countries/korea/kojoseonPack.ts:READINGS#ko-1392:university:305"
+☐ src/countries/korea/komodernPack.ts:READINGS#ko-1950｜大學生層｜補大學生層至305+字（現276缺29；已過3×小學255），補《韓美共同防禦條約》與戰後韓日關係正常化脈絡，避開重複「確立文官統帥之例」與「半島無核化之迴圈」｜驗收=node scripts/country_check.mjs src/countries/korea/komodernPack.ts && node scripts/audit_reading_layers.mjs --require="src/countries/korea/komodernPack.ts:READINGS#ko-1950:university:305"
+☐ src/countries/thailand/thsukhothaiPack.ts:READINGS#th-1238｜大學生層｜補大學生層至305+字（現272缺33；已過3×小學243），補父城/子城與周邊孟（Mueang）網路之差別，避開重複「效忠關係的轉移」與「華瓷鐵器入於河谷」｜驗收=node scripts/country_check.mjs src/countries/thailand/thsukhothaiPack.ts && node scripts/audit_reading_layers.mjs --require="src/countries/thailand/thsukhothaiPack.ts:READINGS#th-1238:university:305"
+☐ src/countries/thailand/thsukhothaiPack.ts:READINGS#th-1351｜大學生層｜補大學生層至305+字（現272缺33；已過3×小學201），補阿瑜陀耶薩克迪納（食邑等級）雛形與水利稻作關係，避開重複「上游之米」與「1351年之義，在重心南移而已」｜驗收=node scripts/country_check.mjs src/countries/thailand/thsukhothaiPack.ts && node scripts/audit_reading_layers.mjs --require="src/countries/thailand/thsukhothaiPack.ts:READINGS#th-1238:university:305"
+☐ src/countries/korea/kogoryeoPack.ts:READINGS#ko-676｜大學生層｜補大學生層至305+字（現263缺42；已過3×小學210），補骨品制下六頭品士人出路與新羅末豪族離心，避開重複「各得其所的一半」與「崔致遠其人也」｜驗收=node scripts/country_check.mjs src/countries/korea/kogoryeoPack.ts && node scripts/audit_reading_layers.mjs --require="src/countries/korea/kogoryeoPack.ts:READINGS#ko-676:university:305"
 
 ## P1 批次（按檔分組，每批 2–4 項同檔）
 
@@ -157,4 +157,5 @@
 - 嚴禁編造史實、年份、人數或卷頁；分歧年份與數字一律標 `disputed: true` 並在 `note` 說明異說，不寫定數。
 - 非逐字史源（凡經 `scripts/qsrc.py` 查無逐字原文者）一律標註「通說整理，非逐字引文」，嚴禁偽造逐字引文。
 - 嚴禁任何簡體字、日本新字形及粵語口語虛詞（寫入檔案前必過 `audit-chars.ts` 與 `agent-selfcheck.mjs --branch`）。
+- **驗收只准驗本行那一項，唔准掛全倉檢查**：`--branch` 式自檢睇嘅係成條分支嘅 diff，掛喺某一行上面會令該行同自己無關嘅錯字都變「呢條 ☑ 失敗」；而 PR 併咗之後 `origin/main..HEAD` 變空，嗰類驗收反而永遠綠（CI 假綠已實錄過一次）。全倉字形由 `audit:selfcheck` 閘門負責，行內唔准重複掛。
 - 嚴禁跨檔混改與字串串接：每輪僅改一個檔案、最多 4 項；`causes`/`course`/`outcome`/`elementary`/`secondary`/`university` 必為單一字面量，不得使用 `'…' + '…'` 串接。

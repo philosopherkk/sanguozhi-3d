@@ -20,15 +20,143 @@
  *   node scripts/audit_reading_layers.mjs
  *   node scripts/audit_reading_layers.mjs --json
  *   node scripts/audit_reading_layers.mjs --selftest   # 驗證閘門有牙
+ *   node scripts/audit_reading_layers.mjs --require=src/countries/korea/koancientPack.ts:READINGS#ko-668:university:305
+ *     # 唯讀逐條斷言（工作單驗收用）：該 key 條目嘅 university 欄要 ≥305 字，唔夠即 exit 1
  */
 
-import { readdirSync, readFileSync, writeFileSync, mkdirSync, statSync } from 'node:fs'
+import { readdirSync, readFileSync, writeFileSync, mkdirSync, statSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 
 const ROOT = join(import.meta.dirname, '..')
 const LAYERS = ['elementary', 'secondary', 'university']
 const MIN_UNIVERSITY_RATIO = 3
 const MIN_SECONDARY_RATIO = 1.5
+
+/**
+ * 逐條字數斷言（唯讀）：`--require=<檔>[:<物件名>]#<key>:<層>:<最少字>`
+ *
+ * 為什麼要新增（2026-11-28 覆核四國工作單）：`docs/plans/` 入面有八條「補大學生層至
+ * 305 字」嘅行，驗收卻只得 `country_check.mjs`（佢只查資料形狀，唔計層字數）。
+ * 即係代理改唔改都 exit 0，嗰條 ☑ 永遠係假綠。呢度把「該欄 ≥ N 字」變成會失敗嘅斷言。
+ *
+ * 點解錨點用 key 唔用行號：實測八條行號有兩條偏咗一行（指去條目之後），行號又會跟住
+ * 改檔漂移，照行號斷言會永遠做唔到。
+ * 點解要可以加物件名：同一個 key 喺 `READINGS` 同 `DETAILS` 入面各有一塊（引文帳本
+ * 都中過同一個坑），只認 key 會拿到另一塊嘅字數——嗰啲係另一條嘅成績，即假綠。
+ * 所以同 key 命中超過一塊時一定要寫物件名，唔准揀第一塊。
+ */
+
+/** 抓某個欄名所有字串值，連同佢開始嗰一行（--require 用） */
+function grabAt(src, key) {
+  const re = new RegExp(
+    key + ':\\s*(?:\\x27((?:\\\\.|[^\\x27\\\\])*)\\x27|"((?:\\\\.|[^"\\\\])*)"|\\x60((?:\\\\.|[^\\x60\\\\])*)\\x60)',
+    'gs',
+  )
+  const out = []
+  for (const m of src.matchAll(re)) {
+    out.push({
+      line: src.slice(0, m.index).split('\n').length,
+      text: (m[1] ?? m[2] ?? m[3] ?? '').trim(),
+    })
+  }
+  return out
+}
+
+/** 純判斷：該層現有字數夠唔夠。抽成純函數俾 selftest 離線證明有牙，唔使寫盤 */
+function judgeLength(where, len, min) {
+  if (len === null) return { ok: false, msg: `${where}｜無呢一層（斷言唔准靜靜通過）` }
+  if (len >= min) return { ok: true, msg: `${where} ${len} 字 ≥ ${min}` }
+  return { ok: false, msg: `${where} 得 ${len} 字，不足 ${min}（缺 ${min - len}）` }
+}
+
+const escRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+/**
+ * 純函數：喺 src 入面搵 `<key>: {` 嗰一塊嘅起止行（只限 <物件名> 嗰個頂層物件之內）。
+ * 有歧義就返 { error }，唔准自己揀其中一塊——揀錯塊就係假綠。
+ */
+function findBlock(src, key, objectName) {
+  const lines = src.split('\n')
+  let start = 0
+  let end = lines.length
+  if (objectName) {
+    const objRe = new RegExp('^\\s*(?:export\\s+)?(?:const|let|var)\\s+' + escRe(objectName) + '\\b')
+    start = lines.findIndex((l) => objRe.test(l))
+    if (start < 0) return { error: `物件「${objectName}」喺呢支檔搵唔到` }
+    const topRe = /^\s*(?:export\s+)?(?:const|let|var)\s+\w/
+    for (let i = start + 1; i < lines.length; i++) {
+      if (topRe.test(lines[i])) {
+        end = i
+        break
+      }
+    }
+  }
+  const keyRe = new RegExp('^(\\s*)["\\x27\\x60]?' + escRe(key) + '["\\x27\\x60]?\\s*:\\s*\\{')
+  const hits = []
+  for (let i = start; i < end; i++) {
+    const m = keyRe.exec(lines[i])
+    if (m) hits.push({ keyLine: i + 1, indent: m[1].length })
+  }
+  if (!hits.length) return { error: `搵唔到 key「${key}」` }
+  if (hits.length > 1) {
+    return {
+      error: `key「${key}」喺第 ${hits.map((h) => h.keyLine).join('、')} 行都有（同 key 多塊），要寫明物件名，例 READINGS#${key}`,
+    }
+  }
+  const h = hits[0]
+  const closeRe = new RegExp('^\\s{' + h.indent + '}\\}')
+  const sibRe = new RegExp('^\\s{' + h.indent + '}["\\x27\\x60]?[\\w-]+["\\x27\\x60]?\\s*:\\s*\\{')
+  let blockEnd = end
+  for (let i = h.keyLine; i < end; i++) {
+    if (closeRe.test(lines[i]) || sibRe.test(lines[i])) {
+      blockEnd = i
+      break
+    }
+  }
+  return { from: h.keyLine, to: blockEnd }
+}
+
+/** 解析 `--require=` 嗰個規格並落盤讀檔判斷（純邏輯喺 findBlock／judgeLength） */
+function assertLength(spec) {
+  const parts = spec.split(':')
+  if (parts.length < 4) {
+    return { ok: false, msg: `規格錯：${spec}（要 <檔>[:<物件名>]#<key>:<層>:<最少字>）` }
+  }
+  const min = Number(parts.pop())
+  const layer = parts.pop()
+  const head = parts.join(':')
+  if (!LAYERS.includes(layer)) return { ok: false, msg: `層名錯：${layer}（得 ${LAYERS.join('/')}）` }
+  if (!Number.isInteger(min) || min <= 0) return { ok: false, msg: `最少字數唔啱：${min}` }
+  const hash = head.indexOf('#')
+  if (hash < 0) return { ok: false, msg: `缺 #key 錨點：${spec}（行號會漂移，斷言唔接行號）` }
+  const key = head.slice(hash + 1)
+  const filePart = head.slice(0, hash)
+  const colon = filePart.lastIndexOf(':')
+  const file = colon > 0 ? filePart.slice(0, colon) : filePart
+  const objectName = colon > 0 ? filePart.slice(colon + 1) : ''
+  const abs = join(ROOT, file)
+  if (!existsSync(abs)) return { ok: false, msg: `${file} 唔存在` }
+  const blk = findBlock(readFileSync(abs, 'utf8'), key, objectName)
+  if (blk.error) return { ok: false, msg: `${file}｜${blk.error}` }
+  const hits = grabAt(readFileSync(abs, 'utf8'), layer).filter((h) => h.line > blk.from && h.line <= blk.to)
+  if (hits.length > 1) {
+    return { ok: false, msg: `${file}#${key}｜第 ${blk.from}–${blk.to} 行內有 ${hits.length} 筆 ${layer}，指唔準邊一筆` }
+  }
+  const label = `${file}:${objectName ? objectName + '#' : ''}${key}（第 ${blk.from} 行）`
+  return judgeLength(label, hits.length ? [...hits[0].text].length : null, min)
+}
+
+const requireSpecs = process.argv.filter((a) => a.startsWith('--require='))
+if (requireSpecs.length) {
+  let bad = 0
+  for (const a of requireSpecs) {
+    const r = assertLength(a.slice('--require='.length))
+    console.log(`  ${r.ok ? '✓' : '✗'} ${r.msg}`)
+    if (!r.ok) bad++
+  }
+  console.log(`audit:reading-layers --require — 斷言 ${requireSpecs.length} 條／失敗 ${bad}`)
+  process.exit(bad ? 1 : 0)
+}
 
 function walk(dir, out = []) {
   for (const f of readdirSync(dir)) {
@@ -119,7 +247,40 @@ if (process.argv.includes('--selftest')) {
   probe('長度倒掛', { ...base, elementary: base.university }, true)
   probe('大學層太短', { ...base, university: base.elementary + '。' }, true)
   probe('中學生層太短', { ...base, secondary: base.elementary + '。' }, true)
-  console.log(bad ? `✗ 咬合力測試 ${bad} 項失敗` : '✓ 五種退化情況全部有牙')
+  const jl = (name, len, min, want) => {
+    const got = judgeLength('t', len, min).ok
+    console.log(`  ${got === want ? '✓' : '✗'} 字數斷言 ${name} → ${got ? '通過' : '失敗'}（期望${want ? '通過' : '失敗'}）`)
+    if (got !== want) bad++
+  }
+  jl('字數夠用不應誤報', 8, 8, true)
+  jl('少一字都要報', 7, 8, false)
+  jl('無呢一層要報', null, 8, false)
+  const fb = (name, src, key, objectName, want) => {
+    const b = findBlock(src, key, objectName)
+    const got = b.error ? '錯' : `${b.from}-${b.to}`
+    console.log(`  ${got === want ? '✓' : '✗'} key 錨點 ${name} → ${got}（期望 ${want}）`)
+    if (got !== want) bad++
+  }
+  const two = [
+    'const READINGS = {',
+    "  'a-1': {",
+    "    university: 'x',",
+    '  },',
+    "  'a-2': { university: 'y' },",
+    '}',
+    'const DETAILS = {',
+    "  'a-1': {",
+    "    university: 'z',",
+    '  },',
+    '}',
+    '',
+  ].join('\n')
+  fb('唯一命中要畀到塊界', two, 'a-1', 'READINGS', '2-3')
+  fb('同 key 有兩塊要報歧義', two, 'a-1', '', '錯')
+  fb('加物件名可以消歧', two, 'a-1', 'DETAILS', '8-9')
+  fb('物件名唔存在要報', two, 'a-1', 'NOPE', '錯')
+  fb('key 唔存在要報', two, 'a-9', 'READINGS', '錯')
+  console.log(bad ? `✗ 咬合力測試 ${bad} 項失敗` : '✓ 退化情況全部有牙（分層 5 項＋字數斷言 3 項＋key 錨點 5 項）')
   process.exit(bad ? 1 : 0)
 }
 
