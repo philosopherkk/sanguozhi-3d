@@ -9,8 +9,16 @@
  *
  * 這個腳本對每個 ☑ **重跑該行自己寫的驗收指令**：
  *   - 驗收不再通過 → 代表這條成果事後壞了（被別人改回去、命令本身寫錯、
+ *     或該行從來就 exit 0）→ 計入失敗並 exit 1；
+ *   - ☐ 列不跑（還未做），只在結尾報數量。
+ *
  *     或當初根本是假綠）→ exit 1，列入 gate-ci 當硬閘門。
  *   - ☐ 列不跑（還未做），只在結尾報數量。
+ *
+ * 另有一項靜態覆核（`anchorProblems`）：凡行帶 `audit_reading_layers.mjs --require=`
+ * 逐條斷言，斷言目標（檔:物件#key:層）必須與行首自己嘅錨點完全相同，形態亦要完整。
+ * 2026-11-28 實錄：三條行嘅 `--require` 寫住上一條 key，代理補錯 key 都會變綠。
+ * 斷言「而家已經綠」嘅 ☐ 只提示 ⚠（行滯後），唔計失敗。
  *
  * 安全：驗收指令是用 bash 跑的，所以**拒絕執行會寫檔的指令**
  * （`--mark`／`--apply`／`--fix`／`-i`），否則 CI 會把帳本改到髒；
@@ -48,8 +56,13 @@ const RECURSIVE = [/plan_verify/, /gate-ci/, /npm\s+run\s+(gates|build|dev|lint)
 function planFiles() {
   if (!existsSync(PLANS)) return []
   const out = []
-  for (const day of readdirSync(PLANS).sort()) {
-    const dir = join(PLANS, day)
+  for (const day of readdirSync(PLANS, { withFileTypes: true }).sort((a, b) =>
+    a.name.localeCompare(b.name),
+  )) {
+    // docs/plans 得返一個直接擲入嘅 .md（例：臨時筆記）就會 scandir 崩潰，
+    // 而呢支係 CI 閘門：閘門本身唔准因為檔放錯層就整支死。
+    if (!day.isDirectory()) continue
+    const dir = join(PLANS, day.name)
     for (const f of readdirSync(dir).sort()) {
       if (!f.endsWith('.md')) continue
       if (ONLY && f !== ONLY && !f.endsWith(`/${ONLY}`)) continue
@@ -77,6 +90,100 @@ function acceptance(line) {
     .trim()
     .replace(/[。．，、；]+$/u, '')
     .trim()
+}
+
+/**
+ * 行首錨點 ≡ 該行自己嘅逐條斷言（2026-11-28 實錄）：三條「補大學生層至 305 字」
+ * 行嘅 `--require` 寫住上一行嘅 key（複製貼上漏改）。後果係代理補錯 key、兩行靠
+ * 同一個 key 交貨都會變綠，而真正嗰條照樣短——☑ 完全冇驗到嘢。
+ * 逐條斷言而家應該係紅；已經綠嘅 ☐ 代表條行滯後（要改 ☑ 或改緊目標），只提示唔計失敗。
+ */
+const SELF_ANCHOR = /^(src\/[^\s｜:]+):(\w+)#([\w.-]+)/
+const REQUIRE = /audit_reading_layers\.mjs\s+--require=(\S+)/g
+const LAYER_NAMES = ['elementary', 'secondary', 'university']
+/** 引文帳本嗰類逐條斷言（`audit_quotes.mjs --check '<檔>#<key>'`）同一個坑，一齊查。
+ *  行首錨點用冒號（工作單慣例 `檔:錨點`），帳本鍵用井字（工具格式 `檔#key`），要歸一。 */
+const SELF_KEY = /^`?(src\/[^\s｜`'"]+?)[:#]([\w.-]+)/
+const QUOTE_CHECK = /audit_quotes\.mjs\s+--check\s+['"`]?([^\s'"`｜；;]+)/g
+
+function anchorProblems() {
+  const bad = []
+  const stale = []
+  for (const file of planFiles()) {
+    const rel = file.slice(ROOT.length + 1)
+    readFileSync(file, 'utf8')
+      .split('\n')
+      .forEach((raw, idx) => {
+        const body = raw.replace(/^[☐☑]\s*/, '').replace(/^- \[[ x]\]\s*/, '')
+        const reqs = [...body.matchAll(REQUIRE)]
+        const checks = [...body.matchAll(QUOTE_CHECK)]
+        if (!reqs.length && !checks.length) return
+        const tag = `${rel}:${idx + 1}`
+        // 引文帳本類：行首錨點係「檔#key」（冇物件名），斷言目標要一樣
+        if (!reqs.length && checks.length) {
+          const own = SELF_KEY.exec(body)
+          if (!own) {
+            bad.push(`${tag}｜有 --check 斷言但行首無「檔#key」錨點，無法核對目標`)
+            return
+          }
+          const want = `${own[1]}#${own[2]}`
+          for (const m of checks) {
+            const target = m[1].replace(/^[\"'`]|['\"`]$/g, '')
+            if (target !== want) {
+              bad.push(`${tag}｜行首係 ${want}，斷言卻指 ${target}`)
+            }
+          }
+          return
+        }
+        const own = SELF_ANCHOR.exec(body)
+        if (!own) {
+          bad.push(`${tag}｜有逐條斷言但行首無「檔:物件#key」錨點，無法核對目標`)
+          return
+        }
+        const want = `${own[1]}:${own[2]}#${own[3]}`
+        for (const m of reqs) {
+          const spec = m[1].replace(/^["']|["']$/g, '')
+          const parts = spec.split(':')
+          if (parts.length !== 4 || !parts[1].includes('#')) {
+            bad.push(`${tag}｜斷言形態唔對（要係 檔:物件#key:層:最少字）：${spec}`)
+            continue
+          }
+          const [f, objKey, layer, min] = parts
+          const [obj, key] = objKey.split('#')
+          if (`${f}:${obj}#${key}` !== want) {
+            bad.push(`${tag}｜行首係 ${want}，斷言卻指 ${f}:${obj}#${key}`)
+            continue
+          }
+          if (!/^\d+$/.test(min)) {
+            bad.push(`${tag}｜最少字數唔係數字：${spec}`)
+            continue
+          }
+          if (!LAYER_NAMES.includes(layer)) {
+            bad.push(`${tag}｜層名要係 ${LAYER_NAMES.join('|')}：${layer}`)
+            continue
+          }
+          if (/^☐/.test(raw) && assertGreen(spec)) {
+            stale.push(`${tag}｜${key}:${layer} 已達 ${min} 字（條行尚未勾，驗收驗唔到嘢）`)
+          }
+        }
+      })
+  }
+  return { bad, stale }
+}
+
+/** 唯讀跑一次該條斷言：只用於提示，唔計入成績 */
+function assertGreen(spec) {
+  try {
+    execFileSync('node', ['scripts/audit_reading_layers.mjs', `--require=${spec}`], {
+      cwd: ROOT,
+      encoding: 'utf8',
+      timeout: 60_000,
+      stdio: ['ignore', 'ignore', 'ignore'],
+    })
+    return true
+  } catch {
+    return false
+  }
 }
 
 const rows = []
@@ -143,6 +250,11 @@ for (const r of rows) {
     for (const l of out.trim().split('\n').slice(-4)) console.log(`      ${l.slice(0, 160)}`)
   }
 }
+
+const { bad: anchorBad, stale: anchorStale } = anchorProblems()
+for (const msg of anchorStale) console.log(`  ⚠ 錨點滯後 —— ${msg}`)
+for (const msg of anchorBad) console.log(`  ✗ 錨點錯位 —— ${msg}`)
+fail += anchorBad.length
 
 if (fail) {
   console.log('\n=== 失敗細節（該條成果已不可信，要改回 ☐ 或重做）')
