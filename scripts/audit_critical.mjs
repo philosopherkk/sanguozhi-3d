@@ -19,6 +19,9 @@
  *
  * 用法：node scripts/audit_critical.mjs [--md 輸出.md] [--era 關鍵字] [--strict]
  *       --md 只重寫第一節；檔案已有「## 第二節：政治轉折年」時原樣保留該節。
+ *       --era 關鍵字 只盤點名稱含關鍵字的槽（找不到即 exit 2，避免打錯時代名假綠）；
+ *                搭配 --year 4 則驗收「該年有卡且已標 critical: true」，未達標 exit 1，
+ *                給計畫單逐條驗收用（`--era` 與 `--md` 互斥，怕部分輸出打爛整份報告）。
  *       --cards 傾所有事件卡（槽<TAB>年<TAB>標題<TAB>critical），俾第二節對帳。
   *       --todo N 列出前 N 項待辦（缺口先、未標其次，附原因與檔案路徑）；
   *                --start K 分頁。給 agent-queue.mjs 同關鍵事變代理用。
@@ -842,6 +845,7 @@ for (const [label, dir, prefix, stateFile] of [
 
 /* ---------- 判定與輸出 ---------- */
 const eraFilter = argAfter('--era')
+const yearFilter = argAfter('--year')
 const mdOut = argAfter('--md')
 const strict = process.argv.includes('--strict')
 function argAfter(flag) {
@@ -849,6 +853,7 @@ function argAfter(flag) {
   return i >= 0 ? process.argv[i + 1] : null
 }
 
+const eraRows = []
 let allYears = 0
 let allCards = 0
 let allGaps = 0
@@ -881,7 +886,12 @@ const md = [
     '`critical?` 欄，故全部槽都計「未標」。',
   '',
 ]
+const eraMatched = []
 for (const s of slots) {
+  // --era 過濾：名稱對不上就整個槽跳過（lines／md／queue 一起縮），
+  // 不是只在印出時篩——否則 --todo 仍會派其他時代的工作給代理。
+  if (eraFilter && !s.name.includes(eraFilter)) continue
+  eraMatched.push(s.name)
   const byYear = new Map()
   for (const e of s.events) {
     if (!byYear.has(e.year)) byYear.set(e.year, [])
@@ -907,6 +917,7 @@ for (const s of slots) {
       titles: cards.map((c) => c.title),
     })
   }
+  eraRows.push({ name: s.name, file: s.file, noCriticalField: !!s.noCriticalField, rows })
   const gaps = rows.filter((x) => x.gap)
   const bound = rows.filter((x) => x.boundaryOnly)
   const unflagged = rows.filter((x) => x.unflagged)
@@ -974,6 +985,51 @@ for (const s of slots) {
     md.push('')
   }
 }
+if (eraFilter && !eraMatched.length) {
+  console.error(
+    `找不到名稱含「${eraFilter}」的時代槽（共 ${slots.length} 槽：${slots.map((x) => x.name).join('、')}）` +
+      `——時代名打錯會令驗收默默什麼都不驗，故直接失敗`,
+  )
+  process.exit(2)
+}
+if (yearFilter !== null) {
+  const y = Number(yearFilter)
+  if (!Number.isFinite(y)) {
+    console.error(`--year 要給年份數字，收到「${yearFilter}」`)
+    process.exit(2)
+  }
+  let bad = 0
+  for (const v of eraRows) {
+    const row = v.rows.find((r) => r.year === y)
+    if (!row) continue
+    if (row.gap) {
+      bad += 1
+      console.log(`✗ ${v.name} ${y}：該關鍵年完全沒有事件卡（${[...row.reasons].join('、')}）→ ${v.file}`)
+    } else if (row.unflagged && v.noCriticalField) {
+      bad += 1
+      console.log(
+        `✗ ${v.name} ${y}：有卡但未標 critical，而該槽的事件 interface 沒有 critical 欄位 → 要先在 ${v.file} 的型別補欄`,
+      )
+    } else if (row.unflagged) {
+      bad += 1
+      console.log(`✗ ${v.name} ${y}：有 ${row.cardCount} 張卡但冇一張標 critical: true → ${v.file}`)
+    } else {
+      console.log(`✓ ${v.name} ${y}：已標 critical（${row.titles.join('；')}）`)
+    }
+  }
+  if (!bad && !eraRows.some((v) => v.rows.some((r) => r.year === y))) {
+    console.error(
+      `「${eraFilter}」的關鍵年清單沒有 ${y} 年——年分打錯或該年不是關鍵年，驗收不會默默通過`,
+    )
+    process.exit(2)
+  }
+  console.log(
+    bad
+      ? `audit:critical --era ${eraFilter} --year ${y} — 未達標 ${bad} 槽`
+      : `audit:critical --era ${eraFilter} --year ${y} — 已達標`,
+  )
+  process.exit(bad ? 1 : 0)
+}
 console.log(lines.join('\n'))
 if (unresolved.size) {
   console.error(`提示：拆唔到嘅 identifier：${[...unresolved].sort().join('、')}`)
@@ -982,6 +1038,10 @@ console.log(
   `audit:critical — ${slots.length} 槽｜關鍵年 ${allYears}｜有卡 ${allCards}` +
     `｜缺口 ${allGaps}｜未標 ${allUnflagged}｜界線 ${allBound}`
 )
+if (mdOut && eraFilter) {
+  console.error(`--era 不可以與 --md 一起用：過濾後的輸出只有部分時代，寫入會打爛整份報告`)
+  process.exit(2)
+}
 if (mdOut) {
   // 第二節（政治轉折年）係人工整理的清單，重跑只換第一節，唔准打爛第二節
   const prev = existsSync(mdOut) ? readFileSync(mdOut, 'utf8') : ''
