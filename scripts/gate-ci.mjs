@@ -51,6 +51,13 @@ const GATES = [
     cmd: 'npm run audit:portraits -- --teeth',
     metrics: { fail: /audit:portraits --teeth — 失敗 (\d+) 項/ },
   },
+  // 簡易版逐條驗收工具本身有冇牙（每條斷言拆一項要紅）。內容（--all）未入閘：
+  // 由 ui 工作單逐行補，收口覆核後先以零值進場。
+  {
+    name: 'audit:kid-ui:teeth',
+    cmd: 'npm run audit:kid-ui -- --teeth',
+    metrics: { fail: /audit_kid_ui --teeth — .*失敗 (\d+) 項/ },
+  },
   {
     name: 'audit:ranges',
     cmd: 'npm run audit:ranges',

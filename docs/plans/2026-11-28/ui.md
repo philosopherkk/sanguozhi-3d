@@ -1,7 +1,7 @@
 # 介面大改：「時光機」簡易版（幼稚園小朋友都識用）
 
-> ⛔ **暫不排程**：四條裁定已於 2026-11-28 定案（見「裁定」）；要等雲端層交付「第 0 期」工具與骨架，
-> `ui` 排程（`10 2,14` HKT）先會重開並領取本檔。第 0 期未交付前，本檔所有 `☐` 行嘅驗收工具都未存在，領咗只會全部 blocked。
+> ⛔ **暫不排程**：四條裁定已於 2026-11-28 定案（見「裁定」）；第 0 期工具與骨架已交付（下面全部「已交付」，25 條 `☐` 行逐條證明係紅）。
+> 等 `ui` 排程（`10 2,14` HKT）重開先領取本檔；重開由雲端層改 registry＋重貼，唔係代理自己開。
 
 ## 目標一句
 
@@ -76,46 +76,55 @@
 
 ## 第 0 期：雲端層先交付（非 `☐` 行，代理唔領）
 
-- [ ] `scripts/audit_kid_ui.mjs`：`--require=<檢查 id>` 逐條斷言（唯讀、未做＝exit 1、做好＝exit 0、未知 id＝exit 2），下面每條 `☐` 行一個 id；連 `--teeth`（每個 id 注入一種破壞要咬到）同 `--list`。靜態讀 `src/kid/*.tsx`＋`src/kid/kid.css`（沿用 `audit_mobile_css.mjs` 嘅 CSS 解析與 `var()` 展開），CI 冇 Chrome 都跑得。
-- [ ] `scripts/kid_probe.mjs`：真瀏覽器（390／768／1440）跑 T1–T5 數點擊次數、量每個目標實際 px、橫向溢出；**冇 Chrome 時 exit 3（唔准 SKIP 當綠）**；唔入 `驗收=`（CI 冇 Chrome），只做雲端合併前覆核。
-- [ ] `src/lib/timelineBridge.ts`：由 `BottomBar.tsx` 抽出 `useYearPush`／`useTimelineYear`，加 `useEraRange()`（讀當前滑桿 min/max）；`BottomBar` 改用佢，行為不變。
-- [ ] `src/kid/icons.tsx`：自繪 SVG 圖示集（`home` `back` `prev` `next` `play` `stop` `story` `people` `map` `settings` `sun` `moon` `text-size` `hand`），統一 24×24 viewBox、`currentColor`、`stroke-width` 2.5、圓角端點；`<Icon name size>` 一個出口，`aria-hidden`（文字標籤另外寫）；`--list` 自測每個名都畫到。
-- [ ] `src/kid/uiMode.ts`（模式讀寫＋`data-ui` 屬性；預設 kid，URL 帶 `e`／`y` 而未存過偏好＝classic）、`src/kid/strings.ts`（全部簡易版字串，下面行入面嘅字照抄）、`src/kid/kid.css`（設計 token：`--kid-tap:64px`、`--kid-font:22px`、`--kid-year:40px`、間距、圓角）、`src/kid/KidShell.tsx`（三屏路由骨架，每屏一個空插槽）。
-- [ ] `src/kid/useKidStories.ts`：Imperial＋DeepDive 兩家族轉接器，回傳 `{year, title, text(按程度), portrait?, id}[]`；附自測。
-- [ ] `docs/agents/ui.md` 改「速查」：先領本檔（`plan --track=ui`），舊 `ui_queue` 佇列停用；重建 `historyfirst-wt-ui` worktree；`mobile_probe` 開工收工照跑（`?ui=classic`）。
-- [ ] 本檔每條行嘅驗收先喺骨架上跑一次證明係**紅**，再解除上面 ⛔。
+- 已交付：`scripts/audit_kid_ui.mjs`：`--require=<檢查 id>` 逐條斷言（唯讀、未做＝exit 1、做好＝exit 0、未知 id＝exit 2），下面每條 `☐` 行一個 id；連 `--teeth`（每個 id 注入一種破壞要咬到）同 `--list`。靜態讀 `src/kid/*.tsx`＋`src/kid/kid.css`（沿用 `audit_mobile_css.mjs` 嘅 CSS 解析與 `var()` 展開），CI 冇 Chrome 都跑得。
+- 已交付：`scripts/kid_probe.mjs`：真瀏覽器（390／768／1440）跑 T1–T5 數點擊次數、量每個目標實際 px、橫向溢出；**冇 Chrome 時 exit 3（唔准 SKIP 當綠）**；唔入工作單驗收欄（CI 冇 Chrome），只做雲端合併前覆核。
+- 已交付：`src/lib/timelineBridge.ts`：由 `BottomBar.tsx` 抽出 `useYearPush`／`useTimelineYear`，加 `useEraRange()`（讀當前滑桿 min/max）；`BottomBar` 改用佢，行為不變。
+- 已交付：`src/kid/icons.tsx`：自繪 SVG 圖示集（`home` `back` `prev` `next` `play` `stop` `story` `people` `map` `settings` `sun` `moon` `text-size` `hand`），統一 24×24 viewBox、`currentColor`、`stroke-width` 2.5、圓角端點；`<Icon name size>` 一個出口，`aria-hidden`（文字標籤另外寫）；`--list` 自測每個名都畫到。
+- 已交付：`src/kid/uiMode.ts`（模式讀寫＋`data-ui` 屬性；預設 kid，URL 帶 `e`／`y` 而未存過偏好＝classic）、`src/kid/strings.ts`（全部簡易版字串，下面行入面嘅字照抄）、`src/kid/kid.css`（設計 token：`--kid-tap:64px`、`--kid-font:22px`、`--kid-year:40px`、間距、圓角）、`src/kid/KidShell.tsx`（三屏路由骨架，每屏一個空插槽）。
+- 已交付：`src/kid/useKidStories.ts`：Imperial＋DeepDive 兩家族轉接器，回傳 `{year, title, text(按程度), portrait?, id}[]`；附自測。
+- 已交付：`docs/agents/ui.md` 改「速查」：先領本檔（`plan --track=ui`），舊 `ui_queue` 佇列停用；重建 `historyfirst-wt-ui` worktree；`mobile_probe` 開工收工照跑（`?ui=classic`）。
+- 已交付：本檔每條行嘅驗收先喺骨架上跑一次證明係**紅**，再解除上面 ⛔。（2026-11-28：25 條全部 exit 1；`--teeth` 25 條 352 次破壞全咬，已入 gate-ci `audit:kid-ui:teeth`。）
+
+第 0 期交付時嘅兩個偏差（雲端層決定，記低免得代理照舊文做）：
+
+- `uiMode.ts` 加咗 `KID_IS_DEFAULT = false`：裁定 1「預設簡易版」**收口覆核通過先開**，未完成之前新訪客仍見詳細版，只有 `?ui=kid` 或「切換到簡易版」先入簡易版——半成品唔可以直接見讀者。
+- 故事資料拆成 `src/kid/stories.ts`（純函式：`storiesFrom`／`peopleFrom`／`storiesAt`／`prevStoryYear`／`nextStoryYear`）＋`src/kid/useKidStories.ts`（按時代動態載入 pack）；未接轉接器嘅時代 `status: 'unsupported'`，由 `KidShell` 設 `data-kid-legacy` 保留舊側欄。
 
 ## 第 1 期：三屏骨架（代理）
 
 每行只改一個檔；字串一律由 `src/kid/strings.ts` import，**唔准喺元件內寫死中文**（`strings` 行除外）。
 
-☐ src/kid/KidHome.tsx｜第①屏「揀國家」：`TOPIC_META.map` 出 6 張卡（`<button data-kid="topic" data-topic={t.id}>`），卡內 `<PersonPortrait size="lg">`（用 `strings.ts` 嘅 `TOPIC_FACE[t.id]` 檔名）＋國家名；撳卡＝`setTopic(t.id)` 並轉去第②屏；標題用 `S.pickCountry`｜驗收=node scripts/audit_kid_ui.mjs --require=home
-☐ src/kid/kid.css｜`[data-kid=topic]` 卡：`min-height`／`min-width` 用 `var(--kid-tap)` 以上、字級 `var(--kid-font)` 以上；手機 `grid-template-columns: repeat(2, 1fr)`、`≥1025px` 用 3 欄｜驗收=node scripts/audit_kid_ui.mjs --require=home-size
-☐ src/kid/EraRiver.tsx｜第②屏「時間河」：`eraSlotsForTopic(topic).map` 出踏腳石（`<button data-kid="era" data-era={slot.id}>`，頭像用 `ERA_FACE[slot.id]`，冇就用時代名第一個字做大字圓章）；目前時代加 `aria-current="true"`；撳＝`setEraForTopic` 並轉去第③屏；載入時 `scrollIntoView({block:'center', inline:'center'})` 目前時代｜驗收=node scripts/audit_kid_ui.mjs --require=era-river
-☐ src/kid/kid.css｜`[data-kid=era]` 踏腳石尺寸 ≥ `var(--kid-tap)`；手機直向 `flex-direction: column`、桌面橫向並 `scroll-snap-type: x mandatory`；`[aria-current=true]` 有外框光暈（唔可以只靠顏色：外框闊 ≥ 3px）｜驗收=node scripts/audit_kid_ui.mjs --require=era-river-size
-☐ src/kid/TimeDock.tsx｜時光列：`<Icon name="prev">`（`aria-label={S.prevYear}`）、年份大字（`aria-live="polite"`，前 N 年寫 `前N`）、`<Icon name="next">`（`S.nextYear`）、播放／停（`play`／`stop` 圖示＋`S.play`／`S.stop`）；全部經 `timelineBridge`，到頭到尾 `disabled`｜驗收=node scripts/audit_kid_ui.mjs --require=time-dock
-☐ src/kid/kid.css｜`.kid-dock`：手機 `position: fixed; bottom: 0`＋`padding-bottom: env(safe-area-inset-bottom)`；按鈕 ≥ `var(--kid-tap)`；年份字級 ≥ `var(--kid-year)`；桌面置中、`max-width: 720px`｜驗收=node scripts/audit_kid_ui.mjs --require=time-dock-size
-☐ src/kid/KidTabs.tsx｜三個大分頁，圖示 `story`／`people`／`map` 疊喺文字上面（`role="tablist"`，每個 `role="tab"`＋`aria-selected`），字串 `S.tabStory／S.tabPeople／S.tabMap`；揀「地圖」時加 `data-kid-map-full`｜驗收=node scripts/audit_kid_ui.mjs --require=tabs
-☐ src/kid/NavCorner.tsx｜左上角固定 `<Icon name="home">`（`S.home`，返第①屏）＋ `<Icon name="back">`（`S.back`，返上一屏；第①屏時唔顯示 back 但 home 位置不變）｜驗收=node scripts/audit_kid_ui.mjs --require=nav-escape
-☐ src/App.tsx｜`isKidMode()` 為真時喺 `<TopicProvider>` 內渲染 `<KidShell>`，舊時代 App 照樣渲染喺 `KidShell` 嘅地圖插槽（唔好拆走，年份橋要用佢）｜驗收=node scripts/audit_kid_ui.mjs --require=wiring
-☐ src/kid/kid.css｜`[data-ui=kid]` 下視覺隱藏舊 chrome：`.app-header`、`.era-bar`、`.year-scrubber`、`.bottom-bar`、`.map-layer-bar` 用 `position:absolute; width:1px; height:1px; overflow:hidden; clip-path: inset(50%)`，**唔准 `display:none`**｜驗收=node scripts/audit_kid_ui.mjs --require=chrome-hidden
+☐ src/kid/KidHome.tsx｜第①屏「選國家」：標題 `<h1 className="kid-title">{S.pickCountry}</h1>`；`<div className="kid-home__grid">` 內 `TOPIC_META.map` 出 6 張卡 `<button type="button" data-kid="topic" data-topic={t.id}>`，卡內 `<PersonPortrait size="lg" src={TOPIC_FACE[t.id]} name={t.label} />`＋`<span>{t.label}</span>`；點卡＝`setTopic(t.id)` 再 `props.onPick()`｜驗收=node scripts/audit_kid_ui.mjs --require=home
+☐ src/kid/kid.css｜`[data-kid=topic]` 卡：`min-height`／`min-width` 用 `var(--kid-tap)`、`font-size: var(--kid-font)`；`.kid-home__grid` 用 `display: grid`＋`grid-template-columns: repeat(2, 1fr)`，`@media (min-width: 1025px)` 改 `repeat(3, 1fr)`｜驗收=node scripts/audit_kid_ui.mjs --require=home-size
+☐ src/kid/EraRiver.tsx｜第②屏「時間河」：標題 `<h1 className="kid-title">{S.pickEra}</h1>`；`<div className="kid-river">` 內 `eraSlotsForTopic(topic).map` 出 `<button type="button" data-kid="era" data-era={slot.id} aria-current={slot.id === activeEra ? 'true' : undefined}>`；有 `ERA_FACE[slot.id]` 就 `<PersonPortrait size="lg">`，冇就 `<span className="kid-river__stamp">{Array.from(slot.label)[0]}</span>`；再 `<span className="kid-river__name">{slot.label}</span>`；點＝`setEraForTopic(topic, slot.id)` 再 `props.onPick()`；目前時代用 ref＋`scrollIntoView({ block: 'center', inline: 'center' })`｜驗收=node scripts/audit_kid_ui.mjs --require=era-river
+☐ src/kid/kid.css｜`[data-kid=era]` `min-height`／`min-width` 用 `var(--kid-tap)`；`.kid-river` `display: flex; flex-direction: column`，`@media (min-width: 1025px)` 改 `flex-direction: row; overflow-x: auto; scroll-snap-type: x mandatory`；`[data-kid=era][aria-current=true]` `outline: 4px solid var(--accent)`（外框闊 ≥ 3px，唔可以只靠顏色）｜驗收=node scripts/audit_kid_ui.mjs --require=era-river-size
+☐ src/kid/TimeDock.tsx｜時光列 `<nav className="kid-dock">`：`const { year, min, max, step, playing, play, stop } = useEraYear()`（由 `../lib/timelineBridge` import）；上一年 `<button aria-label={S.prevYear} disabled={…} onClick={() => step(-1)}><Icon name="prev" /></button>`；年份 `<output className="kid-dock__year" aria-live="polite">{S.yearNumber(year)}<small>{S.yearUnit}</small></output>`；下一年同款（`S.nextYear`、`<Icon name="next">`、`step(1)`）；兩粒箭咀到頭到尾都要 `disabled`；播放掣 `playing ? stop : play`，圖示 `stop`／`play`＋字 `S.stop`／`S.play`｜驗收=node scripts/audit_kid_ui.mjs --require=time-dock
+☐ src/kid/kid.css｜`.kid-dock` `position: fixed; bottom: 0; padding-bottom: env(safe-area-inset-bottom)`；`.kid-dock button` `min-height`／`min-width` 用 `var(--kid-tap)`；`.kid-dock__year` `font-size: var(--kid-year)`；`@media (min-width: 1025px)` 下 `.kid-dock` `max-width: 720px`（置中）｜驗收=node scripts/audit_kid_ui.mjs --require=time-dock-size
+☐ src/kid/KidTabs.tsx｜`<div className="kid-tabs" role="tablist">`；`const TABS = [{ id: 'story', label: S.tabStory }, { id: 'people', label: S.tabPeople }, { id: 'map', label: S.tabMap }] as const`；每個 `<button type="button" role="tab" aria-selected={props.value === t.id} onClick={() => props.onChange(t.id)}><Icon name={t.id} /><span>{t.label}</span></button>`（地圖全屏由 `KidShell` 處理，本檔唔使理）｜驗收=node scripts/audit_kid_ui.mjs --require=tabs
+☐ src/kid/kid.css｜`.kid-tabs` `display: grid`（或 flex）；`.kid-tabs [role="tab"]` `min-height: var(--kid-tap)`、`font-size: var(--kid-font)`｜驗收=node scripts/audit_kid_ui.mjs --require=tabs-size
+☐ src/kid/NavCorner.tsx｜`<nav className="kid-nav">`：回首頁 `<button type="button" onClick={props.onHome}><Icon name="home" /><span>{S.home}</span></button>`；`{props.showBack ? (<button … onClick={props.onBack}><Icon name="back" /><span>{S.back}</span></button>) : null}`（回首頁永遠排第一，位置不變）｜驗收=node scripts/audit_kid_ui.mjs --require=nav-escape
+☐ src/kid/kid.css｜`.kid-nav` `display: flex`；`.kid-nav button` `min-height`／`min-width` 用 `var(--kid-tap)`｜驗收=node scripts/audit_kid_ui.mjs --require=nav-size
+☐ src/App.tsx｜`App()` 加 `import { KidShell } from './kid/KidShell'`、`import { useUiMode } from './kid/uiMode'`；`const mode = useUiMode()`，把 `<TopicRoot />` 改成 `{mode === 'kid' ? <KidShell><TopicRoot /></KidShell> : <TopicRoot />}`，其餘（`UrlBridge`、`PortraitGallery`、`BottomBar`）不動｜驗收=node scripts/audit_kid_ui.mjs --require=wiring
+☐ src/kid/kid.css｜簡易版下視覺隱藏舊介面：`[data-ui="kid"] .app-header`、`.era-bar`、`.year-scrubber`、`.bottom-bar`、`.map-layer-bar` 每個都要 `position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%)`，**唔准 `display: none`**｜驗收=node scripts/audit_kid_ui.mjs --require=chrome-hidden
 
 ## 第 2 期：故事與人物（代理）
 
-☐ src/kid/StoryCard.tsx｜一次一件事：`useKidStories()` 取當年事件，顯示標題、頭像、按程度嘅文字；`◀ S.prevStory｜S.nextStory ▶` 喺全時代事件之間跳（跳年份經 `timelineBridge`）｜驗收=node scripts/audit_kid_ui.mjs --require=story-card
-☐ src/kid/StoryCard.tsx｜空年：當年冇事件時顯示 `S.noStory`＋大掣 `S.nextStory`，撳＝跳去下一個有事件嘅年份（唔係 +1）｜驗收=node scripts/audit_kid_ui.mjs --require=empty-state
-☐ src/kid/PeopleGrid.tsx｜人物大頭像格：手機 3 欄、桌面 5 欄；撳一個＝展開大頭像＋名＋一句（`brief` 或小學生層第一句）；再撳／`S.close` 收起｜驗收=node scripts/audit_kid_ui.mjs --require=people-grid
-☐ src/kid/kid.css｜`.kid-story`／`.kid-people` 文字 ≥ `var(--kid-font)`、行高 ≥ 1.6、段落 `max-width: 32em`；頭像 ≥ 96px｜驗收=node scripts/audit_kid_ui.mjs --require=story-size
-☐ src/kid/kid.css｜未接轉接器嘅時代（三國／秦漢／周／平安／戰國／幕末／近代）：`[data-ui=kid] .timeline-item`、`.person-card`、`.people-card` 套大字大頭像皮｜驗收=node scripts/audit_kid_ui.mjs --require=legacy-skin
+☐ src/kid/StoryCard.tsx｜`<article className="kid-story">`：`const { stories } = useKidStories()`、`const { year, setYear } = useEraYear()`、`storiesAt(stories, year)` 取當年第一件；顯示 `<h2>{story.title}</h2>`、有 `story.portrait` 就 `<PersonPortrait size="lg">`、`<p>{story.text}</p>`；底部 `prevStoryYear(stories, year)`／`nextStoryYear(stories, year)` 兩粒掣（`<Icon name="prev" />{S.prevStory}`、`{S.nextStory}<Icon name="next" />`），點＝`setYear(…)`｜驗收=node scripts/audit_kid_ui.mjs --require=story-card
+☐ src/kid/StoryCard.tsx｜空年：當年冇事件時改顯示 `<div className="kid-story__empty"><p>{S.noStory}</p>`＋大掣 `{S.nextStory}`，點＝`setYear(nextStoryYear(stories, year))`（跳去下一個有事件嘅年份，唔係 +1；冇下一個就 `disabled`）｜驗收=node scripts/audit_kid_ui.mjs --require=empty-state
+☐ src/kid/PeopleGrid.tsx｜`<section className="kid-people">`：`const { people } = useKidStories()`；冇人時 `<p>{S.noPeople}</p>`；`<div className="kid-people__grid">` 內每人一粒 `<button type="button" aria-expanded={open === p.id}>`＋`<PersonPortrait size="lg" src={p.portrait} name={p.name} />`＋`<span>{p.name}</span>`；展開時多一句 `<p>{p.line}</p>`；再點收起（按鈕讀屏字用 `S.close`）｜驗收=node scripts/audit_kid_ui.mjs --require=people-grid
+☐ src/kid/kid.css｜`.kid-story` `font-size: var(--kid-font); line-height: 1.6`；`.kid-story p` `max-width: 32em`；`.kid-story button` `min-height: var(--kid-tap)`；`.kid-story .person-portrait` `width`／`height` ≥ 96px｜驗收=node scripts/audit_kid_ui.mjs --require=story-size
+☐ src/kid/kid.css｜`.kid-people__grid` `display: grid; grid-template-columns: repeat(3, 1fr)`，`@media (min-width: 1025px)` 改 `repeat(5, 1fr)`；`.kid-people button` `min-height: var(--kid-tap); font-size: var(--kid-font)`；`.kid-people .person-portrait` `width`／`height` ≥ 96px｜驗收=node scripts/audit_kid_ui.mjs --require=people-size
+☐ src/kid/kid.css｜未接轉接器嘅時代（三國／秦漢／周／平安／戰國／幕末／近代）：`[data-ui="kid"] .timeline-item`、`[data-ui="kid"] .person-card`、`[data-ui="kid"] .people-card` 各自 `font-size: var(--kid-font)`｜驗收=node scripts/audit_kid_ui.mjs --require=legacy-skin
 
 ## 第 3 期：設定、引導、鍵盤（代理）
 
-☐ src/kid/KidSettings.tsx｜右上角 `<Icon name="settings">`（`S.settings`）：`S.fontSize` 三級（對應 `FONT_STEPS` 第 1／3／4 級）、`S.dayNight`、`S.level`（`S.levelEasy／S.levelMid／S.levelDeep`＝`elementary/secondary/university`，全部經 `readingPrefs` 現有 setter）、`S.toClassic`（`setUiMode('classic')`）｜驗收=node scripts/audit_kid_ui.mjs --require=settings
-☐ src/components/BottomBar.tsx｜詳細版底欄加一粒 `切換到簡易版`（`setUiMode('kid')`），其他唔郁｜驗收=node scripts/audit_kid_ui.mjs --require=to-kid
-☐ src/kid/Breadcrumb.tsx｜頂部三粒點（國家 → 時代 → 時光機），已到嘅點填色＋`aria-label` 寫目前係第幾步｜驗收=node scripts/audit_kid_ui.mjs --require=breadcrumb
-☐ src/kid/FirstVisit.tsx｜第一次入嚟喺第①屏頂顯示一句 `S.hintPick`＋`<Icon name="hand">` 大手指指住第一張卡，撳任何卡即消失、`localStorage` 記住；唔准用彈窗遮住畫面｜驗收=node scripts/audit_kid_ui.mjs --require=onboarding
-☐ src/kid/TimeDock.tsx｜桌面鍵盤：`←`／`→` 換年、空白鍵播放／停；焦點喺輸入框時唔攔截｜驗收=node scripts/audit_kid_ui.mjs --require=keys
-☐ src/kid/kid.css｜`@media (prefers-reduced-motion: reduce)` 下所有 `.kid-*` `transition`／`animation` 關閉｜驗收=node scripts/audit_kid_ui.mjs --require=motion
+☐ src/kid/KidSettings.tsx｜`<div className="kid-settings">`：開合掣 `<button type="button" aria-expanded={open}><Icon name="settings" /><span>{S.settings}</span></button>`；展開後：`S.fontSize` 三粒（`setFontStep` 對應 `FONT_STEPS` 第 1／3／4 級，`<Icon name="text-size" />`＋`S.fontSmall／S.fontMid／S.fontBig`）、`S.dayNight` 兩粒（`setTheme`，`<Icon name="sun" />{S.day}`／`<Icon name="moon" />{S.night}`）、`S.level` 三粒（`setLevel('elementary'／'secondary'／'university')`＝`S.levelEasy／S.levelMid／S.levelDeep`）；目前選項 `aria-pressed`；最後 `setUiMode('classic')`＝`{S.toClassic}`；setter 全部用 `readingPrefs` 現有嘅｜驗收=node scripts/audit_kid_ui.mjs --require=settings
+☐ src/kid/kid.css｜`.kid-settings button` `min-height`／`min-width` 用 `var(--kid-tap)`、`font-size: var(--kid-font)`；`.kid-settings [aria-pressed="true"]` `outline: 4px solid var(--accent)`｜驗收=node scripts/audit_kid_ui.mjs --require=settings-size
+☐ src/components/BottomBar.tsx｜詳細版底欄加一粒 `切換到簡易版`：`import { setUiMode } from '../kid/uiMode'`，`onClick={() => setUiMode('kid')}`，其他唔郁｜驗收=node scripts/audit_kid_ui.mjs --require=to-kid
+☐ src/kid/Breadcrumb.tsx｜`<ol className="kid-crumbs" aria-label={S.stepOf(props.step, S.steps.length)}>`；`S.steps.map((label, i) => <li aria-current={i + 1 === props.step ? 'step' : undefined} data-done={i + 1 <= props.step ? '' : undefined}>{label}</li>)`｜驗收=node scripts/audit_kid_ui.mjs --require=breadcrumb
+☐ src/kid/FirstVisit.tsx｜第一次入站：`localStorage.getItem('hf.kid.seen')` 讀；`props.dismissed` 變真時 `localStorage.setItem('hf.kid.seen', '1')` 並收起；未見過就顯示 `<p className="kid-hint"><Icon name="hand" size={48} />{S.hintPick}</p>`；唔准彈窗（`role="dialog"`／`<dialog>`／`aria-modal` 都唔准）｜驗收=node scripts/audit_kid_ui.mjs --require=onboarding
+☐ src/kid/TimeDock.tsx｜桌面鍵盤：`useEffect` 內 `window.addEventListener('keydown', onKey)`、清理時 `removeEventListener('keydown', onKey)`；`'ArrowLeft'`＝`step(-1)`、`'ArrowRight'`＝`step(1)`、`' '`＝播放／停，三個都 `e.preventDefault()`；焦點喺 `input, textarea, select` 或 `isContentEditable` 時直接 return｜驗收=node scripts/audit_kid_ui.mjs --require=keys
+☐ src/kid/kid.css｜`@media (prefers-reduced-motion: reduce)` 內 `.kid-shell * { transition: none; animation: none; scroll-behavior: auto }`｜驗收=node scripts/audit_kid_ui.mjs --require=motion
 
 ## 收口（雲端層覆核，唔係代理行）
 

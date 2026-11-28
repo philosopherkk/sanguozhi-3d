@@ -18,6 +18,7 @@
     "audit:ranges": "node --experimental-strip-types scripts/audit-ranges.ts",
     "audit:wiring": "node --experimental-strip-types scripts/audit-wiring.ts",
     "audit:portraits": "node scripts/audit-portraits.mjs",
+    "audit:kid-ui": "node scripts/audit_kid_ui.mjs",
     "audit:credits": "node scripts/portrait_credits.mjs --check",
     "audit:credits:selftest": "node scripts/portrait_credits.mjs --selftest",
     "audit:geo": "python3 scripts/audit_geo.py",
