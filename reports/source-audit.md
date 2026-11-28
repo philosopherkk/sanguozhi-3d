@@ -3788,3 +3788,34 @@ commit `0fdce470`（帳本 252 行）；push --force-with-lease `10c9687c...0fdc
 1. citations 軌道餘 11 條，下輪照 `node scripts/agent-queue.mjs plan --track=citations --todo=1` 取頭條。
 2. accuracy「出處具名但無原文」大類依序續做 `src/countries/korea/koancientPack.ts` 各事件（《漢書·武帝紀》《史記·朝鮮列傳》《三國史記·高句麗本紀》等出處補原文）；其後為 `battles.json` 平吳（晉書武帝紀／王濬傳／杜預傳＋通鑑卷八十）、巴陵（武帝紀）。
 3. 待使用者裁定的工具缺口不變：`--mark=` 等號式靜默失效；`--live` 紀傳名逐卷掃誤配；同 key 多結構 `--mark` 拒寫（本輪再起一次，建議帳本改以「檔#結構#key」為鍵）；雙十協定中央日報本對讀（第 21 輪遺留）。
+
+## 第 60 輪（2026-11-29 04:10–04:20）
+
+### 1) 本輪項目（4 項：citations 計畫 1＋佇列行 3）
+
+1. `src/countries/korea/koancientPack.ts:ko-372`（citations 計畫第 1 條）：READINGS 引文改為《三國史記·高句麗本紀》小獸林王二年逐字引文「秦王苻堅，遣使及浮屠順道，送佛像、經文。……立大學，敎育子弟。」，`source` 移去「通說整理」；並修正 DETAILS、events、READINGS、keyFigures 共五處使者誤名「順權」為原卷之「順道」。
+2–4. 同檔 `leadersByYear` '-108' 三行（劉徹／楊僕／衛右渠）：leaders 結構無 quote 欄，依第 52/53 輪「無 quote 欄→source 標通說」口徑補「通說整理，非逐字引文」標記；覆核佇列由 1217 條減至 1214 條，該三行不再列出。
+
+### 2) 過程記錄
+
+- 原典核對：zh.wikisource《三國史記/卷18》「二年，夏六月，秦王苻堅，遣使及浮屠順道，送佛像、經文。……立大學，敎育子弟。」needle「浮屠順道」「立大學，敎育子弟。」各匹配 1 處。原卷「苻」下夾校勘記 `<ref>原本「符」</ref>`，故首段「秦王苻堅，遣使及浮屠順道，送佛像、經文。」以 qsrc CLI 整段跑會因 ref 剝除後留空格而不匹配——屬第 48 輪「校勘記處斷開」同類，引文欄以兩段各自可核，source 註明「苻」下校勘記不取、「敎」照原卷（U+654E）。
+- 記帳時 `--mark` 對同 key 雙結構（READINGS＋events）已自動收窄到有引文欄嗰筆並入帳（頁記 `三國史記/卷18`），無須手算——主線已修第 59 輪報告建議的一半，該條建議本輪起撤回。
+- 驗收指令整條 exit 0（qsrc ＋ `audit_quotes.mjs --check` verified ＋ `country_check` PASS）；`--check` 係只讀斷言，stamp 過期或未記帳即 exit 1，較舊口徑更嚴。標 ☑ 後連同計畫檔 commit。
+- selfcheck 唯一新漢字「敎」核為 U+654E 正字（原卷字形）。commit `381c0e67`（計畫項）＋`bad9ea87`（三行標記）。
+
+### 3) 前後對照
+
+| 指標 | 前 | 後 |
+| --- | --- | --- |
+| audit:quotes 已查證／未查證／意譯 | 316／0／192 | 317／0／191 |
+| citations 計畫餘量 | 11 | 10 |
+| 「出處具名但無原文」佇列 | 1217 | 1214 |
+| audit:chars 硬傷 | 0 | 0 |
+
+收工驗證：tsc=0；build=0；lint=0；probe-if-ui＝SKIP(no-ui-diff)；gates=0（無惡化，portraits 350→352 屬他線改善）；selfcheck 兩式 0 命中。
+
+### 4) 剩餘佇列（交下輪）
+
+1. citations 軌餘 10 條續做（下輪先取 `plan --track=citations --todo=1`）。
+2. accuracy「出處具名但無原文」：`koancientPack.ts` leadersByYear 其餘行（小獸林王／近肖古王／興德王等，行 440 起）同屬無 quote 欄結構，照本輪口徑逐批改標通說即可清空該檔。
+3. 工具缺口建議更新：同 key 雙結構 `--mark` 拒寫一項已撤回（主線已修）；其餘不變（`--mark=` 等號式、`--live` 紀傳名誤配、雙十協定對讀）。
