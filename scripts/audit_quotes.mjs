@@ -518,7 +518,23 @@ function main() {
      * 現在只接受「檔#key」完整識別碼；給裸 key 時一律列候選並拒絕執行。
      */
     const all = entries.map((e) => ({ e, id: `${relative(ROOT, e.file)}#${e.key}` }))
-    const exact = MARK.includes('#') ? all.filter((r) => r.id === MARK) : []
+    let exact = MARK.includes('#') ? all.filter((r) => r.id === MARK) : []
+    /**
+     * 2026-11-29：同一檔同一 key 可以有兩筆——`READINGS` 那筆有引文欄，
+     * `DETAILS`／註釋那筆只有出處欄，兩者都收進 entries。原先一律拒絕，
+     * 結果 accuracy 查完也永遠蓋不到章（`koancientPack.ts` 的 ko-m108 實測卡死）。
+     * 帳本記的是「這條引文查過哪一頁」，所以先按「哪一筆真的有引文欄」收窄；
+     * 收窄之後仍多於一筆才是真歧義，照舊拒絕，不放行。
+     */
+    if (exact.length > 1) {
+      const withQuote = exact.filter((r) => r.e.quote)
+      if (withQuote.length === 1) {
+        console.log(
+          `同一 key 在同一檔有 ${exact.length} 筆，按「有引文欄」收窄到第 ${withQuote[0].e.line} 行那一筆`,
+        )
+        exact = withQuote
+      }
+    }
     if (MARK.includes('#') && exact.length !== 1) {
       console.error(`找不到條目識別碼：${MARK}${exact.length > 1 ? `（重複 ${exact.length} 筆，帳本不可能對）` : ''}`)
       console.error(`用法：npm run audit:quotes -- --mark='<相對路徑>#<key>' --page='卷四十'`)
