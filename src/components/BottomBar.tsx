@@ -3,7 +3,6 @@ import {
   useMemo,
   useRef,
   useState,
-  useSyncExternalStore,
   type KeyboardEvent,
 } from 'react'
 import {
@@ -20,18 +19,13 @@ import {
   type ReadingLevel,
 } from '../lib/readingPrefs'
 import { useCollapseOnScroll } from '../lib/useCollapseOnScroll'
-import {
-  announceTimeline,
-  onTimelineChange,
-  readTimelineFromUrl,
-  writeTimelineToUrl,
-} from '../lib/timelineUrl'
+import { writeTimelineToUrl } from '../lib/timelineUrl'
+import { useTimelineYear, useYearPush } from '../lib/timelineBridge'
 import {
   countryLabelForTopic,
   eraSlotsForTopic,
   useTopic,
   type AppTopic,
-  type EraSlotMeta,
 } from '../state/TopicContext'
 
 const LEVELS: { id: ReadingLevel; label: string }[] = [
@@ -70,104 +64,6 @@ function collectHits(term: string): Hit[] {
 
 function eraLabel(topic: AppTopic, era: string): string {
   return eraSlotsForTopic(topic).find((s) => s.id === era)?.label ?? era
-}
-
-/**
- * 把年份交給目前這個時代的畫面。
- *
- * 只有 imperial／bakumatsu／日本時代深潛三組 context 會訂閱 `tk:timeline`；
- * 其餘時代（三國、漢、戰國、平安等）的年份只由年代滑桿驅動，光寫 URL 的
- * `?y=` 對它們完全無效。因此這裡除了廣播之外，另外把滑桿的值直接寫一次
- * （用原生 setter，否則 React 的 value tracker 會吞掉 change 事件）。
- * 滑桿在 lazy 分塊內，換時代時要輪詢等它出現。換時代的點擊當刻，頁面上
- * 掛著的還是舊時代的滑桿：對它判年份界線會用錯的範圍，寫進去也只驅動舊
- * 時代，所以先記住舊節點，等新時代的滑桿換上才寫。
- */
-function useYearPush() {
-  const timers = useRef<number[]>([])
-  useEffect(
-    () => () => timers.current.forEach((id) => window.clearTimeout(id)),
-    [],
-  )
-  return (
-    year: number,
-    slot: EraSlotMeta<string>,
-    sameEra: boolean,
-    say: (msg: string) => void,
-  ) => {
-    const stale = sameEra
-      ? null
-      : document.querySelector<HTMLInputElement>(
-          '.year-scrubber input[type=range]',
-        )
-    const attempt = (tries: number) => {
-      const input = document.querySelector<HTMLInputElement>(
-        '.year-scrubber input[type=range]',
-      )
-      if (!input || input === stale) {
-        if (tries < 20) {
-          timers.current.push(window.setTimeout(() => attempt(tries + 1), 150))
-        } else {
-          say(`找不到 ${slot.label} 的年代滑桿，請重新整理頁面。`)
-        }
-        return
-      }
-      const lo = Number(input.min)
-      const hi = Number(input.max)
-      const outOfRange =
-        Number.isFinite(lo) && Number.isFinite(hi) && (year < lo || year > hi)
-      if (outOfRange) {
-        // 年份落在該時代範圍之外：只換到該時代，不把滑桿硬推出界；URL 的
-        // `?y=` 一併改成畫面實際停留的年份，否則分享連結與畫面各說一套。
-        const fmt = (y: number) => (y < 0 ? `前${-y}` : `${y}`)
-        say(
-          `${fmt(year)} 年不在 ${slot.label}（${fmt(lo)}–${fmt(hi)}）之內。`,
-        )
-        const landed = Number(input.value)
-        if (Number.isFinite(landed)) {
-          writeTimelineToUrl({ year: landed, month: null })
-        }
-        return
-      }
-      announceTimeline({ year, month: null })
-      if (input.value === String(year)) return
-      const setter = Object.getOwnPropertyDescriptor(
-        window.HTMLInputElement.prototype,
-        'value',
-      )?.set
-      if (!setter) return
-      setter.call(input, String(year))
-      input.dispatchEvent(new Event('input', { bubbles: true }))
-    }
-    // 同時代換年：滑桿已在頁面上，立刻寫。換時代：等 React 提交與分塊載入。
-    attempt(sameEra ? 0 : 1)
-  }
-}
-
-/**
- * 目前年份以 URL 的 `?y=` 為準（UrlBridge 於滑桿 input 時寫回）。
- * 只有三組時代 context 會廣播 `tk:timeline`，其餘時代要靠滑桿的 input
- * 事件才跟得上，否則面板上的年份會停在舊值。
- */
-function subscribeTimelineYear(notify: () => void): () => void {
-  const offBroadcast = onTimelineChange(notify)
-  const onInput = (ev: Event) => {
-    const el = ev.target
-    if (el instanceof HTMLInputElement && el.type === 'range') notify()
-  }
-  document.addEventListener('input', onInput)
-  window.addEventListener('popstate', notify)
-  return () => {
-    offBroadcast()
-    document.removeEventListener('input', onInput)
-    window.removeEventListener('popstate', notify)
-  }
-}
-
-function useTimelineYear(): number | null {
-  return useSyncExternalStore(subscribeTimelineYear, () =>
-    readTimelineFromUrl().year,
-  )
 }
 
 /** 固定於畫面底部的常駐設定列：字級、黑白底、閱讀程度、搜尋與書籤。 */

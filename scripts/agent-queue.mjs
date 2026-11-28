@@ -264,6 +264,7 @@ const planFiles = () => {
  * 然後照舊路做——等於整個 plan 佇列白做。所以 key 要在這裡對上檔案名。
  * accuracy 走 citations.md（引證是其延伸職責）；ui 無對應單，走舊佇列。
  */
+// 軌道名與工作單檔名不同時才要登記；ui → ui.md、map → map.md 同名，毋須登記。
 const PLAN_ALIAS = { enrich: 'enrichment', accuracy: 'citations' }
 const findPlan = (track) => {
   const files = planFiles()

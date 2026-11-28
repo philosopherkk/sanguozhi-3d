@@ -208,7 +208,7 @@ async function setViewport(w, h) {
 
 async function load(era, c) {
   exceptions = 0
-  await send('Page.navigate', { url: `http://[::1]:${VITE_PORT}/?e=${era}&c=${c}` })
+  await send('Page.navigate', { url: `http://[::1]:${VITE_PORT}/?e=${era}&c=${c}&ui=classic` })
   for (let i = 0; i < 24; i++) {
     await sleep(500)
     const n = await ev(`(document.querySelector('.app-shell__main')?.innerText||'').length`)

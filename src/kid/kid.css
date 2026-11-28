@@ -1,0 +1,105 @@
+/*
+ * 簡易版「時光機」樣式。只在 <html data-ui="kid"> 時由 KidShell 載入使用。
+ *
+ * 第 0 期（雲端層）只放設計 token 與三屏版面；各元件的尺寸規則由
+ * docs/plans/2026-11-28/ui.md 逐行補上，每行由 scripts/audit_kid_ui.mjs 驗收。
+ * 規矩：可點目標不得小於 var(--kid-tap)；舊介面只准視覺隱藏，不准 display:none；
+ * 不得對 html／body／#root 設 overflow:hidden（窄屏靠整頁捲動）。
+ */
+
+:root {
+  --kid-tap: 64px;
+  --kid-tap-desktop: 56px;
+  --kid-font: 22px;
+  --kid-year: 40px;
+  --kid-gap: 16px;
+  --kid-radius: 20px;
+  --kid-dock-h: 112px;
+  --kid-card: color-mix(in srgb, var(--accent) 16%, var(--bg));
+  --kid-card-line: color-mix(in srgb, var(--accent) 55%, var(--bg));
+  --kid-glow: var(--accent);
+}
+
+.kid-shell {
+  min-height: 100dvh;
+  padding-bottom: calc(var(--kid-dock-h) + env(safe-area-inset-bottom));
+  background: var(--bg);
+  color: var(--ink);
+  font-size: var(--kid-font);
+  line-height: 1.6;
+}
+
+.kid-shell button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.kid-shell :focus-visible {
+  outline: 4px solid var(--kid-glow);
+  outline-offset: 3px;
+}
+
+.kid-top {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--kid-gap);
+  padding: 8px 12px;
+  background: var(--bg);
+}
+
+.kid-title {
+  margin: 8px 16px 16px;
+  font-size: 28px;
+  text-align: center;
+}
+
+.kid-machine {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--kid-gap);
+  padding: 0 12px;
+}
+
+.kid-machine__map {
+  position: relative;
+  min-height: 50vh;
+}
+
+.kid-shell[data-kid-map-full] .kid-machine__map {
+  min-height: calc(100dvh - var(--kid-dock-h) - 160px);
+}
+
+.kid-shell[data-kid-map-full] .kid-machine__panel {
+  display: none;
+}
+
+/* 有故事資料的時代：舊側欄由故事卡與人物格取代（視覺隱藏，保留 DOM）。 */
+.kid-shell:not([data-kid-legacy]) .side-rail {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+@media (min-width: 1025px) {
+  .kid-machine {
+    grid-template-columns: minmax(0, 3fr) minmax(360px, 2fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .kid-machine__map {
+    grid-row: 1 / span 2;
+    min-height: calc(100dvh - var(--kid-dock-h) - 96px);
+  }
+
+  .kid-shell[data-kid-map-full] .kid-machine {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

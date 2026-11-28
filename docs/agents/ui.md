@@ -7,11 +7,12 @@
 
 ## 速查（只看這段就夠）
 
-- 佇列：`node scripts/agent-queue.mjs ui`（依 focus→a11y→alt→font 順序）。
-- **開工與收工各跑一次全時代手機實測**：`node scripts/mobile_probe.mjs --narrow > /tmp/mp.log 2>&1; echo exit=$?; tail -n 8 /tmp/mp.log`（約 2 分鐘，需要本機 Chrome；找不到會印 SKIP）。有 ✗ 的時代是**最優先**，先修它再做佇列。收工時失敗數不得比開工多。
-- 手機版是「整頁捲動」設計，見下方「手機整頁捲動規範」；不要改回內部捲動。
-- 一輪最多 **4 項**；做完就收工，剩下的寫進「下輪建議」。
-- 單項驗證：`node scripts/ui_queue.mjs > /tmp/u.log 2>&1; echo exit=$?; tail -n 3 /tmp/u.log`。
+- **工作單（2026-11-28 起取代舊佇列）**：`node scripts/agent-queue.mjs plan --track=ui --todo=2`，領 `docs/plans/2026-11-28/ui.md`「時光機」簡易版行；舊 `ui_queue.mjs` 佇列停用。
+- 一輪最多 **2 行**；每行只改行首點名嗰個檔，該行 `驗收=`（`node scripts/audit_kid_ui.mjs --require=<id>`）由紅變綠先可以 `--done=N`。睇全部進度：`node scripts/audit_kid_ui.mjs --all`。
+- 字串只可以由 `src/kid/strings.ts` import、圖示只可以用 `<Icon name>`；`src/` 一律正體書面語。年份一律經 `useEraYear()`（`src/lib/timelineBridge.ts`），唔准自己查 `.year-scrubber`。
+- **開工與收工各跑一次手機實測**：`node scripts/mobile_probe.mjs --narrow --eras=tang,edo,kojoseon > /tmp/mp.log 2>&1; echo exit=$?; tail -n 8 /tmp/mp.log`（探針已帶 `?ui=classic`，量嘅係詳細版；需要本機 Chrome）。收工時失敗數不得比開工多。
+- 手機版是「整頁捲動」設計，見下方「手機整頁捲動規範」；不要改回內部捲動。簡易版同樣唔准對 `html`／`body`／`#root` 設 `overflow:hidden`。
+- 雲端層專屬、唔准改：`src/lib/timelineBridge.ts`、`src/kid/{strings.ts,icons.tsx,KidShell.tsx,uiMode.ts,stories.ts,useKidStories.ts}`、`scripts/audit_kid_ui.mjs`、`scripts/kid_probe.mjs`。缺字串／圖示就記 `blocked`。
 - 快驗閘門：`npm run gates -- --only=audit:mobile`。
 - 地圖標籤字級一律跳過；具體做法見下方；只在這段不夠時往下讀。
 
