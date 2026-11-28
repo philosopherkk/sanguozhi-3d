@@ -58,6 +58,29 @@
   text-align: center;
 }
 
+.kid-home__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--kid-gap);
+  padding: 0 12px;
+}
+
+/* 六國卡：可點面積不得小於 var(--kid-tap)，字級用 var(--kid-font)。 */
+[data-kid="topic"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--kid-tap);
+  min-width: var(--kid-tap);
+  padding: var(--kid-gap);
+  border: 2px solid var(--kid-card-line);
+  border-radius: var(--kid-radius);
+  background: var(--kid-card);
+  color: inherit;
+  font-size: var(--kid-font);
+}
+
 .kid-machine {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -88,6 +111,10 @@
 }
 
 @media (min-width: 1025px) {
+  .kid-home__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .kid-machine {
     grid-template-columns: minmax(0, 3fr) minmax(360px, 2fr);
     grid-template-rows: auto minmax(0, 1fr);
