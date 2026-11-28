@@ -11,6 +11,7 @@ import {
   type VietnamEraSlot,
 } from './state/TopicContext'
 import type { JapanDeepDivePack } from './japanEras/deepDiveTypes'
+import { ASIA_COUNTRY_GEOMETRY_PROVENANCE } from './geo/asiaCountryDomains'
 import {
   onTimelineChange,
   readTimelineFromUrl,
@@ -195,7 +196,7 @@ const COUNTRY_WIKI_URL: Record<
 }
 
 const COUNTRY_TERRITORY_NOTE_ZH =
-  '色塊為通說控制範圍示意（經緯度界定後剪裁至真實海岸線），非行政區界，亦不表示實效支配無爭議；界線隨年代變動，爭議見對應事件之起因／經過／結果。'
+  '色塊為通說控制範圍示意：頂點以經緯度定位後手繪，海岸線採 Natural Earth 公有領域底圖，未經剪裁或測量，故邊界僅供區域對照。非行政區界，亦不表示實效支配無爭議；界線隨年代變動，爭議見對應事件之起因／經過／結果。'
 
 type CountryKey = keyof typeof COUNTRY_WIKI_URL
 
@@ -207,6 +208,7 @@ function countryPack(
     ...pack,
     countryWikiUrl: COUNTRY_WIKI_URL[country],
     territoryNote: COUNTRY_TERRITORY_NOTE_ZH,
+    geometryNote: ASIA_COUNTRY_GEOMETRY_PROVENANCE,
     chengyuLocales: ['shared'],
   }
 }

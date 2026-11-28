@@ -39,6 +39,23 @@ const ERA_LABELS: Record<string, string> = {
   'japan-edo': '江戶',
   bakumatsu: '幕末',
   'japan-imjin': '朝鮮之役',
+  // 四國 16 槽（label 與 src/state/TopicContext.tsx 的 *_ERA_SLOTS 一致，改一處要跟另一處）
+  koancient: '古朝鮮與三國',
+  kogoryeo: '統一新羅與高麗',
+  kojoseon: '朝鮮王朝',
+  komodern: '韓國近現代',
+  thsukhothai: '素可泰與蘭納',
+  thayutthaya: '阿瑜陀耶與吞武里',
+  thchakri: '卻克里與條約時代',
+  thmodern: '立憲與戰後',
+  vnnorth: '北屬與自主立國',
+  vndynasty: '李陳後黎與鄭阮',
+  vnnguyen: '阮朝與法國保護',
+  vnmodern: '戰爭與統一',
+  mymalacca: '馬六甲蘇丹國',
+  mycolonial: '列強與英屬時期',
+  mymerdeka: '日佔、獨立與聯邦',
+  mymodern: '聯邦至當代',
   'japan-modern': '近代日本',
 }
 

@@ -131,3 +131,15 @@ export const JP_ERA_RINGS_MATSUMAE_NOTE_ZH =
 
 export const JP_ERA_RINGS_RYUKYU_DASHED_NOTE_ZH =
   '1609年起琉球對薩摩附庸、王國仍存之雙重朝貢示意（虛線）；1879年前非沖繩縣界。'
+
+/**
+ * 韓國、泰國、越南、馬來西亞四國色塊（`src/geo/asiaCountryDomains.ts`）的幾何出處。
+ * 這四國沒有矢量化的歷史地圖可依，頂點由編者按通說圈定經緯度後手繪，
+ * 所以 `approx` 必須為 true，註解亦不可宣稱「剪裁至海岸線」。
+ */
+export const ASIA_COUNTRY_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance = {
+  approx: true,
+  source:
+    '通說區域範圍以經緯度頂點手繪示意，疊於 Natural Earth 1:50m 陸地海岸線（公有領域）之上',
+  note: '僅作區域範圍對照，非現代行政區界、非地籍測量界線，亦非譚其驤《中國歷史地圖集》圖幅矢量化；實際界線隨年代變動，爭議見對應事件之起因／經過／結果。',
+}

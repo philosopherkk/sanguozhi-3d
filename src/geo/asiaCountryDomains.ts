@@ -11,7 +11,9 @@
  */
 
 import type { DeepDiveDomain, DeepDiveVectorBasemap } from '../japanEras/deepDiveTypes'
-import type { TerritoryGeometryProvenance } from '../data/territory/provenance'
+// 幾何出處聲明統一放在 provenance 註冊表（與戰區範圍、CODH 環同處），本檔只轉出，
+// 免得 App 為一行文字把整個四國色塊檔拖進主 chunk。
+export { ASIA_COUNTRY_GEOMETRY_PROVENANCE } from '../data/territory/provenance'
 import { ASIA_GRATICULE, ASIA_LAND, asiaPx } from './asiaWarBase'
 
 const round1 = (n: number): number => Math.round(n * 10) / 10
@@ -23,14 +25,6 @@ export function poly(coords: [number, number][]): string {
     return `${i === 0 ? 'M' : 'L'} ${round1(x)} ${round1(y)}`
   })
   return `${parts.join(' ')} Z`
-}
-
-/** 示意多邊形之幾何出處聲明（供地圖註解與稽核使用） */
-export const ASIA_COUNTRY_GEOMETRY_PROVENANCE: TerritoryGeometryProvenance = {
-  approx: true,
-  source:
-    '通說區域範圍以經緯度頂點手繪示意，再投影至 Natural Earth 1:50m 陸地海岸線（公有領域）',
-  note: '僅作區域範圍對照，非現代行政區界、非地籍測量界線，亦非譚其驤《中國歷史地圖集》圖幅矢量化；實際界線隨年代變動，爭議見對應事件之起因／經過／結果。',
 }
 
 /** 四國矢量底圖（框住該國與周邊，陸地與經緯線同戰區底圖） */
