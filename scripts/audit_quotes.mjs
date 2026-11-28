@@ -76,6 +76,7 @@ const ONLY_STATS = has('stats')
 const ALL = has('all')
 const MARK_VERIFIED = has('mark-verified')
 const MARK = opt('mark')
+const CHECK = opt('check')
 const PAGE = opt('page')
 
 function usage(code = 0) {
@@ -83,9 +84,12 @@ function usage(code = 0) {
     [
       '用法: node scripts/audit_quotes.mjs [--todo [--all] [--limit=N]] | --json | --stats | --rows',
       '      node scripts/audit_quotes.mjs --mark \'<檔案#key>\' --page <書名/卷N>',
+      '      node scripts/audit_quotes.mjs --check \'<檔案#key>\'（只讀斷言，唔寫帳本）',
       '',
       'npm run audit:quotes -- --todo',
       '⚠ --mark 一定要給完整的「檔案#key」：裸 key 在本倉有 15+ 組同名，會蓋到別的檔案的條目。',
+      '⚠ --mark 會改寫 scripts/quote-audit-ledger.json，所以不能當計畫行的驗收（複驗會一路蓋章）。',
+      '   要證明「已逐字查證」請用 --check：verified 才 exit 0，未記帳／戳記過期／無此條目都 exit 1。',
     ].join('\n'),
   )
   process.exit(code)
@@ -483,6 +487,47 @@ function verifyState(e, ledger) {
   return 'verified'
 }
 
+/**
+ * `--check` 嘅判定。抽成純函數係為咗有得自測：呢條路徑係「引文已逐字查證」嘅唯一
+ * 機器憑證，一旦寫成常返 verified，計畫行嘅驗收就會把未核過嘅引文全部洗白。
+ * 所以 `--selftest` 用假條目跑四種狀態（已查證／未記帳／戳記過期／明標意譯），
+ * 要求只有第一種 exit 0（改壞 verifyState 即刻咬）。
+ */
+function assertVerified(rows, ledger, id) {
+  if (!id.includes('#')) {
+    return { code: 1, msg: `--check 一樣要俾完整識別碼「檔案#key」（俾咗「${id}」）` }
+  }
+  const hits = rows.filter((r) => `${relative(ROOT, r.e.file)}#${r.e.key}` === id)
+  if (!hits.length) {
+    return {
+      code: 1,
+      msg: `查無此條目：${id}（檔名要係倉內相對路徑，key 要同資料欄位一致）`,
+    }
+  }
+  const ok = hits.filter((r) => r.state === 'verified')
+  if (!ok.length) {
+    const why = {
+      unverified: '帳本無記錄',
+      stale: '戳記過期（引文或出處改過）',
+      na: '無逐字引文欄',
+      paraphrase: '明標意譯／通說',
+    }
+    return {
+      code: 1,
+      msg:
+        `未通過：${id} → ` +
+        hits.map((r) => `第 ${r.e.line} 行 ${why[r.state] ?? r.state}`).join('；') +
+        '\n（要 verified：帳本有記錄且戳記相符。查證後用 --mark 記帳，先至可以用 --check 驗收）',
+    }
+  }
+  const rec = ledger[id]
+  return {
+    code: 0,
+    msg:
+      `已查證：${id}（第 ${ok[0].e.line} 行）→ ${(rec && rec.page) || '(帳本未填頁碼)'}，記帳日 ${(rec && rec.at) ?? '?'}`,
+  }
+}
+
 /* -------------------------------------------------- 主流程 */
 
 function collect() {
@@ -578,6 +623,20 @@ function main() {
   }
 
   const rows = entries.map((e) => ({ e, issues: check(e, entries), state: verifyState(e, ledger) }))
+
+  /**
+   * --check：只讀斷言「呢條引文已逐字查證」，唔寫帳本。
+   * 執行計畫（docs/plans）嘅驗收欄需要一個可以反覆重跑嘅斷言；用 --mark 會每次蓋一次章、
+   * 連戳記都幫自己更新，等於「做冇做都過」，plan_verify 只能把嗰類行計 SKIP
+   * （2026-11-28 複驗時唯一嘅 SKIP 就係呢一行）。讀-only 模式先至可以入閘門。
+   */
+  if (CHECK) {
+    const res = assertVerified(rows, ledger, CHECK)
+    if (res.code) console.error(res.msg)
+    else console.log(res.msg)
+    process.exit(res.code)
+  }
+
   const byFile = new Map()
   for (const r of rows) {
     const f = relative(ROOT, r.e.file)
@@ -834,6 +893,80 @@ function main() {
     ].join('\n'),
   )
 }
+
+/**
+ * 離線自測（`--selftest`）：唔讀倉庫、唔連網，專驗 --check 有冇牙。
+ * 跑法：node scripts/audit_quotes.mjs --selftest
+ */
+function selftest() {
+  const FIX = join(ROOT, 'src', 'fake', 'fixture.ts')
+  const ID = 'src/fake/fixture.ts'
+  const mk = (key, quote, source, line = 7) => ({
+    file: FIX,
+    key,
+    line,
+    quote: quote === null ? null : { kind: 'str', value: quote },
+    source: { kind: 'str', value: source },
+  })
+  const eOk = mk('ok', '「以故遂定朝鮮」', '《史記》卷115')
+  const ledOk = { [`${ID}#ok`]: { stamp: stamp(eOk), page: '史記/卷115', at: '2026-11-29' } }
+  /**
+   * 驗收要同時釘 exit code 同查證狀態：只釘 code 會漏掉「狀態判錯但剛好都係唔通過」
+   * 呢類退化（把「明標意譯」誤判成「戳記過期」，一樣 exit 1，把關卻已經失真）。
+   */
+  const cases = [
+    ['已查證要過', mk('ok', '「以故遂定朝鮮」', '《史記》卷115'), ledOk, `${ID}#ok`, 'verified', 0],
+    ['未記帳唔准過', mk('bare', '「平齊公」', '《史記》卷2'), {}, `${ID}#bare`, 'unverified', 1],
+    [
+      '戳記過期唔准過',
+      mk('stale', '「改過的引文」', '《史記》卷3'),
+      { [`${ID}#stale`]: { stamp: stamp(eOk), page: '', at: '2026-11-29' } },
+      `${ID}#stale`,
+      'stale',
+      1,
+    ],
+    [
+      '明標意譯唔准過',
+      mk('para', '「通說」', '《通鑑》；通說整理，非逐字引文。'),
+      { [`${ID}#para`]: { stamp: stamp(eOk), at: '2026-11-29' } },
+      `${ID}#para`,
+      'paraphrase',
+      1,
+    ],
+    ['無引文欄唔准過', mk('dyn', null, '《史記》卷4'), {}, `${ID}#dyn`, 'na', 1],
+    ['裸 key 唔准過', mk('ok', '「以故遂定朝鮮」', '《史記》卷115'), ledOk, 'ok', '', 1],
+    ['查無此條目唔准過', mk('ok', '「以故遂定朝鮮」', '《史記》卷115'), ledOk, `${ID}#ghost`, '', 1],
+  ]
+  let bad = 0
+  for (const [name, e, ledger, id, wantState, want] of cases) {
+    const rows = [{ e, state: verifyState(e, ledger) }]
+    const got = assertVerified(rows, ledger, id)
+    const okRun = got.code === want && (!wantState || rows[0].state === wantState)
+    if (!okRun) bad++
+    console.log(
+      `  ${okRun ? 'ok' : 'XX'} ${name}：state=${rows[0].state} exit=${got.code}（要 ${wantState || '—'} / ${want}）`,
+    )
+  }
+  // 同檔同 key 有兩筆（READINGS 嗰筆有引文欄、註釋嗰筆冇）：有一筆 verified 就算過
+  const eNote = mk('two', null, '《史記》卷115', 40)
+  const ledger2 = { [`${ID}#two`]: { stamp: stamp(eOk), at: '2026-11-29' } }
+  const two = [
+    { e: mk('two', '「以故遂定朝鮮」', '《史記》卷115', 9), state: 'verified' },
+    { e: eNote, state: verifyState(eNote, ledger2) },
+  ]
+  const gotTwo = assertVerified(two, ledger2, `${ID}#two`)
+  if (gotTwo.code !== 0) bad++
+  console.log(`  ${gotTwo.code === 0 ? 'ok' : 'XX'} 同 key 兩筆有一筆 verified 要過：exit=${gotTwo.code}`)
+
+  if (bad) {
+    console.log(`\n=== 自測失敗 ${bad} 項：--check 嘅判定退化咗`)
+    process.exit(1)
+  }
+  console.log('\n=== --check 自測全過')
+  process.exit(0)
+}
+
+if (has('selftest')) selftest()
 
 if (process.argv[1]?.endsWith('audit_quotes.mjs')) main()
 
