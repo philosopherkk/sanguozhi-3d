@@ -15,6 +15,7 @@ audit:map 只判海陸（點落在陸上還是海上），判不出「一條畫�
 
 用法：python3 scripts/check_route_landmarks.py
       python3 scripts/check_route_landmarks.py --unasserted   列出尚無斷言的路線（排程佇列）
+      python3 scripts/check_route_landmarks.py --only <id[,id]>  只驗那幾條；尚無斷言即未通過（plan 驗收用）
       python3 scripts/check_route_landmarks.py --px china 108.94 34.34   經緯度轉畫布像素
 """
 import math
@@ -87,6 +88,9 @@ PIXEL_FILES = [
     "src/japanEras/packs/azuchiPack.ts",
 ]
 LONLAT_FILES = ["src/japanEras/packs/modernJapanPack.ts"]
+# 四國（韓國／泰國／越南／馬來西亞）16 個時代槽：座標直接寫經緯度，但寫成 `P(經度, 緯度)`
+# helper 呼叫（不是字面陣列），所以要另外一支解析器。對照 docs/plans/2026-11-28/march.md。
+COUNTRY_FILES = sorted(str(x.relative_to(ROOT)) for x in (ROOT / "src" / "countries").glob("*/*Pack.ts"))
 # 中國戰區（1968×1567 畫布，與 eraRegions 同一投影）：只收「物件字面寫出 points」的檔
 CHINA_FILES = ["src/data/marchRoutes.ts"]
 # 中國戰區（1968×1567 畫布，與 eraRegions 同一投影）：只收「物件字面寫出 points」的檔
@@ -148,6 +152,22 @@ for rel in LONLAT_FILES:
         pts = re.findall(r"\[\s*(-?[\d.]+)\s*,\s*(-?[\d.]+)\s*\]", call[arr:]) if arr >= 0 else []
         if len(pts) >= 2:
             add(m.group(1), m.group(2), m.group(3), False, [tuple(map(float, p)) for p in pts])
+for rel in COUNTRY_FILES:
+    text = (ROOT / rel).read_text(encoding="utf-8")
+    for m in re.finditer(r"\{[^{}]*?points\s*:\s*\[[^\]]*\][^{}]*?\}", text, re.S):
+        body = m.group(0)
+        rid = re.search(r"\bid:\s*'([^']+)'", body)
+        pts = re.findall(r"\bP\(\s*(-?[\d.]+)\s*,\s*(-?[\d.]+)\s*\)", body)
+        if not rid or len(pts) < 2:
+            continue
+        add(
+            rid.group(1),
+            (re.search(r"\bname:\s*'([^']*)'", body) or [None, ""])[1],
+            (re.search(r"\byear:\s*(-?\d+)", body) or [None, ""])[1],
+            bool(re.search(r"kind:\s*'sea'", body)),
+            [tuple(map(float, q)) for q in pts],
+        )
+
 # (路線 id, 端點, 宣稱之地名, 今地名經緯度, 容差 km, 依據)
 ASSERTS = [
     # 元寇・白村江・朝鮮出兵——排程指定之入侵／反擊路線，優先核
@@ -511,6 +531,36 @@ if "--unasserted" in sys.argv:
         )
     print(f"check_route_landmarks --unasserted — 在冊 {len(routes)} 條，無斷言 {len(todo)} 條")
     sys.exit(0)
+
+if any(x.startswith("--only=") for x in sys.argv):
+    # 驗收模式：只驗那幾條路線，而且**尚無斷言就算未通過**，否則代理改完座標卻不補斷言，
+    # 驗收指令會對任何座標都回 exit 0（等於沒有驗收）。
+    ids = [x for x in sys.argv if x.startswith("--only=")][0][7:].split(",")
+    by_id = {}
+    for rid, which, place, want, tol, _basis in ASSERTS:
+        by_id.setdefault(rid, []).append((which, place, want, tol))
+    bad = 0
+    for rid in ids:
+        rows = by_id.get(rid)
+        if not rows:
+            bad += 1
+            print(f"FAIL {rid}: 該路線還沒有端點斷言（plan 行的「待補斷言」要寫進本檔 ASSERTS）")
+            continue
+        if rid not in routes:
+            bad += 1
+            print(f"FAIL {rid}: 斷言表列有該路線，但在掃描範圍找不到（id 打錯，或該檔未進入 COUNTRY_FILES 等清單）")
+            continue
+        for which, place, want, tol in rows:
+            pt = routes[rid]["pts"][0] if which == "start" else routes[rid]["pts"][-1]
+            d = dist_km(pt, want)
+            ok = d <= tol
+            bad += 0 if ok else 1
+            print(
+                f"{'OK  ' if ok else 'FAIL'} {rid}{'（海）' if routes[rid]['sea'] else ''} {which}＝{place}: "
+                f"實測 {pt[0]:.2f}E,{pt[1]:.2f}N｜宣稱 {want[0]:.2f}E,{want[1]:.2f}N｜差 {d:.1f} km（容差 {tol} km）"
+            )
+    print(f"check_route_landmarks --only — {len(ids)} 條路線，未通過 {bad} 項")
+    sys.exit(1 if bad else 0)
 
 missing = [a for a in ASSERTS if a[0] not in routes]
 for rid, *_ in missing:

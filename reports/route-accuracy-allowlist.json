@@ -1,5 +1,5 @@
 {
-  "_comment": "海路畫在陸上的存量債。四國（韓國／泰國／越南／馬來西亞）103 條路線在 2026-11-28 才首次納入 audit:map 的海陸判定（此前 points 寫成 P(經度, 緯度)，閘門的 [x, y] 正則一條都認不到，coverage 恆為 0），一開燈就見到呢 10 條。座標修正屬內容工作，排程代理照 docs/plans/2026-11-28/march.md 的 P0 逐條做；每修好一條就要由本檔刪除該 id，否則 audit:map 会以 route-allowlist-stale 判紅。新增 id＝加新債，需人工批准。",
+  "_comment": "路線海陸判定的存量債帳本（scripts/audit_map_accuracy.mjs 讀）。四國（韓國／泰國／越南／馬來西亞）103 條路線的 points 寫成 P(經度, 緯度)，此前閘門的 [x, y] 正則一條都認不到，覆蓋恆為 0；2026-11-28 解析器補上後才第一次看到這些缺陷。口徑：入帳者降為 info（基線的 warn 是 0，warn 也算惡化），未入帳的新命中一律照 fail／warn 計；修好卻沒刪 id 會判 route-allowlist-stale，所以這張清單只能縮短。新增條目＝加新債，要人工批准。座標修正排程代理照 docs/plans/2026-11-28/march.md 執行；每修一條就要由對應清單刪除該 id。",
   "_added": "2026-11-28",
   "sea-route-over-land": [
     "ko-1231-goryeo-sea",
@@ -12,5 +12,9 @@
     "vn-1802-nguyen-sea",
     "vn-1858-french-saigon",
     "vn-1945-french-return"
-  ]
+  ],
+  "land-route-crosses-sea": [
+    "vn-1789-tayson-north"
+  ],
+  "land-route-sea-point": []
 }
