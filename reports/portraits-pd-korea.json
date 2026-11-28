@@ -2,19 +2,21 @@
   "country": "korea",
   "generated": "2026-11-28",
   "min_side_px": 600,
-  "license_policy": "只取 LicenseShortName 為 PD／CC0 之檔案",
+  "license_policy": "LicenseShortName 限白名單：PD／CC0（免署名）、CC BY／CC BY-SA（要署名，attribution 與站上 credits.json 都要有）；NC／ND 不准",
   "people": [
     {
       "era": "kojoseon",
       "id": "ko-p-taejo",
       "name": "李成桂",
       "search_term": "King Taejo of Joseon portrait",
-      "candidate_count": 1,
+      "candidate_count": 2,
       "chosen": {
         "commons_file": "File:King Taejo Yi 02.jpg",
         "page_url": "https://commons.wikimedia.org/wiki/File:King_Taejo_Yi_02.jpg",
         "license": "Public domain",
+        "license_class": "ok",
         "artist": "Jo Jung-muk(?-?), Pak Gijun(?-?), Baek Eunbae(1820-?), Yu Suk(1827-1873)",
+        "attribution": "",
         "usage_terms": "Public domain",
         "attribution_required": false,
         "width": 650,
@@ -22,12 +24,12 @@
         "mime": "image/jpeg"
       },
       "basis_draft": "Wikimedia Commons「File:King Taejo Yi 02.jpg」（Public domain，Jo Jung-muk(?-?), Pak Gijun(?-?), Baek Eunbae(1820-?), Yu Suk(1827-1873)）",
-      "alternates": [],
+      "manifest_license": "Public domain",
+      "manifest_attribution": "",
+      "alternates": [
+        "File:Portrait of King Taejo of Joseon.jpg"
+      ],
       "rejected": [
-        {
-          "file": "File:Portrait of King Taejo of Joseon.jpg",
-          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
-        },
         {
           "file": "File:Portrait on King Taejo.jpg",
           "why": "標題不含姓名"
@@ -37,21 +39,21 @@
           "why": "標題不含姓名"
         }
       ],
-      "other_license_hits": [
-        "File:Portrait of King Taejo of Joseon.jpg"
-      ]
+      "other_license_hits": []
     },
     {
       "era": "kojoseon",
       "id": "ko-p-sejong",
       "name": "李祹",
       "search_term": "\"Sejong\" king Joseon portrait",
-      "candidate_count": 2,
+      "candidate_count": 3,
       "chosen": {
         "commons_file": "File:History & Culture museum of King Sejong.jpg",
         "page_url": "https://commons.wikimedia.org/wiki/File:History_%26_Culture_museum_of_King_Sejong.jpg",
         "license": "CC0",
+        "license_class": "ok",
         "artist": "Jeong seolah",
+        "attribution": "",
         "usage_terms": "Creative Commons Zero, Public Domain Dedication",
         "attribution_required": false,
         "width": 4284,
@@ -59,8 +61,11 @@
         "mime": "image/jpeg"
       },
       "basis_draft": "Wikimedia Commons「File:History & Culture museum of King Sejong.jpg」（CC0，Jeong seolah）",
+      "manifest_license": "CC0",
+      "manifest_attribution": "",
       "alternates": [
-        "File:History & Culture museum of King Sejong 2.jpg"
+        "File:History & Culture museum of King Sejong 2.jpg",
+        "File:Sejong BRT of Number B5.jpg"
       ],
       "rejected": [
         {
@@ -88,63 +93,49 @@
           "why": "標題不含姓名"
         }
       ],
-      "other_license_hits": [
-        "File:Sejong BRT of Number B5.jpg",
-        "File:SejongCampus.jpg"
-      ]
+      "other_license_hits": []
     },
     {
       "era": "kogoryeo",
       "id": "ko-p-wanggeon",
       "name": "王建",
       "search_term": "\"Taejo of Goryeo\" portrait",
-      "candidate_count": 0,
-      "chosen": null,
-      "basis_draft": "尚無公版圖源：已以 Commons 檔案搜尋查「\"Taejo of Goryeo\" portrait」，無 PD／CC0 且標題含姓名、邊長 ≥600 者",
-      "alternates": [],
-      "rejected": [
-        {
-          "file": "File:Portrait Of King Taejo Of Goryeo at Gaetaesa Temple.jpg",
-          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
-        },
-        {
-          "file": "File:Portrait of King Taejo of Goryeo in Chungcheong Province.jp.jpg",
-          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
-        },
-        {
-          "file": "File:Dharmodgata Bodhisattva, 노영 필 아미타여래구존도 및 고려 태조 담무갈보살 예배도.jpg",
-          "why": "重試 \"taejo of goryeo\"｜標題不含姓名"
-        },
-        {
-          "file": "File:Kaesong06.JPG",
-          "why": "重試 \"taejo of goryeo\"｜標題不含姓名"
-        },
-        {
-          "file": "File:Portrait Of King Taejo Of Goryeo at Gaetaesa Temple.jpg",
-          "why": "重試 \"taejo of goryeo\"｜授權 CC BY-SA 4.0，非 PD／CC0"
-        },
-        {
-          "file": "File:Portrait of King Taejo of Goryeo in Chungcheong Province.jp.jpg",
-          "why": "重試 \"taejo of goryeo\"｜授權 CC BY-SA 4.0，非 PD／CC0"
-        }
+      "candidate_count": 2,
+      "chosen": {
+        "commons_file": "File:Portrait Of King Taejo Of Goryeo at Gaetaesa Temple.jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Portrait_Of_King_Taejo_Of_Goryeo_at_Gaetaesa_Temple.jpg",
+        "license": "CC BY-SA 4.0",
+        "license_class": "by",
+        "artist": "Ebadollah",
+        "attribution": "Ebadollah／Wikimedia Commons，https://commons.wikimedia.org/wiki/File:Portrait_Of_King_Taejo_Of_Goryeo_at_Gaetaesa_Temple.jpg",
+        "usage_terms": "Creative Commons Attribution-Share Alike 4.0",
+        "attribution_required": true,
+        "width": 1717,
+        "height": 3816,
+        "mime": "image/jpeg"
+      },
+      "basis_draft": "Wikimedia Commons「File:Portrait Of King Taejo Of Goryeo at Gaetaesa Temple.jpg」（CC BY-SA 4.0，Ebadollah）；須署名：Ebadollah／Wikimedia Commons，https://commons.wikimedia.org/wiki/File:Portrait_Of_King_Taejo_Of_Goryeo_at_Gaetaesa_Temple.jpg",
+      "manifest_license": "CC BY-SA 4.0",
+      "manifest_attribution": "Ebadollah／Wikimedia Commons，https://commons.wikimedia.org/wiki/File:Portrait_Of_King_Taejo_Of_Goryeo_at_Gaetaesa_Temple.jpg",
+      "alternates": [
+        "File:Portrait of King Taejo of Goryeo in Chungcheong Province.jp.jpg"
       ],
-      "other_license_hits": [
-        "File:Portrait Of King Taejo Of Goryeo at Gaetaesa Temple.jpg",
-        "File:Portrait of King Taejo of Goryeo in Chungcheong Province.jp.jpg",
-        "File:Taejo of Goryeo.jpg"
-      ]
+      "rejected": [],
+      "other_license_hits": []
     },
     {
       "era": "komodern",
       "id": "ko-p-kimku",
       "name": "金九",
       "search_term": "\"Kim Gu\" photograph",
-      "candidate_count": 2,
+      "candidate_count": 3,
       "chosen": {
         "commons_file": "File:Kim Gu in 1949.jpg",
         "page_url": "https://commons.wikimedia.org/wiki/File:Kim_Gu_in_1949.jpg",
         "license": "Public domain",
+        "license_class": "ok",
         "artist": "Unknown authorUnknown author",
+        "attribution": "",
         "usage_terms": "Public domain",
         "attribution_required": false,
         "width": 1280,
@@ -152,8 +143,11 @@
         "mime": "image/jpeg"
       },
       "basis_draft": "Wikimedia Commons「File:Kim Gu in 1949.jpg」（Public domain，Unknown authorUnknown author）",
+      "manifest_license": "Public domain",
+      "manifest_attribution": "",
       "alternates": [
-        "File:Kim Ku and Chiang-Kai-shek in ROK provisional government farewell party.jpg"
+        "File:Kim Ku and Chiang-Kai-shek in ROK provisional government farewell party.jpg",
+        "File:김구필체(AMJ).jpg"
       ],
       "rejected": [
         {
@@ -182,8 +176,7 @@
         }
       ],
       "other_license_hits": [
-        "File:김구 서명문 태극기.jpg",
-        "File:김구필체(AMJ).jpg"
+        "File:김구 서명문 태극기.jpg"
       ]
     },
     {
@@ -196,7 +189,9 @@
         "commons_file": "File:Syngman Rhee 2.jpg",
         "page_url": "https://commons.wikimedia.org/wiki/File:Syngman_Rhee_2.jpg",
         "license": "Public domain",
+        "license_class": "ok",
         "artist": "未署",
+        "attribution": "",
         "usage_terms": "Public domain",
         "attribution_required": false,
         "width": 3546,
@@ -204,6 +199,8 @@
         "mime": "image/jpeg"
       },
       "basis_draft": "Wikimedia Commons「File:Syngman Rhee 2.jpg」（Public domain，未署）",
+      "manifest_license": "Public domain",
+      "manifest_attribution": "",
       "alternates": [
         "File:Syngman Rhee and Douglas MacArthur.jpg",
         "File:Syngman Rhee, 1951-May-1.jpg",

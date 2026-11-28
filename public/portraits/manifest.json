@@ -2460,14 +2460,16 @@
       "id": "ko-p-sunsin",
       "name": "李舜臣",
       "file": "kojoseon/ko-p-sunsin.jpg",
-      "basis": "依顯忠祠肖像一類改畫，非館藏掃描"
+      "basis": "依顯忠祠肖像一類改畫，非館藏掃描",
+      "license": "內部生成"
     },
     {
       "era": "mymerdeka",
       "id": "myp3-yamashita",
       "name": "山下奉文",
       "file": "mymerdeka/myp3-yamashita.jpg",
-      "basis": "依公開照片改畫，服裝隨該照"
+      "basis": "依公開照片改畫，服裝隨該照",
+      "license": "內部生成"
     }
   ]
 }
