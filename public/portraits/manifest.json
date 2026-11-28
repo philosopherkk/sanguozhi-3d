@@ -3,7 +3,7 @@
   "style": "統一的歷史書卡通胸像：均勻墨線、石青朱紅赭石松綠的平塗、暖紙底、三分面、無文字。每張都從同一張風格稿改畫，避免各畫各的。",
   "convention": "檔名即資料 id。同一人若在多個時代各有 id，各存一份。各圖已按 id 與時代資料夾掛回人物記錄，並由 audit:portraits 核對姓名與檔案。",
   "limits": "正史寫了形貌的，按那幾句畫。沒寫的，不發明紅臉、疤、眼罩或戲曲冠。近現代有公開照片者，依照片改畫服裝，仍屬想像圖而非照片或史料。",
-  "count": 351,
+  "count": 352,
   "portraits": [
     {
       "era": "bakumatsu",
@@ -2460,7 +2460,14 @@
       "id": "ko-p-sunsin",
       "name": "李舜臣",
       "file": "kojoseon/ko-p-sunsin.jpg",
-      "basis": "日本國立國會圖書館公版（Public domain）"
+      "basis": "依顯忠祠肖像一類改畫，非館藏掃描"
+    },
+    {
+      "era": "mymerdeka",
+      "id": "myp3-yamashita",
+      "name": "山下奉文",
+      "file": "mymerdeka/myp3-yamashita.jpg",
+      "basis": "依公開照片改畫，服裝隨該照"
     }
   ]
 }

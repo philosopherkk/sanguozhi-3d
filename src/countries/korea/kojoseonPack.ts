@@ -381,7 +381,7 @@ export const KOJOSEON_PACK: JapanDeepDivePack = {
       id: 'ko-p-sunsin',
       name: '李舜臣',
       portrait: '/portraits/kojoseon/ko-p-sunsin.jpg',
-      portrait_note: '日本國立國會圖書館公版（Public domain）',
+      portrait_note: '依顯忠祠肖像一類改畫，非館藏掃描',
       aka: '忠武公',
       birth: 1545,
       death: 1598,

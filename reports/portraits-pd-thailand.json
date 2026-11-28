@@ -1,0 +1,246 @@
+{
+  "country": "thailand",
+  "generated": "2026-11-28",
+  "min_side_px": 600,
+  "license_policy": "只取 LicenseShortName 為 PD／CC0 之檔案",
+  "people": [
+    {
+      "era": "thchakri",
+      "id": "th-p-mongkut",
+      "name": "蒙固",
+      "search_term": "Mongkut King Rama IV photograph",
+      "candidate_count": 3,
+      "chosen": {
+        "commons_file": "File:King Rama IV of Siam (Mongkut) Portrait.jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:King_Rama_IV_of_Siam_(Mongkut)_Portrait.jpg",
+        "license": "Public domain",
+        "artist": "Unknown authorUnknown author",
+        "usage_terms": "Public domain",
+        "attribution_required": false,
+        "width": 3600,
+        "height": 5400,
+        "mime": "image/jpeg"
+      },
+      "basis_draft": "Wikimedia Commons「File:King Rama IV of Siam (Mongkut) Portrait.jpg」（Public domain，Unknown authorUnknown author）",
+      "alternates": [
+        "File:King Mongkut (Rama IV) in Full Regalia 1851.png",
+        "File:King Mongkut of Siam on Throne Daguerreotype 1856.png"
+      ],
+      "rejected": [
+        {
+          "file": "File:Chan Suksathit in King Rama IV.jpg",
+          "why": "尺寸 180x263 不足 600"
+        },
+        {
+          "file": "File:Chao Chom Manda Hun.jpg",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Chao Chom Manda Pheng.jpg",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Chao Chom Manda Sangwal.jpg",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:King Mongkut Memorial Park of Science and Technology Waghor 20260306.jpg",
+          "why": "授權 CC BY 4.0，非 PD／CC0"
+        },
+        {
+          "file": "File:King Mongkut of Thailand.jpg",
+          "why": "尺寸 456x599 不足 600"
+        }
+      ],
+      "other_license_hits": [
+        "File:King Mongkut Memorial Park of Science and Technology Waghor 20260306.jpg",
+        "File:Monument of King Rama IV at Khon Kaen University.JPG"
+      ]
+    },
+    {
+      "era": "thchakri",
+      "id": "th-p-chulalongkorn",
+      "name": "朱拉隆功",
+      "search_term": "Chulalongkorn King Rama V photograph",
+      "candidate_count": 10,
+      "chosen": {
+        "commons_file": "File:King Chulalongkorn with Vajirunhis and Entourage wear Raj Pattern Photo Kaulfuss 1890.jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:King_Chulalongkorn_with_Vajirunhis_and_Entourage_wear_Raj_Pattern_Photo_Kaulfuss_1890.jpg",
+        "license": "Public domain",
+        "artist": "August E. Kaulfuss (1861-1908)",
+        "usage_terms": "Public domain",
+        "attribution_required": false,
+        "width": 7342,
+        "height": 6280,
+        "mime": "image/jpeg"
+      },
+      "basis_draft": "Wikimedia Commons「File:King Chulalongkorn with Vajirunhis and Entourage wear Raj Pattern Photo Kaulfuss 1890.jpg」（Public domain，August E. Kaulfuss (1861-1908)）",
+      "alternates": [
+        "File:King Chulalongkorn wears Raj Pattern Costume Photo Kaulfuss 1890.jpg",
+        "File:Optocht met Rama V, koning van Siam, op een draagstoel H.M. The King of Siam (titel op object), RP-F-F01197-W.jpg",
+        "File:Chulalongkorn LoC.jpg"
+      ],
+      "rejected": [
+        {
+          "file": "File:Chulalongkorn, Rama V, His Majesty the King of Siam, 1872.jpg",
+          "why": "尺寸 187x234 不足 600"
+        },
+        {
+          "file": "File:Chulalongkorn & Sons.jpg",
+          "why": "尺寸 594x272 不足 600"
+        },
+        {
+          "file": "File:Chulalongkorn (2).jpg",
+          "why": "尺寸 547x547 不足 600"
+        },
+        {
+          "file": "File:King Chulalongkorn and Queen Saovabha Bongsri.jpg",
+          "why": "尺寸 500x359 不足 600"
+        },
+        {
+          "file": "File:King Rama II of Siam (Naphalai) Portrait.jpg",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Portret van Koning Rama V van Thailand detail.jpg",
+          "why": "尺寸 300x497 不足 600"
+        }
+      ],
+      "other_license_hits": []
+    },
+    {
+      "era": "thmodern",
+      "id": "th-p-rama7",
+      "name": "巴尼差約蘇安",
+      "search_term": "Prajadhipok King Rama VII photograph",
+      "candidate_count": 7,
+      "chosen": {
+        "commons_file": "File:King Rama VII watching the performance in Kabukiza.jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:King_Rama_VII_watching_the_performance_in_Kabukiza.jpg",
+        "license": "Public domain",
+        "artist": "東京市",
+        "usage_terms": "Public domain",
+        "attribution_required": false,
+        "width": 2706,
+        "height": 1890,
+        "mime": "image/jpeg"
+      },
+      "basis_draft": "Wikimedia Commons「File:King Rama VII watching the performance in Kabukiza.jpg」（Public domain，東京市）",
+      "alternates": [
+        "File:King Rama VII arrives at Yokohama Harbor.jpg",
+        "File:King Rama VII and his suite on board entering Kobe.jpg",
+        "File:King Prajadhipok Coronation Regalia 1926.png"
+      ],
+      "rejected": [
+        {
+          "file": "File:Hitler and Rama VII.jpg",
+          "why": "授權 CC BY 2.5，非 PD／CC0"
+        },
+        {
+          "file": "File:King Prajadhipok at his Coronation.jpg",
+          "why": "尺寸 400x560 不足 600"
+        },
+        {
+          "file": "File:King Rama VII and his suite visit to Japan.jpg",
+          "why": "尺寸 680x480 不足 600"
+        },
+        {
+          "file": "File:King Rama VII and his suite visit to the Yasukuni Shrine.jpg",
+          "why": "尺寸 610x390 不足 600"
+        },
+        {
+          "file": "File:Prajadhipok's Seal.jpg",
+          "why": "非肖像（印章／地圖／碑刻等）"
+        },
+        {
+          "file": "File:Rama7insigwpk0609.jpg",
+          "why": "標題不含姓名"
+        }
+      ],
+      "other_license_hits": [
+        "File:Hitler and Rama VII.jpg"
+      ]
+    },
+    {
+      "era": "thmodern",
+      "id": "th-p-phibun",
+      "name": "鑾披汶",
+      "search_term": "Plaek Phibunsongkhram photograph",
+      "candidate_count": 7,
+      "chosen": {
+        "commons_file": "File:Plaek Phibunsongkhram and wife during event in Thailand, Djawa Baroe, Vol. 1, Iss. 5 (1943-03-01), p25.jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Plaek_Phibunsongkhram_and_wife_during_event_in_Thailand,_Djawa_Baroe,_Vol._1,_Iss._5_(1943-03-01),_p25.jpg",
+        "license": "Public domain",
+        "artist": "Unknown authorUnknown author",
+        "usage_terms": "Public domain",
+        "attribution_required": false,
+        "width": 1402,
+        "height": 977,
+        "mime": "image/jpeg"
+      },
+      "basis_draft": "Wikimedia Commons「File:Plaek Phibunsongkhram and wife during event in Thailand, Djawa Baroe, Vol. 1, Iss. 5 (1943-03-01), p25.jpg」（Public domain，Unknown authorUnknown author）",
+      "alternates": [
+        "File:Prime Minister Plaek Phibunsongkhram.jpg",
+        "File:Toast by Prime Minister Plaek Phibunsongkhram for Hideki Tojo, Djawa Baroe, Vol. 1, Iss. 14 (1943-07-15), p5.jpg",
+        "File:Hideki Tojo dining with Prime Minister Plaek Phibunsongkhram, Djawa Baroe, Vol. 1, Iss. 14 (1943-07-15), p4.jpg"
+      ],
+      "rejected": [
+        {
+          "file": "File:Aankomst Premier van Thailand Piboel Soggram, Bestanddeelnr 907-1540.jpg",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Aankomst Premier van Thailand Piboel Soggram, Bestanddeelnr 907-1541.jpg",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Aankomst Premier van Thailand Piboel Soggram , inspectie, Bestanddeelnr 907-1542.jpg",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Field Marshal Plaek Pibulsonggram.jpg",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Minister-president van thailand, Bestanddeelnr 015-0048.jpg",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Phap Mueang Thai (1943, p 042).jpg",
+          "why": "標題不含姓名"
+        }
+      ],
+      "other_license_hits": []
+    },
+    {
+      "era": "thayutthaya",
+      "id": "th-p-taksin",
+      "name": "鄭昭",
+      "search_term": "Taksin King of Thonburi portrait",
+      "candidate_count": 3,
+      "chosen": {
+        "commons_file": "File:King Taksin of Thonburi Portrait Painting.png",
+        "page_url": "https://commons.wikimedia.org/wiki/File:King_Taksin_of_Thonburi_Portrait_Painting.png",
+        "license": "Public domain",
+        "artist": "Italian artist or a disciple of a Jesuit.",
+        "usage_terms": "Public domain",
+        "attribution_required": false,
+        "width": 1200,
+        "height": 1714,
+        "mime": "image/png"
+      },
+      "basis_draft": "Wikimedia Commons「File:King Taksin of Thonburi Portrait Painting.png」（Public domain，Italian artist or a disciple of a Jesuit.）",
+      "alternates": [
+        "File:KingTaksinfromItalymuseum.JPG",
+        "File:King Taksin of Thonburi Old Temple Portrait.png"
+      ],
+      "rejected": [
+        {
+          "file": "File:Lascar Thailand's Royal Family pictures in a roundabout (4510113167).jpg",
+          "why": "標題不含姓名"
+        }
+      ],
+      "other_license_hits": []
+    }
+  ]
+}

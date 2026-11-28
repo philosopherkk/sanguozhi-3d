@@ -1,0 +1,240 @@
+{
+  "country": "vietnam",
+  "generated": "2026-11-28",
+  "min_side_px": 600,
+  "license_policy": "只取 LicenseShortName 為 PD／CC0 之檔案",
+  "people": [
+    {
+      "era": "vnmodern",
+      "id": "vnp4-baodai",
+      "name": "保大",
+      "search_term": "Bao Dai Emperor of Vietnam photograph",
+      "candidate_count": 6,
+      "chosen": {
+        "commons_file": "File:King Bao Dai visited the Archives and Library of Indochina in 1933 (taken at the Central Library).jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:King_Bao_Dai_visited_the_Archives_and_Library_of_Indochina_in_1933_(taken_at_the_Central_Library).jpg",
+        "license": "Public domain",
+        "artist": "Unknown authorship, published before 1945.",
+        "usage_terms": "Public domain",
+        "attribution_required": false,
+        "width": 3177,
+        "height": 2318,
+        "mime": "image/jpeg"
+      },
+      "basis_draft": "Wikimedia Commons「File:King Bao Dai visited the Archives and Library of Indochina in 1933 (taken at the Central Library).jpg」（Public domain，Unknown authorship, published before 1945.）",
+      "alternates": [
+        "File:AP0633-Sogny-Marien Annam, Nha Trang, 1933 – Bao Dai visite une école.jpg",
+        "File:AP0758-Sogny-Marien - Hué, 1934 – Mariage de S.M. Bao Dai (1).jpg",
+        "File:AP0759-Sogny-Marien - Hué, 1934 – Mariage de S.M. Bao Dai (2).jpg"
+      ],
+      "rejected": [
+        {
+          "file": "File:AP0620-Sogny-Marien Annam, Darlac, 1933 – S.M. Bao Dai passe en revue les Rhadé (2).jpg",
+          "why": "尺寸 800x539 不足 600"
+        },
+        {
+          "file": "File:AP1627-Sogny-Marien Emperor Bảo Đại in Vinh, 1932.jpg",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Abdication of Emperor Bảo Đại ceremony (30-August-1945).jpg",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Bảo Đại, Emperor of Vietnam.jpg",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Empereur Bao Dai.jpg",
+          "why": "尺寸 468x640 不足 600"
+        },
+        {
+          "file": "File:Emperor Bảo Đại.jpg",
+          "why": "標題不含姓名"
+        }
+      ],
+      "other_license_hits": []
+    },
+    {
+      "era": "vnmodern",
+      "id": "vnp4-hochiminh",
+      "name": "胡志明",
+      "search_term": "Ho Chi Minh photograph",
+      "candidate_count": 1,
+      "chosen": {
+        "commons_file": "File:Nguyen Aïn Nuä'C (Ho-Chi-Minh), délégué indochinois, Congrès communiste de Marseille, 1921, Meurisse, BNF Gallica.jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Nguyen_A%C3%AFn_Nu%C3%A4%27C_(Ho-Chi-Minh),_d%C3%A9l%C3%A9gu%C3%A9_indochinois,_Congr%C3%A8s_communiste_de_Marseille,_1921,_Meurisse,_BNF_Gallica.jpg",
+        "license": "Public domain",
+        "artist": "Agence de presse Meurisse",
+        "usage_terms": "Public domain",
+        "attribution_required": false,
+        "width": 3867,
+        "height": 6353,
+        "mime": "image/jpeg"
+      },
+      "basis_draft": "Wikimedia Commons「File:Nguyen Aïn Nuä'C (Ho-Chi-Minh), délégué indochinois, Congrès communiste de Marseille, 1921, Meurisse, BNF Gallica.jpg」（Public domain，Agence de presse Meurisse）",
+      "alternates": [],
+      "rejected": [
+        {
+          "file": "File:Ho-Chi-Minh-City Vietnam Hawker-01.jpg",
+          "why": "授權 CC BY-SA 3.0，非 PD／CC0"
+        },
+        {
+          "file": "File:Ho Chi Minh City, City Hall, 2020-01 CN-01.jpg",
+          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
+        },
+        {
+          "file": "File:Ho Chi Minh City, Ho Chi Minh Statue, 2020-01 CN-01.jpg",
+          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
+        },
+        {
+          "file": "File:Ho Chi Minh City, Ho Chi Minh Statue, 2020-01 CN-02.jpg",
+          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
+        },
+        {
+          "file": "File:Ho Chi Minh City, Ho Chi Minh Statue, 2020-01 CN-03.jpg",
+          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
+        },
+        {
+          "file": "File:Ho Chi Minh City, Ho Chi Minh Statue, 2020-01 CN-04.jpg",
+          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
+        }
+      ],
+      "other_license_hits": [
+        "File:Ho Chi Minh City, City Hall, 2020-01 CN-01.jpg",
+        "File:Ho Chi Minh City, Ho Chi Minh Statue, 2020-01 CN-01.jpg",
+        "File:Ho Chi Minh City, Ho Chi Minh Statue, 2020-01 CN-02.jpg",
+        "File:Ho Chi Minh City, Ho Chi Minh Statue, 2020-01 CN-03.jpg",
+        "File:Ho Chi Minh City, Ho Chi Minh Statue, 2020-01 CN-04.jpg"
+      ]
+    },
+    {
+      "era": "vnmodern",
+      "id": "vnp4-navarre",
+      "name": "納瓦爾",
+      "search_term": "Henri Navarre French general photograph",
+      "candidate_count": 0,
+      "chosen": null,
+      "basis_draft": "尚無公版圖源：已以 Commons 檔案搜尋查「Henri Navarre French general photograph」，無 PD／CC0 且標題含姓名、邊長 ≥600 者",
+      "alternates": [],
+      "rejected": [
+        {
+          "file": "File:Annals of St. Louis in its early days under the French and Spanish dominations (microform) (IA cihm 00427).pdf",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Carton - Histoire des femmes ecrivains de la France.djvu",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Catalogue général de la librairie française, 1867, tome 10.djvu",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Catalogue général de la librairie française, 1867, tome 34.djvu",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Dussieux - Lettres intimes de Henri IV, 1876.djvu",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:French painting in the sixteenth century (IA frenchpaintingin00dimi).pdf",
+          "why": "標題不含姓名"
+        }
+      ],
+      "other_license_hits": []
+    },
+    {
+      "era": "vnmodern",
+      "id": "vnp4-ngodinhdiem",
+      "name": "吳廷琰",
+      "search_term": "Ngo Dinh Diem photograph",
+      "candidate_count": 13,
+      "chosen": {
+        "commons_file": "File:Ngo Dinh Diem at Washington - ARC 542189.jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Ngo_Dinh_Diem_at_Washington_-_ARC_542189.jpg",
+        "license": "Public domain",
+        "artist": "Department of Defense. Department of the Air Force. NAIL Control Number: NWDNS-342-AF-18302USAF",
+        "usage_terms": "Public domain",
+        "attribution_required": false,
+        "width": 2961,
+        "height": 2356,
+        "mime": "image/jpeg"
+      },
+      "basis_draft": "Wikimedia Commons「File:Ngo Dinh Diem at Washington - ARC 542189.jpg」（Public domain，Department of Defense. Department of the Air Force. NAIL Control Number: NWDNS-342-AF-18302USAF）",
+      "alternates": [
+        "File:President NGO DINH DIEM and Prime Minister J. NEHRU of India.jpg",
+        "File:President Ngo Dinh Diem sitting.jpg",
+        "File:President Ngo Dinh Diem and family at his home in Hue (Central Viet Nam).jpg"
+      ],
+      "rejected": [
+        {
+          "file": "File:Jawaharlal Nehru and Ngo Dinh Diem in 1957.jpg",
+          "why": "尺寸 600x445 不足 600"
+        },
+        {
+          "file": "File:Ngo dinh Diem and unnamed Maryknoll Brother, 1952.jpg",
+          "why": "尺寸 422x541 不足 600"
+        },
+        {
+          "file": "File:Vietnamese President Ngo Dinh Diem left Taiwan.jpg",
+          "why": "尺寸 736x510 不足 600"
+        }
+      ],
+      "other_license_hits": []
+    },
+    {
+      "era": "vndynasty",
+      "id": "vnp2-lythuongkiet",
+      "name": "李常傑",
+      "search_term": "Ly Thuong Kiet general portrait",
+      "candidate_count": 2,
+      "chosen": {
+        "commons_file": "File:Ly Thuong Kiet (1019-1105) Defeated Song China Invasion of 1077 (9732106811).jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Ly_Thuong_Kiet_(1019-1105)_Defeated_Song_China_Invasion_of_1077_(9732106811).jpg",
+        "license": "CC0",
+        "artist": "Gary Todd from Xinzheng, China",
+        "usage_terms": "Creative Commons Zero, Public Domain Dedication",
+        "attribution_required": false,
+        "width": 2304,
+        "height": 3456,
+        "mime": "image/jpeg"
+      },
+      "basis_draft": "Wikimedia Commons「File:Ly Thuong Kiet (1019-1105) Defeated Song China Invasion of 1077 (9732106811).jpg」（CC0，Gary Todd from Xinzheng, China）",
+      "alternates": [
+        "File:Tuong Ly Thuong Kiet, DNQT.jpg"
+      ],
+      "rejected": [
+        {
+          "file": "File:Cuộc di cư lịch sử tại Việt Nam.pdf",
+          "why": "標題不含姓名"
+        },
+        {
+          "file": "File:Bản vẽ mặt phía Tây Bảo tàng Viện Viễn Đông Bác cổ Pháp do Kts Charles Batteur lập năm 1925.jpg",
+          "why": "重試 \"ly thuong kiet\"｜標題不含姓名"
+        },
+        {
+          "file": "File:Co Xa Linh Tu.JPG",
+          "why": "重試 \"ly thuong kiet\"｜標題不含姓名"
+        },
+        {
+          "file": "File:Cong bao Chinh phu 497 498 nam 2023.pdf",
+          "why": "重試 \"ly thuong kiet\"｜標題不含姓名"
+        },
+        {
+          "file": "File:Heekcaa, 42C Ly Thuong Kiet Street, Hoan Kiem District, Hanoi, Vietnam (1).jpg",
+          "why": "重試 \"ly thuong kiet\"｜非肖像（印章／地圖／碑刻等）"
+        },
+        {
+          "file": "File:Lư hương bằng xi măng ở Nhà tang lễ Bệnh viện Thống nhất đường Lý Thường Kiệt ng2th11n2023 (1).jpg",
+          "why": "重試 \"ly thuong kiet\"｜標題不含姓名"
+        }
+      ],
+      "other_license_hits": [
+        "File:Mat sau Nha Tho Vung tau- duong Ly Thuong kiet - panoramio.jpg",
+        "File:Nguyen chi thanh va ly thuong kiet, Quận 5, TPHCM, Việt Nam - panoramio.jpg"
+      ]
+    }
+  ]
+}
