@@ -18,6 +18,8 @@
     "audit:ranges": "node --experimental-strip-types scripts/audit-ranges.ts",
     "audit:wiring": "node --experimental-strip-types scripts/audit-wiring.ts",
     "audit:portraits": "node scripts/audit-portraits.mjs",
+    "audit:credits": "node scripts/portrait_credits.mjs --check",
+    "audit:credits:selftest": "node scripts/portrait_credits.mjs --selftest",
     "audit:geo": "python3 scripts/audit_geo.py",
     "audit:event-depth": "node scripts/audit_event_depth.mjs",
     "audit:chengyu": "node scripts/audit_chengyu.mjs",

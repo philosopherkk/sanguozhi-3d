@@ -8,13 +8,16 @@
 2. Commons 會限流：同一口徑連續查第二次就回空字串，`json.load` 直接炸。
    本腳本一律自訂 User-Agent、退避重試、每請求之間停一停。
 
-授權只認 Public domain／CC0（`LicenseShortName`），其餘一律不取——
-寧可報「無候選」也不能把受版權保護的圖放進網站。
+授權白名單：Public domain／PD-*／CC0（免署名）與 CC BY／CC BY-SA（要署名），
+其餘一律不取——尤其 NC（非商業）與 ND（禁止改作）不准，站內頭像是改畫的衍生作。
+口徑的權威版本在 scripts/portrait_license.mjs，`node scripts/portrait_credits.mjs --selftest`
+會把兩邊逐字對照（分岔即紅）。寧可報「無候選」也不能把受版權保護的圖放進網站。
 
 用法：
   python3 scripts/portrait_pd_inventory.py --country=korea              # 查詢並寫檔
   python3 scripts/portrait_pd_inventory.py --country=korea --check      # 唯讀斷言（給驗收用）
-  python3 scripts/portrait_pd_inventory.py --list                        # 列出人物表
+  python3 scripts/portrait_pd_inventory.py --list                       # 列出人物表
+  python3 scripts/portrait_pd_inventory.py --classify 'CC BY-SA 4.0'    # 印 ok／by／no（給自對照用）
 """
 
 import argparse
@@ -34,7 +37,29 @@ API = 'https://commons.wikimedia.org/w/api.php'
 UA = 'historyfirst-portrait-audit/1.0 (https://github.com/philosopherkk/sanguozhi-3d; content-audit)'
 MIN_SIDE = 600  # 低於此尺寸的圖不取（站內要顯示 1024 主圖與縮圖）
 API_FAILURES = 0  # 有幾次查詢徹底失敗（見 api()：CA／限流／斷線）
-PD_OK = re.compile(r'^(pd|pd-old|cc0|public domain)', re.I)
+# 授權白名單。口徑與 scripts/portrait_license.mjs 一致（兩邊各一份名單，
+# 由 `node scripts/portrait_credits.mjs --selftest` 逐字對照，分岔即 exit 1）。
+# 2026-11-28 使用者裁定：除 PD／CC0 之外亦准 CC BY／CC BY-SA（要署名）；
+# NC（非商業）與 ND（禁止改作）不准——站內頭像是改畫的衍生作，ND 法律上不能改。
+PD_LIKE = re.compile(r'^(public domain|pd[-\w.]*|cc0|cc-pd|public-domain)$', re.I)
+OWN_WORK = re.compile(r'^(內部生成|本專案生成)$')
+BY_OK = re.compile(r'^cc[- ]by([- ]sa)?([-. ][0-9.]+)?$', re.I)
+LICENSE_TEXT = (
+    '只准 Public domain／PD-*／CC0／CC BY／CC BY-SA／內部生成；'
+    'NC 非商業、ND 禁止改作一律不准'
+)
+
+
+def classify(license_short):
+    """'ok'＝免署名（PD／CC0／內部生成）、'by'＝要署名（CC BY／BY-SA）、'no'＝不准用。"""
+    s = (license_short or '').strip()
+    if not s:
+        return 'no'
+    if PD_LIKE.match(s) or OWN_WORK.match(s):
+        return 'ok'
+    if BY_OK.match(s):
+        return 'by'
+    return 'no'
 
 # era = 站內的時代槽位鍵（= pack 的 `*_PACK` 名小寫，要對上 public/portraits/<era>/ 與 manifest.json 的 era 欄）
 # id 一律取自 pack 裡已有的人物（頭像是掛在既有人物上；憑空造 id 會被 audit:portraits 判未掛鉤）
@@ -157,14 +182,15 @@ def _collect(term, match, limit, drops, prefix=''):
 
             lic = val('LicenseShortName')
             low = title.lower()
+            lic_class = classify(lic)
             if match and not any(m in low for m in match):
                 drops.append({'file': title, 'why': f'{prefix}標題不含姓名'})
                 continue
             if NON_PORTRAIT.search(title):
                 drops.append({'file': title, 'why': f'{prefix}非肖像（印章／地圖／碑刻等）'})
                 continue
-            if not PD_OK.search(lic):
-                drops.append({'file': title, 'why': f'{prefix}授權 {lic or "未標"}，非 PD／CC0'})
+            if lic_class == 'no':
+                drops.append({'file': title, 'why': f'{prefix}授權 {lic or "未標"}，非白名單'})
                 continue
             # 掃描 PDF 的 imageinfo 也會回頁面尺寸，僅看 width/height 無法區分
             # （實測「The life of Sir Stamford Raffles」整本傳記 PDF 曾被當候選）。
@@ -177,12 +203,19 @@ def _collect(term, match, limit, drops, prefix=''):
                     {'file': title, 'why': f'{prefix}尺寸 {info.get("width")}x{info.get("height")} 不足 {MIN_SIDE}'}
                 )
                 continue
+            page_url = info.get('descriptionurl', '')
+            artist = val('Artist') or '未署'
             out.append(
                 {
                     'commons_file': title,
-                    'page_url': info.get('descriptionurl', ''),
+                    'page_url': page_url,
                     'license': lic,
-                    'artist': val('Artist') or '未署',
+                    'license_class': lic_class,
+                    'artist': artist,
+                    # 要署名的授權：署名字串先組好，代理照貼就不會漏（缺署名＝閘門紅）
+                    'attribution': (
+                        f'{artist}／Wikimedia Commons，{page_url}' if lic_class == 'by' else ''
+                    ),
                     'usage_terms': val('UsageTerms') or lic,
                     'attribution_required': val('AttributionRequired') in ('true', 'True', 'yes'),
                     'width': info.get('width'),
@@ -190,7 +223,8 @@ def _collect(term, match, limit, drops, prefix=''):
                     'mime': info.get('mime'),
                 }
             )
-    out.sort(key=lambda c: -(c['width'] or 0))
+    # PD 排在 CC BY 之前：兩者都能用，但免署名的省事，也少一處可能漏署名之處
+    out.sort(key=lambda c: (0 if c['license_class'] == 'ok' else 1, -(c['width'] or 0)))
     return out
 
 
@@ -211,14 +245,18 @@ def generate(country):
                 # basis 草稿直接可貼進 manifest／pack 的 portrait_note；查無圖時要寫明查過什麼
                 'basis_draft': (
                     f'Wikimedia Commons「{best["commons_file"]}」（{best["license"]}，{best["artist"]}）'
+                    + ('' if best['license_class'] == 'ok' else f'；須署名：{best["attribution"]}')
                     if best
-                    else f'尚無公版圖源：已以 Commons 檔案搜尋查「{term}」，無 PD／CC0 且標題含姓名、邊長 ≥{MIN_SIDE} 者'
+                    else f'尚無白名單授權的圖源：已以 Commons 檔案搜尋查「{term}」，無授權合規且標題含姓名、邊長 ≥{MIN_SIDE} 者'
                 ),
+                # 掛入 manifest 時要照抄的兩欄（BY 系列缺其一即 audit:portraits 判紅）
+                'manifest_license': best['license'] if best else '',
+                'manifest_attribution': best['attribution'] if best else '',
                 'alternates': [c['commons_file'] for c in cands[1:4]],
                 # 淘汰原因要留檔：否則下一個看的人無法區分「真的無圖」與「查詢方法不對」
                 'rejected': drops[:6],
-                # 授權不合政策的（CC BY-SA 等）單列出來供人裁定——是否接受「僅需署名」
-                # 屬產品決定，工具無權自行放寬「只取 PD／CC0」這條線。
+                # 白名單之外的授權（NC／ND／未標等）單列出來——放寬與否由人裁定，
+                # 工具無權自己把線改低（2026-11-28 使用者只批到 CC BY-SA，NC／ND 仍不准）。
                 'other_license_hits': sorted({r['file'] for r in drops if '授權' in r['why']})[:5],
             }
         )
@@ -238,7 +276,7 @@ def generate(country):
                 'country': country,
                 'generated': time.strftime('%Y-%m-%d'),
                 'min_side_px': MIN_SIDE,
-                'license_policy': '只取 LicenseShortName 為 PD／CC0 之檔案',
+                'license_policy': 'LicenseShortName 限白名單：PD／CC0（免署名）、CC BY／CC BY-SA（要署名，' + 'attribution 與站上 credits.json 都要有）；NC／ND 不准',
                 'people': rows,
             },
             ensure_ascii=False,
@@ -273,11 +311,11 @@ def check(country):
     for p in people:
         mark = '✓' if p.get('chosen') else '·'
         c = p.get('chosen') or {}
-        print(f'  {mark} {p["id"]}「{p["name"]}」候選 {p["candidate_count"]}' + (f'｜{c.get("license")}｜{c.get("commons_file")}' if c else '｜尚無公版圖'))
+        print(f'  {mark} {p["id"]}「{p["name"]}」候選 {p["candidate_count"]}' + (f'｜{c.get("license")}｜{c.get("commons_file")}' if c else '｜尚無合規圖源'))
     if found * 2 < len(people):
-        print(f'✗ {len(people)} 位只有 {found} 位查到 PD 候選（不足一半），盤點不算完成')
+        print(f'✗ {len(people)} 位只有 {found} 位查到白名單授權的候選（不足一半），盤點不算完成')
         return 1
-    print(f'✓ 圖源盤點成立：{found}/{len(people)} 位有 PD 候選')
+    print(f'✓ 圖源盤點成立：{found}/{len(people)} 位有白名單授權的候選')
     return 0
 
 
@@ -286,7 +324,11 @@ if __name__ == '__main__':
     ap.add_argument('--country', default='korea', choices=sorted(PEOPLE))
     ap.add_argument('--check', action='store_true', help='唯讀斷言（不查網路、不寫檔）')
     ap.add_argument('--list', action='store_true')
+    ap.add_argument('--classify', metavar='授權', help='印出 ok／by／no（口徑對照，不查網路）')
     a = ap.parse_args()
+    if a.classify is not None:
+        print(classify(a.classify))
+        sys.exit(0)
     if a.list:
         for c, rows in PEOPLE.items():
             print(f'{c}：' + '、'.join(r[2] for r in rows))

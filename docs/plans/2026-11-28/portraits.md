@@ -92,9 +92,24 @@
 ☐ 馬來西亞 5 張（`myp2-raffles`、`myp2-light`、`myp2-brooke`、`myp1-albuquerque`、`myp3-tunku`）｜做法同上批；`myp2-brooke` 係畫像非照片，轉繪時保留畫框邊界唔好裁走｜驗收=`node scripts/register_portrait.mjs --verify --country=malaysia`
 ☐ 全庫收口｜18 張全部入庫後跑 `npm run gates`，再把 `reports/gate-baseline.json` 嘅 `audit:portraits.linked`／`files` 基線由 352 更新為 370（`npm run gates -- --update-baseline` 只准喺其他閘門數字冇惡化時用）｜驗收=`node scripts/audit-portraits.mjs | grep -q 'fail 0, linked 370/370, files 370'`
 
-### 待使用者裁定（唔准代理自行放行）
+### 授權政策（2026-11-28 使用者裁定：准 CC BY-SA）
 
-- **24 筆 CC BY-SA 命中**（`reports/portraits-pd-*.json` 嘅 `other_license_hits`）：工具判「非 PD／CC0」而拒，但 BY-SA 掛圖係允許嘅，只係要喺 `portrait_note` 署名＋標授權。**逐筆要主人批咗先可以入庫**，唔准自己放寬 `license_policy`。
+判定口徑位於 `scripts/portrait_license.mjs`（唯一一份）。白名單＝`Public domain`／`PD-*`／`CC0`／`內部生成`（免署名）＋`CC BY`／`CC BY-SA`（可帶版本號，**要署名**）。**NC（非商業）與 ND（禁止改作）一律不准**——站內頭像係改畫嘅衍生作，ND 法律上唔准改。`portrait_pd_inventory.py` 嗰邊另抄一份名單，靠 `node scripts/portrait_credits.mjs --selftest` 逐字對照兩邊，分岔即 exit 1。
+
+掛 CC BY／BY-SA 圖要做滿四件事，少一件閘門就紅：
+
+1. `public/portraits/manifest.json` 嗰一條加 `license`（例：`CC BY-SA 4.0`）
+2. 同一條加 `attribution`，格式 `<作者>／Wikimedia Commons，<來源頁 URL>`（只有 URL 冇作者、或作者寫「佚名」都判紅）
+3. 跑 `node scripts/portrait_credits.mjs` 產生 `public/portraits/credits.json`，連同圖一併 commit
+4. `basis` 照 `basis_draft` 寫明來源（工具已把署名文字組好，照貼即可）
+
+⚠ 站內而家**冇任何組件讀 `basis`／`credits.json`**（`PersonPortrait.tsx` 只畫圖＋「想像圖」角標）。即係署名目前只做到「資料齊、閘門管住」，瀏覽器睇唔到。要真正合 CC 的公開署名要求，要喺人物卡或圖鑑加一格出處（UI 改動，要主人拍板先做）；未做之前 **BY 系列唔准上線**，只准留喺倉外參考區。｜驗收=`node scripts/portrait_credits.mjs --check`
+
+### 待人裁定（唔准代理自行放行）
+
+
+
+- **CC BY-SA 已批（2026-11-28）**：原本掛喺 `other_license_hits` 嘅命中已隨白名單改寬而納入候選（實測 `ko-p-wanggeon` 即刻多一張 `CC BY-SA 4.0` 候選）。仍不准代理自己再放寬名單：要加新授權先改 `portrait_license.mjs` 並連同成對探針一齊改。
 - **無合格來源者**：`ko-p-wanggeon`（王建，只有 CC BY-SA 銅照）、`vnp4-navarre`（標題不含姓名嘅全部命中）→ 照現行規則維持無圖，等主人另行裁定。
 
 ## 工具缺口（要雲端那層我來建）

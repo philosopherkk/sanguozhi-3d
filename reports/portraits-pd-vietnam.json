@@ -2,7 +2,7 @@
   "country": "vietnam",
   "generated": "2026-11-28",
   "min_side_px": 600,
-  "license_policy": "只取 LicenseShortName 為 PD／CC0 之檔案",
+  "license_policy": "LicenseShortName 限白名單：PD／CC0（免署名）、CC BY／CC BY-SA（要署名，attribution 與站上 credits.json 都要有）；NC／ND 不准",
   "people": [
     {
       "era": "vnmodern",
@@ -14,7 +14,9 @@
         "commons_file": "File:King Bao Dai visited the Archives and Library of Indochina in 1933 (taken at the Central Library).jpg",
         "page_url": "https://commons.wikimedia.org/wiki/File:King_Bao_Dai_visited_the_Archives_and_Library_of_Indochina_in_1933_(taken_at_the_Central_Library).jpg",
         "license": "Public domain",
+        "license_class": "ok",
         "artist": "Unknown authorship, published before 1945.",
+        "attribution": "",
         "usage_terms": "Public domain",
         "attribution_required": false,
         "width": 3177,
@@ -22,6 +24,8 @@
         "mime": "image/jpeg"
       },
       "basis_draft": "Wikimedia Commons「File:King Bao Dai visited the Archives and Library of Indochina in 1933 (taken at the Central Library).jpg」（Public domain，Unknown authorship, published before 1945.）",
+      "manifest_license": "Public domain",
+      "manifest_attribution": "",
       "alternates": [
         "File:AP0633-Sogny-Marien Annam, Nha Trang, 1933 – Bao Dai visite une école.jpg",
         "File:AP0758-Sogny-Marien - Hué, 1934 – Mariage de S.M. Bao Dai (1).jpg",
@@ -60,12 +64,14 @@
       "id": "vnp4-hochiminh",
       "name": "胡志明",
       "search_term": "Ho Chi Minh photograph",
-      "candidate_count": 1,
+      "candidate_count": 13,
       "chosen": {
         "commons_file": "File:Nguyen Aïn Nuä'C (Ho-Chi-Minh), délégué indochinois, Congrès communiste de Marseille, 1921, Meurisse, BNF Gallica.jpg",
         "page_url": "https://commons.wikimedia.org/wiki/File:Nguyen_A%C3%AFn_Nu%C3%A4%27C_(Ho-Chi-Minh),_d%C3%A9l%C3%A9gu%C3%A9_indochinois,_Congr%C3%A8s_communiste_de_Marseille,_1921,_Meurisse,_BNF_Gallica.jpg",
         "license": "Public domain",
+        "license_class": "ok",
         "artist": "Agence de presse Meurisse",
+        "attribution": "",
         "usage_terms": "Public domain",
         "attribution_required": false,
         "width": 3867,
@@ -73,40 +79,28 @@
         "mime": "image/jpeg"
       },
       "basis_draft": "Wikimedia Commons「File:Nguyen Aïn Nuä'C (Ho-Chi-Minh), délégué indochinois, Congrès communiste de Marseille, 1921, Meurisse, BNF Gallica.jpg」（Public domain，Agence de presse Meurisse）",
-      "alternates": [],
+      "manifest_license": "Public domain",
+      "manifest_attribution": "",
+      "alternates": [
+        "File:Ópera, Ciudad Ho Chi Minh, Vietnam, 2013-08-14, DD 01.JPG",
+        "File:Tráfico en Ciudad Ho Chi Minh, Vietnam, 2013-08-14, DD 03.JPG",
+        "File:Vista de Ciudad Ho Chi Minh desde Bitexco Financial Tower, Vietnam, 2013-08-14, DD 13.JPG"
+      ],
       "rejected": [
         {
-          "file": "File:Ho-Chi-Minh-City Vietnam Hawker-01.jpg",
-          "why": "授權 CC BY-SA 3.0，非 PD／CC0"
+          "file": "File:Ho Chi Minh City, Nguyen Hue Street, 2020-01 CN-03.jpg",
+          "why": "非肖像（印章／地圖／碑刻等）"
         },
         {
-          "file": "File:Ho Chi Minh City, City Hall, 2020-01 CN-01.jpg",
-          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
+          "file": "File:Ho Chi Minh City, Nguyen Hue Street, 2020-01 CN-04.jpg",
+          "why": "非肖像（印章／地圖／碑刻等）"
         },
         {
-          "file": "File:Ho Chi Minh City, Ho Chi Minh Statue, 2020-01 CN-01.jpg",
-          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
-        },
-        {
-          "file": "File:Ho Chi Minh City, Ho Chi Minh Statue, 2020-01 CN-02.jpg",
-          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
-        },
-        {
-          "file": "File:Ho Chi Minh City, Ho Chi Minh Statue, 2020-01 CN-03.jpg",
-          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
-        },
-        {
-          "file": "File:Ho Chi Minh City, Ho Chi Minh Statue, 2020-01 CN-04.jpg",
-          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
+          "file": "File:Ho Chi Minh City, Nguyen Thi Minh Khai Street, 2020-01 CN-01.jpg",
+          "why": "非肖像（印章／地圖／碑刻等）"
         }
       ],
-      "other_license_hits": [
-        "File:Ho Chi Minh City, City Hall, 2020-01 CN-01.jpg",
-        "File:Ho Chi Minh City, Ho Chi Minh Statue, 2020-01 CN-01.jpg",
-        "File:Ho Chi Minh City, Ho Chi Minh Statue, 2020-01 CN-02.jpg",
-        "File:Ho Chi Minh City, Ho Chi Minh Statue, 2020-01 CN-03.jpg",
-        "File:Ho Chi Minh City, Ho Chi Minh Statue, 2020-01 CN-04.jpg"
-      ]
+      "other_license_hits": []
     },
     {
       "era": "vnmodern",
@@ -115,7 +109,9 @@
       "search_term": "Henri Navarre French general photograph",
       "candidate_count": 0,
       "chosen": null,
-      "basis_draft": "尚無公版圖源：已以 Commons 檔案搜尋查「Henri Navarre French general photograph」，無 PD／CC0 且標題含姓名、邊長 ≥600 者",
+      "basis_draft": "尚無白名單授權的圖源：已以 Commons 檔案搜尋查「Henri Navarre French general photograph」，無授權合規且標題含姓名、邊長 ≥600 者",
+      "manifest_license": "",
+      "manifest_attribution": "",
       "alternates": [],
       "rejected": [
         {
@@ -155,7 +151,9 @@
         "commons_file": "File:Ngo Dinh Diem at Washington - ARC 542189.jpg",
         "page_url": "https://commons.wikimedia.org/wiki/File:Ngo_Dinh_Diem_at_Washington_-_ARC_542189.jpg",
         "license": "Public domain",
+        "license_class": "ok",
         "artist": "Department of Defense. Department of the Air Force. NAIL Control Number: NWDNS-342-AF-18302USAF",
+        "attribution": "",
         "usage_terms": "Public domain",
         "attribution_required": false,
         "width": 2961,
@@ -163,6 +161,8 @@
         "mime": "image/jpeg"
       },
       "basis_draft": "Wikimedia Commons「File:Ngo Dinh Diem at Washington - ARC 542189.jpg」（Public domain，Department of Defense. Department of the Air Force. NAIL Control Number: NWDNS-342-AF-18302USAF）",
+      "manifest_license": "Public domain",
+      "manifest_attribution": "",
       "alternates": [
         "File:President NGO DINH DIEM and Prime Minister J. NEHRU of India.jpg",
         "File:President Ngo Dinh Diem sitting.jpg",
@@ -189,12 +189,14 @@
       "id": "vnp2-lythuongkiet",
       "name": "李常傑",
       "search_term": "Ly Thuong Kiet general portrait",
-      "candidate_count": 2,
+      "candidate_count": 4,
       "chosen": {
         "commons_file": "File:Ly Thuong Kiet (1019-1105) Defeated Song China Invasion of 1077 (9732106811).jpg",
         "page_url": "https://commons.wikimedia.org/wiki/File:Ly_Thuong_Kiet_(1019-1105)_Defeated_Song_China_Invasion_of_1077_(9732106811).jpg",
         "license": "CC0",
+        "license_class": "ok",
         "artist": "Gary Todd from Xinzheng, China",
+        "attribution": "",
         "usage_terms": "Creative Commons Zero, Public Domain Dedication",
         "attribution_required": false,
         "width": 2304,
@@ -202,8 +204,12 @@
         "mime": "image/jpeg"
       },
       "basis_draft": "Wikimedia Commons「File:Ly Thuong Kiet (1019-1105) Defeated Song China Invasion of 1077 (9732106811).jpg」（CC0，Gary Todd from Xinzheng, China）",
+      "manifest_license": "CC0",
+      "manifest_attribution": "",
       "alternates": [
-        "File:Tuong Ly Thuong Kiet, DNQT.jpg"
+        "File:Tuong Ly Thuong Kiet, DNQT.jpg",
+        "File:Mat sau Nha Tho Vung tau- duong Ly Thuong kiet - panoramio.jpg",
+        "File:Nguyen chi thanh va ly thuong kiet, Quận 5, TPHCM, Việt Nam - panoramio.jpg"
       ],
       "rejected": [
         {
@@ -231,10 +237,7 @@
           "why": "重試 \"ly thuong kiet\"｜標題不含姓名"
         }
       ],
-      "other_license_hits": [
-        "File:Mat sau Nha Tho Vung tau- duong Ly Thuong kiet - panoramio.jpg",
-        "File:Nguyen chi thanh va ly thuong kiet, Quận 5, TPHCM, Việt Nam - panoramio.jpg"
-      ]
+      "other_license_hits": []
     }
   ]
 }

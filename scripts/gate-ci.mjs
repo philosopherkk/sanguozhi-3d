@@ -61,6 +61,8 @@ const GATES = [
   { name: 'audit:quotes', cmd: 'npm run audit:quotes', metrics: { errors: /合計：[^\n]*錯誤 (\d+)/, warns: /合計：[^\n]*提醒 (\d+)/ } },
   // --check 嘅判定要有牙：佢係 audit:plans 驗收「已逐字查證」嘅唯一憑證，
   // 判定一旦退化（未記帳都算 verified），工作單就可以把未核過嘅引文洗白。
+  { name: 'audit:credits', cmd: 'npm run audit:credits', metrics: {} },
+  { name: 'audit:credits:selftest', cmd: 'npm run audit:credits:selftest', metrics: {} },
   { name: 'audit:quotes:selftest', cmd: 'npm run audit:quotes:selftest', metrics: {} },
   // 2026-11-29 補：計畫檔 `docs/plans/<date>/*.md` 由本機小模型逐條執行，`☑` 是它自己勾的。
   // 這條閘門不量內容，量「已勾的東西現在還驗不驗得過」：plan_verify 逐條讀取每個 `☑` 行尾的

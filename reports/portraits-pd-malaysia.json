@@ -2,19 +2,21 @@
   "country": "malaysia",
   "generated": "2026-11-28",
   "min_side_px": 600,
-  "license_policy": "只取 LicenseShortName 為 PD／CC0 之檔案",
+  "license_policy": "LicenseShortName 限白名單：PD／CC0（免署名）、CC BY／CC BY-SA（要署名，attribution 與站上 credits.json 都要有）；NC／ND 不准",
   "people": [
     {
       "era": "mycolonial",
       "id": "myp2-raffles",
       "name": "萊佛士",
       "search_term": "Stamford Raffles portrait",
-      "candidate_count": 3,
+      "candidate_count": 7,
       "chosen": {
         "commons_file": "File:Raffles Raden Rana Dipura.jpg",
         "page_url": "https://commons.wikimedia.org/wiki/File:Raffles_Raden_Rana_Dipura.jpg",
         "license": "Public domain",
+        "license_class": "ok",
         "artist": "Thomas Stamford Raffles (1781-1826)",
+        "attribution": "",
         "usage_terms": "Public domain",
         "attribution_required": false,
         "width": 1244,
@@ -22,26 +24,17 @@
         "mime": "image/jpeg"
       },
       "basis_draft": "Wikimedia Commons「File:Raffles Raden Rana Dipura.jpg」（Public domain，Thomas Stamford Raffles (1781-1826)）",
+      "manifest_license": "Public domain",
+      "manifest_attribution": "",
       "alternates": [
         "File:StamfordRaffles.jpeg",
-        "File:George Francis Joseph - Sir Thomas Stamford Bingley Raffles.jpg"
+        "File:George Francis Joseph - Sir Thomas Stamford Bingley Raffles.jpg",
+        "File:National Museum of Singapore - Joy of Museums - Portrait of Sir Thomas Stamford Bingley Raffles 2.jpg"
       ],
       "rejected": [
         {
           "file": "File:Drawing of Francis Chantrey's bust of Stamford Raffles from The Natural History of Game-birds (1844).jpg",
           "why": "尺寸 421x617 不足 600"
-        },
-        {
-          "file": "File:Miniature portrait of Sir Stamford Raffles.jpg",
-          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
-        },
-        {
-          "file": "File:National Museum of Singapore - Joy of Museums - Portrait of Sir Thomas Stamford Bingley Raffles.jpg",
-          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
-        },
-        {
-          "file": "File:National Museum of Singapore - Joy of Museums - Portrait of Sir Thomas Stamford Bingley Raffles 2.jpg",
-          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
         },
         {
           "file": "File:Seal of Sir Thomas Stamford Bingley Raffles.png",
@@ -50,14 +43,21 @@
         {
           "file": "File:Sir Stamford Raffles; England in the Far East (IA stamfordraffles00eger).pdf",
           "why": "不是圖像檔（application/pdf）"
+        },
+        {
+          "file": "File:Sir Stamford Raffles - England in the Far East (IA cu31924023138625).pdf",
+          "why": "不是圖像檔（application/pdf）"
+        },
+        {
+          "file": "File:Sir Stamford Raffles - England in the Far East (IA sirstamfordraffl00eger).pdf",
+          "why": "不是圖像檔（application/pdf）"
+        },
+        {
+          "file": "File:StamfordRafflesSmall.jpeg",
+          "why": "尺寸 304x304 不足 600"
         }
       ],
-      "other_license_hits": [
-        "File:Miniature portrait of Sir Stamford Raffles.jpg",
-        "File:National Museum of Singapore - Joy of Museums - Portrait of Sir Thomas Stamford Bingley Raffles 2.jpg",
-        "File:National Museum of Singapore - Joy of Museums - Portrait of Sir Thomas Stamford Bingley Raffles.jpg",
-        "File:Sir Thomas Stamford Bingley Raffles. Stipple engraving by J. Wellcome V0004871.jpg"
-      ]
+      "other_license_hits": []
     },
     {
       "era": "mycolonial",
@@ -69,7 +69,9 @@
         "commons_file": "File:Colonel William Light - Self portrait - Google Art Project.jpg",
         "page_url": "https://commons.wikimedia.org/wiki/File:Colonel_William_Light_-_Self_portrait_-_Google_Art_Project.jpg",
         "license": "Public domain",
+        "license_class": "ok",
         "artist": "Colonel William LIGHT (1786 - 1839)  (Australia) Born in Kuala Kedah, Malaya. Died in Adelaide. Details on Google Art Project",
+        "attribution": "",
         "usage_terms": "Public domain",
         "attribution_required": false,
         "width": 3351,
@@ -77,6 +79,8 @@
         "mime": "image/jpeg"
       },
       "basis_draft": "Wikimedia Commons「File:Colonel William Light - Self portrait - Google Art Project.jpg」（Public domain，Colonel William LIGHT (1786 - 1839)  (Australia) Born in Kuala Kedah, Malaya. Died in Adelaide. Details on Google Art Project）",
+      "manifest_license": "Public domain",
+      "manifest_attribution": "",
       "alternates": [
         "File:Colonel William Light's house, Adelaide(GN02338).jpg",
         "File:Colonel William Light, (1786-1839), Founder of Adelaide(GN00881).jpg",
@@ -120,7 +124,9 @@
         "commons_file": "File:Sir James Brooke (1847) by Francis Grant.jpg",
         "page_url": "https://commons.wikimedia.org/wiki/File:Sir_James_Brooke_(1847)_by_Francis_Grant.jpg",
         "license": "Public domain",
+        "license_class": "ok",
         "artist": "Francis Grant",
+        "attribution": "",
         "usage_terms": "Public domain",
         "attribution_required": false,
         "width": 622,
@@ -128,6 +134,8 @@
         "mime": "image/jpeg"
       },
       "basis_draft": "Wikimedia Commons「File:Sir James Brooke (1847) by Francis Grant.jpg」（Public domain，Francis Grant）",
+      "manifest_license": "Public domain",
+      "manifest_attribution": "",
       "alternates": [],
       "rejected": [
         {
@@ -167,7 +175,9 @@
         "commons_file": "File:Portret van Alfons d'Albuquerque, RP-P-1905-1408.jpg",
         "page_url": "https://commons.wikimedia.org/wiki/File:Portret_van_Alfons_d%27Albuquerque,_RP-P-1905-1408.jpg",
         "license": "CC0",
+        "license_class": "ok",
         "artist": "Rijksmuseum",
+        "attribution": "",
         "usage_terms": "Creative Commons Zero, Public Domain Dedication",
         "attribution_required": false,
         "width": 2976,
@@ -175,6 +185,8 @@
         "mime": "image/jpeg"
       },
       "basis_draft": "Wikimedia Commons「File:Portret van Alfons d'Albuquerque, RP-P-1905-1408.jpg」（CC0，Rijksmuseum）",
+      "manifest_license": "CC0",
+      "manifest_attribution": "",
       "alternates": [
         "File:Portret van Afonso de Albuquerque, RP-P-2016-707.jpg",
         "File:Portrait of the Portuguese Admiral Albuquerque (c. 1615) - Edwin Binney 3rd Collection, San Diego Museum of Art.png",
@@ -201,12 +213,14 @@
       "id": "myp3-tunku",
       "name": "東姑阿都拉曼",
       "search_term": "Tunku Abdul Rahman photograph",
-      "candidate_count": 1,
+      "candidate_count": 3,
       "chosen": {
         "commons_file": "File:Tunku Abdul Rahman 1960.jpg",
         "page_url": "https://commons.wikimedia.org/wiki/File:Tunku_Abdul_Rahman_1960.jpg",
         "license": "CC0",
+        "license_class": "ok",
         "artist": "Harry Pot for Anefo",
+        "attribution": "",
         "usage_terms": "Creative Commons Zero, Public Domain Dedication",
         "attribution_required": false,
         "width": 772,
@@ -214,7 +228,12 @@
         "mime": "image/jpeg"
       },
       "basis_draft": "Wikimedia Commons「File:Tunku Abdul Rahman 1960.jpg」（CC0，Harry Pot for Anefo）",
-      "alternates": [],
+      "manifest_license": "CC0",
+      "manifest_attribution": "",
+      "alternates": [
+        "File:KD Tunku Abdul Rahman in Langkawi 2023.jpg",
+        "File:Tunku Abdul Rahman University.JPG"
+      ],
       "rejected": [
         {
           "file": "File:Aankomst van premier van Malakka Abdul Rahman, Bestanddeelnr 911-2803.jpg",
@@ -223,10 +242,6 @@
         {
           "file": "File:Aankomst van premier van Malakka Abdul Rahman , premier De Quay was ter begroeti, Bestanddeelnr 911-2805.jpg",
           "why": "標題不含姓名"
-        },
-        {
-          "file": "File:KD Tunku Abdul Rahman in Langkawi 2023.jpg",
-          "why": "授權 CC BY-SA 4.0，非 PD／CC0"
         },
         {
           "file": "File:KotaKinabalu Sabah Tunku-Abdu-Rahman-Monument-01.jpg",
@@ -239,12 +254,13 @@
         {
           "file": "File:Merdeka 1957 tunku abdul rahman.jpg",
           "why": "尺寸 362x272 不足 600"
+        },
+        {
+          "file": "File:Pakistan and Malaya national football teams for the 1958 Asian Games pictured with Malayan Prime Minister Tunku Abdul Rahman.jpg",
+          "why": "尺寸 720x518 不足 600"
         }
       ],
-      "other_license_hits": [
-        "File:KD Tunku Abdul Rahman in Langkawi 2023.jpg",
-        "File:Tunku Abdul Rahman University.JPG"
-      ]
+      "other_license_hits": []
     }
   ]
 }

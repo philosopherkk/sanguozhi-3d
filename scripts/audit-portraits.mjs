@@ -10,8 +10,16 @@
  *  2. 資料掛載：每張圖的 `/portraits/<file>` 必須出現在所屬 era 的資料檔
  *  3. 身份配對：該筆記錄的 id 與 name 必須與 manifest 相同
  *
- * `--teeth` 會把四種破壞注入記憶體副本（錯名、錯檔、資料路徑被換、count 被改），
- * 每種都必須被同一支稽核咬到，防止日後把規則改弱而數字仍然全綠。
+ * `--teeth` 會把破壞注入記憶體副本（錯名、錯檔、資料路徑被換、count 被改、
+ * 授權缺署名等），每種都必須被同一支稽核咬到，防止日後把規則改弱而數字仍然全綠。
+ *
+ * 授權（2026-11-28 使用者裁定：准 CC BY-SA）：
+ *   白名單＝Public domain／PD-*／CC0／CC BY／CC BY-SA（可帶版本號）；
+ *   NC（非商業）與 ND（禁止改作）一律不准——本站把圖改畫成頭像，ND 圖根本不能碰。
+ *   需要署名的授權（BY 系列）要有 `attribution`（作者＋來源網址），
+ *   而且必須出現在 `public/portraits/credits.json`（站上看得見的署名清單）。
+ *   既有的 352 張內部生成條目沒有 `license`，屬既有成果，不追溯；
+ *   但四國新增條目一律要有 `license`，新圖不能再用「查無授權」混過去。
  *
  * 輸出尾行：
  *   `audit:portraits — fail N, linked M, files K`
@@ -19,9 +27,11 @@
  */
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { attributionOk, licenseCheck } from './portrait_license.mjs'
 
 const ROOT = join(import.meta.dirname, '..')
 const MANIFEST = join(ROOT, 'public', 'portraits', 'manifest.json')
+const CREDITS = join(ROOT, 'public', 'portraits', 'credits.json')
 
 /** era → 人物資料檔；depth.ts 的 imperial-* 另由 DEPTH_SECTION 處理。 */
 const ERA_FILES = {
@@ -76,6 +86,37 @@ const DEPTH_SECTION = {
   'imperial-yuanmingqing': 'yuanmingqing',
   'imperial-minguo': 'minguo',
   'imperial-prc': 'prc',
+}
+
+/** 四國 16 槽：新增條目一律要寫 license（既有的中國／日本條目不追溯）。 */
+const FOUR_COUNTRY_ERAS = new Set([
+  'koancient',
+  'kogoryeo',
+  'kojoseon',
+  'komodern',
+  'thsukhothai',
+  'thayutthaya',
+  'thchakri',
+  'thmodern',
+  'vnnorth',
+  'vndynasty',
+  'vnnguyen',
+  'vnmodern',
+  'mymalacca',
+  'mycolonial',
+  'mymerdeka',
+  'mymodern',
+])
+
+/** 授權與署名的判定口徑在 portrait_license.mjs（閘門與產生器共用一份）。 */
+function readCredits() {
+  if (!existsSync(CREDITS)) return null
+  try {
+    const data = JSON.parse(readFileSync(CREDITS, 'utf8'))
+    return Array.isArray(data) ? data : (data.credits ?? [])
+  } catch {
+    return null
+  }
 }
 
 function jpegSize(file) {
@@ -217,6 +258,39 @@ function check(rows, opts = {}) {
     else fail('not-linked', `${row.era}:${row.id}`, '沒有任何人物資料掛起這張圖')
   }
 
+  // 授權與署名：需要署名的授權，署名欄與站上清單都要在，缺一不可
+  const credits = opts.credits ?? readCredits()
+  const creditFiles = new Set((credits ?? []).map((c) => c && c.file))
+  for (const row of rows) {
+    const where = `${row.era}:${row.id}`
+    if (!String(row.license ?? '').trim()) {
+      if (FOUR_COUNTRY_ERAS.has(row.era)) {
+        fail(
+          'license-missing',
+          where,
+          '四國新增條目要寫 license（Public domain／CC0／CC BY／CC BY-SA）',
+        )
+      }
+      continue
+    }
+    const verdict = licenseCheck(row.license)
+    if (!verdict.ok) {
+      fail('license-unknown', where, verdict.why)
+      continue
+    }
+    if (!verdict.requiresAttribution) continue
+    if (!attributionOk(row.attribution)) {
+      fail(
+        'license-no-attribution',
+        where,
+        `授權 ${row.license} 要求署名：attribution 要有作者與來源網址`,
+      )
+    }
+    if (!creditFiles.has(row.file)) {
+      fail('credits-missing', where, `${row.file} 未列入 public/portraits/credits.json`)
+    }
+  }
+
   const files = rows.filter((r) => existsSync(join(ROOT, 'public', 'portraits', r.file))).length
   return { issues, linked, files }
 }
@@ -241,6 +315,16 @@ if (process.argv.includes('--teeth')) {
     '/portraits/imperial-jin/p-sima-yan.jpg',
     '/portraits/imperial-jin/not-here.jpg',
   )
+  const BY_ROW = {
+    era: 'koancient',
+    id: 'teeth-bysa',
+    name: '探針人物',
+    file: 'koancient/teeth-bysa.jpg',
+    license: 'CC BY-SA 4.0',
+    attribution:
+      'Prokurator11／Wikimedia Commons，https://commons.wikimedia.org/wiki/File:Taejo.jpg',
+  }
+  const CREDITS_OK = [{ file: BY_ROW.file }]
   const teeth = [
     {
       name: 'manifest-name',
@@ -267,6 +351,32 @@ if (process.argv.includes('--teeth')) {
       expect: 'manifest-count',
       run: () => check(rows.slice(1), { count: rows.length }),
     },
+    // 授權四針：真庫裡目前一張 CC 圖都未有，用合成條目測（合成檔名會另外觸發
+    // file-missing／not-linked，屬預期噪聲，探針只認自己那一個錯誤碼）
+    {
+      name: 'license-required',
+      expect: 'license-missing',
+      run: () =>
+        check(
+          [...rows, { ...BY_ROW, license: undefined }],
+          { credits: CREDITS_OK },
+        ),
+    },
+    {
+      name: 'license-nc',
+      expect: 'license-unknown',
+      run: () => check([...rows, { ...BY_ROW, license: 'CC BY-NC-SA 4.0' }], { credits: CREDITS_OK }),
+    },
+    {
+      name: 'license-no-attribution',
+      expect: 'license-no-attribution',
+      run: () => check([...rows, { ...BY_ROW, attribution: undefined }], { credits: CREDITS_OK }),
+    },
+    {
+      name: 'credits-dropped',
+      expect: 'credits-missing',
+      run: () => check([...rows, BY_ROW], { credits: [] }),
+    },
   ]
   let failed = 0
   for (const tooth of teeth) {
@@ -274,6 +384,24 @@ if (process.argv.includes('--teeth')) {
     if (!got) {
       failed++
       console.error(`  ${tooth.name} — 注入破壞後沒有咬到 ${tooth.expect}`)
+    }
+  }
+  // 反向對照：合規的 BY-SA 條目不該被授權四針任何一招誤殺（只准咬錯的）。
+  // 只認合成探針那一筆的 issue——真庫裡未標授權的條目另有 license-missing，
+  // 混進來就會把「誤殺與否」測成永遠紅，等於冇測。
+  {
+    const codes = new Set([
+      'license-missing',
+      'license-unknown',
+      'license-no-attribution',
+      'credits-missing',
+    ])
+    const bad = check([...rows, BY_ROW], { credits: CREDITS_OK }).issues.filter(
+      (i) => i.where === `${BY_ROW.era}:${BY_ROW.id}` && codes.has(i.code),
+    )
+    if (bad.length) {
+      failed++
+      console.error(`  合規 BY-SA — 被誤判 ${bad.map((i) => i.code).join('、')}`)
     }
   }
   console.log(`audit:portraits --teeth — 失敗 ${failed} 項`)
