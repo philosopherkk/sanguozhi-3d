@@ -72,6 +72,31 @@
   - 批 M3（`mymodernPack.ts`，2 人）：`myp4-tunku`（複用 `mymerdeka/myp3-tunku.jpg`）、`myp4-abdulrazak`；`myp4-mahathir`、`myp4-anwar`、`myp4-hadi` **跳過**（在世或版權未入公有領域）。
   - 批 M4（`mymalaccaPack.ts`，1 人 + 4 跳過）：`myp1-albuquerque`（依里斯本國立古代美術館公有領域肖像改畫）；`myp1-parameswara`、`myp1-muzaffar`、`myp1-tun-perak`、`myp1-lastsultan` 無可靠傳像且多為群體／佚名，**跳過**。
 
+## P1 佇列（工具先行；圖由 grok 產，掛載由工具做）
+
+⚠ 交辦須知（grok 4.7；2026-11-28 覆核後訂正，做之前先睇）：
+
+1. **槽名唔好睇 key 估時代**：`kojoseon` = 朝鮮王朝 1392–1897（李成桂、世宗、李舜臣），`koancient` 先係箕子朝鮮／衛滿朝鮮。上一輪報告把 `kojoseon` 寫成「箕子朝鮮槽」係錯。
+2. **`basis` 只准寫實際來源**：本倉自己改畫嘅圖一律寫「依 <Commons 檔名>（Public domain／CC0）參考像改畫」。**嚴禁寫「日本國立國會圖書館公版」**——`ko-p-sunsin`、`myp3-yamashita` 兩筆已因呢句假出處被你修正過一次（見 `f041708c`）。
+3. **唔好再自己搜 Commons 分類**：四國嗰 16 個 category 名唔存在，全文搜尋嘅第一命中亦唔可用（會中錯人）。圖源一律讀 `reports/portraits-pd-<國>.json` 嘅 `chosen` 欄，被拒者有 `rejected[].why`；要用工具 `scripts/fetch_pd_reference.py`。
+4. **原照嚴禁直接入庫**：`public/portraits/` 只准放經 `_style/style-anchor.jpg` 統一轉繪嘅 1024×1024 圖；PD 原圖只落倉外參考區，`--verify` 會用 md5 擋「原照直出」。
+5. **做完要 push**：上一輪 `agent/portraits-grok` 兩條 commit（`8327f189`、`ccb942d3`）從未 push，覆核時只能喺工作樹睇到；佢哋嘅圖片與 main 逐字節相同，已隨 `f041708c` 落地，嗰條分支可以退休。
+
+☐ `scripts/fetch_pd_reference.py`｜新建：讀 `reports/portraits-pd-<國>.json` 嘅 `chosen`，用 `from qsrc import ssl_context` 落 Commons 原圖到**倉外** `~/.historyfirst-portrait-refs/<era>/<id>.<ext>`（嚴禁寫入 `public/`），逐筆印「來源｜授權｜尺寸｜md5」；`--list` 唯讀唔落盤；結尾要印「盤點 N 筆｜可落地 M 筆」呢一行｜驗收=`python3 scripts/fetch_pd_reference.py --list --country=korea | grep -q '可落地 4 筆'`
+☐ `scripts/register_portrait.mjs`｜新建（即下面「工具缺口」第 3 條）：`--era --id --pack --basis` 單張原子入庫（驗 1024×1024 → 只產該張兩級縮圖 → 喺 `id:` 22 行視窗內插 `portrait`／`portrait_note` → 入 `manifest.json` 並重算 `count`），任何一步失敗即回滾；再加 `--selftest`（離線：用暫存副本證明缺圖／錯尺寸／漏 manifest 三種破壞都會回滾）同 `--verify --country=<國>`（唯讀：該國每個有 `chosen` 嘅人物都要有庫圖＋`_thumb` 兩級＋manifest 列＋pack 掛載，且庫圖 md5 **必須唔同於** Commons 原圖 md5）｜驗收=`node scripts/register_portrait.mjs --selftest`
+☐ `scripts/audit-portraits.mjs`｜補下面「工具缺口」第 2 條嘅三項：（a）`_thumb/<era>/<id>-{80,192}.jpg` 兩級必存在；（b）`basis` 非空且不少於 6 字；（c）反向掃描資料檔 `portrait:` 路徑，未入 manifest 即 fail。三項各加一條 `--teeth` 探針（而家 4 條 → 7 條），並喺輸出末行印「探針 7 項」｜驗收=`node scripts/audit-portraits.mjs --teeth | grep -q '探針 7 項'`
+☐ `scripts/gen_portrait_thumbs.mjs`｜加 `--check`（唯讀：manifest 每筆缺 80／192 縮圖即 exit 1 並列路徑；唔准改動現行產圖邏輯，亦唔准喺 `--check` 時寫檔）｜驗收=`grep -q -- '--check' scripts/gen_portrait_thumbs.mjs && node scripts/gen_portrait_thumbs.mjs --check`
+☐ 韓國 4 張（`ko-p-taejo`、`ko-p-sejong`、`ko-p-kimku`、`ko-p-synghman`）｜grok 依 `chosen` 參考像按 `_style/style-anchor.jpg` 轉繪 1024×1024，再用 `register_portrait.mjs` 逐張入庫（`basis` 抄 `basis_draft`）｜驗收=`node scripts/register_portrait.mjs --verify --country=korea`
+☐ 泰國 5 張（`th-p-mongkut`、`th-p-chulalongkorn`、`th-p-rama7`、`th-p-phibun`、`th-p-taksin`）｜做法同上批，`th-p-phibun` 張要避開 1943 年刊物頁嘅報頭文字｜驗收=`node scripts/register_portrait.mjs --verify --country=thailand`
+☐ 越南 4 張（`vnp4-baodai`、`vnp4-hochiminh`、`vnp4-ngodinhdiem`、`vnp2-lythuongkiet`）｜做法同上批；`vnp4-navarre` 無合格來源，**唔准改畫**，維持無圖退首字徽章｜驗收=`node scripts/register_portrait.mjs --verify --country=vietnam`
+☐ 馬來西亞 5 張（`myp2-raffles`、`myp2-light`、`myp2-brooke`、`myp1-albuquerque`、`myp3-tunku`）｜做法同上批；`myp2-brooke` 係畫像非照片，轉繪時保留畫框邊界唔好裁走｜驗收=`node scripts/register_portrait.mjs --verify --country=malaysia`
+☐ 全庫收口｜18 張全部入庫後跑 `npm run gates`，再把 `reports/gate-baseline.json` 嘅 `audit:portraits.linked`／`files` 基線由 352 更新為 370（`npm run gates -- --update-baseline` 只准喺其他閘門數字冇惡化時用）｜驗收=`node scripts/audit-portraits.mjs | grep -q 'fail 0, linked 370/370, files 370'`
+
+### 待使用者裁定（唔准代理自行放行）
+
+- **24 筆 CC BY-SA 命中**（`reports/portraits-pd-*.json` 嘅 `other_license_hits`）：工具判「非 PD／CC0」而拒，但 BY-SA 掛圖係允許嘅，只係要喺 `portrait_note` 署名＋標授權。**逐筆要主人批咗先可以入庫**，唔准自己放寬 `license_policy`。
+- **無合格來源者**：`ko-p-wanggeon`（王建，只有 CC BY-SA 銅照）、`vnp4-navarre`（標題不含姓名嘅全部命中）→ 照現行規則維持無圖，等主人另行裁定。
+
 ## 工具缺口（要雲端那層我來建）
 
 1. **`scripts/gen_country_portraits.mjs`（PD 取圖＋風格轉繪＋縮圖管線）**
