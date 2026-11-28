@@ -1,4 +1,4 @@
-# 中日歷史回顧（repo: sanguozhi-3d）— Agent rules
+# 歷史回顧（repo: sanguozhi-3d）— Agent rules
 
 - All UI text is in Traditional Chinese (zh-Hant). No Simplified characters.
 - **正體化原則（改字時一律遵守）**：全站文字（UI、資料欄位、程式註解、`docs/`、`scripts/`）

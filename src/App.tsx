@@ -733,9 +733,8 @@ function UrlBridge() {
   useEffect(() => {
     const slot = eraSlotsForTopic(topic).find((s) => s.id === eraId)
     const country = countryLabelForTopic(topic)
-    // 中日保留原站名；新增的韓國、泰國、越南、馬來西亞用通用書名。
-    const isChinaOrJapan = topic === 'china' || topic === 'japan'
-    const brand = isChinaOrJapan ? '中日歷史回顧' : '歷史回顧'
+    // 六國共用一個書名：規模已超出中日，站名統一做「歷史回顧」。
+    const brand = '歷史回顧'
     const title = slot ? `${country}·${slot.label}（${slot.range}）｜${brand}` : brand
     document.title = title
     const setMeta = (selector: string, content: string) => {
@@ -746,9 +745,7 @@ function UrlBridge() {
     setMeta('meta[name="twitter:title"]', title)
     const desc = slot
       ? `${country}${slot.label}（${slot.range}）——正史疆域、勢力與人物、行軍路徑逐年對照`
-      : isChinaOrJapan
-        ? '中日歷史回顧——中國（夏—當代）與日本（有史以來—當代）的正史疆域、勢力與人物互動年表'
-        : '歷史回顧——韓國（前108—當代）、泰國（1238—當代）、越南（前111—當代）與馬來西亞（1400—當代）的正史疆域、勢力與人物互動年表'
+      : '歷史回顧——中國（夏—當代）、日本（有史以來—當代）、韓國（前108—當代）、泰國（1238—當代）、越南（前111—當代）、馬來西亞（1400—當代）的正史疆域、勢力與人物互動年表'
     setMeta('meta[property="og:description"]', desc)
     setMeta('meta[name="description"]', desc)
     setMeta('meta[name="twitter:description"]', desc)

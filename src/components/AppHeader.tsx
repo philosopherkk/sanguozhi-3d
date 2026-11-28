@@ -13,7 +13,7 @@ export function AppHeader() {
           史
         </span>
         <div>
-          <h1 className="app-header__title">中日歷史回顧</h1>
+          <h1 className="app-header__title">歷史回顧</h1>
           <p className="app-header__tag">
             正史疆域 · 勢力與人物 · 中國 夏—當代 · 日本 有史以來—當代
           </p>
