@@ -20,6 +20,9 @@
   - `public/portraits/_style/style-anchor.jpg`（1024×1024 JPEG，414KB）為全站唯一風格參考母稿（均勻墨線、石青朱紅赭石松綠平塗、暖紙底、三分面、無文字）。
   - `public/portraits/_thumb/` 現有 `702` 檔（350 張人物圖 + 1 張風格稿各自產出 `80px`、`192px` 寬 JPEG，品質 80），由 `scripts/gen_portrait_thumbs.mjs` 執行 `npm i --no-save sharp && node scripts/gen_portrait_thumbs.mjs` 一次生成並提交入庫。
 
+> ⛔ **本軌道暫不排程**：没有領取 `plan --track=portraits` 的 cron 代理，現有 6 條 `☐`
+> 是待辦而非今日工作。現行裁定為「四個新國家暫不放頭像」，理由見同目錄 README.md。
+
 ## P0 佇列（本機代理今天可做，<=12 條）
 
 ☑ `scripts/audit-portraits.mjs`｜於 `ERA_FILES` 註冊四國 16 個時代槽位鍵（`koancient`、`kogoryeo`、`kojoseon`、`komodern`、`thsukhothai`、`thayutthaya`、`thchakri`、`thmodern`、`vnnorth`、`vndynasty`、`vnnguyen`、`vnmodern`、`mymalacca`、`mycolonial`、`mymerdeka`、`mymodern`）指向對應 `*Pack.ts`｜2026-11-28 由雲端那層完成｜驗收=`node scripts/audit-portraits.mjs && node scripts/audit-portraits.mjs --teeth`
