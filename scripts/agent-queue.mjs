@@ -15,7 +15,7 @@
  *                                         只跑一個國家（korea／thailand／vietnam／malaysia）
  */
 import { execSync } from 'node:child_process'
-import { readdirSync, readFileSync } from 'node:fs'
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const ROOT = join(import.meta.dirname, '..')
@@ -76,6 +76,16 @@ const summary = {
   map: () => last(run('python3 scripts/check_ring_landmarks.py --unasserted'), /無地標斷言/),
   march: () => last(run('python3 scripts/check_route_landmarks.py --unasserted'), /無斷言/),
   critical: () => last(run('node scripts/audit_critical.mjs'), /^audit:critical —/),
+  plan: () => {
+    const files = planFiles()
+    if (!files.length) return '（docs/plans 無日期目錄）'
+    return files
+      .map((p) => {
+        const c = planCount(p.path)
+        return `${p.track} 剩 ${c.todo}／${c.todo + c.done}`
+      })
+      .join('、')
+  },
   country: () => {
     const rows = countryRuns()
     if (!rows.length) return `（src/countries/${COUNTRY_ONLY ?? ''} 掃不到 *Pack.ts）`
@@ -123,6 +133,36 @@ const detail = {
     // 前面 24 行是各槽統計（給人看），代理只要待辦清單，故從 --todo 總結行起轉發
     const at = o.indexOf('audit:critical --todo')
     return [at >= 0 ? o.slice(at).trimEnd() : o, CRITICAL_NOTE].join('\n')
+  },
+  plan: () => {
+    const files = planFiles()
+    if (!files.length) return '（docs/plans 下無 <日期> 目錄，plan 軌道尚未開單）'
+    if (!PLAN_TRACK) {
+      return [
+        `計畫目錄：${planDir().replace(ROOT + '/', '')}`,
+        '',
+        ...files.map((p) => {
+          const c = planCount(p.path)
+          return `  ${p.track.padEnd(11)} 剩 ${String(c.todo).padStart(3)} 條（已做 ${c.done}）` +
+            ` 取單：node scripts/agent-queue.mjs plan --track=${p.track}`
+        }),
+      ].join('\n')
+    }
+    const hit = files.find((p) => p.track === PLAN_TRACK)
+    if (!hit) {
+      return `無此軌道：${PLAN_TRACK}（可用：${files.map((p) => p.track).join('、')}）`
+    }
+    const rows = planRows(hit.path)
+    const open = rows.filter((r) => /^\s*☐/.test(r.text))
+    const n = Number(PLAN_TODO) || 4
+    const lines = [
+      `軌道 ${hit.track}：剩 ${open.length} 條／共 ${rows.length} 條（檔 ${hit.path.replace(ROOT + '/', '')}）`,
+      '',
+    ]
+    if (!open.length) return lines.join('\n') + `\n本軌道見底，改跑 plan 看其他軌道或回主佇列。`
+    open.slice(0, n).forEach((r, i) => lines.push(`第 ${i + 1} 條（檔內第 ${r.no} 行）｜${r.text.slice(2).trim()}`))
+    return [lines.join('\n'), '', `做完一項就標記（編號係上面「第 N 條」，指未做的第幾條）：`,
+      `  node scripts/agent-queue.mjs plan --track=${hit.track} --done=<N>`, '', PLAN_NOTE].join('\n')
   },
   country: () => {
     const rows = countryRuns()
@@ -185,7 +225,78 @@ country_check 驗的是欄位與掛載（欄位齊唔齊、era id 有冇對上 T
   hf-map       node scripts/audit_map_accuracy.mjs               （版圖鍵要喺亞洲戰區畫布有幾何）
 改完必跑：node scripts/country_check.mjs <pack.ts>、npm run gates。
 正體與引文口徑照 AGENTS.md：史料題名用《》『』，只換字形不改措辭。`
-// 主佇列見底時的備援工作（都是量出來的具體清單，不是「再想想做什麼」）。
+/**
+ * plan 軌道：把 docs/plans/<日期>/<軌道>.md 的 `☐` 清單變成佇列。
+ *
+ * 2026-11-28：四國（韓國／泰國／越南／馬來西亞）上線後的執行計畫，由規劃層寫成
+ * 一份份 `☐ <檔或槽 id>｜<動作>｜驗收=<指令>` 行。小模型自己設計工作會跑偏（憑空造政權、
+ * 改預設圖層都發生過），所以這裡只讓它照單做事：做完把該行的 `☐` 改成 `☑` 再 commit。
+ *
+ *   node scripts/agent-queue.mjs plan                       各軌道剩多少
+ *   node scripts/agent-queue.mjs plan --track=march         該軌道的待辦（含驗收指令）
+ *   node scripts/agent-queue.mjs plan --track=march --done=3 把第 3 條標為已完成
+ */
+const PLAN_TRACK = (process.argv.find((x) => x.startsWith('--track=')) ?? '').slice('--track='.length)
+const PLAN_DONE = (process.argv.find((x) => x.startsWith('--done=')) ?? '').slice('--done='.length)
+const PLAN_TODO = (process.argv.find((x) => x.startsWith('--todo')) ?? '').split(/=/)[1] ?? '4'
+
+const planDir = () => {
+  const base = join(ROOT, 'docs', 'plans')
+  let dirs = []
+  try {
+    dirs = readdirSync(base).filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d)).sort()
+  } catch {
+    return null
+  }
+  return dirs.length ? join(base, dirs[dirs.length - 1]) : null
+}
+const planFiles = () => {
+  const dir = planDir()
+  if (!dir) return []
+  return readdirSync(dir)
+    .filter((f) => f.endsWith('.md'))
+    .sort()
+    .map((f) => ({ track: f.replace(/\.md$/, ''), path: join(dir, f) }))
+}
+/** 只認行首的 ☐／☑：plans 裡正文也會提到這兩個符號，不能誤計。 */
+const planRows = (path) =>
+  readFileSync(path, 'utf8')
+    .split('\n')
+    .map((text, i) => ({ no: i + 1, text }))
+    .filter((r) => /^\s*[☐☑]/.test(r.text))
+const planCount = (path) => {
+  const rows = planRows(path)
+  return { todo: rows.filter((r) => /^\s*☐/.test(r.text)).length, done: rows.filter((r) => /^\s*☑/.test(r.text)).length }
+}
+
+if (key === 'plan' && PLAN_DONE) {
+  const hit = planFiles().find((p) => p.track === PLAN_TRACK)
+  if (!hit) {
+    console.error(`無此軌道：${PLAN_TRACK}（可用：${planFiles().map((p) => p.track).join('、') || 'docs/plans 系空'}）`)
+    process.exit(2)
+  }
+  const idx = Number(PLAN_DONE)
+  const open = planRows(hit.path).filter((r) => /^\s*☐/.test(r.text))
+  const target = open[idx - 1]
+  if (!Number.isInteger(idx) || !target) {
+    console.error(`第 ${PLAN_DONE} 條唔存在（本軌道未做 ${open.length} 條）`)
+    process.exit(2)
+  }
+  const src = readFileSync(hit.path, 'utf8').split('\n')
+  src[target.no - 1] = target.text.replace('☐', '☑')
+  writeFileSync(hit.path, src.join('\n'), 'utf8')
+  const left = planCount(hit.path)
+  console.log(`已標記 ${hit.track} 第 ${idx} 條：${target.text.slice(0, 60)}…`)
+  console.log(`${hit.track} 尚餘 ${left.todo} 條（已做 ${left.done}）→ 記得連同改動一齊 commit`)
+  process.exit(0)
+}
+
+const PLAN_NOTE = `
+做法：一次做一項，一項只改一個檔案；照該行寫明的動作做，不要自己擴大範圍。
+做完先跑該行的「驗收=」指令（要 exit 0），再把該行行首的 ☐ 改成 ☑：
+  node scripts/agent-queue.mjs plan --track=<軌道> --done=<第幾條>
+然後連同內容改動一齊 commit（標題用正體書面語，會被 audit:commit-msgs 查）。
+計畫行寫「BLOCKED」的項目表示落在時代視窗外、UI 永遠看不到，不要硬做。`
 const MAP_FALLBACK = `
 主佇列若見底（剩下的都是已放棄／巨框），改做：
   npm run audit:war-shape > /tmp/ws.log 2>&1; echo exit=$?
