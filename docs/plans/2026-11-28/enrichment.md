@@ -21,10 +21,10 @@
 
 ## P0 佇列（本機代理今天可做，<=12 條）
 
-☐ src/imperial/data/prcPack.ts:105｜`critical`｜為1949「中華人民共和國成立」補 `critical: true`（新中國槽零張關鍵卡），保留既有 outcome 並於 note 簡述建政改變東亞版圖之由｜驗收=`node scripts/audit_critical.mjs --era 新中國 --year 1949` && node scripts/agent-selfcheck.mjs origin/main --branch
-☐ src/imperial/data/civilWarPack.ts:896｜`critical`｜為1946「中原突圍：全面內戰爆發」補 `critical: true`（國共內戰槽零張關鍵卡），補齊三段/小學層免降級，避開重複「1946年6月26日是階段的分界」｜驗收=`node scripts/audit_critical.mjs --era 國共內戰 --year 1946` && node scripts/agent-selfcheck.mjs origin/main --branch
-☐ src/countries/korea/koancientPack.ts:101｜大學生層｜補大學生層至305+字（現272缺28；已過3×小學213），就樂浪實物與《漢書》郡治戶口差距補史源辨析，避開重複「走向早期國家」與「界線細節應以考古材料為準」｜驗收=node scripts/country_check.mjs src/countries/korea/koancientPack.ts
-☐ src/countries/korea/koancientPack.ts:115｜大學生層｜補大學生層至305+字（現273缺27；已過3×小學210），就小獸林王律令與太學/佛教並置補制度互文，避開重複「共築塔寺」與「不宜據以描繪完備制度」｜驗收=node scripts/country_check.mjs src/countries/korea/koancientPack.ts
+☑ src/imperial/data/prcPack.ts:105｜`critical`｜為1949「中華人民共和國成立」補 `critical: true`（新中國槽零張關鍵卡），保留既有 outcome 並於 note 簡述建政改變東亞版圖之由｜驗收=`node scripts/audit_critical.mjs --era 新中國 --year 1949` && node scripts/agent-selfcheck.mjs origin/main --branch
+☑ src/imperial/data/civilWarPack.ts:896｜`critical`｜為1946「中原突圍：全面內戰爆發」補 `critical: true`（國共內戰槽零張關鍵卡），補齊三段/小學層免降級，避開重複「1946年6月26日是階段的分界」｜驗收=`node scripts/audit_critical.mjs --era 國共內戰 --year 1946` && node scripts/agent-selfcheck.mjs origin/main --branch
+☑ src/countries/korea/koancientPack.ts:101｜大學生層｜補大學生層至305+字（現272缺28；已過3×小學213），就樂浪實物與《漢書》郡治戶口差距補史源辨析，避開重複「走向早期國家」與「界線細節應以考古材料為準」｜驗收=node scripts/country_check.mjs src/countries/korea/koancientPack.ts
+☑ src/countries/korea/koancientPack.ts:115｜大學生層｜補大學生層至305+字（現273缺27；已過3×小學210），就小獸林王律令與太學/佛教並置補制度互文，避開重複「共築塔寺」與「不宜據以描繪完備制度」｜驗收=node scripts/country_check.mjs src/countries/korea/koancientPack.ts
 ☐ src/countries/korea/koancientPack.ts:129｜大學生層｜補大學生層至305+字（現276缺24；已過3×小學228），就唐羅熊津都督府與白村江前百濟復國軍補充地緣張力，避開重複「促成了佛教藝術與技術的北傳與南播」｜驗收=node scripts/country_check.mjs src/countries/korea/koancientPack.ts
 ☐ src/countries/korea/kojoseonPack.ts:103｜大學生層｜補大學生層至305+字（現258缺42；已過3×小學252），補漢陽遷都風水/宗廟制度與士林興起之長程影響，避開重複「崇儒抑佛」與「制度推行因地遲速」｜驗收=node scripts/country_check.mjs src/countries/korea/kojoseonPack.ts
 ☐ src/countries/korea/kojoseonPack.ts:116｜大學生層｜補大學生層至305+字（現265缺35；已過3×小學234），補《解例本》聲韻分類與吏讀轉換意義，避開重複「漢文為正書」與「本包取1446之通說紀年」｜驗收=node scripts/country_check.mjs src/countries/korea/kojoseonPack.ts
