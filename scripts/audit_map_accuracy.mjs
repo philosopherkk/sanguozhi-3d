@@ -12,7 +12,7 @@
  *
  *      --teeth 把壞 id 注入暫存根再掃一遍，確認每條規則都會咬（見檔尾 teeth 區塊）
  */
-import { readFileSync, readdirSync, writeFileSync, mkdirSync, mkdtempSync, rmSync } from 'node:fs'
+import { readFileSync, readdirSync, writeFileSync, mkdirSync, mkdtempSync, rmSync, existsSync } from 'node:fs'
 import { join, relative, resolve } from 'node:path'
 import { tmpdir } from 'node:os'
 import { spawnSync } from 'node:child_process'
@@ -174,12 +174,28 @@ const COUNTRY_THEATRE = /^src\/countries\/.+\.ts$/
  * 所以清掉一筆就必須刪除一筆，這張清單自己會縮到零。新增條目＝加新債，要人工批准。
  */
 const DEBT_FILE = 'reports/route-accuracy-allowlist.json'
-let DEBT = { seaRouteOverLand: new Set() }
-try {
-  const raw = JSON.parse(readFileSync(join(ROOT, DEBT_FILE), 'utf8'))
-  DEBT.seaRouteOverLand = new Set(raw['sea-route-over-land'] ?? [])
-} catch {
-  DEBT.seaRouteOverLand = new Set()
+const DEBT_RULES = ['sea-route-over-land', 'land-route-crosses-sea', 'land-route-sea-point']
+/** 帳本：rule → Set<路線 id>；`raw` 缺鍵即空集合（規則照樣跑，只是沒有豁免）。
+ *  讀檔順序：掃描根 → 倉庫根。--teeth 會用自己的掃描根＋一份樣本帳本，
+ *  否則帳本清到零那天，「死帳判紅」這條 teeth 會因為讀不到任何 id 而靜靜失效。 */
+let DEBT = Object.fromEntries(DEBT_RULES.map((k) => [k, new Set()]))
+{
+  const from = [join(SCAN_ROOT, DEBT_FILE), join(ROOT, DEBT_FILE)].find((p) => existsSync(p))
+  try {
+    const raw = from ? JSON.parse(readFileSync(from, 'utf8')) : {}
+    for (const k of DEBT_RULES) DEBT[k] = new Set(raw[k] ?? [])
+  } catch {
+    DEBT = Object.fromEntries(DEBT_RULES.map((k) => [k, new Set()]))
+  }
+}
+/** 命中帳本 ⇒ 降為 info（基線的 warn 是 0，所以 warn 也算惡化；見檔尾帳本說明）。 */
+const debtLevel = (rule, rid, normal) => (DEBT[rule].has(rid) ? 'info' : normal)
+const debtListedAll = () => DEBT_RULES.reduce((n, k) => n + DEBT[k].size, 0)
+const inLedger = (rid) => DEBT_RULES.some((k) => DEBT[k].has(rid))
+/** rule → Set<id>：本次實際命中的帳本路線，用來抓「修好了但帳本還掛著」的死帳。 */
+const DEBT_HITS = new Map(DEBT_RULES.map((k) => [k, new Set()]))
+function hitDebt(rule, rid) {
+  DEBT_HITS.get(rule).add(rid)
 }
 
 /** 幾何註冊表：三國州郡、歷史上環、亞洲戰區範圍。
@@ -591,7 +607,6 @@ for (const [key, c] of Object.entries(CANVASES)) {
   c.short = 0
   c.pointsNoMask = 0
   c.seaHits = new Set()
-  c.seaDebt = new Set()
   for (const [name, lon, lat, want] of ANCHORS[key]) {
     if (c.isLand(c.px(lat, lon)) !== want)
       selfCheck.push(`${c.label}：${name}(${lon},${lat}) 期望${want ? '陸' : '海'}`)
@@ -693,13 +708,14 @@ function judgeRoute(cv, file, rid, pts, isSeaRoute) {
   if (isSeaRoute && onLand.length * 2 >= covered.length) {
     cv.seaHits.add(rid)
     noteRoute(rid, `海路有 ${onLand.length}/${covered.length} 點落在陸地上`)
-    // 存量債（見 reports/route-accuracy-allowlist.json）：降為 warn，但照樣印出來；
-    // 債清掉但仍未由帳本刪除 → 下面 route-allowlist-stale 會判紅，所以這個豁免會自己失效。
-    const debt = DEBT.seaRouteOverLand.has(rid)
-    if (debt) cv.seaDebt.add(rid)
-    void debt // 帳本只影響全域層級的 fail／warn，--route 一律算未通過
+    // 存量債（見 reports/route-accuracy-allowlist.json）：命中的 id 降為 info，但照樣印出來；
+    // 債清掉卻沒由帳本刪除 → 下面 route-allowlist-stale 判紅，所以這張帳本會自己縮到零。
+    // 為什麼不是 warn？基線裡 audit:map.warn 是 0，多一條 warn 也算惡化，護欄會永遠紅，
+    // 最後沒人看——帳本的作用正是「存量不擋門、新增一定要表態」。
+    const debt = DEBT['sea-route-over-land'].has(rid)
+    if (debt) hitDebt('sea-route-over-land', rid)
     add(
-      debt ? 'warn' : 'fail',
+      debtLevel('sea-route-over-land', rid, 'fail'),
       'sea-route-over-land',
       file,
       `${tag}海路「${rid}」有 ${onLand.length}/${covered.length} 個點落在陸地上——海上交通或艦戰的路線不該畫在陸上${
@@ -709,16 +725,31 @@ function judgeRoute(cv, file, rid, pts, isSeaRoute) {
   }
   if (!isSeaRoute && openSea.length >= 2) {
     noteRoute(rid, `陸路有 ${openSea.length}/${covered.length} 點落在外海`)
-    // 暫列 warn：底圖是 1:50m 示意，容差只有貼岸級別的十餘 px，貼灣海岸線（遼東灣、
-    // 瀨戶內海、大阪灣呢類）容易被判成外海。逐條判完先升 fail。
+    // 暫列 warn（未入帳本者）：底圖是 1:50m 示意，容差只有貼岸級別的十餘 px，貼灣海岸線
+    // （遼東灣、瀨戶內海、大阪灣呢類）容易被判成外海。逐條判完再把預設升成 fail。
+    const rule = 'land-route-crosses-sea'
+    const debt = DEBT[rule].has(rid)
+    if (debt) hitDebt(rule, rid)
     add(
-      'warn',
-      'land-route-crosses-sea',
+      debtLevel(rule, rid, 'warn'),
+      rule,
       file,
-      `${tag}陸路「${rid}」有 ${openSea.length}/${covered.length} 個點落在外海（離岸 >${COAST_TOL_DEG}°）——要麼是海路（補 kind: 'sea'），要麼坐標有誤，要麼該點本就貼灣`,
+      `${tag}陸路「${rid}」有 ${openSea.length}/${covered.length} 個點落在外海（離岸 >${COAST_TOL_DEG}°）——要麼是海路（補 kind: 'sea'），要麼坐標有誤，要麼該點本就貼灣${
+        debt ? '（存量債，見帳本；修好請由帳本刪除此 id）' : ''
+      }`,
     )
   } else if (!isSeaRoute && openSea.length === 1) {
-    add('warn', 'land-route-sea-point', file, `${tag}陸路「${rid}」有 1 點落在外海，請人工判定：應拆出海路段，抑或該點坐標有誤`)
+    const rule = 'land-route-sea-point'
+    const debt = DEBT[rule].has(rid)
+    if (debt) hitDebt(rule, rid)
+    add(
+      debtLevel(rule, rid, 'warn'),
+      rule,
+      file,
+      `${tag}陸路「${rid}」有 1 點落在外海，請人工判定：應拆出海路段，抑或該點坐標有誤${
+        debt ? '（存量債，見帳本；修好請由帳本刪除此 id）' : ''
+      }`,
+    )
   }
 }
 
@@ -869,16 +900,28 @@ if (lonLatTotal !== lonLatParsed + lonLatShort) {
 const allSeaHits = new Set(
   Object.values(CANVASES).flatMap((c) => [...c.seaHits]),
 )
-const staleDebt = [...DEBT.seaRouteOverLand].filter((id) => !allSeaHits.has(id))
-for (const id of staleDebt) {
-  add(
-    'fail',
-    'route-allowlist-stale',
-    DEBT_FILE,
-    `帳本仍列「${id}」，但海陸判定已不再報該路線——座標已修好，請由 ${DEBT_FILE} 刪除此 id（帳本只准縮短，不准留死帳）`,
-  )
+// 帳本自清規則：逐條規則比對「帳本列了」與「本次真的命中」。修好卻沒刪條目 = 死帳 = fail，
+// 所以這張清單只能縮短，不會悄悄變成永久豁免名單。
+let debtListedTotal = 0
+let debtHitTotal = 0
+const debtStaleTotal = []
+for (const rule of DEBT_RULES) {
+  const listed = DEBT[rule]
+  const hits = DEBT_HITS.get(rule)
+  debtListedTotal += listed.size
+  debtHitTotal += hits.size
+  const stale = [...listed].filter((id) => !hits.has(id))
+  debtStaleTotal.push(...stale.map((id) => `${rule}:${id}`))
+  for (const id of stale) {
+    add(
+      'fail',
+      'route-allowlist-stale',
+      DEBT_FILE,
+      `帳本仍列「${rule}」的「${id}」，但本次海陸判定已不再報該路線——座標已修好，請由 ${DEBT_FILE} 刪除此 id（帳本只准縮短，不准留死帳）`,
+    )
+  }
 }
-const debtAll = new Set(Object.values(CANVASES).flatMap((c) => [...c.seaDebt]))
+void allSeaHits
 
 add(
   'info',
@@ -890,7 +933,7 @@ add(
   'info',
   'route-sea-debt',
   DEBT_FILE,
-  `海路落陸存量債：${debtAll.size} 條（帳本共 ${DEBT.seaRouteOverLand.size} 條，本次未命中 ${staleDebt.length} 條）——逐條修座標後由帳本刪除`,
+  `海陸存量債（帳本 ${DEBT_FILE}）：本次命中 ${debtHitTotal} 條／帳本共 ${debtListedTotal} 條／已修好待刪除 ${debtStaleTotal.length} 條——修好一條就刪一條 id（未入帳本的新命中一律照 fail／warn 計）`,
 )
 
 const fails = issues.filter((i) => i.level === 'fail')
@@ -925,10 +968,10 @@ if (ROUTE_ARG.length) {
   console.log(
     bad
       ? `--route — ${bad}/${ROUTE_ARG.length} 條未通過${
-          DEBT.seaRouteOverLand.size ? `；帳本尚有 ${DEBT.seaRouteOverLand.size} 條債，修好要由 ${DEBT_FILE} 刪除該 id` : ''
+          debtListedAll() ? `；帳本尚有 ${debtListedAll()} 條債，修好要由 ${DEBT_FILE} 刪除該 id` : ''
         }`
       : `--route — ${ROUTE_ARG.length} 條全部通過${
-          DEBT.seaRouteOverLand.has(ROUTE_ARG[0]) ? `；請同時由 ${DEBT_FILE} 刪除已修好的 id，否則 route-allowlist-stale 會判紅` : ''
+          inLedger(ROUTE_ARG[0]) ? `；請同時由 ${DEBT_FILE} 刪除已修好的 id，否則 route-allowlist-stale 會判紅` : ''
         }`,
   )
   process.exit(bad ? 1 : 0)
@@ -1023,6 +1066,8 @@ if (argv.includes('--teeth')) {
       "    points: [P(126.98, 37.57), P(126.9, 37.9), P(125.75, 39.03)] },",
       "  { id: 'teeth-sea-lane', year: 1592, kind: 'sea',",
       "    points: [P(119.8, 39.0), P(124.6, 39.2)] },",
+      "  { id: 'teeth-listed-lane', year: 1592, kind: 'sea',",
+      "    points: [P(126.98, 37.57), P(126.9, 37.9), P(125.75, 39.03)] },",
       ']',
       '',
     ].join('\n'),
@@ -1042,6 +1087,22 @@ if (argv.includes('--teeth')) {
       '] } }',
       '',
     ].join('\n'),
+  )
+
+  // 帳本樣本：`teeth-listed-lane` 是「入帳且本次命中」→ 應降為 info；兩筆「入帳但未命中」
+  //    → 應判 route-allowlist-stale。這裡一定要自己寫一份：帳本讀檔順序是「掃描根 → 倉庫根」，
+  //    只靠倉庫那張的話，債務清到零之後 check 9 會讀不到 id 而靜靜失效（假綠）。
+  write(
+    'reports/route-accuracy-allowlist.json',
+    JSON.stringify(
+      {
+        'sea-route-over-land': ['teeth-listed-lane', 'teeth-dead-account'],
+        'land-route-crosses-sea': ['teeth-dead-land'],
+        'land-route-sea-point': [],
+      },
+      null,
+      2,
+    ),
   )
 
   const r = spawnSync(process.execPath, [fileURLToPath(import.meta.url), `--files-root=${dir}`, '--json'], {
@@ -1163,9 +1224,28 @@ if (argv.includes('--teeth')) {
       .slice(0, 140),
   )
   // 9) 帳本會自己縮：修好而未刪除的 id 要判紅，否則這張債務單只會越擱越長
+  const stale = iss.filter((i) => i.code === 'route-allowlist-stale')
   check(
     '帳本死帳沒有判紅（route-allowlist-stale 規則失靈）',
-    iss.some((i) => i.code === 'route-allowlist-stale'),
+    stale.some((i) => i.msg.includes('teeth-dead-account')),
+  )
+  check(
+    '陸路規則的帳本死帳沒有判紅（只驗海路＝另兩條規則無牙）',
+    stale.some((i) => i.msg.includes('teeth-dead-land')),
+  )
+  // 9b) 入帳且命中 → 降為 info（未入帳的 teeth-land-lane 仍要 fail）；
+  //     這兩條合起來才證明「豁免只給帳本列出的 id」，而不是整條規則失靈。
+  const levelOf = (rid) => {
+    const hit = sea.filter((i) => i.msg.includes(`「${rid}」`))
+    return hit.length ? [...new Set(hit.map((i) => i.level))].join(',') : '（未報）'
+  }
+  check(
+    `未入帳本的海路落陸不再是 fail（實測 ${levelOf('teeth-land-lane')}）`,
+    levelOf('teeth-land-lane') === 'fail',
+  )
+  check(
+    `已入帳本的海路落陸沒有降為 info（實測 ${levelOf('teeth-listed-lane')}）→ 基線 warn=0 會被存量債永久卡死`,
+    levelOf('teeth-listed-lane') === 'info',
   )
 
   // 10) 幽靈路線：年份在 pack 窗口以外要咬，窗口內的控制樣本則不該報
